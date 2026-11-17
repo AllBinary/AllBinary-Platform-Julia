@@ -1,0 +1,147 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary.business</groupId>
+    <artifactId>BlisketJavaLibraryPJulia</artifactId>
+    <packaging>pom</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>BlisketJavaLibraryPJulia</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+    
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <modules>
+
+        <!--
+        <module>../../j2me/AllBinaryJ2MELibraryJuliaP</module>
+        -->
+        <!--
+        <module>../data/DataJavaLibraryJuliaM</module>
+        -->
+
+        <module>../licensing/TestServiceClientInfoJavaLibraryJuliaM</module>        
+
+        <module>../data/DataTableInterfacesJuliaM</module>
+        
+        <module>../QueueJavaLibraryJuliaM</module>
+        
+        <!--
+        <module>../TokenizerJavaLibraryJuliaM</module>
+        -->
+
+        <module>../logging/LogConfigTypeFreeblisketJavaLibraryJuliaM</module>
+
+        <module>../JavaUtilLibraryJuliaM</module>
+        <module>../NullInitInfoJavaLibraryJuliaM</module>        
+        <module>../InitInfoJavaLibraryJuliaM</module>
+        <module>../PreLoaderHttpJavaLibraryJuliaM</module>
+        
+        <module>../TagsBaseJavaLibraryJuliaM</module>
+        <module>../CustomLoaderJavaLibraryJuliaM</module>
+        
+        <!--
+        <module>../logic/data/file/FileJ2SEJavaLibraryJuliaM</module>
+        <module>../logic/data/file/FileJavaLibraryJuliaM</module>
+        -->
+
+        <module>../data/SQLAllBinaryJavaLibraryJuliaM</module>
+
+        <!--
+        <module>../licensing/FileLicenseInitInfoJavaLibraryJuliaM</module>
+        -->
+
+        <module>../DocumentObjectModelJavaLibraryJuliaM</module>
+
+        <module>../VisualStyleJavaLibraryJuliaM</module>
+
+        <module>../ConfigurationJavaLibraryJuliaM</module>
+
+        <module>../VisualTransformBaseJavaLibraryJuliaM</module>
+
+        <module>../CategoryBaseJavaLibraryJuliaM</module>
+        <module>../CategoryJavaLibraryJuliaM</module>
+
+        <module>../UserJavaLibraryJuliaM</module>
+
+        <module>../PaymentGatewayBaseJavaLibraryJuliaM</module>
+
+        <module>../data/vo/EntitiesBlisketVOJavaLibraryJuliaM</module>
+        <module>../PaymentGatewayJavaLibraryJuliaM</module>
+        <module>../data/vo/EntitiesOrderHistoryVOJavaLibraryJuliaM</module>
+        <module>../data/vo/EntityPaymentGatewayVOJavaLibraryJuliaM</module>
+        <module>../data/vo/EntityStoreFrontVOJavaLibraryJuliaM</module>
+
+        <module>../data/EntitiesBlisketBaseInterfacesJavaLibraryJuliaM</module>
+        <module>../data/EntitiesBlisketBaseJavaLibraryJuliaM</module>
+        
+        <module>../data/EntitiesAdvertisementBaseJavaLibraryJuliaM</module>
+        <module>../data/EntityOrderHistoryJavaLibraryJuliaM</module>
+        <module>../data/EntityPaymentGatewayJavaLibraryJuliaM</module>
+        <module>../data/EntityVisualTransformJavaLibraryJuliaM</module>
+        <module>../data/EntityUserJavaLibraryJuliaM</module>
+        <module>../data/EntityWorkflowJavaLibraryJuliaM</module>
+
+        <module>../SMTPConfigurationJavaLibraryJuliaM</module>
+        <module>../SMTPBaseJavaLibraryJuliaM</module>
+
+        <module>../VisualTransformJavaLibraryJuliaM</module>
+
+        <module>../../replace_these_stub_projects/allbinary_src/YourRuntimeEnvironmentJavaLibraryJuliaM</module>
+        <module>../GatewayJavaLibraryJuliaM</module>
+        
+        <module>../WorkflowBaseJavaLibraryJuliaM</module>
+        <module>../WorkflowJavaLibraryJuliaM</module>
+
+        <module>../IdGeneratorUsingFilesJavaLibraryJuliaM</module>
+        <module>../BlisketPreVOJavaLibraryJuliaM</module>
+
+        <!-- 
+        EntitiesOrderHistoryVOJavaLibrary
+        UserJavaLibrary
+        -->
+        
+        <module>../BlisketVOJavaLibraryJuliaM</module>
+
+        <module>../UserCommerceJavaLibraryJuliaM</module>
+
+        <module>../CustomizerValidatorsJavaLibraryJuliaM</module>
+
+        <!-- 
+        AllBinaryCacheForShiftOneJavaLibrary
+        AllBinaryJSECacheJavaLibrary
+        ColorJavaLibrary
+        ImageJavaLibrary
+        -->
+        
+        <module>../logic/data/file/FileMediaJ2SEJavaLibraryJuliaM</module>
+        <module>../BlisketBaseJavaLibraryJuliaM</module>
+
+        <module>../logging/LoggingGAEAllJuliaM</module>
+        <module>../BlisketJavaLibraryJuliaM</module>
+        
+    </modules>
+
+</project>
+

@@ -1,0 +1,142 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.allbinary</groupId>
+  <artifactId>CombatGameJavaLibraryPOMJulia</artifactId>
+  <packaging>pom</packaging>
+  <!-- AllBinary Platform Version Start -->
+  <version>1.0.0-SNAPSHOT</version>
+  <!-- AllBinary Platform Version End -->
+
+  <name>CombatGameJavaLibraryPOMJulia</name>
+  <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <buildLabel>${project.version}</buildLabel>
+        <assemblyPluginVersion>2.2-beta-1</assemblyPluginVersion>
+    </properties>
+
+    <modules>
+
+        <!--
+
+        -->
+
+        <module>../../games/TickableJavaLibraryJuliaM</module>
+
+        <module>../../games/CommonHeadsUpDisplayLibraryJuliaM</module>
+
+        <module>../../../physics/MovementJavaLibraryJuliaM</module>
+        <!--        -->
+        <module>../../games/PartsJavaLibraryJuliaM</module>
+        <module>../../games/PickupGameJavaLibraryJuliaM</module>
+
+        <module>../../../allbinary_src/licensing/HardCodedLicenseInitInfoJavaLibraryJuliaM</module>
+        <module>../../../allbinary_src/licensing/FileLicenseInitInfoJavaLibraryJuliaM</module>
+        <module>../../../allbinary_src/licensing/ClientInfoLicensingJavaLibraryJuliaM</module>
+
+        <module>../../games/licensing/PartnerJ2MEJavaLibraryJuliaM</module>
+        <module>../../games/licensing/PartnerHTMLJavaLibraryJuliaM</module>
+        <!--<module>../../games/licensing/PartnerAndroidJavaLibraryJuliaM</module>-->
+        <module>../../games/licensing/NoGameLicensingJavaLibraryJuliaM</module>
+        <module>../../games/licensing/GameLicensingOnlyDemoJavaLibraryJuliaM</module>
+        <module>../../games/licensing/GameLicensingOnlyNormalJavaLibraryJuliaM</module>
+        <module>../../games/licensing/GameLicensingBaseJavaLibraryJuliaM</module>
+
+        <!--
+        <module>../../games/GameScoresBaseLibraryJuliaM</module>
+        <module>../../games/GameScoresBaseHTMLLibraryJuliaM</module>
+        <module>../../games/GameScoresBaseJ2MELibraryJuliaM</module>
+        -->
+        <module>../../games/GameScoresLocalJavaLibraryJuliaM</module>
+        <module>../../games/GameScoresRemoteAndLocalJavaLibraryJuliaM</module>
+
+        <module>../../../store/ThirdPartyStoreJavaLibraryJuliaM</module>
+        <module>../../../store/NoThirdPartyStoreJavaLibraryJuliaM</module>
+
+        <module>../../media/graphics/layer/CollisionLayerJavaLibraryJuliaM</module>
+        <module>../../games/CollisionLibraryJuliaM</module>
+
+        <module>../../games/multiplayer/AllBinaryGameClientBaseNullJavaLibraryJuliaM</module>
+
+        <module>../../games/PickupLayerJavaLibraryJuliaM</module>
+
+        <module>../../games/DamageGameJavaLibraryJuliaM</module>
+        <module>../../games/DropJavaLibraryJuliaM</module>
+        <module>../../games/WeaponLayerJavaLibraryJuliaM</module>
+
+        <module>../../games/CombatGameJavaLibraryJuliaM</module>
+        <module>../../games/LifeJavaLibraryJuliaM</module>
+
+        <module>../../games/CommonHeadsUpDisplayCombatGameLibraryJuliaM</module>
+        <module>../../games/LifeOrDeathDataJavaLibraryJuliaM</module>
+
+        <module>../../games/BasicWeaponPartsJavaLibraryJuliaM</module>
+        <module>../../games/weapon/WeaponPropertiesJavaLibraryJuliaM</module>
+
+        <module>../../games/weapon/WeaponMineJavaLibraryJuliaM</module>
+
+        <!--
+        <module>../../media/graphics/effects/fireworks/FireworksJavaLibraryJuliaM</module>
+        -->
+
+        <module>../../media/graphics/geography/map/TerrainEventJavaLibraryJuliaM</module>
+
+<!--
+        <module>../../media/graphics/geography/map/BasicPlatformGeographicMapJavaLibraryJuliaM</module>
+        -->
+
+        <!--
+        <module>../../media/graphics/geography/map/RaceTrackJuliaP</module>
+        -->
+
+        <!--
+        XmlRpcJavaLibrary
+        RemoteXmlRpcJavaLibrary
+
+        Since POMs are built before the other libs is it best to handle this differently
+        ../../
+        <module>../../../../workjulia/j2me/games/strategy/rts/RTSGameJavaLibraryJuliaP</module>
+        -->
+
+        <module>../../media/graphics/OtherGraphicsMediaLibraryJuliaP</module>
+
+        <module>../../input/NoTouchButtonResourceAnimationJavaLibraryJuliaM</module>
+        <module>../../input/TouchButtonResourceAnimationJavaLibraryJuliaM</module>
+        <module>../../input/TouchButtonResourceOpenGLESAnimationJavaLibraryJuliaM</module>
+
+        <module>../../input/TrackingEventJavaLibraryJuliaM</module>
+        <module>../../../game/behavior/BehaviorLibraryJuliaP</module>
+
+        <module>../../media/sound/OtherSoundMediaLibraryJuliaP</module>
+
+        <module>../../../allbinary_src/licensing/ApplicationConfigurationJavaLibraryJuliaM</module>
+        <module>../../../allbinary_src/licensing/ApplicationConfigurationNoFSJavaLibraryJuliaM</module>
+        <!--<module>../../input/AllBinaryMagneticFieldSensorJavaLibraryJuliaM</module>-->
+        <!--<module>../../android/VirtualKeyboardJavaLibraryJuliaM</module>-->
+
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
+

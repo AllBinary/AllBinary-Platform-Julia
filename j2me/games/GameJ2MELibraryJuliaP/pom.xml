@@ -1,0 +1,192 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.allbinary</groupId>
+  <artifactId>GameJ2MELibraryPOMJulia</artifactId>
+  <packaging>pom</packaging>
+  <!-- AllBinary Platform Version Start -->
+  <version>1.0.0-SNAPSHOT</version>
+  <!-- AllBinary Platform Version End -->
+
+  <name>GameJ2MELibraryPOMJulia</name>
+  <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+
+
+    <modules>
+
+        <!--
+        NoGyroSensorLibrary
+
+        -->
+        <!--<module>../../android/AndroidUtilJavaLibraryJuliaM</module>-->
+
+        <module>../../../allbinary_src/security/SimpleCryptLibraryJuliaM</module>
+        <!--
+        <module>../../../../working_thirdpartyjulia/security/BouncyCastleDESJavaLibraryJuliaM</module>
+        <module>../../../../working_thirdpartyjulia/communication/XmlRpc/XmlRpcJavaLibraryJuliaM</module>
+        -->
+        <module>../../../allbinary_src/TokenizerJavaLibraryJuliaM</module>
+        <module>../../../allbinary_src/security/BasicSecurityJavaLibraryJuliaM</module>
+        <!--<module>../../../replace_these_stub_projects/security/YourCryptFileJavaLibraryJuliaM</module>-->
+        <module>../../../replace_these_stub_projects/security/YourSecurityJavaLibraryJuliaM</module>
+        <module>../../../replace_these_stub_projects/communication/YourXmlRpcJavaLibraryJuliaM</module>
+        <module>../../../replace_these_stub_projects/allbinary_src/J2MEOnlyJavaLibraryJuliaM</module>
+        <module>../../../replace_these_stub_projects/allbinary_src/J2MECompatibilityJavaLibraryJuliaM</module>
+        <module>../../../replace_these_stub_projects/allbinary_src/J2MEJsInteropCompatibilityJavaLibraryJuliaM</module>
+
+        <module>../../DebugJavaLibraryJuliaM</module>             
+        <module>../../ResourceLibraryJuliaM</module>
+        <module>../../ResourceJ2MEJavaLibraryJuliaM</module>
+        <!--<module>../../AndroidResourceLibraryJuliaM</module>-->
+        <!--<module>../../../allbinary_src/hardware/AndroidSystemJavaLibraryJuliaM</module>-->
+
+        <module>../../../game/behavior/ArtificialIntelligenceLibraryJuliaM</module>
+
+        <module>../../media/graphics/PlatformNullImageJavaLibraryJuliaM</module>
+        <module>../../media/graphics/ImageCacheBaseJ2MEJavaLibraryJuliaM</module>
+        <module>../../media/graphics/ImageCacheJ2MEJavaLibraryJuliaM</module>
+        <module>../../../graphics/opengl/OpenGLJ2MENoneJavaLibraryJuliaM</module>
+        <module>../../../graphics/opengl/OpenGLNoneJavaLibraryJuliaM</module>
+        <module>../../../graphics/opengl/OpenGLNoneOtherJavaLibraryJuliaM</module>
+        <module>../../../graphics/opengl/OpenGLNoneOther2JavaLibraryJuliaM</module>
+        <module>../../../graphics/opengl/OpenGLESBaseJ2MEJavaLibraryJuliaM</module>
+
+        <module>../../media/graphics/animation/AnimationLibraryJuliaM</module>
+        <module>../../media/graphics/animation/RotationAnimationJavaLibraryJuliaM</module>
+
+        <module>../../games/GameInputLibraryJuliaM</module>
+
+        <module>../../games/GameScoresBaseJavaLibraryJuliaM</module>
+        <module>../../games/GameScoresBaseJ2MELibraryJuliaM</module>
+
+        <module>../../statistics/ApplicationStatisticsHTMLLibraryJuliaM</module>
+        <!--
+        <module>../../games/GameConfigurationHTMLJavaLibraryJuliaM</module>
+        -->
+        <module>../../games/GameConfigurationJ2MEJavaLibraryJuliaM</module>   
+        <module>../../games/GameConfigurationJavaLibraryJuliaM</module>
+
+        <module>../../games/GameIntermissionLibraryJuliaM</module>
+
+        <module>../../GroupLibraryJuliaM</module>
+
+        <module>../../input/NoSensorJavaLibraryJuliaM</module>
+
+        <module>../../input/AllBinarySensorJavaLibraryJuliaM</module>
+
+        <module>../../input/platform/me/GameInputMEJavaLibraryJuliaM</module>
+        <module>../../input/platform/me/GameInputMEKeyOnlyJavaLibraryJuliaM</module>
+        <module>../../input/platform/me/GameInputMEMotionJavaLibraryJuliaM</module>
+        <module>../../input/platform/pc/GameInputPCBaseJavaLibraryJuliaM</module>
+        <module>../../input/platform/pc/GameInputPCJavaLibraryJuliaM</module>
+        <module>../../input/platform/pc/GameInputPCKeyOnlyJavaLibraryJuliaM</module>
+        <module>../../input/platform/pc/GameInputPCMotionJavaLibraryJuliaM</module>
+        <module>../../input/platform/pc/GameInputSwtJavaLibraryJuliaM</module>
+
+        <module>../../input/AllBinaryGyroSensorJavaLibraryJuliaM</module>
+        <module>../../input/MotionGestureJavaLibraryJuliaM</module>
+        
+        <module>../../input/MotionGestureBaseJavaLibraryJuliaM</module>
+
+        <module>../../games/GameInputPersistanceLibraryJuliaM</module>
+        <module>../../games/GameInputNoPersistanceLibraryJuliaM</module>
+        
+        <module>../../lib/VectorThreeDimensionalLibraryJuliaM</module>
+        <module>../../input/AllBinaryAccelerometerSensorJavaLibraryJuliaM</module>
+        <module>../../input/NoGyroSensorJavaLibraryJuliaM</module>
+        <module>../../input/JSEGyroSensorJavaLibraryJuliaM</module>
+        <!--
+        <module>../../input/android/</module>
+        <module>../../input/platform/android/GameInputAndroidBaseJavaLibraryJuliaM</module>
+        -->
+
+        <module>../../media/sound/BasicPlayerJavaLibraryJuliaM</module>
+        <module>../../media/sound/BasicPlayerMIDP2JavaLibraryJuliaM</module>
+        <module>../../media/sound/NoPlayerJavaLibraryJuliaM</module>
+        <module>../../media/sound/SoundJ2MELibraryJuliaM</module>
+
+        <module>../../media/motion/AllBinaryVibrationJavaLibraryJuliaM</module>
+        <module>../../media/motion/NoVibrateJavaLibraryJuliaM</module>
+        <!--<module>../../media/motion/VibrateAndroidJavaLibraryJuliaM</module>-->
+
+        <module>../../media/graphics/NullCustomUIJavaLibraryJuliaM</module>
+        <module>../../media/graphics/NullCustomUIBaseJavaLibraryJuliaM</module>
+
+        <module>../../media/graphics/FormValidationJavaLibraryJuliaM</module>
+        
+        <module>../../media/graphics/FormJavaLibraryJuliaM</module>
+        <module>../../media/graphics/FormBaseJavaLibraryJuliaM</module>
+        <!--
+        <module>../../media/graphics/FormJMEJavaLibraryJuliaM</module>
+        -->
+        <module>../../../j2me/media/graphics/FormJMEJavaLibraryJuliaM</module>
+
+        <module>../../media/graphics/animation/AnimationResourceJavaLibraryJuliaM</module>
+        <module>../../media/graphics/animation/TransitionAnimationJavaLibraryJuliaM</module>
+        <module>../../media/graphics/animation/NoTransitionAnimationJavaLibraryJuliaM</module>
+        <!--
+        AndroidTransitionAnimationJavaLibraryM
+        -->
+        <module>../../media/graphics/animation/GameAnimationJavaLibraryJuliaM</module>
+        <module>../../games/GameResourceJavaLibraryJuliaM</module>
+        <module>../../games/GameSoundsJavaLibraryJuliaM</module>
+
+        <module>../../input/TouchInputLibraryJuliaP</module>
+
+        <module>../../media/MediaDataJuliaM</module>
+        <module>../../media/sound/NotDeviceSpecificNoMediaMIDP1LibraryJuliaM</module>
+
+        <module>../../../allbinary_src/content/ContentNoneJavaLibraryJuliaM</module>
+        <!--<module>../../../allbinary_src/content/ContentAndroidJavaLibraryJuliaM</module>-->
+
+        <module>../../games/GameConfigurationFormJavaLibraryJuliaM</module>
+
+        <module>../../FullScreenNoneJavaLibraryJuliaM</module>
+        <!--
+        <module>../../FullScreenJavaLibraryJuliaM</module>
+        -->
+
+        <module>../../../physics/VelocityLibraryJuliaM</module>
+
+        <module>../../games/weapon/SoundsBasicWeaponsJavaLibraryJuliaM</module>
+
+        <module>../../lib/TrigJ2MELibraryJuliaM</module>
+
+        <module>../../media/graphics/geography/map/LayerPlacementLibraryJuliaM</module>
+        <module>../../media/graphics/layer/AllBinaryLayerJavaLibraryJuliaM</module>
+
+        <module>../../ScreenCaptureNoneJavaLibraryJuliaM</module>
+        
+        <module>../licensing/GameLicensingNullJavaLibraryJuliaM</module>
+        
+        <module>../../business/advertisement/AllBinaryAdvertisementClientJavaLibraryJuliaM</module>
+        <module>../../business/advertisement/AdvertisementClientNoneJavaLibraryJuliaM</module>
+
+        <module>../GameNotificationJavaLibraryJuliaM</module>
+
+        <module>../../../graphics/opengl/NoSWTJavaLibraryJuliaM</module>
+        <module>../../../graphics/opengl/SWTWithoutJOGLJavaLibraryJuliaM</module>
+        <module>../SWTJavaLibraryJuliaM</module>
+        <module>../GameJ2MELibraryJuliaM</module>
+        
+        <!--
+        <module>../GameJ2MEOptionalLibraryPOJuliaM</module>
+        -->
+    
+    </modules>
+
+</project>
+

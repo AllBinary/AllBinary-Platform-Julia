@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary</groupId>
+    <artifactId>AllBinaryPersistenceLibraryPJulia</artifactId>
+    <packaging>pom</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>AllBinaryPersistenceLibraryPJulia</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+    
+    <properties>
+        <buildLabel>${project.version}</buildLabel>
+        <assemblyPluginVersion>2.2-beta-1</assemblyPluginVersion>
+    </properties>
+
+    <modules>
+        
+        <!--
+        -->
+        <module>../allbinary_src/cache/AllBinaryCacheLibraryJuliaM</module>
+        <module>../allbinary_src/PermutationsJavaLibraryJuliaM</module>
+        <module>../allbinary_src/logic/BasePreloaderFileJavaLibraryJuliaM</module>
+        <module>../allbinary_src/logic/data/file/FileJavaLibraryJuliaM</module>
+        <module>../allbinary_src/logic/data/file/FileJ2SEJavaLibraryJuliaM</module>
+        <!--<module>../allbinary_src/data/DataJavaLibraryJuliaM</module>-->
+        <!--<module>../allbinary_src/logic/data/file/FileUnamedJavaLibraryJuliaM</module>-->
+        <!--<module>../allbinary_src/logic/data/file/FileAdvancedJavaLibraryJuliaM</module>-->
+        <!--<module>../allbinary_src/PreLoaderJavaLibraryJuliaM</module>-->
+        <!--<module>../allbinary_src/FileInitInfoJavaLibraryJuliaM</module>-->
+        <!--<module>../allbinary_src/PreLoaderFileJavaLibraryJuliaM</module>-->
+        <!--<module>../allbinary_src/PreLoaderLicenseJavaLibraryJuliaM</module>-->
+        <module>../j2me/PCResourceLibraryJuliaM</module>
+        <module>../j2me/ProgressJ2MEJavaLibraryJuliaM</module>
+        <module>../allbinary_src/licensing/ClientInfoBaseJavaLibraryJuliaM</module>
+        <module>../allbinary_src/licensing/RemoteXmlRpcJavaLibraryJuliaM</module>
+        <!--<module>../allbinary_src/licensing/LicenseClientJavaLibraryJuliaM</module>-->
+
+        <!--
+        <module>../allbinary_src/PreLoaderLicenseJavaLibraryJuliaM</module>
+        -->
+    </modules>
+
+</project>
+

@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary</groupId>
+    <artifactId>OtherGraphicsMediaLibraryPJulia</artifactId>
+    <packaging>pom</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>OtherGraphicsMediaLibraryPJulia</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+
+    <properties>
+        <buildLabel>${project.version}</buildLabel>
+        <assemblyPluginVersion>2.2-beta-1</assemblyPluginVersion>
+    </properties>
+
+    <modules>
+
+        <!--
+        -->
+        <module>../../graphics/animation/vector/VectorAnimationBaseJavaLibraryJuliaM</module>
+
+        <module>../../graphics/animation/vector/VectorAnimationJ2MEJavaLibraryJuliaM</module>
+        <module>../../graphics/animation/vector/VectorAnimationJavaLibraryJuliaM</module>
+
+        <module>../../graphics/VectorJavaLibraryJuliaM</module>
+
+        <module>../../graphics/BoundsJavaLibraryJuliaM</module>
+
+        <module>../../../../graphics/opengl/OpenGLESNullImageJavaLibraryJuliaM</module>
+        <module>../../../../graphics/opengl/OpenGLESNullImageJ2MEJavaLibraryJuliaM</module>
+
+        <module>../../graphics/animation/image/AllBinaryImageAnimationJavaLibraryJuliaM</module>
+        <module>../../graphics/animation/sprite/AllBinarySpriteAnimationJavaLibraryJuliaM</module>
+
+        <!--
+        ../../
+        <module>../../../../../workjulia/j2me/media/graphics/animation/sprite/AllBinaryQuarterSpriteAnimationJavaLibraryJuliaM</module>
+        -->
+        <!--
+        ../../
+        <module>../../../../../workjulia/j2me/media/graphics/animation/sprite/AllBinaryQuarterSpriteAnimation2JavaLibraryJuliaM</module>
+        -->
+
+        <module>../../graphics/animation/image/ImageJ2MEJavaLibraryJuliaM</module>
+        <!--
+        <module>../../graphics/animation/image/ImageHTMLJavaLibraryJuliaM</module>
+        -->
+        <!--<module>../../graphics/animation/image/ImageJ2SEJavaLibraryJuliaM</module>-->
+        <!--
+        <module>../../graphics/animation/image/ImageAndroidJavaLibraryJuliaM</module>
+        -->
+        <!--
+        <module>../../graphics/animation/image/ImageSwtJ2SEJavaLibraryJuliaM</module>
+        -->
+        
+        <!--
+        ../../
+        <module>../../../../../workjulia/j2me/media/graphics/layer/AllBinaryTiledLayerJavaLibraryJuliaM</module>
+        <module>../../graphics/layer/AllBinaryTiledLayerJavaLibraryJuliaM</module>
+        -->
+
+        <!-- Not used in Platform Libraries -->
+        <module>../../graphics/GraphicsBasicImageJavaLibraryJuliaM</module>
+        <!--
+        -->
+        <module>../../graphics/animation/image/AllBinaryImageAnimationRotationJavaLibraryJuliaM</module>
+
+    </modules>
+
+</project>
+

@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.allbinary</groupId>
+  <artifactId>AllBinaryOnAllPlatformsJavaLibraryPOMJulia</artifactId>
+  <packaging>pom</packaging>
+  <!-- AllBinary Platform Version Start -->
+  <version>1.0.0-SNAPSHOT</version>
+  <!-- AllBinary Platform Version End -->
+
+  <name>AllBinaryOnAllPlatformsJavaLibraryPOMJulia</name>
+  <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+
+
+    <modules>
+
+        <!--
+        <module>../j2me/HTMLForJ2MEJavaLibraryJuliaM</module>
+        -->
+        
+        <module>../../../games/PreGameJ2MEJavaLibraryJuliaP</module>
+        <module>../../GameJ2MELibraryJuliaP</module>
+        <module>../../CombatGameJavaLibraryPOJuliaM</module>
+        <module>../../AdvancedCombatGameJavaLibraryJuliaP</module>
+        
+        <module>../j2me/AllBinaryOnJ2MEBasePlatformJavaLibraryJuliaM</module>
+        
+        <module>../j2me/AllBinaryOnJ2MEPlatformJavaLibraryJuliaM</module>
+        
+        <module>../j2se/AllBinaryOnJ2SEBasePlatformJavaLibraryJuliaM</module>
+        
+        <!--
+        <module>../j2se/AllBinaryOnJ2SEPlatformJavaLibraryJuliaM</module>
+        
+        <module>../html/AllBinaryOnHTMLBasePlatformJavaLibraryJuliaM</module>
+        <module>../html/AllBinaryOnHTMLPlatformJavaLibraryJuliaM</module>
+
+        <module>../android/AllBinaryOnAndroidBasePlatformJavaLibraryJuliaM</module>
+        <module>../android/AllBinaryOnAndroidBasePlatformDependenciesJavaLibraryJuliaM</module>
+        <module>../android/AllBinaryOnAndroidPlatformJavaLibraryJuliaM</module>
+        <module>../android/AllBinaryOnAndroidPlatformDependenciesJavaLibraryJuliaM</module>
+        
+        -->
+        
+        <module>../AllBinaryOptionalBasePlatformJavaLibraryJuliaM</module>
+
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
+
