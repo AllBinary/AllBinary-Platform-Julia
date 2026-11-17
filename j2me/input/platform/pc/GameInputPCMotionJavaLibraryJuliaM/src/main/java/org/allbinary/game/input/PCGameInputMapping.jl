@@ -1,63 +1,68 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends PersistentInputMapping: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct PCGameInputMapping <: JObject
+    PCGameInputMapping() = new()
+end
 
-from org.allbinary.game.input.mapping.PersistentInputMapping import PersistentInputMapping
+
+function initFieldsPCGameInputMapping(this::PCGameInputMapping)
+    nothing
+end
 
 
-class PCGameInputMapping(PersistentInputMapping):
-    
+function initPCGameInputMapping(this::PCGameInputMapping)
+        initPersistentInputMapping(this, AllBinary.getInstance(GamePersistanceStrings).SAVED_INPUT_CONFIGURATION_RECORD_ID)
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.game.configuration.persistance.GamePersistanceStrings import GamePersistanceStrings
-        super().__init__(GamePersistanceStrings.getInstance().SAVED_INPUT_CONFIGURATION_RECORD_ID)
-    
+function newPCGameInputMapping()
+    this = PCGameInputMapping()
+    initPCGameInputMapping(this)
+    this
+end
 
-    # throws Exception
-    def init(self, abeClientInformation: AbeClientInformationInterface) -> None:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        from org.allbinary.input.motion.gesture.TrackballMotionGestureFactory import TrackballMotionGestureFactory
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.INIT)
-        PCKeyFactory.getInstance()
-        TouchMotionGestureFactory.getInstance()
-        TrackballMotionGestureFactory.getInstance()
-        BasicTouchInputFactory.getInstance()
-        super().init(abeClientInformation)
-        if self.getTotalMapped() == 0 or self.isDefaultNew():
-            self.getInputMapping().addMapping(self.getDefault())
-            self.save(abeClientInformation)
-    
 
-    def isDelete(self, input: Input) -> bool:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        if input == PCKeyFactory.getInstance().DEL:
-            return True
-        else:
-            return False
-    
+function init(this::PCGameInputMapping, abeClientInformation)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.INIT)
+        AllBinary.getInstance(PCKeyFactory)
+        AllBinary.getInstance(TouchMotionGestureFactory)
+        AllBinary.getInstance(TrackballMotionGestureFactory)
+        AllBinary.getInstance(BasicTouchInputFactory)
+        AllBinary.init(this, abeClientInformation)
+        if AllBinary.getTotalMapped(this) == Int32(0) || AllBinary.isDefaultNew(this)
+            AllBinary.addMapping(AllBinary.getInputMapping(this), AllBinary.getDefault(this))
+            AllBinary.save(this, abeClientInformation)
+        end
+        nothing
+end
 
-    def isSystemInput(self, input: Input) -> bool:
-        return False
-# from org.allbinary.game.configuration.persistance.GamePersistanceStrings import GamePersistanceStrings
-# from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-# from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-# from org.allbinary.input.motion.gesture.TrackballMotionGestureFactory import TrackballMotionGestureFactory
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
 
+function isDelete(this::PCGameInputMapping, input)
+        if input === AllBinary.getInstance(PCKeyFactory).DEL
+            return true
+        else
+            return false
+        end
+end
+
+
+function isSystemInput(this::PCGameInputMapping, input)
+        return false
+end
 

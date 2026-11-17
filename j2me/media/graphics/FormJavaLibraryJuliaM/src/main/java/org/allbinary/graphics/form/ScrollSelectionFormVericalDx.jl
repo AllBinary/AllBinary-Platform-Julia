@@ -1,39 +1,49 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends ItemIndexDx: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ScrollSelectionFormVericalDx <: JObject
+    scrollSelectionForm::Any
+    ScrollSelectionFormVericalDx() = new()
+end
 
-from org.allbinary.graphics.form.ItemIndexDx import ItemIndexDx
 
-
-class ScrollSelectionFormVericalDx(ItemIndexDx):
-
-    def _init_fields(self) -> None:
-        self.scrollSelectionForm: ScrollSelectionForm = None
+function initFieldsScrollSelectionFormVericalDx(this::ScrollSelectionFormVericalDx)
+    this.scrollSelectionForm = nothing
     
+    nothing
+end
 
-    def __init__(self, scrollSelectionForm: ScrollSelectionForm) -> None:
-        super().__init__()
-        self._init_fields()
-        self.scrollSelectionForm = scrollSelectionForm
-    
 
-    # throws Exception
-    def getDx(self, index: int, item: ABCustomItem, dx: int, dy: int) -> int:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return self.scrollSelectionForm.getSelectedIndexForPointVerticalDx(index, item, dx, dy)
-# from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
+function initScrollSelectionFormVericalDx(this::ScrollSelectionFormVericalDx, scrollSelectionForm)
+        initItemIndexDx(this)
+        initFieldsScrollSelectionFormVericalDx(this)
+        this.scrollSelectionForm = scrollSelectionForm
+        nothing
+end
 
+function newScrollSelectionFormVericalDx(scrollSelectionForm)
+    this = ScrollSelectionFormVericalDx()
+    initScrollSelectionFormVericalDx(this, scrollSelectionForm)
+    this
+end
+
+
+function getDx(this::ScrollSelectionFormVericalDx, index, item, dx, dy)
+        return AllBinary.getSelectedIndexForPointVerticalDx(this.scrollSelectionForm, index, item, dx, dy)
+end
 

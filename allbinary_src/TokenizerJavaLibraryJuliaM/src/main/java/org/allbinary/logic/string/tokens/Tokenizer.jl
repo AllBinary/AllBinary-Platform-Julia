@@ -1,102 +1,122 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.string.tokens
 
-from __future__ import annotations
+mutable struct Tokenizer <: JObject
+    sep::Any
+    endSep::Any
+    Tokenizer() = new()
+end
 
 
-
-class Tokenizer:
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.sep: str = None
-        self.endSep: str = StringUtil.getInstance().EMPTY_STRING
+function initFieldsTokenizer(this::Tokenizer)
+    this.sep = nothing
+    this.endSep = nothing
     
+    this.endSep = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    nothing
+end
 
-    def __init__(self, sep: str) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self._init_fields()
-        if TsUtil.getInstance().compareTo(sep, StringUtil.getInstance().EMPTY_STRING) == 0:
-            raise Exception("Sep provided is not valid")
-        self.sep = sep
-    
 
-    def setSep(self, sep: str) -> None:
-        self.sep = sep
-    
+function initTokenizer(this::Tokenizer, sep)
+        initFieldsTokenizer(this)
+        if AllBinary.compareTo(AllBinary.getInstance(TsUtil), sep, AllBinary.getInstance(StringUtil).EMPTY_STRING) == Int32(0)
+            throw(jNewException("Exception", "Sep provided is not valid"))
+        end
+        this.sep = sep
+        nothing
+end
 
-    def setEndSep(self, endSep: str) -> None:
-        self.endSep = endSep
-    
+function newTokenizer(sep)
+    this = Tokenizer()
+    initTokenizer(this, sep)
+    this
+end
 
-    def getInsideSep(self, string: str) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        tokenList: BasicArrayList = BasicArrayListD()
-        index: int = 0
-        size: int = len(string)
-        while index < size:
-            index = string.find(self.sep, index)
-            if index != -1:
-                end: int = string.find(self.endSep, index + len(self.sep))
-                if end != -1:
-                    tokenList.add(string[index + len(self.sep):end - (len(self.endSep) - 1)])
-                    index = end + len(self.endSep)
-                else:
-                    pass
-            else:
+
+function setSep(this::Tokenizer, sep)
+        this.sep = sep
+        nothing
+end
+
+
+function setEndSep(this::Tokenizer, endSep)
+        this.endSep = endSep
+        nothing
+end
+
+
+function getInsideSep(this::Tokenizer, string)
+        local tokenList = newBasicArrayListD()
+        local index::Int32 = Int32(0)
+        local size::Int32 = jLength(string)
+        while index < size
+            index = jIndexOf(string, this.sep, index)
+            if index != -Int32(1)
+                local end_::Int32 = jIndexOf(string, this.endSep, index + jLength(this.sep))
+                if end_ != -Int32(1)
+                    AllBinary.add(tokenList, jSubstring(string, index + jLength(this.sep), end_ - (jLength(this.endSep) - Int32(1))))
+                    index = end_ + jLength(this.endSep)
+                else
+                    nothing
+                end
+            else
                 break
+            end
+        end
         return tokenList
-    
+end
 
-    def getTokensFromString(self, string: str, tokenVector: BasicArrayList) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        index: int = 0
-        end: int = 0
-        while index < len(string):
-            end = string.find(self.sep, index)
-            if end != -1:
-                tokenVector.add(string[index:end])
-                index = end + len(self.sep)
-            else:
-                tokenVector.add(string[index:len(string)])
+
+function getTokensFromString(this::Tokenizer, string, tokenVector)
+        local index::Int32 = Int32(0)
+        local end_::Int32 = Int32(0)
+        while index < jLength(string)
+            end_ = jIndexOf(string, this.sep, index)
+            if end_ != -Int32(1)
+                AllBinary.add(tokenVector, jSubstring(string, index, end_))
+                index = end_ + jLength(this.sep)
+            else
+                AllBinary.add(tokenVector, jSubstring(string, index, jLength(string)))
                 break
+            end
+        end
         return tokenVector
-    
+end
 
-    def getTokens(self, stringVector: BasicArrayList) -> ABHashtable[object, object]:
-        from org.allbinary.logic.StdUtil import StdUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        tokenHashtable: ABHashtable[object, object] = StdUtil.getInstance().createHashtable()
-        string: str = StringUtil.getInstance().EMPTY_STRING
-        end: int = 0
-        size: int = stringVector.size()
-        for index in range(0, size):
-            string = stringVector.objectArray[index]
-            end = string.find(self.sep)
-            if end >= 0:
-                tokenHashtable.put(string[0:end], string[end + 1:len(string)])
+
+function getTokens(this::Tokenizer, stringVector)
+        local tokenHashtable = AllBinary.createHashtable(AllBinary.getInstance(StdUtil))
+        local string = AllBinary.getInstance(StringUtil).EMPTY_STRING
+        local end_::Int32 = Int32(0)
+        local size::Int32 = AllBinary.size(stringVector)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            string = (stringVector.objectArray[index + 1])
+            end_ = jIndexOf(string, this.sep)
+            if end_ >= Int32(0)
+                AllBinary.put(tokenHashtable, jSubstring(string, Int32(0), end_), jSubstring(string, end_ + Int32(1), jLength(string)))
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
         return tokenHashtable
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-
+end
 

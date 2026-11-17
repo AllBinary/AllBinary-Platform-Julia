@@ -1,71 +1,88 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.hud.event
 
-from __future__ import annotations
+# extends AllBinaryEventObject: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameNotificationEvent <: JObject
+    string::Any
+    seconds::Any
+    basicColor::Any
+    removeable::Any
+    GameNotificationEvent() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
 
-
-class GameNotificationEvent(AllBinaryEventObject):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.string: str = StringUtil.getInstance().EMPTY_STRING
-        self.seconds: int = None
-        self.basicColor: BasicColor = BasicColorFactory.getInstance().BLACK
-        self.removeable: bool = None
+function initFieldsGameNotificationEvent(this::GameNotificationEvent)
+    this.string = nothing
+    this.seconds = nothing
+    this.basicColor = nothing
+    this.removeable = nothing
+    this.string = AllBinary.getInstance(StringUtil).EMPTY_STRING
     
-
-    def __init__(self, anyType: object, string: str, seconds: int, basicColor: BasicColor, permanent: bool) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(anyType)
-        self._init_fields()
-        self.setString(string)
-        self.seconds = seconds
-        self.setBasicColorP(basicColor)
-        self.removeable = permanent
+    this.basicColor = AllBinary.getInstance(BasicColorFactory).BLACK
     
+    nothing
+end
 
-    def getString(self) -> str:
-        return self.string
-    
 
-    def getSeconds(self) -> int:
-        return self.seconds
-    
+function initGameNotificationEvent(this::GameNotificationEvent, anyType, string, seconds, basicColor, permanent)
+        initAllBinaryEventObject(this, anyType)
+        initFieldsGameNotificationEvent(this)
+        AllBinary.setString(this, string)
+        this.seconds = seconds
+        AllBinary.setBasicColorP(this, basicColor)
+        this.removeable = permanent
+        nothing
+end
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.basicColor
-    
+function newGameNotificationEvent(anyType, string, seconds, basicColor, permanent)
+    this = GameNotificationEvent()
+    initGameNotificationEvent(this, anyType, string, seconds, basicColor, permanent)
+    this
+end
 
-    def getPermanent(self) -> bool:
-        return self.removeable
-    
 
-    def setString(self, string: str) -> None:
-        self.string = string
-    
+function getString(this::GameNotificationEvent)
+        return this.string
+end
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.basicColor = basicColor
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function getSeconds(this::GameNotificationEvent)
+        return this.seconds
+end
+
+
+function getBasicColorP(this::GameNotificationEvent)
+        return this.basicColor
+end
+
+
+function getPermanent(this::GameNotificationEvent)
+        return this.removeable
+end
+
+
+function setString(this::GameNotificationEvent, string)
+        this.string = string
+        nothing
+end
+
+
+function setBasicColorP(this::GameNotificationEvent, basicColor)
+        this.basicColor = basicColor
+        nothing
+end
 

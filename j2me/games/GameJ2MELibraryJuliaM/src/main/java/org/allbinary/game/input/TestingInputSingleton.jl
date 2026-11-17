@@ -1,177 +1,159 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends AllBinaryGameLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TestingInputSingleton <: JObject
+    inputProcessorArray::Any
+    testInputPaintable::Any
+    TestingInputSingleton() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
-from org.allbinary.game.input.GameInputInterface import GameInputInterface
+const TestingInputSingleton_instanceValue = Ref{Any}(nothing)
+const TestingInputSingleton_instanceSet = Ref(false)
+function staticGet_instance(::Type{TestingInputSingleton})
+    if !TestingInputSingleton_instanceSet[]
+        TestingInputSingleton_instanceSet[] = true
+        TestingInputSingleton_instanceValue[] = newTestingInputSingleton()
+    end
+    TestingInputSingleton_instanceValue[]
+end
+function staticSet_instance(::Type{TestingInputSingleton}, value)
+    TestingInputSingleton_instanceSet[] = true
+    TestingInputSingleton_instanceValue[] = value
+end
 
-
-class TestingInputSingleton(AllBinaryGameLayer, GameInputInterface):
-    instance: TestingInputSingleton = None
-    _lock = threading.RLock()
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-        self.inputProcessorArray: list[GameInputProcessor] = [None] * (InputFactory.getInstance().MAX)
-        self.testInputPaintable: PaintableInterface = NullPaintable.getInstance()
-    
-
-    @staticmethod
-    def getInstance() -> TestingInputSingleton:
-        return TestingInputSingleton.instance
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.game.input.GameInputProcessorUtil import GameInputProcessorUtil
-        from org.allbinary.graphics.RectangleFactory import RectangleFactory
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.view.ViewPosition import ViewPosition
-        super().__init__(StringUtil.getInstance().EMPTY_STRING, RectangleFactory.SINGLETON, ViewPosition.getInstanceD())
-        self._init_fields()
-        GameInputProcessorUtil.init(self.inputProcessorArray)
-    
-
-    def initInputProcessors(self) -> None:
-        pass
-    
-
-    def initInputProcessorsForTestInput(self, aTestInputInterface: TestInputInterface) -> None:
-        from org.allbinary.game.input.GameInputProcessor import GameInputProcessor
-        from org.allbinary.game.input.GameInputProcessor import GameInputProcessor
-        from org.allbinary.game.input.GameInputProcessor import GameInputProcessor
-        from org.allbinary.game.input.GameInputProcessor import GameInputProcessor
-        from org.allbinary.game.input.GameInputProcessor import GameInputProcessor
-        from org.allbinary.game.input.GameInputProcessor import GameInputProcessor
-        from org.allbinary.game.input.GameInputProcessorUtil import GameInputProcessorUtil
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        testInputInterface: TestInputInterface = aTestInputInterface
-        self.testInputPaintable = testInputInterface
-        self.inputProcessorArray[Canvas.UP] = (GameInputProcessor()  # Java anonymous class body:
-#             
-# 
-#             # throws Exception
-#             def processEvent(self, allbinaryLayerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-#                 from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-#                 from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-#                 testInputInterface.up()
-)
-        self.inputProcessorArray[Canvas.DOWN] = (GameInputProcessor()  # Java anonymous class body:
-#             
-# 
-#             # throws Exception
-#             def processEvent(self, allbinaryLayerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-#                 from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-#                 from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-#                 testInputInterface.down()
-)
-        self.inputProcessorArray[Canvas.LEFT] = (GameInputProcessor()  # Java anonymous class body:
-#             
-# 
-#             # throws Exception
-#             def processEvent(self, allbinaryLayerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-#                 from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-#                 from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-#                 testInputInterface.left()
-)
-        self.inputProcessorArray[Canvas.RIGHT] = (GameInputProcessor()  # Java anonymous class body:
-#             
-# 
-#             # throws Exception
-#             def processEvent(self, allbinaryLayerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-#                 from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-#                 from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-#                 testInputInterface.right()
-)
-        self.inputProcessorArray[Canvas.KEY_NUM7] = (GameInputProcessor()  # Java anonymous class body:
-#             
-# 
-#             # throws Exception
-#             def processEvent(self, allbinaryLayerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-#                 from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-#                 from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-#                 testInputInterface.strafeLeft()
-)
-        self.inputProcessorArray[Canvas.KEY_NUM9] = (GameInputProcessor()  # Java anonymous class body:
-#             
-# 
-#             # throws Exception
-#             def processEvent(self, allbinaryLayerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-#                 from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-#                 from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-#                 testInputInterface.strafeRight()
-)
-        GameInputProcessorUtil.init(self.inputProcessorArray)
-    
-
-    # throws Exception
-    def processInputList(self, allbinaryLayerManager: AllBinaryLayerManager, list_: BasicArrayList) -> None:
-        with self._lock:
-            return self._processInputList_unlocked(allbinaryLayerManager, list_)
-
-    def _processInputList_unlocked(self, allbinaryLayerManager: AllBinaryLayerManager, list_: BasicArrayList) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        key: int = 0
-        gameKeyEvent: GameKeyEvent = None
-        size: int = list_.size()
-        for index in range(0, size):
-            gameKeyEvent = (list_.objectArray[index])
-            key = gameKeyEvent.getKey()
-            self.inputProcessorArray[key].processEvent(allbinaryLayerManager, GameKeyEvent.NONE)
-    
-
-    # throws Exception
-    def processInput(self, allbinaryLayerManager: AllBinaryLayerManager) -> None:
-        with self._lock:
-            return self._processInput_unlocked(allbinaryLayerManager)
-
-    def _processInput_unlocked(self, allbinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        self.processInputList(allbinaryLayerManager, self.getGameKeyEventList())
-        self.getGameKeyEventList().clear()
-    
-
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.testInputPaintable.paint(graphics)
-    
-
-    def implmentsGameInputInterface(self) -> bool:
-        return True
-# from javax.microedition.lcdui.Canvas import Canvas
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.graphics.RectangleFactory import RectangleFactory
-# from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-# from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.view.ViewPosition import ViewPosition
-from org.allbinary.game.input.InputFactory import InputFactory
+function initFieldsTestingInputSingleton(this::TestingInputSingleton)
+    this.inputProcessorArray = nothing
+    this.testInputPaintable = nothing
+    this.inputProcessorArray = jNewArray(Any, AllBinary.getInstance(InputFactory).MAX, nothing)
+    this.testInputPaintable = AllBinary.getInstance(NullPaintable)
+    nothing
+end
 
 
-def _TestingInputSingleton_instance() -> object:
-    return TestingInputSingleton()
+function getInstance(::Type{TestingInputSingleton})
+        return staticGet_instance(TestingInputSingleton)
+end
 
-lazy_static(TestingInputSingleton, "instance", _TestingInputSingleton_instance)
+
+function initTestingInputSingleton(this::TestingInputSingleton)
+        initAllBinaryGameLayer(this, AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SINGLETON(RectangleFactory), AllBinary.getInstanceD(ViewPosition))
+        initFieldsTestingInputSingleton(this)
+        AllBinary.init(GameInputProcessorUtil, this.inputProcessorArray)
+        nothing
+end
+
+function newTestingInputSingleton()
+    this = TestingInputSingleton()
+    initTestingInputSingleton(this)
+    this
+end
+
+
+function initInputProcessors(this::TestingInputSingleton)
+        nothing
+        nothing
+end
+
+
+function initInputProcessorsForTestInput(this::TestingInputSingleton, aTestInputInterface)
+        local testInputInterface = aTestInputInterface
+        this.testInputPaintable = testInputInterface
+        this.inputProcessorArray[staticGet_UP(Canvas) + 1] = newGameInputProcessor() #= Java anonymous class body: implement it as a named type
+            
+
+function processEvent(this::TestingInputSingleton, allbinaryLayerManager, gameKeyEvent)
+                AllBinary.up(testInputInterface)
+        nothing
+end =#
+        this.inputProcessorArray[staticGet_DOWN(Canvas) + 1] = newGameInputProcessor() #= Java anonymous class body: implement it as a named type
+            
+
+function processEvent(this::TestingInputSingleton, allbinaryLayerManager, gameKeyEvent)
+                AllBinary.down(testInputInterface)
+        nothing
+end =#
+        this.inputProcessorArray[staticGet_LEFT(Canvas) + 1] = newGameInputProcessor() #= Java anonymous class body: implement it as a named type
+            
+
+function processEvent(this::TestingInputSingleton, allbinaryLayerManager, gameKeyEvent)
+                AllBinary.left(testInputInterface)
+        nothing
+end =#
+        this.inputProcessorArray[staticGet_RIGHT(Canvas) + 1] = newGameInputProcessor() #= Java anonymous class body: implement it as a named type
+            
+
+function processEvent(this::TestingInputSingleton, allbinaryLayerManager, gameKeyEvent)
+                AllBinary.right(testInputInterface)
+        nothing
+end =#
+        this.inputProcessorArray[staticGet_KEY_NUM7(Canvas) + 1] = newGameInputProcessor() #= Java anonymous class body: implement it as a named type
+            
+
+function processEvent(this::TestingInputSingleton, allbinaryLayerManager, gameKeyEvent)
+                AllBinary.strafeLeft(testInputInterface)
+        nothing
+end =#
+        this.inputProcessorArray[staticGet_KEY_NUM9(Canvas) + 1] = newGameInputProcessor() #= Java anonymous class body: implement it as a named type
+            
+
+function processEvent(this::TestingInputSingleton, allbinaryLayerManager, gameKeyEvent)
+                AllBinary.strafeRight(testInputInterface)
+        nothing
+end =#
+        AllBinary.init(GameInputProcessorUtil, this.inputProcessorArray)
+        nothing
+end
+
+
+function processInputList(this::TestingInputSingleton, allbinaryLayerManager, list)
+        local key::Int32 = Int32(0)
+        local gameKeyEvent = nothing
+        local size::Int32 = AllBinary.size(list)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            gameKeyEvent = ((list.objectArray[index + 1]))
+            key = AllBinary.getKey(gameKeyEvent)
+            AllBinary.processEvent(this.inputProcessorArray[key + 1], allbinaryLayerManager, staticGet_NONE(GameKeyEvent))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function processInput(this::TestingInputSingleton, allbinaryLayerManager)
+        AllBinary.processInputList(this, allbinaryLayerManager, AllBinary.getGameKeyEventList(this))
+        AllBinary.clear(AllBinary.getGameKeyEventList(this))
+        nothing
+end
+
+
+function paint(this::TestingInputSingleton, graphics)
+        AllBinary.paint(this.testInputPaintable, graphics)
+        nothing
+end
+
+
+function implmentsGameInputInterface(this::TestingInputSingleton)
+        return true
+end
 

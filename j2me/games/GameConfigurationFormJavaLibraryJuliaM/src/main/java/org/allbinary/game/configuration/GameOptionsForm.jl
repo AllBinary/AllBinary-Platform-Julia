@@ -1,184 +1,179 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration
 
-from __future__ import annotations
+# extends CommandForm: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameOptionsForm <: JObject
+    meUtil::Any
+    GameOptionsForm() = new()
+end
 
-from org.allbinary.graphics.displayable.screen.CommandForm import CommandForm
+
+function initFieldsGameOptionsForm(this::GameOptionsForm)
+    this.meUtil = nothing
+    this.meUtil = AllBinary.getInstance(MIDPUtil)
+    nothing
+end
 
 
-class GameOptionsForm(CommandForm):
+function initGameOptionsForm(this::GameOptionsForm, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        initCommandForm(this, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        initFieldsGameOptionsForm(this)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        AllBinary.addConfiguration(this)
+        local gameFeatureFormUtil = AllBinary.getInstance(GameFeatureFormUtil)
+        AllBinary.addChoiceGroup(gameFeatureFormUtil, this, AllBinary.get(AllBinary.getExclusiveInstance(GameFeatureChoiceGroups)), staticGet_EXCLUSIVE(Choice))
+        AllBinary.addChoiceGroup(gameFeatureFormUtil, this, AllBinary.get(AllBinary.getMultipleInstance(GameFeatureChoiceGroups)), staticGet_MULTIPLE(Choice))
+        AllBinary.initCommands(this, commandListener)
+        AllBinary.setItemStateListener(this, newGameFeatureItemStateListener(this))
+        AllBinary.addTextFieldsIfSimulated(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.MIDPUtil import MIDPUtil
-        self.meUtil: MIDPUtil = MIDPUtil.getInstance()
-    
+function newGameOptionsForm(commandListener, title, backgrounBasicColor, foregroundBasicColor)
+    this = GameOptionsForm()
+    initGameOptionsForm(this, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+    this
+end
 
-    def __init__(self, commandListener: CommandListener, title: str, backgrounBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.Choice import Choice
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.configuration.feature.GameFeatureChoiceGroups import GameFeatureChoiceGroups
-        from org.allbinary.game.configuration.feature.GameFeatureFormUtil import GameFeatureFormUtil
-        from org.allbinary.game.configuration.feature.GameFeatureItemStateListener import GameFeatureItemStateListener
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(commandListener, title, backgrounBasicColor, foregroundBasicColor)
-        self._init_fields()
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        self.addConfiguration()
-        gameFeatureFormUtil: GameFeatureFormUtil = GameFeatureFormUtil.getInstance()
-        gameFeatureFormUtil.addChoiceGroup(self, GameFeatureChoiceGroups.getExclusiveInstance().get(), Choice.EXCLUSIVE)
-        gameFeatureFormUtil.addChoiceGroup(self, GameFeatureChoiceGroups.getMultipleInstance().get(), Choice.MULTIPLE)
-        self.initCommands(commandListener)
-        self.setItemStateListener(GameFeatureItemStateListener(self))
-        self.addTextFieldsIfSimulated()
-    
 
-    # throws Exception
-    def closeClientInformation(self, abeClientInformation: AbeClientInformationInterface) -> None:
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        super().close()
-        self.save(abeClientInformation)
-    
+function closeClientInformation(this::GameOptionsForm, abeClientInformation)
+        AllBinary.close(this)
+        AllBinary.save(this, abeClientInformation)
+        nothing
+end
 
-    def addTextFieldsIfSimulated(self) -> None:
-        from org.allbinary.game.configuration.feature.GameFeatureChoiceGroups import GameFeatureChoiceGroups
-        from org.allbinary.game.configuration.feature.SensorFeatureFactory import SensorFeatureFactory
-        from org.allbinary.input.gyro.OrientationData import OrientationData
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.ABHashtable import ABHashtable
-        key: str = OrientationData.getInstance().ORIENTATION_SENSOR_INPUT
-        hashtable: ABHashtable[object, object] = GameFeatureChoiceGroups.getExclusiveInstance().get()
-        if hashtable is not None:
-            listCanBeNull: object = hashtable.get(key)
-            if listCanBeNull is not None:
-                list_: BasicArrayList = listCanBeNull
-                if list_.contains(SensorFeatureFactory.getInstance().SIMULATED_ORIENTATION_SENSORS):
-                    self.addTextFields()
-    
 
-    def addTextFields(self) -> None:
-        from org.allbinary.game.configuration.GameConfigurationTextInput import GameConfigurationTextInput
-        from javax.microedition.lcdui.TextField import TextField
-        from org.allbinary.util.HashtableUtil import HashtableUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        hashtable: ABHashtable[object, object] = GameConfigurationTextInput.getHashtable()
-        size: int = hashtable.size()
-        objectArray: list[object] = HashtableUtil.getInstance().getKeysAsArray(hashtable)
-        gameConfigurationTextInput: GameConfigurationTextInput = None
-        textField: TextField = None
-        for index in range(0, size):
-            gameConfigurationTextInput = hashtable.get(objectArray[index])
-            textField = TextField(gameConfigurationTextInput.getLabel(), gameConfigurationTextInput.getText(), 30, TextField.ANY)
-            self.meUtil.appendItem(self, textField)
-    
+function addTextFieldsIfSimulated(this::GameOptionsForm)
+        local key = AllBinary.getInstance(OrientationData).ORIENTATION_SENSOR_INPUT
+        local hashtable = AllBinary.get(AllBinary.getExclusiveInstance(GameFeatureChoiceGroups))
+        if hashtable !== nothing
+            local listCanBeNull = AllBinary.get(hashtable, key)
+            if listCanBeNull !== nothing
+                local list = (listCanBeNull)
+                if AllBinary.contains(list, AllBinary.getInstance(SensorFeatureFactory).SIMULATED_ORIENTATION_SENSORS)
+                    AllBinary.addTextFields(this)
+                end
+            end
+        end
+        nothing
+end
 
-    def addConfiguration(self) -> None:
-        from org.allbinary.game.configuration.GameConfigurationSingleton import GameConfigurationSingleton
-        from org.allbinary.game.configuration.GameConfigurationGauge import GameConfigurationGauge
-        from javax.microedition.lcdui.Command import Command
-        from org.allbinary.game.configuration.feature.GameFeatureItemCommandListener import GameFeatureItemCommandListener
-        from org.allbinary.graphics.displayable.command.MyCommandsFactory import MyCommandsFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        METHOD_NAME: str = "addConfiguration"
-        NAME: str = "Name: "
-        list_: BasicArrayList = GameConfigurationSingleton.getInstance().getOptionsBasicArrayList()
-        GAUGE_CHANGE: Command = MyCommandsFactory.getInstance().GAUGE_CHANGE
-        stringMaker: StringMaker = StringMaker()
-        size: int = list_.size()
-        gameConfiguration: GameConfiguration = None
-        gauge: GameConfigurationGauge = None
-        for index in range(0, size):
-            gameConfiguration = list_.objectArray[index]
-            stringMaker.delete(0, stringMaker.length())
-            self.logUtil.putF(str(stringMaker.append(NAME).append(str(gameConfiguration))), self, METHOD_NAME)
-            gauge = GameConfigurationGauge(gameConfiguration)
-            gauge.setDefaultCommand(GAUGE_CHANGE)
-            gauge.setItemCommandListener(GameFeatureItemCommandListener(self))
-            self.meUtil.appendItem(self, gauge)
-    
 
-    def initCommands(self, cmdListener: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        gameCommandsFactory: GameCommandsFactory = GameCommandsFactory.getInstance()
-        self.removeAllCommands()
-        self.addCommand(gameCommandsFactory.CLOSE_OPTIONS)
-        self.addCommand(gameCommandsFactory.DEFAULT_OPTIONS)
-        self.setCommandListener(cmdListener)
-    
+function addTextFields(this::GameOptionsForm)
+        local hashtable = AllBinary.getHashtable(GameConfigurationTextInput)
+        local size::Int32 = AllBinary.size(hashtable)
+        local objectArray = AllBinary.getKeysAsArray(AllBinary.getInstance(HashtableUtil), hashtable)
+        local gameConfigurationTextInput = nothing
+        local textField = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            gameConfigurationTextInput = (AllBinary.get(hashtable, (objectArray[index + 1])))
+            textField = newTextField(AllBinary.getLabel(gameConfigurationTextInput), AllBinary.getText(gameConfigurationTextInput), Int32(30), staticGet_ANY(TextField))
+            AllBinary.appendItem(this.meUtil, this, textField)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    # throws Exception
-    def save(self, abeClientInformation: AbeClientInformationInterface) -> None:
-        from org.allbinary.game.configuration.GameConfigurationTextInput import GameConfigurationTextInput
-        from org.allbinary.game.configuration.GameConfigurationUtil import GameConfigurationUtil
-        from org.allbinary.game.configuration.GameConfigurationUtil import GameConfigurationUtil
-        from org.allbinary.game.configuration.GameConfigurationCentral import GameConfigurationCentral
-        from org.allbinary.game.configuration.SCALE import SCALE
-        from org.allbinary.game.configuration.SCALE import SCALE
-        from javax.microedition.lcdui.Item import Item
-        from javax.microedition.lcdui.TextField import TextField
-        from org.allbinary.game.configuration.persistance.GameConfigurationPersistanceSingleton import GameConfigurationPersistanceSingleton
-        from org.allbinary.game.configuration.persistance.KeyValuePersistance import KeyValuePersistance
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.logic.StdUtil import StdUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        size: int = self.size()
-        item: Item = None
-        for index in range(0, size):
-            item = self.get(index)
-            if isinstance(item, GameConfigurationGauge):
-                GameConfigurationUtil.getInstance().update(item)
-            elif isinstance(item, TextField):
-                GameConfigurationTextInput.update(item)
-        GameConfigurationUtil.getInstance().updateCompetitionValue()
-        hashtable: ABHashtable[object, object] = StdUtil.getInstance().createHashtable()
-        SCALE: GameConfiguration = GameConfigurationCentral.getInstance().SCALE
-        hashtable.put(SCALE.getName(), str(int(SCALE.getValue())))
-        keyValuePersistance: KeyValuePersistance = GameConfigurationPersistanceSingleton.getInstance()
-        keyValuePersistance.clear()
-        keyValuePersistance.loadAll(abeClientInformation)
-        list_: BasicArrayList = keyValuePersistance.getIds()
-        keyValuePersistance.save(abeClientInformation, hashtable)
-        size2: int = list_.size()
-        integer: int = None
-        for index in range(0, size2):
-            integer = list_.objectArray[index]
-            keyValuePersistance.delete(abeClientInformation, int(integer))
-# from javax.microedition.lcdui.Choice import Choice
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.Item import Item
-# from javax.microedition.lcdui.TextField import TextField
-# from org.allbinary.MIDPUtil import MIDPUtil
-# from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-# from org.allbinary.game.configuration.feature.GameFeatureChoiceGroups import GameFeatureChoiceGroups
-# from org.allbinary.game.configuration.feature.GameFeatureFormUtil import GameFeatureFormUtil
-# from org.allbinary.game.configuration.feature.GameFeatureItemCommandListener import GameFeatureItemCommandListener
-# from org.allbinary.game.configuration.feature.GameFeatureItemStateListener import GameFeatureItemStateListener
-# from org.allbinary.game.configuration.feature.SensorFeatureFactory import SensorFeatureFactory
-# from org.allbinary.game.configuration.persistance.GameConfigurationPersistanceSingleton import GameConfigurationPersistanceSingleton
-# from org.allbinary.game.configuration.persistance.KeyValuePersistance import KeyValuePersistance
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.displayable.command.MyCommandsFactory import MyCommandsFactory
-# from org.allbinary.input.gyro.OrientationData import OrientationData
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.HashtableUtil import HashtableUtil
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.util.ABHashtable import ABHashtable
 
+function addConfiguration(this::GameOptionsForm)
+        local METHOD_NAME = "addConfiguration"
+        local NAME = "Name: "
+        local list = AllBinary.getOptionsBasicArrayList(AllBinary.getInstance(GameConfigurationSingleton))
+        local GAUGE_CHANGE = AllBinary.getInstance(MyCommandsFactory).GAUGE_CHANGE
+        local stringMaker = newStringMaker()
+        local size::Int32 = AllBinary.size(list)
+        local gameConfiguration = nothing
+        local gauge = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            gameConfiguration = (list.objectArray[index + 1])
+            AllBinary.delete(stringMaker, Int32(0), AllBinary.length(stringMaker))
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(stringMaker, NAME), AllBinary.toString(gameConfiguration))), this, METHOD_NAME)
+            gauge = newGameConfigurationGauge(gameConfiguration)
+            AllBinary.setDefaultCommand(gauge, GAUGE_CHANGE)
+            AllBinary.setItemCommandListener(gauge, newGameFeatureItemCommandListener(this))
+            AllBinary.appendItem(this.meUtil, this, gauge)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function initCommands(this::GameOptionsForm, cmdListener)
+        local gameCommandsFactory = AllBinary.getInstance(GameCommandsFactory)
+        AllBinary.removeAllCommands(this)
+        AllBinary.addCommand(this, gameCommandsFactory.CLOSE_OPTIONS)
+        AllBinary.addCommand(this, gameCommandsFactory.DEFAULT_OPTIONS)
+        AllBinary.setCommandListener(this, cmdListener)
+        nothing
+end
+
+
+function save(this::GameOptionsForm, abeClientInformation)
+        local size::Int32 = AllBinary.size(this)
+        local item = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            item = AllBinary.get(this, index)
+            if Base.isa(item, GameConfigurationGauge)
+                AllBinary.update(AllBinary.getInstance(GameConfigurationUtil), (item))
+            elseif Base.isa(item, TextField)
+                AllBinary.update(GameConfigurationTextInput, (item))
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.updateCompetitionValue(AllBinary.getInstance(GameConfigurationUtil))
+        local hashtable = AllBinary.createHashtable(AllBinary.getInstance(StdUtil))
+        local SCALE = AllBinary.getInstance(GameConfigurationCentral).SCALE
+        AllBinary.put(hashtable, AllBinary.getName(SCALE), jstr(AllBinary.intValue(AllBinary.getValue(SCALE))))
+        local keyValuePersistance = AllBinary.getInstance(GameConfigurationPersistanceSingleton)
+        AllBinary.clear(keyValuePersistance)
+        AllBinary.loadAll(keyValuePersistance, abeClientInformation)
+        local list = AllBinary.getIds(keyValuePersistance)
+        AllBinary.save(keyValuePersistance, abeClientInformation, hashtable)
+        local size2::Int32 = AllBinary.size(list)
+        local integer = nothing
+        let
+            index = Int32(0)
+            while index < size2
+            try
+            integer = (list.objectArray[index + 1])
+            AllBinary.delete(keyValuePersistance, abeClientInformation, AllBinary.intValue(integer))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

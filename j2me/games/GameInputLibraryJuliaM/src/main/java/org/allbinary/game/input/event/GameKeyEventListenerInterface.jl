@@ -1,27 +1,21 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.event
 
-from __future__ import annotations
-
-from org.allbinary.game.input.event.DownGameKeyEventListenerInterface import DownGameKeyEventListenerInterface
-from org.allbinary.game.input.event.UpGameKeyEventListenerInterface import UpGameKeyEventListenerInterface
-from org.allbinary.game.input.event.PressGameKeyEventListenerInterface import PressGameKeyEventListenerInterface
-
-
-# Java interface
-class GameKeyEventListenerInterface(DownGameKeyEventListenerInterface, UpGameKeyEventListenerInterface, PressGameKeyEventListenerInterface):
-    pass
+# Java interface GameKeyEventListenerInterface: Julia dispatches on the class so an interface is an abstract type
+abstract type GameKeyEventListenerInterface <: JObject end
 
 

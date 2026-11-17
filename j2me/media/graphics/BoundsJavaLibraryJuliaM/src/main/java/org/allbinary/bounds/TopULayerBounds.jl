@@ -1,38 +1,53 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.bounds
 
-from __future__ import annotations
+# extends LayerBounds: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TopULayerBounds <: JObject
+    TopULayerBounds() = new()
+end
 
-from org.allbinary.bounds.LayerBounds import LayerBounds
+
+function initFieldsTopULayerBounds(this::TopULayerBounds)
+    nothing
+end
 
 
-class TopULayerBounds(LayerBounds):
-    
+function initTopULayerBounds(this::TopULayerBounds, rectangle)
+        initLayerBounds(this, rectangle)
+        nothing
+end
 
-    def __init__(self, rectangle: Rectangle) -> None:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        super().__init__(rectangle)
-    
+function newTopULayerBounds(rectangle)
+    this = TopULayerBounds()
+    initTopULayerBounds(this, rectangle)
+    this
+end
 
-    def visit(self, boundsVisitorInterface: BoundsVisitorInterface) -> None:
-        if boundsVisitorInterface.getX() > self.rectangle.getMaxX():
-            boundsVisitorInterface.maxX()
-        if boundsVisitorInterface.getX() < self.rectangle.getPoint().getX():
-            boundsVisitorInterface.minX()
-        if boundsVisitorInterface.getY() < self.rectangle.getPoint().getY():
-            boundsVisitorInterface.minY()
-# from org.allbinary.graphics.Rectangle import Rectangle
 
+function visit(this::TopULayerBounds, boundsVisitorInterface)
+        if AllBinary.getX(boundsVisitorInterface) > AllBinary.getMaxX(this.rectangle)
+            AllBinary.maxX(boundsVisitorInterface)
+        end
+        if AllBinary.getX(boundsVisitorInterface) < AllBinary.getX(AllBinary.getPoint(this.rectangle))
+            AllBinary.minX(boundsVisitorInterface)
+        end
+        if AllBinary.getY(boundsVisitorInterface) < AllBinary.getY(AllBinary.getPoint(this.rectangle))
+            AllBinary.minY(boundsVisitorInterface)
+        end
+        nothing
+end
 

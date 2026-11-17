@@ -1,174 +1,218 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct VectorAnimation <: JObject
+    currentPoints::Any
+    circularIndexUtil::Any
+    VectorAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-from org.allbinary.animation.VectorAnimationInterface import VectorAnimationInterface
+
+function initFieldsVectorAnimation(this::VectorAnimation)
+    this.currentPoints = nothing
+    this.circularIndexUtil = nothing
+    this.currentPoints = AllBinary.getInstance(NullUtil).NULL_INT_ARRAY_ARRAY_ARRAY
+    this.circularIndexUtil = AllBinary.createInstance(CircularIndexUtil, Int32(0))
+    nothing
+end
 
 
-class VectorAnimation(IndexedAnimation, VectorAnimationInterface):
+function createVectorAnimation(::Type{VectorAnimation}, currentPoints2, basicColor, animationBehavior)
+        local currentPoints = jNewArrayOf(Vector{Vector{Int32}}, Int32(1), () -> jNewArrayOf(Vector{Int32}, Int32(Base.length(currentPoints2)), () -> jNewArray(Int32, Int32(2), Int32(0))))
+        local size::Int32 = Int32(Base.length(currentPoints2))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            currentPoints[Int32(0) + 1][index + 1][Int32(0) + 1] = currentPoints2[index + 1][Int32(0) + 1]
+            currentPoints[Int32(0) + 1][index + 1][Int32(1) + 1] = currentPoints2[index + 1][Int32(1) + 1]
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        return newVectorAnimation(currentPoints, basicColor, animationBehavior)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.currentPoints: list[list[list[int]]] = NullUtil.getInstance().NULL_INT_ARRAY_ARRAY_ARRAY
-        self.circularIndexUtil: CircularIndexUtil = CircularIndexUtil.createInstance(0)
-    
 
-    @staticmethod
-    def createVectorAnimation(currentPoints2: list[list[int]], basicColor: BasicColor, animationBehavior: AnimationBehavior) -> VectorAnimation:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        currentPoints: list[list[list[int]]] = [[[0] * (2) for _ in range(len(currentPoints2))] for _ in range(1)]
-        size: int = len(currentPoints2)
-        for index in range(0, size):
-            currentPoints[0][index][0] = currentPoints2[index][0]
-            currentPoints[0][index][1] = currentPoints2[index][1]
-        return VectorAnimation(currentPoints, basicColor, animationBehavior)
-    
+function initVectorAnimation(this::VectorAnimation, currentPoints, basicColor, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        initFieldsVectorAnimation(this)
+        AllBinary.setPoints(this, currentPoints)
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 
-    def __init__(self, currentPoints: list[list[list[int]]], basicColor: BasicColor, animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.setPoints(currentPoints)
-        self.setBasicColorP(basicColor)
-    
+function newVectorAnimation(currentPoints, basicColor, animationBehavior)
+    this = VectorAnimation()
+    initVectorAnimation(this, currentPoints, basicColor, animationBehavior)
+    this
+end
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        changed: bool = False
-        if self.getBasicColorP() is None or int(self.getBasicColorP()) != int(basicColor):
-            changed = True
-        super().setBasicColorP(basicColor)
-        if changed:
-            self.updateModifiers()
-    
 
-    def changeBasicColor(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        changed: bool = False
-        if self.getChangeBasicColor() is None or int(self.getChangeBasicColor()) != int(basicColor):
-            changed = True
-        super().changeBasicColor(basicColor)
-        if changed:
-            self.updateModifiers()
-    
+function setBasicColorP(this::VectorAnimation, basicColor)
+        local changed::Bool = false
+        if AllBinary.getBasicColorP(this) === nothing || AllBinary.intValue(AllBinary.getBasicColorP(this)) != AllBinary.intValue(basicColor)
+            changed = true
+        end
+        AllBinary.setBasicColorP(this, basicColor)
+        if changed
+            AllBinary.updateModifiers(this)
+        end
+        nothing
+end
 
-    def setAlpha(self, alpha: int) -> None:
-        changed: bool = False
-        if self.alphaP != alpha:
-            changed = True
-        super().setAlpha(alpha)
-        if changed:
-            self.updateModifiers()
-    
 
-    def setScale(self, scaleX: float, scaleY: float) -> None:
-        pass
-    
+function changeBasicColor(this::VectorAnimation, basicColor)
+        local changed::Bool = false
+        if AllBinary.getChangeBasicColor(this) === nothing || AllBinary.intValue(AllBinary.getChangeBasicColor(this)) != AllBinary.intValue(basicColor)
+            changed = true
+        end
+        AllBinary.changeBasicColor(this, basicColor)
+        if changed
+            AllBinary.updateModifiers(this)
+        end
+        nothing
+end
 
-    def setMaxScale(self, maxScaleX: float, maxScaleY: float) -> None:
-        pass
-    
 
-    def updateModifiers(self) -> None:
-        pass
-    
+function setAlpha(this::VectorAnimation, alpha)
+        local changed::Bool = false
+        if this.alphaP != alpha
+            changed = true
+        end
+        AllBinary.setAlpha(this, alpha)
+        if changed
+            AllBinary.updateModifiers(this)
+        end
+        nothing
+end
 
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        return self.getSize()
-    
 
-    def getSize(self) -> int:
-        return len(self.currentPoints)
-    
+function setScale(this::VectorAnimation, scaleX, scaleY)
+        nothing
+        nothing
+end
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
+function setMaxScale(this::VectorAnimation, maxScaleX, maxScaleY)
+        nothing
+        nothing
+end
 
-    def nextFrame(self) -> None:
-        self.circularIndexUtil.next()
-    
 
-    def previousFrame(self) -> None:
-        self.circularIndexUtil.previous()
-    
+function updateModifiers(this::VectorAnimation)
+        nothing
+        nothing
+end
 
-    def paintVectors(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        try:
-            nextPointX: int = 0
-            nextPointY: int = 0
-            nextPoint: list[int] = None
-            point: list[int] = None
-            currentPointsFrame: list[list[int]] = self.currentPoints[self.circularIndexUtil.getIndex()]
-            size: int = len(currentPointsFrame)
-            index: int = size - 2
-            while (index := index - 1) >= 0:
-                nextPoint = currentPointsFrame[index]
-                point = currentPointsFrame[index + 1]
-                nextPointX = nextPoint[0]
-                nextPointY = nextPoint[1]
-                if nextPointX != 1000:
-                    graphics.drawLine(point[0] + x, point[1] + y, nextPointX + x, nextPointY + y)
-                else:
-                    index -= 1
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "paintVectors", e)
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.basicSetColorUtil.setBasicColorP(graphics, self.basicColor)
-        self.paintVectors(graphics, x, y)
-    
+function getAnimationSize(this::VectorAnimation)
+        return AllBinary.getSize(this)
+end
 
-    def getFrame(self) -> int:
-        return self.circularIndexUtil.getIndex()
-    
 
-    def setFrame(self, index: int) -> None:
-        self.circularIndexUtil.setIndex(index)
-    
+function getSize(this::VectorAnimation)
+        return Int32(Base.length(this.currentPoints))
+end
 
-    def getPoints(self, frame: int) -> list[list[int]]:
-        return self.currentPoints[frame]
-    
 
-    def setPoints(self, currentPoints: list[list[list[int]]]) -> None:
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.currentPoints = currentPoints
-        self.circularIndexUtil = CircularIndexUtil.createInstance(len(currentPoints))
-    
+function setSequence(this::VectorAnimation, sequence)
+        nothing
+        nothing
+end
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return super().getBasicColorP()
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.NullImage import NullImage
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
 
+function getSequence(this::VectorAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
+
+
+function nextFrame(this::VectorAnimation)
+        AllBinary.next(this.circularIndexUtil)
+        nothing
+end
+
+
+function previousFrame(this::VectorAnimation)
+        AllBinary.previous(this.circularIndexUtil)
+        nothing
+end
+
+
+function paintVectors(this::VectorAnimation, graphics, x, y)
+        try
+            local nextPointX::Int32 = Int32(0)
+            local nextPointY::Int32 = Int32(0)
+            local nextPoint = nothing
+            local point = nothing
+            local currentPointsFrame = this.currentPoints[AllBinary.getIndex(this.circularIndexUtil) + 1]
+            local size::Int32 = Int32(Base.length(currentPointsFrame))
+            local index::Int32 = size - Int32(2)
+            while (index -= Int32(1)) >= Int32(0)
+                nextPoint = currentPointsFrame[index + 1]
+                point = currentPointsFrame[index + Int32(1) + 1]
+                nextPointX = nextPoint[Int32(0) + 1]
+                nextPointY = nextPoint[Int32(1) + 1]
+                if nextPointX != Int32(1000)
+                    AllBinary.drawLine(graphics, point[Int32(0) + 1] + x, point[Int32(1) + 1] + y, nextPointX + x, nextPointY + y)
+                else
+                    index -= Int32(1)
+                end
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "paintVectors", e)
+        end
+        nothing
+end
+
+
+function paintXY(this::VectorAnimation, graphics, x, y)
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, this.basicColor)
+        AllBinary.paintVectors(this, graphics, x, y)
+        nothing
+end
+
+
+function getFrame(this::VectorAnimation)
+        return AllBinary.getIndex(this.circularIndexUtil)
+end
+
+
+function setFrame(this::VectorAnimation, index)
+        AllBinary.setIndex(this.circularIndexUtil, index)
+        nothing
+end
+
+
+function getPoints(this::VectorAnimation, frame)
+        return this.currentPoints[frame + 1]
+end
+
+
+function setPoints(this::VectorAnimation, currentPoints)
+        this.currentPoints = currentPoints
+        this.circularIndexUtil = AllBinary.createInstance(CircularIndexUtil, Int32(Base.length(currentPoints)))
+        nothing
+end
+
+
+function getBasicColorP(this::VectorAnimation)
+        return AllBinary.getBasicColorP(this)
+end
 

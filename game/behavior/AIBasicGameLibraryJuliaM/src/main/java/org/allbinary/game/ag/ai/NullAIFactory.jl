@@ -1,50 +1,59 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai
 
-from __future__ import annotations
+mutable struct NullAIFactory <: JObject
+    NullAIFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.ai.ArtificialIntelligenceInterfaceFactoryInterface import ArtificialIntelligenceInterfaceFactoryInterface
+const NullAIFactory_NULL_AIValue = Ref{Any}(nothing)
+const NullAIFactory_NULL_AISet = Ref(false)
+function staticGet_NULL_AI(::Type{NullAIFactory})
+    if !NullAIFactory_NULL_AISet[]
+        NullAIFactory_NULL_AISet[] = true
+        NullAIFactory_NULL_AIValue[] = newNullAI()
+    end
+    NullAIFactory_NULL_AIValue[]
+end
+function staticSet_NULL_AI(::Type{NullAIFactory}, value)
+    NullAIFactory_NULL_AISet[] = true
+    NullAIFactory_NULL_AIValue[] = value
+end
+
+function initFieldsNullAIFactory(this::NullAIFactory)
+    nothing
+end
+
+function initNullAIFactory(this::NullAIFactory)
+    initFieldsNullAIFactory(this)
+end
+
+function newNullAIFactory()
+    this = NullAIFactory()
+    initNullAIFactory(this)
+    this
+end
 
 
-class NullAIFactory(ArtificialIntelligenceInterfaceFactoryInterface):
-    NULL_AI: NullAI = None
-    
-
-    def getInstance(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> ArtificialIntelligenceInterface:
-        from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.ABHashtable import ABHashtable
-        return NullAIFactory.NULL_AI
-    
-
-    # Java overloaded method: Python keeps the last definition
-    @staticmethod
-    def getInstance() -> ArtificialIntelligenceInterface:
-        from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-        return NullAIFactory.NULL_AI
-# from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.util.ABHashtable import ABHashtable
+function getInstance(this::NullAIFactory, hashtable, ownerLayerInterface, gameInput)
+        return staticGet_NULL_AI(NullAIFactory)
+end
 
 
-def _NullAIFactory_NULL_AI() -> object:
-    from org.allbinary.game.ag.ai.NullAI import NullAI
-    return NullAI()
-
-lazy_static(NullAIFactory, "NULL_AI", _NullAIFactory_NULL_AI)
+function getInstance(::Type{NullAIFactory})
+        return staticGet_NULL_AI(NullAIFactory)
+end
 

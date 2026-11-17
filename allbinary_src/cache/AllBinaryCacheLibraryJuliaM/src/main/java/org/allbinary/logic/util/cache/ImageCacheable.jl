@@ -1,42 +1,52 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.cache
 
-from __future__ import annotations
+mutable struct ImageCacheable <: JObject
+    name::Any
+    ImageCacheable() = new()
+end
 
 
+function initFieldsImageCacheable(this::ImageCacheable)
+    this.name = nothing
+    this.name = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    nothing
+end
 
-class ImageCacheable:
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.name: str = StringUtil.getInstance().EMPTY_STRING
-    
+function initImageCacheable(this::ImageCacheable, name, anyType)
+        initFieldsImageCacheable(this)
+        nothing
+        nothing
+end
 
-    def __init__(self, name: str, anyType: object) -> None:
-        self._init_fields()
-    
+function newImageCacheable(name, anyType)
+    this = ImageCacheable()
+    initImageCacheable(this, name, anyType)
+    this
+end
 
-    def getKey(self) -> object:
-        return self.name
-    
 
-    def toString(self) -> str:
-        return self.name
+function getKey(this::ImageCacheable)
+        return this.name
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function toString(this::ImageCacheable)
+        return this.name
+end
 

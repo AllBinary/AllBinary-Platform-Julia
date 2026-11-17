@@ -1,42 +1,54 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
+mutable struct ABStringComponent <: JObject
+    ABStringComponent() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ABStringComponent_NULL_STRING_COMPONENTValue = Ref{Any}(nothing)
+const ABStringComponent_NULL_STRING_COMPONENTSet = Ref(false)
+function staticGet_NULL_STRING_COMPONENT(::Type{ABStringComponent})
+    if !ABStringComponent_NULL_STRING_COMPONENTSet[]
+        ABStringComponent_NULL_STRING_COMPONENTSet[] = true
+        ABStringComponent_NULL_STRING_COMPONENTValue[] = newABStringComponent(AllBinary.getInstance(BasicColorFactory).BLACK, AllBinary.getInstance(BasicColorFactory).WHITE)
+    end
+    ABStringComponent_NULL_STRING_COMPONENTValue[]
+end
+function staticSet_NULL_STRING_COMPONENT(::Type{ABStringComponent}, value)
+    ABStringComponent_NULL_STRING_COMPONENTSet[] = true
+    ABStringComponent_NULL_STRING_COMPONENTValue[] = value
+end
 
-
-class ABStringComponent:
-    NULL_STRING_COMPONENT: ABStringComponent = None
-    
-
-    def getBackgroundBasicColor(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        return BasicColorFactory.getInstance().WHITE
-    
-
-    def __init__(self, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        pass
-    
-
-    def getForegroundBasicColor(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        return BasicColorFactory.getInstance().WHITE
-    
-
-    def setForegroundBasicColor(self, foregroundBasicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        pass
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
+function initFieldsABStringComponent(this::ABStringComponent)
+    nothing
+end
 
 
-def _ABStringComponent_NULL_STRING_COMPONENT() -> object:
-    from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-    return ABStringComponent(BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
+function getBackgroundBasicColor(this::ABStringComponent)
+        return AllBinary.getInstance(BasicColorFactory).WHITE
+end
 
-lazy_static(ABStringComponent, "NULL_STRING_COMPONENT", _ABStringComponent_NULL_STRING_COMPONENT)
+
+function initABStringComponent(this::ABStringComponent, backgroundBasicColor, foregroundBasicColor)
+        initFieldsABStringComponent(this)
+        nothing
+        nothing
+end
+
+function newABStringComponent(backgroundBasicColor, foregroundBasicColor)
+    this = ABStringComponent()
+    initABStringComponent(this, backgroundBasicColor, foregroundBasicColor)
+    this
+end
+
+
+function getForegroundBasicColor(this::ABStringComponent)
+        return AllBinary.getInstance(BasicColorFactory).WHITE
+end
+
+
+function setForegroundBasicColor(this::ABStringComponent, foregroundBasicColor)
+        nothing
+        nothing
+end
 

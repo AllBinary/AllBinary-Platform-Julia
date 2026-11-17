@@ -1,26 +1,42 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.threed
 
-from __future__ import annotations
+mutable struct RatioProcessor <: JObject
+    RatioProcessor() = new()
+end
 
 
+function initFieldsRatioProcessor(this::RatioProcessor)
+    nothing
+end
 
-class RatioProcessor:
-    
+function initRatioProcessor(this::RatioProcessor)
+    initFieldsRatioProcessor(this)
+end
 
-    def setCustom(self, width: int, height: int, ratio: float) -> None:
-        pass
+function newRatioProcessor()
+    this = RatioProcessor()
+    initRatioProcessor(this)
+    this
+end
 
+
+function setCustom(this::RatioProcessor, width, height, ratio)
+        nothing
+        nothing
+end
 

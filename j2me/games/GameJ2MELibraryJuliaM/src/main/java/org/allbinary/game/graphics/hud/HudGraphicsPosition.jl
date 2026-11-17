@@ -1,63 +1,81 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.graphics.hud
 
-from __future__ import annotations
+mutable struct HudGraphicsPosition <: JObject
+    anchor::Int32
+    point::Any
+    HudGraphicsPosition() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITIONValue = Ref{Any}(nothing)
+const HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITIONSet = Ref(false)
+function staticGet_NULL_HUD_GRAPHICS_POSITION(::Type{HudGraphicsPosition})
+    if !HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITIONSet[]
+        HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITIONSet[] = true
+        HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITIONValue[] = newHudGraphicsPosition(AllBinary.getInstance(PointFactory).ZERO_ZERO, Int32(9))
+    end
+    HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITIONValue[]
+end
+function staticSet_NULL_HUD_GRAPHICS_POSITION(::Type{HudGraphicsPosition}, value)
+    HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITIONSet[] = true
+    HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITIONValue[] = value
+end
 
-
-class HudGraphicsPosition:
-    NULL_HUD_GRAPHICS_POSITION: HudGraphicsPosition = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.graphics.PointFactory import PointFactory
-        self.anchor: int = 0
-        self.point: GPoint = PointFactory.getInstance().ZERO_ZERO
-    
-
-    def __init__(self, point: GPoint, anchor: int) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        self._init_fields()
-        self.setAnchor(anchor)
-        self.setPoint(point)
-    
-
-    def getAnchor(self) -> int:
-        return self.anchor
-    
-
-    def setAnchor(self, anchor: int) -> None:
-        self.anchor = anchor
-    
-
-    def getPoint(self) -> GPoint:
-        from org.allbinary.graphics.GPoint import GPoint
-        return self.point
-    
-
-    def setPoint(self, point: GPoint) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        self.point = point
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.PointFactory import PointFactory
+function initFieldsHudGraphicsPosition(this::HudGraphicsPosition)
+    this.anchor = Int32(0)
+    this.point = nothing
+    this.anchor = Int32(0)
+    this.point = AllBinary.getInstance(PointFactory).ZERO_ZERO
+    nothing
+end
 
 
-def _HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITION() -> object:
-    from org.allbinary.graphics.PointFactory import PointFactory
-    return HudGraphicsPosition(PointFactory.getInstance().ZERO_ZERO, 9)
+function initHudGraphicsPosition(this::HudGraphicsPosition, point, anchor)
+        initFieldsHudGraphicsPosition(this)
+        AllBinary.setAnchor(this, anchor)
+        AllBinary.setPoint(this, point)
+        nothing
+end
 
-lazy_static(HudGraphicsPosition, "NULL_HUD_GRAPHICS_POSITION", _HudGraphicsPosition_NULL_HUD_GRAPHICS_POSITION)
+function newHudGraphicsPosition(point, anchor)
+    this = HudGraphicsPosition()
+    initHudGraphicsPosition(this, point, anchor)
+    this
+end
+
+
+function getAnchor(this::HudGraphicsPosition)
+        return this.anchor
+end
+
+
+function setAnchor(this::HudGraphicsPosition, anchor)
+        this.anchor = anchor
+        nothing
+end
+
+
+function getPoint(this::HudGraphicsPosition)
+        return this.point
+end
+
+
+function setPoint(this::HudGraphicsPosition, point)
+        this.point = point
+        nothing
+end
 

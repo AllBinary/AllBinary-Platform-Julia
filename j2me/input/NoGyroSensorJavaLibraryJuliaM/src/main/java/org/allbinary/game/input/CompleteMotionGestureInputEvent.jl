@@ -1,69 +1,78 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends AllBinaryEventObject: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CompleteMotionGestureInputEvent <: JObject
+    logUtil::Any
+    name::Any
+    motionGestureInput::Any
+    CompleteMotionGestureInputEvent() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-from org.allbinary.game.input.CompleteMotionGestureInputInterface import CompleteMotionGestureInputInterface
+
+function initFieldsCompleteMotionGestureInputEvent(this::CompleteMotionGestureInputEvent)
+    this.logUtil = nothing
+    this.name = nothing
+    this.motionGestureInput = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.name = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    this.motionGestureInput = AllBinary.getInstance(TouchMotionGestureFactory).NO_MOTION
+    nothing
+end
 
 
-class CompleteMotionGestureInputEvent(AllBinaryEventObject, CompleteMotionGestureInputInterface):
+function initCompleteMotionGestureInputEvent(this::CompleteMotionGestureInputEvent, name, motionGestureInput)
+        initAllBinaryEventObject(this, motionGestureInput)
+        initFieldsCompleteMotionGestureInputEvent(this)
+        AllBinary.setName(this, name)
+        try
+            AllBinary.setMotionGestureInput(this, motionGestureInput)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, "InputToGameKeyEventAction", e)
+        end
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.name: str = StringUtil.getInstance().EMPTY_STRING
-        self.motionGestureInput: MotionGestureInput = TouchMotionGestureFactory.getInstance().NO_MOTION
-    
+function newCompleteMotionGestureInputEvent(name, motionGestureInput)
+    this = CompleteMotionGestureInputEvent()
+    initCompleteMotionGestureInputEvent(this, name, motionGestureInput)
+    this
+end
 
-    def __init__(self, name: str, motionGestureInput: MotionGestureInput) -> None:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.string.CommonStrings import CommonStrings
-        super().__init__(motionGestureInput)
-        self._init_fields()
-        self.setName(name)
-        try:
-            self.setMotionGestureInput(motionGestureInput)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "InputToGameKeyEventAction", e)
-    
 
-    def setName(self, name: str) -> None:
-        self.name = name
-    
+function setName(this::CompleteMotionGestureInputEvent, name)
+        this.name = name
+        nothing
+end
 
-    def getName(self) -> str:
-        return self.name
-    
 
-    def setMotionGestureInput(self, motionGestureInput: MotionGestureInput) -> None:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        self.motionGestureInput = motionGestureInput
-    
+function getName(this::CompleteMotionGestureInputEvent)
+        return this.name
+end
 
-    def getMotionGestureInput(self) -> MotionGestureInput:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        return self.motionGestureInput
-# from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-# from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
 
+function setMotionGestureInput(this::CompleteMotionGestureInputEvent, motionGestureInput)
+        this.motionGestureInput = motionGestureInput
+        nothing
+end
+
+
+function getMotionGestureInput(this::CompleteMotionGestureInputEvent)
+        return this.motionGestureInput
+end
 

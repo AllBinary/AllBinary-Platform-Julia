@@ -1,60 +1,82 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+mutable struct CancelTouchButtonInputFactory <: JObject
+    cancelInputArray::Any
+    CancelTouchButtonInputFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const CancelTouchButtonInputFactory_instanceValue = Ref{Any}(nothing)
+const CancelTouchButtonInputFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{CancelTouchButtonInputFactory})
+    if !CancelTouchButtonInputFactory_instanceSet[]
+        CancelTouchButtonInputFactory_instanceSet[] = true
+        CancelTouchButtonInputFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    CancelTouchButtonInputFactory_instanceValue[]
+end
+function staticSet_instance(::Type{CancelTouchButtonInputFactory}, value)
+    CancelTouchButtonInputFactory_instanceSet[] = true
+    CancelTouchButtonInputFactory_instanceValue[] = value
+end
 
-
-class CancelTouchButtonInputFactory:
-    instance: object = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        self.cancelInputArray: list[TouchButtonInput] = [None] * (InputFactory.getInstance().MAX)
-    
-
-    @staticmethod
-    def getInstance() -> CancelTouchButtonInputFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if CancelTouchButtonInputFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            CancelTouchButtonInputFactory.instance = CancelTouchButtonInputFactory()
-        return CancelTouchButtonInputFactory.instance
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-        self._init_fields()
-        basicTouchInputFactory: BasicTouchInputFactory = BasicTouchInputFactory.getInstance()
-        for index in range(len(self.cancelInputArray) - 1, 0 - 1, -1):
-            self.cancelInputArray[index] = basicTouchInputFactory.NONE
-        self.cancelInputArray[basicTouchInputFactory.UP.getId()] = basicTouchInputFactory.DOWN
-        self.cancelInputArray[basicTouchInputFactory.DOWN.getId()] = basicTouchInputFactory.UP
-        self.cancelInputArray[basicTouchInputFactory.LEFT.getId()] = basicTouchInputFactory.RIGHT
-        self.cancelInputArray[basicTouchInputFactory.RIGHT.getId()] = basicTouchInputFactory.LEFT
-    
-
-    def getCancel(self, touchButtonInput: TouchButtonInput) -> TouchButtonInput:
-        return self.cancelInputArray[touchButtonInput.getId()]
-# from org.allbinary.game.input.InputFactory import InputFactory
-# from org.allbinary.logic.NullUtil import NullUtil
+function initFieldsCancelTouchButtonInputFactory(this::CancelTouchButtonInputFactory)
+    this.cancelInputArray = nothing
+    this.cancelInputArray = jNewArray(Any, AllBinary.getInstance(InputFactory).MAX, nothing)
+    nothing
+end
 
 
-def _CancelTouchButtonInputFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{CancelTouchButtonInputFactory})
+        if staticGet_instance(CancelTouchButtonInputFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(CancelTouchButtonInputFactory, newCancelTouchButtonInputFactory())
+        end
+        return (staticGet_instance(CancelTouchButtonInputFactory))
+end
 
-lazy_static(CancelTouchButtonInputFactory, "instance", _CancelTouchButtonInputFactory_instance)
+
+function initCancelTouchButtonInputFactory(this::CancelTouchButtonInputFactory)
+        initFieldsCancelTouchButtonInputFactory(this)
+        local basicTouchInputFactory = AllBinary.getInstance(BasicTouchInputFactory)
+        let
+            local index::Int32 = Int32(Base.length(this.cancelInputArray)) - Int32(1)
+            while index >= Int32(0)
+            try
+            this.cancelInputArray[index + 1] = basicTouchInputFactory.NONE
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        this.cancelInputArray[AllBinary.getId(basicTouchInputFactory.UP) + 1] = basicTouchInputFactory.DOWN
+        this.cancelInputArray[AllBinary.getId(basicTouchInputFactory.DOWN) + 1] = basicTouchInputFactory.UP
+        this.cancelInputArray[AllBinary.getId(basicTouchInputFactory.LEFT) + 1] = basicTouchInputFactory.RIGHT
+        this.cancelInputArray[AllBinary.getId(basicTouchInputFactory.RIGHT) + 1] = basicTouchInputFactory.LEFT
+        nothing
+end
+
+function newCancelTouchButtonInputFactory()
+    this = CancelTouchButtonInputFactory()
+    initCancelTouchButtonInputFactory(this)
+    this
+end
+
+
+function getCancel(this::CancelTouchButtonInputFactory, touchButtonInput)
+        return this.cancelInputArray[AllBinary.getId(touchButtonInput) + 1]
+end
 

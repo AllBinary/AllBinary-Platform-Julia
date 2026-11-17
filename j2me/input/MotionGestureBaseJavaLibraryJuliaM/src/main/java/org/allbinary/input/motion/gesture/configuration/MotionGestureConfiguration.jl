@@ -1,122 +1,157 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gesture.configuration
 
-from __future__ import annotations
+mutable struct MotionGestureConfiguration <: JObject
+    diagonalMotionGestureAllowed::Bool
+    diagonalTolerance::Int32
+    minimumMotionGesture::Int32
+    button::Any
+    color::Any
+    executingActions::Bool
+    mouseButtonMask::Int32
+    activeCommands::Any
+    MotionGestureConfiguration() = new()
+end
 
 
+function initFieldsMotionGestureConfiguration(this::MotionGestureConfiguration)
+    this.diagonalMotionGestureAllowed = false
+    this.diagonalTolerance = Int32(0)
+    this.minimumMotionGesture = Int32(0)
+    this.button = nothing
+    this.color = nothing
+    this.executingActions = false
+    this.mouseButtonMask = Int32(0)
+    this.activeCommands = nothing
+    this.diagonalMotionGestureAllowed = true
+    this.diagonalTolerance = Int32(7)
+    this.minimumMotionGesture = Int32(9)
+    this.button = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    this.color = AllBinary.getInstance(BasicColorFactory).BLUE
+    this.executingActions = true
+    this.mouseButtonMask = Int32(0)
+    this.activeCommands = newBasicArrayListD()
+    nothing
+end
 
-class MotionGestureConfiguration:
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.diagonalMotionGestureAllowed: bool = True
-        self.diagonalTolerance: int = 7
-        self.minimumMotionGesture: int = 9
-        self.button: str = StringUtil.getInstance().EMPTY_STRING
-        self.color: BasicColor = BasicColorFactory.getInstance().BLUE
-        self.executingActions: bool = True
-        self.mouseButtonMask: int = 0
-        self.activeCommands: BasicArrayList = BasicArrayListD()
-    
+function initMotionGestureConfiguration(this::MotionGestureConfiguration)
+        initFieldsMotionGestureConfiguration(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newMotionGestureConfiguration()
+    this = MotionGestureConfiguration()
+    initMotionGestureConfiguration(this)
+    this
+end
 
-    def addMotionGestureAction(self, list_: BasicArrayList, commandAction: CompleteMotionGestureInputEvent) -> None:
-        from org.allbinary.game.input.CompleteMotionGestureInputEvent import CompleteMotionGestureInputEvent
-        from org.allbinary.input.motion.gesture.MotionGestureToMotionGestureActionAssociation import MotionGestureToMotionGestureActionAssociation
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.activeCommands.add(MotionGestureToMotionGestureActionAssociation(list_, commandAction))
-    
 
-    def clearMotionGestureAction(self) -> None:
-        self.activeCommands.clear()
-    
+function addMotionGestureAction(this::MotionGestureConfiguration, list, commandAction)
+        AllBinary.add(this.activeCommands, newMotionGestureToMotionGestureActionAssociation(list, commandAction))
+        nothing
+end
 
-    def getAssociateCommandActionsList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.activeCommands
-    
 
-    def isDiagonalMotionGestureAllowed(self) -> bool:
-        return self.diagonalMotionGestureAllowed
-    
+function clearMotionGestureAction(this::MotionGestureConfiguration)
+        AllBinary.clear(this.activeCommands)
+        nothing
+end
 
-    def isExecutingActionsAllowed(self) -> bool:
-        return self.executingActions
-    
 
-    def setExecutingActionsAllowed(self, executingActionAllowed: bool) -> None:
-        self.executingActions = executingActionAllowed
-    
+function getAssociateCommandActionsList(this::MotionGestureConfiguration)
+        return this.activeCommands
+end
 
-    def setDiagonalMotionGestureAllowed(self, diagonalMotionGestureAllowed: bool) -> None:
-        self.diagonalMotionGestureAllowed = diagonalMotionGestureAllowed
-    
 
-    def getDiagonalTolerance(self) -> int:
-        return self.diagonalTolerance
-    
+function isDiagonalMotionGestureAllowed(this::MotionGestureConfiguration)
+        return this.diagonalMotionGestureAllowed
+end
 
-    def setDiagonalTolerance(self, diagonalTolerance: int) -> None:
-        self.diagonalTolerance = diagonalTolerance
-    
 
-    def getMinimumMotionGesture(self) -> int:
-        return self.minimumMotionGesture
-    
+function isExecutingActionsAllowed(this::MotionGestureConfiguration)
+        return this.executingActions
+end
 
-    def setMinimumMotionGesture(self, minimumMotionGesture: int) -> None:
-        self.minimumMotionGesture = minimumMotionGesture
-    
 
-    def getButton(self) -> str:
-        return self.button
-    
+function setExecutingActionsAllowed(this::MotionGestureConfiguration, executingActionAllowed)
+        this.executingActions = executingActionAllowed
+        nothing
+end
 
-    def setButton(self, button: str) -> None:
-        self.button = button
-    
 
-    def getColor(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.color
-    
+function setDiagonalMotionGestureAllowed(this::MotionGestureConfiguration, diagonalMotionGestureAllowed)
+        this.diagonalMotionGestureAllowed = diagonalMotionGestureAllowed
+        nothing
+end
 
-    def setColor(self, color: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.color = color
-    
 
-    def getMouseButtonMask(self) -> int:
-        return self.mouseButtonMask
-    
+function getDiagonalTolerance(this::MotionGestureConfiguration)
+        return this.diagonalTolerance
+end
 
-    def setMouseButtonMask(self, mouseButtonMask: int) -> None:
-        self.mouseButtonMask = mouseButtonMask
-# from org.allbinary.game.input.CompleteMotionGestureInputEvent import CompleteMotionGestureInputEvent
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.input.motion.gesture.MotionGestureToMotionGestureActionAssociation import MotionGestureToMotionGestureActionAssociation
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
 
+function setDiagonalTolerance(this::MotionGestureConfiguration, diagonalTolerance)
+        this.diagonalTolerance = diagonalTolerance
+        nothing
+end
+
+
+function getMinimumMotionGesture(this::MotionGestureConfiguration)
+        return this.minimumMotionGesture
+end
+
+
+function setMinimumMotionGesture(this::MotionGestureConfiguration, minimumMotionGesture)
+        this.minimumMotionGesture = minimumMotionGesture
+        nothing
+end
+
+
+function getButton(this::MotionGestureConfiguration)
+        return this.button
+end
+
+
+function setButton(this::MotionGestureConfiguration, button)
+        this.button = button
+        nothing
+end
+
+
+function getColor(this::MotionGestureConfiguration)
+        return this.color
+end
+
+
+function setColor(this::MotionGestureConfiguration, color)
+        this.color = color
+        nothing
+end
+
+
+function getMouseButtonMask(this::MotionGestureConfiguration)
+        return this.mouseButtonMask
+end
+
+
+function setMouseButtonMask(this::MotionGestureConfiguration, mouseButtonMask)
+        this.mouseButtonMask = mouseButtonMask
+        nothing
+end
 

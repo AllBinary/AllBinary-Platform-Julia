@@ -1,43 +1,60 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.transition
 
-from __future__ import annotations
+mutable struct RunAtEndAnimationListener <: JObject
+    runnable::Any
+    RunAtEndAnimationListener() = new()
+end
 
-from org.allbinary.animation.transition.AnimationListenerInterface import AnimationListenerInterface
 
-
-class RunAtEndAnimationListener(AnimationListenerInterface):
-
-    def _init_fields(self) -> None:
-        self.runnable: object = None
+function initFieldsRunAtEndAnimationListener(this::RunAtEndAnimationListener)
+    this.runnable = nothing
     
+    nothing
+end
 
-    def __init__(self, runnable: object) -> None:
-        self._init_fields()
-        self.runnable = runnable
-    
 
-    def onPlatformAnimationStart(self) -> None:
-        pass
-    
+function initRunAtEndAnimationListener(this::RunAtEndAnimationListener, runnable)
+        initFieldsRunAtEndAnimationListener(this)
+        this.runnable = runnable
+        nothing
+end
 
-    def onPlatformAnimationEnd(self) -> None:
-        pass
-    
+function newRunAtEndAnimationListener(runnable)
+    this = RunAtEndAnimationListener()
+    initRunAtEndAnimationListener(this, runnable)
+    this
+end
 
-    def onPlatformAnimationRepeat(self) -> None:
-        pass
 
+function onPlatformAnimationStart(this::RunAtEndAnimationListener)
+        nothing
+        nothing
+end
+
+
+function onPlatformAnimationEnd(this::RunAtEndAnimationListener)
+        nothing
+        nothing
+end
+
+
+function onPlatformAnimationRepeat(this::RunAtEndAnimationListener)
+        nothing
+        nothing
+end
 

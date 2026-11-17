@@ -1,21 +1,34 @@
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+mutable struct CompleteMotionGestureInputEventListener <: JObject
+    CompleteMotionGestureInputEventListener() = new()
+end
 
-from org.allbinary.game.input.CompleteMotionGestureInputEventListenerInterface import CompleteMotionGestureInputEventListenerInterface
+
+function initFieldsCompleteMotionGestureInputEventListener(this::CompleteMotionGestureInputEventListener)
+    nothing
+end
+
+function initCompleteMotionGestureInputEventListener(this::CompleteMotionGestureInputEventListener)
+    initFieldsCompleteMotionGestureInputEventListener(this)
+end
+
+function newCompleteMotionGestureInputEventListener()
+    this = CompleteMotionGestureInputEventListener()
+    initCompleteMotionGestureInputEventListener(this)
+    this
+end
 
 
-class CompleteMotionGestureInputEventListener(CompleteMotionGestureInputEventListenerInterface):
-    
+function onEvent(this::CompleteMotionGestureInputEventListener, eventObject)
+        nothing
+        nothing
+end
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        pass
-    
 
-    def onCompleteMotionGestureInputEvent(self, completeMotionGestureInputEvent: CompleteMotionGestureInputEvent) -> None:
-        pass
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-
+function onCompleteMotionGestureInputEvent(this::CompleteMotionGestureInputEventListener, completeMotionGestureInputEvent)
+        nothing
+        nothing
+end
 

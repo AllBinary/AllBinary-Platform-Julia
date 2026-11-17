@@ -1,122 +1,119 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+# extends HighScoresBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicHighScoresFactory <: JObject
+    logUtil::Any
+    abeClientInformation::Any
+    softwareInformation::Any
+    highScoresArray::Any
+    TOP::Any
+    SCORES::Any
+    PERSONAL_HIGH_SCORES::Any
+    WORLD_TOP_SCORES::Any
+    FETCH::Any
+    BasicHighScoresFactory() = new()
+end
 
-from org.allbinary.game.score.HighScoresBase import HighScoresBase
 
-
-class BasicHighScoresFactory(HighScoresBase):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.system.SoftwareInformation import SoftwareInformation
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.abeClientInformation: AbeClientInformationInterface = None
-        self.softwareInformation: SoftwareInformation = None
-        self.highScoresArray: list[HighScores] = [None] * (2)
-        self.TOP: str = "Top"
-        self.SCORES: str = "Scores"
-        self.PERSONAL_HIGH_SCORES: str = "Personal Top Scores"
-        self.WORLD_TOP_SCORES: str = "World Top Scores"
-        self.FETCH: str = "fetchHighScores"
+function initFieldsBasicHighScoresFactory(this::BasicHighScoresFactory)
+    this.logUtil = nothing
+    this.abeClientInformation = nothing
+    this.softwareInformation = nothing
+    this.highScoresArray = nothing
+    this.TOP = nothing
+    this.SCORES = nothing
+    this.PERSONAL_HIGH_SCORES = nothing
+    this.WORLD_TOP_SCORES = nothing
+    this.FETCH = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
-
-    def __init__(self, abeClientInformation: AbeClientInformationInterface, softwareInformation: SoftwareInformation) -> None:
-        from org.allbinary.logic.system.SoftwareInformation import SoftwareInformation
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        super().__init__()
-        self._init_fields()
-        self.abeClientInformation = abeClientInformation
-        self.softwareInformation = softwareInformation
     
+    this.highScoresArray = jNewArray(Any, Int32(2), nothing)
+    this.TOP = "Top"
+    this.SCORES = "Scores"
+    this.PERSONAL_HIGH_SCORES = "Personal Top Scores"
+    this.WORLD_TOP_SCORES = "World Top Scores"
+    this.FETCH = "fetchHighScores"
+    nothing
+end
 
-    def fetchHighScores(self, gameInfo: GameInfo, highScoresResultsListener: HighScoresResultsListener) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        self.logUtil.putF("Getting Remote/Local HighScores", self, self.FETCH)
-        self.fetchHighScoresPreload(gameInfo, highScoresResultsListener, True)
-    
 
-    def fetchHighScoresPreload(self, gameInfo: GameInfo, highScoresResultsListener: HighScoresResultsListener, preload: bool) -> None:
-        from org.allbinary.game.score.RecordStoreHighScores import RecordStoreHighScores
-        from org.allbinary.game.score.ScoreComparator import ScoreComparator
-        from org.allbinary.game.score.LastFetchHighScoresFactory import LastFetchHighScoresFactory
-        from org.allbinary.thread.ARunnable import ARunnable
-        from org.allbinary.game.BasicHighScoresGameInfoFactory import BasicHighScoresGameInfoFactory
-        from org.allbinary.game.GameInfo import GameInfo
-        from org.allbinary.game.GameType import GameType
-        from org.allbinary.game.GameTypeFactory import GameTypeFactory
-        from org.allbinary.game.score.remote.RemoteHighScores import RemoteHighScores
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        from org.allbinary.thread.SecondaryThreadPool import SecondaryThreadPool
-        SecondaryThreadPool.getInstance().runTask((ARunnable()  # Java anonymous class body:
-#             
-# 
-#             def run(self) -> None:
-#                 from org.allbinary.game.score.RecordStoreHighScores import RecordStoreHighScores
-#                 from org.allbinary.game.score.ScoreComparator import ScoreComparator
-#                 from org.allbinary.game.score.LastFetchHighScoresFactory import LastFetchHighScoresFactory
-#                 from org.allbinary.game.BasicHighScoresGameInfoFactory import BasicHighScoresGameInfoFactory
-#                 from org.allbinary.game.GameInfo import GameInfo
-#                 from org.allbinary.game.GameType import GameType
-#                 from org.allbinary.game.GameTypeFactory import GameTypeFactory
-#                 from org.allbinary.game.score.remote.RemoteHighScores import RemoteHighScores
-#                 from org.allbinary.logic.communication.log.LogUtil import LogUtil
-#                 from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-#                 logUtil: LogUtil = LogUtil.getInstance()
-#                 try:
-#                     logUtil.putF(self.commonStrings.START, self, self.FETCH)
-#                     self.highScoresArray[0] = RecordStoreHighScores.getInstance(self.abeClientInformation, gameInfo, self.TOP, self.PERSONAL_HIGH_SCORES, self.SCORES, ScoreComparator(True))
-#                     gameType: GameType = gameInfo.getGameType()
-#                     gameTypeFactory: GameTypeFactory = GameTypeFactory.getInstance()
-#                     gameInfo2: GameInfo = gameInfo
-#                     if gameType == gameTypeFactory.SINGLE_PLAYER or gameType == gameTypeFactory.BOT:
-#                         gameInfo2 = BasicHighScoresGameInfoFactory.getInstance().SINGLE_PLAYER_SERVER
-#                     elif gameType == gameTypeFactory.MULTI_PLAYER:
-#                         gameInfo2 = BasicHighScoresGameInfoFactory.getInstance().MULTI_PLAYER_SERVER
-#                     self.highScoresArray[1] = RemoteHighScores.getInstancePreload(self.abeClientInformation, self.softwareInformation, gameInfo2, self.WORLD_TOP_SCORES, self.SCORES, BooleanFactory.getInstance().FALSE, preload)
-#                     logUtil.putF(self.commonStrings.END, self, self.FETCH)
-#                     LastFetchHighScoresFactory.getInstance().highScoresArray = self.highScoresArray
-#                     highScoresResultsListener.setHighScoresArray(self.highScoresArray)
-#                 except Exception as e:
-#                     logUtil.put(self.commonStrings.EXCEPTION, self, self.FETCH, e)
-))
-    
+function initBasicHighScoresFactory(this::BasicHighScoresFactory, abeClientInformation, softwareInformation)
+        initHighScoresBase(this)
+        initFieldsBasicHighScoresFactory(this)
+        this.abeClientInformation = abeClientInformation
+        this.softwareInformation = softwareInformation
+        nothing
+end
 
-    def createHighScoresHelper(self) -> HighScoresHelperBaseInterface:
-        from org.allbinary.game.score.HighScoresHelper2 import HighScoresHelper2
-        return HighScoresHelper2()
-    
+function newBasicHighScoresFactory(abeClientInformation, softwareInformation)
+    this = BasicHighScoresFactory()
+    initBasicHighScoresFactory(this, abeClientInformation, softwareInformation)
+    this
+end
 
-    @staticmethod
-    def loaded(index2: int) -> bool:
-        if index2 >= 0:
-            return True
-        return False
-# from org.allbinary.thread.ARunnable import ARunnable
-# from org.allbinary.game.BasicHighScoresGameInfoFactory import BasicHighScoresGameInfoFactory
-# from org.allbinary.game.GameInfo import GameInfo
-# from org.allbinary.game.GameType import GameType
-# from org.allbinary.game.GameTypeFactory import GameTypeFactory
-# from org.allbinary.game.score.remote.RemoteHighScores import RemoteHighScores
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-# from org.allbinary.logic.system.SoftwareInformation import SoftwareInformation
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-# from org.allbinary.thread.SecondaryThreadPool import SecondaryThreadPool
 
+function fetchHighScores(this::BasicHighScoresFactory, gameInfo, highScoresResultsListener)
+        AllBinary.putF(this.logUtil, "Getting Remote/Local HighScores", this, this.FETCH)
+        AllBinary.fetchHighScoresPreload(this, gameInfo, highScoresResultsListener, true)
+        nothing
+end
+
+
+function fetchHighScoresPreload(this::BasicHighScoresFactory, gameInfo, highScoresResultsListener, preload)
+        AllBinary.runTask(AllBinary.getInstance(SecondaryThreadPool), newARunnable() #= Java anonymous class body: implement it as a named type
+            
+
+function run(this::BasicHighScoresFactory)
+                local logUtil = AllBinary.getInstance(LogUtil)
+                try
+                    AllBinary.putF(logUtil, this.commonStrings.START, this, this.FETCH)
+                    this.highScoresArray[Int32(0) + 1] = AllBinary.getInstance(RecordStoreHighScores, this.abeClientInformation, gameInfo, this.TOP, this.PERSONAL_HIGH_SCORES, this.SCORES, newScoreComparator(true))
+                    local gameType = AllBinary.getGameType(gameInfo)
+                    local gameTypeFactory = AllBinary.getInstance(GameTypeFactory)
+                    local gameInfo2 = gameInfo
+                    if gameType === gameTypeFactory.SINGLE_PLAYER || gameType === gameTypeFactory.BOT
+                        gameInfo2 = AllBinary.getInstance(BasicHighScoresGameInfoFactory).SINGLE_PLAYER_SERVER
+                    elseif gameType === gameTypeFactory.MULTI_PLAYER
+                        gameInfo2 = AllBinary.getInstance(BasicHighScoresGameInfoFactory).MULTI_PLAYER_SERVER
+                    end
+                    this.highScoresArray[Int32(1) + 1] = AllBinary.getInstancePreload(RemoteHighScores, this.abeClientInformation, this.softwareInformation, gameInfo2, this.WORLD_TOP_SCORES, this.SCORES, AllBinary.getInstance(BooleanFactory).FALSE, preload)
+                    AllBinary.putF(logUtil, this.commonStrings.END, this, this.FETCH)
+                    AllBinary.getInstance(LastFetchHighScoresFactory).highScoresArray = this.highScoresArray
+                    AllBinary.setHighScoresArray(highScoresResultsListener, this.highScoresArray)
+                catch e
+                    AllBinary.put(logUtil, this.commonStrings.EXCEPTION, this, this.FETCH, e)
+                end
+        nothing
+end =#)
+        nothing
+end
+
+
+function createHighScoresHelper(this::BasicHighScoresFactory)
+        return newHighScoresHelper2()
+end
+
+
+function loaded(::Type{BasicHighScoresFactory}, index2)
+        if index2 >= Int32(0)
+            return true
+        end
+        return false
+end
 

@@ -1,153 +1,148 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai
 
-from __future__ import annotations
+# extends BasicAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HorizontaRotationManeuverAI <: JObject
+    circularIndexUtil::Any
+    currentSpeedDivisor::Int32
+    rotationAnimationInterface::Any
+    baseVelocityInterface::Any
+    velocityInterface::Any
+    HorizontaRotationManeuverAI() = new()
+end
 
-from org.allbinary.ai.ArtificialIntelligenceTransitionInterface import ArtificialIntelligenceTransitionInterface
-from org.allbinary.game.ai.BasicAI import BasicAI
 
-
-class HorizontaRotationManeuverAI(BasicAI, ArtificialIntelligenceTransitionInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-        from org.allbinary.game.physics.velocity.VelocityInterface import VelocityInterface
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.circularIndexUtil: CircularIndexUtil = CircularIndexUtil.createInstanceAt(10, 2147483647)
-        self.currentSpeedDivisor: int = 5
-        self.rotationAnimationInterface: IndexedAnimation = None
-        self.baseVelocityInterface: BasicVelocityProperties = None
-        self.velocityInterface: VelocityInterface = None
+function initFieldsHorizontaRotationManeuverAI(this::HorizontaRotationManeuverAI)
+    this.circularIndexUtil = nothing
+    this.currentSpeedDivisor = Int32(0)
+    this.rotationAnimationInterface = nothing
+    this.baseVelocityInterface = nothing
+    this.velocityInterface = nothing
+    this.circularIndexUtil = AllBinary.createInstanceAt(CircularIndexUtil, Int32(10), staticGet_MAX_VALUE(Integer))
+    this.currentSpeedDivisor = Int32(5)
     
-
-    def __init__(self, ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.animation.RotationAnimationInterface import RotationAnimationInterface
-        from org.allbinary.animation.RotationAnimationInterfaceCompositeInterface import RotationAnimationInterfaceCompositeInterface
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.game.physics.velocity.VelocityInterface import VelocityInterface
-        from org.allbinary.game.physics.velocity.VelocityInterfaceCompositeInterface import VelocityInterfaceCompositeInterface
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.math.AngleIncrementInfo import AngleIncrementInfo
-        super().__init__(ownerLayerInterface, gameInput)
-        self._init_fields()
-        rotationAnimationInterfaceCompositeInterface: RotationAnimationInterfaceCompositeInterface = self.getOwnerLayerInterface()
-        self.rotationAnimationInterface = rotationAnimationInterfaceCompositeInterface.getRotationAnimationInterface()
-        velocityInterfaceCompositeInterface: VelocityInterfaceCompositeInterface = self.getOwnerLayerInterface()
-        self.baseVelocityInterface = velocityInterfaceCompositeInterface.getVelocityProperties()
-        self.velocityInterface = self.baseVelocityInterface
-        rotationAnimationInterface: RotationAnimationInterface = self.rotationAnimationInterface
-        angleIncrementInfo: AngleIncrementInfo = rotationAnimationInterface.getAngleInfoP().getAngleIncrementInfo()
-        rotationAnimationInterfaceCompositeInterface.setFrame(int(angleIncrementInfo.RIGHT_FRAME))
     
-
-    def transition(self) -> None:
-        from org.allbinary.animation.RotationAnimationInterface import RotationAnimationInterface
-        from org.allbinary.animation.RotationAnimationInterfaceCompositeInterface import RotationAnimationInterfaceCompositeInterface
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.math.AngleIncrementInfo import AngleIncrementInfo
-        rotationAnimationInterface: RotationAnimationInterface = self.rotationAnimationInterface
-        angleIncrementInfo: AngleIncrementInfo = rotationAnimationInterface.getAngleInfoP().getAngleIncrementInfo()
-        rotationAnimationInterfaceCompositeInterface: RotationAnimationInterfaceCompositeInterface = self.getOwnerLayerInterface()
-        rotationAnimationInterfaceCompositeInterface.setFrame(int(angleIncrementInfo.RIGHT_FRAME))
-        allbinaryLayer: AllBinaryLayer = self.getOwnerLayerInterface()
-        allbinaryLayer.setPosition(allbinaryLayer.getXP(), 1, allbinaryLayer.getZP())
     
+    nothing
+end
 
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.animation.RotationAnimationInterface import RotationAnimationInterface
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        from org.allbinary.math.AngleIncrementInfo import AngleIncrementInfo
-        rotationAnimationInterface: RotationAnimationInterface = (self.rotationAnimationInterface)
-        angleIncrementInfo: AngleIncrementInfo = rotationAnimationInterface.getAngleInfoP().getAngleIncrementInfo()
-        frame: int = self.rotationAnimationInterface.getFrame()
-        ownerLayerInterface: AllBinaryLayer = self.getOwnerLayerInterface()
-        if ownerLayerInterface.getXP() - ownerLayerInterface.getWidth() <= 0 and frame == int(angleIncrementInfo.LEFT_FRAME):
-            self.reverse()
-            self.drop()
-        displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        if ownerLayerInterface.getX2() + ownerLayerInterface.getWidth() > displayInfo.getLastWidth() and frame == int(angleIncrementInfo.RIGHT_FRAME):
-            self.reverse()
-            self.accelerate()
-            self.drop()
-        index: int = self.circularIndexUtil.getIndex()
-        if index % self.currentSpeedDivisor == 0 and index % 2 == 0:
-            super().processKeyAI(Canvas.UP)
-            self.velocityInterface.limitMaxXYVelocity(self.velocityInterface.getMaxForwardVelocity() / self.currentSpeedDivisor)
-        self.circularIndexUtil.next()
-        if frame == int(angleIncrementInfo.LEFT_FRAME):
-            super().processKeyAI(Canvas.KEY_NUM0)
-        elif frame == int(angleIncrementInfo.RIGHT_FRAME):
-            super().processKeyAI(Canvas.KEY_POUND)
-    
 
-    def reverse(self) -> None:
-        from org.allbinary.animation.RotationAnimationInterface import RotationAnimationInterface
-        from org.allbinary.animation.RotationAnimationInterfaceCompositeInterface import RotationAnimationInterfaceCompositeInterface
-        from org.allbinary.math.AngleIncrementInfo import AngleIncrementInfo
-        rotationAnimationInterface: RotationAnimationInterface = self.rotationAnimationInterface
-        angleIncrementInfo: AngleIncrementInfo = rotationAnimationInterface.getAngleInfoP().getAngleIncrementInfo()
-        frame: int = self.rotationAnimationInterface.getFrame()
-        if frame == int(angleIncrementInfo.LEFT_FRAME):
-            rotationAnimationInterfaceCompositeInterface: RotationAnimationInterfaceCompositeInterface = self.getOwnerLayerInterface()
-            rotationAnimationInterfaceCompositeInterface.setFrame(int(angleIncrementInfo.RIGHT_FRAME))
-            self.baseVelocityInterface.zero()
-        elif frame == int(angleIncrementInfo.RIGHT_FRAME):
-            rotationAnimationInterfaceCompositeInterface: RotationAnimationInterfaceCompositeInterface = self.getOwnerLayerInterface()
-            rotationAnimationInterfaceCompositeInterface.setFrame(int(angleIncrementInfo.LEFT_FRAME))
-            self.baseVelocityInterface.zero()
-    
+function initHorizontaRotationManeuverAI(this::HorizontaRotationManeuverAI, ownerLayerInterface, gameInput)
+        initBasicAI(this, ownerLayerInterface, gameInput)
+        initFieldsHorizontaRotationManeuverAI(this)
+        local rotationAnimationInterfaceCompositeInterface = (AllBinary.getOwnerLayerInterface(this))
+        this.rotationAnimationInterface = AllBinary.getRotationAnimationInterface(rotationAnimationInterfaceCompositeInterface)
+        local velocityInterfaceCompositeInterface = (AllBinary.getOwnerLayerInterface(this))
+        this.baseVelocityInterface = AllBinary.getVelocityProperties(velocityInterfaceCompositeInterface)
+        this.velocityInterface = (this.baseVelocityInterface)
+        local rotationAnimationInterface = (this.rotationAnimationInterface)
+        local angleIncrementInfo = AllBinary.getAngleIncrementInfo(AllBinary.getAngleInfoP(rotationAnimationInterface))
+        AllBinary.setFrame(rotationAnimationInterfaceCompositeInterface, AllBinary.intValue(angleIncrementInfo.RIGHT_FRAME))
+        nothing
+end
 
-    def accelerate(self) -> None:
-        if self.currentSpeedDivisor > 1:
-            self.currentSpeedDivisor -= 1
-    
+function newHorizontaRotationManeuverAI(ownerLayerInterface, gameInput)
+    this = HorizontaRotationManeuverAI()
+    initHorizontaRotationManeuverAI(this, ownerLayerInterface, gameInput)
+    this
+end
 
-    def drop(self) -> None:
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        ownerLayerInterface: AllBinaryLayer = self.getOwnerLayerInterface()
-        y: int = ownerLayerInterface.getYP()
-        if ownerLayerInterface.getY2() + ownerLayerInterface.getHeight() > displayInfo.getLastHeight():
-            y = 0
-        else:
-            y += ownerLayerInterface.getHeight() + 1
-        ownerLayerInterface.setPosition(ownerLayerInterface.getXP(), y, ownerLayerInterface.getZP())
-    
 
-    def getId(self) -> int:
-        from org.allbinary.ai.ArtificialIntelligence import ArtificialIntelligence
-        return ArtificialIntelligence.AI_ID
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.ai.ArtificialIntelligence import ArtificialIntelligence
-# from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-# from org.allbinary.animation.RotationAnimationInterface import RotationAnimationInterface
-# from org.allbinary.animation.RotationAnimationInterfaceCompositeInterface import RotationAnimationInterfaceCompositeInterface
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-# from org.allbinary.game.physics.velocity.VelocityInterface import VelocityInterface
-# from org.allbinary.game.physics.velocity.VelocityInterfaceCompositeInterface import VelocityInterfaceCompositeInterface
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.math.AngleIncrementInfo import AngleIncrementInfo
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
+function transition(this::HorizontaRotationManeuverAI)
+        local rotationAnimationInterface = (this.rotationAnimationInterface)
+        local angleIncrementInfo = AllBinary.getAngleIncrementInfo(AllBinary.getAngleInfoP(rotationAnimationInterface))
+        local rotationAnimationInterfaceCompositeInterface = (AllBinary.getOwnerLayerInterface(this))
+        AllBinary.setFrame(rotationAnimationInterfaceCompositeInterface, AllBinary.intValue(angleIncrementInfo.RIGHT_FRAME))
+        local allbinaryLayer = AllBinary.getOwnerLayerInterface(this)
+        AllBinary.setPosition(allbinaryLayer, AllBinary.getXP(allbinaryLayer), Int32(1), AllBinary.getZP(allbinaryLayer))
+        nothing
+end
 
+
+function processAI(this::HorizontaRotationManeuverAI, allBinaryLayerManager)
+        local rotationAnimationInterface = ((this.rotationAnimationInterface))
+        local angleIncrementInfo = AllBinary.getAngleIncrementInfo(AllBinary.getAngleInfoP(rotationAnimationInterface))
+        local frame::Int32 = AllBinary.getFrame(this.rotationAnimationInterface)
+        local ownerLayerInterface = AllBinary.getOwnerLayerInterface(this)
+        if AllBinary.getXP(ownerLayerInterface) - AllBinary.getWidth(ownerLayerInterface) <= Int32(0) && frame == AllBinary.intValue(angleIncrementInfo.LEFT_FRAME)
+            AllBinary.reverse(this)
+            AllBinary.drop(this)
+        end
+        local displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+        if AllBinary.getX2(ownerLayerInterface) + AllBinary.getWidth(ownerLayerInterface) > AllBinary.getLastWidth(displayInfo) && frame == AllBinary.intValue(angleIncrementInfo.RIGHT_FRAME)
+            AllBinary.reverse(this)
+            AllBinary.accelerate(this)
+            AllBinary.drop(this)
+        end
+        local index::Int32 = AllBinary.getIndex(this.circularIndexUtil)
+        if index % this.currentSpeedDivisor == Int32(0) && index % Int32(2) == Int32(0)
+            AllBinary.processKeyAI(this, staticGet_UP(Canvas))
+            AllBinary.limitMaxXYVelocity(this.velocityInterface, AllBinary.getMaxForwardVelocity(this.velocityInterface) ÷ this.currentSpeedDivisor)
+        end
+        AllBinary.next(this.circularIndexUtil)
+        if frame == AllBinary.intValue(angleIncrementInfo.LEFT_FRAME)
+            AllBinary.processKeyAI(this, staticGet_KEY_NUM0(Canvas))
+        elseif frame == AllBinary.intValue(angleIncrementInfo.RIGHT_FRAME)
+            AllBinary.processKeyAI(this, staticGet_KEY_POUND(Canvas))
+        end
+        nothing
+end
+
+
+function reverse(this::HorizontaRotationManeuverAI)
+        local rotationAnimationInterface = (this.rotationAnimationInterface)
+        local angleIncrementInfo = AllBinary.getAngleIncrementInfo(AllBinary.getAngleInfoP(rotationAnimationInterface))
+        local frame::Int32 = AllBinary.getFrame(this.rotationAnimationInterface)
+        if frame == AllBinary.intValue(angleIncrementInfo.LEFT_FRAME)
+            rotationAnimationInterfaceCompositeInterface = (AllBinary.getOwnerLayerInterface(this))
+            AllBinary.setFrame(rotationAnimationInterfaceCompositeInterface, AllBinary.intValue(angleIncrementInfo.RIGHT_FRAME))
+            AllBinary.zero(this.baseVelocityInterface)
+        elseif frame == AllBinary.intValue(angleIncrementInfo.RIGHT_FRAME)
+            local rotationAnimationInterfaceCompositeInterface = (AllBinary.getOwnerLayerInterface(this))
+            AllBinary.setFrame(rotationAnimationInterfaceCompositeInterface, AllBinary.intValue(angleIncrementInfo.LEFT_FRAME))
+            AllBinary.zero(this.baseVelocityInterface)
+        end
+        nothing
+end
+
+
+function accelerate(this::HorizontaRotationManeuverAI)
+        if this.currentSpeedDivisor > Int32(1)
+            this.currentSpeedDivisor -= Int32(1)
+        end
+        nothing
+end
+
+
+function drop(this::HorizontaRotationManeuverAI)
+        local displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+        local ownerLayerInterface = AllBinary.getOwnerLayerInterface(this)
+        local y::Int32 = AllBinary.getYP(ownerLayerInterface)
+        if AllBinary.getY2(ownerLayerInterface) + AllBinary.getHeight(ownerLayerInterface) > AllBinary.getLastHeight(displayInfo)
+            y = Int32(0)
+        else
+            y += AllBinary.getHeight(ownerLayerInterface) + Int32(1)
+        end
+        AllBinary.setPosition(ownerLayerInterface, AllBinary.getXP(ownerLayerInterface), y, AllBinary.getZP(ownerLayerInterface))
+        nothing
+end
+
+
+function getId(this::HorizontaRotationManeuverAI)
+        return staticGet_AI_ID(ArtificialIntelligence)
+end
 

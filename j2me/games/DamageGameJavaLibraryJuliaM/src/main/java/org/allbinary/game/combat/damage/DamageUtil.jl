@@ -1,70 +1,86 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.combat.damage
 
-from __future__ import annotations
+mutable struct DamageUtil <: JObject
+    logUtil::Any
+    COLLIDE::Any
+    DamageUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const DamageUtil_instanceValue = Ref{Any}(nothing)
+const DamageUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{DamageUtil})
+    if !DamageUtil_instanceSet[]
+        DamageUtil_instanceSet[] = true
+        DamageUtil_instanceValue[] = newDamageUtil()
+    end
+    DamageUtil_instanceValue[]
+end
+function staticSet_instance(::Type{DamageUtil}, value)
+    DamageUtil_instanceSet[] = true
+    DamageUtil_instanceValue[] = value
+end
 
-
-class DamageUtil:
-    instance: DamageUtil = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.COLLIDE: str = "collide"
-    
-
-    @staticmethod
-    def getInstance() -> DamageUtil:
-        return DamageUtil.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    # throws Exception
-    def process(self, damageableInterface: DamageableInterface, damageableInterface2: DamageableInterface) -> None:
-        damageableInterface.damage(damageableInterface2.getDamage(0), 0)
-    
-
-    # throws Exception
-    def debugDamage(self, collidableInterfaceCompositeInterface1: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableCompositeLayer) -> None:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        from org.allbinary.game.layer.special.CollidableDestroyableDamageableLayer import CollidableDestroyableDamageableLayer
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        collidableDestroyableDamageableLayer: CollidableDestroyableDamageableLayer = collidableInterfaceCompositeInterface
-        damage: int = collidableDestroyableDamageableLayer.getDamage(0)
-        if damage > 20000:
-            stringBuffer: StringMaker = StringMaker()
-            stringBuffer.append("Collision ")
-            stringBuffer.append(str(collidableInterfaceCompositeInterface1))
-            stringBuffer.append(" with: ")
-            stringBuffer.append(str(collidableInterfaceCompositeInterface))
-            stringBuffer.append(" damage: ")
-            stringBuffer.appendint(damage)
-            self.logUtil.putF(str(stringBuffer), collidableInterfaceCompositeInterface1, self.COLLIDE)
-# from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-# from org.allbinary.game.layer.special.CollidableDestroyableDamageableLayer import CollidableDestroyableDamageableLayer
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
+function initFieldsDamageUtil(this::DamageUtil)
+    this.logUtil = nothing
+    this.COLLIDE = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.COLLIDE = "collide"
+    nothing
+end
 
 
-def _DamageUtil_instance() -> object:
-    return DamageUtil()
+function getInstance(::Type{DamageUtil})
+        return staticGet_instance(DamageUtil)
+end
 
-lazy_static(DamageUtil, "instance", _DamageUtil_instance)
+
+function initDamageUtil(this::DamageUtil)
+        initFieldsDamageUtil(this)
+        nothing
+        nothing
+end
+
+function newDamageUtil()
+    this = DamageUtil()
+    initDamageUtil(this)
+    this
+end
+
+
+function process(this::DamageUtil, damageableInterface, damageableInterface2)
+        AllBinary.damage(damageableInterface, AllBinary.getDamage(damageableInterface2, Int32(0)), Int32(0))
+        nothing
+end
+
+
+function debugDamage(this::DamageUtil, collidableInterfaceCompositeInterface1, collidableInterfaceCompositeInterface)
+        local collidableDestroyableDamageableLayer = (collidableInterfaceCompositeInterface)
+        local damage::Int32 = AllBinary.getDamage(collidableDestroyableDamageableLayer, Int32(0))
+        if damage > Int32(20000)
+            local stringBuffer = newStringMaker()
+            AllBinary.append(stringBuffer, "Collision ")
+            AllBinary.append(stringBuffer, AllBinary.toString(collidableInterfaceCompositeInterface1))
+            AllBinary.append(stringBuffer, " with: ")
+            AllBinary.append(stringBuffer, AllBinary.toString(collidableInterfaceCompositeInterface))
+            AllBinary.append(stringBuffer, " damage: ")
+            AllBinary.appendint(stringBuffer, damage)
+            AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), collidableInterfaceCompositeInterface1, this.COLLIDE)
+        end
+        nothing
+end
 

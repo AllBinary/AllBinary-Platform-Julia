@@ -1,68 +1,72 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.part.weapon
 
-from __future__ import annotations
+# extends BasicWeaponPart: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ArcedMultiBeamWeaponPart <: JObject
+    weaponLayerCircularStaticPool::Any
+    total::Int32
+    TOTAL_ANGLE::Int32
+    ArcedMultiBeamWeaponPart() = new()
+end
 
-from org.allbinary.game.part.weapon.BasicWeaponPart import BasicWeaponPart
 
-
-class ArcedMultiBeamWeaponPart(BasicWeaponPart):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-        from org.allbinary.math.AngleFactory import AngleFactory
-        self.weaponLayerCircularStaticPool: WeaponLayerCircularPool = None
-        self.total: int = None
-        self.TOTAL_ANGLE: int = int(AngleFactory.getInstance().TOTAL_ANGLE)
+function initFieldsArcedMultiBeamWeaponPart(this::ArcedMultiBeamWeaponPart)
+    this.weaponLayerCircularStaticPool = nothing
+    this.total = Int32(0)
+    this.TOTAL_ANGLE = Int32(0)
     
-
-    def __init__(self, animationInterface: Animation, sourceLayerInterface: AllBinaryLayer, weaponLayerCircularStaticPool: WeaponLayerCircularPool, total: int, weaponProperties: WeaponProperties, scoreableInterface: ScoreableInterface, relativeRelationship: RelativeRelationship) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-        from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-        from org.allbinary.graphics.RelativeRelationship import RelativeRelationship
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(animationInterface, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
-        self._init_fields()
-        self.total = total
-        self.weaponLayerCircularStaticPool = weaponLayerCircularStaticPool
     
+    this.TOTAL_ANGLE = ((AllBinary.getInstance(AngleFactory).TOTAL_ANGLE) % Int32)
+    nothing
+end
 
-    # throws Exception
-    def processScore(self, allbinaryLayerManager: AllBinaryLayerManager, angle: int, otherAngle: int, weaponProperties: WeaponProperties, scoreableInterface: ScoreableInterface) -> None:
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.game.layer.weapon.WeaponLayer import WeaponLayer
-        from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        increment: int = ((int((int((self.total - 1) / self.TOTAL_ANGLE))) + 32768) % 65536 - 32768)
-        minAngle: int = ((int((angle - ((increment * self.total) >> 1))) + 32768) % 65536 - 32768)
-        next: int = 0
-        weaponLayer: WeaponLayer = None
-        for index in range(0, self.total):
-            weaponLayer = self.weaponLayerCircularStaticPool.getInstanceWeaponLayer(self.getOwnerLayerInterface(), self.relativeRelationship.getX(), self.relativeRelationship.getY(), 0, (minAngle + increment), otherAngle, weaponProperties, scoreableInterface)
-            allbinaryLayerManager.append(weaponLayer)
-            next += increment
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-# from org.allbinary.game.layer.weapon.WeaponLayer import WeaponLayer
-# from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-# from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-# from org.allbinary.graphics.RelativeRelationship import RelativeRelationship
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.math.AngleFactory import AngleFactory
 
+function initArcedMultiBeamWeaponPart(this::ArcedMultiBeamWeaponPart, animationInterface, sourceLayerInterface, weaponLayerCircularStaticPool, total, weaponProperties, scoreableInterface, relativeRelationship)
+        initBasicWeaponPart(this, animationInterface, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
+        initFieldsArcedMultiBeamWeaponPart(this)
+        this.total = total
+        this.weaponLayerCircularStaticPool = weaponLayerCircularStaticPool
+        nothing
+end
+
+function newArcedMultiBeamWeaponPart(animationInterface, sourceLayerInterface, weaponLayerCircularStaticPool, total, weaponProperties, scoreableInterface, relativeRelationship)
+    this = ArcedMultiBeamWeaponPart()
+    initArcedMultiBeamWeaponPart(this, animationInterface, sourceLayerInterface, weaponLayerCircularStaticPool, total, weaponProperties, scoreableInterface, relativeRelationship)
+    this
+end
+
+
+function processScore(this::ArcedMultiBeamWeaponPart, allbinaryLayerManager, angle, otherAngle, weaponProperties, scoreableInterface)
+        local increment::Int16 = ((((this.total - Int32(1)) ÷ this.TOTAL_ANGLE)) % Int16)
+        local minAngle::Int16 = (((((angle) % Int32) - ((((increment) % Int32) * this.total) >> Int32(1)))) % Int16)
+        local next::Int32 = Int32(0)
+        local weaponLayer = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < this.total
+            try
+            weaponLayer = AllBinary.getInstanceWeaponLayer(this.weaponLayerCircularStaticPool, AllBinary.getOwnerLayerInterface(this), AllBinary.getX(this.relativeRelationship), AllBinary.getY(this.relativeRelationship), Int32(0), (minAngle + increment), ((otherAngle) % Int32), weaponProperties, scoreableInterface)
+            AllBinary.append(allbinaryLayerManager, weaponLayer)
+            next += ((increment) % Int32)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

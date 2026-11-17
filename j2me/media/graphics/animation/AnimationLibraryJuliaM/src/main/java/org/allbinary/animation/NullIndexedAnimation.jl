@@ -1,20 +1,30 @@
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NullIndexedAnimation <: JObject
+    NullIndexedAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
+
+function initFieldsNullIndexedAnimation(this::NullIndexedAnimation)
+    nothing
+end
 
 
-class NullIndexedAnimation(IndexedAnimation):
-    
+function initNullIndexedAnimation(this::NullIndexedAnimation, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        nothing
+end
 
-    def __init__(self, animationBehavior: AnimationBehavior) -> None:
-        super().__init__(animationBehavior)
-    
+function newNullIndexedAnimation(animationBehavior)
+    this = NullIndexedAnimation()
+    initNullIndexedAnimation(this, animationBehavior)
+    this
+end
 
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        return 0
 
+function getAnimationSize(this::NullIndexedAnimation)
+        return Int32(0)
+end
 

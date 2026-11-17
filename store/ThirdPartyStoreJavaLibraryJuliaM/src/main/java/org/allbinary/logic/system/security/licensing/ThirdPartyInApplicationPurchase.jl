@@ -1,77 +1,111 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.system.security.licensing
 
-from __future__ import annotations
+mutable struct ThirdPartyInApplicationPurchase <: JObject
+    ThirdPartyInApplicationPurchase() = new()
+end
 
-from org.allbinary.logic.system.security.licensing.ThirdPartyInApplicationPurchaseInterface import ThirdPartyInApplicationPurchaseInterface
+
+function initFieldsThirdPartyInApplicationPurchase(this::ThirdPartyInApplicationPurchase)
+    nothing
+end
+
+function initThirdPartyInApplicationPurchase(this::ThirdPartyInApplicationPurchase)
+    initFieldsThirdPartyInApplicationPurchase(this)
+end
+
+function newThirdPartyInApplicationPurchase()
+    this = ThirdPartyInApplicationPurchase()
+    initThirdPartyInApplicationPurchase(this)
+    this
+end
 
 
-class ThirdPartyInApplicationPurchase(ThirdPartyInApplicationPurchaseInterface):
-    
+function isPurchased(this::ThirdPartyInApplicationPurchase, lockableFeature)
+        return false
+end
 
-    def isPurchased(self, lockableFeature: LockableFeature) -> bool:
-        return False
-    
 
-    def onCreate(self, anyType: object, stateObject: object) -> None:
-        pass
-    
+function onCreate(this::ThirdPartyInApplicationPurchase, anyType, stateObject)
+        nothing
+        nothing
+end
 
-    def onDestroy(self) -> None:
-        pass
-    
 
-    def onStart(self) -> None:
-        pass
-    
+function onDestroy(this::ThirdPartyInApplicationPurchase)
+        nothing
+        nothing
+end
 
-    def onActivityResult(self, requestCode: int, resultCode: int, dataObject: object) -> None:
-        pass
-    
 
-    def onSaveInstanceState(self, anyType: object) -> None:
-        pass
-    
+function onStart(this::ThirdPartyInApplicationPurchase)
+        nothing
+        nothing
+end
 
-    def onStop(self) -> None:
-        pass
-    
 
-    def requestPurchase(self, lockableFeature: LockableFeature) -> None:
-        pass
-    
+function onActivityResult(this::ThirdPartyInApplicationPurchase, requestCode, resultCode, dataObject)
+        nothing
+        nothing
+end
 
-    def requestReceipts(self) -> None:
-        pass
-    
 
-    def add(self, lockableFeature: LockableFeature) -> None:
-        pass
-    
+function onSaveInstanceState(this::ThirdPartyInApplicationPurchase, anyType)
+        nothing
+        nothing
+end
 
-    def getUserName(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
 
-    def isEnabled(self) -> bool:
-        return False
-    
+function onStop(this::ThirdPartyInApplicationPurchase)
+        nothing
+        nothing
+end
 
-    def requestProducts(self) -> None:
-        pass
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function requestPurchase(this::ThirdPartyInApplicationPurchase, lockableFeature)
+        nothing
+        nothing
+end
+
+
+function requestReceipts(this::ThirdPartyInApplicationPurchase)
+        nothing
+        nothing
+end
+
+
+function add(this::ThirdPartyInApplicationPurchase, lockableFeature)
+        nothing
+        nothing
+end
+
+
+function getUserName(this::ThirdPartyInApplicationPurchase)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
+
+
+function isEnabled(this::ThirdPartyInApplicationPurchase)
+        return false
+end
+
+
+function requestProducts(this::ThirdPartyInApplicationPurchase)
+        nothing
+        nothing
+end
 

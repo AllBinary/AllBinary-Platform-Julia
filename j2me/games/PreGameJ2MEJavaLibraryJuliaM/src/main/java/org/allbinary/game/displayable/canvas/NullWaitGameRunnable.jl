@@ -1,38 +1,56 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends GameRunnable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NullWaitGameRunnable <: JObject
+    NullWaitGameRunnable() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.displayable.canvas.GameRunnable import GameRunnable
+const NullWaitGameRunnable_instanceValue = Ref{Any}(nothing)
+const NullWaitGameRunnable_instanceSet = Ref(false)
+function staticGet_instance(::Type{NullWaitGameRunnable})
+    if !NullWaitGameRunnable_instanceSet[]
+        NullWaitGameRunnable_instanceSet[] = true
+        NullWaitGameRunnable_instanceValue[] = newNullWaitGameRunnable()
+    end
+    NullWaitGameRunnable_instanceValue[]
+end
+function staticSet_instance(::Type{NullWaitGameRunnable}, value)
+    NullWaitGameRunnable_instanceSet[] = true
+    NullWaitGameRunnable_instanceValue[] = value
+end
+
+function initFieldsNullWaitGameRunnable(this::NullWaitGameRunnable)
+    nothing
+end
+
+function initNullWaitGameRunnable(this::NullWaitGameRunnable)
+    initGameRunnable(this)
+    initFieldsNullWaitGameRunnable(this)
+end
+
+function newNullWaitGameRunnable()
+    this = NullWaitGameRunnable()
+    initNullWaitGameRunnable(this)
+    this
+end
 
 
-class NullWaitGameRunnable(GameRunnable):
-    instance: GameRunnable = None
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    @staticmethod
-    def getInstance() -> GameRunnable:
-        return NullWaitGameRunnable.instance
-
-
-def _NullWaitGameRunnable_instance() -> object:
-    return NullWaitGameRunnable()
-
-lazy_static(NullWaitGameRunnable, "instance", _NullWaitGameRunnable_instance)
+function getInstance(::Type{NullWaitGameRunnable})
+        return staticGet_instance(NullWaitGameRunnable)
+end
 

@@ -1,74 +1,105 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics
 
-from __future__ import annotations
+# extends GPoint: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CustomGPoint <: JObject
+    cx::Int32
+    cy::Int32
+    cz::Int32
+    CustomGPoint() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.graphics.GPoint import GPoint
+const CustomGPoint_NULL_CUSTOM_POINTValue = Ref{Any}(nothing)
+const CustomGPoint_NULL_CUSTOM_POINTSet = Ref(false)
+function staticGet_NULL_CUSTOM_POINT(::Type{CustomGPoint})
+    if !CustomGPoint_NULL_CUSTOM_POINTSet[]
+        CustomGPoint_NULL_CUSTOM_POINTSet[] = true
+        CustomGPoint_NULL_CUSTOM_POINTValue[] = newCustomGPoint(Int32(0), Int32(0), Int32(0))
+    end
+    CustomGPoint_NULL_CUSTOM_POINTValue[]
+end
+function staticSet_NULL_CUSTOM_POINT(::Type{CustomGPoint}, value)
+    CustomGPoint_NULL_CUSTOM_POINTSet[] = true
+    CustomGPoint_NULL_CUSTOM_POINTValue[] = value
+end
 
-
-class CustomGPoint(GPoint):
-    NULL_CUSTOM_POINT: CustomGPoint = None
-
-    def _init_fields(self) -> None:
-        self.cx: int = 0
-        self.cy: int = 0
-        self.cz: int = 0
-    
-
-    @staticmethod
-    def getInstance(point: GPoint) -> CustomGPoint:
-        return CustomGPoint(point.getX(), point.getY(), point.getZ())
-    
-
-    @staticmethod
-    def getInstance3(x: int, y: int) -> CustomGPoint:
-        return CustomGPoint(x, y, 3)
-    
-
-    def __init__(self, x: int, y: int, z: int) -> None:
-        super().__init__(x, y, z)
-        self._init_fields()
-    
-
-    def setX(self, x: int) -> None:
-        self.cx = x
-    
-
-    def getX(self) -> int:
-        return self.cx
-    
-
-    def setY(self, y: int) -> None:
-        self.cy = y
-    
-
-    def getY(self) -> int:
-        return self.cy
-    
-
-    def setZ(self, z: int) -> None:
-        self.cz = z
-    
-
-    def getZ(self) -> int:
-        return self.cz
+function initFieldsCustomGPoint(this::CustomGPoint)
+    this.cx = Int32(0)
+    this.cy = Int32(0)
+    this.cz = Int32(0)
+    this.cx = Int32(0)
+    this.cy = Int32(0)
+    this.cz = Int32(0)
+    nothing
+end
 
 
-def _CustomGPoint_NULL_CUSTOM_POINT() -> object:
-    return CustomGPoint(0, 0, 0)
+function getInstance(::Type{CustomGPoint}, point)
+        return newCustomGPoint(AllBinary.getX(point), AllBinary.getY(point), AllBinary.getZ(point))
+end
 
-lazy_static(CustomGPoint, "NULL_CUSTOM_POINT", _CustomGPoint_NULL_CUSTOM_POINT)
+
+function getInstance3(::Type{CustomGPoint}, x, y)
+        return newCustomGPoint(x, y, Int32(3))
+end
+
+
+function initCustomGPoint(this::CustomGPoint, x, y, z)
+        initGPoint(this, x, y, z)
+        initFieldsCustomGPoint(this)
+        nothing
+end
+
+function newCustomGPoint(x, y, z)
+    this = CustomGPoint()
+    initCustomGPoint(this, x, y, z)
+    this
+end
+
+
+function setX(this::CustomGPoint, x)
+        this.cx = x
+        nothing
+end
+
+
+function getX(this::CustomGPoint)
+        return this.cx
+end
+
+
+function setY(this::CustomGPoint, y)
+        this.cy = y
+        nothing
+end
+
+
+function getY(this::CustomGPoint)
+        return this.cy
+end
+
+
+function setZ(this::CustomGPoint, z)
+        this.cz = z
+        nothing
+end
+
+
+function getZ(this::CustomGPoint)
+        return this.cz
+end
 

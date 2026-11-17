@@ -1,70 +1,84 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.globals
 
-from __future__ import annotations
-
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.globals.UrlGlobalsInterface import UrlGlobalsInterface
-
-
 #implements
-class AppUrlGlobals(UrlGlobalsInterface):
-    NULL_APP_URL_GLOBALS: AppUrlGlobals = None
-    _lock = threading.RLock()
+# extends UrlGlobalsInterface: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AppUrlGlobals <: JObject
+    path::Any
+    AppUrlGlobals() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.path: str = StringUtil.getInstance().EMPTY_STRING
+const AppUrlGlobals_NULL_APP_URL_GLOBALSValue = Ref{Any}(nothing)
+const AppUrlGlobals_NULL_APP_URL_GLOBALSSet = Ref(false)
+function staticGet_NULL_APP_URL_GLOBALS(::Type{AppUrlGlobals})
+    if !AppUrlGlobals_NULL_APP_URL_GLOBALSSet[]
+        AppUrlGlobals_NULL_APP_URL_GLOBALSSet[] = true
+        AppUrlGlobals_NULL_APP_URL_GLOBALSValue[] = newAppUrlGlobals()
+    end
+    AppUrlGlobals_NULL_APP_URL_GLOBALSValue[]
+end
+function staticSet_NULL_APP_URL_GLOBALS(::Type{AppUrlGlobals}, value)
+    AppUrlGlobals_NULL_APP_URL_GLOBALSSet[] = true
+    AppUrlGlobals_NULL_APP_URL_GLOBALSValue[] = value
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
+function initFieldsAppUrlGlobals(this::AppUrlGlobals)
+    this.path = nothing
+    this.path = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    nothing
+end
 
-    def isTestingMode(self) -> bool:
-        return False
-    
+function initAppUrlGlobals(this::AppUrlGlobals)
+    initUrlGlobalsInterface(this)
+    initFieldsAppUrlGlobals(this)
+end
 
-    def getWebappPath(self) -> str:
-        return self.path
-    
-
-    def setWebappPath(self, path: str) -> None:
-        with self._lock:
-            return self._setWebappPath_unlocked(path)
-
-    def _setWebappPath_unlocked(self, path: str) -> None:
-        self.path = path
-        if not (self.path.endswith("\\") or self.path.endswith("/")):
-            self.path = self.path + "\\"
-    
-
-    def getTestHtmlPath(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
-
-    # throws Exception
-    def getMainPath(self) -> str:
-        return self.path
-# from org.allbinary.logic.string.StringUtil import StringUtil
+function newAppUrlGlobals()
+    this = AppUrlGlobals()
+    initAppUrlGlobals(this)
+    this
+end
 
 
-def _AppUrlGlobals_NULL_APP_URL_GLOBALS() -> object:
-    return AppUrlGlobals()
+function isTestingMode(this::AppUrlGlobals)
+        return false
+end
 
-lazy_static(AppUrlGlobals, "NULL_APP_URL_GLOBALS", _AppUrlGlobals_NULL_APP_URL_GLOBALS)
+
+function getWebappPath(this::AppUrlGlobals)
+        return this.path
+end
+
+
+function setWebappPath(this::AppUrlGlobals, path)
+        this.path = path
+        if !(jEndsWith(this.path, "\\") || jEndsWith(this.path, "/"))
+            this.path = jstr(this.path) * jstr("\\")
+        end
+        nothing
+end
+
+
+function getTestHtmlPath(this::AppUrlGlobals)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
+
+
+function getMainPath(this::AppUrlGlobals)
+        return this.path
+end
 

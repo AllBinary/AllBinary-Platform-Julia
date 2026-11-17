@@ -1,42 +1,53 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2007 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2007 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.cache
 
-from __future__ import annotations
+mutable struct PoolType <: JObject
+    cacheType::Any
+    PoolType() = new()
+end
 
 
-
-class PoolType:
-
-    def _init_fields(self) -> None:
-        self.cacheType: CacheType = None
+function initFieldsPoolType(this::PoolType)
+    this.cacheType = nothing
     
+    nothing
+end
 
-    def __init__(self, cacheType: CacheType) -> None:
-        self._init_fields()
-        self.cacheType = cacheType
-    
 
-    def getCacheType(self) -> CacheType:
-        return self.cacheType
-    
+function initPoolType(this::PoolType, cacheType)
+        initFieldsPoolType(this)
+        this.cacheType = cacheType
+        nothing
+end
 
-    def toString(self) -> str:
-        POOL_TYPE: str = "PoolType: "
-        return POOL_TYPE + str(self.getCacheType())
+function newPoolType(cacheType)
+    this = PoolType()
+    initPoolType(this, cacheType)
+    this
+end
 
-    def __str__(self) -> str:
-        return self.toString()
 
+function getCacheType(this::PoolType)
+        return this.cacheType
+end
+
+
+function toString(this::PoolType)
+        local POOL_TYPE = "PoolType: "
+        return jstr(POOL_TYPE) * jstr(AllBinary.toString(AllBinary.getCacheType(this)))
+end
 

@@ -1,49 +1,68 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.device
 
-from __future__ import annotations
+mutable struct OpenGLESGraphicsCompositeFactory <: JObject
+    openGLESGraphicsFactory::Any
+    OpenGLESGraphicsCompositeFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const OpenGLESGraphicsCompositeFactory_instanceValue = Ref{Any}(nothing)
+const OpenGLESGraphicsCompositeFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{OpenGLESGraphicsCompositeFactory})
+    if !OpenGLESGraphicsCompositeFactory_instanceSet[]
+        OpenGLESGraphicsCompositeFactory_instanceSet[] = true
+        OpenGLESGraphicsCompositeFactory_instanceValue[] = newOpenGLESGraphicsCompositeFactory()
+    end
+    OpenGLESGraphicsCompositeFactory_instanceValue[]
+end
+function staticSet_instance(::Type{OpenGLESGraphicsCompositeFactory}, value)
+    OpenGLESGraphicsCompositeFactory_instanceSet[] = true
+    OpenGLESGraphicsCompositeFactory_instanceValue[] = value
+end
+
+function initFieldsOpenGLESGraphicsCompositeFactory(this::OpenGLESGraphicsCompositeFactory)
+    this.openGLESGraphicsFactory = nothing
+    this.openGLESGraphicsFactory = newOpenGLESGraphicsFactory()
+    nothing
+end
+
+function initOpenGLESGraphicsCompositeFactory(this::OpenGLESGraphicsCompositeFactory)
+    initFieldsOpenGLESGraphicsCompositeFactory(this)
+end
+
+function newOpenGLESGraphicsCompositeFactory()
+    this = OpenGLESGraphicsCompositeFactory()
+    initOpenGLESGraphicsCompositeFactory(this)
+    this
+end
 
 
-class OpenGLESGraphicsCompositeFactory:
-    instance: OpenGLESGraphicsCompositeFactory = None
-
-    def _init_fields(self) -> None:
-        self.openGLESGraphicsFactory: OpenGLESGraphicsFactory = OpenGLESGraphicsFactory()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> OpenGLESGraphicsCompositeFactory:
-        return OpenGLESGraphicsCompositeFactory.instance
-    
-
-    def set(self, openGLESGraphicsFactory: OpenGLESGraphicsFactory) -> None:
-        self.openGLESGraphicsFactory = openGLESGraphicsFactory
-    
-
-    def get(self) -> OpenGLESGraphicsFactory:
-        return self.openGLESGraphicsFactory
-from org.allbinary.device.OpenGLESGraphicsFactory import OpenGLESGraphicsFactory
+function getInstance(::Type{OpenGLESGraphicsCompositeFactory})
+        return staticGet_instance(OpenGLESGraphicsCompositeFactory)
+end
 
 
-def _OpenGLESGraphicsCompositeFactory_instance() -> object:
-    return OpenGLESGraphicsCompositeFactory()
+function set(this::OpenGLESGraphicsCompositeFactory, openGLESGraphicsFactory)
+        this.openGLESGraphicsFactory = openGLESGraphicsFactory
+        nothing
+end
 
-lazy_static(OpenGLESGraphicsCompositeFactory, "instance", _OpenGLESGraphicsCompositeFactory_instance)
+
+function get(this::OpenGLESGraphicsCompositeFactory)
+        return this.openGLESGraphicsFactory
+end
 

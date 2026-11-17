@@ -1,87 +1,74 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
-
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
-
-
 #TWB - Adjustments should be done in the resource creation and not at the animation level
-class PooledImageArrayRotationAnimationFactory(AnimationInterfaceFactoryInterface):
+mutable struct PooledImageArrayRotationAnimationFactory <: JObject
+    allBinaryImageRotationAnimationInfo::Any
+    animationBehaviorFactory::Any
+    PooledImageArrayRotationAnimationFactory() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.NullUtil import NullUtil
-        self.allBinaryImageRotationAnimationInfo: object = NullUtil.getInstance().NULL_OBJECT
-        self.animationBehaviorFactory: AnimationBehaviorFactory = None
+
+function initFieldsPooledImageArrayRotationAnimationFactory(this::PooledImageArrayRotationAnimationFactory)
+    this.allBinaryImageRotationAnimationInfo = nothing
+    this.animationBehaviorFactory = nothing
+    this.allBinaryImageRotationAnimationInfo = AllBinary.getInstance(NullUtil).NULL_OBJECT
     
+    nothing
+end
 
-    # throws Exception
-    @staticmethod
-    def createFactory(image: Image, animationBehaviorFactory: AnimationBehaviorFactory) -> PooledImageArrayRotationAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.game.configuration.GameConfigurationCentral import GameConfigurationCentral
-        from org.allbinary.math.AngleFactory import AngleFactory
-        totalAngle: int = int(AngleFactory.getInstance().TOTAL_ANGLE)
-        angleIncrement: int = (totalAngle / GameConfigurationCentral.getInstance().getGameControlFidelity())
-        return PooledImageArrayRotationAnimationFactory(image, image.getWidth(), image.getHeight(), -(image.getWidth() >> 2), -(image.getHeight() >> 2), angleIncrement, animationBehaviorFactory)
-    
 
-    # throws Exception
-    @staticmethod
-    def createDXY(image: Image, dx: int, dy: int, animationBehaviorFactory: AnimationBehaviorFactory) -> PooledImageArrayRotationAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.game.configuration.GameConfigurationCentral import GameConfigurationCentral
-        from org.allbinary.math.AngleFactory import AngleFactory
-        totalAngle: int = int(AngleFactory.getInstance().TOTAL_ANGLE)
-        angleIncrement: int = (totalAngle / GameConfigurationCentral.getInstance().getGameControlFidelity())
-        return PooledImageArrayRotationAnimationFactory(image, image.getWidth(), image.getHeight(), dx, dy, angleIncrement, animationBehaviorFactory)
-    
+function createFactory(::Type{PooledImageArrayRotationAnimationFactory}, image, animationBehaviorFactory)
+        local totalAngle::Int32 = ((AllBinary.getInstance(AngleFactory).TOTAL_ANGLE) % Int32)
+        local angleIncrement::Int32 = (totalAngle ÷ AllBinary.getGameControlFidelity(AllBinary.getInstance(GameConfigurationCentral)))
+        return newPooledImageArrayRotationAnimationFactory(image, AllBinary.getWidth(image), AllBinary.getHeight(image), -(AllBinary.getWidth(image) >> Int32(2)), -(AllBinary.getHeight(image) >> Int32(2)), angleIncrement, animationBehaviorFactory)
+end
 
-    def __init__(self, image: Image, width: int, height: int, dx: int, dy: int, angleIncrement: int, animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from org.allbinary.animation.image.ImageArrayRotationAnimationInfo import ImageArrayRotationAnimationInfo
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.math.AngleFactory import AngleFactory
-        from org.allbinary.media.image.ImageToRotationImageArrayUtil import ImageToRotationImageArrayUtil
-        self._init_fields()
-        self.animationBehaviorFactory = animationBehaviorFactory
-        totalAngle: int = int(AngleFactory.getInstance().TOTAL_ANGLE)
-        imageArray: list[Image] = ImageToRotationImageArrayUtil.getInstance().generate(image, angleIncrement, totalAngle)
-        self.allBinaryImageRotationAnimationInfo = ImageArrayRotationAnimationInfo(imageArray, angleIncrement, totalAngle, dx, dy)
-    
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.image.AdjustedImageArrayRotationAnimation import AdjustedImageArrayRotationAnimation
-        from org.allbinary.animation.Animation import Animation
-        return AdjustedImageArrayRotationAnimation.createAdjustedImageArrayRotationAnimationInfo(self.allBinaryImageRotationAnimationInfo, self.animationBehaviorFactory.getOrCreateInstance())
-    
+function createDXY(::Type{PooledImageArrayRotationAnimationFactory}, image, dx, dy, animationBehaviorFactory)
+        local totalAngle::Int32 = ((AllBinary.getInstance(AngleFactory).TOTAL_ANGLE) % Int32)
+        local angleIncrement::Int32 = (totalAngle ÷ AllBinary.getGameControlFidelity(AllBinary.getInstance(GameConfigurationCentral)))
+        return newPooledImageArrayRotationAnimationFactory(image, AllBinary.getWidth(image), AllBinary.getHeight(image), dx, dy, angleIncrement, animationBehaviorFactory)
+end
 
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.game.configuration.GameConfigurationCentral import GameConfigurationCentral
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.math.AngleFactory import AngleFactory
-# from org.allbinary.media.ScaleProperties import ScaleProperties
-# from org.allbinary.media.image.ImageToRotationImageArrayUtil import ImageToRotationImageArrayUtil
 
+function initPooledImageArrayRotationAnimationFactory(this::PooledImageArrayRotationAnimationFactory, image, width, height, dx, dy, angleIncrement, animationBehaviorFactory)
+        initFieldsPooledImageArrayRotationAnimationFactory(this)
+        this.animationBehaviorFactory = animationBehaviorFactory
+        local totalAngle::Int32 = ((AllBinary.getInstance(AngleFactory).TOTAL_ANGLE) % Int32)
+        local imageArray = AllBinary.generate(AllBinary.getInstance(ImageToRotationImageArrayUtil), image, angleIncrement, totalAngle)
+        this.allBinaryImageRotationAnimationInfo = newImageArrayRotationAnimationInfo(imageArray, angleIncrement, totalAngle, dx, dy)
+        nothing
+end
+
+function newPooledImageArrayRotationAnimationFactory(image, width, height, dx, dy, angleIncrement, animationBehaviorFactory)
+    this = PooledImageArrayRotationAnimationFactory()
+    initPooledImageArrayRotationAnimationFactory(this, image, width, height, dx, dy, angleIncrement, animationBehaviorFactory)
+    this
+end
+
+
+function getInstance(this::PooledImageArrayRotationAnimationFactory, instanceId)
+        return AllBinary.createAdjustedImageArrayRotationAnimationInfo(AdjustedImageArrayRotationAnimation, this.allBinaryImageRotationAnimationInfo, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+end
+
+
+function setInitialScale(this::PooledImageArrayRotationAnimationFactory, scaleProperties)
+        nothing
+        nothing
+end
 

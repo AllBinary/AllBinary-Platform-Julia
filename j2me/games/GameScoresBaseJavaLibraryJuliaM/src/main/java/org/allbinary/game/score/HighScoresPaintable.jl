@@ -1,122 +1,130 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HighScoresPaintable <: JObject
+    displayInfoSingleton::Any
+    myFontProcessor::Any
+    basicColor::Any
+    highScores::Any
+    anchor::Int32
+    charHeight::Int32
+    HighScoresPaintable() = new()
+end
 
-from org.allbinary.graphics.color.ColorChangeListener import ColorChangeListener
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.paint.Paintable import Paintable
+
+function initFieldsHighScoresPaintable(this::HighScoresPaintable)
+    this.displayInfoSingleton = nothing
+    this.myFontProcessor = nothing
+    this.basicColor = nothing
+    this.highScores = nothing
+    this.anchor = Int32(0)
+    this.charHeight = Int32(0)
+    this.displayInfoSingleton = AllBinary.getInstance(DisplayInfoSingleton)
+    this.myFontProcessor = newUpdateMyFontProcessor(this)
+    this.basicColor = AllBinary.getInstance(BasicColorFactory).WHITE
+    this.highScores = AllBinary.getInstance(NullHighScoresSingletonFactory)
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    this.charHeight = Int32(0)
+    nothing
+end
 
 
-class HighScoresPaintable(Paintable, ColorChangeListener, UpdateMyFontInterface):
+function initHighScoresPaintable(this::HighScoresPaintable)
+        initPaintable(this)
+        initFieldsHighScoresPaintable(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        self.displayInfoSingleton: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.myFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.basicColor: BasicColor = BasicColorFactory.getInstance().WHITE
-        self.highScores: HighScores = NullHighScoresSingletonFactory.getInstance()
-        self.anchor: int = Anchor.TOP_LEFT
-        self.charHeight: int = 0
-    
+function newHighScoresPaintable()
+    this = HighScoresPaintable()
+    initHighScoresPaintable(this)
+    this
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.charHeight = font.getHeight()
-        self.myFontProcessor = MyFontProcessor.getInstance()
-    
+function updateMeasurement(this::HighScoresPaintable, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.charHeight = AllBinary.getHeight(font)
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.graphics.color.ColorChangeEvent import ColorChangeEvent
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        colorChangeEvent: ColorChangeEvent = eventObject
-        self.basicColor = colorChangeEvent.getBasicColorP()
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.myFontProcessor.process(graphics)
-        width: int = self.displayInfoSingleton.getLastWidth()
-        height: int = self.displayInfoSingleton.getLastHeight()
-        graphics.setColor(int(self.getBasicColorP()))
-        heading: str = self.highScores.getHeading()
-        topScoresWidth: int = (graphics.getFont().stringWidth(heading) >> 1)
-        charHeight: int = self.charHeight
-        graphics.drawString(heading, (width >> 1) - topScoresWidth, charHeight, self.anchor)
-        graphics.drawString(self.highScores.getColumnOneHeading(), 10, charHeight * 3, self.anchor)
-        columnTwoHeading: str = self.highScores.getColumnTwoHeading()
-        columnTwoHeadingWidth: int = graphics.getFont().stringWidth(columnTwoHeading)
-        graphics.drawString(columnTwoHeading, width - 10 - columnTwoHeadingWidth, charHeight * 3, self.anchor)
-        index: int = 4
-        largestSecondColumnWidth: int = columnTwoHeadingWidth
-        list_: BasicArrayList = self.highScores.getList()
-        size: int = list_.size()
-        vectorIndex: int = 0
-        highScore: HighScore = None
-        while vectorIndex < size and charHeight * index < height - (charHeight * 2):
-            highScore = list_.objectArray[vectorIndex]
-            nextScoreWidth: int = graphics.getFont().stringWidth(highScore.getScoreString())
-            if nextScoreWidth > largestSecondColumnWidth:
+function onEvent(this::HighScoresPaintable, eventObject)
+        local colorChangeEvent = (eventObject)
+        this.basicColor = AllBinary.getBasicColorP(colorChangeEvent)
+        nothing
+end
+
+
+function paint(this::HighScoresPaintable, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        local width::Int32 = AllBinary.getLastWidth(this.displayInfoSingleton)
+        local height::Int32 = AllBinary.getLastHeight(this.displayInfoSingleton)
+        AllBinary.setColor(graphics, AllBinary.intValue(AllBinary.getBasicColorP(this)))
+        local heading = AllBinary.getHeading(this.highScores)
+        local topScoresWidth::Int32 = (AllBinary.stringWidth(AllBinary.getFont(graphics), heading) >> Int32(1))
+        local charHeight::Int32 = this.charHeight
+        AllBinary.drawString(graphics, heading, (width >> Int32(1)) - topScoresWidth, charHeight, this.anchor)
+        AllBinary.drawString(graphics, AllBinary.getColumnOneHeading(this.highScores), Int32(10), charHeight * Int32(3), this.anchor)
+        local columnTwoHeading = AllBinary.getColumnTwoHeading(this.highScores)
+        local columnTwoHeadingWidth::Int32 = AllBinary.stringWidth(AllBinary.getFont(graphics), columnTwoHeading)
+        AllBinary.drawString(graphics, columnTwoHeading, width - Int32(10) - columnTwoHeadingWidth, charHeight * Int32(3), this.anchor)
+        local index::Int32 = Int32(4)
+        local largestSecondColumnWidth::Int32 = columnTwoHeadingWidth
+        local list = AllBinary.getList(this.highScores)
+        local size::Int32 = AllBinary.size(list)
+        local vectorIndex::Int32 = Int32(0)
+        local highScore = nothing
+        while vectorIndex < size && charHeight * index < height - (charHeight * Int32(2))
+            highScore = (list.objectArray[vectorIndex + 1])
+            local nextScoreWidth::Int32 = AllBinary.stringWidth(AllBinary.getFont(graphics), AllBinary.getScoreString(highScore))
+            if nextScoreWidth > largestSecondColumnWidth
                 largestSecondColumnWidth = nextScoreWidth
-            vectorIndex += 1
-        vectorIndex = 0
-        while vectorIndex < size and charHeight * index < height - (charHeight * 2):
-            highScore = list_.objectArray[vectorIndex]
-            graphics.drawString(highScore.getName(), 10, charHeight * index, self.anchor)
-            graphics.drawString(highScore.getScoreString(), width - 10 - largestSecondColumnWidth, charHeight * index, self.anchor)
-            index += 1
-            vectorIndex += 1
-    
+            end
+            vectorIndex += Int32(1)
+        end
+        vectorIndex = Int32(0)
+        while vectorIndex < size && charHeight * index < height - (charHeight * Int32(2))
+            highScore = (list.objectArray[vectorIndex + 1])
+            AllBinary.drawString(graphics, AllBinary.getName(highScore), Int32(10), charHeight * index, this.anchor)
+            AllBinary.drawString(graphics, AllBinary.getScoreString(highScore), width - Int32(10) - largestSecondColumnWidth, charHeight * index, this.anchor)
+            index += Int32(1)
+            vectorIndex += Int32(1)
+        end
+        nothing
+end
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.basicColor = basicColor
-    
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.basicColor
-    
+function setBasicColorP(this::HighScoresPaintable, basicColor)
+        this.basicColor = basicColor
+        nothing
+end
 
-    def setHighScores(self, highScores: HighScores) -> None:
-        self.highScores = highScores
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.color.ColorChangeEvent import ColorChangeEvent
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-from org.allbinary.game.score.NullHighScoresSingletonFactory import NullHighScoresSingletonFactory
 
+function getBasicColorP(this::HighScoresPaintable)
+        return this.basicColor
+end
+
+
+function setHighScores(this::HighScoresPaintable, highScores)
+        this.highScores = highScores
+        nothing
+end
 

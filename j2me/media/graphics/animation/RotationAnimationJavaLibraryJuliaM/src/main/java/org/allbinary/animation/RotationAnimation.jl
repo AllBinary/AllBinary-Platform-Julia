@@ -1,122 +1,143 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct RotationAnimation <: JObject
+    frameUtil::Any
+    directionUtil::Any
+    angleInfo::Any
+    circularIndexUtil::Any
+    RotationAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-from org.allbinary.animation.RotationAnimationInterface import RotationAnimationInterface
 
-
-class RotationAnimation(IndexedAnimation, RotationAnimationInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.direction.DirectionUtil import DirectionUtil
-        from org.allbinary.math.AngleInfo import AngleInfo
-        from org.allbinary.math.FrameUtil import FrameUtil
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.frameUtil: FrameUtil = FrameUtil.getInstance()
-        self.directionUtil: DirectionUtil = DirectionUtil.getInstance()
-        self.angleInfo: AngleInfo = None
-        self.circularIndexUtil: CircularIndexUtil = None
+function initFieldsRotationAnimation(this::RotationAnimation)
+    this.frameUtil = nothing
+    this.directionUtil = nothing
+    this.angleInfo = nothing
+    this.circularIndexUtil = nothing
+    this.frameUtil = AllBinary.getInstance(FrameUtil)
+    this.directionUtil = AllBinary.getInstance(DirectionUtil)
     
-
-    def __init__(self, angleInfo: AngleInfo, circularIndexUtil: CircularIndexUtil, animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.math.AngleInfo import AngleInfo
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.angleInfo = angleInfo
-        self.circularIndexUtil = circularIndexUtil
     
+    nothing
+end
 
-    def nextRotationX(self) -> None:
-        pass
-    
 
-    def previousRotationX(self) -> None:
-        pass
-    
+function initRotationAnimation(this::RotationAnimation, angleInfo, circularIndexUtil, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        initFieldsRotationAnimation(this)
+        this.angleInfo = angleInfo
+        this.circularIndexUtil = circularIndexUtil
+        nothing
+end
 
-    def nextRotation(self) -> None:
-        self.angleInfo.adjustAngle(self.circularIndexUtil.next())
-    
+function newRotationAnimation(angleInfo, circularIndexUtil, animationBehavior)
+    this = RotationAnimation()
+    initRotationAnimation(this, angleInfo, circularIndexUtil, animationBehavior)
+    this
+end
 
-    def previousRotation(self) -> None:
-        self.angleInfo.adjustAngle(self.circularIndexUtil.previous())
-    
 
-    def nextRotationZ(self) -> None:
-        pass
-    
+function nextRotationX(this::RotationAnimation)
+        nothing
+        nothing
+end
 
-    def previousRotationZ(self) -> None:
-        pass
-    
 
-    def setFrame(self, index: int) -> None:
-        self.circularIndexUtil.setIndex(index)
-        newFrame: int = self.circularIndexUtil.getIndex()
-        self.angleInfo.adjustAngle(newFrame)
-    
+function previousRotationX(this::RotationAnimation)
+        nothing
+        nothing
+end
 
-    def setFrameByDirection(self, direction: Direction) -> None:
-        from org.allbinary.direction.Direction import Direction
-        from org.allbinary.math.Angle import Angle
-        angle: Angle = self.directionUtil.getFrameAngle(direction)
-        self.adjustFrameToAngle(angle)
-    
 
-    def setFrameToAngle(self, angle: Angle) -> None:
-        from org.allbinary.math.Angle import Angle
-        self.adjustFrameToAngle(angle)
-    
+function nextRotation(this::RotationAnimation)
+        AllBinary.adjustAngle(this.angleInfo, AllBinary.next(this.circularIndexUtil))
+        nothing
+end
 
-    def adjustFrameToAngle(self, angle: Angle) -> None:
-        from org.allbinary.math.Angle import Angle
-        self.adjustFrame(angle.getValue())
-    
 
-    def adjustFrame(self, angle: int) -> None:
-        self.setFrame(self.frameUtil.getFrameForAngle(angle, int(self.angleInfo.getAngleIncrementInfo().getAngleIncrement())))
-    
+function previousRotation(this::RotationAnimation)
+        AllBinary.adjustAngle(this.angleInfo, AllBinary.previous(this.circularIndexUtil))
+        nothing
+end
 
-    def getFrame(self) -> int:
-        return self.circularIndexUtil.getIndex()
-    
 
-    def getSize(self) -> int:
-        return self.circularIndexUtil.getSize()
-    
+function nextRotationZ(this::RotationAnimation)
+        nothing
+        nothing
+end
 
-    def getAngleInfoP(self) -> AngleInfo:
-        from org.allbinary.math.AngleInfo import AngleInfo
-        return self.angleInfo
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        return str(StringMaker().append(str(super())).append("circularIndexUtil: ").append(str(self.circularIndexUtil)).append("angleInfo: ").append(str(self.angleInfo)))
+function previousRotationZ(this::RotationAnimation)
+        nothing
+        nothing
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.direction.Direction import Direction
-# from org.allbinary.direction.DirectionUtil import DirectionUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.math.Angle import Angle
-# from org.allbinary.math.AngleInfo import AngleInfo
-# from org.allbinary.math.FrameUtil import FrameUtil
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
 
+function setFrame(this::RotationAnimation, index)
+        AllBinary.setIndex(this.circularIndexUtil, index)
+        local newFrame::Int32 = AllBinary.getIndex(this.circularIndexUtil)
+        AllBinary.adjustAngle(this.angleInfo, newFrame)
+        nothing
+end
+
+
+function setFrameByDirection(this::RotationAnimation, direction)
+        local angle = AllBinary.getFrameAngle(this.directionUtil, direction)
+        AllBinary.adjustFrameToAngle(this, angle)
+        nothing
+end
+
+
+function setFrameToAngle(this::RotationAnimation, angle)
+        AllBinary.adjustFrameToAngle(this, angle)
+        nothing
+end
+
+
+function adjustFrameToAngle(this::RotationAnimation, angle)
+        AllBinary.adjustFrame(this, AllBinary.getValue(angle))
+        nothing
+end
+
+
+function adjustFrame(this::RotationAnimation, angle)
+        AllBinary.setFrame(this, AllBinary.getFrameForAngle(this.frameUtil, angle, ((AllBinary.getAngleIncrement(AllBinary.getAngleIncrementInfo(this.angleInfo))) % Int32)))
+        nothing
+end
+
+
+function getFrame(this::RotationAnimation)
+        return AllBinary.getIndex(this.circularIndexUtil)
+end
+
+
+function getSize(this::RotationAnimation)
+        return AllBinary.getSize(this.circularIndexUtil)
+end
+
+
+function getAngleInfoP(this::RotationAnimation)
+        return this.angleInfo
+end
+
+
+function toString(this::RotationAnimation)
+        return AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.toString(this)), "circularIndexUtil: "), AllBinary.toString(this.circularIndexUtil)), "angleInfo: "), AllBinary.toString(this.angleInfo)))
+end
 

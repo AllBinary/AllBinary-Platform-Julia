@@ -1,61 +1,76 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.midlet
 
-from __future__ import annotations
+mutable struct ExitRunnable <: JObject
+    logUtil::Any
+    commonStrings::Any
+    midlet::Any
+    processor::Any
+    isProgress::Bool
+    ExitRunnable() = new()
+end
 
 
-
-class ExitRunnable(object):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.canvas.Processor import Processor
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.midlet: AllBinaryMidlet = None
-        self.processor: Processor = None
-        self.isProgress: bool = None
+function initFieldsExitRunnable(this::ExitRunnable)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.midlet = nothing
+    this.processor = nothing
+    this.isProgress = false
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
-
-    def __init__(self, midlet: AllBinaryMidlet, processor: Processor, isProgress: bool) -> None:
-        from org.allbinary.canvas.Processor import Processor
-        self._init_fields()
-        self.midlet = midlet
-        self.isProgress = isProgress
-        self.processor = processor
     
+    
+    nothing
+end
 
-    def run(self) -> None:
-        from javax.microedition.lcdui.NullCanvas import NullCanvas
-        try:
-            self.logUtil.putF(self.commonStrings.START_RUNNABLE, self, self.commonStrings.RUN)
-            self.midlet.destroyAppInRunnable(False, self.isProgress)
-            self.midlet.setDisplay(NullCanvas.NULL_CANVAS)
-            self.midlet.notifyDestroyed()
-            self.logUtil.putF(self.commonStrings.END_RUNNABLE, self, self.commonStrings.RUN)
-            self.processor.process()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.RUN, e)
-            try:
-                self.processor.process()
-            except Exception as e2:
-                self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.RUN, e)
-# from javax.microedition.lcdui.NullCanvas import NullCanvas
-# from org.allbinary.canvas.Processor import Processor
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
 
+function initExitRunnable(this::ExitRunnable, midlet, processor, isProgress)
+        initFieldsExitRunnable(this)
+        this.midlet = midlet
+        this.isProgress = isProgress
+        this.processor = processor
+        nothing
+end
+
+function newExitRunnable(midlet, processor, isProgress)
+    this = ExitRunnable()
+    initExitRunnable(this, midlet, processor, isProgress)
+    this
+end
+
+
+function run(this::ExitRunnable)
+        try
+            AllBinary.putF(this.logUtil, this.commonStrings.START_RUNNABLE, this, this.commonStrings.RUN)
+            AllBinary.destroyAppInRunnable(this.midlet, false, this.isProgress)
+            AllBinary.setDisplay(this.midlet, staticGet_NULL_CANVAS(NullCanvas))
+            AllBinary.notifyDestroyed(this.midlet)
+            AllBinary.putF(this.logUtil, this.commonStrings.END_RUNNABLE, this, this.commonStrings.RUN)
+            AllBinary.process(this.processor)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.RUN, e)
+            try
+                AllBinary.process(this.processor)
+            catch e2
+                AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.RUN, e)
+            end
+        end
+        nothing
+end
 

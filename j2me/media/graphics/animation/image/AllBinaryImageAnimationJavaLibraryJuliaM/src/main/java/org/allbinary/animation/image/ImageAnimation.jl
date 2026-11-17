@@ -1,99 +1,114 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageAnimation <: JObject
+    image::Any
+    anchor::Int32
+    ImageAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
 
-
-class ImageAnimation(IndexedAnimation):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.graphics.Anchor import Anchor
-        self.image: Image = None
-        self.anchor: int = Anchor.TOP_LEFT
+function initFieldsImageAnimation(this::ImageAnimation)
+    this.image = nothing
+    this.anchor = Int32(0)
     
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    nothing
+end
 
-    def __init__(self, image: Image, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.image = image
-    
 
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        return self.getSize()
-    
+function initImageAnimation(this::ImageAnimation, image, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        initFieldsImageAnimation(this)
+        this.image = image
+        nothing
+end
 
-    def nextFrame(self) -> None:
-        pass
-    
+function newImageAnimation(image, animationBehavior)
+    this = ImageAnimation()
+    initImageAnimation(this, image, animationBehavior)
+    this
+end
 
-    def previousFrame(self) -> None:
-        pass
-    
 
-    def setFrame(self, index: int) -> None:
-        pass
-    
+function getAnimationSize(this::ImageAnimation)
+        return AllBinary.getSize(this)
+end
 
-    def getFrame(self) -> int:
-        return 0
-    
 
-    def getSize(self) -> int:
-        return 1
-    
+function nextFrame(this::ImageAnimation)
+        nothing
+        nothing
+end
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
+function previousFrame(this::ImageAnimation)
+        nothing
+        nothing
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        graphics.drawImage(self.image, x, y, self.anchor)
-    
 
-    def getImage(self) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        return self.image
-    
+function setFrame(this::ImageAnimation, index)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def close(self) -> None:
-        from org.allbinary.DisposalUtil import DisposalUtil
-        DisposalUtil.getInstance().disposeImage(self.image)
-    
 
-    # throws Throwable
-    def finalize(self) -> None:
-        from org.allbinary.DisposalUtil import DisposalUtil
-        DisposalUtil.getInstance().disposeImage(self.image)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.DisposalUtil import DisposalUtil
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
+function getFrame(this::ImageAnimation)
+        return Int32(0)
+end
 
+
+function getSize(this::ImageAnimation)
+        return Int32(1)
+end
+
+
+function setSequence(this::ImageAnimation, sequence)
+        nothing
+        nothing
+end
+
+
+function getSequence(this::ImageAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
+
+
+function paintXY(this::ImageAnimation, graphics, x, y)
+        AllBinary.drawImage(graphics, this.image, x, y, this.anchor)
+        nothing
+end
+
+
+function getImage(this::ImageAnimation)
+        return this.image
+end
+
+
+function close(this::ImageAnimation)
+        AllBinary.disposeImage(AllBinary.getInstance(DisposalUtil), this.image)
+        nothing
+end
+
+
+function finalize(this::ImageAnimation)
+        AllBinary.disposeImage(AllBinary.getInstance(DisposalUtil), this.image)
+        nothing
+end
 

@@ -1,161 +1,210 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image
 
-from __future__ import annotations
+mutable struct ImageCacheBase <: JObject
+    logUtil::Any
+    imageFactory::Any
+    hashtable::Any
+    SIZE::Int32
+    widths::Any
+    heights::Any
+    listOfList::Any
+    availableListOfList::Any
+    volume::Int32
+    nextIndex::Int32
+    ImageCacheBase() = new()
+end
 
 
+function initFieldsImageCacheBase(this::ImageCacheBase)
+    this.logUtil = nothing
+    this.imageFactory = nothing
+    this.hashtable = nothing
+    this.SIZE = Int32(0)
+    this.widths = nothing
+    this.heights = nothing
+    this.listOfList = nothing
+    this.availableListOfList = nothing
+    this.volume = Int32(0)
+    this.nextIndex = Int32(0)
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.imageFactory = AllBinary.getInstance(ImageFactory)
+    this.hashtable = AllBinary.createHashtable(AllBinary.getInstance(StdUtil))
+    this.SIZE = Int32(128)
+    this.widths = jNewArray(Int32, this.SIZE, Int32(0))
+    this.heights = jNewArray(Int32, this.SIZE, Int32(0))
+    this.listOfList = jNewArray(Any, this.SIZE, nothing)
+    this.availableListOfList = jNewArray(Any, this.SIZE, nothing)
+    this.volume = Int32(0)
+    this.nextIndex = Int32(0)
+    nothing
+end
 
-class ImageCacheBase:
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.StdUtil import StdUtil
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.imageFactory: ImageFactory = ImageFactory.getInstance()
-        self.hashtable: ABHashtable[object, object] = StdUtil.getInstance().createHashtable()
-        self.SIZE: int = 128
-        self.widths: list[int] = [0] * (self.SIZE)
-        self.heights: list[int] = [0] * (self.SIZE)
-        self.listOfList: list[BasicArrayList] = [None] * (self.SIZE)
-        self.availableListOfList: list[BasicArrayList] = [None] * (self.SIZE)
-        self.volume: int = 0
-        self.nextIndex: int = 0
-    
+function initImageCacheBase(this::ImageCacheBase)
+        initFieldsImageCacheBase(this)
+        let
+            local index::Int32 = Int32(Base.length(this.listOfList)) - Int32(1)
+            while index >= Int32(0)
+            try
+            this.listOfList[index + 1] = newBasicArrayListD()
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        let
+            index = Int32(Base.length(this.availableListOfList)) - Int32(1)
+            while index >= Int32(0)
+            try
+            this.availableListOfList[index + 1] = newBasicArrayListD()
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self._init_fields()
-        for index in range(len(self.listOfList) - 1, 0 - 1, -1):
-            self.listOfList[index] = BasicArrayListD()
-        for index in range(len(self.availableListOfList) - 1, 0 - 1, -1):
-            self.availableListOfList[index] = BasicArrayListD()
-    
+function newImageCacheBase()
+    this = ImageCacheBase()
+    initImageCacheBase(this)
+    this
+end
 
-    def getImage(self, resourceId: object) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.NullImage import NullImage
-        imageCanBeNull: object = self.hashtable.get(resourceId)
-        if imageCanBeNull is None:
-            return NullImage.NULL_IMAGE
-        return imageCanBeNull
-    
 
-    def releaseAll(self) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        for index in range(len(self.listOfList) - 1, 0 - 1, -1):
-            self.availableListOfList[index].clear()
-            self.availableListOfList[index].addAllList(self.listOfList[index])
-        self.logUtil.putF(str(StringMaker().append("ImageCache: ").append(str(self))), self, "releaseAll")
-    
+function getImage(this::ImageCacheBase, resourceId)
+        local imageCanBeNull = AllBinary.get(this.hashtable, resourceId)
+        if imageCanBeNull === nothing
+            return staticGet_NULL_IMAGE(NullImage)
+        end
+        return (imageCanBeNull)
+end
 
-    def getIndexWH(self, width: int, height: int) -> int:
-        foundIndex: int = -1
-        size: int = len(self.widths)
-        for index in range(0, size):
-            if self.widths[index] == width and self.heights[index] == height:
+
+function releaseAll(this::ImageCacheBase)
+        let
+            local index::Int32 = Int32(Base.length(this.listOfList)) - Int32(1)
+            while index >= Int32(0)
+            try
+            AllBinary.clear(this.availableListOfList[index + 1])
+            AllBinary.addAllList(this.availableListOfList[index + 1], this.listOfList[index + 1])
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "ImageCache: "), AllBinary.toString(this))), this, "releaseAll")
+        nothing
+end
+
+
+function getIndexWH(this::ImageCacheBase, width, height)
+        local foundIndex::Int32 = -Int32(1)
+        local size::Int32 = Int32(Base.length(this.widths))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            if this.widths[index + 1] == width && this.heights[index + 1] == height
                 foundIndex = index
                 return foundIndex
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
         return foundIndex
-    
+end
 
-    def getFromAvailable(self, foundIndex: int, width: int, height: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.NullImage import NullImage
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        if foundIndex != -1:
-            if self.availableListOfList[foundIndex].size() > 0:
-                list_: BasicArrayList = self.availableListOfList[foundIndex]
-                return list_.removeAt(list_.size() - 1)
-        return NullImage.NULL_IMAGE
-    
 
-    # throws Exception
-    def get(self, caller: str, width: int, height: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        raise RuntimeError()
-    
+function getFromAvailable(this::ImageCacheBase, foundIndex, width, height)
+        if foundIndex != -Int32(1)
+            if AllBinary.size(this.availableListOfList[foundIndex + 1]) > Int32(0)
+                local list = this.availableListOfList[foundIndex + 1]
+                return (AllBinary.removeAt(list, AllBinary.size(list) - Int32(1)))
+            end
+        end
+        return staticGet_NULL_IMAGE(NullImage)
+end
 
-    # throws Exception
-    def getWithKey(self, key: object) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        raise RuntimeError()
-    
 
-    # throws Exception
-    def createImage(self, caller: str, width: int, height: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        return self.imageFactory.createImage(caller, width, height)
-    
+function get(this::ImageCacheBase, caller, width, height)
+        throw(jNewException("RuntimeException", ""))
+end
 
-    # throws Exception
-    def createImageFromInputStream(self, key: object, inputStream: InputStream) -> Image:
-        from java.io.InputStream import InputStream
-        from javax.microedition.lcdui.Image import Image
-        return self.imageFactory.createImageFromInputStream(key, inputStream)
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        from org.allbinary.string.CommonSeps import CommonSeps
-        stringBuffer: StringMaker = StringMaker()
-        for index in range(self.nextIndex - 1, 0 - 1, -1):
-            width: int = self.widths[index]
-            height: int = self.heights[index]
-            total: int = self.listOfList[index].size()
-            totalAvailable: int = self.availableListOfList[index].size()
-            stringBuffer.append(" w: ")
-            stringBuffer.appendint(width)
-            stringBuffer.append(" h: ")
-            stringBuffer.appendint(height)
-            stringBuffer.append(CommonSeps.getInstance().SPACE)
-            stringBuffer.append(CommonLabels.getInstance().TOTAL_LABEL)
-            stringBuffer.appendint(total)
-            stringBuffer.append(" available: ")
-            stringBuffer.appendint(totalAvailable)
-        return str(stringBuffer)
+function getWithKey(this::ImageCacheBase, key)
+        throw(jNewException("RuntimeException", ""))
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-    
 
-    def getHashtableP(self) -> ABHashtable[object, object]:
-        from org.allbinary.util.ABHashtable import ABHashtable
-        return self.hashtable
-    
+function createImage(this::ImageCacheBase, caller, width, height)
+        return AllBinary.createImage(this.imageFactory, caller, width, height)
+end
 
-    def init(self, image: Image) -> None:
-        from javax.microedition.lcdui.Image import Image
-        pass
-    
 
-    def initProgress(self) -> None:
-        pass
-# from java.io.InputStream import InputStream
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.NullImage import NullImage
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-from org.allbinary.image.ImageFactory import ImageFactory
+function createImageFromInputStream(this::ImageCacheBase, key, inputStream)
+        return AllBinary.createImageFromInputStream(this.imageFactory, key, inputStream)
+end
 
+
+function toString(this::ImageCacheBase)
+        local stringBuffer = newStringMaker()
+        let
+            local index::Int32 = this.nextIndex - Int32(1)
+            while index >= Int32(0)
+            try
+            local width::Int32 = this.widths[index + 1]
+            local height::Int32 = this.heights[index + 1]
+            local total::Int32 = AllBinary.size(this.listOfList[index + 1])
+            local totalAvailable::Int32 = AllBinary.size(this.availableListOfList[index + 1])
+            AllBinary.append(stringBuffer, " w: ")
+            AllBinary.appendint(stringBuffer, width)
+            AllBinary.append(stringBuffer, " h: ")
+            AllBinary.appendint(stringBuffer, height)
+            AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+            AllBinary.append(stringBuffer, AllBinary.getInstance(CommonLabels).TOTAL_LABEL)
+            AllBinary.appendint(stringBuffer, total)
+            AllBinary.append(stringBuffer, " available: ")
+            AllBinary.appendint(stringBuffer, totalAvailable)
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        return AllBinary.toString(stringBuffer)
+end
+
+
+function getHashtableP(this::ImageCacheBase)
+        return this.hashtable
+end
+
+
+function init(this::ImageCacheBase, image)
+        nothing
+        nothing
+end
+
+
+function initProgress(this::ImageCacheBase)
+        nothing
+        nothing
+end
 

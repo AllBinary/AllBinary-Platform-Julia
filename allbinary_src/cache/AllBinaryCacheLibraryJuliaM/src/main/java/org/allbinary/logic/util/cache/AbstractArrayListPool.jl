@@ -1,60 +1,80 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.cache
 
-from __future__ import annotations
+mutable struct AbstractArrayListPool <: JObject
+    commonStrings::Any
+    buffers::Any
+    cacheableInterfaceFactoryInterface::Any
+    AbstractArrayListPool() = new()
+end
 
-from org.allbinary.logic.util.cache.PoolInterface import PoolInterface
 
-
-class AbstractArrayListPool(PoolInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.buffers: BasicArrayList = BasicArrayListD()
-        self.cacheableInterfaceFactoryInterface: CacheableInterfaceFactoryInterface = None
+function initFieldsAbstractArrayListPool(this::AbstractArrayListPool)
+    this.commonStrings = nothing
+    this.buffers = nothing
+    this.cacheableInterfaceFactoryInterface = nothing
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.buffers = newBasicArrayListD()
     
+    nothing
+end
 
-    def __init__(self, cacheableInterfaceFactoryInterface: CacheableInterfaceFactoryInterface) -> None:
-        self._init_fields()
-        self.cacheableInterfaceFactoryInterface = cacheableInterfaceFactoryInterface
-    
 
-    # throws Exception
-    def clear(self) -> None:
-        raise Exception(self.commonStrings.NOT_IMPLEMENTED)
-    
+function initAbstractArrayListPool(this::AbstractArrayListPool, cacheableInterfaceFactoryInterface)
+        initFieldsAbstractArrayListPool(this)
+        this.cacheableInterfaceFactoryInterface = cacheableInterfaceFactoryInterface
+        nothing
+end
 
-    # throws Exception
-    def remove(self, key: object) -> CacheableInterface:
-        raise Exception(self.commonStrings.NOT_IMPLEMENTED)
-    
+function newAbstractArrayListPool(cacheableInterfaceFactoryInterface)
+    this = AbstractArrayListPool()
+    initAbstractArrayListPool(this, cacheableInterfaceFactoryInterface)
+    this
+end
 
-    # throws Exception
-    def add(self, cacheableInterface: CacheableInterface) -> None:
-        self.buffers.add(cacheableInterface)
-    
 
-    # throws Exception
-    def addArray(self, cacheableInterfaces: list[CacheableInterface]) -> None:
-        for index in range(0, len(cacheableInterfaces)):
-            self.buffers.add(cacheableInterfaces[index])
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function clear(this::AbstractArrayListPool)
+        throw(jNewException("Exception", this.commonStrings.NOT_IMPLEMENTED))
+        nothing
+end
 
+
+function remove(this::AbstractArrayListPool, key)
+        throw(jNewException("Exception", this.commonStrings.NOT_IMPLEMENTED))
+end
+
+
+function add(this::AbstractArrayListPool, cacheableInterface)
+        AllBinary.add(this.buffers, cacheableInterface)
+        nothing
+end
+
+
+function addArray(this::AbstractArrayListPool, cacheableInterfaces)
+        let
+            local index::Int32 = Int32(0)
+            while index < Int32(Base.length(cacheableInterfaces))
+            try
+            AllBinary.add(this.buffers, cacheableInterfaces[index + 1])
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

@@ -1,105 +1,155 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2011 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2011 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.math.permutations
 
-from __future__ import annotations
+mutable struct OrderedObjectArrayPermutationUtil <: JObject
+    TOTAL_ITERATIONS_TABLE::Any
+    FINISHED::Any
+    OrderedObjectArrayPermutationUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const OrderedObjectArrayPermutationUtil_instanceValue = Ref{Any}(nothing)
+const OrderedObjectArrayPermutationUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{OrderedObjectArrayPermutationUtil})
+    if !OrderedObjectArrayPermutationUtil_instanceSet[]
+        OrderedObjectArrayPermutationUtil_instanceSet[] = true
+        OrderedObjectArrayPermutationUtil_instanceValue[] = newOrderedObjectArrayPermutationUtil()
+    end
+    OrderedObjectArrayPermutationUtil_instanceValue[]
+end
+function staticSet_instance(::Type{OrderedObjectArrayPermutationUtil}, value)
+    OrderedObjectArrayPermutationUtil_instanceSet[] = true
+    OrderedObjectArrayPermutationUtil_instanceValue[] = value
+end
+
+function initFieldsOrderedObjectArrayPermutationUtil(this::OrderedObjectArrayPermutationUtil)
+    this.TOTAL_ITERATIONS_TABLE = nothing
+    this.FINISHED = nothing
+    this.TOTAL_ITERATIONS_TABLE = "Total Iterations: "
+    this.FINISHED = "\nFINISHED"
+    nothing
+end
 
 
-class OrderedObjectArrayPermutationUtil:
-    instance: OrderedObjectArrayPermutationUtil = None
+function getInstance(::Type{OrderedObjectArrayPermutationUtil})
+        return staticGet_instance(OrderedObjectArrayPermutationUtil)
+end
 
-    def _init_fields(self) -> None:
-        self.TOTAL_ITERATIONS_TABLE: str = "Total Iterations: "
-        self.FINISHED: str = "\nFINISHED"
-    
 
-    @staticmethod
-    def getInstance() -> OrderedObjectArrayPermutationUtil:
-        return OrderedObjectArrayPermutationUtil.instance
-    
+function initOrderedObjectArrayPermutationUtil(this::OrderedObjectArrayPermutationUtil)
+        initFieldsOrderedObjectArrayPermutationUtil(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newOrderedObjectArrayPermutationUtil()
+    this = OrderedObjectArrayPermutationUtil()
+    initOrderedObjectArrayPermutationUtil(this)
+    this
+end
 
-    def getNext(self, data: list[object]) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        length: int = len(data)
-        i: int = length - 1
-        tsUtil: TsUtil = TsUtil.getInstance()
-        while tsUtil.hashCode(data[i - 1]) >= tsUtil.hashCode(data[i]):
-            i = i - 1
-        j: int = length
-        while tsUtil.hashCode(data[j - 1]) <= tsUtil.hashCode(data[i - 1]):
-            j = j - 1
-        self.swap(data, i - 1, j - 1)
-        i += 1
+
+function getNext(this::OrderedObjectArrayPermutationUtil, data)
+        local length::Int32 = Int32(Base.length(data))
+        local i::Int32 = length - Int32(1)
+        local tsUtil = AllBinary.getInstance(TsUtil)
+        while AllBinary.hashCode(tsUtil, data[i - Int32(1) + 1]) >= AllBinary.hashCode(tsUtil, data[i + 1])
+            i = i - Int32(1)
+        end
+        local j::Int32 = length
+        while AllBinary.hashCode(tsUtil, data[j - Int32(1) + 1]) <= AllBinary.hashCode(tsUtil, data[i - Int32(1) + 1])
+            j = j - Int32(1)
+        end
+        AllBinary.swap(this, data, i - Int32(1), j - Int32(1))
+        i += Int32(1)
         j = length
-        while i < j:
-            self.swap(data, i - 1, j - 1)
-            i += 1
-            j -= 1
-    
+        while i < j
+            AllBinary.swap(this, data, i - Int32(1), j - Int32(1))
+            i += Int32(1)
+            j -= Int32(1)
+        end
+        nothing
+end
 
-    def swap(self, data: list[object], a: int, b: int) -> None:
-        temp: object = data[a]
-        data[a] = data[b]
-        data[b] = temp
-    
 
-    def factorial(self, dataLength: int) -> int:
-        temp: int = 1
-        if dataLength > 1:
-            for i in range(1, dataLength + 1):
-                temp *= i
+function swap(this::OrderedObjectArrayPermutationUtil, data, a, b)
+        local temp = data[a + 1]
+        data[a + 1] = data[b + 1]
+        data[b + 1] = temp
+        nothing
+end
+
+
+function factorial(this::OrderedObjectArrayPermutationUtil, dataLength)
+        local temp::Int64 = Int64(1)
+        if dataLength > Int32(1)
+            let
+                local i::Int32 = Int32(1)
+                while i <= dataLength
+                try
+                temp *= ((i) % Int64)
+                finally
+                    i += Int32(1)
+                end
+                end
+            end
+        end
         return temp
-    
-
-    def generate(self, data: list[object], visitor: Visitor) -> None:
-        from org.allbinary.logic.util.visitor.Visitor import Visitor
-        iterations: int = self.factorial(len(data))
-        print(self.TOTAL_ITERATIONS_TABLE, end="")
-        print(iterations)
-        for count in range(0, iterations - 1):
-            self.getNext(data)
-            visitor.visit(self)
-        print(self.FINISHED)
-    
-
-    @staticmethod
-    def main(args: list[str]) -> None:
-        from org.allbinary.logic.math.permutations.ComparableObject import ComparableObject
-        from org.allbinary.logic.math.permutations.ObjectPermutationVisitor import ObjectPermutationVisitor
-        TOTAL: int = 7
-        data: list[object] = [None] * (TOTAL)
-        for i in range(0, TOTAL):
-            data[i] = ComparableObject()
-        Arrays.sort(data)
-        permutationVisitor: ObjectPermutationVisitor = ObjectPermutationVisitor(data)
-        ORIGINAL_DATA_LABEL: str = "Original Data: "
-        print(ORIGINAL_DATA_LABEL, end="")
-        permutationVisitor.visit(data)
-        OrderedObjectArrayPermutationUtil.getInstance().generate(data, permutationVisitor)
-# from java.util.Arrays import Arrays
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.logic.util.visitor.Visitor import Visitor
+end
 
 
-def _OrderedObjectArrayPermutationUtil_instance() -> object:
-    return OrderedObjectArrayPermutationUtil()
+function generate(this::OrderedObjectArrayPermutationUtil, data, visitor)
+        local iterations::Int64 = AllBinary.factorial(this, Int32(Base.length(data)))
+        Base.println(jstr(this.TOTAL_ITERATIONS_TABLE))
+        Base.println(jstr(iterations))
+        let
+            local count::Int64 = Int64(0)
+            while count < iterations - Int64(1)
+            try
+            AllBinary.getNext(this, data)
+            AllBinary.visit(visitor, this)
+            finally
+                count += 1
+            end
+            end
+        end
+        Base.println(jstr(this.FINISHED))
+        nothing
+end
 
-lazy_static(OrderedObjectArrayPermutationUtil, "instance", _OrderedObjectArrayPermutationUtil_instance)
+
+function main(::Type{OrderedObjectArrayPermutationUtil}, args)
+        local TOTAL::Int32 = Int32(7)
+        local data = jNewArray(Any, TOTAL, nothing)
+        let
+            local i::Int32 = Int32(0)
+            while i < TOTAL
+            try
+            data[i + 1] = newComparableObject()
+            finally
+                i += Int32(1)
+            end
+            end
+        end
+        AllBinary.sort(Arrays, data)
+        local permutationVisitor = newObjectPermutationVisitor(data)
+        local ORIGINAL_DATA_LABEL = "Original Data: "
+        Base.println(jstr(ORIGINAL_DATA_LABEL))
+        AllBinary.visit(permutationVisitor, data)
+        AllBinary.generate(AllBinary.getInstance(OrderedObjectArrayPermutationUtil), data, permutationVisitor)
+        nothing
+end
 

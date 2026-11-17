@@ -1,51 +1,61 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.multiplayer.layer
 
-from __future__ import annotations
+# extends CollidableDestroyableDamageableLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MultiPlayerGameLayer <: JObject
+    MultiPlayerGameLayer() = new()
+end
 
-from org.allbinary.game.layer.special.CollidableDestroyableDamageableLayer import CollidableDestroyableDamageableLayer
-from org.allbinary.game.multiplayer.layer.MultiPlayerGameLayerInterface import MultiPlayerGameLayerInterface
+
+function initFieldsMultiPlayerGameLayer(this::MultiPlayerGameLayer)
+    nothing
+end
 
 
-class MultiPlayerGameLayer(CollidableDestroyableDamageableLayer, MultiPlayerGameLayerInterface):
-    
+function initMultiPlayerGameLayer(this::MultiPlayerGameLayer, remoteInfo, groupInterface, name, layerInfo, viewPosition)
+        initCollidableDestroyableDamageableLayer(this, groupInterface, name, layerInfo, viewPosition)
+        nothing
+end
 
-    def __init__(self, remoteInfo: RemoteInfo, groupInterface: list[Group], name: str, layerInfo: Rectangle, viewPosition: ViewPositionBase) -> None:
-        from org.allbinary.game.identification.Group import Group
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        super().__init__(groupInterface, name, layerInfo, viewPosition)
-    
+function newMultiPlayerGameLayer(remoteInfo, groupInterface, name, layerInfo, viewPosition)
+    this = MultiPlayerGameLayer()
+    initMultiPlayerGameLayer(this, remoteInfo, groupInterface, name, layerInfo, viewPosition)
+    this
+end
 
-    def getMultiplayerBehavior(self) -> MultiplayerBehavior:
-        from org.allbinary.game.multiplayer.layer.MultiplayerBehavior import MultiplayerBehavior
-        return MultiplayerBehavior.NULL_MULTIPLAYER_BEHAVIOR
-    
 
-    def setPingInfo(self, show: bool) -> None:
-        pass
-    
+function getMultiplayerBehavior(this::MultiPlayerGameLayer)
+        return staticGet_NULL_MULTIPLAYER_BEHAVIOR(MultiplayerBehavior)
+end
 
-    def setFiring(self, firing: int) -> None:
-        pass
-    
 
-    def getFiring(self) -> int:
-        return 0
-# from org.allbinary.game.identification.Group import Group
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.view.ViewPositionBase import ViewPositionBase
+function setPingInfo(this::MultiPlayerGameLayer, show)
+        nothing
+        nothing
+end
 
+
+function setFiring(this::MultiPlayerGameLayer, firing)
+        nothing
+        nothing
+end
+
+
+function getFiring(this::MultiPlayerGameLayer)
+        return Int32(0)
+end
 

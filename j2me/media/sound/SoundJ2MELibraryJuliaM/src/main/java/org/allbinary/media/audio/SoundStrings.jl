@@ -1,45 +1,72 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
+mutable struct SoundStrings <: JObject
+    STOP_ALL::Any
+    CLOSE_ALL::Any
+    SOUND::Any
+    INIT_SOUND::Any
+    STOPPING_SOUND::Any
+    CLOSING_SOUND::Any
+    SoundStrings() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const SoundStrings_instanceValue = Ref{Any}(nothing)
+const SoundStrings_instanceSet = Ref(false)
+function staticGet_instance(::Type{SoundStrings})
+    if !SoundStrings_instanceSet[]
+        SoundStrings_instanceSet[] = true
+        SoundStrings_instanceValue[] = newSoundStrings()
+    end
+    SoundStrings_instanceValue[]
+end
+function staticSet_instance(::Type{SoundStrings}, value)
+    SoundStrings_instanceSet[] = true
+    SoundStrings_instanceValue[] = value
+end
+
+function initFieldsSoundStrings(this::SoundStrings)
+    this.STOP_ALL = nothing
+    this.CLOSE_ALL = nothing
+    this.SOUND = nothing
+    this.INIT_SOUND = nothing
+    this.STOPPING_SOUND = nothing
+    this.CLOSING_SOUND = nothing
+    this.STOP_ALL = "stopAll"
+    this.CLOSE_ALL = "closeAll"
+    this.SOUND = " Sound: "
+    this.INIT_SOUND = "Initializing Sound: "
+    this.STOPPING_SOUND = "Stopping Sound: "
+    this.CLOSING_SOUND = "Closing Sound: "
+    nothing
+end
+
+function initSoundStrings(this::SoundStrings)
+    initFieldsSoundStrings(this)
+end
+
+function newSoundStrings()
+    this = SoundStrings()
+    initSoundStrings(this)
+    this
+end
 
 
-class SoundStrings:
-    instance: SoundStrings = None
-
-    def _init_fields(self) -> None:
-        self.STOP_ALL: str = "stopAll"
-        self.CLOSE_ALL: str = "closeAll"
-        self.SOUND: str = " Sound: "
-        self.INIT_SOUND: str = "Initializing Sound: "
-        self.STOPPING_SOUND: str = "Stopping Sound: "
-        self.CLOSING_SOUND: str = "Closing Sound: "
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> SoundStrings:
-        return SoundStrings.instance
-
-
-def _SoundStrings_instance() -> object:
-    return SoundStrings()
-
-lazy_static(SoundStrings, "instance", _SoundStrings_instance)
+function getInstance(::Type{SoundStrings})
+        return staticGet_instance(SoundStrings)
+end
 

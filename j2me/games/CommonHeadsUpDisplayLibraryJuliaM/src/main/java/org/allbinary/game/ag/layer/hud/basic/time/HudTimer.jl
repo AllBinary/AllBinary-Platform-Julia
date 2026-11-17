@@ -1,87 +1,120 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic.time
 
-from __future__ import annotations
+mutable struct HudTimer <: JObject
+    startTime::Int64
+    hundredthTime::Int64
+    maxTime::Int64
+    modifier::Int64
+    hundrethsString::Any
+    totalDigits::Int32
+    primitiveLongUtil::Any
+    MAX::Any
+    gameTickTimeDelayHelper::Any
+    HudTimer() = new()
+end
 
 
-
-class HudTimer:
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.math.PrimitiveLongSingleton import PrimitiveLongSingleton
-        from org.allbinary.logic.math.PrimitiveLongUtil import PrimitiveLongUtil
-        from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        self.startTime: int = -1
-        self.hundredthTime: int = 0
-        self.maxTime: int = None
-        self.modifier: int = 0
-        self.hundrethsString: list[str] = PrimitiveLongSingleton.getInstance().ZERO
-        self.totalDigits: int = 1
-        self.primitiveLongUtil: PrimitiveLongUtil = None
-        self.MAX: list[str] = ['L', 'O', 'L']
-        self.gameTickTimeDelayHelper: GameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
+function initFieldsHudTimer(this::HudTimer)
+    this.startTime = Int64(0)
+    this.hundredthTime = Int64(0)
+    this.maxTime = Int64(0)
+    this.modifier = Int64(0)
+    this.hundrethsString = nothing
+    this.totalDigits = Int32(0)
+    this.primitiveLongUtil = nothing
+    this.MAX = nothing
+    this.gameTickTimeDelayHelper = nothing
+    this.startTime = ((-Int32(1)) % Int64)
+    this.hundredthTime = Int64(0)
     
-
-    def __init__(self, maxTime: int) -> None:
-        from org.allbinary.logic.math.PrimitiveLongUtil import PrimitiveLongUtil
-        self._init_fields()
-        self.primitiveLongUtil = PrimitiveLongUtil.createPowerOfTen(maxTime)
-        self.maxTime = maxTime
+    this.modifier = Int64(0)
+    this.hundrethsString = AllBinary.getInstance(PrimitiveLongSingleton).ZERO
+    this.totalDigits = Int32(1)
     
+    this.MAX = UInt16[UInt16('L'), UInt16('O'), UInt16('L')]
+    this.gameTickTimeDelayHelper = AllBinary.getInstance(GameTickTimeDelayHelperFactory)
+    nothing
+end
 
-    def start(self) -> None:
-        self.hundredthTime = 0
-        self.startTime = self.gameTickTimeDelayHelper.startTime
-    
 
-    def get(self) -> int:
-        return self.hundredthTime
-    
+function initHudTimer(this::HudTimer, maxTime)
+        initFieldsHudTimer(this)
+        this.primitiveLongUtil = AllBinary.createPowerOfTen(PrimitiveLongUtil, maxTime)
+        this.maxTime = ((maxTime) % Int64)
+        nothing
+end
 
-    def update(self) -> None:
-        lastLowerTime: int = self.hundredthTime
-        currentTime: int = ((self.modifier + self.gameTickTimeDelayHelper.startTime) - self.startTime)
-        if currentTime < 0:
-            currentTime = 0
-        self.hundredthTime = int(currentTime / 100)
-        if self.hundredthTime >= self.maxTime:
-            if self.startTime > 0:
-                self.hundrethsString = self.MAX
-        elif lastLowerTime != self.hundredthTime:
-            self.hundrethsString = self.primitiveLongUtil.getCharArray(self.hundredthTime)
-            self.totalDigits = self.primitiveLongUtil.getCurrentTotalDigits()
-    
+function newHudTimer(maxTime)
+    this = HudTimer()
+    initHudTimer(this, maxTime)
+    this
+end
 
-    def reduce(self, value: int) -> None:
-        self.modifier -= value
-    
 
-    def add(self, value: int) -> None:
-        self.modifier += value
-    
+function start(this::HudTimer)
+        this.hundredthTime = Int64(0)
+        this.startTime = this.gameTickTimeDelayHelper.startTime
+        nothing
+end
 
-    def getTimeChars(self) -> list[str]:
-        return self.hundrethsString
-    
 
-    def getCurrentTotalDigits(self) -> int:
-        return self.totalDigits
-# from org.allbinary.logic.math.PrimitiveLongSingleton import PrimitiveLongSingleton
-# from org.allbinary.logic.math.PrimitiveLongUtil import PrimitiveLongUtil
-# from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
+function get(this::HudTimer)
+        return this.hundredthTime
+end
 
+
+function update(this::HudTimer)
+        local lastLowerTime::Int64 = this.hundredthTime
+        local currentTime::Int64 = ((this.modifier + this.gameTickTimeDelayHelper.startTime) - this.startTime)
+        if currentTime < Int64(0)
+            currentTime = Int64(0)
+        end
+        this.hundredthTime = currentTime ÷ Int64(100)
+        if this.hundredthTime >= this.maxTime
+            if this.startTime > Int64(0)
+                this.hundrethsString = this.MAX
+            end
+        elseif lastLowerTime != this.hundredthTime
+            this.hundrethsString = AllBinary.getCharArray(this.primitiveLongUtil, ((this.hundredthTime) % Int32))
+            this.totalDigits = AllBinary.getCurrentTotalDigits(this.primitiveLongUtil)
+        end
+        nothing
+end
+
+
+function reduce(this::HudTimer, value)
+        this.modifier -= ((value) % Int64)
+        nothing
+end
+
+
+function add(this::HudTimer, value)
+        this.modifier += ((value) % Int64)
+        nothing
+end
+
+
+function getTimeChars(this::HudTimer)
+        return this.hundrethsString
+end
+
+
+function getCurrentTotalDigits(this::HudTimer)
+        return this.totalDigits
+end
 

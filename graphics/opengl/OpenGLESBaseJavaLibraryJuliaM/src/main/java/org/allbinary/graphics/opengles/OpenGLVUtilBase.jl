@@ -1,38 +1,54 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles
 
-from __future__ import annotations
+mutable struct OpenGLVUtilBase <: JObject
+    OpenGLVUtilBase() = new()
+end
 
 
+function initFieldsOpenGLVUtilBase(this::OpenGLVUtilBase)
+    nothing
+end
 
-class OpenGLVUtilBase:
-    
+function initOpenGLVUtilBase(this::OpenGLVUtilBase)
+    initFieldsOpenGLVUtilBase(this)
+end
 
-    def glTexEnvix(self, gl: GL10, target: int, pname: int, param: int) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
+function newOpenGLVUtilBase()
+    this = OpenGLVUtilBase()
+    initOpenGLVUtilBase(this)
+    this
+end
 
-    def glTexParameterix(self, gl: GL10, target: int, pname: int, param: int) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
 
-    def glGenerateMipmap(self, gl: GL10, textureId: int, target: int, generateMipMap: bool) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-# from javax.microedition.khronos.opengles.GL10 import GL10
+function glTexEnvix(this::OpenGLVUtilBase, gl, target, pname, param)
+        nothing
+        nothing
+end
 
+
+function glTexParameterix(this::OpenGLVUtilBase, gl, target, pname, param)
+        nothing
+        nothing
+end
+
+
+function glGenerateMipmap(this::OpenGLVUtilBase, gl, textureId, target, generateMipMap)
+        nothing
+        nothing
+end
 

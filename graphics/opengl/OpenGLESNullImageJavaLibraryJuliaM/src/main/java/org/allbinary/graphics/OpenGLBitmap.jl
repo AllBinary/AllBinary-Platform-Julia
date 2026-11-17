@@ -1,32 +1,48 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics
 
-from __future__ import annotations
+# extends PlatformBitmapBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct OpenGLBitmap <: JObject
+    bitmap::Any
+    OpenGLBitmap() = new()
+end
 
-from org.allbinary.platform.graphics.PlatformBitmapBase import PlatformBitmapBase
 
-
-class OpenGLBitmap(PlatformBitmapBase):
-
-    def _init_fields(self) -> None:
-        self.bitmap: object = None
+function initFieldsOpenGLBitmap(this::OpenGLBitmap)
+    this.bitmap = nothing
     
+    nothing
+end
 
-    def __init__(self, bitmap: object) -> None:
-        super().__init__()
-        self._init_fields()
-        self.bitmap = bitmap
-    
 
-    def getPixels(self, pixels: list[int], offset: int, stride: int, x: int, y: int, width: int, height: int) -> None:
-        pass
-    
+function initOpenGLBitmap(this::OpenGLBitmap, bitmap)
+        initPlatformBitmapBase(this)
+        initFieldsOpenGLBitmap(this)
+        this.bitmap = bitmap
+        nothing
+end
 
-    def setPixels(self, pixels: list[int], offset: int, stride: int, x: int, y: int, width: int, height: int) -> None:
-        pass
-    
+function newOpenGLBitmap(bitmap)
+    this = OpenGLBitmap()
+    initOpenGLBitmap(this, bitmap)
+    this
+end
 
-    def recycle(self) -> None:
-        pass
 
+function getPixels(this::OpenGLBitmap, pixels, offset, stride, x, y, width, height)
+        nothing
+        nothing
+end
+
+
+function setPixels(this::OpenGLBitmap, pixels, offset, stride, x, y, width, height)
+        nothing
+        nothing
+end
+
+
+function recycle(this::OpenGLBitmap)
+        nothing
+        nothing
+end
 

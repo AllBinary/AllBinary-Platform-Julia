@@ -1,27 +1,34 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles
 
-from __future__ import annotations
+mutable struct OpenGLProcessor <: JObject
+    logUtil::Any
+    commonStrings::Any
+    OpenGLProcessor() = new()
+end
 
 
+function initFieldsOpenGLProcessor(this::OpenGLProcessor)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    nothing
+end
 
-class OpenGLProcessor:
+function initOpenGLProcessor(this::OpenGLProcessor)
+    initFieldsOpenGLProcessor(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
+function newOpenGLProcessor()
+    this = OpenGLProcessor()
+    initOpenGLProcessor(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def process(self, gl: GL10) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-# from javax.microedition.khronos.opengles.GL10 import GL10
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-
+function process(this::OpenGLProcessor, gl)
+        nothing
+        nothing
+end
 

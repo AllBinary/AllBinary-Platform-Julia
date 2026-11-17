@@ -1,148 +1,151 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicPopupMenuPaintable <: JObject
+    basicSetColorUtil::Any
+    drawStringUtil::Any
+    label::Any
+    foregroundBasicColor::Any
+    myFontProcessor::Any
+    rectangle::Any
+    BORDER::Int32
+    heightOffset::Int32
+    offset::Int32
+    animationInterface::Any
+    BasicPopupMenuPaintable() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.paint.Paintable import Paintable
+const BasicPopupMenuPaintable_NAMEValue = Ref{Any}(nothing)
+const BasicPopupMenuPaintable_NAMESet = Ref(false)
+function staticGet_NAME(::Type{BasicPopupMenuPaintable})
+    if !BasicPopupMenuPaintable_NAMESet[]
+        BasicPopupMenuPaintable_NAMESet[] = true
+        BasicPopupMenuPaintable_NAMEValue[] = "MENU"
+    end
+    BasicPopupMenuPaintable_NAMEValue[]
+end
+function staticSet_NAME(::Type{BasicPopupMenuPaintable}, value)
+    BasicPopupMenuPaintable_NAMESet[] = true
+    BasicPopupMenuPaintable_NAMEValue[] = value
+end
 
-
-class BasicPopupMenuPaintable(Paintable, UpdateMyFontInterface):
-    NAME: str = "MENU"
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-        from org.allbinary.graphics.draw.DrawVerticalStringUtil import DrawVerticalStringUtil
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        self.basicSetColorUtil: BasicColorSetUtil = BasicColorSetUtil.getInstance()
-        self.drawStringUtil: DrawVerticalStringUtil = DrawVerticalStringUtil.getInstance()
-        self.label: str = None
-        self.foregroundBasicColor: BasicColor = None
-        self.myFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.rectangle: Rectangle = None
-        self.BORDER: int = 0
-        self.heightOffset: int = 0
-        self.offset: int = 0
-        self.animationInterface: Animation = None
+function initFieldsBasicPopupMenuPaintable(this::BasicPopupMenuPaintable)
+    this.basicSetColorUtil = nothing
+    this.drawStringUtil = nothing
+    this.label = nothing
+    this.foregroundBasicColor = nothing
+    this.myFontProcessor = nothing
+    this.rectangle = nothing
+    this.BORDER = Int32(0)
+    this.heightOffset = Int32(0)
+    this.offset = Int32(0)
+    this.animationInterface = nothing
+    this.basicSetColorUtil = AllBinary.getInstance(BasicColorSetUtil)
+    this.drawStringUtil = AllBinary.getInstance(DrawVerticalStringUtil)
     
-
-    def __init__(self, rectangle: Rectangle, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        from org.allbinary.animation.vector.RectangleFilledAnimation import RectangleFilledAnimation
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        super().__init__()
-        self._init_fields()
-        self.foregroundBasicColor = foregroundBasicColor
-        self.label = BasicPopupMenuPaintable.NAME
-        self.rectangle = rectangle
-        if J2MEUtil.isJ2ME() or J2MEUtil.isHTML():
-            self.animationInterface = NullAnimationFactory.getFactoryInstance().getInstance(0)
-        else:
-            self.animationInterface = RectangleFilledAnimation(self.rectangle.getWidth(), self.rectangle.getHeight(), BasicColorFactory.getInstance().TRANSPARENT_GREY)
-        self.init(rectangle)
     
-
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.AndroidUtil import AndroidUtil
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.layer.SWTUtil import SWTUtil
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        from org.allbinary.graphics.opengles.OpenGLFeatureUtil import OpenGLFeatureUtil
-        from org.allbinary.graphics.threed.SWTJOGLProcessor import SWTJOGLProcessor
-        font: Font = graphics.getFont()
-        features: Features = Features.getInstance()
-        isOpenGL: bool = features.isDefault(OpenGLFeatureFactory.getInstance().OPENGL)
-        self.drawStringUtil.updateMeasurement(graphics, self.label)
-        BORDER: int = 0
-        if J2MEUtil.isHTML() or isOpenGL:
-            BORDER = MyFontProcessor.defaultCharWidth(font) / 2
-        elif AndroidUtil.isAndroid() or J2MEUtil.isJ2SE() or SWTUtil.isSWT:
-            BORDER = MyFontProcessor.defaultCharWidth(font)
-        else:
-            BORDER = MyFontProcessor.defaultCharWidth(font) * 2
-        self.BORDER = BORDER
-        self.heightOffset = self.rectangle.getHeight() - (font.getHeight() * BasicPopupMenuPaintable.NAME.length())
-        if OpenGLFeatureUtil.getInstance().isAnyThreed():
-            self.heightOffset -= font.getHeight() + 2
-            if AndroidUtil.isAndroid():
-                self.heightOffset = font.getHeight()
-            else:
-                self.heightOffset -= font.getHeight() + 2
-        self.offset = (self.heightOffset >> 1) + ((4 if SWTJOGLProcessor.getInstance().isJOGL() else 0))
-        self.myFontProcessor = MyFontProcessor.getInstance()
+    this.myFontProcessor = newUpdateMyFontProcessor(this)
     
+    this.BORDER = Int32(0)
+    this.heightOffset = Int32(0)
+    this.offset = Int32(0)
+    this.animationInterface = nothing
+    nothing
+end
 
-    # throws Exception
-    def init(self, rectangle: Rectangle) -> None:
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.animation.vector.RectangleFilledAnimation import RectangleFilledAnimation
-        from org.allbinary.graphics.Rectangle import Rectangle
-        self.rectangle = rectangle
-        width: int = self.rectangle.getWidth()
-        height: int = self.rectangle.getHeight()
-        if J2MEUtil.isJ2ME() or J2MEUtil.isHTML():
-            pass
-        else:
-            rectangleFilledAnimation: RectangleFilledAnimation = self.animationInterface
-            rectangleFilledAnimation.setWidth(width)
-            rectangleFilledAnimation.setHeight(height)
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.GPoint import GPoint
-        self.myFontProcessor.process(graphics)
-        point: GPoint = self.rectangle.getPoint()
-        x: int = point.getX()
-        y: int = point.getY()
-        width: int = self.rectangle.getWidth()
-        height: int = self.rectangle.getHeight()
-        self.animationInterface.paintXY(graphics, x, y)
-        self.basicSetColorUtil.setBasicColorP(graphics, self.foregroundBasicColor)
-        self.drawStringUtil.paintVerticle(graphics, self.label, x + self.BORDER, y + self.offset, 0)
-        graphics.drawRect(x, y, width, height)
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.AndroidUtil import AndroidUtil
-# from org.allbinary.J2MEUtil import J2MEUtil
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-# from org.allbinary.animation.vector.RectangleFilledAnimation import RectangleFilledAnimation
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.layer.SWTUtil import SWTUtil
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-# from org.allbinary.graphics.draw.DrawVerticalStringUtil import DrawVerticalStringUtil
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-# from org.allbinary.graphics.opengles.OpenGLFeatureUtil import OpenGLFeatureUtil
-# from org.allbinary.graphics.threed.SWTJOGLProcessor import SWTJOGLProcessor
+function initBasicPopupMenuPaintable(this::BasicPopupMenuPaintable, rectangle, backgroundBasicColor, foregroundBasicColor)
+        initPaintable(this)
+        initFieldsBasicPopupMenuPaintable(this)
+        this.foregroundBasicColor = foregroundBasicColor
+        this.label = staticGet_NAME(BasicPopupMenuPaintable)
+        this.rectangle = rectangle
+        if AllBinary.isJ2ME(J2MEUtil) || AllBinary.isHTML(J2MEUtil)
+            this.animationInterface = AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0))
+        else
+            this.animationInterface = newRectangleFilledAnimation(AllBinary.getWidth(this.rectangle), AllBinary.getHeight(this.rectangle), AllBinary.getInstance(BasicColorFactory).TRANSPARENT_GREY)
+        end
+        AllBinary.init(this, rectangle)
+        nothing
+end
 
+function newBasicPopupMenuPaintable(rectangle, backgroundBasicColor, foregroundBasicColor)
+    this = BasicPopupMenuPaintable()
+    initBasicPopupMenuPaintable(this, rectangle, backgroundBasicColor, foregroundBasicColor)
+    this
+end
+
+
+function updateMeasurement(this::BasicPopupMenuPaintable, graphics)
+        local font = AllBinary.getFont(graphics)
+        local features = AllBinary.getInstance(Features)
+        local isOpenGL::Bool = AllBinary.isDefault(features, AllBinary.getInstance(OpenGLFeatureFactory).OPENGL)
+        AllBinary.updateMeasurement(this.drawStringUtil, graphics, this.label)
+        local BORDER::Int32 = Int32(0)
+        if AllBinary.isHTML(J2MEUtil) || isOpenGL
+            BORDER = AllBinary.defaultCharWidth(MyFontProcessor, font) ÷ Int32(2)
+        elseif AllBinary.isAndroid(AndroidUtil) || AllBinary.isJ2SE(J2MEUtil) || staticGet_isSWT(SWTUtil)
+            BORDER = AllBinary.defaultCharWidth(MyFontProcessor, font)
+        else
+            BORDER = AllBinary.defaultCharWidth(MyFontProcessor, font) * Int32(2)
+        end
+        this.BORDER = BORDER
+        this.heightOffset = AllBinary.getHeight(this.rectangle) - (AllBinary.getHeight(font) * AllBinary.length(staticGet_NAME(BasicPopupMenuPaintable)))
+        if AllBinary.isAnyThreed(AllBinary.getInstance(OpenGLFeatureUtil))
+            this.heightOffset -= AllBinary.getHeight(font) + Int32(2)
+            if AllBinary.isAndroid(AndroidUtil)
+                this.heightOffset = AllBinary.getHeight(font)
+            else
+                this.heightOffset -= AllBinary.getHeight(font) + Int32(2)
+            end
+        end
+        this.offset = (this.heightOffset >> Int32(1)) + ((AllBinary.isJOGL(AllBinary.getInstance(SWTJOGLProcessor)) ? Int32(4) : Int32(0)))
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
+
+
+function init(this::BasicPopupMenuPaintable, rectangle)
+        this.rectangle = rectangle
+        local width::Int32 = AllBinary.getWidth(this.rectangle)
+        local height::Int32 = AllBinary.getHeight(this.rectangle)
+        if AllBinary.isJ2ME(J2MEUtil) || AllBinary.isHTML(J2MEUtil)
+            nothing
+        else
+            local rectangleFilledAnimation = (this.animationInterface)
+            AllBinary.setWidth(rectangleFilledAnimation, width)
+            AllBinary.setHeight(rectangleFilledAnimation, height)
+        end
+        nothing
+end
+
+
+function paint(this::BasicPopupMenuPaintable, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        local point = AllBinary.getPoint(this.rectangle)
+        local x::Int32 = AllBinary.getX(point)
+        local y::Int32 = AllBinary.getY(point)
+        local width::Int32 = AllBinary.getWidth(this.rectangle)
+        local height::Int32 = AllBinary.getHeight(this.rectangle)
+        AllBinary.paintXY(this.animationInterface, graphics, x, y)
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, this.foregroundBasicColor)
+        AllBinary.paintVerticle(this.drawStringUtil, graphics, this.label, x + this.BORDER, y + this.offset, Int32(0))
+        AllBinary.drawRect(graphics, x, y, width, height)
+        nothing
+end
 

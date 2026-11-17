@@ -1,50 +1,70 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.accelerometer
 
-from __future__ import annotations
+mutable struct AccelerometerSensorFactory <: JObject
+    AccelerometerSensorFactory() = new()
+end
+
+const AccelerometerSensorFactory_allBinaryAccelerometerSensorValue = Ref{Any}(nothing)
+const AccelerometerSensorFactory_allBinaryAccelerometerSensorSet = Ref(false)
+function staticGet_allBinaryAccelerometerSensor(::Type{AccelerometerSensorFactory})
+    if !AccelerometerSensorFactory_allBinaryAccelerometerSensorSet[]
+        AccelerometerSensorFactory_allBinaryAccelerometerSensorSet[] = true
+        AccelerometerSensorFactory_allBinaryAccelerometerSensorValue[] = nothing
+    end
+    AccelerometerSensorFactory_allBinaryAccelerometerSensorValue[]
+end
+function staticSet_allBinaryAccelerometerSensor(::Type{AccelerometerSensorFactory}, value)
+    AccelerometerSensorFactory_allBinaryAccelerometerSensorSet[] = true
+    AccelerometerSensorFactory_allBinaryAccelerometerSensorValue[] = value
+end
+
+function initFieldsAccelerometerSensorFactory(this::AccelerometerSensorFactory)
+    nothing
+end
+
+function initAccelerometerSensorFactory(this::AccelerometerSensorFactory)
+    initFieldsAccelerometerSensorFactory(this)
+end
+
+function newAccelerometerSensorFactory()
+    this = AccelerometerSensorFactory()
+    initAccelerometerSensorFactory(this)
+    this
+end
 
 
+function init(::Type{AccelerometerSensorFactory})
+        local features = AllBinary.getInstance(Features)
+        local sensorFeatureFactory = AllBinary.getInstance(SensorFeatureFactory)
+        if AllBinary.isFeature(features, sensorFeatureFactory.ORIENTATION_SENSORS)
+            throw(jNewException("Exception", "No Orientation Sensors"))
+        elseif AllBinary.isFeature(features, sensorFeatureFactory.SIMULATED_ORIENTATION_SENSORS)
+            throw(jNewException("Exception", "No Simulation Sensors"))
+        elseif AllBinary.isFeature(features, sensorFeatureFactory.NO_ORIENTATION)
+            staticSet_allBinaryAccelerometerSensor(AccelerometerSensorFactory, newNoAccelerometerSensor())
+        else
+            throw(jNewException("Exception", "Not Such SensorFeature"))
+        end
+        nothing
+end
 
-class AccelerometerSensorFactory:
-    allBinaryAccelerometerSensor: AllBinaryOrientationSensor = None
-    
 
-    # throws Exception
-    @staticmethod
-    def init() -> None:
-        from org.allbinary.input.accelerometer.NoAccelerometerSensor import NoAccelerometerSensor
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.SensorFeatureFactory import SensorFeatureFactory
-        features: Features = Features.getInstance()
-        sensorFeatureFactory: SensorFeatureFactory = SensorFeatureFactory.getInstance()
-        if features.isFeature(sensorFeatureFactory.ORIENTATION_SENSORS):
-            raise Exception("No Orientation Sensors")
-        elif features.isFeature(sensorFeatureFactory.SIMULATED_ORIENTATION_SENSORS):
-            raise Exception("No Simulation Sensors")
-        elif features.isFeature(sensorFeatureFactory.NO_ORIENTATION):
-            AccelerometerSensorFactory.allBinaryAccelerometerSensor = NoAccelerometerSensor()
-        else:
-            raise Exception("Not Such SensorFeature")
-    
-
-    @staticmethod
-    def getInstance() -> AllBinaryOrientationSensor:
-        from org.allbinary.input.gyro.AllBinaryOrientationSensor import AllBinaryOrientationSensor
-        return AccelerometerSensorFactory.allBinaryAccelerometerSensor
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.configuration.feature.SensorFeatureFactory import SensorFeatureFactory
-# from org.allbinary.input.gyro.AllBinaryOrientationSensor import AllBinaryOrientationSensor
-
+function getInstance(::Type{AccelerometerSensorFactory})
+        return staticGet_allBinaryAccelerometerSensor(AccelerometerSensorFactory)
+end
 

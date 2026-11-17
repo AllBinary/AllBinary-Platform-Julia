@@ -1,30 +1,43 @@
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.cache
 
-from __future__ import annotations
+mutable struct PoolTypeFactory <: JObject
+    VECTOR_POOL::Any
+    PoolTypeFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const PoolTypeFactory_instanceValue = Ref{Any}(nothing)
+const PoolTypeFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{PoolTypeFactory})
+    if !PoolTypeFactory_instanceSet[]
+        PoolTypeFactory_instanceSet[] = true
+        PoolTypeFactory_instanceValue[] = newPoolTypeFactory()
+    end
+    PoolTypeFactory_instanceValue[]
+end
+function staticSet_instance(::Type{PoolTypeFactory}, value)
+    PoolTypeFactory_instanceSet[] = true
+    PoolTypeFactory_instanceValue[] = value
+end
+
+function initFieldsPoolTypeFactory(this::PoolTypeFactory)
+    this.VECTOR_POOL = nothing
+    this.VECTOR_POOL = newPoolType(AllBinary.getInstance(CacheTypeFactory).NO_CACHE)
+    nothing
+end
+
+function initPoolTypeFactory(this::PoolTypeFactory)
+    initFieldsPoolTypeFactory(this)
+end
+
+function newPoolTypeFactory()
+    this = PoolTypeFactory()
+    initPoolTypeFactory(this)
+    this
+end
 
 
-class PoolTypeFactory:
-    instance: PoolTypeFactory = None
-
-    def _init_fields(self) -> None:
-        self.VECTOR_POOL: PoolType = PoolType(CacheTypeFactory.getInstance().NO_CACHE)
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> PoolTypeFactory:
-        return PoolTypeFactory.instance
-from org.allbinary.logic.util.cache.PoolType import PoolType
-from org.allbinary.logic.util.cache.CacheTypeFactory import CacheTypeFactory
-
-
-def _PoolTypeFactory_instance() -> object:
-    return PoolTypeFactory()
-
-lazy_static(PoolTypeFactory, "instance", _PoolTypeFactory_instance)
+function getInstance(::Type{PoolTypeFactory})
+        return staticGet_instance(PoolTypeFactory)
+end
 

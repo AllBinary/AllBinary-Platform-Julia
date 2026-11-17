@@ -1,14 +1,27 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graph
 
-from __future__ import annotations
+mutable struct V <: JObject
+    V() = new()
+end
 
 
+function initFieldsV(this::V)
+    nothing
+end
 
-class V:
-    
+function initV(this::V)
+    initFieldsV(this)
+end
 
-    def getId(self) -> int:
-        return 0
+function newV()
+    this = V()
+    initV(this)
+    this
+end
 
+
+function getId(this::V)
+        return Int32(0)
+end
 

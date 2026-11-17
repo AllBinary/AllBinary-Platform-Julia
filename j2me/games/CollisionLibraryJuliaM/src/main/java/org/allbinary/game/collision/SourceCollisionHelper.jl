@@ -1,37 +1,47 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.collision
 
-from __future__ import annotations
+# extends CollisionHelper: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SourceCollisionHelper <: JObject
+    SourceCollisionHelper() = new()
+end
 
-from org.allbinary.game.collision.CollisionHelper import CollisionHelper
+
+function initFieldsSourceCollisionHelper(this::SourceCollisionHelper)
+    nothing
+end
 
 
-class SourceCollisionHelper(CollisionHelper):
-    
+function initSourceCollisionHelper(this::SourceCollisionHelper, layerInterface)
+        initCollisionHelper(this, layerInterface)
+        nothing
+end
 
-    def __init__(self, layerInterface: AllBinaryLayer) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(layerInterface)
-    
+function newSourceCollisionHelper(layerInterface)
+    this = SourceCollisionHelper()
+    initSourceCollisionHelper(this, layerInterface)
+    this
+end
 
-    def isCollidable(self, layerInterface: CollidableCompositeLayer) -> bool:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        if self.sourceLayerInterface != layerInterface:
-            return True
-        return False
-# from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
 
+function isCollidable(this::SourceCollisionHelper, layerInterface)
+        if this.sourceLayerInterface != layerInterface
+            return true
+        end
+        return false
+end
 

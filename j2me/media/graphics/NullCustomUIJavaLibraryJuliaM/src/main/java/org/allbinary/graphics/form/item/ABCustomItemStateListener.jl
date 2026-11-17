@@ -1,12 +1,7 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
-
-
-
-# Java interface
-class ABCustomItemStateListener:
-    pass
+# Java interface ABCustomItemStateListener: Julia dispatches on the class so an interface is an abstract type
+abstract type ABCustomItemStateListener <: JObject end
 
 

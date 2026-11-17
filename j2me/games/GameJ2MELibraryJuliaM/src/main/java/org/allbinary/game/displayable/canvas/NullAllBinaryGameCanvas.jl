@@ -1,61 +1,82 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+mutable struct NullAllBinaryGameCanvas <: JObject
+    NullAllBinaryGameCanvas() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.displayable.canvas.AllBinaryGameCanvasInterface import AllBinaryGameCanvasInterface
+const NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVASValue = Ref{Any}(nothing)
+const NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVASSet = Ref(false)
+function staticGet_NULL_ALLBINARY_GAME_CANVAS(::Type{NullAllBinaryGameCanvas})
+    if !NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVASSet[]
+        NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVASSet[] = true
+        NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVASValue[] = newNullAllBinaryGameCanvas()
+    end
+    NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVASValue[]
+end
+function staticSet_NULL_ALLBINARY_GAME_CANVAS(::Type{NullAllBinaryGameCanvas}, value)
+    NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVASSet[] = true
+    NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVASValue[] = value
+end
 
+function initFieldsNullAllBinaryGameCanvas(this::NullAllBinaryGameCanvas)
+    nothing
+end
 
-class NullAllBinaryGameCanvas(AllBinaryGameCanvasInterface):
-    NULL_ALLBINARY_GAME_CANVAS: NullAllBinaryGameCanvas = None
-    
+function initNullAllBinaryGameCanvas(this::NullAllBinaryGameCanvas)
+    initFieldsNullAllBinaryGameCanvas(this)
+end
 
-    def getLayerManager(self) -> AllBinaryGameLayerManager:
-        from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-        raise RuntimeError()
-    
-
-    def addCommand(self, cmd: Command) -> None:
-        from javax.microedition.lcdui.Command import Command
-        raise RuntimeError()
-    
-
-    def getHeight(self) -> int:
-        raise RuntimeError()
-    
-
-    def getWidth(self) -> int:
-        raise RuntimeError()
-    
-
-    def removeCommand(self, cmd: Command) -> None:
-        from javax.microedition.lcdui.Command import Command
-        raise RuntimeError()
-    
-
-    def setCommandListener(self, l: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        raise RuntimeError()
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
+function newNullAllBinaryGameCanvas()
+    this = NullAllBinaryGameCanvas()
+    initNullAllBinaryGameCanvas(this)
+    this
+end
 
 
-def _NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVAS() -> object:
-    return NullAllBinaryGameCanvas()
+function getLayerManager(this::NullAllBinaryGameCanvas)
+        throw(jNewException("RuntimeException", ""))
+end
 
-lazy_static(NullAllBinaryGameCanvas, "NULL_ALLBINARY_GAME_CANVAS", _NullAllBinaryGameCanvas_NULL_ALLBINARY_GAME_CANVAS)
+
+function addCommand(this::NullAllBinaryGameCanvas, cmd)
+        throw(jNewException("RuntimeException", ""))
+        nothing
+end
+
+
+function getHeight(this::NullAllBinaryGameCanvas)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function getWidth(this::NullAllBinaryGameCanvas)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function removeCommand(this::NullAllBinaryGameCanvas, cmd)
+        throw(jNewException("RuntimeException", ""))
+        nothing
+end
+
+
+function setCommandListener(this::NullAllBinaryGameCanvas, l)
+        throw(jNewException("RuntimeException", ""))
+        nothing
+end
 

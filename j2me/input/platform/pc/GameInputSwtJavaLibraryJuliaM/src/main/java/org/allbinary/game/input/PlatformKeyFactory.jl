@@ -1,84 +1,102 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+mutable struct PlatformKeyFactory <: JObject
+    PlatformKeyFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const PlatformKeyFactory_instanceValue = Ref{Any}(nothing)
+const PlatformKeyFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{PlatformKeyFactory})
+    if !PlatformKeyFactory_instanceSet[]
+        PlatformKeyFactory_instanceSet[] = true
+        PlatformKeyFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    PlatformKeyFactory_instanceValue[]
+end
+function staticSet_instance(::Type{PlatformKeyFactory}, value)
+    PlatformKeyFactory_instanceSet[] = true
+    PlatformKeyFactory_instanceValue[] = value
+end
 
+function initFieldsPlatformKeyFactory(this::PlatformKeyFactory)
+    nothing
+end
 
-class PlatformKeyFactory:
-    instance: object = None
-    
+function initPlatformKeyFactory(this::PlatformKeyFactory)
+    initFieldsPlatformKeyFactory(this)
+end
 
-    @staticmethod
-    def getInstance() -> PlatformKeyFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if PlatformKeyFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            PlatformKeyFactory.instance = PlatformKeyFactory()
-        return PlatformKeyFactory.instance
-    
-
-    def getString(self, keyCode: int) -> str:
-        from org.allbinary.game.input.PCGameKey import PCGameKey
-        return PCGameKey.getString(keyCode)
-    
-
-    def isSubmission(self, input: Input) -> bool:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        return PCKeyFactory.getInstance().isSubmission(input)
-    
-
-    def isDelete(self, input: Input) -> bool:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        return PCKeyFactory.getInstance().isDelete(input)
-    
-
-    def isBackSpace(self, input: Input) -> bool:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        return PCKeyFactory.getInstance().isBackSpace(input)
-    
-
-    def isUp(self, input: Input) -> bool:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        return PCKeyFactory.getInstance().isUp(input)
-    
-
-    def isDown(self, input: Input) -> bool:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        return PCKeyFactory.getInstance().isDown(input)
-    
-
-    def isEnter(self, input: Input) -> bool:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        return PCKeyFactory.getInstance().isEnter(input)
-    
-
-    def isLeft(self, input: Input) -> bool:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        return PCKeyFactory.getInstance().isLeft(input)
-    
-
-    def isRight(self, input: Input) -> bool:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        return PCKeyFactory.getInstance().isRight(input)
-# from org.allbinary.logic.NullUtil import NullUtil
+function newPlatformKeyFactory()
+    this = PlatformKeyFactory()
+    initPlatformKeyFactory(this)
+    this
+end
 
 
-def _PlatformKeyFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{PlatformKeyFactory})
+        if staticGet_instance(PlatformKeyFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(PlatformKeyFactory, newPlatformKeyFactory())
+        end
+        return (staticGet_instance(PlatformKeyFactory))
+end
 
-lazy_static(PlatformKeyFactory, "instance", _PlatformKeyFactory_instance)
+
+function getString(this::PlatformKeyFactory, keyCode)
+        return AllBinary.getString(PCGameKey, keyCode)
+end
+
+
+function isSubmission(this::PlatformKeyFactory, input)
+        return AllBinary.isSubmission(AllBinary.getInstance(PCKeyFactory), input)
+end
+
+
+function isDelete(this::PlatformKeyFactory, input)
+        return AllBinary.isDelete(AllBinary.getInstance(PCKeyFactory), input)
+end
+
+
+function isBackSpace(this::PlatformKeyFactory, input)
+        return AllBinary.isBackSpace(AllBinary.getInstance(PCKeyFactory), input)
+end
+
+
+function isUp(this::PlatformKeyFactory, input)
+        return AllBinary.isUp(AllBinary.getInstance(PCKeyFactory), input)
+end
+
+
+function isDown(this::PlatformKeyFactory, input)
+        return AllBinary.isDown(AllBinary.getInstance(PCKeyFactory), input)
+end
+
+
+function isEnter(this::PlatformKeyFactory, input)
+        return AllBinary.isEnter(AllBinary.getInstance(PCKeyFactory), input)
+end
+
+
+function isLeft(this::PlatformKeyFactory, input)
+        return AllBinary.isLeft(AllBinary.getInstance(PCKeyFactory), input)
+end
+
+
+function isRight(this::PlatformKeyFactory, input)
+        return AllBinary.isRight(AllBinary.getInstance(PCKeyFactory), input)
+end
 

@@ -1,47 +1,64 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.collision
 
-from __future__ import annotations
+# extends CollidableBaseBehaviorFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CollidableAlwaysPickupNeverCollideBehaviorFactory <: JObject
+    instance::Any
+    CollidableAlwaysPickupNeverCollideBehaviorFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.collision.CollidableBaseBehaviorFactory import CollidableBaseBehaviorFactory
+const CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceCValue = Ref{Any}(nothing)
+const CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceCSet = Ref(false)
+function staticGet_instanceC(::Type{CollidableAlwaysPickupNeverCollideBehaviorFactory})
+    if !CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceCSet[]
+        CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceCSet[] = true
+        CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceCValue[] = newCollidableAlwaysPickupNeverCollideBehaviorFactory()
+    end
+    CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceCValue[]
+end
+function staticSet_instanceC(::Type{CollidableAlwaysPickupNeverCollideBehaviorFactory}, value)
+    CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceCSet[] = true
+    CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceCValue[] = value
+end
+
+function initFieldsCollidableAlwaysPickupNeverCollideBehaviorFactory(this::CollidableAlwaysPickupNeverCollideBehaviorFactory)
+    this.instance = nothing
+    this.instance = newCollidableAlwaysPickupNeverCollideBehavior()
+    nothing
+end
+
+function initCollidableAlwaysPickupNeverCollideBehaviorFactory(this::CollidableAlwaysPickupNeverCollideBehaviorFactory)
+    initCollidableBaseBehaviorFactory(this)
+    initFieldsCollidableAlwaysPickupNeverCollideBehaviorFactory(this)
+end
+
+function newCollidableAlwaysPickupNeverCollideBehaviorFactory()
+    this = CollidableAlwaysPickupNeverCollideBehaviorFactory()
+    initCollidableAlwaysPickupNeverCollideBehaviorFactory(this)
+    this
+end
 
 
-class CollidableAlwaysPickupNeverCollideBehaviorFactory(CollidableBaseBehaviorFactory):
-    instanceC: CollidableAlwaysPickupNeverCollideBehaviorFactory = None
-
-    def _init_fields(self) -> None:
-        self.instance: CollidableAlwaysPickupNeverCollideBehavior = CollidableAlwaysPickupNeverCollideBehavior()
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> CollidableAlwaysPickupNeverCollideBehaviorFactory:
-        return CollidableAlwaysPickupNeverCollideBehaviorFactory.instanceC
-    
-
-    def createBehavior(self) -> CollidableBaseBehavior:
-        return self.instance
-from org.allbinary.game.collision.CollidableAlwaysPickupNeverCollideBehavior import CollidableAlwaysPickupNeverCollideBehavior
+function getInstance(::Type{CollidableAlwaysPickupNeverCollideBehaviorFactory})
+        return staticGet_instanceC(CollidableAlwaysPickupNeverCollideBehaviorFactory)
+end
 
 
-def _CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceC() -> object:
-    return CollidableAlwaysPickupNeverCollideBehaviorFactory()
-
-lazy_static(CollidableAlwaysPickupNeverCollideBehaviorFactory, "instanceC", _CollidableAlwaysPickupNeverCollideBehaviorFactory_instanceC)
+function createBehavior(this::CollidableAlwaysPickupNeverCollideBehaviorFactory)
+        return this.instance
+end
 

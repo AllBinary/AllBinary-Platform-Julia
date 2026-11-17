@@ -1,92 +1,115 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.draw
 
-from __future__ import annotations
+mutable struct DrawStringUtil <: JObject
+    EMPTY_STRING::Any
+    anchor::Int32
+    DrawStringUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const DrawStringUtil_instanceValue = Ref{Any}(nothing)
+const DrawStringUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{DrawStringUtil})
+    if !DrawStringUtil_instanceSet[]
+        DrawStringUtil_instanceSet[] = true
+        DrawStringUtil_instanceValue[] = newDrawStringUtil()
+    end
+    DrawStringUtil_instanceValue[]
+end
+function staticSet_instance(::Type{DrawStringUtil}, value)
+    DrawStringUtil_instanceSet[] = true
+    DrawStringUtil_instanceValue[] = value
+end
+
+function initFieldsDrawStringUtil(this::DrawStringUtil)
+    this.EMPTY_STRING = nothing
+    this.anchor = Int32(0)
+    this.EMPTY_STRING = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    nothing
+end
+
+function initDrawStringUtil(this::DrawStringUtil)
+    initFieldsDrawStringUtil(this)
+end
+
+function newDrawStringUtil()
+    this = DrawStringUtil()
+    initDrawStringUtil(this)
+    this
+end
 
 
-class DrawStringUtil:
-    instance: DrawStringUtil = None
+function getInstance(::Type{DrawStringUtil})
+        return staticGet_instance(DrawStringUtil)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.EMPTY_STRING: str = StringUtil.getInstance().EMPTY_STRING
-        self.anchor: int = Anchor.TOP_LEFT
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function drawCenterString(this::DrawStringUtil, graphics, string, offset, length, x, y)
+        local width::Int32 = (AllBinary.substringWidth(AllBinary.getFont(graphics), string, offset, length) >> Int32(1))
+        try
+            AllBinary.drawSubstring(graphics, string, offset, length, x - width, y, this.anchor)
+        catch e
+            AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(AllBinary.appendint(AllBinary.append(AllBinary.appendint(AllBinary.append(newStringMaker(), "Exception: stringLength: "), jLength(string)), " offset: "), offset), " currentLength: "), length)), this, "drawCenterString")
+        end
+        nothing
+end
 
-    @staticmethod
-    def getInstance() -> DrawStringUtil:
-        return DrawStringUtil.instance
-    
 
-    def drawCenterString(self, graphics: Graphics, string: str, offset: int, length: int, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        width: int = (graphics.getFont().substringWidth(string, offset, length) >> 1)
-        try:
-            graphics.drawSubstring(string, offset, length, x - width, y, self.anchor)
-        except Exception as e:
-            PreLogUtil.put(str(StringMaker().append("Exception: stringLength: ").appendint(len(string)).append(" offset: ").appendint(offset).append(" currentLength: ").appendint(length)), self, "drawCenterString")
-    
-
-    def drawCenterStrings(self, graphics: Graphics, stringArray: list[str], maxWidth: int, charHeight: int, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        extraLines: int = 0
-        for index in range(0, len(stringArray)):
-            string: str = stringArray[index]
-            if string != self.EMPTY_STRING:
-                width: int = graphics.getFont().stringWidth(string)
-                minTotalLines: int = 1
-                if width > maxWidth:
-                    minTotalLines = (int(width / maxWidth)) + 1
-                linePortion: int = int(len(string) / minTotalLines)
-                offset: int = 0
-                currentLength: int = linePortion
-                size: int = len(string)
-                while offset < size:
-                    if offset + currentLength > size:
+function drawCenterStrings(this::DrawStringUtil, graphics, stringArray, maxWidth, charHeight, x, y)
+        local extraLines::Int32 = Int32(0)
+        let
+            local index::Int32 = Int32(0)
+            while index < Int32(Base.length(stringArray))
+            try
+            local string = stringArray[index + 1]
+            if string != this.EMPTY_STRING
+                local width::Int32 = AllBinary.stringWidth(AllBinary.getFont(graphics), string)
+                local minTotalLines::Int32 = Int32(1)
+                if width > maxWidth
+                    minTotalLines = (width ÷ maxWidth) + Int32(1)
+                end
+                local linePortion::Int32 = jLength(string) ÷ minTotalLines
+                local offset::Int32 = Int32(0)
+                local currentLength::Int32 = linePortion
+                local size::Int32 = jLength(string)
+                while offset < size
+                    if offset + currentLength > size
                         currentLength = size - offset
-                    if offset + currentLength != size:
-                        while currentLength > 0 and stringArray[index].charAt(offset + currentLength) != ' ':
-                            currentLength -= 1
-                        if currentLength <= 4:
+                    end
+                    if offset + currentLength != size
+                        while currentLength > Int32(0) && AllBinary.charAt(stringArray[index + 1], offset + currentLength) != UInt16(' ')
+                            currentLength -= Int32(1)
+                        end
+                        if currentLength <= Int32(4)
                             currentLength = linePortion
-                    self.drawCenterString(graphics, string, offset, currentLength, x, y + ((index + ((extraLines := extraLines + 1) - 1)) * charHeight))
+                        end
+                    end
+                    AllBinary.drawCenterString(this, graphics, string, offset, currentLength, x, y + ((index + (let old = extraLines; extraLines += Int32(1); old end)) * charHeight))
                     offset = offset + currentLength
                     currentLength = linePortion
-                extraLines -= 1
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.AndroidUtil import AndroidUtil
-# from org.allbinary.J2MEUtil import J2MEUtil
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.graphics.opengles.OpenGLFeatureUtil import OpenGLFeatureUtil
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-
-
-def _DrawStringUtil_instance() -> object:
-    return DrawStringUtil()
-
-lazy_static(DrawStringUtil, "instance", _DrawStringUtil_instance)
+                end
+                extraLines -= Int32(1)
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

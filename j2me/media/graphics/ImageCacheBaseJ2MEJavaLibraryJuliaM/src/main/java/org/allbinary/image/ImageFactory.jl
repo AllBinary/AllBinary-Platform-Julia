@@ -1,69 +1,76 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #ImageCacheBaseJavaLibrary - J2ME
-class ImageFactory:
-    instance: ImageFactory = None
-    
+mutable struct ImageFactory <: JObject
+    ImageFactory() = new()
+end
 
-    @staticmethod
-    def getInstance() -> ImageFactory:
-        return ImageFactory.instance
-    
+const ImageFactory_instanceValue = Ref{Any}(nothing)
+const ImageFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{ImageFactory})
+    if !ImageFactory_instanceSet[]
+        ImageFactory_instanceSet[] = true
+        ImageFactory_instanceValue[] = newImageFactory()
+    end
+    ImageFactory_instanceValue[]
+end
+function staticSet_instance(::Type{ImageFactory}, value)
+    ImageFactory_instanceSet[] = true
+    ImageFactory_instanceValue[] = value
+end
 
-    # throws Exception
-    def createImageUrl(self, url: str) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        return Image.createImage(url)
-    
+function initFieldsImageFactory(this::ImageFactory)
+    nothing
+end
 
-    # throws Exception
-    def createImage(self, caller: str, width: int, height: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.MIDPUtil import MIDPUtil
-        return MIDPUtil.getInstance().createImageWH(width, height)
-    
+function initImageFactory(this::ImageFactory)
+    initFieldsImageFactory(this)
+end
 
-    # throws Exception
-    def createImageFromInputStream(self, key: object, inputStream: InputStream) -> Image:
-        from java.io.InputStream import InputStream
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.MIDPUtil import MIDPUtil
-        image: Image = MIDPUtil.getInstance().createImageFromInputStream(inputStream)
+function newImageFactory()
+    this = ImageFactory()
+    initImageFactory(this)
+    this
+end
+
+
+function getInstance(::Type{ImageFactory})
+        return staticGet_instance(ImageFactory)
+end
+
+
+function createImageUrl(this::ImageFactory, url)
+        return AllBinary.createImage(Image, url)
+end
+
+
+function createImage(this::ImageFactory, caller, width, height)
+        return AllBinary.createImageWH(AllBinary.getInstance(MIDPUtil), width, height)
+end
+
+
+function createImageFromInputStream(this::ImageFactory, key, inputStream)
+        local image = AllBinary.createImageFromInputStream(AllBinary.getInstance(MIDPUtil), inputStream)
         return image
-    
-
-    # throws Exception
-    # Java overloaded method: Python keeps the last definition
-    def createImageFromInputStream(self, inputStream: InputStream) -> Image:
-        from java.io.InputStream import InputStream
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.MIDPUtil import MIDPUtil
-        return MIDPUtil.getInstance().createImageFromInputStream(inputStream)
-# from java.io.InputStream import InputStream
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.MIDPUtil import MIDPUtil
+end
 
 
-def _ImageFactory_instance() -> object:
-    return ImageFactory()
-
-lazy_static(ImageFactory, "instance", _ImageFactory_instance)
+function createImageFromInputStream(this::ImageFactory, inputStream)
+        return AllBinary.createImageFromInputStream(AllBinary.getInstance(MIDPUtil), inputStream)
+end
 

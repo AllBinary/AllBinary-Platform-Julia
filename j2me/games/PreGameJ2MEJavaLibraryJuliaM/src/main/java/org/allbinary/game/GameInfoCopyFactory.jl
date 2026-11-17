@@ -1,34 +1,46 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game
 
-from __future__ import annotations
+mutable struct GameInfoCopyFactory <: JObject
+    GameInfoCopyFactory() = new()
+end
 
 
+function initFieldsGameInfoCopyFactory(this::GameInfoCopyFactory)
+    nothing
+end
 
-class GameInfoCopyFactory:
-    
+function initGameInfoCopyFactory(this::GameInfoCopyFactory)
+    initFieldsGameInfoCopyFactory(this)
+end
 
-    @staticmethod
-    def getInstanceMaxLevel(gameInfo: GameInfo, maxLevel: int) -> GameInfo:
-        from org.allbinary.game.GameInfo import GameInfo
-        return GameInfo(gameInfo.getGameType(), gameInfo.getGameMode(), gameInfo.getPlayerType(), maxLevel, gameInfo.getCurrentLevel())
-    
+function newGameInfoCopyFactory()
+    this = GameInfoCopyFactory()
+    initGameInfoCopyFactory(this)
+    this
+end
 
-    @staticmethod
-    def getInstance(gameInfo: GameInfo) -> GameInfo:
-        from org.allbinary.game.GameInfo import GameInfo
-        return GameInfo(gameInfo.getGameType(), gameInfo.getGameMode(), gameInfo.getPlayerType(), gameInfo.getHighestLevel(), gameInfo.getCurrentLevel())
 
+function getInstanceMaxLevel(::Type{GameInfoCopyFactory}, gameInfo, maxLevel)
+        return newGameInfo(AllBinary.getGameType(gameInfo), AllBinary.getGameMode(gameInfo), AllBinary.getPlayerType(gameInfo), maxLevel, AllBinary.getCurrentLevel(gameInfo))
+end
+
+
+function getInstance(::Type{GameInfoCopyFactory}, gameInfo)
+        return newGameInfo(AllBinary.getGameType(gameInfo), AllBinary.getGameMode(gameInfo), AllBinary.getPlayerType(gameInfo), AllBinary.getHighestLevel(gameInfo), AllBinary.getCurrentLevel(gameInfo))
+end
 

@@ -1,48 +1,62 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.font
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #OpenGLESBaseJavaLibrary
-class FontDebugBase:
-    instanceBase: FontDebugBase = None
+mutable struct FontDebugBase <: JObject
+    SET_FONT::Any
+    FontDebugBase() = new()
+end
 
-    def _init_fields(self) -> None:
-        self.SET_FONT: str = "setFont"
+const FontDebugBase_instanceBaseValue = Ref{Any}(nothing)
+const FontDebugBase_instanceBaseSet = Ref(false)
+function staticGet_instanceBase(::Type{FontDebugBase})
+    if !FontDebugBase_instanceBaseSet[]
+        FontDebugBase_instanceBaseSet[] = true
+        FontDebugBase_instanceBaseValue[] = newFontDebugBase()
+    end
+    FontDebugBase_instanceBaseValue[]
+end
+function staticSet_instanceBase(::Type{FontDebugBase}, value)
+    FontDebugBase_instanceBaseSet[] = true
+    FontDebugBase_instanceBaseValue[] = value
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function initFieldsFontDebugBase(this::FontDebugBase)
+    this.SET_FONT = nothing
+    this.SET_FONT = "setFont"
+    nothing
+end
 
-    @staticmethod
-    def getInstance() -> FontDebugBase:
-        return FontDebugBase.instanceBase
-    
+function initFontDebugBase(this::FontDebugBase)
+    initFieldsFontDebugBase(this)
+end
 
-    def debugMetrics(self, currentFont: Font, convertedTextSize: float, displayMetrics: object, stringBuffer: StringMaker) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        pass
-    
-
-    def debugDpi(self, densityDpi: int, stringBuffer: StringMaker) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        pass
-    
-
-    def debugDimension(self, currentFont: Font, convertedTextSize: float, longestDimensionTotalPixels: int, stringBuffer: StringMaker) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        pass
-# from javax.microedition.lcdui.Font import Font
-# from org.allbinary.logic.string.StringMaker import StringMaker
+function newFontDebugBase()
+    this = FontDebugBase()
+    initFontDebugBase(this)
+    this
+end
 
 
-def _FontDebugBase_instanceBase() -> object:
-    return FontDebugBase()
+function getInstance(::Type{FontDebugBase})
+        return staticGet_instanceBase(FontDebugBase)
+end
 
-lazy_static(FontDebugBase, "instanceBase", _FontDebugBase_instanceBase)
+
+function debugMetrics(this::FontDebugBase, currentFont, convertedTextSize, displayMetrics, stringBuffer)
+        nothing
+        nothing
+end
+
+
+function debugDpi(this::FontDebugBase, densityDpi, stringBuffer)
+        nothing
+        nothing
+end
+
+
+function debugDimension(this::FontDebugBase, currentFont, convertedTextSize, longestDimensionTotalPixels, stringBuffer)
+        nothing
+        nothing
+end
 

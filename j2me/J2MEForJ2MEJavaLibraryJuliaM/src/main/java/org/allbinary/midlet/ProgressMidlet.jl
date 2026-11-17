@@ -1,64 +1,70 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.midlet
 
-from __future__ import annotations
-
-from org.allbinary.midlet.AllBinaryMidlet import AllBinaryMidlet
-
-
 #J2MEForJ2ME
-class ProgressMidlet(AllBinaryMidlet):
+# extends AllBinaryMidlet: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ProgressMidlet <: JObject
+    abeClientInformation::Any
+    ProgressMidlet() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        self.abeClientInformation: AbeClientInformationInterface = None
+
+function initFieldsProgressMidlet(this::ProgressMidlet)
+    this.abeClientInformation = nothing
     
+    nothing
+end
 
-    def __init__(self, clientInformationFactory: ClientInformationFactory) -> None:
-        from org.allbinary.logic.system.security.licensing.ClientInformationFactory import ClientInformationFactory
-        super().__init__()
-        self._init_fields()
-        self.preInit()
-        self.abeClientInformation = clientInformationFactory.getInstance()
-    
 
-    def preInit(self) -> None:
-        pass
-    
+function initProgressMidlet(this::ProgressMidlet, clientInformationFactory)
+        initAllBinaryMidlet(this)
+        initFieldsProgressMidlet(this)
+        AllBinary.preInit(this)
+        this.abeClientInformation = AllBinary.getInstance(clientInformationFactory)
+        nothing
+end
 
-    def exitProgress(self, isProgress: bool) -> None:
-        from org.allbinary.midlet.MidletExitProcessorFactory import MidletExitProcessorFactory
-        from org.allbinary.midlet.ExitRunnable import ExitRunnable
-        from org.allbinary.canvas.Processor import Processor
-        from org.allbinary.thread.PrimaryThreadPool import PrimaryThreadPool
-        from org.allbinary.thread.ThreadPool import ThreadPool
-        processor: Processor = MidletExitProcessorFactory.getInstance().getExitInstance(self)
-        try:
-            primaryThreadPool: ThreadPool = PrimaryThreadPool.getInstance()
-            runnable: object = ExitRunnable(self, processor, isProgress)
-            primaryThreadPool.runTask(runnable)
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "exit", e)
-            try:
-                processor.process()
-            except Exception as e2:
-                self.logUtil.put(self.commonStrings.EXCEPTION, self, "exit", e)
-# from org.allbinary.canvas.Processor import Processor
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-# from org.allbinary.logic.system.security.licensing.ClientInformationFactory import ClientInformationFactory
-# from org.allbinary.thread.PrimaryThreadPool import PrimaryThreadPool
-# from org.allbinary.thread.ThreadPool import ThreadPool
+function newProgressMidlet(clientInformationFactory)
+    this = ProgressMidlet()
+    initProgressMidlet(this, clientInformationFactory)
+    this
+end
 
+
+function preInit(this::ProgressMidlet)
+        nothing
+        nothing
+end
+
+
+function exitProgress(this::ProgressMidlet, isProgress)
+        local processor = AllBinary.getExitInstance(AllBinary.getInstance(MidletExitProcessorFactory), this)
+        try
+            local primaryThreadPool = AllBinary.getInstance(PrimaryThreadPool)
+            local runnable = newExitRunnable(this, processor, isProgress)
+            AllBinary.runTask(primaryThreadPool, runnable)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "exit", e)
+            try
+                AllBinary.process(processor)
+            catch e2
+                AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "exit", e)
+            end
+        end
+        nothing
+end
 

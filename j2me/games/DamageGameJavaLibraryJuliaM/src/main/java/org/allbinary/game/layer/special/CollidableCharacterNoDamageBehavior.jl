@@ -1,56 +1,58 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.special
 
-from __future__ import annotations
+# extends CollidableDestroyableDamageableBehavior: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CollidableCharacterNoDamageBehavior <: JObject
+    CollidableCharacterNoDamageBehavior() = new()
+end
 
-from org.allbinary.game.layer.special.CollidableDestroyableDamageableBehavior import CollidableDestroyableDamageableBehavior
+
+function initFieldsCollidableCharacterNoDamageBehavior(this::CollidableCharacterNoDamageBehavior)
+    nothing
+end
 
 
-class CollidableCharacterNoDamageBehavior(CollidableDestroyableDamageableBehavior):
-    
+function initCollidableCharacterNoDamageBehavior(this::CollidableCharacterNoDamageBehavior, collidable)
+        initCollidableDestroyableDamageableBehavior(this, collidable)
+        nothing
+end
 
-    def __init__(self, collidable: bool) -> None:
-        super().__init__(collidable)
-    
+function newCollidableCharacterNoDamageBehavior(collidable)
+    this = CollidableCharacterNoDamageBehavior()
+    initCollidableCharacterNoDamageBehavior(this, collidable)
+    this
+end
 
-    # throws Exception
-    def collide(self, ownerLayer: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableCompositeLayer) -> None:
-        from org.allbinary.game.collision.CollisionType import CollisionType
-        from org.allbinary.game.collision.CollisionTypeFactory import CollisionTypeFactory
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        from org.allbinary.game.layer.pickup.PickedUpLayerInterface import PickedUpLayerInterface
-        collisionTypeFactory: CollisionTypeFactory = CollisionTypeFactory.getInstance()
-        collisionType: CollisionType = collidableInterfaceCompositeInterface.getCollidableInferface().getCollisionTypeWith(ownerLayer)
-        if collisionType == collisionTypeFactory.PICKUP:
-            collidableDestroyableDamageableLayer: CollidableDestroyableDamageableLayer = ownerLayer
-            collidableDestroyableDamageableLayer.getPickupBehavior().doPickupLayer(collidableInterfaceCompositeInterface)
-        else:
-            pass
-    
 
-    # throws Exception
-    def collideInterface(self, ownerLayer: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableInterfaceCompositeInterface) -> None:
-        from org.allbinary.game.collision.CollidableInterfaceCompositeInterface import CollidableInterfaceCompositeInterface
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        ForcedLogUtil.log(self.commonStrings.NOT_IMPLEMENTED, self)
-# from org.allbinary.game.collision.CollidableInterfaceCompositeInterface import CollidableInterfaceCompositeInterface
-# from org.allbinary.game.collision.CollisionType import CollisionType
-# from org.allbinary.game.collision.CollisionTypeFactory import CollisionTypeFactory
-# from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-# from org.allbinary.game.layer.pickup.PickedUpLayerInterface import PickedUpLayerInterface
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
+function collide(this::CollidableCharacterNoDamageBehavior, ownerLayer, collidableInterfaceCompositeInterface)
+        local collisionTypeFactory = AllBinary.getInstance(CollisionTypeFactory)
+        local collisionType = AllBinary.getCollisionTypeWith(AllBinary.getCollidableInferface(collidableInterfaceCompositeInterface), ownerLayer)
+        if collisionType === collisionTypeFactory.PICKUP
+            local collidableDestroyableDamageableLayer = (ownerLayer)
+            AllBinary.doPickupLayer(AllBinary.getPickupBehavior(collidableDestroyableDamageableLayer), (collidableInterfaceCompositeInterface))
+        else
+            nothing
+        end
+        nothing
+end
 
+
+function collideInterface(this::CollidableCharacterNoDamageBehavior, ownerLayer, collidableInterfaceCompositeInterface)
+        AllBinary.log(ForcedLogUtil, this.commonStrings.NOT_IMPLEMENTED, this)
+        nothing
+end
 

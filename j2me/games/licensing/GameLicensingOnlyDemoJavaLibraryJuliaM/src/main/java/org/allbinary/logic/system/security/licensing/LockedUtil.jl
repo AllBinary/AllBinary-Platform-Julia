@@ -1,43 +1,64 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.system.security.licensing
 
-from __future__ import annotations
+mutable struct LockedUtil <: JObject
+    LockedUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.system.security.licensing.LockedUtilInterface import LockedUtilInterface
+const LockedUtil_instanceValue = Ref{Any}(nothing)
+const LockedUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{LockedUtil})
+    if !LockedUtil_instanceSet[]
+        LockedUtil_instanceSet[] = true
+        LockedUtil_instanceValue[] = newLockedUtil()
+    end
+    LockedUtil_instanceValue[]
+end
+function staticSet_instance(::Type{LockedUtil}, value)
+    LockedUtil_instanceSet[] = true
+    LockedUtil_instanceValue[] = value
+end
+
+function initFieldsLockedUtil(this::LockedUtil)
+    nothing
+end
+
+function initLockedUtil(this::LockedUtil)
+    initFieldsLockedUtil(this)
+end
+
+function newLockedUtil()
+    this = LockedUtil()
+    initLockedUtil(this)
+    this
+end
 
 
-class LockedUtil(LockedUtilInterface):
-    instance: LockedUtil = None
-    
-
-    @staticmethod
-    def getInstance() -> LockedUtil:
-        return LockedUtil.instance
-    
-
-    def isLocked(self) -> bool:
-        return True
-    
-
-    def isLockedFeature(self, lockableFeatrue: LockableFeature) -> bool:
-        return True
+function getInstance(::Type{LockedUtil})
+        return staticGet_instance(LockedUtil)
+end
 
 
-def _LockedUtil_instance() -> object:
-    return LockedUtil()
+function isLocked(this::LockedUtil)
+        return true
+end
 
-lazy_static(LockedUtil, "instance", _LockedUtil_instance)
+
+function isLockedFeature(this::LockedUtil, lockableFeatrue)
+        return true
+end
 

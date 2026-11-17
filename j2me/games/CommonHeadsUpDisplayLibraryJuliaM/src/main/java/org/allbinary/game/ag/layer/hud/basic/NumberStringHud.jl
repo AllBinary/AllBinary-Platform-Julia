@@ -1,110 +1,134 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic
 
-from __future__ import annotations
+# extends BasicHud: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NumberStringHud <: JObject
+    primitiveLongUtil::Any
+    prependString::Any
+    PREPEND_STRING::Any
+    value::Int32
+    max::Int32
+    offset::Int32
+    valueString::Any
+    valueTotalDigits::Int32
+    NumberStringHud() = new()
+end
 
-from org.allbinary.game.graphics.hud.BasicHud import BasicHud
-from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
 
-
-class NumberStringHud(BasicHud, PaintableInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.math.PrimitiveLongUtil import PrimitiveLongUtil
-        self.primitiveLongUtil: PrimitiveLongUtil = None
-        self.prependString: str = None
-        self.PREPEND_STRING: list[str] = None
-        self.value: int = None
-        self.max: int = None
-        self.offset: int = 0
-        self.valueString: list[str] = None
-        self.valueTotalDigits: int = 0
+function initFieldsNumberStringHud(this::NumberStringHud)
+    this.primitiveLongUtil = nothing
+    this.prependString = nothing
+    this.PREPEND_STRING = nothing
+    this.value = Int32(0)
+    this.max = Int32(0)
+    this.offset = Int32(0)
+    this.valueString = nothing
+    this.valueTotalDigits = Int32(0)
     
-
-    def __init__(self, prependString: str, max: int, location: int, direction: int, bufferZone: int, basicColor: BasicColor) -> None:
-        from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.logic.math.PrimitiveLongSingleton import PrimitiveLongSingleton
-        from org.allbinary.logic.math.PrimitiveLongUtil import PrimitiveLongUtil
-        super().__init__(location, direction, bufferZone, basicColor)
-        self._init_fields()
-        self.prependString = prependString
-        self.PREPEND_STRING = list(prependString)
-        self.valueString = PrimitiveLongSingleton.getInstance().NUMBER_CHAR_ARRAYS[0]
-        self.primitiveLongUtil = PrimitiveLongUtil.createPowerOfTen(max + 1)
-        self.max = max
-        self.value = 0
-        if direction == 0:
-            raise RuntimeError(BasicHudFactory.getInstance().DIRECTION_EXCEPTION)
     
-
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.offset = font.stringWidth(self.prependString) + MyFontProcessor.defaultCharWidth(font)
-        super().updateMeasurement(graphics)
     
-
-    def get(self) -> int:
-        return self.value
     
-
-    def add(self, value: int) -> None:
-        self.set(self.value + value)
     
-
-    def set(self, value: int) -> None:
-        self.value = value
-        if self.value > self.max:
-            self.value = 0
-        self.valueString = self.primitiveLongUtil.getCharArray(self.value)
-        self.valueTotalDigits = self.primitiveLongUtil.getCurrentTotalDigits()
+    this.offset = Int32(0)
     
+    this.valueTotalDigits = Int32(0)
+    nothing
+end
 
-    def reduce(self, value: int) -> None:
-        self.set(self.value - value)
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        super().paintDX(graphics, self.PREPEND_STRING, 0, len(self.PREPEND_STRING), self.valueString, 0, self.valueTotalDigits, self.offset)
-    
+function initNumberStringHud(this::NumberStringHud, prependString, max, location, direction, bufferZone, basicColor)
+        initBasicHud(this, location, direction, bufferZone, basicColor)
+        initFieldsNumberStringHud(this)
+        this.prependString = prependString
+        this.PREPEND_STRING = jToCharArray(prependString)
+        this.valueString = AllBinary.getInstance(PrimitiveLongSingleton).NUMBER_CHAR_ARRAYS[Int32(0) + 1]
+        this.primitiveLongUtil = AllBinary.createPowerOfTen(PrimitiveLongUtil, max + Int32(1))
+        this.max = max
+        this.value = Int32(0)
+        if direction == Int32(0)
+            throw(jNewException("RuntimeException", AllBinary.getInstance(BasicHudFactory).DIRECTION_EXCEPTION))
+        end
+        nothing
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        charArray: list[str] = self.PREPEND_STRING
-        len_: int = len(self.PREPEND_STRING)
-        charArray2: list[str] = self.valueString
-        len2: int = self.valueTotalDigits
-        self.basicSetColorUtil.setBasicColorP(graphics, self.getBasicColorP())
-        graphics.drawChars(charArray, 0, len_, x, y, 0)
-        graphics.drawChars(charArray2, 0, len2, x - self.offset, y, 0)
-    
+function newNumberStringHud(prependString, max, location, direction, bufferZone, basicColor)
+    this = NumberStringHud()
+    initNumberStringHud(this, prependString, max, location, direction, bufferZone, basicColor)
+    this
+end
 
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.logic.math.PrimitiveLongSingleton import PrimitiveLongSingleton
-# from org.allbinary.logic.math.PrimitiveLongUtil import PrimitiveLongUtil
 
+function updateMeasurement(this::NumberStringHud, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.offset = AllBinary.stringWidth(font, this.prependString) + AllBinary.defaultCharWidth(MyFontProcessor, font)
+        AllBinary.updateMeasurement(this, graphics)
+        nothing
+end
+
+
+function get(this::NumberStringHud)
+        return this.value
+end
+
+
+function add(this::NumberStringHud, value)
+        AllBinary.set(this, this.value + value)
+        nothing
+end
+
+
+function set(this::NumberStringHud, value)
+        this.value = value
+        if this.value > this.max
+            this.value = Int32(0)
+        end
+        this.valueString = AllBinary.getCharArray(this.primitiveLongUtil, this.value)
+        this.valueTotalDigits = AllBinary.getCurrentTotalDigits(this.primitiveLongUtil)
+        nothing
+end
+
+
+function reduce(this::NumberStringHud, value)
+        AllBinary.set(this, this.value - value)
+        nothing
+end
+
+
+function paint(this::NumberStringHud, graphics)
+        AllBinary.paintDX(this, graphics, this.PREPEND_STRING, Int32(0), Int32(Base.length(this.PREPEND_STRING)), this.valueString, Int32(0), this.valueTotalDigits, this.offset)
+        nothing
+end
+
+
+function paintXY(this::NumberStringHud, graphics, x, y)
+        AllBinary.process(this.myFontProcessor, graphics)
+        local charArray = this.PREPEND_STRING
+        local len::Int32 = Int32(Base.length(this.PREPEND_STRING))
+        local charArray2 = this.valueString
+        local len2::Int32 = this.valueTotalDigits
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this))
+        AllBinary.drawChars(graphics, charArray, Int32(0), len, x, y, Int32(0))
+        AllBinary.drawChars(graphics, charArray2, Int32(0), len2, x - this.offset, y, Int32(0))
+        nothing
+end
+
+
+function paintThreed(this::NumberStringHud, graphics)
+        nothing
+        nothing
+end
 

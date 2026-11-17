@@ -1,85 +1,103 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.identification
 
-from __future__ import annotations
+mutable struct GroupFactory <: JObject
+    logUtil::Any
+    NULL_GROUP_ARRAY::Any
+    list::Any
+    index::Int32
+    GroupFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GroupFactory_instanceValue = Ref{Any}(nothing)
+const GroupFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GroupFactory})
+    if !GroupFactory_instanceSet[]
+        GroupFactory_instanceSet[] = true
+        GroupFactory_instanceValue[] = newGroupFactory()
+    end
+    GroupFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GroupFactory}, value)
+    GroupFactory_instanceSet[] = true
+    GroupFactory_instanceValue[] = value
+end
+
+function initFieldsGroupFactory(this::GroupFactory)
+    this.logUtil = nothing
+    this.NULL_GROUP_ARRAY = nothing
+    this.list = nothing
+    this.index = Int32(0)
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.NULL_GROUP_ARRAY = jNewArray(Any, Int32(0), nothing)
+    this.list = newBasicArrayListD()
+    this.index = Int32(0)
+    nothing
+end
+
+function initGroupFactory(this::GroupFactory)
+    initFieldsGroupFactory(this)
+end
+
+function newGroupFactory()
+    this = GroupFactory()
+    initGroupFactory(this)
+    this
+end
 
 
-class GroupFactory:
-    instance: GroupFactory = None
+function getInstance(::Type{GroupFactory})
+        return staticGet_instance(GroupFactory)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.NULL_GROUP_ARRAY: list[Group] = [None] * (0)
-        self.list_: BasicArrayList = BasicArrayListD()
-        self.index: int = 0
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GroupFactory:
-        return GroupFactory.instance
-    
-
-    def getNextGroup(self) -> Group:
-        group: Group = self.list_.objectArray[self.index]
-        self.index += 1
+function getNextGroup(this::GroupFactory)
+        local group = (this.list.objectArray[this.index + 1])
+        this.index += Int32(1)
         return group
-    
+end
 
-    def getNextGroupByName(self, name: str) -> Group:
-        group: Group = self.getNextGroup()
-        group.setName(name)
+
+function getNextGroupByName(this::GroupFactory, name)
+        local group = AllBinary.getNextGroup(this)
+        AllBinary.setName(group, name)
         return group
-    
+end
 
-    def init(self, groups: int, nameArray: list[str]) -> None:
-        from org.allbinary.game.identification.Group import Group
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        stringMaker: StringMaker = StringMaker()
-        stringUtil: StringUtil = StringUtil.getInstance()
-        TEAM: str = "Team "
-        self.list_.clear()
-        self.index = 0
-        size: int = self.list_.size()
-        name: str = None
-        while size < groups:
+
+function init(this::GroupFactory, groups, nameArray)
+        local stringMaker = newStringMaker()
+        local stringUtil = AllBinary.getInstance(StringUtil)
+        local TEAM = "Team "
+        AllBinary.clear(this.list)
+        this.index = Int32(0)
+        local size::Int32 = AllBinary.size(this.list)
+        local name = nothing
+        while size < ((groups) % Int32)
             name = stringUtil.EMPTY_STRING
-            if size < len(nameArray):
-                name = nameArray[size]
-            else:
-                stringMaker.delete(0, stringMaker.length())
-                name = str(stringMaker.append(TEAM).appendint(size))
-            self.list_.add(Group(name, ((int((size + 3)) + 32768) % 65536 - 32768)))
-            size += 1
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-
-
-def _GroupFactory_instance() -> object:
-    return GroupFactory()
-
-lazy_static(GroupFactory, "instance", _GroupFactory_instance)
+            if size < Int32(Base.length(nameArray))
+                name = nameArray[size + 1]
+            else
+                AllBinary.delete(stringMaker, Int32(0), AllBinary.length(stringMaker))
+                name = AllBinary.toString(AllBinary.appendint(AllBinary.append(stringMaker, TEAM), size))
+            end
+            AllBinary.add(this.list, newGroup(name, (((size + Int32(3))) % Int16)))
+            size += Int32(1)
+        end
+        nothing
+end
 

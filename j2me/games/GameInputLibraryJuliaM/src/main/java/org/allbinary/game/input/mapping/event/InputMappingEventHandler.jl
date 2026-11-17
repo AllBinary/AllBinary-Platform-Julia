@@ -1,49 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.mapping.event
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct InputMappingEventHandler <: JObject
+    InputMappingEventHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const InputMappingEventHandler_gameKeyEventHandlerValue = Ref{Any}(nothing)
+const InputMappingEventHandler_gameKeyEventHandlerSet = Ref(false)
+function staticGet_gameKeyEventHandler(::Type{InputMappingEventHandler})
+    if !InputMappingEventHandler_gameKeyEventHandlerSet[]
+        InputMappingEventHandler_gameKeyEventHandlerSet[] = true
+        InputMappingEventHandler_gameKeyEventHandlerValue[] = newInputMappingEventHandler()
+    end
+    InputMappingEventHandler_gameKeyEventHandlerValue[]
+end
+function staticSet_gameKeyEventHandler(::Type{InputMappingEventHandler}, value)
+    InputMappingEventHandler_gameKeyEventHandlerSet[] = true
+    InputMappingEventHandler_gameKeyEventHandlerValue[] = value
+end
 
-
-class InputMappingEventHandler(BasicEventHandler):
-    gameKeyEventHandler: InputMappingEventHandler = None
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    @staticmethod
-    def getInstance() -> InputMappingEventHandler:
-        return InputMappingEventHandler.gameKeyEventHandler
-    
-
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        inputMappingEventListenerInterface: InputMappingEventListenerInterface = eventListenerInterface
-        inputMappingEventListenerInterface.onInputMappingEvent(eventObject)
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
+function initFieldsInputMappingEventHandler(this::InputMappingEventHandler)
+    nothing
+end
 
 
-def _InputMappingEventHandler_gameKeyEventHandler() -> object:
-    return InputMappingEventHandler()
+function initInputMappingEventHandler(this::InputMappingEventHandler)
+        initBasicEventHandler(this)
+        initFieldsInputMappingEventHandler(this)
+        nothing
+        nothing
+end
 
-lazy_static(InputMappingEventHandler, "gameKeyEventHandler", _InputMappingEventHandler_gameKeyEventHandler)
+function newInputMappingEventHandler()
+    this = InputMappingEventHandler()
+    initInputMappingEventHandler(this)
+    this
+end
+
+
+function getInstance(::Type{InputMappingEventHandler})
+        return staticGet_gameKeyEventHandler(InputMappingEventHandler)
+end
+
+
+function process(this::InputMappingEventHandler, eventObject, eventListenerInterface)
+        local inputMappingEventListenerInterface = (eventListenerInterface)
+        AllBinary.onInputMappingEvent(inputMappingEventListenerInterface, (eventObject))
+        nothing
+end
 

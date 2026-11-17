@@ -1,89 +1,102 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+mutable struct StreamUtil <: JObject
+    logUtil::Any
+    StreamUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const StreamUtil_instanceValue = Ref{Any}(nothing)
+const StreamUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{StreamUtil})
+    if !StreamUtil_instanceSet[]
+        StreamUtil_instanceSet[] = true
+        StreamUtil_instanceValue[] = newStreamUtil()
+    end
+    StreamUtil_instanceValue[]
+end
+function staticSet_instance(::Type{StreamUtil}, value)
+    StreamUtil_instanceSet[] = true
+    StreamUtil_instanceValue[] = value
+end
+
+function initFieldsStreamUtil(this::StreamUtil)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
 
 
-class StreamUtil:
-    instance: StreamUtil = None
+function getInstance(::Type{StreamUtil})
+        return staticGet_instance(StreamUtil)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-    
 
-    @staticmethod
-    def getInstance() -> StreamUtil:
-        return StreamUtil.instance
-    
+function initStreamUtil(this::StreamUtil)
+        initFieldsStreamUtil(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newStreamUtil()
+    this = StreamUtil()
+    initStreamUtil(this)
+    this
+end
 
-    # throws Exception
-    def get(self, inputStream: InputStream, outputStream: OutputStream, buffer: list[int]) -> OutputStream:
-        from java.io.InputStream import InputStream
-        from java.io.OutputStream import OutputStream
-        len_: int = 0
-        while True:
-            len_ = inputStream.read(buffer, 0, len(buffer))
-            if len_ != -1:
-                pass
-            else:
+
+function get(this::StreamUtil, inputStream, outputStream, buffer)
+        local len::Int32 = Int32(0)
+        while true
+            len = AllBinary.read(inputStream, buffer, Int32(0), Int32(Base.length(buffer)))
+            if len != -Int32(1)
+                nothing
+            else
                 break
-            outputStream.write(buffer, 0, len_)
+            end
+            AllBinary.write(outputStream, buffer, Int32(0), len)
+        end
         return outputStream
-    
-
-    # throws Exception
-    def getByteArray(self, inputStream: InputStream, outputStream2: ByteArrayOutputStream, byteArray: list[int]) -> list[int]:
-        from java.io.InputStream import InputStream
-        outputStream: ByteArrayOutputStream = outputStream2
-        try:
-            self.get(inputStream, outputStream, byteArray)
-            return outputStream.toByteArray()
-        except Exception as e:
-            raise e
-        finally:
-            self.close(outputStream)
-    
-
-    def close(self, closeable: Closeable) -> bool:
-        from java.io.Closeable import Closeable
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            if closeable is not None:
-                closeable.close()
-            return True
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.CLOSE, e)
-            return False
-# from java.io.ByteArrayOutputStream import ByteArrayOutputStream
-# from java.io.Closeable import Closeable
-# from java.io.InputStream import InputStream
-# from java.io.OutputStream import OutputStream
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+end
 
 
-def _StreamUtil_instance() -> object:
-    return StreamUtil()
+function getByteArray(this::StreamUtil, inputStream, outputStream2, byteArray)
+        local outputStream = outputStream2
+        try
+            AllBinary.get(this, inputStream, outputStream, byteArray)
+            return AllBinary.toByteArray(outputStream)
+        catch e
+            throw(e)
+        finally
+            AllBinary.close(this, outputStream)
+        end
+end
 
-lazy_static(StreamUtil, "instance", _StreamUtil_instance)
+
+function close(this::StreamUtil, closeable)
+        try
+            if closeable !== nothing
+                AllBinary.close(closeable)
+            end
+            return true
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.CLOSE, e)
+            return false
+        end
+end
 

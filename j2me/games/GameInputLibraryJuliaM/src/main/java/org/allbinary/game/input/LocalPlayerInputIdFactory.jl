@@ -1,109 +1,169 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+mutable struct LocalPlayerInputIdFactory <: JObject
+    logUtil::Any
+    MAX_NUMBER_OF_PLAYERS::Int32
+    MAX_FAST_DEVICEID::Int32
+    deviceIdToplayerId::Any
+    playerIdToDeviceId::Any
+    playersInPlay::Any
+    totalDevicesMapped::Int32
+    LocalPlayerInputIdFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const LocalPlayerInputIdFactory_instanceValue = Ref{Any}(nothing)
+const LocalPlayerInputIdFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{LocalPlayerInputIdFactory})
+    if !LocalPlayerInputIdFactory_instanceSet[]
+        LocalPlayerInputIdFactory_instanceSet[] = true
+        LocalPlayerInputIdFactory_instanceValue[] = newLocalPlayerInputIdFactory()
+    end
+    LocalPlayerInputIdFactory_instanceValue[]
+end
+function staticSet_instance(::Type{LocalPlayerInputIdFactory}, value)
+    LocalPlayerInputIdFactory_instanceSet[] = true
+    LocalPlayerInputIdFactory_instanceValue[] = value
+end
+
+function initFieldsLocalPlayerInputIdFactory(this::LocalPlayerInputIdFactory)
+    this.logUtil = nothing
+    this.MAX_NUMBER_OF_PLAYERS = Int32(0)
+    this.MAX_FAST_DEVICEID = Int32(0)
+    this.deviceIdToplayerId = nothing
+    this.playerIdToDeviceId = nothing
+    this.playersInPlay = nothing
+    this.totalDevicesMapped = Int32(0)
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.MAX_NUMBER_OF_PLAYERS = Int32(6)
+    this.MAX_FAST_DEVICEID = Int32(65)
+    this.deviceIdToplayerId = jNewArray(Int32, this.MAX_FAST_DEVICEID, Int32(0))
+    this.playerIdToDeviceId = jNewArray(Int32, this.MAX_NUMBER_OF_PLAYERS, Int32(0))
+    this.playersInPlay = jNewArray(Bool, this.MAX_NUMBER_OF_PLAYERS, false)
+    this.totalDevicesMapped = Int32(0)
+    nothing
+end
 
 
-class LocalPlayerInputIdFactory:
-    instance: LocalPlayerInputIdFactory = None
+function initLocalPlayerInputIdFactory(this::LocalPlayerInputIdFactory)
+        initFieldsLocalPlayerInputIdFactory(this)
+        let
+            local index::Int32 = Int32(Base.length(this.deviceIdToplayerId)) - Int32(1)
+            while index >= Int32(0)
+            try
+            this.deviceIdToplayerId[index + 1] = -Int32(1)
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.MAX_NUMBER_OF_PLAYERS: int = 6
-        self.MAX_FAST_DEVICEID: int = 65
-        self.deviceIdToplayerId: list[int] = [0] * (self.MAX_FAST_DEVICEID)
-        self.playerIdToDeviceId: list[int] = [0] * (self.MAX_NUMBER_OF_PLAYERS)
-        self.playersInPlay: list[bool] = [False] * (self.MAX_NUMBER_OF_PLAYERS)
-        self.totalDevicesMapped: int = 0
-    
+function newLocalPlayerInputIdFactory()
+    this = LocalPlayerInputIdFactory()
+    initLocalPlayerInputIdFactory(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-        for index in range(len(self.deviceIdToplayerId) - 1, 0 - 1, -1):
-            self.deviceIdToplayerId[index] = -1
-    
 
-    @staticmethod
-    def getInstance() -> LocalPlayerInputIdFactory:
-        return LocalPlayerInputIdFactory.instance
-    
+function getInstance(::Type{LocalPlayerInputIdFactory})
+        return staticGet_instance(LocalPlayerInputIdFactory)
+end
 
-    def getDeviceId(self, playerInputId: int) -> int:
-        return self.playerIdToDeviceId[playerInputId]
-    
 
-    def getPlayerForDevice(self, deviceId: int) -> int:
-        from org.allbinary.game.input.analog.AnalogLocationInputFactory import AnalogLocationInputFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        index: int = 0
-        if deviceId < self.MAX_FAST_DEVICEID:
-            playerInputId: int = self.deviceIdToplayerId[deviceId]
-            if playerInputId != -1:
+function getDeviceId(this::LocalPlayerInputIdFactory, playerInputId)
+        return this.playerIdToDeviceId[playerInputId + 1]
+end
+
+
+function getPlayerForDevice(this::LocalPlayerInputIdFactory, deviceId)
+        local index::Int32 = Int32(0)
+        if deviceId < this.MAX_FAST_DEVICEID
+            local playerInputId::Int32 = this.deviceIdToplayerId[deviceId + 1]
+            if playerInputId != -Int32(1)
                 return playerInputId
-        else:
-            for index in range(self.totalDevicesMapped - 1, 0 - 1, -1):
-                if self.playerIdToDeviceId[index] == deviceId:
+            end
+        else
+            let
+                index = this.totalDevicesMapped - Int32(1)
+                while index >= Int32(0)
+                try
+                if this.playerIdToDeviceId[index + 1] == deviceId
                     return index
-        index = self.totalDevicesMapped
-        if deviceId < self.MAX_FAST_DEVICEID:
-            self.deviceIdToplayerId[deviceId] = index
-        else:
-            self.logUtil.putF(str(StringMaker().append("Added DeviceId: ").appendint(deviceId).append(" beyond fast Id list")), self, "getPlayerForDevice")
-        self.playerIdToDeviceId[index] = deviceId
-        AnalogLocationInputFactory.getInstance().addPlayer(self.totalDevicesMapped)
-        self.totalDevicesMapped += 1
-        self.logUtil.putF(str(StringMaker().append("Added DeviceId: ").appendint(deviceId).append(" at: ").appendint(index).append(" Total: ").appendint(self.totalDevicesMapped)), self, "getPlayerForDevice")
+                end
+                finally
+                    index -= Int32(1)
+                end
+                end
+            end
+        end
+        index = this.totalDevicesMapped
+        if deviceId < this.MAX_FAST_DEVICEID
+            this.deviceIdToplayerId[deviceId + 1] = index
+        else
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.appendint(AllBinary.append(newStringMaker(), "Added DeviceId: "), deviceId), " beyond fast Id list")), this, "getPlayerForDevice")
+        end
+        this.playerIdToDeviceId[index + 1] = deviceId
+        AllBinary.addPlayer(AllBinary.getInstance(AnalogLocationInputFactory), this.totalDevicesMapped)
+        this.totalDevicesMapped += Int32(1)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(AllBinary.appendint(AllBinary.append(AllBinary.appendint(AllBinary.append(newStringMaker(), "Added DeviceId: "), deviceId), " at: "), index), " Total: "), this.totalDevicesMapped)), this, "getPlayerForDevice")
         return index
-    
+end
 
-    def getTotalDevicesInPlay(self) -> int:
-        total: int = 0
-        for index in range(self.totalDevicesMapped - 1, 0 - 1, -1):
-            if self.playersInPlay[index] == True:
-                total += 1
+
+function getTotalDevicesInPlay(this::LocalPlayerInputIdFactory)
+        local total::Int32 = Int32(0)
+        let
+            local index::Int32 = this.totalDevicesMapped - Int32(1)
+            while index >= Int32(0)
+            try
+            if this.playersInPlay[index + 1] == true
+                total += Int32(1)
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
         return total
-    
-
-    def isPlayerInPlay(self, playerInputId: int) -> bool:
-        return self.playersInPlay[playerInputId]
-    
-
-    def setPlayerInPlay(self, playerInputId: int) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.logUtil.putF(str(StringMaker().append("Setting PlayerInPlay with playerInputId: ").appendint(playerInputId)), self, "setPlayerInPlay")
-        self.playersInPlay[playerInputId] = True
-    
-
-    def setPlayerOutOfPlay(self, playerInputId: int) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.logUtil.putF(str(StringMaker().append("Setting PlayerOutOfPlay with playerInputId: ").appendint(playerInputId)), self, "setPlayerOutOfPlay")
-        self.playersInPlay[playerInputId] = False
-    
-
-    def getPlayersInPlay(self) -> list[bool]:
-        return self.playersInPlay
-# from org.allbinary.game.input.analog.AnalogLocationInputFactory import AnalogLocationInputFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
+end
 
 
-def _LocalPlayerInputIdFactory_instance() -> object:
-    return LocalPlayerInputIdFactory()
+function isPlayerInPlay(this::LocalPlayerInputIdFactory, playerInputId)
+        return this.playersInPlay[playerInputId + 1]
+end
 
-lazy_static(LocalPlayerInputIdFactory, "instance", _LocalPlayerInputIdFactory_instance)
+
+function setPlayerInPlay(this::LocalPlayerInputIdFactory, playerInputId)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), "Setting PlayerInPlay with playerInputId: "), playerInputId)), this, "setPlayerInPlay")
+        this.playersInPlay[playerInputId + 1] = true
+        nothing
+end
+
+
+function setPlayerOutOfPlay(this::LocalPlayerInputIdFactory, playerInputId)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), "Setting PlayerOutOfPlay with playerInputId: "), playerInputId)), this, "setPlayerOutOfPlay")
+        this.playersInPlay[playerInputId + 1] = false
+        nothing
+end
+
+
+function getPlayersInPlay(this::LocalPlayerInputIdFactory)
+        return this.playersInPlay
+end
 

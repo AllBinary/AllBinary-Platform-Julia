@@ -1,15 +1,27 @@
 # Generated Code Do Not Modify
 # package org.allbinary.device
 
-from __future__ import annotations
+mutable struct OpenGLESGraphicsFactory <: JObject
+    OpenGLESGraphicsFactory() = new()
+end
 
 
+function initFieldsOpenGLESGraphicsFactory(this::OpenGLESGraphicsFactory)
+    nothing
+end
 
-class OpenGLESGraphicsFactory:
-    
+function initOpenGLESGraphicsFactory(this::OpenGLESGraphicsFactory)
+    initFieldsOpenGLESGraphicsFactory(this)
+end
 
-    def getOpenGLESGraphicsInstance(self) -> OpenGLESGraphics:
-        from org.allbinary.device.OpenGLESNullGraphicsFactory import OpenGLESNullGraphicsFactory
-        return OpenGLESNullGraphicsFactory.getInstance()
+function newOpenGLESGraphicsFactory()
+    this = OpenGLESGraphicsFactory()
+    initOpenGLESGraphicsFactory(this)
+    this
+end
 
+
+function getOpenGLESGraphicsInstance(this::OpenGLESGraphicsFactory)
+        return AllBinary.getInstance(OpenGLESNullGraphicsFactory)
+end
 

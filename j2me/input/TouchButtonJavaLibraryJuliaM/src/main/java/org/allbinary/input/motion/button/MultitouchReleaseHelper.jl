@@ -1,44 +1,63 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-#
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-#
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-#
-# Created By: Travis Berthelot
-# 
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+ 
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+ 
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ 
+  Created By: Travis Berthelot
+  
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends ReleaseHelper: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MultitouchReleaseHelper <: JObject
+    MultitouchReleaseHelper() = new()
+end
 
-from org.allbinary.input.motion.button.ReleaseHelper import ReleaseHelper
+
+function initFieldsMultitouchReleaseHelper(this::MultitouchReleaseHelper)
+    nothing
+end
 
 
-class MultitouchReleaseHelper(ReleaseHelper):
-    
+function initMultitouchReleaseHelper(this::MultitouchReleaseHelper, touchButtonRecognizer)
+        initReleaseHelper(this, touchButtonRecognizer)
+        nothing
+end
 
-    def __init__(self, touchButtonRecognizer: TouchButtonRecognizer) -> None:
-        super().__init__(touchButtonRecognizer)
-    
+function newMultitouchReleaseHelper(touchButtonRecognizer)
+    this = MultitouchReleaseHelper()
+    initMultitouchReleaseHelper(this, touchButtonRecognizer)
+    this
+end
 
-    # throws Exception
-    def release(self, touchButtonInput: TouchButtonInput, deviceId: int) -> None:
-        from org.allbinary.input.motion.button.CancelTouchButtonInputFactory import CancelTouchButtonInputFactory
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        cancelTouchButtonInput: TouchButtonInput = CancelTouchButtonInputFactory.getInstance().getCancel(touchButtonInput)
-        nextTouchButtonInput: TouchButtonInput = None
-        gameKeyEvent: GameKeyEvent = None
-        for index in range(self.touchButtonRecognizer.currentlyPressedTouchButtonSingleton.size() - 1, 0 - 1, -1):
-            nextTouchButtonInput = self.touchButtonRecognizer.currentlyPressedTouchButtonSingleton.get(index)
-            if cancelTouchButtonInput == nextTouchButtonInput:
-                gameKeyEvent = nextTouchButtonInput.getGameKeyEvent()
-                self.touchButtonRecognizer.upGameKeyEventHandler.fireEvent(gameKeyEvent)
-                self.touchButtonRecognizer.upGameKeyEventHandler.getInstanceForDevice(deviceId).fireEvent(gameKeyEvent)
-                self.touchButtonRecognizer.currentlyPressedTouchButtonSingleton.removeAt(index)
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
 
+function release(this::MultitouchReleaseHelper, touchButtonInput, deviceId)
+        local cancelTouchButtonInput = AllBinary.getCancel(AllBinary.getInstance(CancelTouchButtonInputFactory), touchButtonInput)
+        local nextTouchButtonInput = nothing
+        local gameKeyEvent = nothing
+        let
+            local index::Int32 = AllBinary.size(this.touchButtonRecognizer.currentlyPressedTouchButtonSingleton) - Int32(1)
+            while index >= Int32(0)
+            try
+            nextTouchButtonInput = AllBinary.get(this.touchButtonRecognizer.currentlyPressedTouchButtonSingleton, index)
+            if cancelTouchButtonInput === nextTouchButtonInput
+                gameKeyEvent = AllBinary.getGameKeyEvent(nextTouchButtonInput)
+                AllBinary.fireEvent(this.touchButtonRecognizer.upGameKeyEventHandler, gameKeyEvent)
+                AllBinary.fireEvent(AllBinary.getInstanceForDevice(this.touchButtonRecognizer.upGameKeyEventHandler, deviceId), gameKeyEvent)
+                AllBinary.removeAt(this.touchButtonRecognizer.currentlyPressedTouchButtonSingleton, index)
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

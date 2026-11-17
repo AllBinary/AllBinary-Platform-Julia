@@ -1,39 +1,51 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.midlet
 
-from __future__ import annotations
+# extends DemoGameMidlet: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SpecialDemoGameMidlet <: JObject
+    SpecialDemoGameMidlet() = new()
+end
 
-from org.allbinary.game.midlet.DemoGameMidlet import DemoGameMidlet
+
+function initFieldsSpecialDemoGameMidlet(this::SpecialDemoGameMidlet)
+    nothing
+end
 
 
-class SpecialDemoGameMidlet(DemoGameMidlet):
-    
+function initSpecialDemoGameMidlet(this::SpecialDemoGameMidlet, clientInformationFactory, licenseLoadingType, demoSetupFactory, licenseCheckRunnableFactory)
+        initDemoGameMidlet(this, clientInformationFactory)
+        nothing
+end
 
-    def __init__(self, clientInformationFactory: ClientInformationFactory, licenseLoadingType: LicenseLoadingType, demoSetupFactory: LicensedDemoSetupFactory, licenseCheckRunnableFactory: LicenseCheckRunnableFactory) -> None:
-        from org.allbinary.logic.system.security.licensing.ClientInformationFactory import ClientInformationFactory
-        super().__init__(clientInformationFactory)
-    
+function newSpecialDemoGameMidlet(clientInformationFactory, licenseLoadingType, demoSetupFactory, licenseCheckRunnableFactory)
+    this = SpecialDemoGameMidlet()
+    initSpecialDemoGameMidlet(this, clientInformationFactory, licenseLoadingType, demoSetupFactory, licenseCheckRunnableFactory)
+    this
+end
 
-    def initView(self) -> None:
-        pass
-    
 
-    def preInit(self) -> None:
-        from org.allbinary.logic.system.security.licensing.LicenseServerInitFileUtil import LicenseServerInitFileUtil
-        LicenseServerInitFileUtil().init()
-# from org.allbinary.logic.system.security.licensing.ClientInformationFactory import ClientInformationFactory
-# from org.allbinary.logic.system.security.licensing.LicenseServerInitFileUtil import LicenseServerInitFileUtil
+function initView(this::SpecialDemoGameMidlet)
+        nothing
+        nothing
+end
 
+
+function preInit(this::SpecialDemoGameMidlet)
+        AllBinary.init(newLicenseServerInitFileUtil())
+        nothing
+end
 

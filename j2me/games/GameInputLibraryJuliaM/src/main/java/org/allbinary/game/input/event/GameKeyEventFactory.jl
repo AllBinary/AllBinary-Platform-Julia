@@ -1,84 +1,111 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.event
 
-from __future__ import annotations
+mutable struct GameKeyEventFactory <: JObject
+    logUtil::Any
+    TOUCH_BUTTON_SOURCE_ID::Int32
+    MOTION_GESTURE_SOURCE_ID::Int32
+    MAX_SOURCES::Int32
+    ARRAY::Any
+    GameKeyEventFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameKeyEventFactory_instanceValue = Ref{Any}(nothing)
+const GameKeyEventFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameKeyEventFactory})
+    if !GameKeyEventFactory_instanceSet[]
+        GameKeyEventFactory_instanceSet[] = true
+        GameKeyEventFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    GameKeyEventFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GameKeyEventFactory}, value)
+    GameKeyEventFactory_instanceSet[] = true
+    GameKeyEventFactory_instanceValue[] = value
+end
+
+function initFieldsGameKeyEventFactory(this::GameKeyEventFactory)
+    this.logUtil = nothing
+    this.TOUCH_BUTTON_SOURCE_ID = Int32(0)
+    this.MOTION_GESTURE_SOURCE_ID = Int32(0)
+    this.MAX_SOURCES = Int32(0)
+    this.ARRAY = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.TOUCH_BUTTON_SOURCE_ID = Int32(2)
+    this.MOTION_GESTURE_SOURCE_ID = Int32(3)
+    this.MAX_SOURCES = Int32(4)
+    this.ARRAY = jNewArrayOf(Vector{Any}, this.MAX_SOURCES, () -> jNewArray(Any, AllBinary.getInstance(InputFactory).MAX, nothing))
+    nothing
+end
 
 
-class GameKeyEventFactory:
-    instance: object = None
+function getInstance(::Type{GameKeyEventFactory})
+        if staticGet_instance(GameKeyEventFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(GameKeyEventFactory, newGameKeyEventFactory())
+        end
+        return (staticGet_instance(GameKeyEventFactory))
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.TOUCH_BUTTON_SOURCE_ID: int = 2
-        self.MOTION_GESTURE_SOURCE_ID: int = 3
-        self.MAX_SOURCES: int = 4
-        self.ARRAY: list[list[GameKeyEvent]] = [[None] * (InputFactory.getInstance().MAX) for _ in range(self.MAX_SOURCES)]
-    
 
-    @staticmethod
-    def getInstance() -> GameKeyEventFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if GameKeyEventFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            GameKeyEventFactory.instance = GameKeyEventFactory()
-        return GameKeyEventFactory.instance
-    
+function initGameKeyEventFactory(this::GameKeyEventFactory)
+        initFieldsGameKeyEventFactory(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newGameKeyEventFactory()
+    this = GameKeyEventFactory()
+    initGameKeyEventFactory(this)
+    this
+end
 
-    def init(self) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.game.input.InputFactory import InputFactory
-        from org.allbinary.logic.NullUtil import NullUtil
-        nullUtil: NullUtil = NullUtil.getInstance()
-        size: int = InputFactory.getInstance().MAX
-        index = self.MAX_SOURCES
-        while (index := index - 1) >= 0:
-            index2 = size
-            while (index2 := index2 - 1) >= 0:
-                self.ARRAY[index][index2] = GameKeyEvent.createEvent(nullUtil.NULL_OBJECT, index, index2)
-    
 
-    # throws Exception
-    def getInstanceForKey(self, anyType: GameKeyEventSourceInterface, key: int) -> GameKeyEvent:
-        from org.allbinary.game.input.GameKeyEventSourceInterface import GameKeyEventSourceInterface
-        gameKeyEvent: GameKeyEvent = self.ARRAY[anyType.getSourceId()][key]
+function init(this::GameKeyEventFactory)
+        local nullUtil = AllBinary.getInstance(NullUtil)
+        local size::Int32 = AllBinary.getInstance(InputFactory).MAX
+        let
+            local index::Int32 = this.MAX_SOURCES
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            let
+                local index2::Int32 = size
+                while (index2 -= Int32(1)) >= Int32(0)
+                try
+                this.ARRAY[index + 1][index2 + 1] = AllBinary.createEvent(GameKeyEvent, nullUtil.NULL_OBJECT, index, index2)
+                finally
+                end
+                end
+            end
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function getInstanceForKey(this::GameKeyEventFactory, anyType, key)
+        local gameKeyEvent = this.ARRAY[AllBinary.getSourceId(anyType) + 1][key + 1]
         return gameKeyEvent
-    
+end
 
-    # throws Exception
-    def getInstanceForInput(self, anyType: GameKeyEventSourceInterface, input: Input) -> GameKeyEvent:
-        from org.allbinary.game.input.GameKeyEventSourceInterface import GameKeyEventSourceInterface
-        from org.allbinary.game.input.Input import Input
-        gameKeyEvent: GameKeyEvent = self.ARRAY[anyType.getSourceId()][input.getId()]
+
+function getInstanceForInput(this::GameKeyEventFactory, anyType, input)
+        local gameKeyEvent = this.ARRAY[AllBinary.getSourceId(anyType) + 1][AllBinary.getId(input) + 1]
         return gameKeyEvent
-# from org.allbinary.game.input.GameKeyEventSourceInterface import GameKeyEventSourceInterface
-# from org.allbinary.game.input.Input import Input
-# from org.allbinary.game.input.InputFactory import InputFactory
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-
-
-def _GameKeyEventFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
-
-lazy_static(GameKeyEventFactory, "instance", _GameKeyEventFactory_instance)
+end
 

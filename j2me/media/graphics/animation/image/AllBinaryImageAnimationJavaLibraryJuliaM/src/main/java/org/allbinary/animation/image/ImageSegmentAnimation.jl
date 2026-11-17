@@ -1,115 +1,153 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends ImageAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageSegmentAnimation <: JObject
+    startX::Int32
+    startY::Int32
+    drawWidth::Int32
+    drawHeight::Int32
+    circularIndexUtil::Any
+    sequenceArray::Any
+    ImageSegmentAnimation() = new()
+end
 
-from org.allbinary.animation.image.ImageAnimation import ImageAnimation
 
-
-class ImageSegmentAnimation(ImageAnimation):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.startX: int = None
-        self.startY: int = None
-        self.drawWidth: int = None
-        self.drawHeight: int = None
-        self.circularIndexUtil: CircularIndexUtil = None
-        self.sequenceArray: list[int] = None
+function initFieldsImageSegmentAnimation(this::ImageSegmentAnimation)
+    this.startX = Int32(0)
+    this.startY = Int32(0)
+    this.drawWidth = Int32(0)
+    this.drawHeight = Int32(0)
+    this.circularIndexUtil = nothing
+    this.sequenceArray = nothing
     
-
-    def __init__(self, image: Image, sequenceArray: list[int], animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        super().__init__(image, animationBehavior)
-        self._init_fields()
-        self.startX = 0
-        self.startY = 0
-        self.drawWidth = self.getImage().getWidth()
-        self.drawHeight = self.getImage().getHeight()
-        self.circularIndexUtil = CircularIndexUtil.createInstance(self.drawHeight)
-        self.sequenceArray = sequenceArray
     
-
-    def nextFrame(self) -> None:
-        self.circularIndexUtil.next()
     
-
-    def previousFrame(self) -> None:
-        self.circularIndexUtil.previous()
     
-
-    def setFrame(self, index: int) -> None:
-        self.circularIndexUtil.setIndex(index)
     
-
-    def getFrame(self) -> int:
-        return self.circularIndexUtil.getIndex()
     
+    nothing
+end
 
-    def getSize(self) -> int:
-        return self.circularIndexUtil.getSize()
-    
 
-    def setSequence(self, sequenceArray: list[int]) -> None:
-        self.sequenceArray = sequenceArray
-    
+function initImageSegmentAnimation(this::ImageSegmentAnimation, image, sequenceArray, animationBehavior)
+        initImageAnimation(this, image, animationBehavior)
+        initFieldsImageSegmentAnimation(this)
+        this.startX = Int32(0)
+        this.startY = Int32(0)
+        this.drawWidth = AllBinary.getWidth(AllBinary.getImage(this))
+        this.drawHeight = AllBinary.getHeight(AllBinary.getImage(this))
+        this.circularIndexUtil = AllBinary.createInstance(CircularIndexUtil, this.drawHeight)
+        this.sequenceArray = sequenceArray
+        nothing
+end
 
-    def getSequence(self) -> list[int]:
-        return self.sequenceArray
-    
+function newImageSegmentAnimation(image, sequenceArray, animationBehavior)
+    this = ImageSegmentAnimation()
+    initImageSegmentAnimation(this, image, sequenceArray, animationBehavior)
+    this
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
 
-    def getStartX(self) -> int:
-        return self.startX
-    
+function nextFrame(this::ImageSegmentAnimation)
+        AllBinary.next(this.circularIndexUtil)
+        nothing
+end
 
-    def setStartX(self, startX: int) -> None:
-        self.startX = startX
-    
 
-    def getStartY(self) -> int:
-        return self.startY
-    
+function previousFrame(this::ImageSegmentAnimation)
+        AllBinary.previous(this.circularIndexUtil)
+        nothing
+end
 
-    def setStartY(self, startY: int) -> None:
-        self.startY = startY
-    
 
-    def getDrawWidth(self) -> int:
-        return self.drawWidth
-    
+function setFrame(this::ImageSegmentAnimation, index)
+        AllBinary.setIndex(this.circularIndexUtil, index)
+        nothing
+end
 
-    def setDrawWidth(self, drawWidth: int) -> None:
-        self.drawWidth = drawWidth
-    
 
-    def getDrawHeight(self) -> int:
-        return self.drawHeight
-    
+function getFrame(this::ImageSegmentAnimation)
+        return AllBinary.getIndex(this.circularIndexUtil)
+end
 
-    def setDrawHeight(self, drawHeight: int) -> None:
-        self.drawHeight = drawHeight
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
 
+function getSize(this::ImageSegmentAnimation)
+        return AllBinary.getSize(this.circularIndexUtil)
+end
+
+
+function setSequence(this::ImageSegmentAnimation, sequenceArray)
+        this.sequenceArray = sequenceArray
+        nothing
+end
+
+
+function getSequence(this::ImageSegmentAnimation)
+        return this.sequenceArray
+end
+
+
+function paintXY(this::ImageSegmentAnimation, graphics, x, y)
+        nothing
+        nothing
+end
+
+
+function getStartX(this::ImageSegmentAnimation)
+        return this.startX
+end
+
+
+function setStartX(this::ImageSegmentAnimation, startX)
+        this.startX = startX
+        nothing
+end
+
+
+function getStartY(this::ImageSegmentAnimation)
+        return this.startY
+end
+
+
+function setStartY(this::ImageSegmentAnimation, startY)
+        this.startY = startY
+        nothing
+end
+
+
+function getDrawWidth(this::ImageSegmentAnimation)
+        return this.drawWidth
+end
+
+
+function setDrawWidth(this::ImageSegmentAnimation, drawWidth)
+        this.drawWidth = drawWidth
+        nothing
+end
+
+
+function getDrawHeight(this::ImageSegmentAnimation)
+        return this.drawHeight
+end
+
+
+function setDrawHeight(this::ImageSegmentAnimation, drawHeight)
+        this.drawHeight = drawHeight
+        nothing
+end
 

@@ -1,135 +1,190 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.event
 
-from __future__ import annotations
+mutable struct RawKeyEventHandler <: JObject
+    logUtil::Any
+    eventListenerInterfaceList::Any
+    RawKeyEventHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const RawKeyEventHandler_instanceValue = Ref{Any}(nothing)
+const RawKeyEventHandler_instanceSet = Ref(false)
+function staticGet_instance(::Type{RawKeyEventHandler})
+    if !RawKeyEventHandler_instanceSet[]
+        RawKeyEventHandler_instanceSet[] = true
+        RawKeyEventHandler_instanceValue[] = newRawKeyEventHandler()
+    end
+    RawKeyEventHandler_instanceValue[]
+end
+function staticSet_instance(::Type{RawKeyEventHandler}, value)
+    RawKeyEventHandler_instanceSet[] = true
+    RawKeyEventHandler_instanceValue[] = value
+end
+const RawKeyEventHandler_TOTAL_LISTENERSValue = Ref{Any}(nothing)
+const RawKeyEventHandler_TOTAL_LISTENERSSet = Ref(false)
+function staticGet_TOTAL_LISTENERS(::Type{RawKeyEventHandler})
+    if !RawKeyEventHandler_TOTAL_LISTENERSSet[]
+        RawKeyEventHandler_TOTAL_LISTENERSSet[] = true
+        RawKeyEventHandler_TOTAL_LISTENERSValue[] = "Total Listeners: "
+    end
+    RawKeyEventHandler_TOTAL_LISTENERSValue[]
+end
+function staticSet_TOTAL_LISTENERS(::Type{RawKeyEventHandler}, value)
+    RawKeyEventHandler_TOTAL_LISTENERSSet[] = true
+    RawKeyEventHandler_TOTAL_LISTENERSValue[] = value
+end
+const RawKeyEventHandler_LISTENER_LABELValue = Ref{Any}(nothing)
+const RawKeyEventHandler_LISTENER_LABELSet = Ref(false)
+function staticGet_LISTENER_LABEL(::Type{RawKeyEventHandler})
+    if !RawKeyEventHandler_LISTENER_LABELSet[]
+        RawKeyEventHandler_LISTENER_LABELSet[] = true
+        RawKeyEventHandler_LISTENER_LABELValue[] = " Listener: "
+    end
+    RawKeyEventHandler_LISTENER_LABELValue[]
+end
+function staticSet_LISTENER_LABEL(::Type{RawKeyEventHandler}, value)
+    RawKeyEventHandler_LISTENER_LABELSet[] = true
+    RawKeyEventHandler_LISTENER_LABELValue[] = value
+end
 
-
-class RawKeyEventHandler:
-    instance: RawKeyEventHandler = None
-    TOTAL_LISTENERS: str = "Total Listeners: "
-    LISTENER_LABEL: str = " Listener: "
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.eventListenerInterfaceList: BasicArrayList = None
+function initFieldsRawKeyEventHandler(this::RawKeyEventHandler)
+    this.logUtil = nothing
+    this.eventListenerInterfaceList = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
-
-    @staticmethod
-    def getInstance() -> RawKeyEventHandler:
-        return RawKeyEventHandler.instance
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self._init_fields()
-        self.eventListenerInterfaceList = BasicArrayListD()
-    
-
-    def removeAllListeners(self) -> None:
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.eventListenerInterfaceList = BasicArrayListD()
-    
-
-    def addListeners(self, vector: BasicArrayList) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        eventListenerInterface: RawKeyEventListener = None
-        size: int = vector.size()
-        for index in range(0, size):
-            eventListenerInterface = vector.get(index)
-            self.addListener(eventListenerInterface)
-    
-
-    def addListenerSingleThreaded(self, eventListenerInterface: RawKeyEventListener) -> None:
-        if not self.eventListenerInterfaceList.contains(eventListenerInterface):
-            self.eventListenerInterfaceList.add(eventListenerInterface)
-    
-
-    def addListener(self, eventListenerInterface: RawKeyEventListener) -> None:
-        if not self.eventListenerInterfaceList.contains(eventListenerInterface):
-            self.eventListenerInterfaceList.add(eventListenerInterface)
-    
-
-    def removeListenerSingleThreaded(self, eventListenerInterface: RawKeyEventListener) -> None:
-        self.eventListenerInterfaceList.remove(eventListenerInterface)
-    
-
-    def removeListener(self, eventListenerInterface: RawKeyEventListener) -> None:
-        self.eventListenerInterfaceList.remove(eventListenerInterface)
-    
-
-    # throws Exception
-    def fireEvent(self, keyCode: int, deviceId: int, repeated: bool) -> None:
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        from org.allbinary.string.CommonStrings import CommonStrings
-        eventListenerInterface: RawKeyEventListener = None
-        index: int = 0
-        while index < self.eventListenerInterfaceList.size():
-            try:
-                eventListenerInterface = self.eventListenerInterfaceList.get(index)
-                self.process(keyCode, deviceId, repeated, eventListenerInterface)
-            except Exception as e:
-                commonStrings: CommonStrings = CommonStrings.getInstance()
-                self.logUtil.put(commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            index += 1
-    
-
-    # throws Exception
-    def process(self, keyCode: int, deviceId: int, repeated: bool, eventListenerInterface: RawKeyEventListener) -> None:
-        eventListenerInterface.onEventRaw(keyCode, deviceId, repeated)
-    
-
-    def getEventListenerInterfaceListP(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.eventListenerInterfaceList
-    
-
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonStrings import CommonStrings
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(RawKeyEventHandler.TOTAL_LISTENERS)
-        stringBuffer.appendint(self.eventListenerInterfaceList.size())
-        eventListenerInterface: RawKeyEventListener = None
-        index: int = 0
-        while index < self.eventListenerInterfaceList.size():
-            try:
-                eventListenerInterface = self.eventListenerInterfaceList.get(index)
-                stringBuffer.append(RawKeyEventHandler.LISTENER_LABEL)
-                stringBuffer.append(str(eventListenerInterface))
-            except Exception as e:
-                commonStrings: CommonStrings = CommonStrings.getInstance()
-                self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.TOSTRING, e)
-            index += 1
-        return str(stringBuffer)
-
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+    nothing
+end
 
 
-def _RawKeyEventHandler_instance() -> object:
-    return RawKeyEventHandler()
+function getInstance(::Type{RawKeyEventHandler})
+        return staticGet_instance(RawKeyEventHandler)
+end
 
-lazy_static(RawKeyEventHandler, "instance", _RawKeyEventHandler_instance)
+
+function initRawKeyEventHandler(this::RawKeyEventHandler)
+        initFieldsRawKeyEventHandler(this)
+        this.eventListenerInterfaceList = newBasicArrayListD()
+        nothing
+end
+
+function newRawKeyEventHandler()
+    this = RawKeyEventHandler()
+    initRawKeyEventHandler(this)
+    this
+end
+
+
+function removeAllListeners(this::RawKeyEventHandler)
+        this.eventListenerInterfaceList = newBasicArrayListD()
+        nothing
+end
+
+
+function addListeners(this::RawKeyEventHandler, vector)
+        local eventListenerInterface = nothing
+        local size::Int32 = AllBinary.size(vector)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            eventListenerInterface = (AllBinary.get(vector, index))
+            AllBinary.addListener(this, eventListenerInterface)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function addListenerSingleThreaded(this::RawKeyEventHandler, eventListenerInterface)
+        if !AllBinary.contains(this.eventListenerInterfaceList, eventListenerInterface)
+            AllBinary.add(this.eventListenerInterfaceList, eventListenerInterface)
+        end
+        nothing
+end
+
+
+function addListener(this::RawKeyEventHandler, eventListenerInterface)
+        if !AllBinary.contains(this.eventListenerInterfaceList, eventListenerInterface)
+            AllBinary.add(this.eventListenerInterfaceList, eventListenerInterface)
+        end
+        nothing
+end
+
+
+function removeListenerSingleThreaded(this::RawKeyEventHandler, eventListenerInterface)
+        AllBinary.remove(this.eventListenerInterfaceList, eventListenerInterface)
+        nothing
+end
+
+
+function removeListener(this::RawKeyEventHandler, eventListenerInterface)
+        AllBinary.remove(this.eventListenerInterfaceList, eventListenerInterface)
+        nothing
+end
+
+
+function fireEvent(this::RawKeyEventHandler, keyCode, deviceId, repeated)
+        local eventListenerInterface = nothing
+        local index::Int32 = Int32(0)
+        while index < AllBinary.size(this.eventListenerInterfaceList)
+            try
+                eventListenerInterface = (AllBinary.get(this.eventListenerInterfaceList, index))
+                AllBinary.process(this, keyCode, deviceId, repeated, eventListenerInterface)
+            catch e
+                local commonStrings = AllBinary.getInstance(CommonStrings)
+                AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, AllBinary.getInstance(EventStrings).FIRE_EVENT, e)
+            end
+            index += Int32(1)
+        end
+        nothing
+end
+
+
+function process(this::RawKeyEventHandler, keyCode, deviceId, repeated, eventListenerInterface)
+        AllBinary.onEventRaw(eventListenerInterface, keyCode, deviceId, repeated)
+        nothing
+end
+
+
+function getEventListenerInterfaceListP(this::RawKeyEventHandler)
+        return this.eventListenerInterfaceList
+end
+
+
+function toString(this::RawKeyEventHandler)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, staticGet_TOTAL_LISTENERS(RawKeyEventHandler))
+        AllBinary.appendint(stringBuffer, AllBinary.size(this.eventListenerInterfaceList))
+        local eventListenerInterface = nothing
+        local index::Int32 = Int32(0)
+        while index < AllBinary.size(this.eventListenerInterfaceList)
+            try
+                eventListenerInterface = (AllBinary.get(this.eventListenerInterfaceList, index))
+                AllBinary.append(stringBuffer, staticGet_LISTENER_LABEL(RawKeyEventHandler))
+                AllBinary.append(stringBuffer, AllBinary.toString(eventListenerInterface))
+            catch e
+                local commonStrings = AllBinary.getInstance(CommonStrings)
+                AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.TOSTRING, e)
+            end
+            index += Int32(1)
+        end
+        return AllBinary.toString(stringBuffer)
+end
 

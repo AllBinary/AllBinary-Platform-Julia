@@ -1,102 +1,109 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+# extends HighScoresCanvasInputProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HighScoresCanvasLevelChangeInputProcessor <: JObject
+    displayInfoSingleton::Any
+    INSTRUCTIONS::Any
+    myFontProcessor::Any
+    anchor::Int32
+    fontHeight::Int32
+    HighScoresCanvasLevelChangeInputProcessor() = new()
+end
 
-import threading
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.game.score.HighScoresCanvasInputProcessor import HighScoresCanvasInputProcessor
+
+function initFieldsHighScoresCanvasLevelChangeInputProcessor(this::HighScoresCanvasLevelChangeInputProcessor)
+    this.displayInfoSingleton = nothing
+    this.INSTRUCTIONS = nothing
+    this.myFontProcessor = nothing
+    this.anchor = Int32(0)
+    this.fontHeight = Int32(0)
+    this.displayInfoSingleton = AllBinary.getInstance(DisplayInfoSingleton)
+    this.INSTRUCTIONS = "(Right = Next Track, Left = Previous Track)"
+    this.myFontProcessor = newUpdateMyFontProcessor(this)
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    this.fontHeight = Int32(0)
+    nothing
+end
 
 
-class HighScoresCanvasLevelChangeInputProcessor(HighScoresCanvasInputProcessor, UpdateMyFontInterface):
-    _lock = threading.RLock()
+function initHighScoresCanvasLevelChangeInputProcessor(this::HighScoresCanvasLevelChangeInputProcessor, highScoresCanvas)
+        initHighScoresCanvasInputProcessor(this, highScoresCanvas)
+        initFieldsHighScoresCanvasLevelChangeInputProcessor(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        self.displayInfoSingleton: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.INSTRUCTIONS: str = "(Right = Next Track, Left = Previous Track)"
-        self.myFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.anchor: int = Anchor.TOP_LEFT
-        self.fontHeight: int = 0
-    
+function newHighScoresCanvasLevelChangeInputProcessor(highScoresCanvas)
+    this = HighScoresCanvasLevelChangeInputProcessor()
+    initHighScoresCanvasLevelChangeInputProcessor(this, highScoresCanvas)
+    this
+end
 
-    def __init__(self, highScoresCanvas: HighScoresCanvas) -> None:
-        from org.allbinary.game.score.displayable.HighScoresCanvas import HighScoresCanvas
-        super().__init__(highScoresCanvas)
-        self._init_fields()
-    
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.fontHeight = font.getHeight()
-        self.myFontProcessor = MyFontProcessor.getInstance()
-    
+function updateMeasurement(this::HighScoresCanvasLevelChangeInputProcessor, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.fontHeight = AllBinary.getHeight(font)
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
 
-    def open(self) -> None:
-        from org.allbinary.game.input.event.GameKeyEventHandler import GameKeyEventHandler
-        GameKeyEventHandler.getInstance().addListener(self)
-    
 
-    def close(self) -> None:
-        from org.allbinary.game.input.event.GameKeyEventHandler import GameKeyEventHandler
-        GameKeyEventHandler.getInstance().removeListener(self)
-    
+function open(this::HighScoresCanvasLevelChangeInputProcessor)
+        AllBinary.addListener(AllBinary.getInstance(GameKeyEventHandler), this)
+        nothing
+end
 
-    def update(self) -> None:
-        with self._lock:
-            return self._update_unlocked()
 
-    def _update_unlocked(self) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.input.event.GameKeyEventUtil import GameKeyEventUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        list_: BasicArrayList = self.getGameKeyEventList()
-        size: int = list_.size()
-        for index in range(0, size):
-            anyType: object = list_.objectArray[index]
-            key: int = GameKeyEventUtil.getKey(anyType)
-            if key == Canvas.RIGHT:
-                self.getHighScoresCanvas().getGameInfo().nextGameLevel()
-            elif key == Canvas.LEFT:
-                self.getHighScoresCanvas().getGameInfo().previousGameLevel()
-            self.getHighScoresCanvas().executeUpdate()
-        list_.clear()
-    
+function close(this::HighScoresCanvasLevelChangeInputProcessor)
+        AllBinary.removeListener(AllBinary.getInstance(GameKeyEventHandler), this)
+        nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        width: int = self.displayInfoSingleton.getLastWidth()
-        topScoresWidth: int = (graphics.getFont().stringWidth(self.INSTRUCTIONS) >> 1)
-        graphics.drawString(self.INSTRUCTIONS, (width >> 1) - topScoresWidth, self.fontHeight * 2, self.anchor)
-# from javax.microedition.lcdui.Canvas import Canvas
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.input.event.GameKeyEventHandler import GameKeyEventHandler
-# from org.allbinary.game.input.event.GameKeyEventUtil import GameKeyEventUtil
-# from org.allbinary.game.score.displayable.HighScoresCanvas import HighScoresCanvas
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.util.BasicArrayList import BasicArrayList
 
+function update(this::HighScoresCanvasLevelChangeInputProcessor)
+        local list = AllBinary.getGameKeyEventList(this)
+        local size::Int32 = AllBinary.size(list)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            local anyType = list.objectArray[index + 1]
+            local key::Int32 = AllBinary.getKey(GameKeyEventUtil, anyType)
+            if key == staticGet_RIGHT(Canvas)
+                AllBinary.nextGameLevel(AllBinary.getGameInfo(AllBinary.getHighScoresCanvas(this)))
+            elseif key == staticGet_LEFT(Canvas)
+                AllBinary.previousGameLevel(AllBinary.getGameInfo(AllBinary.getHighScoresCanvas(this)))
+            end
+            AllBinary.executeUpdate(AllBinary.getHighScoresCanvas(this))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.clear(list)
+        nothing
+end
+
+
+function paint(this::HighScoresCanvasLevelChangeInputProcessor, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        local width::Int32 = AllBinary.getLastWidth(this.displayInfoSingleton)
+        local topScoresWidth::Int32 = (AllBinary.stringWidth(AllBinary.getFont(graphics), this.INSTRUCTIONS) >> Int32(1))
+        AllBinary.drawString(graphics, this.INSTRUCTIONS, (width >> Int32(1)) - topScoresWidth, this.fontHeight * Int32(2), this.anchor)
+        nothing
+end
 

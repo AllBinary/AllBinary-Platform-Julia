@@ -1,54 +1,67 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.image
 
-from __future__ import annotations
+mutable struct ImageScaleUtil <: JObject
+    ImageScaleUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ImageScaleUtil_instanceValue = Ref{Any}(nothing)
+const ImageScaleUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{ImageScaleUtil})
+    if !ImageScaleUtil_instanceSet[]
+        ImageScaleUtil_instanceSet[] = true
+        ImageScaleUtil_instanceValue[] = newImageScaleUtil()
+    end
+    ImageScaleUtil_instanceValue[]
+end
+function staticSet_instance(::Type{ImageScaleUtil}, value)
+    ImageScaleUtil_instanceSet[] = true
+    ImageScaleUtil_instanceValue[] = value
+end
+
+function initFieldsImageScaleUtil(this::ImageScaleUtil)
+    nothing
+end
 
 
-class ImageScaleUtil:
-    instance: ImageScaleUtil = None
-    
+function getInstance(::Type{ImageScaleUtil})
+        return staticGet_instance(ImageScaleUtil)
+end
 
-    @staticmethod
-    def getInstance() -> ImageScaleUtil:
-        return ImageScaleUtil.instance
-    
 
-    def __init__(self) -> None:
-        pass
-    
+function initImageScaleUtil(this::ImageScaleUtil)
+        initFieldsImageScaleUtil(this)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def createImage2(self, imageCache: ImageCache, originalImage: Image, scaleNominatorX: float, scaleDenominatorX: float, scaleNominatorY: float, scaleDenominatorY: float, cached: bool) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.image.ImageCache import ImageCache
-        return self.createImage3(imageCache, originalImage, scaleNominatorX, scaleDenominatorX, scaleNominatorY, scaleDenominatorY, cached, True)
-    
+function newImageScaleUtil()
+    this = ImageScaleUtil()
+    initImageScaleUtil(this)
+    this
+end
 
-    # throws Exception
-    def createImage3(self, imageCache: ImageCache, originalImage: Image, scaleNominatorX: float, scaleDenominatorX: float, scaleNominatorY: float, scaleDenominatorY: float, cached: bool, mutable: bool) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.image.ImageCache import ImageCache
+
+function createImage2(this::ImageScaleUtil, imageCache, originalImage, scaleNominatorX, scaleDenominatorX, scaleNominatorY, scaleDenominatorY, cached)
+        return AllBinary.createImage3(this, imageCache, originalImage, scaleNominatorX, scaleDenominatorX, scaleNominatorY, scaleDenominatorY, cached, true)
+end
+
+
+function createImage3(this::ImageScaleUtil, imageCache, originalImage, scaleNominatorX, scaleDenominatorX, scaleNominatorY, scaleDenominatorY, cached, mutable_)
         return originalImage
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.image.ImageCache import ImageCache
-
-
-def _ImageScaleUtil_instance() -> object:
-    return ImageScaleUtil()
-
-lazy_static(ImageScaleUtil, "instance", _ImageScaleUtil_instance)
+end
 

@@ -1,111 +1,139 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
+mutable struct Sounds <: JObject
+    logUtil::Any
+    commonStrings::Any
+    soundStrings::Any
+    soundsFactoryInterface::Any
+    Sounds() = new()
+end
 
 
-
-class Sounds:
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.soundStrings: SoundStrings = SoundStrings.getInstance()
-        self.soundsFactoryInterface: SoundsFactoryInterface = None
+function initFieldsSounds(this::Sounds)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.soundStrings = nothing
+    this.soundsFactoryInterface = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.soundStrings = AllBinary.getInstance(SoundStrings)
     
+    nothing
+end
 
-    def __init__(self, soundsFactoryInterface: SoundsFactoryInterface) -> None:
-        self._init_fields()
-        self.soundsFactoryInterface = soundsFactoryInterface
-    
 
-    # throws Exception
-    def init(self) -> None:
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.INIT)
-        commonLabels: CommonLabels = CommonLabels.getInstance()
-        progressCanvas: ProgressCanvas = ProgressCanvasFactory.getInstance()
-        self.soundsFactoryInterface.init()
-        soundInterfaceArray: list[Sound] = self.soundsFactoryInterface.getSoundInterfaceArray()
-        smallIntegerSingletonFactory: SmallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-        indexInteger: int = None
-        indexString: str = None
-        stringBuffer: StringMaker = StringMaker()
-        for i in range(0, len(soundInterfaceArray)):
-            soundInterface: Sound = soundInterfaceArray[i]
-            if soundInterface is not None:
-                indexInteger = smallIntegerSingletonFactory.getAt(i)
-                indexString = str(indexInteger)
-                stringBuffer.delete(0, stringBuffer.length())
-                stringBuffer.append(commonLabels.INDEX_LABEL)
-                stringBuffer.append(indexString)
-                stringBuffer.append(self.soundStrings.SOUND)
-                stringBuffer.append(type(soundInterface).__module__ + "." + type(soundInterface).__qualname__)
-                self.logUtil.putF(str(stringBuffer), self, self.commonStrings.INIT)
-                soundInterface.init()
-                progressCanvas.addNormalPortion(100, str(StringMaker().append(self.soundStrings.INIT_SOUND).append(indexString)))
-        self.soundsFactoryInterface.setInitialized(True)
-        self.logUtil.putF(self.commonStrings.END, self, self.commonStrings.INIT)
-    
+function initSounds(this::Sounds, soundsFactoryInterface)
+        initFieldsSounds(this)
+        this.soundsFactoryInterface = soundsFactoryInterface
+        nothing
+end
 
-    # throws Exception
-    def stopAll(self) -> None:
-        from javax.microedition.media.Player import Player
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        self.logUtil.putF(self.commonStrings.START, self, self.soundStrings.STOP_ALL)
-        soundInterfaceArray: list[Sound] = self.soundsFactoryInterface.getSoundInterfaceArray()
-        progressCanvas: ProgressCanvas = ProgressCanvasFactory.getInstance()
-        player: Player = None
-        for index in range(0, len(soundInterfaceArray)):
-            if soundInterfaceArray[index] is not None:
-                player = soundInterfaceArray[index].getPlayerP()
-                if player is not None:
-                    player.stop()
-                    progressCanvas.addPortion(100, self.soundStrings.STOPPING_SOUND, index)
-    
+function newSounds(soundsFactoryInterface)
+    this = Sounds()
+    initSounds(this, soundsFactoryInterface)
+    this
+end
 
-    # throws Exception
-    def closeAll(self) -> None:
-        from javax.microedition.media.Player import Player
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        self.logUtil.putF(self.commonStrings.START, self, self.soundStrings.CLOSE_ALL)
-        soundInterfaceArray: list[Sound] = self.soundsFactoryInterface.getSoundInterfaceArray()
-        progressCanvas: ProgressCanvas = ProgressCanvasFactory.getInstance()
-        player: Player = None
-        for index in range(0, len(soundInterfaceArray)):
-            if soundInterfaceArray[index] is not None:
-                player = soundInterfaceArray[index].getPlayerP()
-                if player is not None:
-                    player.close()
-                    progressCanvas.addPortion(100, self.soundStrings.CLOSING_SOUND, index)
-# from javax.microedition.media.Player import Player
-# from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-# from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.media.audio.SoundStrings import SoundStrings
 
+function init(this::Sounds)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.INIT)
+        local commonLabels = AllBinary.getInstance(CommonLabels)
+        local progressCanvas = AllBinary.getInstance(ProgressCanvasFactory)
+        AllBinary.init(this.soundsFactoryInterface)
+        local soundInterfaceArray = AllBinary.getSoundInterfaceArray(this.soundsFactoryInterface)
+        local smallIntegerSingletonFactory = AllBinary.getInstance(SmallIntegerSingletonFactory)
+        local indexInteger = nothing
+        local indexString = nothing
+        local stringBuffer = newStringMaker()
+        let
+            local i::Int32 = Int32(0)
+            while i < Int32(Base.length(soundInterfaceArray))
+            try
+            local soundInterface = soundInterfaceArray[i + 1]
+            if soundInterface !== nothing
+                indexInteger = AllBinary.getAt(smallIntegerSingletonFactory, i)
+                indexString = AllBinary.toString(indexInteger)
+                AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+                AllBinary.append(stringBuffer, commonLabels.INDEX_LABEL)
+                AllBinary.append(stringBuffer, indexString)
+                AllBinary.append(stringBuffer, this.soundStrings.SOUND)
+                AllBinary.append(stringBuffer, jClassName(soundInterface))
+                AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, this.commonStrings.INIT)
+                AllBinary.init(soundInterface)
+                AllBinary.addNormalPortion(progressCanvas, Int32(100), AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), this.soundStrings.INIT_SOUND), indexString)))
+            end
+            finally
+                i += Int32(1)
+            end
+            end
+        end
+        AllBinary.setInitialized(this.soundsFactoryInterface, true)
+        AllBinary.putF(this.logUtil, this.commonStrings.END, this, this.commonStrings.INIT)
+        nothing
+end
+
+
+function stopAll(this::Sounds)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.soundStrings.STOP_ALL)
+        local soundInterfaceArray = AllBinary.getSoundInterfaceArray(this.soundsFactoryInterface)
+        local progressCanvas = AllBinary.getInstance(ProgressCanvasFactory)
+        local player = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < Int32(Base.length(soundInterfaceArray))
+            try
+            if soundInterfaceArray[index + 1] !== nothing
+                player = AllBinary.getPlayerP(soundInterfaceArray[index + 1])
+                if player !== nothing
+                    AllBinary.stop(player)
+                    AllBinary.addPortion(progressCanvas, Int32(100), this.soundStrings.STOPPING_SOUND, index)
+                end
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function closeAll(this::Sounds)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.soundStrings.CLOSE_ALL)
+        local soundInterfaceArray = AllBinary.getSoundInterfaceArray(this.soundsFactoryInterface)
+        local progressCanvas = AllBinary.getInstance(ProgressCanvasFactory)
+        local player = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < Int32(Base.length(soundInterfaceArray))
+            try
+            if soundInterfaceArray[index + 1] !== nothing
+                player = AllBinary.getPlayerP(soundInterfaceArray[index + 1])
+                if player !== nothing
+                    AllBinary.close(player)
+                    AllBinary.addPortion(progressCanvas, Int32(100), this.soundStrings.CLOSING_SOUND, index)
+                end
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

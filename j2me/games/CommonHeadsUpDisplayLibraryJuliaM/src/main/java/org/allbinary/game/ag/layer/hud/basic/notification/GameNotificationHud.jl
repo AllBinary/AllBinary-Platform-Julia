@@ -1,88 +1,99 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic.notification
 
-from __future__ import annotations
+# extends BasicHud: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameNotificationHud <: JObject
+    METHOD_NAME::Any
+    lastGameNotificationEvent::Any
+    GameNotificationHud() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.graphics.hud.BasicHud import BasicHud
-from org.allbinary.game.layer.hud.event.GameNotificationListenerInterface import GameNotificationListenerInterface
+const GameNotificationHud_NULL_GAME_NOTIFICATIONValue = Ref{Any}(nothing)
+const GameNotificationHud_NULL_GAME_NOTIFICATIONSet = Ref(false)
+function staticGet_NULL_GAME_NOTIFICATION(::Type{GameNotificationHud})
+    if !GameNotificationHud_NULL_GAME_NOTIFICATIONSet[]
+        GameNotificationHud_NULL_GAME_NOTIFICATIONSet[] = true
+        GameNotificationHud_NULL_GAME_NOTIFICATIONValue[] = newGameNotificationHud(AllBinary.getInstance(BasicHudFactory).TOPCENTER, AllBinary.getInstance(BasicHudFactory).HORIZONTAL, Int32(0), AllBinary.getInstance(BasicColorFactory).RED)
+    end
+    GameNotificationHud_NULL_GAME_NOTIFICATIONValue[]
+end
+function staticSet_NULL_GAME_NOTIFICATION(::Type{GameNotificationHud}, value)
+    GameNotificationHud_NULL_GAME_NOTIFICATIONSet[] = true
+    GameNotificationHud_NULL_GAME_NOTIFICATIONValue[] = value
+end
 
-
-class GameNotificationHud(BasicHud, GameNotificationListenerInterface):
-    NULL_GAME_NOTIFICATION: GameNotificationHud = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.layer.hud.event.GameNotificationEvent import GameNotificationEvent
-        self.METHOD_NAME: str = "onGameNotificationEvent"
-        self.lastGameNotificationEvent: GameNotificationEvent = GameNotification.NULL_GAME_NOTIFICATION_EVENT
-    
-
-    def __init__(self, location: int, direction: int, bufferZone: int, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(location, direction, bufferZone, basicColor)
-        self._init_fields()
-    
-
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
-
-    # throws Exception
-    def onGameNotificationEvent(self, gameNotificationEvent: GameNotificationEvent) -> None:
-        from org.allbinary.game.layer.hud.event.GameNotificationEvent import GameNotificationEvent
-        if self.lastGameNotificationEvent != gameNotificationEvent:
-            self.lastGameNotificationEvent = gameNotificationEvent
-            self.logUtil.putF(gameNotificationEvent.getString(), self, self.METHOD_NAME)
-        self.add(gameNotificationEvent.getString(), gameNotificationEvent.getSeconds(), gameNotificationEvent.getBasicColorP(), gameNotificationEvent.getPermanent())
-    
-
-    def add(self, string: str, seconds: int, basicColor: BasicColor, permanent: bool) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        pass
-    
-
-    # throws Exception
-    def processTick(self) -> None:
-        pass
-    
-
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
-
-    def clear(self) -> None:
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-# from org.allbinary.game.layer.hud.event.GameNotificationEvent import GameNotificationEvent
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-from org.allbinary.game.ag.layer.hud.basic.notification.GameNotification import GameNotification
+function initFieldsGameNotificationHud(this::GameNotificationHud)
+    this.METHOD_NAME = nothing
+    this.lastGameNotificationEvent = nothing
+    this.METHOD_NAME = "onGameNotificationEvent"
+    this.lastGameNotificationEvent = staticGet_NULL_GAME_NOTIFICATION_EVENT(GameNotification)
+    nothing
+end
 
 
-def _GameNotificationHud_NULL_GAME_NOTIFICATION() -> object:
-    from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-    from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-    return GameNotificationHud(BasicHudFactory.getInstance().TOPCENTER, BasicHudFactory.getInstance().HORIZONTAL, 0, BasicColorFactory.getInstance().RED)
+function initGameNotificationHud(this::GameNotificationHud, location, direction, bufferZone, basicColor)
+        initBasicHud(this, location, direction, bufferZone, basicColor)
+        initFieldsGameNotificationHud(this)
+        nothing
+end
 
-lazy_static(GameNotificationHud, "NULL_GAME_NOTIFICATION", _GameNotificationHud_NULL_GAME_NOTIFICATION)
+function newGameNotificationHud(location, direction, bufferZone, basicColor)
+    this = GameNotificationHud()
+    initGameNotificationHud(this, location, direction, bufferZone, basicColor)
+    this
+end
+
+
+function onEvent(this::GameNotificationHud, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
+
+
+function onGameNotificationEvent(this::GameNotificationHud, gameNotificationEvent)
+        if this.lastGameNotificationEvent !== gameNotificationEvent
+            this.lastGameNotificationEvent = gameNotificationEvent
+            AllBinary.putF(this.logUtil, AllBinary.getString(gameNotificationEvent), this, this.METHOD_NAME)
+        end
+        AllBinary.add(this, AllBinary.getString(gameNotificationEvent), AllBinary.getSeconds(gameNotificationEvent), AllBinary.getBasicColorP(gameNotificationEvent), AllBinary.getPermanent(gameNotificationEvent))
+        nothing
+end
+
+
+function add(this::GameNotificationHud, string, seconds, basicColor, permanent)
+        nothing
+        nothing
+end
+
+
+function processTick(this::GameNotificationHud)
+        nothing
+        nothing
+end
+
+
+function paint(this::GameNotificationHud, graphics)
+        nothing
+        nothing
+end
+
+
+function clear(this::GameNotificationHud)
+        nothing
+        nothing
+end
 

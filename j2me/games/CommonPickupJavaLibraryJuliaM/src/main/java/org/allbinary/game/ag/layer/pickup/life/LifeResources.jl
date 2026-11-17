@@ -1,41 +1,60 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.pickup.life
 
-from __future__ import annotations
+mutable struct LifeResources <: JObject
+    RESOURCE::Any
+    LifeResources() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const LifeResources_SINGLETONValue = Ref{Any}(nothing)
+const LifeResources_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{LifeResources})
+    if !LifeResources_SINGLETONSet[]
+        LifeResources_SINGLETONSet[] = true
+        LifeResources_SINGLETONValue[] = newLifeResources()
+    end
+    LifeResources_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{LifeResources}, value)
+    LifeResources_SINGLETONSet[] = true
+    LifeResources_SINGLETONValue[] = value
+end
+
+function initFieldsLifeResources(this::LifeResources)
+    this.RESOURCE = nothing
+    this.RESOURCE = "life_drop_20_by_20.png"
+    nothing
+end
 
 
-class LifeResources:
-    SINGLETON: LifeResources = None
+function initLifeResources(this::LifeResources)
+        initFieldsLifeResources(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.RESOURCE: str = "life_drop_20_by_20.png"
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> LifeResources:
-        return LifeResources.SINGLETON
+function newLifeResources()
+    this = LifeResources()
+    initLifeResources(this)
+    this
+end
 
 
-def _LifeResources_SINGLETON() -> object:
-    return LifeResources()
-
-lazy_static(LifeResources, "SINGLETON", _LifeResources_SINGLETON)
+function getInstance(::Type{LifeResources})
+        return staticGet_SINGLETON(LifeResources)
+end
 

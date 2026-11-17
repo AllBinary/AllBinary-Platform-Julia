@@ -1,54 +1,67 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.pickup
 
-from __future__ import annotations
+# extends PickedUpLayerInterfaceFactoryBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct PickedUpLayerInterfaceFactory <: JObject
+    pickedUpLayerType::Any
+    iconLayer::Any
+    animationInterface::Any
+    PickedUpLayerInterfaceFactory() = new()
+end
 
-from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryBase import PickedUpLayerInterfaceFactoryBase
 
-
-class PickedUpLayerInterfaceFactory(PickedUpLayerInterfaceFactoryBase):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        self.pickedUpLayerType: PickedUpLayerType = None
-        self.iconLayer: IconLayer = None
-        self.animationInterface: Animation = None
+function initFieldsPickedUpLayerInterfaceFactory(this::PickedUpLayerInterfaceFactory)
+    this.pickedUpLayerType = nothing
+    this.iconLayer = nothing
+    this.animationInterface = nothing
     
-
-    def __init__(self, pickeUpLayerType: PickedUpLayerType, iconLayer: IconLayer, animationInterface: Animation) -> None:
-        from org.allbinary.animation.Animation import Animation
-        super().__init__()
-        self._init_fields()
-        self.pickedUpLayerType = pickeUpLayerType
-        self.animationInterface = animationInterface
-        self.iconLayer = iconLayer
     
-
-    def getIconLayer(self) -> AllBinaryLayer:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return self.iconLayer
     
+    nothing
+end
 
-    def getAnimationInterface(self) -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        return self.animationInterface
-    
 
-    def getPickedUpLayerType(self) -> PickedUpLayerType:
-        return self.pickedUpLayerType
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
+function initPickedUpLayerInterfaceFactory(this::PickedUpLayerInterfaceFactory, pickeUpLayerType, iconLayer, animationInterface)
+        initPickedUpLayerInterfaceFactoryBase(this)
+        initFieldsPickedUpLayerInterfaceFactory(this)
+        this.pickedUpLayerType = pickeUpLayerType
+        this.animationInterface = animationInterface
+        this.iconLayer = iconLayer
+        nothing
+end
 
+function newPickedUpLayerInterfaceFactory(pickeUpLayerType, iconLayer, animationInterface)
+    this = PickedUpLayerInterfaceFactory()
+    initPickedUpLayerInterfaceFactory(this, pickeUpLayerType, iconLayer, animationInterface)
+    this
+end
+
+
+function getIconLayer(this::PickedUpLayerInterfaceFactory)
+        return this.iconLayer
+end
+
+
+function getAnimationInterface(this::PickedUpLayerInterfaceFactory)
+        return this.animationInterface
+end
+
+
+function getPickedUpLayerType(this::PickedUpLayerInterfaceFactory)
+        return this.pickedUpLayerType
+end
 

@@ -1,50 +1,71 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer
 
-from __future__ import annotations
+mutable struct BasicLayerPlacement <: JObject
+    layerType::Any
+    width::Int32
+    height::Int32
+    BasicLayerPlacement() = new()
+end
 
 
-
-class BasicLayerPlacement:
-
-    def _init_fields(self) -> None:
-        self.layerType: LayerPlacementType = None
-        self.width: int = None
-        self.height: int = None
+function initFieldsBasicLayerPlacement(this::BasicLayerPlacement)
+    this.layerType = nothing
+    this.width = Int32(0)
+    this.height = Int32(0)
     
-
-    def __init__(self, layerType: LayerPlacementType, width: int, height: int) -> None:
-        self._init_fields()
-        self.layerType = layerType
-        self.width = width
-        self.height = height
     
-
-    def getWidth(self) -> int:
-        return self.width
     
+    nothing
+end
 
-    def getHeight(self) -> int:
-        return self.height
-    
 
-    def getLayerType(self) -> LayerPlacementType:
-        return self.layerType
-    
+function initBasicLayerPlacement(this::BasicLayerPlacement, layerType, width, height)
+        initFieldsBasicLayerPlacement(this)
+        this.layerType = layerType
+        this.width = width
+        this.height = height
+        nothing
+end
 
-    def setLayerType(self, layerType: LayerPlacementType) -> None:
-        self.layerType = layerType
+function newBasicLayerPlacement(layerType, width, height)
+    this = BasicLayerPlacement()
+    initBasicLayerPlacement(this, layerType, width, height)
+    this
+end
 
+
+function getWidth(this::BasicLayerPlacement)
+        return this.width
+end
+
+
+function getHeight(this::BasicLayerPlacement)
+        return this.height
+end
+
+
+function getLayerType(this::BasicLayerPlacement)
+        return this.layerType
+end
+
+
+function setLayerType(this::BasicLayerPlacement, layerType)
+        this.layerType = layerType
+        nothing
+end
 

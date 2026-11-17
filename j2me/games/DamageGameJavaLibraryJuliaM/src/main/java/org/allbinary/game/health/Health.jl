@@ -1,130 +1,199 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.health
 
-from __future__ import annotations
+mutable struct Health <: JObject
+    health::Int32
+    maxHealth::Int32
+    healthListenerInterface::Any
+    Health() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.health.HealthInterface import HealthInterface
+const Health_NULL_HEALTHValue = Ref{Any}(nothing)
+const Health_NULL_HEALTHSet = Ref(false)
+function staticGet_NULL_HEALTH(::Type{Health})
+    if !Health_NULL_HEALTHSet[]
+        Health_NULL_HEALTHSet[] = true
+        Health_NULL_HEALTHValue[] = newHealth(Int32(0))
+    end
+    Health_NULL_HEALTHValue[]
+end
+function staticSet_NULL_HEALTH(::Type{Health}, value)
+    Health_NULL_HEALTHSet[] = true
+    Health_NULL_HEALTHValue[] = value
+end
+const Health_NAMEValue = Ref{Any}(nothing)
+const Health_NAMESet = Ref(false)
+function staticGet_NAME(::Type{Health})
+    if !Health_NAMESet[]
+        Health_NAMESet[] = true
+        Health_NAMEValue[] = "Health Resource"
+    end
+    Health_NAMEValue[]
+end
+function staticSet_NAME(::Type{Health}, value)
+    Health_NAMESet[] = true
+    Health_NAMEValue[] = value
+end
+const Health_HEALTH_LABELValue = Ref{Any}(nothing)
+const Health_HEALTH_LABELSet = Ref(false)
+function staticGet_HEALTH_LABEL(::Type{Health})
+    if !Health_HEALTH_LABELSet[]
+        Health_HEALTH_LABELSet[] = true
+        Health_HEALTH_LABELValue[] = "Health: "
+    end
+    Health_HEALTH_LABELValue[]
+end
+function staticSet_HEALTH_LABEL(::Type{Health}, value)
+    Health_HEALTH_LABELSet[] = true
+    Health_HEALTH_LABELValue[] = value
+end
+const Health_MAX_HEALTH_LABELValue = Ref{Any}(nothing)
+const Health_MAX_HEALTH_LABELSet = Ref(false)
+function staticGet_MAX_HEALTH_LABEL(::Type{Health})
+    if !Health_MAX_HEALTH_LABELSet[]
+        Health_MAX_HEALTH_LABELSet[] = true
+        Health_MAX_HEALTH_LABELValue[] = " Max: "
+    end
+    Health_MAX_HEALTH_LABELValue[]
+end
+function staticSet_MAX_HEALTH_LABEL(::Type{Health}, value)
+    Health_MAX_HEALTH_LABELSet[] = true
+    Health_MAX_HEALTH_LABELValue[] = value
+end
+
+function initFieldsHealth(this::Health)
+    this.health = Int32(0)
+    this.maxHealth = Int32(0)
+    this.healthListenerInterface = nothing
+    this.health = Int32(0)
+    this.maxHealth = Int32(0)
+    this.healthListenerInterface = staticGet_NULL_HEALTH_LISTENER(NullHealthListener)
+    nothing
+end
 
 
-class Health(HealthInterface):
-    NULL_HEALTH: Health = None
-    NAME: str = "Health Resource"
-    HEALTH_LABEL: str = "Health: "
-    MAX_HEALTH_LABEL: str = " Max: "
+function initHealth(this::Health, maxHealth)
+        initFieldsHealth(this)
+        AllBinary.setMaxHealth(this, maxHealth)
+        AllBinary.setHealth(this, maxHealth)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.health: int = 0
-        self.maxHealth: int = 0
-        self.healthListenerInterface: HealthListenerInterface = NullHealthListener.NULL_HEALTH_LISTENER
-    
+function newHealth(maxHealth)
+    this = Health()
+    initHealth(this, maxHealth)
+    this
+end
 
-    def __init__(self, maxHealth: int) -> None:
-        self._init_fields()
-        self.setMaxHealth(maxHealth)
-        self.setHealth(maxHealth)
-    
 
-    def heal(self, ahealth: int) -> None:
-        newHealth: int = self.getHealth() + ahealth
-        if newHealth > self.getMaxHealth():
-            self.setHealth(self.getMaxHealth())
-        else:
-            self.setHealth(newHealth)
-    
+function heal(this::Health, ahealth)
+        local newHealth::Int32 = AllBinary.getHealth(this) + ahealth
+        if newHealth > AllBinary.getMaxHealth(this)
+            AllBinary.setHealth(this, AllBinary.getMaxHealth(this))
+        else
+            AllBinary.setHealth(this, newHealth)
+        end
+        nothing
+end
 
-    def healMax(self) -> None:
-        self.setHealth(self.getMaxHealth())
-    
 
-    def isDamaged(self) -> bool:
-        if self.getHealth() != self.getMaxHealth():
-            return True
-        else:
-            return False
-    
+function healMax(this::Health)
+        AllBinary.setHealth(this, AllBinary.getMaxHealth(this))
+        nothing
+end
 
-    def damage(self, ahealth: int) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        if ahealth < 0:
-            stringBuffer: StringMaker = StringMaker()
-            stringBuffer.append("******* Trying to heal when damaging. Damage: ")
-            stringBuffer.appendint(ahealth)
-            stringBuffer.append(CommonSeps.getInstance().SPACE)
-            stringBuffer.append(str(self))
-            ForcedLogUtil.log(str(stringBuffer), self)
+
+function isDamaged(this::Health)
+        if AllBinary.getHealth(this) != AllBinary.getMaxHealth(this)
+            return true
+        else
+            return false
+        end
+end
+
+
+function damage(this::Health, ahealth)
+        if ahealth < Int32(0)
+            local stringBuffer = newStringMaker()
+            AllBinary.append(stringBuffer, "******* Trying to heal when damaging. Damage: ")
+            AllBinary.appendint(stringBuffer, ahealth)
+            AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+            AllBinary.append(stringBuffer, AllBinary.toString(this))
+            AllBinary.log(ForcedLogUtil, AllBinary.toString(stringBuffer), this)
             return
-        health: int = self.getHealth() - ahealth
-        self.setHealth(health)
-    
-
-    def isAlive(self) -> bool:
-        if self.getHealth() <= 0:
-            return False
-        else:
-            return True
-    
-
-    def getMaxHealth(self) -> int:
-        return self.maxHealth
-    
-
-    def setMaxHealth(self, maxHealth: int) -> None:
-        self.maxHealth = maxHealth
-    
-
-    def setHealth(self, health: int) -> None:
-        if health > self.getMaxHealth():
-            self.health = self.getMaxHealth()
-        elif health < 0:
-            self.health = 0
-        else:
-            self.health = health
-        if self.healthListenerInterface is not None:
-            self.healthListenerInterface.onHealthChange()
-    
-
-    def getHealth(self) -> int:
-        return self.health
-    
-
-    def addListener(self, healthGraphic: HealthListenerInterface) -> None:
-        self.healthListenerInterface = healthGraphic
-    
-
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(Health.HEALTH_LABEL)
-        stringBuffer.appendint(self.health)
-        stringBuffer.append(Health.MAX_HEALTH_LABEL)
-        stringBuffer.appendint(self.maxHealth)
-        return str(stringBuffer)
-
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
-from org.allbinary.game.health.NullHealthListener import NullHealthListener
+        end
+        local health::Int32 = AllBinary.getHealth(this) - ahealth
+        AllBinary.setHealth(this, health)
+        nothing
+end
 
 
-def _Health_NULL_HEALTH() -> object:
-    return Health(0)
+function isAlive(this::Health)
+        if AllBinary.getHealth(this) <= Int32(0)
+            return false
+        else
+            return true
+        end
+end
 
-lazy_static(Health, "NULL_HEALTH", _Health_NULL_HEALTH)
+
+function getMaxHealth(this::Health)
+        return this.maxHealth
+end
+
+
+function setMaxHealth(this::Health, maxHealth)
+        this.maxHealth = maxHealth
+        nothing
+end
+
+
+function setHealth(this::Health, health)
+        if health > AllBinary.getMaxHealth(this)
+            this.health = AllBinary.getMaxHealth(this)
+        elseif health < Int32(0)
+            this.health = Int32(0)
+        else
+            this.health = health
+        end
+        if this.healthListenerInterface !== nothing
+            AllBinary.onHealthChange(this.healthListenerInterface)
+        end
+        nothing
+end
+
+
+function getHealth(this::Health)
+        return this.health
+end
+
+
+function addListener(this::Health, healthGraphic)
+        this.healthListenerInterface = healthGraphic
+        nothing
+end
+
+
+function toString(this::Health)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, staticGet_HEALTH_LABEL(Health))
+        AllBinary.appendint(stringBuffer, this.health)
+        AllBinary.append(stringBuffer, staticGet_MAX_HEALTH_LABEL(Health))
+        AllBinary.appendint(stringBuffer, this.maxHealth)
+        return AllBinary.toString(stringBuffer)
+end
 

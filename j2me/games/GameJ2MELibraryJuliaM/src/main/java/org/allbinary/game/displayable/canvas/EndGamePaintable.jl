@@ -1,38 +1,50 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct EndGamePaintable <: JObject
+    gameCanvas::Any
+    EndGamePaintable() = new()
+end
 
-from org.allbinary.graphics.paint.Paintable import Paintable
 
-
-class EndGamePaintable(Paintable):
-
-    def _init_fields(self) -> None:
-        self.gameCanvas: AllBinaryGameCanvas = None
+function initFieldsEndGamePaintable(this::EndGamePaintable)
+    this.gameCanvas = nothing
     
+    nothing
+end
 
-    def __init__(self, gameCanvas: AllBinaryGameCanvas) -> None:
-        super().__init__()
-        self._init_fields()
-        self.gameCanvas = gameCanvas
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.gameCanvas.paintGameOver(graphics)
-# from javax.microedition.lcdui.Graphics import Graphics
+function initEndGamePaintable(this::EndGamePaintable, gameCanvas)
+        initPaintable(this)
+        initFieldsEndGamePaintable(this)
+        this.gameCanvas = gameCanvas
+        nothing
+end
 
+function newEndGamePaintable(gameCanvas)
+    this = EndGamePaintable()
+    initEndGamePaintable(this, gameCanvas)
+    this
+end
+
+
+function paint(this::EndGamePaintable, graphics)
+        AllBinary.paintGameOver(this.gameCanvas, graphics)
+        nothing
+end
 

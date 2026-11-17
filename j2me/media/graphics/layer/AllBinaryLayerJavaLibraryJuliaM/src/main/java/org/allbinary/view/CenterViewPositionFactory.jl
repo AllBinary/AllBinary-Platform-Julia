@@ -1,27 +1,38 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.view
 
-from __future__ import annotations
+# extends CenterStaticViewPositionFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CenterViewPositionFactory <: JObject
+    CenterViewPositionFactory() = new()
+end
 
-from org.allbinary.view.CenterStaticViewPositionFactory import CenterStaticViewPositionFactory
 
+function initFieldsCenterViewPositionFactory(this::CenterViewPositionFactory)
+    nothing
+end
 
-class CenterViewPositionFactory(CenterStaticViewPositionFactory):
+function initCenterViewPositionFactory(this::CenterViewPositionFactory)
+    initCenterStaticViewPositionFactory(this)
+    initFieldsCenterViewPositionFactory(this)
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    pass
-
+function newCenterViewPositionFactory()
+    this = CenterViewPositionFactory()
+    initCenterViewPositionFactory(this)
+    this
+end
 

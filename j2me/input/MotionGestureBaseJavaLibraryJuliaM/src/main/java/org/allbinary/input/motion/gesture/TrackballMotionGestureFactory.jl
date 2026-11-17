@@ -1,60 +1,76 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gesture
 
-from __future__ import annotations
+mutable struct TrackballMotionGestureFactory <: JObject
+    LEFT::Any
+    RIGHT::Any
+    UP::Any
+    DOWN::Any
+    TrackballMotionGestureFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const TrackballMotionGestureFactory_instanceValue = Ref{Any}(nothing)
+const TrackballMotionGestureFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{TrackballMotionGestureFactory})
+    if !TrackballMotionGestureFactory_instanceSet[]
+        TrackballMotionGestureFactory_instanceSet[] = true
+        TrackballMotionGestureFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    TrackballMotionGestureFactory_instanceValue[]
+end
+function staticSet_instance(::Type{TrackballMotionGestureFactory}, value)
+    TrackballMotionGestureFactory_instanceSet[] = true
+    TrackballMotionGestureFactory_instanceValue[] = value
+end
 
-
-class TrackballMotionGestureFactory:
-    instance: object = None
-
-    def _init_fields(self) -> None:
-        self.LEFT: MotionGestureInput = None
-        self.RIGHT: MotionGestureInput = None
-        self.UP: MotionGestureInput = None
-        self.DOWN: MotionGestureInput = None
+function initFieldsTrackballMotionGestureFactory(this::TrackballMotionGestureFactory)
+    this.LEFT = nothing
+    this.RIGHT = nothing
+    this.UP = nothing
+    this.DOWN = nothing
     
-
-    @staticmethod
-    def getInstance() -> TrackballMotionGestureFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if TrackballMotionGestureFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            TrackballMotionGestureFactory.instance = TrackballMotionGestureFactory()
-        return TrackballMotionGestureFactory.instance
     
-
-    def __init__(self) -> None:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.game.input.InputFactory import InputFactory
-        self._init_fields()
-        MAX: int = InputFactory.getInstance().MAX
-        self.LEFT = MotionGestureInput(MAX - 26, "L Trackball")
-        self.RIGHT = MotionGestureInput(MAX - 27, "R Trackball")
-        self.UP = MotionGestureInput(MAX - 28, "Up Trackball")
-        self.DOWN = MotionGestureInput(MAX - 29, "D Trackball")
-# from org.allbinary.game.input.InputFactory import InputFactory
-# from org.allbinary.logic.NullUtil import NullUtil
+    
+    
+    nothing
+end
 
 
-def _TrackballMotionGestureFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{TrackballMotionGestureFactory})
+        if staticGet_instance(TrackballMotionGestureFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(TrackballMotionGestureFactory, newTrackballMotionGestureFactory())
+        end
+        return (staticGet_instance(TrackballMotionGestureFactory))
+end
 
-lazy_static(TrackballMotionGestureFactory, "instance", _TrackballMotionGestureFactory_instance)
+
+function initTrackballMotionGestureFactory(this::TrackballMotionGestureFactory)
+        initFieldsTrackballMotionGestureFactory(this)
+        local MAX::Int32 = AllBinary.getInstance(InputFactory).MAX
+        this.LEFT = newMotionGestureInput(MAX - Int32(26), "L Trackball")
+        this.RIGHT = newMotionGestureInput(MAX - Int32(27), "R Trackball")
+        this.UP = newMotionGestureInput(MAX - Int32(28), "Up Trackball")
+        this.DOWN = newMotionGestureInput(MAX - Int32(29), "D Trackball")
+        nothing
+end
+
+function newTrackballMotionGestureFactory()
+    this = TrackballMotionGestureFactory()
+    initTrackballMotionGestureFactory(this)
+    this
+end
 

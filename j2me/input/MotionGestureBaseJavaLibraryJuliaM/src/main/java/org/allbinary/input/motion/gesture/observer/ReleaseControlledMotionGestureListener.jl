@@ -1,131 +1,160 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gesture.observer
 
-from __future__ import annotations
+mutable struct ReleaseControlledMotionGestureListener <: JObject
+    logUtil::Any
+    commonStrings::Any
+    currentMotionGesture::Any
+    isMouseGestureOccurring::Bool
+    motionGestureCollection::Any
+    signed::Any
+    ReleaseControlledMotionGestureListener() = new()
+end
 
-from org.allbinary.input.motion.gesture.observer.MotionGestureEventListener import MotionGestureEventListener
 
-
-class ReleaseControlledMotionGestureListener(MotionGestureEventListener):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.currentMotionGesture: MotionGestureInput = TouchMotionGestureFactory.getInstance().NO_MOTION
-        self.isMouseGestureOccurring: bool = False
-        self.motionGestureCollection: BasicArrayList = BasicArrayListD()
-        self.signed: CompleteMotionGestureListenerInterface = None
+function initFieldsReleaseControlledMotionGestureListener(this::ReleaseControlledMotionGestureListener)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.currentMotionGesture = nothing
+    this.isMouseGestureOccurring = false
+    this.motionGestureCollection = nothing
+    this.signed = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.currentMotionGesture = AllBinary.getInstance(TouchMotionGestureFactory).NO_MOTION
+    this.isMouseGestureOccurring = false
+    this.motionGestureCollection = newBasicArrayListD()
     
+    nothing
+end
 
-    def __init__(self, signed: CompleteMotionGestureListenerInterface) -> None:
-        self._init_fields()
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        self.signed = signed
-    
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        ForcedLogUtil.log(self.commonStrings.NOT_IMPLEMENTED, self)
-    
+function initReleaseControlledMotionGestureListener(this::ReleaseControlledMotionGestureListener, signed)
+        initFieldsReleaseControlledMotionGestureListener(this)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        this.signed = signed
+        nothing
+end
 
-    def onUpMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        self.onMotionGestureEvent(ev)
-    
+function newReleaseControlledMotionGestureListener(signed)
+    this = ReleaseControlledMotionGestureListener()
+    initReleaseControlledMotionGestureListener(this, signed)
+    this
+end
 
-    def onDownMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        self.onMotionGestureEvent(ev)
-    
 
-    def onLeftMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        self.onMotionGestureEvent(ev)
-    
+function onEvent(this::ReleaseControlledMotionGestureListener, eventObject)
+        AllBinary.log(ForcedLogUtil, this.commonStrings.NOT_IMPLEMENTED, this)
+        nothing
+end
 
-    def onRightMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        self.onMotionGestureEvent(ev)
-    
 
-    def onDiagonalDownRightMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        self.onMotionGestureEvent(ev)
-    
+function onUpMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        AllBinary.onMotionGestureEvent(this, ev)
+        nothing
+end
 
-    def onDiagonalDownLeftMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        self.onMotionGestureEvent(ev)
-    
 
-    def onDiagonalUpRightMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        self.onMotionGestureEvent(ev)
-    
+function onDownMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        AllBinary.onMotionGestureEvent(this, ev)
+        nothing
+end
 
-    def onDiagonalUpLeftMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        self.onMotionGestureEvent(ev)
-    
 
-    def onPressedMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        self.isMouseGestureOccurring = True
-        self.currentMotionGesture = TouchMotionGestureFactory.getInstance().NO_MOTION
-        self.onMotionGestureEvent(ev)
-    
+function onLeftMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        AllBinary.onMotionGestureEvent(this, ev)
+        nothing
+end
 
-    def onScrolledMotionGestureEvent(self, motionGestureEvent: MotionGestureEvent) -> None:
-        pass
-    
 
-    def released(self, ev: MotionGestureEvent) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        try:
-            if self.isMouseGestureOccurring == False:
+function onRightMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        AllBinary.onMotionGestureEvent(this, ev)
+        nothing
+end
+
+
+function onDiagonalDownRightMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        AllBinary.onMotionGestureEvent(this, ev)
+        nothing
+end
+
+
+function onDiagonalDownLeftMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        AllBinary.onMotionGestureEvent(this, ev)
+        nothing
+end
+
+
+function onDiagonalUpRightMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        AllBinary.onMotionGestureEvent(this, ev)
+        nothing
+end
+
+
+function onDiagonalUpLeftMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        AllBinary.onMotionGestureEvent(this, ev)
+        nothing
+end
+
+
+function onPressedMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        this.isMouseGestureOccurring = true
+        this.currentMotionGesture = AllBinary.getInstance(TouchMotionGestureFactory).NO_MOTION
+        AllBinary.onMotionGestureEvent(this, ev)
+        nothing
+end
+
+
+function onScrolledMotionGestureEvent(this::ReleaseControlledMotionGestureListener, motionGestureEvent)
+        nothing
+        nothing
+end
+
+
+function released(this::ReleaseControlledMotionGestureListener, ev)
+        try
+            if this.isMouseGestureOccurring == false
                 return
-            self.isMouseGestureOccurring = False
-            self.signed.onMotionGestureCompleted(self.motionGestureCollection)
-            self.motionGestureCollection.clear()
-        except Exception as e:
-            self.logUtil.put(str(StringMaker().append(self.commonStrings.EXCEPTION_LABEL).append(StringUtil.getInstance().toString(ev.getMotionGesture()))), self, "release", e)
-    
+            end
+            this.isMouseGestureOccurring = false
+            AllBinary.onMotionGestureCompleted(this.signed, this.motionGestureCollection)
+            AllBinary.clear(this.motionGestureCollection)
+        catch e
+            AllBinary.put(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), this.commonStrings.EXCEPTION_LABEL), AllBinary.toString(AllBinary.getInstance(StringUtil), AllBinary.getMotionGesture(ev)))), this, "release", e)
+        end
+        nothing
+end
 
-    def onMotionGestureEvent(self, ev: MotionGestureEvent) -> None:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        if self.isMouseGestureOccurring == False:
+
+function onMotionGestureEvent(this::ReleaseControlledMotionGestureListener, ev)
+        if this.isMouseGestureOccurring == false
             return
-        motionGestureInput: MotionGestureInput = ev.getMotionGesture()
-        if motionGestureInput == TouchMotionGestureFactory.getInstance().PRESSED:
-            self.onPressedMotionGestureEvent(ev)
-        elif motionGestureInput == TouchMotionGestureFactory.getInstance().RELEASED:
-            self.released(ev)
-        else:
-            if self.currentMotionGesture != motionGestureInput:
-                self.currentMotionGesture = motionGestureInput
-                self.motionGestureCollection.add(ev.getMotionGesture())
-# from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-# from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-
+        end
+        local motionGestureInput = AllBinary.getMotionGesture(ev)
+        if motionGestureInput === AllBinary.getInstance(TouchMotionGestureFactory).PRESSED
+            AllBinary.onPressedMotionGestureEvent(this, ev)
+        elseif motionGestureInput === AllBinary.getInstance(TouchMotionGestureFactory).RELEASED
+            AllBinary.released(this, ev)
+        else
+            if this.currentMotionGesture !== motionGestureInput
+                this.currentMotionGesture = motionGestureInput
+                AllBinary.add(this.motionGestureCollection, AllBinary.getMotionGesture(ev))
+            end
+        end
+        nothing
+end
 

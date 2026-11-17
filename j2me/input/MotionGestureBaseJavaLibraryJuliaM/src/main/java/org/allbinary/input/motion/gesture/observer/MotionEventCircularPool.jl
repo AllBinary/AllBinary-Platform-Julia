@@ -1,56 +1,55 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gesture.observer
 
-from __future__ import annotations
+mutable struct MotionEventCircularPool <: JObject
+    MIN::Int32
+    eventPool::Any
+    MotionEventCircularPool() = new()
+end
 
-import threading
+
+function initFieldsMotionEventCircularPool(this::MotionEventCircularPool)
+    this.MIN = Int32(0)
+    this.eventPool = nothing
+    this.MIN = AllBinary.getId(AllBinary.getInstance(TouchMotionGestureFactory).LAST_MOTION)
+    this.eventPool = newAllBinaryEventCircularPool((AllBinary.getInstance(InputFactory).MAX - Int32(1)) - this.MIN)
+    nothing
+end
 
 
-class MotionEventCircularPool:
-    _lock = threading.RLock()
+function createPool(::Type{MotionEventCircularPool}, id)
+        return newMotionEventCircularPool(id)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        from org.allbinary.logic.util.event.AllBinaryEventCircularPool import AllBinaryEventCircularPool
-        self.MIN: int = TouchMotionGestureFactory.getInstance().LAST_MOTION.getId()
-        self.eventPool: AllBinaryEventCircularPool = AllBinaryEventCircularPool((InputFactory.getInstance().MAX - 1) - self.MIN)
-    
 
-    @staticmethod
-    def createPool(id: int) -> MotionEventCircularPool:
-        return MotionEventCircularPool(id)
-    
+function initMotionEventCircularPool(this::MotionEventCircularPool, id)
+        initFieldsMotionEventCircularPool(this)
+        AllBinary.initAllBinaryEventCircularPool(this.eventPool, newMotionEventFactory(this.eventPool, id))
+        nothing
+end
 
-    def __init__(self, id: int) -> None:
-        from org.allbinary.input.motion.gesture.observer.MotionEventFactory import MotionEventFactory
-        self._init_fields()
-        self.eventPool.initAllBinaryEventCircularPool(MotionEventFactory(self.eventPool, id))
-    
+function newMotionEventCircularPool(id)
+    this = MotionEventCircularPool()
+    initMotionEventCircularPool(this, id)
+    this
+end
 
-    # throws Exception
-    def getInstance(self, motionGestureInput: MotionGestureInput) -> MotionGestureEvent:
-        with self._lock:
-            return self._getInstance_unlocked(motionGestureInput)
 
-    def _getInstance_unlocked(self, motionGestureInput: MotionGestureInput) -> MotionGestureEvent:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        return self.eventPool.getInstance(motionGestureInput.getId() - self.MIN)
-# from org.allbinary.game.input.InputFactory import InputFactory
-# from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-# from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-# from org.allbinary.logic.util.event.AllBinaryEventCircularPool import AllBinaryEventCircularPool
-
+function getInstance(this::MotionEventCircularPool, motionGestureInput)
+        return (AllBinary.getInstance(this.eventPool, AllBinary.getId(motionGestureInput) - this.MIN))
+end
 

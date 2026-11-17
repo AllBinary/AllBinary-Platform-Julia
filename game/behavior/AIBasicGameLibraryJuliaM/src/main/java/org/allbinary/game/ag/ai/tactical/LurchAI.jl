@@ -1,93 +1,109 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai.tactical
 
-from __future__ import annotations
+# extends BasicAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LurchAI <: JObject
+    currentRelativeAngle::Int32
+    currentSpeed::Int32
+    LurchAI() = new()
+end
 
-from org.allbinary.game.ai.BasicAI import BasicAI
+
+function initFieldsLurchAI(this::LurchAI)
+    this.currentRelativeAngle = Int32(0)
+    this.currentSpeed = Int32(0)
+    this.currentRelativeAngle = Int32(0)
+    this.currentSpeed = Int32(0)
+    nothing
+end
 
 
-class LurchAI(BasicAI):
+function initLurchAI(this::LurchAI, ownerLayerInterface, gameInput)
+        initBasicAI(this, ownerLayerInterface, gameInput)
+        initFieldsLurchAI(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.currentRelativeAngle: int = 0
-        self.currentSpeed: int = 0
-    
+function newLurchAI(ownerLayerInterface, gameInput)
+    this = LurchAI()
+    initLurchAI(this, ownerLayerInterface, gameInput)
+    this
+end
 
-    def __init__(self, ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(ownerLayerInterface, gameInput)
-        self._init_fields()
-    
 
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        if self.currentSpeed == -1:
-            self.currentSpeed = 5
-        else:
-            self.currentSpeed = -1
-        ownerLayerInterface: AllBinaryLayer = self.getOwnerLayerInterface()
-        x: int = ownerLayerInterface.getXP()
-        if ownerLayerInterface.getXP() - self.currentSpeed <= 0:
-            self.reverse()
-            self.drop()
-        if ownerLayerInterface.getX2() + self.currentSpeed > DisplayInfoSingleton.getInstance().getLastWidth():
-            self.reverse()
-            self.accelerate()
-            self.drop()
-        if self.currentRelativeAngle == 0:
-            x += self.currentSpeed
-        elif self.currentRelativeAngle == 180:
-            x -= self.currentSpeed
-        ownerLayerInterface.setPosition(x, ownerLayerInterface.getYP(), ownerLayerInterface.getZP())
-        if self.currentRelativeAngle == 0:
-            super().processKeyAI(Canvas.KEY_NUM0)
-        elif self.currentRelativeAngle == 180:
-            super().processKeyAI(Canvas.KEY_POUND)
-    
+function processAI(this::LurchAI, allBinaryLayerManager)
+        if this.currentSpeed == -Int32(1)
+            this.currentSpeed = Int32(5)
+        else
+            this.currentSpeed = -Int32(1)
+        end
+        local ownerLayerInterface = AllBinary.getOwnerLayerInterface(this)
+        local x::Int32 = AllBinary.getXP(ownerLayerInterface)
+        if AllBinary.getXP(ownerLayerInterface) - this.currentSpeed <= Int32(0)
+            AllBinary.reverse(this)
+            AllBinary.drop(this)
+        end
+        if AllBinary.getX2(ownerLayerInterface) + this.currentSpeed > AllBinary.getLastWidth(AllBinary.getInstance(DisplayInfoSingleton))
+            AllBinary.reverse(this)
+            AllBinary.accelerate(this)
+            AllBinary.drop(this)
+        end
+        if this.currentRelativeAngle == Int32(0)
+            x += this.currentSpeed
+        elseif this.currentRelativeAngle == Int32(180)
+            x -= this.currentSpeed
+        end
+        AllBinary.setPosition(ownerLayerInterface, x, AllBinary.getYP(ownerLayerInterface), AllBinary.getZP(ownerLayerInterface))
+        if this.currentRelativeAngle == Int32(0)
+            AllBinary.processKeyAI(this, staticGet_KEY_NUM0(Canvas))
+        elseif this.currentRelativeAngle == Int32(180)
+            AllBinary.processKeyAI(this, staticGet_KEY_POUND(Canvas))
+        end
+        nothing
+end
 
-    def reverse(self) -> None:
-        if self.currentRelativeAngle == 180:
-            self.currentRelativeAngle = 0
-        elif self.currentRelativeAngle == 0:
-            self.currentRelativeAngle = 180
-    
 
-    def accelerate(self) -> None:
-        if self.currentSpeed < 20:
-            self.currentSpeed += 1
-    
+function reverse(this::LurchAI)
+        if this.currentRelativeAngle == Int32(180)
+            this.currentRelativeAngle = Int32(0)
+        elseif this.currentRelativeAngle == Int32(0)
+            this.currentRelativeAngle = Int32(180)
+        end
+        nothing
+end
 
-    def drop(self) -> None:
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        ownerLayerInterface: AllBinaryLayer = self.getOwnerLayerInterface()
-        y: int = ownerLayerInterface.getYP()
-        if ownerLayerInterface.getY2() + ownerLayerInterface.getHeight() > DisplayInfoSingleton.getInstance().getLastHeight():
-            y = 0
-        else:
-            y += ownerLayerInterface.getHeight() + 1
-        ownerLayerInterface.setPosition(ownerLayerInterface.getXP(), y, ownerLayerInterface.getZP())
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
 
+function accelerate(this::LurchAI)
+        if this.currentSpeed < Int32(20)
+            this.currentSpeed += Int32(1)
+        end
+        nothing
+end
+
+
+function drop(this::LurchAI)
+        local ownerLayerInterface = AllBinary.getOwnerLayerInterface(this)
+        local y::Int32 = AllBinary.getYP(ownerLayerInterface)
+        if AllBinary.getY2(ownerLayerInterface) + AllBinary.getHeight(ownerLayerInterface) > AllBinary.getLastHeight(AllBinary.getInstance(DisplayInfoSingleton))
+            y = Int32(0)
+        else
+            y += AllBinary.getHeight(ownerLayerInterface) + Int32(1)
+        end
+        AllBinary.setPosition(ownerLayerInterface, AllBinary.getXP(ownerLayerInterface), y, AllBinary.getZP(ownerLayerInterface))
+        nothing
+end
 

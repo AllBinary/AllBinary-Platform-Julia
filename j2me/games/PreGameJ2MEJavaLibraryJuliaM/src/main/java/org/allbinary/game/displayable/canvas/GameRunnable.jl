@@ -1,44 +1,60 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+mutable struct GameRunnable <: JObject
+    WAIT::Int32
+    FAST::Int32
+    waitInMillis::Int64
+    GameRunnable() = new()
+end
 
-import time
-import threading
+
+function initFieldsGameRunnable(this::GameRunnable)
+    this.WAIT = Int32(0)
+    this.FAST = Int32(0)
+    this.waitInMillis = Int64(0)
+    this.WAIT = Int32(240)
+    this.FAST = Int32(60)
+    this.waitInMillis = ((this.WAIT) % Int64)
+    nothing
+end
 
 
-class GameRunnable(object):
+function initGameRunnable(this::GameRunnable)
+        initFieldsGameRunnable(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.WAIT: int = 240
-        self.FAST: int = 60
-        self.waitInMillis: int = self.WAIT
-    
+function newGameRunnable()
+    this = GameRunnable()
+    initGameRunnable(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def run(self) -> None:
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        DisplayInfoSingleton.getInstance().process()
-    
+function run(this::GameRunnable)
+        AllBinary.process(AllBinary.getInstance(DisplayInfoSingleton))
+        nothing
+end
 
-    # throws Exception
-    def processLoopSleep(self) -> None:
-        time.sleep((self.waitInMillis) / 1000)
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
 
+function processLoopSleep(this::GameRunnable)
+        AllBinary.sleep(Thread, this.waitInMillis)
+        nothing
+end
 

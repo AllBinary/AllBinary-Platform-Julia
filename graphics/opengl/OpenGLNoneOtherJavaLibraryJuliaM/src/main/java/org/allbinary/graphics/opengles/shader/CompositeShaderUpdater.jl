@@ -1,62 +1,74 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles.shader
 
-from __future__ import annotations
+# extends ShaderUpdater: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CompositeShaderUpdater <: JObject
+    commonSeps::Any
+    CompositeShaderUpdater() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.graphics.opengles.shader.ShaderUpdater import ShaderUpdater
+const CompositeShaderUpdater_instanceCValue = Ref{Any}(nothing)
+const CompositeShaderUpdater_instanceCSet = Ref(false)
+function staticGet_instanceC(::Type{CompositeShaderUpdater})
+    if !CompositeShaderUpdater_instanceCSet[]
+        CompositeShaderUpdater_instanceCSet[] = true
+        CompositeShaderUpdater_instanceCValue[] = newCompositeShaderUpdater(AllBinary.getArrayInstance(AllBinary.getInstance(StringUtil)), AllBinary.getArrayInstance(AllBinary.getInstance(StringUtil)), AllBinary.getArrayInstance(AllBinary.getInstance(StringUtil)), AllBinary.getInstance(NullUtil).NULL_INT_ARRAY)
+    end
+    CompositeShaderUpdater_instanceCValue[]
+end
+function staticSet_instanceC(::Type{CompositeShaderUpdater}, value)
+    CompositeShaderUpdater_instanceCSet[] = true
+    CompositeShaderUpdater_instanceCValue[] = value
+end
 
-
-class CompositeShaderUpdater(ShaderUpdater):
-    instanceC: CompositeShaderUpdater = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.string.CommonSeps import CommonSeps
-        self.commonSeps: CommonSeps = CommonSeps.getInstance()
-    
-
-    @staticmethod
-    def getInstance() -> CompositeShaderUpdater:
-        return CompositeShaderUpdater.instanceC
-    
-
-    def __init__(self, uniformBlockArray: list[str], uniformArray: list[str], attributeArray: list[str], attributeHandleArray: list[int]) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def onSurfaceCreated(self, gl: GL10, eglConfig: EGLConfig, programHandle: int) -> None:
-        from javax.microedition.khronos.egl.EGLConfig import EGLConfig
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
-
-    def onSurfaceDestroyed(self, gl: GL10) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-# from javax.microedition.khronos.egl.EGLConfig import EGLConfig
-# from javax.microedition.khronos.opengles.GL10 import GL10
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonSeps import CommonSeps
+function initFieldsCompositeShaderUpdater(this::CompositeShaderUpdater)
+    this.commonSeps = nothing
+    this.commonSeps = AllBinary.getInstance(CommonSeps)
+    nothing
+end
 
 
-def _CompositeShaderUpdater_instanceC() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return CompositeShaderUpdater(StringUtil.getInstance().getArrayInstance(), StringUtil.getInstance().getArrayInstance(), StringUtil.getInstance().getArrayInstance(), NullUtil.getInstance().NULL_INT_ARRAY)
+function getInstance(::Type{CompositeShaderUpdater})
+        return staticGet_instanceC(CompositeShaderUpdater)
+end
 
-lazy_static(CompositeShaderUpdater, "instanceC", _CompositeShaderUpdater_instanceC)
+
+function initCompositeShaderUpdater(this::CompositeShaderUpdater, uniformBlockArray, uniformArray, attributeArray, attributeHandleArray)
+        initShaderUpdater(this)
+        initFieldsCompositeShaderUpdater(this)
+        nothing
+        nothing
+end
+
+function newCompositeShaderUpdater(uniformBlockArray, uniformArray, attributeArray, attributeHandleArray)
+    this = CompositeShaderUpdater()
+    initCompositeShaderUpdater(this, uniformBlockArray, uniformArray, attributeArray, attributeHandleArray)
+    this
+end
+
+
+function onSurfaceCreated(this::CompositeShaderUpdater, gl, eglConfig, programHandle)
+        nothing
+        nothing
+end
+
+
+function onSurfaceDestroyed(this::CompositeShaderUpdater, gl)
+        nothing
+        nothing
+end
 

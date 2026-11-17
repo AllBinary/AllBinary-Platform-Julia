@@ -1,91 +1,110 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics
 
-from __future__ import annotations
+mutable struct Rectangle <: JObject
+    point::Any
+    width::Int32
+    height::Int32
+    Rectangle() = new()
+end
 
 
-
-class Rectangle:
-
-    def _init_fields(self) -> None:
-        self.point: GPoint = None
-        self.width: int = None
-        self.height: int = None
+function initFieldsRectangle(this::Rectangle)
+    this.point = nothing
+    this.width = Int32(0)
+    this.height = Int32(0)
     
-
-    def __init__(self, point: GPoint, width: int, height: int) -> None:
-        self._init_fields()
-        self.point = point
-        self.width = width
-        self.height = height
     
-
-    def getPoint(self) -> GPoint:
-        return self.point
     
+    nothing
+end
 
-    def setPoint(self, point: GPoint) -> None:
-        self.point = point
-    
 
-    def getMaxX(self) -> int:
-        return self.point.getX() + self.width
-    
+function initRectangle(this::Rectangle, point, width, height)
+        initFieldsRectangle(this)
+        this.point = point
+        this.width = width
+        this.height = height
+        nothing
+end
 
-    def getMaxY(self) -> int:
-        return self.point.getY() + self.height
-    
+function newRectangle(point, width, height)
+    this = Rectangle()
+    initRectangle(this, point, width, height)
+    this
+end
 
-    def getWidth(self) -> int:
-        return self.width
-    
 
-    def setWidth(self, width: int) -> None:
-        self.width = width
-    
+function getPoint(this::Rectangle)
+        return this.point
+end
 
-    def getHeight(self) -> int:
-        return self.height
-    
 
-    def setHeight(self, height: int) -> None:
-        self.height = height
-    
+function setPoint(this::Rectangle, point)
+        this.point = point
+        nothing
+end
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        from org.allbinary.string.CommonSeps import CommonSeps
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(str(self.getPoint()))
-        stringBuffer.append(CommonSeps.getInstance().SPACE)
-        stringBuffer.append(CommonLabels.getInstance().WIDTH_LABEL)
-        stringBuffer.appendint(self.getWidth())
-        stringBuffer.append(CommonSeps.getInstance().SPACE)
-        stringBuffer.append(CommonLabels.getInstance().HEIGHT_LABEL)
-        stringBuffer.appendint(self.getHeight())
-        stringBuffer.append(" MaxX: ")
-        stringBuffer.appendint(self.getMaxX())
-        stringBuffer.append(" MaxY: ")
-        stringBuffer.appendint(self.getMaxY())
-        return str(stringBuffer)
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonSeps import CommonSeps
+function getMaxX(this::Rectangle)
+        return AllBinary.getX(this.point) + this.width
+end
 
+
+function getMaxY(this::Rectangle)
+        return AllBinary.getY(this.point) + this.height
+end
+
+
+function getWidth(this::Rectangle)
+        return this.width
+end
+
+
+function setWidth(this::Rectangle, width)
+        this.width = width
+        nothing
+end
+
+
+function getHeight(this::Rectangle)
+        return this.height
+end
+
+
+function setHeight(this::Rectangle, height)
+        this.height = height
+        nothing
+end
+
+
+function toString(this::Rectangle)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, AllBinary.toString(AllBinary.getPoint(this)))
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonLabels).WIDTH_LABEL)
+        AllBinary.appendint(stringBuffer, AllBinary.getWidth(this))
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonLabels).HEIGHT_LABEL)
+        AllBinary.appendint(stringBuffer, AllBinary.getHeight(this))
+        AllBinary.append(stringBuffer, " MaxX: ")
+        AllBinary.appendint(stringBuffer, AllBinary.getMaxX(this))
+        AllBinary.append(stringBuffer, " MaxY: ")
+        AllBinary.appendint(stringBuffer, AllBinary.getMaxY(this))
+        return AllBinary.toString(stringBuffer)
+end
 

@@ -1,56 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+mutable struct CommandRunnable <: JObject
+    logUtil::Any
+    commonStrings::Any
+    commandFormInputProcessor::Any
+    command::Any
+    CommandRunnable() = new()
+end
 
 
-
-class CommandRunnable(object):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Command import Command
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.commandFormInputProcessor: CommandFormInputProcessor = None
-        self.command: Command = None
+function initFieldsCommandRunnable(this::CommandRunnable)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.commandFormInputProcessor = nothing
+    this.command = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
-
-    def __init__(self, commandFormInputProcessor: CommandFormInputProcessor, command: Command) -> None:
-        from javax.microedition.lcdui.Command import Command
-        self._init_fields()
-        self.commandFormInputProcessor = commandFormInputProcessor
-        self.command = command
     
+    nothing
+end
 
-    def run(self) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-        try:
-            self.logUtil.putF(self.commonStrings.START_RUNNABLE, self, self.commonStrings.RUN)
-            canvas: MyCanvas = self.commandFormInputProcessor.getCanvas()
-            commandListener: CommandListener = canvas.getCustomCommandListener()
-            commandListener.commandAction(self.command, canvas)
-            self.logUtil.putF(self.commonStrings.END_RUNNABLE, self, self.commonStrings.RUN)
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.RUN, e)
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
 
+function initCommandRunnable(this::CommandRunnable, commandFormInputProcessor, command)
+        initFieldsCommandRunnable(this)
+        this.commandFormInputProcessor = commandFormInputProcessor
+        this.command = command
+        nothing
+end
+
+function newCommandRunnable(commandFormInputProcessor, command)
+    this = CommandRunnable()
+    initCommandRunnable(this, commandFormInputProcessor, command)
+    this
+end
+
+
+function run(this::CommandRunnable)
+        try
+            AllBinary.putF(this.logUtil, this.commonStrings.START_RUNNABLE, this, this.commonStrings.RUN)
+            local canvas = AllBinary.getCanvas(this.commandFormInputProcessor)
+            local commandListener = AllBinary.getCustomCommandListener(canvas)
+            AllBinary.commandAction(commandListener, this.command, canvas)
+            AllBinary.putF(this.logUtil, this.commonStrings.END_RUNNABLE, this, this.commonStrings.RUN)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.RUN, e)
+        end
+        nothing
+end
 

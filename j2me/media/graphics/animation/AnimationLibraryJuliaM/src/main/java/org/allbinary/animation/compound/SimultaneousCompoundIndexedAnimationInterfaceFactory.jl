@@ -1,44 +1,49 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.compound
 
-from __future__ import annotations
+# extends CompoundAnimationInterfaceFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SimultaneousCompoundIndexedAnimationInterfaceFactory <: JObject
+    SimultaneousCompoundIndexedAnimationInterfaceFactory() = new()
+end
 
-from org.allbinary.animation.compound.CompoundAnimationInterfaceFactory import CompoundAnimationInterfaceFactory
+
+function initFieldsSimultaneousCompoundIndexedAnimationInterfaceFactory(this::SimultaneousCompoundIndexedAnimationInterfaceFactory)
+    nothing
+end
 
 
-class SimultaneousCompoundIndexedAnimationInterfaceFactory(CompoundAnimationInterfaceFactory):
-    
+function initSimultaneousCompoundIndexedAnimationInterfaceFactory(this::SimultaneousCompoundIndexedAnimationInterfaceFactory, basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+        initCompoundAnimationInterfaceFactory(this, basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+        nothing
+end
 
-    def __init__(self, basicAnimationInterfaceFactoryInterfaceArray: list[AnimationInterfaceFactoryInterface], animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
-        super().__init__(basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
-    
+function newSimultaneousCompoundIndexedAnimationInterfaceFactory(basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+    this = SimultaneousCompoundIndexedAnimationInterfaceFactory()
+    initSimultaneousCompoundIndexedAnimationInterfaceFactory(this, basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+    this
+end
 
-    def createArray(self, size: int) -> list[Animation]:
-        from org.allbinary.animation.Animation import Animation
-        return [None] * (size)
-    
 
-    def createAnimation(self, animationArray: list[Animation]) -> Animation:
-        from org.allbinary.animation.compound.SimultaneousCompoundIndexedAnimation import SimultaneousCompoundIndexedAnimation
-        from org.allbinary.animation.Animation import Animation
-        return SimultaneousCompoundIndexedAnimation(animationArray, self.animationBehaviorFactory.getOrCreateInstance())
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
+function createArray(this::SimultaneousCompoundIndexedAnimationInterfaceFactory, size)
+        return jNewArray(Any, size, nothing)
+end
 
+
+function createAnimation(this::SimultaneousCompoundIndexedAnimationInterfaceFactory, animationArray)
+        return newSimultaneousCompoundIndexedAnimation(animationArray, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+end
 

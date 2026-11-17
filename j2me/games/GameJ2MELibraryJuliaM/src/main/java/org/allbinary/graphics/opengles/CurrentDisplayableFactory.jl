@@ -1,198 +1,194 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles
 
-from __future__ import annotations
+mutable struct CurrentDisplayableFactory <: JObject
+    commonStrings::Any
+    canvasStrings::Any
+    stringUtil::Any
+    SET_DISPLAYABLE::Any
+    SET_RUNNABLE::Any
+    CLEAR_RUNNABLE::Any
+    SET_USED_RUNNABLE::Any
+    RUNNABLE::Any
+    RUNNABLE_WAS_ALREADY_IN_USE::Any
+    DEFAULT_CHILD_NAME_LIST::Any
+    displayable::Any
+    openGlReadydisplayable::Any
+    runnable::Any
+    usedRunnable::Any
+    CurrentDisplayableFactory() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
+const CurrentDisplayableFactory_instanceValue = Ref{Any}(nothing)
+const CurrentDisplayableFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{CurrentDisplayableFactory})
+    if !CurrentDisplayableFactory_instanceSet[]
+        CurrentDisplayableFactory_instanceSet[] = true
+        CurrentDisplayableFactory_instanceValue[] = newCurrentDisplayableFactory()
+    end
+    CurrentDisplayableFactory_instanceValue[]
+end
+function staticSet_instance(::Type{CurrentDisplayableFactory}, value)
+    CurrentDisplayableFactory_instanceSet[] = true
+    CurrentDisplayableFactory_instanceValue[] = value
+end
+
+function initFieldsCurrentDisplayableFactory(this::CurrentDisplayableFactory)
+    this.commonStrings = nothing
+    this.canvasStrings = nothing
+    this.stringUtil = nothing
+    this.SET_DISPLAYABLE = nothing
+    this.SET_RUNNABLE = nothing
+    this.CLEAR_RUNNABLE = nothing
+    this.SET_USED_RUNNABLE = nothing
+    this.RUNNABLE = nothing
+    this.RUNNABLE_WAS_ALREADY_IN_USE = nothing
+    this.DEFAULT_CHILD_NAME_LIST = nothing
+    this.displayable = nothing
+    this.openGlReadydisplayable = nothing
+    this.runnable = nothing
+    this.usedRunnable = nothing
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.canvasStrings = AllBinary.getInstance(CanvasStrings)
+    this.stringUtil = AllBinary.getInstance(StringUtil)
+    this.SET_DISPLAYABLE = "setDisplayable"
+    this.SET_RUNNABLE = "setRunnable"
+    this.CLEAR_RUNNABLE = "clearRunnable"
+    this.SET_USED_RUNNABLE = "setUsedRunnable"
+    this.RUNNABLE = "Runnable: "
+    this.RUNNABLE_WAS_ALREADY_IN_USE = "Runnable was already in use: "
+    this.DEFAULT_CHILD_NAME_LIST = newBasicArrayListD()
+    this.displayable = AllBinary.getInstance(NullDisplayable)
+    this.openGlReadydisplayable = AllBinary.getInstance(NullDisplayable)
+    this.runnable = AllBinary.getInstance(NullWaitGameRunnable)
+    this.usedRunnable = AllBinary.getInstance(NullWaitGameRunnable)
+    nothing
+end
 
 
-class CurrentDisplayableFactory:
-    instance: CurrentDisplayableFactory = None
-    _lock = threading.RLock()
+function getInstance(::Type{CurrentDisplayableFactory})
+        return staticGet_instance(CurrentDisplayableFactory)
+end
 
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Displayable import Displayable
-        from org.allbinary.game.displayable.canvas.GameRunnable import GameRunnable
-        from org.allbinary.game.displayable.canvas.NullDisplayable import NullDisplayable
-        from org.allbinary.game.displayable.canvas.NullWaitGameRunnable import NullWaitGameRunnable
-        from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.canvasStrings: CanvasStrings = CanvasStrings.getInstance()
-        self.stringUtil: StringUtil = StringUtil.getInstance()
-        self.SET_DISPLAYABLE: str = "setDisplayable"
-        self.SET_RUNNABLE: str = "setRunnable"
-        self.CLEAR_RUNNABLE: str = "clearRunnable"
-        self.SET_USED_RUNNABLE: str = "setUsedRunnable"
-        self.RUNNABLE: str = "Runnable: "
-        self.RUNNABLE_WAS_ALREADY_IN_USE: str = "Runnable was already in use: "
-        self.DEFAULT_CHILD_NAME_LIST: BasicArrayList = BasicArrayListD()
-        self.displayable: Displayable = NullDisplayable.getInstance()
-        self.openGlReadydisplayable: Displayable = NullDisplayable.getInstance()
-        self.runnable: GameRunnable = NullWaitGameRunnable.getInstance()
-        self.usedRunnable: GameRunnable = NullWaitGameRunnable.getInstance()
-    
 
-    @staticmethod
-    def getInstance() -> CurrentDisplayableFactory:
-        return CurrentDisplayableFactory.instance
-    
+function initCurrentDisplayableFactory(this::CurrentDisplayableFactory)
+        initFieldsCurrentDisplayableFactory(this)
+        AllBinary.add(this.DEFAULT_CHILD_NAME_LIST, this.canvasStrings.ABOUT)
+        AllBinary.add(this.DEFAULT_CHILD_NAME_LIST, this.canvasStrings.OPTIONS)
+        AllBinary.add(this.DEFAULT_CHILD_NAME_LIST, staticGet_NAME(GameInputMappingCanvas))
+        AllBinary.add(this.DEFAULT_CHILD_NAME_LIST, staticGet_NAME(GameInputMappingInstructionsCanvas))
+        AllBinary.add(this.DEFAULT_CHILD_NAME_LIST, staticGet_NAME(HighScoresCanvas))
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.game.displayable.canvas.GameInputMappingCanvas import GameInputMappingCanvas
-        from org.allbinary.game.displayable.canvas.GameInputMappingInstructionsCanvas import GameInputMappingInstructionsCanvas
-        from org.allbinary.game.score.displayable.HighScoresCanvas import HighScoresCanvas
-        self._init_fields()
-        self.DEFAULT_CHILD_NAME_LIST.add(self.canvasStrings.ABOUT)
-        self.DEFAULT_CHILD_NAME_LIST.add(self.canvasStrings.OPTIONS)
-        self.DEFAULT_CHILD_NAME_LIST.add(GameInputMappingCanvas.NAME)
-        self.DEFAULT_CHILD_NAME_LIST.add(GameInputMappingInstructionsCanvas.NAME)
-        self.DEFAULT_CHILD_NAME_LIST.add(HighScoresCanvas.NAME)
-    
+function newCurrentDisplayableFactory()
+    this = CurrentDisplayableFactory()
+    initCurrentDisplayableFactory(this)
+    this
+end
 
-    def setMyCanvas(self, displayable: MyCanvas) -> None:
-        from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        if isinstance(self.displayable, MyCanvas):
-            if displayable.hasChild(self.displayable):
-                PreLogUtil.put(str(StringMaker().append("Child Displayable is already set for: ").append(self.stringUtil.toString(displayable))), self, self.SET_DISPLAYABLE)
+
+function setMyCanvas(this::CurrentDisplayableFactory, displayable)
+        if Base.isa(this.displayable, MyCanvas)
+            if AllBinary.hasChild(displayable, (this.displayable))
+                AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Child Displayable is already set for: "), AllBinary.toString(this.stringUtil, displayable))), this, this.SET_DISPLAYABLE)
                 return
-        self.setDisplayable(displayable)
-    
-
-    def setDisplayable(self, displayable: Displayable) -> None:
-        from javax.microedition.lcdui.Displayable import Displayable
-        self.displayable = displayable
-        self.setOpenGlReadydisplayable(displayable)
-    
-
-    def setOpenGlReadydisplayable(self, openGlReadydisplayable: Displayable) -> None:
-        from javax.microedition.lcdui.Displayable import Displayable
-        self.openGlReadydisplayable = openGlReadydisplayable
-        self.update()
-    
-
-    def getOpenGlReadydisplayable(self) -> Displayable:
-        from javax.microedition.lcdui.Displayable import Displayable
-        return self.openGlReadydisplayable
-    
-
-    def setRunnable(self, runnable: GameRunnable) -> None:
-        from org.allbinary.game.displayable.canvas.GameRunnable import GameRunnable
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        PreLogUtil.put(str(StringMaker().append(self.RUNNABLE).append(self.stringUtil.toString(runnable))), self, self.SET_RUNNABLE)
-        self.runnable = runnable
-        if self.usedRunnable != self.runnable:
-            self.update()
-        else:
-            PreLogUtil.put(str(StringMaker().append(self.RUNNABLE_WAS_ALREADY_IN_USE).append(self.stringUtil.toString(runnable))), self, self.SET_RUNNABLE)
-    
-
-    def clearRunnable(self) -> None:
-        from org.allbinary.game.displayable.canvas.NullWaitGameRunnable import NullWaitGameRunnable
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.thread.NullRunnable import NullRunnable
-        PreLogUtil.put(str(StringMaker().append(self.RUNNABLE).append(self.stringUtil.toString(NullRunnable.getInstance()))), self, self.CLEAR_RUNNABLE)
-        self.setUsedRunnable(NullWaitGameRunnable.getInstance())
-    
-
-    def update(self) -> None:
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.displayable.canvas.AllBinaryGameCanvas import AllBinaryGameCanvas
-        from org.allbinary.game.displayable.canvas.DemoCanvas import DemoCanvas
-        from org.allbinary.game.displayable.canvas.NullWaitGameRunnable import NullWaitGameRunnable
-        from org.allbinary.game.layer.SWTUtil import SWTUtil
-        from org.allbinary.graphics.GraphicsStrings import GraphicsStrings
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        from org.allbinary.thread.NullRunnable import NullRunnable
-        with self._lock:  # synchronized (self)
-            commonSeps: CommonSeps = CommonSeps.getInstance()
-            features: Features = Features.getInstance()
-            stringMaker: StringMaker = StringMaker()
-            stringMaker.append(self.stringUtil.toString(self.openGlReadydisplayable))
-            if SWTUtil.isSWT and not features.isDefault(OpenGLFeatureFactory.getInstance().OPENGL):
-                PreLogUtil.put(str(stringMaker.append(commonSeps.SPACE).append(SWTUtil.SWT).append(commonSeps.SPACE).append(self.RUNNABLE).append(self.stringUtil.toString(NullRunnable.getInstance()))), self, self.commonStrings.UPDATE)
-                self.setUsedRunnable(NullWaitGameRunnable.getInstance())
-            elif J2MEUtil.isHTML():
-                PreLogUtil.put(str(stringMaker.append(commonSeps.SPACE).append(GraphicsStrings.getInstance().HTML).append(commonSeps.SPACE).append(self.RUNNABLE).append(self.stringUtil.toString(self.runnable))), self, self.commonStrings.UPDATE)
-                self.setUsedRunnable(self.runnable)
-            elif isinstance(self.openGlReadydisplayable, DemoCanvas) or isinstance(self.openGlReadydisplayable, AllBinaryGameCanvas) or features.isDefault(OpenGLFeatureFactory.getInstance().OPENGL):
-                PreLogUtil.put(str(stringMaker.append(commonSeps.SPACE).append(str(OpenGLFeatureFactory.getInstance().OPENGL)).append(commonSeps.SPACE).append(self.RUNNABLE).append(self.stringUtil.toString(self.runnable))), self, self.commonStrings.UPDATE)
-                self.setUsedRunnable(self.runnable)
-            else:
-                PreLogUtil.put(str(stringMaker.append(self.RUNNABLE).append(self.stringUtil.toString(NullRunnable.getInstance()))), self, self.commonStrings.UPDATE)
-                self.setUsedRunnable(NullWaitGameRunnable.getInstance())
-    
-
-    def getDisplayable(self) -> Displayable:
-        from javax.microedition.lcdui.Displayable import Displayable
-        return self.displayable
-    
-
-    def getUsedRunnable(self) -> GameRunnable:
-        from org.allbinary.game.displayable.canvas.GameRunnable import GameRunnable
-        return self.usedRunnable
-    
-
-    def setUsedRunnable(self, usedRunnable: GameRunnable) -> None:
-        from org.allbinary.game.displayable.canvas.GameRunnable import GameRunnable
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        PreLogUtil.put(str(StringMaker().append(self.RUNNABLE).append(self.stringUtil.toString(self.runnable)).append(CommonSeps.getInstance().COLON_SEP).append(self.stringUtil.toString(usedRunnable))), self, self.SET_USED_RUNNABLE)
-        self.usedRunnable = usedRunnable
-# from javax.microedition.lcdui.Displayable import Displayable
-# from org.allbinary.J2MEUtil import J2MEUtil
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.displayable.canvas.AllBinaryGameCanvas import AllBinaryGameCanvas
-# from org.allbinary.game.displayable.canvas.DemoCanvas import DemoCanvas
-# from org.allbinary.game.displayable.canvas.GameInputMappingCanvas import GameInputMappingCanvas
-# from org.allbinary.game.displayable.canvas.GameInputMappingInstructionsCanvas import GameInputMappingInstructionsCanvas
-# from org.allbinary.game.displayable.canvas.GameRunnable import GameRunnable
-# from org.allbinary.game.displayable.canvas.NullDisplayable import NullDisplayable
-# from org.allbinary.game.displayable.canvas.NullWaitGameRunnable import NullWaitGameRunnable
-# from org.allbinary.game.layer.SWTUtil import SWTUtil
-# from org.allbinary.game.score.displayable.HighScoresCanvas import HighScoresCanvas
-# from org.allbinary.graphics.GraphicsStrings import GraphicsStrings
-# from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-# from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.thread.NullRunnable import NullRunnable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+            end
+        end
+        AllBinary.setDisplayable(this, displayable)
+        nothing
+end
 
 
-def _CurrentDisplayableFactory_instance() -> object:
-    return CurrentDisplayableFactory()
+function setDisplayable(this::CurrentDisplayableFactory, displayable)
+        this.displayable = displayable
+        AllBinary.setOpenGlReadydisplayable(this, displayable)
+        nothing
+end
 
-lazy_static(CurrentDisplayableFactory, "instance", _CurrentDisplayableFactory_instance)
+
+function setOpenGlReadydisplayable(this::CurrentDisplayableFactory, openGlReadydisplayable)
+        this.openGlReadydisplayable = openGlReadydisplayable
+        AllBinary.update(this)
+        nothing
+end
+
+
+function getOpenGlReadydisplayable(this::CurrentDisplayableFactory)
+        return this.openGlReadydisplayable
+end
+
+
+function setRunnable(this::CurrentDisplayableFactory, runnable)
+        AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), this.RUNNABLE), AllBinary.toString(this.stringUtil, runnable))), this, this.SET_RUNNABLE)
+        this.runnable = runnable
+        if this.usedRunnable !== this.runnable
+            AllBinary.update(this)
+        else
+            AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), this.RUNNABLE_WAS_ALREADY_IN_USE), AllBinary.toString(this.stringUtil, runnable))), this, this.SET_RUNNABLE)
+        end
+        nothing
+end
+
+
+function clearRunnable(this::CurrentDisplayableFactory)
+        AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), this.RUNNABLE), AllBinary.toString(this.stringUtil, AllBinary.getInstance(NullRunnable)))), this, this.CLEAR_RUNNABLE)
+        AllBinary.setUsedRunnable(this, AllBinary.getInstance(NullWaitGameRunnable))
+        nothing
+end
+
+
+function update(this::CurrentDisplayableFactory)
+        begin
+            local commonSeps = AllBinary.getInstance(CommonSeps)
+            local features = AllBinary.getInstance(Features)
+            local stringMaker = newStringMaker()
+            AllBinary.append(stringMaker, AllBinary.toString(this.stringUtil, this.openGlReadydisplayable))
+            if staticGet_isSWT(SWTUtil) && !AllBinary.isDefault(features, AllBinary.getInstance(OpenGLFeatureFactory).OPENGL)
+                AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(stringMaker, commonSeps.SPACE), staticGet_SWT(SWTUtil)), commonSeps.SPACE), this.RUNNABLE), AllBinary.toString(this.stringUtil, AllBinary.getInstance(NullRunnable)))), this, this.commonStrings.UPDATE)
+                AllBinary.setUsedRunnable(this, AllBinary.getInstance(NullWaitGameRunnable))
+            elseif AllBinary.isHTML(J2MEUtil)
+                AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(stringMaker, commonSeps.SPACE), AllBinary.getInstance(GraphicsStrings).HTML), commonSeps.SPACE), this.RUNNABLE), AllBinary.toString(this.stringUtil, this.runnable))), this, this.commonStrings.UPDATE)
+                AllBinary.setUsedRunnable(this, this.runnable)
+            elseif Base.isa(this.openGlReadydisplayable, DemoCanvas) || Base.isa(this.openGlReadydisplayable, AllBinaryGameCanvas) || AllBinary.isDefault(features, AllBinary.getInstance(OpenGLFeatureFactory).OPENGL)
+                AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(stringMaker, commonSeps.SPACE), AllBinary.toString(AllBinary.getInstance(OpenGLFeatureFactory).OPENGL)), commonSeps.SPACE), this.RUNNABLE), AllBinary.toString(this.stringUtil, this.runnable))), this, this.commonStrings.UPDATE)
+                AllBinary.setUsedRunnable(this, this.runnable)
+            else
+                AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(stringMaker, this.RUNNABLE), AllBinary.toString(this.stringUtil, AllBinary.getInstance(NullRunnable)))), this, this.commonStrings.UPDATE)
+                AllBinary.setUsedRunnable(this, AllBinary.getInstance(NullWaitGameRunnable))
+            end
+        end
+        nothing
+end
+
+
+function getDisplayable(this::CurrentDisplayableFactory)
+        return this.displayable
+end
+
+
+function getUsedRunnable(this::CurrentDisplayableFactory)
+        return this.usedRunnable
+end
+
+
+function setUsedRunnable(this::CurrentDisplayableFactory, usedRunnable)
+        AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), this.RUNNABLE), AllBinary.toString(this.stringUtil, this.runnable)), AllBinary.getInstance(CommonSeps).COLON_SEP), AllBinary.toString(this.stringUtil, usedRunnable))), this, this.SET_USED_RUNNABLE)
+        this.usedRunnable = usedRunnable
+        nothing
+end
 

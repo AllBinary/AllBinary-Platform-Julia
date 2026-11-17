@@ -1,62 +1,84 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.business.advertisement
 
-from __future__ import annotations
+mutable struct AdConfiguration <: JObject
+    INNERACTIVE::Any
+    LEADBOLT::Any
+    ADMOB::Any
+    AdConfiguration() = new()
+end
 
 
-
-class AdConfiguration:
-
-    def _init_fields(self) -> None:
-        self.INNERACTIVE: str = None
-        self.LEADBOLT: str = None
-        self.ADMOB: str = None
+function initFieldsAdConfiguration(this::AdConfiguration)
+    this.INNERACTIVE = nothing
+    this.LEADBOLT = nothing
+    this.ADMOB = nothing
     
-
-    def __init__(self, advertIdArray: list[object]) -> None:
-        self._init_fields()
-        self.INNERACTIVE = advertIdArray[0]
-        self.ADMOB = advertIdArray[1]
-        self.LEADBOLT = advertIdArray[2]
     
-
-    def getValidAdSpots(self) -> list[Direction]:
-        from org.allbinary.direction.Direction import Direction
-        return [None] * (0)
     
+    nothing
+end
 
-    def process(self, gameState: GameState) -> None:
-        from org.allbinary.game.state.GameState import GameState
-        pass
-    
 
-    def processDemo(self, state: int) -> None:
-        pass
-    
+function initAdConfiguration(this::AdConfiguration, advertIdArray)
+        initFieldsAdConfiguration(this)
+        this.INNERACTIVE = (advertIdArray[Int32(0) + 1])
+        this.ADMOB = (advertIdArray[Int32(1) + 1])
+        this.LEADBOLT = (advertIdArray[Int32(2) + 1])
+        nothing
+end
 
-    def setShowAds(self) -> None:
-        pass
-    
+function newAdConfiguration(advertIdArray)
+    this = AdConfiguration()
+    initAdConfiguration(this, advertIdArray)
+    this
+end
 
-    def setToggleAds(self, showAds: bool) -> None:
-        pass
-    
 
-    def isShowAds(self) -> bool:
-        return True
-# from org.allbinary.direction.Direction import Direction
-# from org.allbinary.game.state.GameState import GameState
+function getValidAdSpots(this::AdConfiguration)
+        return jNewArray(Any, Int32(0), nothing)
+end
 
+
+function process(this::AdConfiguration, gameState)
+        nothing
+        nothing
+end
+
+
+function processDemo(this::AdConfiguration, state)
+        nothing
+        nothing
+end
+
+
+function setShowAds(this::AdConfiguration)
+        nothing
+        nothing
+end
+
+
+function setToggleAds(this::AdConfiguration, showAds)
+        nothing
+        nothing
+end
+
+
+function isShowAds(this::AdConfiguration)
+        return true
+end
 

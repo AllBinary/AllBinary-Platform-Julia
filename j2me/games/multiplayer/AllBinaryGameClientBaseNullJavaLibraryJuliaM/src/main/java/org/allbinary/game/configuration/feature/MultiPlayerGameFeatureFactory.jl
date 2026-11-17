@@ -1,36 +1,51 @@
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration.feature
 
-from __future__ import annotations
+mutable struct MultiPlayerGameFeatureFactory <: JObject
+    MultiPlayerGameFeatureFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const MultiPlayerGameFeatureFactory_instanceValue = Ref{Any}(nothing)
+const MultiPlayerGameFeatureFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{MultiPlayerGameFeatureFactory})
+    if !MultiPlayerGameFeatureFactory_instanceSet[]
+        MultiPlayerGameFeatureFactory_instanceSet[] = true
+        MultiPlayerGameFeatureFactory_instanceValue[] = newMultiPlayerGameFeatureFactory()
+    end
+    MultiPlayerGameFeatureFactory_instanceValue[]
+end
+function staticSet_instance(::Type{MultiPlayerGameFeatureFactory}, value)
+    MultiPlayerGameFeatureFactory_instanceSet[] = true
+    MultiPlayerGameFeatureFactory_instanceValue[] = value
+end
 
-
-class MultiPlayerGameFeatureFactory:
-    instance: MultiPlayerGameFeatureFactory = None
-    
-
-    @staticmethod
-    def getInstance() -> MultiPlayerGameFeatureFactory:
-        return MultiPlayerGameFeatureFactory.instance
-    
-
-    def __init__(self) -> None:
-        pass
-    
-
-    def addCommands(self, anyType: object) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        gameCommandsFactory: GameCommandsFactory = GameCommandsFactory.getInstance()
-        canvas: Canvas = anyType
-        canvas.addCommand(gameCommandsFactory.QUIT_COMMAND)
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
+function initFieldsMultiPlayerGameFeatureFactory(this::MultiPlayerGameFeatureFactory)
+    nothing
+end
 
 
-def _MultiPlayerGameFeatureFactory_instance() -> object:
-    return MultiPlayerGameFeatureFactory()
+function getInstance(::Type{MultiPlayerGameFeatureFactory})
+        return staticGet_instance(MultiPlayerGameFeatureFactory)
+end
 
-lazy_static(MultiPlayerGameFeatureFactory, "instance", _MultiPlayerGameFeatureFactory_instance)
+
+function initMultiPlayerGameFeatureFactory(this::MultiPlayerGameFeatureFactory)
+        initFieldsMultiPlayerGameFeatureFactory(this)
+        nothing
+        nothing
+end
+
+function newMultiPlayerGameFeatureFactory()
+    this = MultiPlayerGameFeatureFactory()
+    initMultiPlayerGameFeatureFactory(this)
+    this
+end
+
+
+function addCommands(this::MultiPlayerGameFeatureFactory, anyType)
+        local gameCommandsFactory = AllBinary.getInstance(GameCommandsFactory)
+        local canvas = (anyType)
+        AllBinary.addCommand(canvas, gameCommandsFactory.QUIT_COMMAND)
+        nothing
+end
 

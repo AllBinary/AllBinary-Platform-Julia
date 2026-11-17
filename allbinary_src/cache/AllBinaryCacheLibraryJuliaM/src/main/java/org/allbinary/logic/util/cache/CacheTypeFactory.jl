@@ -1,34 +1,52 @@
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.cache
 
-from __future__ import annotations
+mutable struct CacheTypeFactory <: JObject
+    NO_CACHE::Any
+    CACHE::Any
+    SET::Any
+    CACHE_VECTOR::Any
+    CacheTypeFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const CacheTypeFactory_instanceValue = Ref{Any}(nothing)
+const CacheTypeFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{CacheTypeFactory})
+    if !CacheTypeFactory_instanceSet[]
+        CacheTypeFactory_instanceSet[] = true
+        CacheTypeFactory_instanceValue[] = newCacheTypeFactory()
+    end
+    CacheTypeFactory_instanceValue[]
+end
+function staticSet_instance(::Type{CacheTypeFactory}, value)
+    CacheTypeFactory_instanceSet[] = true
+    CacheTypeFactory_instanceValue[] = value
+end
+
+function initFieldsCacheTypeFactory(this::CacheTypeFactory)
+    this.NO_CACHE = nothing
+    this.CACHE = nothing
+    this.SET = nothing
+    this.CACHE_VECTOR = nothing
+    this.NO_CACHE = newCacheType(AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(StringUtil).EMPTY_STRING)
+    this.CACHE = newCacheType(AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(StringUtil).EMPTY_STRING)
+    this.SET = newCacheType(AllBinary.getInstance(StringUtil).EMPTY_STRING, "Set")
+    this.CACHE_VECTOR = newCacheType(AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(StringUtil).EMPTY_STRING)
+    nothing
+end
+
+function initCacheTypeFactory(this::CacheTypeFactory)
+    initFieldsCacheTypeFactory(this)
+end
+
+function newCacheTypeFactory()
+    this = CacheTypeFactory()
+    initCacheTypeFactory(this)
+    this
+end
 
 
-class CacheTypeFactory:
-    instance: CacheTypeFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.NO_CACHE: CacheType = CacheType(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
-        self.CACHE: CacheType = CacheType(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
-        self.SET: CacheType = CacheType(StringUtil.getInstance().EMPTY_STRING, "Set")
-        self.CACHE_VECTOR: CacheType = CacheType(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> CacheTypeFactory:
-        return CacheTypeFactory.instance
-# from org.allbinary.logic.string.StringUtil import StringUtil
-from org.allbinary.logic.util.cache.CacheType import CacheType
-
-
-def _CacheTypeFactory_instance() -> object:
-    return CacheTypeFactory()
-
-lazy_static(CacheTypeFactory, "instance", _CacheTypeFactory_instance)
+function getInstance(::Type{CacheTypeFactory})
+        return staticGet_instance(CacheTypeFactory)
+end
 

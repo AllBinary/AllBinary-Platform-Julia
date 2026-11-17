@@ -1,43 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-# 
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+  
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer
 
-from __future__ import annotations
+mutable struct LayerManagerLoggingBase <: JObject
+    LayerManagerLoggingBase() = new()
+end
 
 
+function initFieldsLayerManagerLoggingBase(this::LayerManagerLoggingBase)
+    nothing
+end
 
-class LayerManagerLoggingBase:
-    
+function initLayerManagerLoggingBase(this::LayerManagerLoggingBase)
+    initFieldsLayerManagerLoggingBase(this)
+end
 
-    # throws Exception
-    def append(self, layerInterface: AllBinaryLayer) -> None:
-        pass
-    
+function newLayerManagerLoggingBase()
+    this = LayerManagerLoggingBase()
+    initLayerManagerLoggingBase(this)
+    this
+end
 
-    def appendAt(self, layerInterface: AllBinaryLayer, index: int) -> None:
-        pass
-    
 
-    def remove(self, layerInterface: AllBinaryLayer) -> None:
-        pass
-    
+function append(this::LayerManagerLoggingBase, layerInterface)
+        nothing
+        nothing
+end
 
-    def removeResult(self, layerManager: LayerManager, layerInterface: AllBinaryLayer, result: bool) -> None:
-        pass
-    
 
-    def clear(self) -> None:
-        pass
+function appendAt(this::LayerManagerLoggingBase, layerInterface, index)
+        nothing
+        nothing
+end
 
+
+function remove(this::LayerManagerLoggingBase, layerInterface)
+        nothing
+        nothing
+end
+
+
+function removeResult(this::LayerManagerLoggingBase, layerManager, layerInterface, result)
+        nothing
+        nothing
+end
+
+
+function clear(this::LayerManagerLoggingBase)
+        nothing
+        nothing
+end
 

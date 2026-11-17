@@ -1,126 +1,127 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration
 
-from __future__ import annotations
+# extends CommandForm: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LoadGameForm <: JObject
+    meUtil::Any
+    areChoices::Bool
+    LoadGameForm() = new()
+end
 
-from org.allbinary.graphics.displayable.screen.CommandForm import CommandForm
+
+function initFieldsLoadGameForm(this::LoadGameForm)
+    this.meUtil = nothing
+    this.areChoices = false
+    this.meUtil = AllBinary.getInstance(MIDPUtil)
+    this.areChoices = false
+    nothing
+end
 
 
-class LoadGameForm(CommandForm):
+function initLoadGameForm(this::LoadGameForm, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        initCommandForm(this, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        initFieldsLoadGameForm(this)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        AllBinary.update(this)
+        AllBinary.initCommands(this, commandListener)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.MIDPUtil import MIDPUtil
-        self.meUtil: MIDPUtil = MIDPUtil.getInstance()
-        self.areChoices: bool = False
-    
+function newLoadGameForm(commandListener, title, backgrounBasicColor, foregroundBasicColor)
+    this = LoadGameForm()
+    initLoadGameForm(this, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+    this
+end
 
-    def __init__(self, commandListener: CommandListener, title: str, backgrounBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(commandListener, title, backgrounBasicColor, foregroundBasicColor)
-        self._init_fields()
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        self.update()
-        self.initCommands(commandListener)
-    
 
-    def initCommands(self, cmdListener: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        gameCommandsFactory: GameCommandsFactory = GameCommandsFactory.getInstance()
-        self.removeAllCommands()
-        self.addCommand(gameCommandsFactory.LOAD_FILE)
-        self.addCommand(gameCommandsFactory.DELETE_FILE)
-        self.addCommand(gameCommandsFactory.CLOSE_AND_SHOW_GAME_CANVAS)
-        self.setCommandListener(cmdListener)
-    
+function initCommands(this::LoadGameForm, cmdListener)
+        local gameCommandsFactory = AllBinary.getInstance(GameCommandsFactory)
+        AllBinary.removeAllCommands(this)
+        AllBinary.addCommand(this, gameCommandsFactory.LOAD_FILE)
+        AllBinary.addCommand(this, gameCommandsFactory.DELETE_FILE)
+        AllBinary.addCommand(this, gameCommandsFactory.CLOSE_AND_SHOW_GAME_CANVAS)
+        AllBinary.setCommandListener(this, cmdListener)
+        nothing
+end
 
-    # throws Exception
-    def update(self) -> None:
-        from javax.microedition.lcdui.Choice import Choice
-        from javax.microedition.lcdui.Item import Item
-        from javax.microedition.lcdui.StringItem import StringItem
-        from org.allbinary.game.configuration.persistance.GamePersistanceSingleton import GamePersistanceSingleton
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        list_: BasicArrayList = GamePersistanceSingleton.getInstance().getIds()
-        self.deleteAll()
-        if list_.size() > 0:
-            self.add(list_, "Select A Saved Game", Choice.EXCLUSIVE)
-            self.areChoices = True
-        else:
-            self.meUtil.appendItem(self, StringItem("No Saved Games", StringUtil.getInstance().EMPTY_STRING, Item.PLAIN))
-            self.areChoices = False
-        super().update()
-    
 
-    def add(self, list_: BasicArrayList, name: str, option: int) -> None:
-        from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        choiceGroup: ChoiceGroup = self.getChoiceGroup(list_, name, option)
-        if list_.size() > 0:
-            choiceGroup.setSelectedIndex(0, True)
-        self.meUtil.appendItem(self, choiceGroup)
-    
+function update(this::LoadGameForm)
+        local list = AllBinary.getIds(AllBinary.getInstance(GamePersistanceSingleton))
+        AllBinary.deleteAll(this)
+        if AllBinary.size(list) > Int32(0)
+            AllBinary.add(this, list, "Select A Saved Game", staticGet_EXCLUSIVE(Choice))
+            this.areChoices = true
+        else
+            AllBinary.appendItem(this.meUtil, this, newStringItem("No Saved Games", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_PLAIN(Item)))
+            this.areChoices = false
+        end
+        AllBinary.update(this)
+        nothing
+end
 
-    def getChoiceGroup(self, list_: BasicArrayList, name: str, option: int) -> ChoiceGroup:
-        from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-        from javax.microedition.lcdui.NullImage import NullImage
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        METHOD_NAME: str = "getChoiceGroup"
-        ADDING_CHOICE: str = "Adding Choice: "
-        choiceGroup: ChoiceGroup = ChoiceGroup(name, option, StringUtil.getInstance().getArrayInstance(), NullImage.NULL_IMAGE_ARRAY)
-        size: int = list_.size()
-        for index in range(0, size):
-            anyType: object = list_.objectArray[index]
-            self.logUtil.putF(str(StringMaker().append(ADDING_CHOICE).append(str(anyType))), self, METHOD_NAME)
-            choiceGroup.append(str(anyType), NullImage.NULL_IMAGE)
+
+function add(this::LoadGameForm, list, name, option)
+        local choiceGroup = AllBinary.getChoiceGroup(this, list, name, option)
+        if AllBinary.size(list) > Int32(0)
+            AllBinary.setSelectedIndex(choiceGroup, Int32(0), true)
+        end
+        AllBinary.appendItem(this.meUtil, this, choiceGroup)
+        nothing
+end
+
+
+function getChoiceGroup(this::LoadGameForm, list, name, option)
+        local METHOD_NAME = "getChoiceGroup"
+        local ADDING_CHOICE = "Adding Choice: "
+        local choiceGroup = newChoiceGroup(name, option, AllBinary.getArrayInstance(AllBinary.getInstance(StringUtil)), staticGet_NULL_IMAGE_ARRAY(NullImage))
+        local size::Int32 = AllBinary.size(list)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            local anyType = list.objectArray[index + 1]
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), ADDING_CHOICE), AllBinary.toString(anyType))), this, METHOD_NAME)
+            AllBinary.append(choiceGroup, AllBinary.toString(anyType), staticGet_NULL_IMAGE(NullImage))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
         return choiceGroup
-    
+end
 
-    def getSelectedId(self) -> int:
-        from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-        if self.areChoices:
-            choiceGroup: ChoiceGroup = self.get(0)
-            return choiceGroup.getSelectedIndex()
-        else:
-            return -1
-    
 
-    def getSelectedText(self) -> int:
-        from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-        if self.areChoices:
-            choiceGroup: ChoiceGroup = self.get(0)
-            value: int = int(str(choiceGroup.getString(choiceGroup.getSelectedIndex())))
+function getSelectedId(this::LoadGameForm)
+        if this.areChoices
+            local choiceGroup = (AllBinary.get(this, Int32(0)))
+            return AllBinary.getSelectedIndex(choiceGroup)
+        else
+            return -Int32(1)
+        end
+end
+
+
+function getSelectedText(this::LoadGameForm)
+        if this.areChoices
+            local choiceGroup = (AllBinary.get(this, Int32(0)))
+            local value::Int32 = AllBinary.intValue(jstr(AllBinary.getString(choiceGroup, AllBinary.getSelectedIndex(choiceGroup))))
             return value
-        else:
-            return -1
-# from javax.microedition.lcdui.Choice import Choice
-# from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.Item import Item
-# from javax.microedition.lcdui.NullImage import NullImage
-# from javax.microedition.lcdui.StringItem import StringItem
-# from org.allbinary.MIDPUtil import MIDPUtil
-# from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-# from org.allbinary.game.configuration.persistance.GamePersistanceSingleton import GamePersistanceSingleton
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-
+        else
+            return -Int32(1)
+        end
+end
 

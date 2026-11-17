@@ -1,108 +1,128 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TweenedImageAnimation <: JObject
+    image::Any
+    dx::Int32
+    dy::Int32
+    totalFrames::Int32
+    circularIndexUtil::Any
+    anchor::Int32
+    TweenedImageAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
 
-
-class TweenedImageAnimation(IndexedAnimation):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.image: Image = None
-        self.dx: int = None
-        self.dy: int = None
-        self.totalFrames: int = None
-        self.circularIndexUtil: CircularIndexUtil = None
-        self.anchor: int = Anchor.TOP_LEFT
+function initFieldsTweenedImageAnimation(this::TweenedImageAnimation)
+    this.image = nothing
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.totalFrames = Int32(0)
+    this.circularIndexUtil = nothing
+    this.anchor = Int32(0)
     
-
-    def __init__(self, image: Image, dx: int, dy: int, totalFrames: int, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.image = image
-        self.dx = dx
-        self.dy = dy
-        self.totalFrames = totalFrames
-        self.circularIndexUtil = CircularIndexUtil.createInstance(self.totalFrames)
     
-
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        return self.getSize()
     
-
-    def nextFrame(self) -> None:
-        self.circularIndexUtil.next()
     
-
-    def previousFrame(self) -> None:
-        self.circularIndexUtil.previous()
     
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    nothing
+end
 
-    def setFrame(self, index: int) -> None:
-        self.circularIndexUtil.setIndex(index)
-    
 
-    def getFrame(self) -> int:
-        return self.circularIndexUtil.getIndex()
-    
+function initTweenedImageAnimation(this::TweenedImageAnimation, image, dx, dy, totalFrames, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        initFieldsTweenedImageAnimation(this)
+        this.image = image
+        this.dx = dx
+        this.dy = dy
+        this.totalFrames = totalFrames
+        this.circularIndexUtil = AllBinary.createInstance(CircularIndexUtil, this.totalFrames)
+        nothing
+end
 
-    def getSize(self) -> int:
-        return self.totalFrames
-    
+function newTweenedImageAnimation(image, dx, dy, totalFrames, animationBehavior)
+    this = TweenedImageAnimation()
+    initTweenedImageAnimation(this, image, dx, dy, totalFrames, animationBehavior)
+    this
+end
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
+function getAnimationSize(this::TweenedImageAnimation)
+        return AllBinary.getSize(this)
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        frame: int = self.getFrame()
-        currentX: int = self.dx * frame
-        currentY: int = self.dy * frame
-        graphics.drawImage(self.image, x + currentX, y + currentY, self.anchor)
-    
 
-    # throws Exception
-    def close(self) -> None:
-        from org.allbinary.DisposalUtil import DisposalUtil
-        DisposalUtil.getInstance().disposeImage(self.image)
-    
+function nextFrame(this::TweenedImageAnimation)
+        AllBinary.next(this.circularIndexUtil)
+        nothing
+end
 
-    # throws Throwable
-    def finalize(self) -> None:
-        from org.allbinary.DisposalUtil import DisposalUtil
-        DisposalUtil.getInstance().disposeImage(self.image)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.DisposalUtil import DisposalUtil
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
 
+function previousFrame(this::TweenedImageAnimation)
+        AllBinary.previous(this.circularIndexUtil)
+        nothing
+end
+
+
+function setFrame(this::TweenedImageAnimation, index)
+        AllBinary.setIndex(this.circularIndexUtil, index)
+        nothing
+end
+
+
+function getFrame(this::TweenedImageAnimation)
+        return AllBinary.getIndex(this.circularIndexUtil)
+end
+
+
+function getSize(this::TweenedImageAnimation)
+        return this.totalFrames
+end
+
+
+function setSequence(this::TweenedImageAnimation, sequence)
+        nothing
+        nothing
+end
+
+
+function getSequence(this::TweenedImageAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
+
+
+function paintXY(this::TweenedImageAnimation, graphics, x, y)
+        local frame::Int32 = AllBinary.getFrame(this)
+        local currentX::Int32 = this.dx * frame
+        local currentY::Int32 = this.dy * frame
+        AllBinary.drawImage(graphics, this.image, x + currentX, y + currentY, this.anchor)
+        nothing
+end
+
+
+function close(this::TweenedImageAnimation)
+        AllBinary.disposeImage(AllBinary.getInstance(DisposalUtil), this.image)
+        nothing
+end
+
+
+function finalize(this::TweenedImageAnimation)
+        AllBinary.disposeImage(AllBinary.getInstance(DisposalUtil), this.image)
+        nothing
+end
 

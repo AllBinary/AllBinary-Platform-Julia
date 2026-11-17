@@ -1,70 +1,83 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
+mutable struct Sound <: JObject
+    resource::Any
+    player::Any
+    Sound() = new()
+end
 
-from org.allbinary.media.audio.SoundInterface import SoundInterface
 
-
-class Sound(SoundInterface, object):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.media.Player import Player
-        self.resource: str = None
-        self.player: Player = NoPlayer.NO_PLAYER
+function initFieldsSound(this::Sound)
+    this.resource = nothing
+    this.player = nothing
     
+    this.player = staticGet_NO_PLAYER(NoPlayer)
+    nothing
+end
 
-    def __init__(self, resource: str) -> None:
-        self._init_fields()
-        self.resource = resource
-    
 
-    def getResource(self) -> str:
-        return self.resource
-    
+function initSound(this::Sound, resource)
+        initFieldsSound(this)
+        this.resource = resource
+        nothing
+end
 
-    def getPlayerP(self) -> Player:
-        from javax.microedition.media.Player import Player
-        return self.player
-    
+function newSound(resource)
+    this = Sound()
+    initSound(this, resource)
+    this
+end
 
-    def setPlayerP(self, player: Player) -> None:
-        from javax.microedition.media.Player import Player
-        self.player = player
-    
 
-    # throws Exception
-    def init(self) -> None:
-        pass
-    
+function getResource(this::Sound)
+        return this.resource
+end
 
-    def getDuration(self) -> int:
-        return -1
-    
 
-    def run(self) -> None:
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.player.start()
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            PreLogUtil.put(commonStrings.EXCEPTION, self, commonStrings.RUN)
-# from javax.microedition.media.Player import Player
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.media.audio.NoPlayer import NoPlayer
+function getPlayerP(this::Sound)
+        return this.player
+end
 
+
+function setPlayerP(this::Sound, player)
+        this.player = player
+        nothing
+end
+
+
+function init(this::Sound)
+        nothing
+        nothing
+end
+
+
+function getDuration(this::Sound)
+        return -Int32(1)
+end
+
+
+function run(this::Sound)
+        try
+            AllBinary.start(this.player)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(PreLogUtil, commonStrings.EXCEPTION, this, commonStrings.RUN)
+        end
+        nothing
+end
 

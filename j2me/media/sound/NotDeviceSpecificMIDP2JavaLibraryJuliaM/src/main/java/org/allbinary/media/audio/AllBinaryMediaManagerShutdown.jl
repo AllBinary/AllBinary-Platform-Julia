@@ -1,43 +1,58 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
+mutable struct AllBinaryMediaManagerShutdown <: JObject
+    AllBinaryMediaManagerShutdown() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const AllBinaryMediaManagerShutdown_instanceValue = Ref{Any}(nothing)
+const AllBinaryMediaManagerShutdown_instanceSet = Ref(false)
+function staticGet_instance(::Type{AllBinaryMediaManagerShutdown})
+    if !AllBinaryMediaManagerShutdown_instanceSet[]
+        AllBinaryMediaManagerShutdown_instanceSet[] = true
+        AllBinaryMediaManagerShutdown_instanceValue[] = newAllBinaryMediaManagerShutdown()
+    end
+    AllBinaryMediaManagerShutdown_instanceValue[]
+end
+function staticSet_instance(::Type{AllBinaryMediaManagerShutdown}, value)
+    AllBinaryMediaManagerShutdown_instanceSet[] = true
+    AllBinaryMediaManagerShutdown_instanceValue[] = value
+end
+
+function initFieldsAllBinaryMediaManagerShutdown(this::AllBinaryMediaManagerShutdown)
+    nothing
+end
+
+function initAllBinaryMediaManagerShutdown(this::AllBinaryMediaManagerShutdown)
+    initFieldsAllBinaryMediaManagerShutdown(this)
+end
+
+function newAllBinaryMediaManagerShutdown()
+    this = AllBinaryMediaManagerShutdown()
+    initAllBinaryMediaManagerShutdown(this)
+    this
+end
 
 
-class AllBinaryMediaManagerShutdown:
-    instance: AllBinaryMediaManagerShutdown = None
-    
-
-    # throws Exception
-    @staticmethod
-    def shutdown(soundsFactoryInterface: SoundsFactoryInterface) -> None:
-        from org.allbinary.media.audio.AllBinaryMediaManager import AllBinaryMediaManager
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        logUtil: LogUtil = LogUtil.getInstance()
-        commonStrings: CommonStrings = CommonStrings.getInstance()
-        logUtil.putF(commonStrings.START, AllBinaryMediaManagerShutdown.instance, "shutdown")
-        AllBinaryMediaManager.shutdown(soundsFactoryInterface)
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-
-
-def _AllBinaryMediaManagerShutdown_instance() -> object:
-    return AllBinaryMediaManagerShutdown()
-
-lazy_static(AllBinaryMediaManagerShutdown, "instance", _AllBinaryMediaManagerShutdown_instance)
+function shutdown(::Type{AllBinaryMediaManagerShutdown}, soundsFactoryInterface)
+        local logUtil = AllBinary.getInstance(LogUtil)
+        local commonStrings = AllBinary.getInstance(CommonStrings)
+        AllBinary.putF(logUtil, commonStrings.START, staticGet_instance(AllBinaryMediaManagerShutdown), "shutdown")
+        AllBinary.shutdown(AllBinaryMediaManager, soundsFactoryInterface)
+        nothing
+end
 

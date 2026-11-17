@@ -1,66 +1,90 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+mutable struct BaseMenuBehavior <: JObject
+    BaseMenuBehavior() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BaseMenuBehavior_instanceValue = Ref{Any}(nothing)
+const BaseMenuBehavior_instanceSet = Ref(false)
+function staticGet_instance(::Type{BaseMenuBehavior})
+    if !BaseMenuBehavior_instanceSet[]
+        BaseMenuBehavior_instanceSet[] = true
+        BaseMenuBehavior_instanceValue[] = newBaseMenuBehavior()
+    end
+    BaseMenuBehavior_instanceValue[]
+end
+function staticSet_instance(::Type{BaseMenuBehavior}, value)
+    BaseMenuBehavior_instanceSet[] = true
+    BaseMenuBehavior_instanceValue[] = value
+end
 
+function initFieldsBaseMenuBehavior(this::BaseMenuBehavior)
+    nothing
+end
 
-class BaseMenuBehavior:
-    instance: BaseMenuBehavior = None
-    
+function initBaseMenuBehavior(this::BaseMenuBehavior)
+    initFieldsBaseMenuBehavior(this)
+end
 
-    @staticmethod
-    def getInstance() -> BaseMenuBehavior:
-        return BaseMenuBehavior.instance
-    
-
-    # throws Exception
-    def onDisplayChangeEvent(self, allBinaryGameCanvas: AllBinaryGameCanvas, displayChangeEvent: DisplayChangeEvent) -> None:
-        from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
-        pass
-    
-
-    def initSpecialPaint(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        allBinaryGameCanvas.setNonBotPaintableP(NullPaintable.getInstance())
-    
-
-    # throws Exception
-    def initMenu(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        pass
-    
-
-    # throws Exception
-    def updateMenu(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        pass
-    
-
-    # throws Exception
-    def popupMenu(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        pass
-    
-
-    def closeMenu(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        pass
-# from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
-# from org.allbinary.graphics.paint.NullPaintable import NullPaintable
+function newBaseMenuBehavior()
+    this = BaseMenuBehavior()
+    initBaseMenuBehavior(this)
+    this
+end
 
 
-def _BaseMenuBehavior_instance() -> object:
-    return BaseMenuBehavior()
+function getInstance(::Type{BaseMenuBehavior})
+        return staticGet_instance(BaseMenuBehavior)
+end
 
-lazy_static(BaseMenuBehavior, "instance", _BaseMenuBehavior_instance)
+
+function onDisplayChangeEvent(this::BaseMenuBehavior, allBinaryGameCanvas, displayChangeEvent)
+        nothing
+        nothing
+end
+
+
+function initSpecialPaint(this::BaseMenuBehavior, allBinaryGameCanvas)
+        AllBinary.setNonBotPaintableP(allBinaryGameCanvas, AllBinary.getInstance(NullPaintable))
+        nothing
+end
+
+
+function initMenu(this::BaseMenuBehavior, allBinaryGameCanvas)
+        nothing
+        nothing
+end
+
+
+function updateMenu(this::BaseMenuBehavior, allBinaryGameCanvas)
+        nothing
+        nothing
+end
+
+
+function popupMenu(this::BaseMenuBehavior, allBinaryGameCanvas)
+        nothing
+        nothing
+end
+
+
+function closeMenu(this::BaseMenuBehavior, allBinaryGameCanvas)
+        nothing
+        nothing
+end
 

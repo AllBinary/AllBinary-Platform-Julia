@@ -1,56 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+mutable struct DataOutputStreamFactory <: JObject
+    DataOutputStreamFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const DataOutputStreamFactory_instanceValue = Ref{Any}(nothing)
+const DataOutputStreamFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{DataOutputStreamFactory})
+    if !DataOutputStreamFactory_instanceSet[]
+        DataOutputStreamFactory_instanceSet[] = true
+        DataOutputStreamFactory_instanceValue[] = newDataOutputStreamFactory()
+    end
+    DataOutputStreamFactory_instanceValue[]
+end
+function staticSet_instance(::Type{DataOutputStreamFactory}, value)
+    DataOutputStreamFactory_instanceSet[] = true
+    DataOutputStreamFactory_instanceValue[] = value
+end
+
+function initFieldsDataOutputStreamFactory(this::DataOutputStreamFactory)
+    nothing
+end
+
+function initDataOutputStreamFactory(this::DataOutputStreamFactory)
+    initFieldsDataOutputStreamFactory(this)
+end
+
+function newDataOutputStreamFactory()
+    this = DataOutputStreamFactory()
+    initDataOutputStreamFactory(this)
+    this
+end
 
 
-class DataOutputStreamFactory:
-    instance: DataOutputStreamFactory = None
-    
+function getInstance(::Type{DataOutputStreamFactory})
+        return staticGet_instance(DataOutputStreamFactory)
+end
 
-    @staticmethod
-    def getInstance() -> DataOutputStreamFactory:
-        return DataOutputStreamFactory.instance
-    
 
-    # throws Exception
-    def getInstanceForAbFile(self, file: AbFile) -> AbDataOutputStream:
-        from org.allbinary.logic.io.AbFileOutputStream import AbFileOutputStream
-        from org.allbinary.logic.io.AbDataOutputStream import AbDataOutputStream
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        idFileOutputStream: AbFileOutputStream = AbFileOutputStream.createFromAbFile(file)
-        idOutData: AbDataOutputStream = AbDataOutputStream(idFileOutputStream)
+function getInstanceForAbFile(this::DataOutputStreamFactory, file)
+        local idFileOutputStream = AllBinary.createFromAbFile(AbFileOutputStream, file)
+        local idOutData = newAbDataOutputStream(idFileOutputStream)
         return idOutData
-    
+end
 
-    # throws Exception
-    # Java overloaded method: Python keeps the last definition
-    def getInstance(self, filePath: str, fileName: str) -> AbDataOutputStream:
-        from org.allbinary.logic.io.FileStreamFactory import FileStreamFactory
-        from org.allbinary.logic.io.AbDataOutputStream import AbDataOutputStream
-        fileStreamFactory: FileStreamFactory = FileStreamFactory.getInstance()
-        fileOutputStream: AbFileOutputStream = fileStreamFactory.getFileOutputStreamInstance(filePath, fileName)
-        idOutData: AbDataOutputStream = AbDataOutputStream(fileOutputStream)
+
+function getInstance(this::DataOutputStreamFactory, filePath, fileName)
+        local fileStreamFactory = AllBinary.getInstance(FileStreamFactory)
+        local fileOutputStream = AllBinary.getFileOutputStreamInstance(fileStreamFactory, filePath, fileName)
+        local idOutData = newAbDataOutputStream(fileOutputStream)
         return idOutData
-# from org.allbinary.logic.io.file.AbFile import AbFile
-
-
-def _DataOutputStreamFactory_instance() -> object:
-    return DataOutputStreamFactory()
-
-lazy_static(DataOutputStreamFactory, "instance", _DataOutputStreamFactory_instance)
+end
 

@@ -1,174 +1,212 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.system.security.licensing
 
-from __future__ import annotations
-
-from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-
-
 # This is the information sent to the license server
-class ClientInformation(AbeClientInformationInterface):
+mutable struct ClientInformation <: JObject
+    operatingSystemInterface::Any
+    tsUtil::Any
+    name::Any
+    shortName::Any
+    version::Any
+    specialName::Any
+    hardSale::Bool
+    licenseId::Any
+    licenseServers::Any
+    ClientInformation() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.logic.system.os.GenericOperatingSystem import GenericOperatingSystem
-        from org.allbinary.logic.system.os.NoOperatingSystem import NoOperatingSystem
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        self.operatingSystemInterface: GenericOperatingSystem = NoOperatingSystem.NO_OPERATING_SYSTEM
-        self.tsUtil: TsUtil = TsUtil.getInstance()
-        self.name: str = None
-        self.shortName: str = None
-        self.version: str = None
-        self.specialName: str = None
-        self.hardSale: bool = True
-        self.licenseId: str = StringUtil.getInstance().EMPTY_STRING
-        self.licenseServers: BasicArrayList = BasicArrayListUtil.getInstance().getImmutableInstance()
+
+function initFieldsClientInformation(this::ClientInformation)
+    this.operatingSystemInterface = nothing
+    this.tsUtil = nothing
+    this.name = nothing
+    this.shortName = nothing
+    this.version = nothing
+    this.specialName = nothing
+    this.hardSale = false
+    this.licenseId = nothing
+    this.licenseServers = nothing
+    this.operatingSystemInterface = staticGet_NO_OPERATING_SYSTEM(NoOperatingSystem)
+    this.tsUtil = AllBinary.getInstance(TsUtil)
     
-
-    def __init__(self, name: str, version: str, specialName: str, shortName: str) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        self._init_fields()
-        self.name = name
-        self.version = version
-        self.specialName = specialName
-        self.shortName = str(StringMaker().append(shortName).append(CommonSeps.getInstance().UNDERSCORE).append(version))
-        self.init()
     
-
-    def init(self) -> None:
-        pass
     
-
-    def getOperatingSystemInterface(self) -> GenericOperatingSystem:
-        from org.allbinary.logic.system.os.GenericOperatingSystem import GenericOperatingSystem
-        return self.operatingSystemInterface
     
+    this.hardSale = true
+    this.licenseId = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    this.licenseServers = AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil))
+    nothing
+end
 
-    def getName(self) -> str:
-        return self.name
-    
 
-    def getSpecialName(self) -> str:
-        return self.specialName
-    
+function initClientInformation(this::ClientInformation, name, version, specialName, shortName)
+        initFieldsClientInformation(this)
+        this.name = name
+        this.version = version
+        this.specialName = specialName
+        this.shortName = AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), shortName), AllBinary.getInstance(CommonSeps).UNDERSCORE), version))
+        AllBinary.init(this)
+        nothing
+end
 
-    def getVersion(self) -> str:
-        return self.version
-    
+function newClientInformation(name, version, specialName, shortName)
+    this = ClientInformation()
+    initClientInformation(this, name, version, specialName, shortName)
+    this
+end
 
-    def getLicenseId(self) -> str:
-        return self.licenseId
-    
 
-    def getLicenseServers(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.licenseServers
-    
+function init(this::ClientInformation)
+        nothing
+        nothing
+end
 
-    def getLicenseServer(self, index: int) -> str:
-        return self.licenseServers.objectArray[index]
-    
 
-    def getNumberOfLicenseServers(self) -> int:
-        return self.licenseServers.size()
-    
+function getOperatingSystemInterface(this::ClientInformation)
+        return this.operatingSystemInterface
+end
 
-    def toHashtable(self) -> ABHashtable[object, object]:
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationData import AbeClientInformationData
-        from org.allbinary.logic.system.hardware.HardwareInterface import HardwareInterface
-        from org.allbinary.logic.system.hardware.SystemHardwareFactory import SystemHardwareFactory
-        from org.allbinary.logic.system.os.GenericOperatingSystem import GenericOperatingSystem
-        from org.allbinary.logic.StdUtil import StdUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        abeClientInformationData: AbeClientInformationData = AbeClientInformationData.getInstance()
-        genericOperatingSystem: GenericOperatingSystem = self.getOperatingSystemInterface()
-        clientInfoHashtable: ABHashtable[object, object] = StdUtil.getInstance().createHashtable()
-        clientInfoHashtable.put(abeClientInformationData.NAME, self.name)
-        clientInfoHashtable.put(abeClientInformationData.VERSION, self.version)
-        clientInfoHashtable.put(abeClientInformationData.SPECIALNAME, self.specialName)
-        clientInfoHashtable.put(abeClientInformationData.LICENSEID, self.getLicenseId())
-        clientInfoHashtable.put(abeClientInformationData.OSNAME, genericOperatingSystem.getName())
-        clientInfoHashtable.put(abeClientInformationData.OSARCH, genericOperatingSystem.getArch())
-        clientInfoHashtable.put(abeClientInformationData.OSVERSION, genericOperatingSystem.getVersion())
-        clientInfoHashtable.put(abeClientInformationData.OS, str(genericOperatingSystem))
-        hardwareInterface: HardwareInterface = SystemHardwareFactory.getInstance().getInstance(genericOperatingSystem)
-        hardwareString: str = str(hardwareInterface)
-        clientInfoHashtable.put(abeClientInformationData.HARDWARE, hardwareString)
+
+function getName(this::ClientInformation)
+        return this.name
+end
+
+
+function getSpecialName(this::ClientInformation)
+        return this.specialName
+end
+
+
+function getVersion(this::ClientInformation)
+        return this.version
+end
+
+
+function getLicenseId(this::ClientInformation)
+        return this.licenseId
+end
+
+
+function getLicenseServers(this::ClientInformation)
+        return this.licenseServers
+end
+
+
+function getLicenseServer(this::ClientInformation, index)
+        return (this.licenseServers.objectArray[index + 1])
+end
+
+
+function getNumberOfLicenseServers(this::ClientInformation)
+        return AllBinary.size(this.licenseServers)
+end
+
+
+function toHashtable(this::ClientInformation)
+        local abeClientInformationData = AllBinary.getInstance(AbeClientInformationData)
+        local genericOperatingSystem = AllBinary.getOperatingSystemInterface(this)
+        local clientInfoHashtable = AllBinary.createHashtable(AllBinary.getInstance(StdUtil))
+        AllBinary.put(clientInfoHashtable, abeClientInformationData.NAME, this.name)
+        AllBinary.put(clientInfoHashtable, abeClientInformationData.VERSION, this.version)
+        AllBinary.put(clientInfoHashtable, abeClientInformationData.SPECIALNAME, this.specialName)
+        AllBinary.put(clientInfoHashtable, abeClientInformationData.LICENSEID, AllBinary.getLicenseId(this))
+        AllBinary.put(clientInfoHashtable, abeClientInformationData.OSNAME, AllBinary.getName(genericOperatingSystem))
+        AllBinary.put(clientInfoHashtable, abeClientInformationData.OSARCH, AllBinary.getArch(genericOperatingSystem))
+        AllBinary.put(clientInfoHashtable, abeClientInformationData.OSVERSION, AllBinary.getVersion(genericOperatingSystem))
+        AllBinary.put(clientInfoHashtable, abeClientInformationData.OS, AllBinary.toString(genericOperatingSystem))
+        local hardwareInterface = AllBinary.getInstance(AllBinary.getInstance(SystemHardwareFactory), genericOperatingSystem)
+        local hardwareString = AllBinary.toString(hardwareInterface)
+        AllBinary.put(clientInfoHashtable, abeClientInformationData.HARDWARE, hardwareString)
         return clientInfoHashtable
-    
+end
 
-    def isSameId(self, alicenseId: str) -> bool:
-        if ((self.getLicenseId() > alicenseId) - (self.getLicenseId() < alicenseId)) == 0:
-            return True
-        else:
-            return False
-    
 
-    def isLargerOrDifferentServerList(self, list_: BasicArrayList) -> bool:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        size: int = list_.size() - 1
-        currentSize: int = self.licenseServers.size() - 1
-        if size > currentSize:
-            return True
-        for index in range(size, 0 - 1, -1):
-            newServerName: str = list_.objectArray[index]
-            for index2 in range(currentSize, 0 - 1, -1):
-                nextOldServerName: str = self.licenseServers.objectArray[index]
-                if ((newServerName > nextOldServerName) - (newServerName < nextOldServerName)) != 0:
-                    return True
-        return False
-    
+function isSameId(this::ClientInformation, alicenseId)
+        if AllBinary.compareTo(this.tsUtil, AllBinary.getLicenseId(this), alicenseId) == Int32(0)
+            return true
+        else
+            return false
+        end
+end
 
-    def setHardSale(self, hardSale: bool) -> None:
-        self.hardSale = hardSale
-    
 
-    def isHardSale(self) -> bool:
-        return self.hardSale
-    
+function isLargerOrDifferentServerList(this::ClientInformation, list)
+        local size::Int32 = AllBinary.size(list) - Int32(1)
+        local currentSize::Int32 = AllBinary.size(this.licenseServers) - Int32(1)
+        if size > currentSize
+            return true
+        end
+        let
+            local index::Int32 = size
+            while index >= Int32(0)
+            try
+            local newServerName = (list.objectArray[index + 1])
+            let
+                local index2::Int32 = currentSize
+                while index2 >= Int32(0)
+                try
+                local nextOldServerName = (this.licenseServers.objectArray[index + 1])
+                if AllBinary.compareTo(this.tsUtil, newServerName, nextOldServerName) != Int32(0)
+                    return true
+                end
+                finally
+                    index2 -= Int32(1)
+                end
+                end
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        return false
+end
 
-    def setOperatingSystemInterface(self, operatingSystemInterface: GenericOperatingSystem) -> None:
-        from org.allbinary.logic.system.os.GenericOperatingSystem import GenericOperatingSystem
-        self.operatingSystemInterface = operatingSystemInterface
-    
 
-    def setLicenseId(self, licenseId: str) -> None:
-        self.licenseId = licenseId
-    
+function setHardSale(this::ClientInformation, hardSale)
+        this.hardSale = hardSale
+        nothing
+end
 
-    def setLicenseServers(self, licenseServers: BasicArrayList) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.licenseServers = licenseServers
-    
 
-    def toShortString(self) -> str:
-        return self.shortName
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.system.hardware.HardwareInterface import HardwareInterface
-# from org.allbinary.logic.system.hardware.SystemHardwareFactory import SystemHardwareFactory
-# from org.allbinary.logic.system.os.GenericOperatingSystem import GenericOperatingSystem
-# from org.allbinary.logic.system.os.NoOperatingSystem import NoOperatingSystem
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.util.ABHashtable import ABHashtable
+function isHardSale(this::ClientInformation)
+        return this.hardSale
+end
 
+
+function setOperatingSystemInterface(this::ClientInformation, operatingSystemInterface)
+        this.operatingSystemInterface = operatingSystemInterface
+        nothing
+end
+
+
+function setLicenseId(this::ClientInformation, licenseId)
+        this.licenseId = licenseId
+        nothing
+end
+
+
+function setLicenseServers(this::ClientInformation, licenseServers)
+        this.licenseServers = licenseServers
+        nothing
+end
+
+
+function toShortString(this::ClientInformation)
+        return this.shortName
+end
 

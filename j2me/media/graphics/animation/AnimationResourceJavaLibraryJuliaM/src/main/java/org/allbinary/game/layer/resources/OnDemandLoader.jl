@@ -1,100 +1,108 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.resources
 
-from __future__ import annotations
+mutable struct OnDemandLoader <: JObject
+    onDemandResourcesFactory::Any
+    gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory::Any
+    resourceAnimationInterfaceFactoryInterfaceFactory::Any
+    OnDemandLoader() = new()
+end
 
 
-
-class OnDemandLoader:
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.resource.BaseResourceAnimationInterfaceFactoryInterfaceFactory import BaseResourceAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.game.layer.GameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory import GameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory
-        self.onDemandResourcesFactory: OnDemandResourcesFactory = None
-        self.gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory: GameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory = None
-        self.resourceAnimationInterfaceFactoryInterfaceFactory: BaseResourceAnimationInterfaceFactoryInterfaceFactory = None
+function initFieldsOnDemandLoader(this::OnDemandLoader)
+    this.onDemandResourcesFactory = nothing
+    this.gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory = nothing
+    this.resourceAnimationInterfaceFactoryInterfaceFactory = nothing
     
-
-    def __init__(self, onDemandResourcesFactory: OnDemandResourcesFactory, gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory: GameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory, resourceAnimationInterfaceFactoryInterfaceFactory: BaseResourceAnimationInterfaceFactoryInterfaceFactory) -> None:
-        from org.allbinary.animation.resource.BaseResourceAnimationInterfaceFactoryInterfaceFactory import BaseResourceAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.game.layer.GameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory import GameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory
-        self._init_fields()
-        self.onDemandResourcesFactory = onDemandResourcesFactory
-        self.gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory = gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory
-        self.resourceAnimationInterfaceFactoryInterfaceFactory = resourceAnimationInterfaceFactoryInterfaceFactory
     
+    
+    nothing
+end
 
-    # throws Exception
-    def init(self, imageCache: ImageCache, level: int, loadingString: str) -> None:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.MainFeatureFactory import MainFeatureFactory
-        from org.allbinary.game.layer.LayerPlacementInterfaceBasicArrayListFactoryInterface import LayerPlacementInterfaceBasicArrayListFactoryInterface
-        from org.allbinary.game.resource.ResourceLoadingLevelFactory import ResourceLoadingLevelFactory
-        from org.allbinary.image.ImageCache import ImageCache
-        resourceLoadingLevelFactory: ResourceLoadingLevelFactory = ResourceLoadingLevelFactory.getInstance()
-        if Features.getInstance().isFeature(MainFeatureFactory.getInstance().LOAD_ALL):
-            if self.resourceAnimationInterfaceFactoryInterfaceFactory.isInitialized():
+
+function initOnDemandLoader(this::OnDemandLoader, onDemandResourcesFactory, gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory, resourceAnimationInterfaceFactoryInterfaceFactory)
+        initFieldsOnDemandLoader(this)
+        this.onDemandResourcesFactory = onDemandResourcesFactory
+        this.gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory = gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory
+        this.resourceAnimationInterfaceFactoryInterfaceFactory = resourceAnimationInterfaceFactoryInterfaceFactory
+        nothing
+end
+
+function newOnDemandLoader(onDemandResourcesFactory, gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory, resourceAnimationInterfaceFactoryInterfaceFactory)
+    this = OnDemandLoader()
+    initOnDemandLoader(this, onDemandResourcesFactory, gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory, resourceAnimationInterfaceFactoryInterfaceFactory)
+    this
+end
+
+
+function init(this::OnDemandLoader, imageCache, level, loadingString)
+        local resourceLoadingLevelFactory = AllBinary.getInstance(ResourceLoadingLevelFactory)
+        if AllBinary.isFeature(AllBinary.getInstance(Features), AllBinary.getInstance(MainFeatureFactory).LOAD_ALL)
+            if AllBinary.isInitialized(this.resourceAnimationInterfaceFactoryInterfaceFactory)
                 return
-            self.initAll(imageCache, loadingString)
-        elif level != resourceLoadingLevelFactory.LOAD_ALL.getLevel():
-            layerPlacementInterfaceBasicArrayListFactoryInterface: LayerPlacementInterfaceBasicArrayListFactoryInterface = self.gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory.getInstance(level)
-            self.initLevel(layerPlacementInterfaceBasicArrayListFactoryInterface, imageCache, level, loadingString)
-    
+            end
+            AllBinary.initAll(this, imageCache, loadingString)
+        elseif level != AllBinary.getLevel(resourceLoadingLevelFactory.LOAD_ALL)
+            local layerPlacementInterfaceBasicArrayListFactoryInterface = AllBinary.getInstance(this.gameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory, level)
+            AllBinary.initLevel(this, layerPlacementInterfaceBasicArrayListFactoryInterface, imageCache, level, loadingString)
+        end
+        nothing
+end
 
-    # throws Exception
-    def initAll(self, imageCache: ImageCache, loadingString: str) -> None:
-        from org.allbinary.game.layer.resources.OnDemandResources import OnDemandResources
-        from org.allbinary.image.ImageCache import ImageCache
-        index: int = 0
-        portion: int = 120
-        onDemandResources: OnDemandResources = None
-        onDemandIndex = self.onDemandResourcesFactory.size()
-        while (onDemandIndex := onDemandIndex - 1) >= 0:
-            onDemandResources = self.onDemandResourcesFactory.remove(onDemandIndex)
-            if onDemandResources != OnDemandResources.NULL_ON_DEMAND_RESOURCES:
-                index = onDemandResources.initAt(imageCache, self.resourceAnimationInterfaceFactoryInterfaceFactory, portion, loadingString, index)
-    
 
-    # throws Exception
-    def initLevel(self, layerPlacementInterfaceBasicArrayListFactoryInterface: LayerPlacementInterfaceBasicArrayListFactoryInterface, imageCache: ImageCache, level: int, loadingString: str) -> None:
-        from org.allbinary.game.layer.resources.OnDemandResources import OnDemandResources
-        from org.allbinary.game.layer.LayerPlacementInterfaceBasicArrayListFactoryInterface import LayerPlacementInterfaceBasicArrayListFactoryInterface
-        from org.allbinary.image.ImageCache import ImageCache
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonStrings import CommonStrings
-        commonStrings: CommonStrings = CommonStrings.getInstance()
-        portion: int = 120
-        index: int = 0
-        onDemandArray: list[int] = layerPlacementInterfaceBasicArrayListFactoryInterface.getOnDemandResources()
-        PreLogUtil.put(str(StringMaker().append(commonStrings.START).appendint(len(onDemandArray))), self, "initLevel")
-        onDemandResources: OnDemandResources = None
-        onDemandIndex = len(onDemandArray)
-        while (onDemandIndex := onDemandIndex - 1) >= 0:
-            onDemandResources = self.onDemandResourcesFactory.remove(onDemandArray[onDemandIndex])
-            if onDemandResources != OnDemandResources.NULL_ON_DEMAND_RESOURCES:
-                index = onDemandResources.initAt(imageCache, self.resourceAnimationInterfaceFactoryInterfaceFactory, portion, loadingString, index)
-# from org.allbinary.animation.resource.BaseResourceAnimationInterfaceFactoryInterfaceFactory import BaseResourceAnimationInterfaceFactoryInterfaceFactory
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.configuration.feature.MainFeatureFactory import MainFeatureFactory
-# from org.allbinary.game.layer.GameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory import GameLayerPlacementInterfaceBasicArrayListFactoryInterfaceFactory
-# from org.allbinary.game.layer.LayerPlacementInterfaceBasicArrayListFactoryInterface import LayerPlacementInterfaceBasicArrayListFactoryInterface
-# from org.allbinary.game.resource.ResourceLoadingLevelFactory import ResourceLoadingLevelFactory
-# from org.allbinary.image.ImageCache import ImageCache
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonStrings import CommonStrings
+function initAll(this::OnDemandLoader, imageCache, loadingString)
+        local index::Int32 = Int32(0)
+        local portion::Int32 = Int32(120)
+        local onDemandResources = nothing
+        let
+            local onDemandIndex::Int32 = AllBinary.size(this.onDemandResourcesFactory)
+            while (onDemandIndex -= Int32(1)) >= Int32(0)
+            try
+            onDemandResources = AllBinary.remove(this.onDemandResourcesFactory, onDemandIndex)
+            if onDemandResources !== staticGet_NULL_ON_DEMAND_RESOURCES(OnDemandResources)
+                index = AllBinary.initAt(onDemandResources, imageCache, this.resourceAnimationInterfaceFactoryInterfaceFactory, portion, loadingString, index)
+            end
+            finally
+            end
+            end
+        end
+        nothing
+end
 
+
+function initLevel(this::OnDemandLoader, layerPlacementInterfaceBasicArrayListFactoryInterface, imageCache, level, loadingString)
+        local commonStrings = AllBinary.getInstance(CommonStrings)
+        local portion::Int32 = Int32(120)
+        local index::Int32 = Int32(0)
+        local onDemandArray = AllBinary.getOnDemandResources(layerPlacementInterfaceBasicArrayListFactoryInterface)
+        AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), commonStrings.START), Int32(Base.length(onDemandArray)))), this, "initLevel")
+        local onDemandResources = nothing
+        let
+            local onDemandIndex::Int32 = Int32(Base.length(onDemandArray))
+            while (onDemandIndex -= Int32(1)) >= Int32(0)
+            try
+            onDemandResources = AllBinary.remove(this.onDemandResourcesFactory, onDemandArray[onDemandIndex + 1])
+            if onDemandResources !== staticGet_NULL_ON_DEMAND_RESOURCES(OnDemandResources)
+                index = AllBinary.initAt(onDemandResources, imageCache, this.resourceAnimationInterfaceFactoryInterfaceFactory, portion, loadingString, index)
+            end
+            finally
+            end
+            end
+        end
+        nothing
+end
 

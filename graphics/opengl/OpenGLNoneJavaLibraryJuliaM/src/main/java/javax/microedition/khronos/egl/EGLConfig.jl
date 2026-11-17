@@ -1,14 +1,25 @@
 # Generated Code Do Not Modify
 # package javax.microedition.khronos.egl
 
-from __future__ import annotations
+mutable struct EGLConfig <: JObject
+    EGLConfig() = new()
+end
 
 
+function initFieldsEGLConfig(this::EGLConfig)
+    nothing
+end
 
-class EGLConfig:
-    
 
-    def __init__(self) -> None:
-        raise RuntimeError()
+function initEGLConfig(this::EGLConfig)
+        initFieldsEGLConfig(this)
+        throw(jNewException("RuntimeException", ""))
+        nothing
+end
 
+function newEGLConfig()
+    this = EGLConfig()
+    initEGLConfig(this)
+    this
+end
 

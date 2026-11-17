@@ -1,114 +1,96 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends GameInput: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct PlayerGameInput <: JObject
+    gameInputStrings::Any
+    playerInputId::Int32
+    PlayerGameInput() = new()
+end
 
-import threading
-from org.allbinary.game.input.event.GameKeyEventListenerInterface import GameKeyEventListenerInterface
-from org.allbinary.game.input.GameInput import GameInput
 
-
-class PlayerGameInput(GameInput, GameKeyEventListenerInterface):
-    _lock = threading.RLock()
-
-    def _init_fields(self) -> None:
-        self.gameInputStrings: GameInputStrings = GameInputStrings.getInstance()
-        self.playerInputId: int = None
+function initFieldsPlayerGameInput(this::PlayerGameInput)
+    this.gameInputStrings = nothing
+    this.playerInputId = Int32(0)
+    this.gameInputStrings = AllBinary.getInstance(GameInputStrings)
     
+    nothing
+end
 
-    def __init__(self, gameKeyEventList: BasicArrayList, removalGameKeyEventList: BasicArrayList, playerInputId: int) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        super().__init__(gameKeyEventList, removalGameKeyEventList)
-        self._init_fields()
-        self.playerInputId = playerInputId
-    
 
-    def onPressGameKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        with self._lock:
-            return self._onPressGameKeyEvent_unlocked(gameKeyEvent)
+function initPlayerGameInput(this::PlayerGameInput, gameKeyEventList, removalGameKeyEventList, playerInputId)
+        initGameInput(this, gameKeyEventList, removalGameKeyEventList)
+        initFieldsPlayerGameInput(this)
+        this.playerInputId = playerInputId
+        nothing
+end
 
-    def _onPressGameKeyEvent_unlocked(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        self.add(gameKeyEvent)
-        self.addForRemoval(gameKeyEvent)
-    
+function newPlayerGameInput(gameKeyEventList, removalGameKeyEventList, playerInputId)
+    this = PlayerGameInput()
+    initPlayerGameInput(this, gameKeyEventList, removalGameKeyEventList, playerInputId)
+    this
+end
 
-    def onDownGameKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        with self._lock:
-            return self._onDownGameKeyEvent_unlocked(gameKeyEvent)
 
-    def _onDownGameKeyEvent_unlocked(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        self.add(gameKeyEvent)
-    
+function onPressGameKeyEvent(this::PlayerGameInput, gameKeyEvent)
+        AllBinary.add(this, gameKeyEvent)
+        AllBinary.addForRemoval(this, gameKeyEvent)
+        nothing
+end
 
-    def onDownKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        with self._lock:
-            return self._onDownKeyEvent_unlocked(gameKeyEvent)
 
-    def _onDownKeyEvent_unlocked(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        self.add(gameKeyEvent)
-        self.addForRemoval(gameKeyEvent)
-    
+function onDownGameKeyEvent(this::PlayerGameInput, gameKeyEvent)
+        AllBinary.add(this, gameKeyEvent)
+        nothing
+end
 
-    def onDownKey(self, gameKeyEvent: int) -> None:
-        with self._lock:
-            return self._onDownKey_unlocked(gameKeyEvent)
 
-    def _onDownKey_unlocked(self, gameKeyEvent: int) -> None:
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        PreLogUtil.put(str(StringMaker().append(CommonLabels.getInstance().START_LABEL).append(str(gameKeyEvent))), self, self.gameInputStrings.ON_DOWN_GAME_KEY)
-    
+function onDownKeyEvent(this::PlayerGameInput, gameKeyEvent)
+        AllBinary.add(this, gameKeyEvent)
+        AllBinary.addForRemoval(this, gameKeyEvent)
+        nothing
+end
 
-    def onUpGameKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        with self._lock:
-            return self._onUpGameKeyEvent_unlocked(gameKeyEvent)
 
-    def _onUpGameKeyEvent_unlocked(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        self.addForRemoval(gameKeyEvent)
-    
+function onDownKey(this::PlayerGameInput, gameKeyEvent)
+        AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).START_LABEL), AllBinary.toString(gameKeyEvent))), this, this.gameInputStrings.ON_DOWN_GAME_KEY)
+        nothing
+end
 
-    def onUpKeyEvent(self, gameKeyEvent: int) -> None:
-        with self._lock:
-            return self._onUpKeyEvent_unlocked(gameKeyEvent)
 
-    def _onUpKeyEvent_unlocked(self, gameKeyEvent: int) -> None:
-        pass
-    
+function onUpGameKeyEvent(this::PlayerGameInput, gameKeyEvent)
+        AllBinary.addForRemoval(this, gameKeyEvent)
+        nothing
+end
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
 
-    def getPlayerInputId(self) -> int:
-        return self.playerInputId
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-from org.allbinary.game.input.GameInputStrings import GameInputStrings
+function onUpKeyEvent(this::PlayerGameInput, gameKeyEvent)
+        nothing
+        nothing
+end
 
+
+function onEvent(this::PlayerGameInput, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
+
+
+function getPlayerInputId(this::PlayerGameInput)
+        return this.playerInputId
+end
 

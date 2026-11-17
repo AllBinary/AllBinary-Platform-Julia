@@ -1,42 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.android.view
 
-from __future__ import annotations
+mutable struct AllBinaryRenderer <: JObject
+    AllBinaryRenderer() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const AllBinaryRenderer_instanceValue = Ref{Any}(nothing)
+const AllBinaryRenderer_instanceSet = Ref(false)
+function staticGet_instance(::Type{AllBinaryRenderer})
+    if !AllBinaryRenderer_instanceSet[]
+        AllBinaryRenderer_instanceSet[] = true
+        AllBinaryRenderer_instanceValue[] = newAllBinaryRenderer()
+    end
+    AllBinaryRenderer_instanceValue[]
+end
+function staticSet_instance(::Type{AllBinaryRenderer}, value)
+    AllBinaryRenderer_instanceSet[] = true
+    AllBinaryRenderer_instanceValue[] = value
+end
+
+function initFieldsAllBinaryRenderer(this::AllBinaryRenderer)
+    nothing
+end
+
+function initAllBinaryRenderer(this::AllBinaryRenderer)
+    initFieldsAllBinaryRenderer(this)
+end
+
+function newAllBinaryRenderer()
+    this = AllBinaryRenderer()
+    initAllBinaryRenderer(this)
+    this
+end
 
 
-class AllBinaryRenderer:
-    instance: AllBinaryRenderer = None
-    
-
-    @staticmethod
-    def getInstance() -> AllBinaryRenderer:
-        return AllBinaryRenderer.instance
-    
-
-    def setRunnable(self, runnable: object) -> None:
-        pass
-    
-
-    def clearRunnable(self) -> None:
-        pass
+function getInstance(::Type{AllBinaryRenderer})
+        return staticGet_instance(AllBinaryRenderer)
+end
 
 
-def _AllBinaryRenderer_instance() -> object:
-    return AllBinaryRenderer()
+function setRunnable(this::AllBinaryRenderer, runnable)
+        nothing
+        nothing
+end
 
-lazy_static(AllBinaryRenderer, "instance", _AllBinaryRenderer_instance)
+
+function clearRunnable(this::AllBinaryRenderer)
+        nothing
+        nothing
+end
 

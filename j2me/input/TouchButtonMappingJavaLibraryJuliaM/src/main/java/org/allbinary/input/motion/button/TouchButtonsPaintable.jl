@@ -1,60 +1,82 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TouchButtonsPaintable <: JObject
+    foregroundBasicColor::Any
+    foregroundColor::Int32
+    basicSetColorUtil::Any
+    touchButtonFactory::Any
+    TouchButtonsPaintable() = new()
+end
 
-from org.allbinary.graphics.paint.Paintable import Paintable
 
-
-class TouchButtonsPaintable(Paintable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-        self.foregroundBasicColor: BasicColor = None
-        self.foregroundColor: int = None
-        self.basicSetColorUtil: BasicColorSetUtil = BasicColorSetUtil.getInstance()
-        self.touchButtonFactory: TouchButtonFactory = TouchButtonFactory.getInstance()
+function initFieldsTouchButtonsPaintable(this::TouchButtonsPaintable)
+    this.foregroundBasicColor = nothing
+    this.foregroundColor = Int32(0)
+    this.basicSetColorUtil = nothing
+    this.touchButtonFactory = nothing
     
-
-    def __init__(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.foregroundBasicColor = basicColor
-        self.foregroundColor = int(basicColor)
     
+    this.basicSetColorUtil = AllBinary.getInstance(BasicColorSetUtil)
+    this.touchButtonFactory = AllBinary.getInstance(TouchButtonFactory)
+    nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        list_: BasicArrayList = self.touchButtonFactory.getList()
-        self.basicSetColorUtil.setBasicColorP3(graphics, self.foregroundBasicColor, self.foregroundColor)
-        touchButton: TouchButton = None
-        index = list_.size()
-        while (index := index - 1) >= 0:
-            touchButton = list_.objectArray[index]
-            touchButton.paint(graphics)
-        index = list_.size()
-        while (index := index - 1) >= 0:
-            touchButton = list_.objectArray[index]
-            touchButton.paintHint(graphics)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-from org.allbinary.input.motion.button.TouchButtonFactory import TouchButtonFactory
 
+function initTouchButtonsPaintable(this::TouchButtonsPaintable, basicColor)
+        initPaintable(this)
+        initFieldsTouchButtonsPaintable(this)
+        this.foregroundBasicColor = basicColor
+        this.foregroundColor = AllBinary.intValue(basicColor)
+        nothing
+end
+
+function newTouchButtonsPaintable(basicColor)
+    this = TouchButtonsPaintable()
+    initTouchButtonsPaintable(this, basicColor)
+    this
+end
+
+
+function paint(this::TouchButtonsPaintable, graphics)
+        local list = AllBinary.getList(this.touchButtonFactory)
+        AllBinary.setBasicColorP3(this.basicSetColorUtil, graphics, this.foregroundBasicColor, this.foregroundColor)
+        local touchButton = nothing
+        let
+            local index::Int32 = AllBinary.size(list)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            touchButton = (list.objectArray[index + 1])
+            AllBinary.paint(touchButton, graphics)
+            finally
+            end
+            end
+        end
+        let
+            index = AllBinary.size(list)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            touchButton = (list.objectArray[index + 1])
+            AllBinary.paintHint(touchButton, graphics)
+            finally
+            end
+            end
+        end
+        nothing
+end
 

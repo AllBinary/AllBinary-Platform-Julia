@@ -1,96 +1,116 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct PressStartMenuPaintable <: JObject
+    displayInfo::Any
+    PRESS_START::Any
+    KEY_START::Any
+    MENU_START::Any
+    myFontProcessor::Any
+    startString::Any
+    timeDelayHelper::Any
+    flash::Bool
+    anchor::Int32
+    beginWidth::Int32
+    line::Int32
+    PressStartMenuPaintable() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.paint.Paintable import Paintable
+
+function initFieldsPressStartMenuPaintable(this::PressStartMenuPaintable)
+    this.displayInfo = nothing
+    this.PRESS_START = nothing
+    this.KEY_START = nothing
+    this.MENU_START = nothing
+    this.myFontProcessor = nothing
+    this.startString = nothing
+    this.timeDelayHelper = nothing
+    this.flash = false
+    this.anchor = Int32(0)
+    this.beginWidth = Int32(0)
+    this.line = Int32(0)
+    this.displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+    this.PRESS_START = "Press Screen To Start"
+    this.KEY_START = "Press or Click F2 To Begin"
+    this.MENU_START = "Press Start From The Menu To Begin"
+    this.myFontProcessor = newUpdateMyFontProcessor(this)
+    this.startString = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    this.timeDelayHelper = newTimeDelayHelper(Int32(1100))
+    this.flash = false
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    this.beginWidth = Int32(0)
+    this.line = Int32(0)
+    nothing
+end
 
 
-class PressStartMenuPaintable(Paintable, UpdateMyFontInterface):
+function initPressStartMenuPaintable(this::PressStartMenuPaintable)
+        initPaintable(this)
+        initFieldsPressStartMenuPaintable(this)
+        if AllBinary.isTouch(AllBinary.getInstance(TouchScreenFactory))
+            this.startString = this.PRESS_START
+        elseif AllBinary.isAppletLoader(AppletUtil, this)
+            this.startString = this.KEY_START
+        else
+            this.startString = this.MENU_START
+        end
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.PRESS_START: str = "Press Screen To Start"
-        self.KEY_START: str = "Press or Click F2 To Begin"
-        self.MENU_START: str = "Press Start From The Menu To Begin"
-        self.myFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.startString: str = StringUtil.getInstance().EMPTY_STRING
-        self.timeDelayHelper: TimeDelayHelper = TimeDelayHelper(1100)
-        self.flash: bool = False
-        self.anchor: int = Anchor.TOP_LEFT
-        self.beginWidth: int = 0
-        self.line: int = 0
-    
+function newPressStartMenuPaintable()
+    this = PressStartMenuPaintable()
+    initPressStartMenuPaintable(this)
+    this
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.AppletUtil import AppletUtil
-        from org.allbinary.input.motion.button.TouchScreenFactory import TouchScreenFactory
-        super().__init__()
-        self._init_fields()
-        if TouchScreenFactory.getInstance().isTouch():
-            self.startString = self.PRESS_START
-        elif AppletUtil.isAppletLoader(self):
-            self.startString = self.KEY_START
-        else:
-            self.startString = self.MENU_START
-    
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.beginWidth = (graphics.getFont().stringWidth(self.startString) >> 1)
-        self.line = (4 * MyFontProcessor.defaultCharWidth(font)) + (font.getHeight() >> 1)
-        self.myFontProcessor = MyFontProcessor.getInstance()
-    
+function updateMeasurement(this::PressStartMenuPaintable, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.beginWidth = (AllBinary.stringWidth(AllBinary.getFont(graphics), this.startString) >> Int32(1))
+        this.line = (Int32(4) * AllBinary.defaultCharWidth(MyFontProcessor, font)) + (AllBinary.getHeight(font) >> Int32(1))
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        if self.timeDelayHelper.isTimeTNT():
-            if self.isFlash():
-                self.setFlash(False)
-            else:
-                self.setFlash(True)
-        if self.isFlash():
-            self.myFontProcessor.process(graphics)
-            graphics.drawString(self.startString, self.displayInfo.getLastHalfWidth() - self.beginWidth, self.displayInfo.getLastHeight() - self.line, self.anchor)
-    
 
-    def setFlash(self, flash: bool) -> None:
-        self.flash = flash
-    
+function paint(this::PressStartMenuPaintable, graphics)
+        if AllBinary.isTimeTNT(this.timeDelayHelper)
+            if AllBinary.isFlash(this)
+                AllBinary.setFlash(this, false)
+            else
+                AllBinary.setFlash(this, true)
+            end
+        end
+        if AllBinary.isFlash(this)
+            AllBinary.process(this.myFontProcessor, graphics)
+            AllBinary.drawString(graphics, this.startString, AllBinary.getLastHalfWidth(this.displayInfo) - this.beginWidth, AllBinary.getLastHeight(this.displayInfo) - this.line, this.anchor)
+        end
+        nothing
+end
 
-    def isFlash(self) -> bool:
-        return self.flash
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.AppletUtil import AppletUtil
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.input.motion.button.TouchScreenFactory import TouchScreenFactory
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
 
+function setFlash(this::PressStartMenuPaintable, flash)
+        this.flash = flash
+        nothing
+end
+
+
+function isFlash(this::PressStartMenuPaintable)
+        return this.flash
+end
 

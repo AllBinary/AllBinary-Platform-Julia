@@ -1,61 +1,89 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+mutable struct NullIndexedAnimationFactory <: JObject
+    NULL_ANIMATION::Any
+    NullIndexedAnimationFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
-from org.allbinary.animation.ProceduralAnimationInterfaceFactoryInterface import ProceduralAnimationInterfaceFactoryInterface
+const NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_ARRAYValue = Ref{Any}(nothing)
+const NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_ARRAYSet = Ref(false)
+function staticGet_NULL_INDEXED_ANIMATION_ARRAY(::Type{NullIndexedAnimationFactory})
+    if !NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_ARRAYSet[]
+        NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_ARRAYSet[] = true
+        NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_ARRAYValue[] = jNewArray(Any, Int32(0), nothing)
+    end
+    NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_ARRAYValue[]
+end
+function staticSet_NULL_INDEXED_ANIMATION_ARRAY(::Type{NullIndexedAnimationFactory}, value)
+    NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_ARRAYSet[] = true
+    NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_ARRAYValue[] = value
+end
+const NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORYValue = Ref{Any}(nothing)
+const NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORYSet = Ref(false)
+function staticGet_NULL_INDEXED_ANIMATION_FACTORY(::Type{NullIndexedAnimationFactory})
+    if !NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORYSet[]
+        NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORYSet[] = true
+        NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORYValue[] = newNullIndexedAnimationFactory()
+    end
+    NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORYValue[]
+end
+function staticSet_NULL_INDEXED_ANIMATION_FACTORY(::Type{NullIndexedAnimationFactory}, value)
+    NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORYSet[] = true
+    NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORYValue[] = value
+end
 
-
-class NullIndexedAnimationFactory(AnimationInterfaceFactoryInterface, ProceduralAnimationInterfaceFactoryInterface):
-    NULL_INDEXED_ANIMATION_ARRAY: list[IndexedAnimation] = [None] * (0)
-    NULL_INDEXED_ANIMATION_FACTORY: NullIndexedAnimationFactory = None
-
-    def _init_fields(self) -> None:
-        self.NULL_ANIMATION: Animation = NullIndexedAnimationInner()
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getFactoryInstance() -> NullIndexedAnimationFactory:
-        return NullIndexedAnimationFactory.NULL_INDEXED_ANIMATION_FACTORY
-    
-
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        return self.NULL_ANIMATION
-    
-
-    # throws Exception
-    def getInstanceAnimation(self, animationInterface: Animation) -> Animation:
-        return self.NULL_ANIMATION
-    
-
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from org.allbinary.media.ScaleProperties import ScaleProperties
-from org.allbinary.animation.NullIndexedAnimationInner import NullIndexedAnimationInner
+function initFieldsNullIndexedAnimationFactory(this::NullIndexedAnimationFactory)
+    this.NULL_ANIMATION = nothing
+    this.NULL_ANIMATION = newNullIndexedAnimationInner()
+    nothing
+end
 
 
-def _NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORY() -> object:
-    return NullIndexedAnimationFactory()
+function initNullIndexedAnimationFactory(this::NullIndexedAnimationFactory)
+        initFieldsNullIndexedAnimationFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(NullIndexedAnimationFactory, "NULL_INDEXED_ANIMATION_FACTORY", _NullIndexedAnimationFactory_NULL_INDEXED_ANIMATION_FACTORY)
+function newNullIndexedAnimationFactory()
+    this = NullIndexedAnimationFactory()
+    initNullIndexedAnimationFactory(this)
+    this
+end
+
+
+function getFactoryInstance(::Type{NullIndexedAnimationFactory})
+        return staticGet_NULL_INDEXED_ANIMATION_FACTORY(NullIndexedAnimationFactory)
+end
+
+
+function getInstance(this::NullIndexedAnimationFactory, instanceId)
+        return this.NULL_ANIMATION
+end
+
+
+function getInstanceAnimation(this::NullIndexedAnimationFactory, animationInterface)
+        return this.NULL_ANIMATION
+end
+
+
+function setInitialScale(this::NullIndexedAnimationFactory, scaleProperties)
+        nothing
+        nothing
+end
 

@@ -1,67 +1,84 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.view
 
-from __future__ import annotations
+# extends ViewPositionBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ViewPosition <: JObject
+    allbinaryLayer::Any
+    ViewPosition() = new()
+end
 
-from org.allbinary.view.ViewPositionBase import ViewPositionBase
+
+function initFieldsViewPosition(this::ViewPosition)
+    this.allbinaryLayer = nothing
+    this.allbinaryLayer = staticGet_NULL_ALLBINARY_LAYER(AllBinaryLayer)
+    nothing
+end
 
 
-class ViewPosition(ViewPositionBase):
+function getInstanceD(::Type{ViewPosition})
+        return newViewPosition(Int32(0), Int32(0), Int32(0))
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.allbinaryLayer: AllBinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
-    
 
-    @staticmethod
-    def getInstanceD() -> ViewPosition:
-        return ViewPosition(0, 0, 0)
-    
+function initViewPosition(this::ViewPosition, x, y, z)
+        initViewPositionBase(this, x, y, z)
+        initFieldsViewPosition(this)
+        nothing
+end
 
-    def __init__(self, x: int, y: int, z: int) -> None:
-        super().__init__(x, y, z)
-        self._init_fields()
-    
+function newViewPosition(x, y, z)
+    this = ViewPosition()
+    initViewPosition(this, x, y, z)
+    this
+end
 
-    def getX(self) -> int:
-        return self.allbinaryLayer.getXP()
-    
 
-    def getY(self) -> int:
-        return self.allbinaryLayer.getYP()
-    
+function getX(this::ViewPosition)
+        return AllBinary.getXP(this.allbinaryLayer)
+end
 
-    def getZ(self) -> int:
-        return self.allbinaryLayer.getZP()
-    
 
-    def getX2(self) -> int:
-        return self.getX() + self.allbinaryLayer.getWidth()
-    
+function getY(this::ViewPosition)
+        return AllBinary.getYP(this.allbinaryLayer)
+end
 
-    def getY2(self) -> int:
-        return self.getY() + self.allbinaryLayer.getHeight()
-    
 
-    def getZ2(self) -> int:
-        return int((self.getZ() + self.allbinaryLayer.getDepth()))
-    
+function getZ(this::ViewPosition)
+        return AllBinary.getZP(this.allbinaryLayer)
+end
 
-    def setAllbinaryLayer(self, allbinaryLayer: object) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.allbinaryLayer = allbinaryLayer
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
 
+function getX2(this::ViewPosition)
+        return AllBinary.getX(this) + AllBinary.getWidth(this.allbinaryLayer)
+end
+
+
+function getY2(this::ViewPosition)
+        return AllBinary.getY(this) + AllBinary.getHeight(this.allbinaryLayer)
+end
+
+
+function getZ2(this::ViewPosition)
+        return (((AllBinary.getZ(this) + AllBinary.getDepth(this.allbinaryLayer))) % Int32)
+end
+
+
+function setAllbinaryLayer(this::ViewPosition, allbinaryLayer)
+        this.allbinaryLayer = (allbinaryLayer)
+        nothing
+end
 

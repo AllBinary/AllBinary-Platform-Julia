@@ -1,45 +1,66 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image.opengles
 
-from __future__ import annotations
+mutable struct OpenGLESImageTranslate <: JObject
+    OpenGLESImageTranslate() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const OpenGLESImageTranslate_instanceValue = Ref{Any}(nothing)
+const OpenGLESImageTranslate_instanceSet = Ref(false)
+function staticGet_instance(::Type{OpenGLESImageTranslate})
+    if !OpenGLESImageTranslate_instanceSet[]
+        OpenGLESImageTranslate_instanceSet[] = true
+        OpenGLESImageTranslate_instanceValue[] = newOpenGLESImageTranslate()
+    end
+    OpenGLESImageTranslate_instanceValue[]
+end
+function staticSet_instance(::Type{OpenGLESImageTranslate}, value)
+    OpenGLESImageTranslate_instanceSet[] = true
+    OpenGLESImageTranslate_instanceValue[] = value
+end
+
+function initFieldsOpenGLESImageTranslate(this::OpenGLESImageTranslate)
+    nothing
+end
+
+function initOpenGLESImageTranslate(this::OpenGLESImageTranslate)
+    initFieldsOpenGLESImageTranslate(this)
+end
+
+function newOpenGLESImageTranslate()
+    this = OpenGLESImageTranslate()
+    initOpenGLESImageTranslate(this)
+    this
+end
 
 
-class OpenGLESImageTranslate:
-    instance: OpenGLESImageTranslate = None
-    
-
-    @staticmethod
-    def getInstance() -> OpenGLESImageTranslate:
-        return OpenGLESImageTranslate.instance
-    
-
-    def translate(self, gl: GL10, openGLESImage: OpenGLESImage, x: float, y: float) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        openGLESImage.imageProcessor.translate(gl, x, y)
-    
-
-    def translate2(self, gl: GL10, openGLESImage: OpenGLESImage) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-# from javax.microedition.khronos.opengles.GL10 import GL10
+function getInstance(::Type{OpenGLESImageTranslate})
+        return staticGet_instance(OpenGLESImageTranslate)
+end
 
 
-def _OpenGLESImageTranslate_instance() -> object:
-    return OpenGLESImageTranslate()
+function translate(this::OpenGLESImageTranslate, gl, openGLESImage, x, y)
+        AllBinary.translate(openGLESImage.imageProcessor, gl, x, y)
+        nothing
+end
 
-lazy_static(OpenGLESImageTranslate, "instance", _OpenGLESImageTranslate_instance)
+
+function translate2(this::OpenGLESImageTranslate, gl, openGLESImage)
+        nothing
+        nothing
+end
 

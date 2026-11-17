@@ -1,46 +1,61 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
+mutable struct BaseSoundsFactory <: JObject
+    initialized::Bool
+    BaseSoundsFactory() = new()
+end
 
-from org.allbinary.media.audio.SoundsFactoryInterface import SoundsFactoryInterface
+
+function initFieldsBaseSoundsFactory(this::BaseSoundsFactory)
+    this.initialized = false
+    this.initialized = false
+    nothing
+end
+
+function initBaseSoundsFactory(this::BaseSoundsFactory)
+    initFieldsBaseSoundsFactory(this)
+end
+
+function newBaseSoundsFactory()
+    this = BaseSoundsFactory()
+    initBaseSoundsFactory(this)
+    this
+end
 
 
-class BaseSoundsFactory(SoundsFactoryInterface):
+function init(this::BaseSoundsFactory)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.initialized: bool = False
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function getSoundInterfaceArray(this::BaseSoundsFactory)
+        return jNewArray(Any, Int32(0), nothing)
+end
 
-    def init(self) -> None:
-        pass
-    
 
-    # throws Exception
-    def getSoundInterfaceArray(self) -> list[Sound]:
-        return [None] * (0)
-    
+function setInitialized(this::BaseSoundsFactory, initialized)
+        this.initialized = initialized
+        nothing
+end
 
-    def setInitialized(self, initialized: bool) -> None:
-        self.initialized = initialized
-    
 
-    def isInitialized(self) -> bool:
-        return self.initialized
-
+function isInitialized(this::BaseSoundsFactory)
+        return this.initialized
+end
 

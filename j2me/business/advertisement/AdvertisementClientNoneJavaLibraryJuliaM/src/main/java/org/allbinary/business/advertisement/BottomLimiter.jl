@@ -1,72 +1,99 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.business.advertisement
 
-from __future__ import annotations
+mutable struct BottomLimiter <: JObject
+    bottom::Int32
+    deltaY::Int32
+    lower::Int32
+    higher::Int32
+    BottomLimiter() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BottomLimiter_instanceValue = Ref{Any}(nothing)
+const BottomLimiter_instanceSet = Ref(false)
+function staticGet_instance(::Type{BottomLimiter})
+    if !BottomLimiter_instanceSet[]
+        BottomLimiter_instanceSet[] = true
+        BottomLimiter_instanceValue[] = newBottomLimiter()
+    end
+    BottomLimiter_instanceValue[]
+end
+function staticSet_instance(::Type{BottomLimiter}, value)
+    BottomLimiter_instanceSet[] = true
+    BottomLimiter_instanceValue[] = value
+end
 
-
-class BottomLimiter:
-    instance: BottomLimiter = None
-
-    def _init_fields(self) -> None:
-        self.bottom: int = 0
-        self.deltaY: int = 0
-        self.lower: int = 0
-        self.higher: int = 0
-    
-
-    @staticmethod
-    def getInstance() -> BottomLimiter:
-        return BottomLimiter.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def init(self, lower: int, higher: int) -> None:
-        self.lower = lower
-        self.higher = higher
-    
-
-    def update(self) -> None:
-        from org.allbinary.business.advertisement.GameAdStateFactory import GameAdStateFactory
-        from org.allbinary.game.GameAdState import GameAdState
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        gameAdState: GameAdState = GameAdStateFactory.getInstance().getCurrentInstance()
-        if gameAdState.isShowingAt():
-            self.deltaY = self.higher
-        else:
-            self.deltaY = self.lower
-        self.bottom = displayInfo.getLastHeight() - self.deltaY
-    
-
-    def getDeltaY(self) -> int:
-        return self.deltaY
-    
-
-    def getBottom(self) -> int:
-        return self.bottom
-# from org.allbinary.game.GameAdState import GameAdState
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
+function initFieldsBottomLimiter(this::BottomLimiter)
+    this.bottom = Int32(0)
+    this.deltaY = Int32(0)
+    this.lower = Int32(0)
+    this.higher = Int32(0)
+    this.bottom = Int32(0)
+    this.deltaY = Int32(0)
+    this.lower = Int32(0)
+    this.higher = Int32(0)
+    nothing
+end
 
 
-def _BottomLimiter_instance() -> object:
-    return BottomLimiter()
+function getInstance(::Type{BottomLimiter})
+        return staticGet_instance(BottomLimiter)
+end
 
-lazy_static(BottomLimiter, "instance", _BottomLimiter_instance)
+
+function initBottomLimiter(this::BottomLimiter)
+        initFieldsBottomLimiter(this)
+        nothing
+        nothing
+end
+
+function newBottomLimiter()
+    this = BottomLimiter()
+    initBottomLimiter(this)
+    this
+end
+
+
+function init(this::BottomLimiter, lower, higher)
+        this.lower = lower
+        this.higher = higher
+        nothing
+end
+
+
+function update(this::BottomLimiter)
+        local displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+        local gameAdState = AllBinary.getCurrentInstance(AllBinary.getInstance(GameAdStateFactory))
+        if AllBinary.isShowingAt(gameAdState)
+            this.deltaY = this.higher
+        else
+            this.deltaY = this.lower
+        end
+        this.bottom = AllBinary.getLastHeight(displayInfo) - this.deltaY
+        nothing
+end
+
+
+function getDeltaY(this::BottomLimiter)
+        return this.deltaY
+end
+
+
+function getBottom(this::BottomLimiter)
+        return this.bottom
+end
 

@@ -1,111 +1,120 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+mutable struct BufferedWriterUtil <: JObject
+    logUtil::Any
+    commonStrings::Any
+    commonLabels::Any
+    REMOVING_OLD::Any
+    BufferedWriterUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BufferedWriterUtil_instanceValue = Ref{Any}(nothing)
+const BufferedWriterUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{BufferedWriterUtil})
+    if !BufferedWriterUtil_instanceSet[]
+        BufferedWriterUtil_instanceSet[] = true
+        BufferedWriterUtil_instanceValue[] = newBufferedWriterUtil()
+    end
+    BufferedWriterUtil_instanceValue[]
+end
+function staticSet_instance(::Type{BufferedWriterUtil}, value)
+    BufferedWriterUtil_instanceSet[] = true
+    BufferedWriterUtil_instanceValue[] = value
+end
 
+function initFieldsBufferedWriterUtil(this::BufferedWriterUtil)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.commonLabels = nothing
+    this.REMOVING_OLD = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.commonLabels = AllBinary.getInstance(CommonLabels)
+    this.REMOVING_OLD = "Remove old for overwriting: "
+    nothing
+end
 
-class BufferedWriterUtil:
-    instance: BufferedWriterUtil = None
+function initBufferedWriterUtil(this::BufferedWriterUtil)
+    initFieldsBufferedWriterUtil(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonLabels import CommonLabels
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.commonLabels: CommonLabels = CommonLabels.getInstance()
-        self.REMOVING_OLD: str = "Remove old for overwriting: "
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> BufferedWriterUtil:
-        return BufferedWriterUtil.instance
-    
-
-    # throws Exception
-    def overwrite(self, path: str, data: str) -> None:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.io.path.AbPathData import AbPathData
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        abFile: AbFile = AbFile.createAbFile(path)
-        if abFile.exists():
-            self.logUtil.putF(self.REMOVING_OLD + path, self, self.commonStrings.CREATE)
-            abFile.delete()
-        else:
-            name: str = AbPathData.getInstance().removeNameFromPath(path)
-            abFileDirectory: AbFile = AbFile.createAbFile(name)
-            if abFileDirectory.exists():
-                pass
-            else:
-                stringBuilder: StringMaker = StringMaker()
-                self.logUtil.putF(str(stringBuilder.append(self.commonStrings.CREATE).append(self.commonLabels.COLON_SEP).append(name)), self, self.commonStrings.CREATE)
-                result: bool = abFileDirectory.mkdirs()
-                stringBuilder.delete(0, stringBuilder.length())
-                self.logUtil.putF(str(stringBuilder.append(self.commonLabels.RESULT_).appendboolean(result)), self, self.commonStrings.CREATE)
-        self.write(abFile, data)
-    
-
-    # throws Exception
-    # Java overloaded method: Python keeps the last definition
-    def overwrite(self, abFile: AbFile, data: str) -> None:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.io.path.AbPathData import AbPathData
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        if abFile.exists():
-            self.logUtil.putF(self.REMOVING_OLD + str(abFile.getPath()), self, self.commonStrings.CREATE)
-            abFile.delete()
-        else:
-            name: str = AbPathData.getInstance().removeNameFromPath(abFile.getAbsolutePath())
-            abFileDirectory: AbFile = AbFile.createAbFile(name)
-            if abFileDirectory.exists():
-                pass
-            else:
-                stringBuilder: StringMaker = StringMaker()
-                self.logUtil.putF(str(stringBuilder.append(self.commonStrings.CREATE).append(self.commonLabels.COLON_SEP).append(name)), self, self.commonStrings.CREATE)
-                result: bool = abFileDirectory.mkdirs()
-                stringBuilder.delete(0, stringBuilder.length())
-                self.logUtil.putF(str(stringBuilder.append(self.commonLabels.RESULT_).appendboolean(result)), self, self.commonStrings.CREATE)
-        self.write(abFile, data)
-    
-
-    # throws Exception
-    def write(self, abFile: AbFile, data: str) -> None:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.io.file.AbFileNativeUtil import AbFileNativeUtil
-        fileOut: BufferedWriter = BufferedWriter(FileWriter(AbFileNativeUtil.get(abFile)))
-        fileOut.write(data, 0, len(data))
-        fileOut.newLine()
-        fileOut.flush()
-# from java.io.BufferedWriter import BufferedWriter
-# from java.io.FileWriter import FileWriter
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.io.file.AbFile import AbFile
-# from org.allbinary.logic.io.file.AbFileNativeUtil import AbFileNativeUtil
-# from org.allbinary.logic.io.path.AbPathData import AbPathData
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonStrings import CommonStrings
+function newBufferedWriterUtil()
+    this = BufferedWriterUtil()
+    initBufferedWriterUtil(this)
+    this
+end
 
 
-def _BufferedWriterUtil_instance() -> object:
-    return BufferedWriterUtil()
+function getInstance(::Type{BufferedWriterUtil})
+        return staticGet_instance(BufferedWriterUtil)
+end
 
-lazy_static(BufferedWriterUtil, "instance", _BufferedWriterUtil_instance)
+
+function overwrite(this::BufferedWriterUtil, path, data)
+        local abFile = AllBinary.createAbFile(AbFile, path)
+        if AllBinary.exists(abFile)
+            AllBinary.putF(this.logUtil, jstr(this.REMOVING_OLD) * jstr(path), this, this.commonStrings.CREATE)
+            AllBinary.delete(abFile)
+        else
+            local name = AllBinary.removeNameFromPath(AllBinary.getInstance(AbPathData), path)
+            local abFileDirectory = AllBinary.createAbFile(AbFile, name)
+            if AllBinary.exists(abFileDirectory)
+                nothing
+            else
+                local stringBuilder = newStringMaker()
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(stringBuilder, this.commonStrings.CREATE), this.commonLabels.COLON_SEP), name)), this, this.commonStrings.CREATE)
+                local result::Bool = AllBinary.mkdirs(abFileDirectory)
+                AllBinary.delete(stringBuilder, Int32(0), AllBinary.length(stringBuilder))
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendboolean(AllBinary.append(stringBuilder, this.commonLabels.RESULT_), result)), this, this.commonStrings.CREATE)
+            end
+        end
+        AllBinary.write(this, abFile, data)
+        nothing
+end
+
+
+function overwrite(this::BufferedWriterUtil, abFile, data)
+        if AllBinary.exists(abFile)
+            AllBinary.putF(this.logUtil, jstr(this.REMOVING_OLD) * jstr(AllBinary.getPath(abFile)), this, this.commonStrings.CREATE)
+            AllBinary.delete(abFile)
+        else
+            local name = AllBinary.removeNameFromPath(AllBinary.getInstance(AbPathData), AllBinary.getAbsolutePath(abFile))
+            local abFileDirectory = AllBinary.createAbFile(AbFile, name)
+            if AllBinary.exists(abFileDirectory)
+                nothing
+            else
+                local stringBuilder = newStringMaker()
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(stringBuilder, this.commonStrings.CREATE), this.commonLabels.COLON_SEP), name)), this, this.commonStrings.CREATE)
+                local result::Bool = AllBinary.mkdirs(abFileDirectory)
+                AllBinary.delete(stringBuilder, Int32(0), AllBinary.length(stringBuilder))
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendboolean(AllBinary.append(stringBuilder, this.commonLabels.RESULT_), result)), this, this.commonStrings.CREATE)
+            end
+        end
+        AllBinary.write(this, abFile, data)
+        nothing
+end
+
+
+function write(this::BufferedWriterUtil, abFile, data)
+        local fileOut = newBufferedWriter(newFileWriter(AllBinary.get(AbFileNativeUtil, abFile)))
+        AllBinary.write(fileOut, data, Int32(0), jLength(data))
+        AllBinary.newLine(fileOut)
+        AllBinary.flush(fileOut)
+        nothing
+end
 

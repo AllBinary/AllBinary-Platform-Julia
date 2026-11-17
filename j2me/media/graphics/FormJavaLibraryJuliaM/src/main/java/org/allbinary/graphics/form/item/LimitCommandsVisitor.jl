@@ -1,52 +1,56 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
+# extends Visitor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LimitCommandsVisitor <: JObject
+    isNotSmallDisplay::Bool
+    LimitCommandsVisitor() = new()
+end
 
-from org.allbinary.logic.util.visitor.Visitor import Visitor
 
-
-class LimitCommandsVisitor(Visitor):
-
-    def _init_fields(self) -> None:
-        self.isNotSmallDisplay: bool = None
+function initFieldsLimitCommandsVisitor(this::LimitCommandsVisitor)
+    this.isNotSmallDisplay = false
     
+    nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.form.ScreenInfo import ScreenInfo
-        super().__init__()
-        self._init_fields()
-        displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.isNotSmallDisplay = (displayInfo.isPortrait() and displayInfo.getLastHeight() > ScreenInfo.getInstance().SMALL_WIDTH) or (not displayInfo.isPortrait() and displayInfo.getLastHeight() > ScreenInfo.getInstance().SMALL_HEIGHT)
-    
 
-    def visit(self, anyType: object) -> object:
-        from javax.microedition.lcdui.Command import Command
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        command: Command = anyType
-        booleanFactory: BooleanFactory = BooleanFactory.getInstance()
-        if self.isNotSmallDisplay or command.getPriority() == 1 or command == GameCommandsFactory.getInstance().EXIT_COMMAND or command == GameCommandsFactory.getInstance().EXIT_WITHOUT_PROGRESS_COMMAND:
+function initLimitCommandsVisitor(this::LimitCommandsVisitor)
+        initVisitor(this)
+        initFieldsLimitCommandsVisitor(this)
+        local displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+        this.isNotSmallDisplay = (AllBinary.isPortrait(displayInfo) && AllBinary.getLastHeight(displayInfo) > AllBinary.getInstance(ScreenInfo).SMALL_WIDTH) || (!AllBinary.isPortrait(displayInfo) && AllBinary.getLastHeight(displayInfo) > AllBinary.getInstance(ScreenInfo).SMALL_HEIGHT)
+        nothing
+end
+
+function newLimitCommandsVisitor()
+    this = LimitCommandsVisitor()
+    initLimitCommandsVisitor(this)
+    this
+end
+
+
+function visit(this::LimitCommandsVisitor, anyType)
+        local command = (anyType)
+        local booleanFactory = AllBinary.getInstance(BooleanFactory)
+        if this.isNotSmallDisplay || AllBinary.getPriority(command) == Int32(1) || command === AllBinary.getInstance(GameCommandsFactory).EXIT_COMMAND || command === AllBinary.getInstance(GameCommandsFactory).EXIT_WITHOUT_PROGRESS_COMMAND
             return booleanFactory.TRUE
-        else:
+        else
             return booleanFactory.FALSE
-# from javax.microedition.lcdui.Command import Command
-# from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.form.ScreenInfo import ScreenInfo
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-
+        end
+end
 

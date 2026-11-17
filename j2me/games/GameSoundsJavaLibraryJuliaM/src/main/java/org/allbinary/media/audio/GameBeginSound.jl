@@ -1,40 +1,58 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.media.audio.CompositeSound import CompositeSound
-
-
 #Use 8hz16bitmono for most J2ME
-class GameBeginSound(CompositeSound):
-    soundInterface: Sound = None
-    
+# extends CompositeSound: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameBeginSound <: JObject
+    GameBeginSound() = new()
+end
 
-    def __init__(self) -> None:
-        super().__init__("resource:/wav/begin.wav")
-    
+const GameBeginSound_soundInterfaceValue = Ref{Any}(nothing)
+const GameBeginSound_soundInterfaceSet = Ref(false)
+function staticGet_soundInterface(::Type{GameBeginSound})
+    if !GameBeginSound_soundInterfaceSet[]
+        GameBeginSound_soundInterfaceSet[] = true
+        GameBeginSound_soundInterfaceValue[] = newGameBeginSound()
+    end
+    GameBeginSound_soundInterfaceValue[]
+end
+function staticSet_soundInterface(::Type{GameBeginSound}, value)
+    GameBeginSound_soundInterfaceSet[] = true
+    GameBeginSound_soundInterfaceValue[] = value
+end
 
-    @staticmethod
-    def getInstance() -> Sound:
-        return GameBeginSound.soundInterface
+function initFieldsGameBeginSound(this::GameBeginSound)
+    nothing
+end
 
 
-def _GameBeginSound_soundInterface() -> object:
-    return GameBeginSound()
+function initGameBeginSound(this::GameBeginSound)
+        initCompositeSound(this, "resource:/wav/begin.wav")
+        nothing
+end
 
-lazy_static(GameBeginSound, "soundInterface", _GameBeginSound_soundInterface)
+function newGameBeginSound()
+    this = GameBeginSound()
+    initGameBeginSound(this)
+    this
+end
+
+
+function getInstance(::Type{GameBeginSound})
+        return staticGet_soundInterface(GameBeginSound)
+end
 

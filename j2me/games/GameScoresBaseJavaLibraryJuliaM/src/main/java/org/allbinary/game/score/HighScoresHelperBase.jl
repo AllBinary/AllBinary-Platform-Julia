@@ -1,73 +1,87 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+mutable struct HighScoresHelperBase <: JObject
+    logUtil::Any
+    highScoresArrayP::Any
+    HighScoresHelperBase() = new()
+end
 
-from org.allbinary.game.score.HighScoresHelperBaseInterface import HighScoresHelperBaseInterface
+
+function initFieldsHighScoresHelperBase(this::HighScoresHelperBase)
+    this.logUtil = nothing
+    this.highScoresArrayP = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.highScoresArrayP = AllBinary.getInstance(LastFetchHighScoresFactory).highScoresArray
+    nothing
+end
+
+function initHighScoresHelperBase(this::HighScoresHelperBase)
+    initFieldsHighScoresHelperBase(this)
+end
+
+function newHighScoresHelperBase()
+    this = HighScoresHelperBase()
+    initHighScoresHelperBase(this)
+    this
+end
 
 
-class HighScoresHelperBase(HighScoresHelperBaseInterface):
+function setHighScoresArray(this::HighScoresHelperBase, highScoresArrayP)
+        if highScoresArrayP !== nothing
+            commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), commonStrings.START), Int32(Base.length(highScoresArrayP)))), this, "setHighScoresArray")
+        else
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.putF(this.logUtil, commonStrings.START, this, "setHighScoresArray")
+        end
+        this.highScoresArrayP = highScoresArrayP
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.highScoresArrayP: list[HighScores] = LastFetchHighScoresFactory.getInstance().highScoresArray
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function getNextHighScores(this::HighScoresHelperBase)
+        return AllBinary.getInstance(NullHighScoresSingletonFactory)
+end
 
-    def setHighScoresArray(self, highScoresArrayP: list[HighScores]) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonStrings import CommonStrings
-        if highScoresArrayP is not None:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.putF(str(StringMaker().append(commonStrings.START).appendint(len(highScoresArrayP))), self, "setHighScoresArray")
-        else:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.putF(commonStrings.START, self, "setHighScoresArray")
-        self.highScoresArrayP = highScoresArrayP
-    
 
-    def getNextHighScores(self) -> HighScores:
-        from org.allbinary.game.score.NullHighScoresSingletonFactory import NullHighScoresSingletonFactory
-        return NullHighScoresSingletonFactory.getInstance()
-    
+function isAnyHighScores(this::HighScoresHelperBase)
+        throw(jNewException("RuntimeException", ""))
+end
 
-    def isAnyHighScores(self) -> bool:
-        raise RuntimeError()
-    
 
-    def setSelectedHighScores(self, selectedHighScores: HighScores) -> None:
-        pass
-    
+function setSelectedHighScores(this::HighScoresHelperBase, selectedHighScores)
+        nothing
+        nothing
+end
 
-    def getSelectedHighScores(self) -> HighScores:
-        from org.allbinary.game.score.NullHighScoresSingletonFactory import NullHighScoresSingletonFactory
-        return NullHighScoresSingletonFactory.getInstance()
-    
 
-    def getHighScoresArray(self) -> list[HighScores]:
-        return self.highScoresArrayP
-    
+function getSelectedHighScores(this::HighScoresHelperBase)
+        return AllBinary.getInstance(NullHighScoresSingletonFactory)
+end
 
-    def selectHighScores(self) -> None:
-        pass
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.game.score.LastFetchHighScoresFactory import LastFetchHighScoresFactory
 
+function getHighScoresArray(this::HighScoresHelperBase)
+        return this.highScoresArrayP
+end
+
+
+function selectHighScores(this::HighScoresHelperBase)
+        nothing
+        nothing
+end
 

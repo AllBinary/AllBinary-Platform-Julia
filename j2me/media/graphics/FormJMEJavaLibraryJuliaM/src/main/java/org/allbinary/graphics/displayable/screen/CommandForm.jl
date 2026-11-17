@@ -1,116 +1,131 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2002 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2002 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.displayable.screen
 
-from __future__ import annotations
+# extends Form: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CommandForm <: JObject
+    logUtil::Any
+    commonStrings::Any
+    repaintProcessor::Any
+    commandStack::Any
+    CommandForm() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from javax.microedition.lcdui.Form import Form
-from org.allbinary.game.displayable.canvas.MenuListener import MenuListener
-from org.allbinary.graphics.displayable.command.MyCommandInterface import MyCommandInterface
+const CommandForm_NULL_COMMAND_FORMValue = Ref{Any}(nothing)
+const CommandForm_NULL_COMMAND_FORMSet = Ref(false)
+function staticGet_NULL_COMMAND_FORM(::Type{CommandForm})
+    if !CommandForm_NULL_COMMAND_FORMSet[]
+        CommandForm_NULL_COMMAND_FORMSet[] = true
+        CommandForm_NULL_COMMAND_FORMValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    CommandForm_NULL_COMMAND_FORMValue[]
+end
+function staticSet_NULL_COMMAND_FORM(::Type{CommandForm}, value)
+    CommandForm_NULL_COMMAND_FORMSet[] = true
+    CommandForm_NULL_COMMAND_FORMValue[] = value
+end
 
-
-class CommandForm(Form, MyCommandInterface, MenuListener):
-    NULL_COMMAND_FORM: object = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.canvas.Processor import Processor
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.ABStack import ABStack
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.repaintProcessor: Processor = ScreenRepaintProcessorFactory.getInstance().create(self)
-        self.commandStack: ABStack[object] = None
+function initFieldsCommandForm(this::CommandForm)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.repaintProcessor = nothing
+    this.commandStack = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.repaintProcessor = AllBinary.create(AllBinary.getInstance(ScreenRepaintProcessorFactory), this)
     
-
-    @staticmethod
-    def getNullCommandForm() -> CommandForm:
-        from javax.microedition.lcdui.NullCommandListener import NullCommandListener
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        if CommandForm.NULL_COMMAND_FORM == NullUtil.getInstance().NULL_OBJECT:
-            CommandForm.NULL_COMMAND_FORM = CommandForm(NullCommandListener.NULL_COMMAND_LISTENER, StringUtil.getInstance().EMPTY_STRING, BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
-        return CommandForm.NULL_COMMAND_FORM
-    
-
-    def __init__(self, commandListener: CommandListener, formTitle: str, backgrounBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.logic.StdUtil import StdUtil
-        super().__init__(formTitle)
-        self._init_fields()
-        self.commandStack = StdUtil.getInstance().createStack()
-        try:
-            self.repaintProcessor.process()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.CONSTRUCTOR, e)
-    
-
-    def initCommands(self, cmdListener: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        pass
-    
-
-    def open(self) -> None:
-        self.logUtil.putF(self.commonStrings.START, self, "open")
-    
-
-    # throws Exception
-    def close(self) -> None:
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CLOSE)
-    
-
-    # throws Exception
-    def update(self) -> None:
-        self.repaintProcessor.process()
-    
-
-    def getSourceId(self) -> int:
-        return 0
-    
-
-    def addCommand(self, command: Command) -> None:
-        from javax.microedition.lcdui.Command import Command
-        self.commandStack.push(command)
-        super().addCommand(command)
-    
-
-    def removeAllCommands(self) -> None:
-        from javax.microedition.lcdui.Command import Command
-        size: int = self.commandStack.size()
-        for index in range(0, size):
-            super().removeCommand(self.commandStack.pop())
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.NullCommandListener import NullCommandListener
-# from org.allbinary.canvas.Processor import Processor
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.util.ABStack import ABStack
-from org.allbinary.graphics.displayable.screen.ScreenRepaintProcessorFactory import ScreenRepaintProcessorFactory
+    nothing
+end
 
 
-def _CommandForm_NULL_COMMAND_FORM() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getNullCommandForm(::Type{CommandForm})
+        if staticGet_NULL_COMMAND_FORM(CommandForm) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_NULL_COMMAND_FORM(CommandForm, newCommandForm(staticGet_NULL_COMMAND_LISTENER(NullCommandListener), AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(BasicColorFactory).BLACK, AllBinary.getInstance(BasicColorFactory).WHITE))
+        end
+        return (staticGet_NULL_COMMAND_FORM(CommandForm))
+end
 
-lazy_static(CommandForm, "NULL_COMMAND_FORM", _CommandForm_NULL_COMMAND_FORM)
+
+function initCommandForm(this::CommandForm, commandListener, formTitle, backgrounBasicColor, foregroundBasicColor)
+        initForm(this, formTitle)
+        initFieldsCommandForm(this)
+        this.commandStack = AllBinary.createStack(AllBinary.getInstance(StdUtil))
+        try
+            AllBinary.process(this.repaintProcessor)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.CONSTRUCTOR, e)
+        end
+        nothing
+end
+
+function newCommandForm(commandListener, formTitle, backgrounBasicColor, foregroundBasicColor)
+    this = CommandForm()
+    initCommandForm(this, commandListener, formTitle, backgrounBasicColor, foregroundBasicColor)
+    this
+end
+
+
+function initCommands(this::CommandForm, cmdListener)
+        nothing
+        nothing
+end
+
+
+function open(this::CommandForm)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, "open")
+        nothing
+end
+
+
+function close(this::CommandForm)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CLOSE)
+        nothing
+end
+
+
+function update(this::CommandForm)
+        AllBinary.process(this.repaintProcessor)
+        nothing
+end
+
+
+function getSourceId(this::CommandForm)
+        return Int32(0)
+end
+
+
+function addCommand(this::CommandForm, command)
+        AllBinary.push(this.commandStack, command)
+        AllBinary.addCommand(this, command)
+        nothing
+end
+
+
+function removeAllCommands(this::CommandForm)
+        local size::Int32 = AllBinary.size(this.commandStack)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            AllBinary.removeCommand(this, (AllBinary.pop(this.commandStack)))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

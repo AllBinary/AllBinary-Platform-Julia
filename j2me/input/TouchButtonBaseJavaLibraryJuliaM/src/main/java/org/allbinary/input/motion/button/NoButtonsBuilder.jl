@@ -1,46 +1,53 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends BaseTouchInput: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NoButtonsBuilder <: JObject
+    logUtil::Any
+    NoButtonsBuilder() = new()
+end
 
-from org.allbinary.input.motion.button.BaseTouchInput import BaseTouchInput
+
+function initFieldsNoButtonsBuilder(this::NoButtonsBuilder)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
+
+function initNoButtonsBuilder(this::NoButtonsBuilder)
+    initBaseTouchInput(this)
+    initFieldsNoButtonsBuilder(this)
+end
+
+function newNoButtonsBuilder()
+    this = NoButtonsBuilder()
+    initNoButtonsBuilder(this)
+    this
+end
 
 
-class NoButtonsBuilder(BaseTouchInput):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        try:
-            self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-            list_: BasicArrayList = BasicArrayListUtil.getInstance().getImmutableInstance()
-            return list_
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.GET_LIST, e)
-            return BasicArrayListUtil.getInstance().getImmutableInstance()
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-
+function getList(this::NoButtonsBuilder)
+        try
+            AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+            local list = AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil))
+            return list
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.GET_LIST, e)
+            return AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil))
+        end
+end
 

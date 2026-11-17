@@ -1,46 +1,63 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic.score
 
-from __future__ import annotations
+# extends Scoreable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ScoreableAddOnlyForHud <: JObject
+    scoreHudWidget::Any
+    ScoreableAddOnlyForHud() = new()
+end
 
-from org.allbinary.game.score.Scoreable import Scoreable
 
-
-class ScoreableAddOnlyForHud(Scoreable):
-
-    def _init_fields(self) -> None:
-        self.scoreHudWidget: ScoreHudWidget = None
+function initFieldsScoreableAddOnlyForHud(this::ScoreableAddOnlyForHud)
+    this.scoreHudWidget = nothing
     
+    nothing
+end
 
-    def __init__(self, scoreVectorGraphic: ScoreHudWidget) -> None:
-        super().__init__(0)
-        self._init_fields()
-        self.scoreHudWidget = scoreVectorGraphic
-        self.getScoreHudWidget().set(0)
-    
 
-    def removePoints(self, points: int) -> None:
-        pass
-    
+function initScoreableAddOnlyForHud(this::ScoreableAddOnlyForHud, scoreVectorGraphic)
+        initScoreable(this, Int32(0))
+        initFieldsScoreableAddOnlyForHud(this)
+        this.scoreHudWidget = scoreVectorGraphic
+        AllBinary.set(AllBinary.getScoreHudWidget(this), Int32(0))
+        nothing
+end
 
-    def addPoints(self, points: int) -> None:
-        super().addPoints(points)
-        self.getScoreHudWidget().add(points)
-    
+function newScoreableAddOnlyForHud(scoreVectorGraphic)
+    this = ScoreableAddOnlyForHud()
+    initScoreableAddOnlyForHud(this, scoreVectorGraphic)
+    this
+end
 
-    def getScoreHudWidget(self) -> ScoreHudWidget:
-        return self.scoreHudWidget
 
+function removePoints(this::ScoreableAddOnlyForHud, points)
+        nothing
+        nothing
+end
+
+
+function addPoints(this::ScoreableAddOnlyForHud, points)
+        AllBinary.addPoints(this, points)
+        AllBinary.add(AllBinary.getScoreHudWidget(this), points)
+        nothing
+end
+
+
+function getScoreHudWidget(this::ScoreableAddOnlyForHud)
+        return this.scoreHudWidget
+end
 

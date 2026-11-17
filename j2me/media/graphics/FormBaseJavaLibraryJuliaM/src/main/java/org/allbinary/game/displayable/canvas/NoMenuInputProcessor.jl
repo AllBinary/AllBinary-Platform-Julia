@@ -1,70 +1,75 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends BasicMenuInputProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NoMenuInputProcessor <: JObject
+    NoMenuInputProcessor() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.displayable.canvas.BasicMenuInputProcessor import BasicMenuInputProcessor
+const NoMenuInputProcessor_SINGLETONValue = Ref{Any}(nothing)
+const NoMenuInputProcessor_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{NoMenuInputProcessor})
+    if !NoMenuInputProcessor_SINGLETONSet[]
+        NoMenuInputProcessor_SINGLETONSet[] = true
+        NoMenuInputProcessor_SINGLETONValue[] = newNoMenuInputProcessor()
+    end
+    NoMenuInputProcessor_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{NoMenuInputProcessor}, value)
+    NoMenuInputProcessor_SINGLETONSet[] = true
+    NoMenuInputProcessor_SINGLETONValue[] = value
+end
 
-
-class NoMenuInputProcessor(BasicMenuInputProcessor):
-    SINGLETON: NoMenuInputProcessor = None
-    _lock = threading.RLock()
-    
-
-    @staticmethod
-    def getInstance() -> NoMenuInputProcessor:
-        return NoMenuInputProcessor.SINGLETON
-    
-
-    def __init__(self) -> None:
-        from javax.microedition.lcdui.NullCanvas import NullCanvas
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        super().__init__(BasicArrayListUtil.getInstance().getImmutableInstance(), -1, NullCanvas.NULL_CANVAS)
-    
-
-    def onDownGameKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        with self._lock:
-            return self._onDownGameKeyEvent_unlocked(gameKeyEvent)
-
-    def _onDownGameKeyEvent_unlocked(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        pass
-    
-
-    def onUpGameKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        with self._lock:
-            return self._onUpGameKeyEvent_unlocked(gameKeyEvent)
-
-    def _onUpGameKeyEvent_unlocked(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        pass
-    
-
-    def onMotionGestureEvent(self, motionGestureEvent: MotionGestureEvent) -> None:
-        from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-        pass
-# from javax.microedition.lcdui.NullCanvas import NullCanvas
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
+function initFieldsNoMenuInputProcessor(this::NoMenuInputProcessor)
+    nothing
+end
 
 
-def _NoMenuInputProcessor_SINGLETON() -> object:
-    return NoMenuInputProcessor()
+function getInstance(::Type{NoMenuInputProcessor})
+        return staticGet_SINGLETON(NoMenuInputProcessor)
+end
 
-lazy_static(NoMenuInputProcessor, "SINGLETON", _NoMenuInputProcessor_SINGLETON)
+
+function initNoMenuInputProcessor(this::NoMenuInputProcessor)
+        initBasicMenuInputProcessor(this, AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil)), -Int32(1), staticGet_NULL_CANVAS(NullCanvas))
+        nothing
+end
+
+function newNoMenuInputProcessor()
+    this = NoMenuInputProcessor()
+    initNoMenuInputProcessor(this)
+    this
+end
+
+
+function onDownGameKeyEvent(this::NoMenuInputProcessor, gameKeyEvent)
+        nothing
+        nothing
+end
+
+
+function onUpGameKeyEvent(this::NoMenuInputProcessor, gameKeyEvent)
+        nothing
+        nothing
+end
+
+
+function onMotionGestureEvent(this::NoMenuInputProcessor, motionGestureEvent)
+        nothing
+        nothing
+end
 

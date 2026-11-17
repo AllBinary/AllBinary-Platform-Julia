@@ -1,77 +1,109 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+mutable struct InputFactory <: JObject
+    logUtil::Any
+    commonStrings::Any
+    KEY_CODE_LABEL::Any
+    DEVICE_ID_LABEL::Any
+    MAX::Int32
+    inputIntegerArray::Any
+    NO_INPUT::Any
+    InputFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const InputFactory_instanceValue = Ref{Any}(nothing)
+const InputFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{InputFactory})
+    if !InputFactory_instanceSet[]
+        InputFactory_instanceSet[] = true
+        InputFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    InputFactory_instanceValue[]
+end
+function staticSet_instance(::Type{InputFactory}, value)
+    InputFactory_instanceSet[] = true
+    InputFactory_instanceValue[] = value
+end
+
+function initFieldsInputFactory(this::InputFactory)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.KEY_CODE_LABEL = nothing
+    this.DEVICE_ID_LABEL = nothing
+    this.MAX = Int32(0)
+    this.inputIntegerArray = nothing
+    this.NO_INPUT = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.KEY_CODE_LABEL = "KeyCode: "
+    this.DEVICE_ID_LABEL = "DeviceId: "
+    this.MAX = AllBinary.getMin(AllBinary.getInstance(SmallIntegerSingletonFactory))
+    this.inputIntegerArray = jNewArray(Any, this.MAX, nothing)
+    this.NO_INPUT = newInput(Int32(0), this.commonStrings.UNKNOWN)
+    nothing
+end
 
 
-class InputFactory:
-    instance: object = None
+function getInstance(::Type{InputFactory})
+        if staticGet_instance(InputFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(InputFactory, newInputFactory())
+        end
+        return (staticGet_instance(InputFactory))
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.KEY_CODE_LABEL: str = "KeyCode: "
-        self.DEVICE_ID_LABEL: str = "DeviceId: "
-        self.MAX: int = SmallIntegerSingletonFactory.getInstance().getMin()
-        self.inputIntegerArray: list[Input] = [None] * (self.MAX)
-        self.NO_INPUT: Input = Input(0, self.commonStrings.UNKNOWN)
-    
 
-    @staticmethod
-    def getInstance() -> InputFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if InputFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            InputFactory.instance = InputFactory()
-        return InputFactory.instance
-    
+function initInputFactory(this::InputFactory)
+        initFieldsInputFactory(this)
+        local size::Int32 = Int32(Base.length(this.inputIntegerArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            this.inputIntegerArray[index + 1] = this.NO_INPUT
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-        size: int = len(self.inputIntegerArray)
-        for index in range(0, size):
-            self.inputIntegerArray[index] = self.NO_INPUT
-    
+function newInputFactory()
+    this = InputFactory()
+    initInputFactory(this)
+    this
+end
 
-    def add(self, id: int, input: Input) -> None:
-        self.inputIntegerArray[id] = input
-    
 
-    def getInstanceById(self, id: int) -> Input:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        if id < 0:
+function add(this::InputFactory, id, input)
+        this.inputIntegerArray[id + 1] = input
+        nothing
+end
+
+
+function getInstanceById(this::InputFactory, id)
+        if id < Int32(0)
             id = -id
-        if id > len(self.inputIntegerArray):
-            self.logUtil.putF(str(StringMaker().append("Warning id: ").appendint(id)), self, self.commonStrings.GET_INSTANCE)
-            return self.NO_INPUT
-        return self.inputIntegerArray[id]
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.game.input.Input import Input
-
-
-def _InputFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
-
-lazy_static(InputFactory, "instance", _InputFactory_instance)
+        end
+        if id > Int32(Base.length(this.inputIntegerArray))
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), "Warning id: "), id)), this, this.commonStrings.GET_INSTANCE)
+            return this.NO_INPUT
+        end
+        return this.inputIntegerArray[id + 1]
+end
 

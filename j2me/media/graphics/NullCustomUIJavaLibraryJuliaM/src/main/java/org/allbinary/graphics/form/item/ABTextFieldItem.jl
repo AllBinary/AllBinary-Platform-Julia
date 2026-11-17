@@ -1,66 +1,75 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
+# extends ABTextItem: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ABTextFieldItem <: JObject
+    font::Any
+    ABTextFieldItem() = new()
+end
 
-from org.allbinary.graphics.form.item.ABTextItem import ABTextItem
 
-
-class ABTextFieldItem(ABTextItem):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Font import Font
-        self.font: Font = None
+function initFieldsABTextFieldItem(this::ABTextFieldItem)
+    this.font = nothing
     
+    nothing
+end
 
-    def __init__(self, canvas: Canvas, visitor: Visitor, label: str, value: str, maxSize: int, layout: int, altText: str, font: Font, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from javax.microedition.lcdui.Font import Font
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.logic.util.visitor.Visitor import Visitor
-        super().__init__(label, layout, altText, backgroundBasicColor, foregroundBasicColor)
-        self._init_fields()
-        self.font = font
-    
 
-    def getLabel(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
+function initABTextFieldItem(this::ABTextFieldItem, canvas, visitor, label, value, maxSize, layout, altText, font, backgroundBasicColor, foregroundBasicColor)
+        initABTextItem(this, label, layout, altText, backgroundBasicColor, foregroundBasicColor)
+        initFieldsABTextFieldItem(this)
+        this.font = font
+        nothing
+end
 
-    def setLabel(self, label: str) -> None:
-        pass
-    
+function newABTextFieldItem(canvas, visitor, label, value, maxSize, layout, altText, font, backgroundBasicColor, foregroundBasicColor)
+    this = ABTextFieldItem()
+    initABTextFieldItem(this, canvas, visitor, label, value, maxSize, layout, altText, font, backgroundBasicColor, foregroundBasicColor)
+    this
+end
 
-    def getString(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
 
-    def setString(self, string: str) -> None:
-        pass
-    
+function getLabel(this::ABTextFieldItem)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
 
-    def setFocus(self, state: bool) -> None:
-        pass
-    
 
-    def getFontHeight(self) -> int:
-        return self.font.getHeight()
-    
+function setLabel(this::ABTextFieldItem, label)
+        nothing
+        nothing
+end
 
-    def setBackgroundBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        pass
-    
 
-    def setForegroundBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        pass
-# from javax.microedition.lcdui.Canvas import Canvas
-# from javax.microedition.lcdui.Font import Font
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.util.visitor.Visitor import Visitor
+function getString(this::ABTextFieldItem)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
 
+
+function setString(this::ABTextFieldItem, string)
+        nothing
+        nothing
+end
+
+
+function setFocus(this::ABTextFieldItem, state)
+        nothing
+        nothing
+end
+
+
+function getFontHeight(this::ABTextFieldItem)
+        return AllBinary.getHeight(this.font)
+end
+
+
+function setBackgroundBasicColorP(this::ABTextFieldItem, basicColor)
+        nothing
+        nothing
+end
+
+
+function setForegroundBasicColorP(this::ABTextFieldItem, basicColor)
+        nothing
+        nothing
+end
 

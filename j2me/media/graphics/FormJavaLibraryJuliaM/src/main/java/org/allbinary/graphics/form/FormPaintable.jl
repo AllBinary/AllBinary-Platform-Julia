@@ -1,42 +1,55 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct FormPaintable <: JObject
+    form::Any
+    FormPaintable() = new()
+end
 
-from org.allbinary.graphics.paint.Paintable import Paintable
 
-
-class FormPaintable(Paintable):
-
-    def _init_fields(self) -> None:
-        self.form: PaintableForm = None
+function initFieldsFormPaintable(this::FormPaintable)
+    this.form = nothing
     
+    nothing
+end
 
-    def __init__(self, form: PaintableForm) -> None:
-        super().__init__()
-        self._init_fields()
-        self.form = form
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.form.paint(graphics)
-    
+function initFormPaintable(this::FormPaintable, form)
+        initPaintable(this)
+        initFieldsFormPaintable(this)
+        this.form = form
+        nothing
+end
 
-    def getForm(self) -> PaintableForm:
-        return self.form
-# from javax.microedition.lcdui.Graphics import Graphics
+function newFormPaintable(form)
+    this = FormPaintable()
+    initFormPaintable(this, form)
+    this
+end
 
+
+function paint(this::FormPaintable, graphics)
+        AllBinary.paint(this.form, graphics)
+        nothing
+end
+
+
+function getForm(this::FormPaintable)
+        return this.form
+end
 

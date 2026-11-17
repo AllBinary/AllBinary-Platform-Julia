@@ -1,90 +1,103 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai.sequence
 
-from __future__ import annotations
+# extends ArrayAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SequenceAI <: JObject
+    index::Int32
+    SequenceAI() = new()
+end
 
-from org.allbinary.game.ag.ai.ArrayAI import ArrayAI
+const SequenceAI_SEQUENCE_AIValue = Ref{Any}(nothing)
+const SequenceAI_SEQUENCE_AISet = Ref(false)
+function staticGet_SEQUENCE_AI(::Type{SequenceAI})
+    if !SequenceAI_SEQUENCE_AISet[]
+        SequenceAI_SEQUENCE_AISet[] = true
+        SequenceAI_SEQUENCE_AIValue[] = "Sequence AI"
+    end
+    SequenceAI_SEQUENCE_AIValue[]
+end
+function staticSet_SEQUENCE_AI(::Type{SequenceAI}, value)
+    SequenceAI_SEQUENCE_AISet[] = true
+    SequenceAI_SEQUENCE_AIValue[] = value
+end
+
+function initFieldsSequenceAI(this::SequenceAI)
+    this.index = Int32(0)
+    this.index = Int32(0)
+    nothing
+end
 
 
-class SequenceAI(ArrayAI):
-    SEQUENCE_AI: str = "Sequence AI"
+function initSequenceAI(this::SequenceAI, artificialIntelligenceInterfaceArray, ownerLayerInterface, gameInput)
+        initArrayAI(this, artificialIntelligenceInterfaceArray, ownerLayerInterface, gameInput)
+        initFieldsSequenceAI(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.index: int = 0
-    
+function newSequenceAI(artificialIntelligenceInterfaceArray, ownerLayerInterface, gameInput)
+    this = SequenceAI()
+    initSequenceAI(this, artificialIntelligenceInterfaceArray, ownerLayerInterface, gameInput)
+    this
+end
 
-    def __init__(self, artificialIntelligenceInterfaceArray: list[ArtificialIntelligenceInterface], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(artificialIntelligenceInterfaceArray, ownerLayerInterface, gameInput)
-        self._init_fields()
-    
 
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        self.getArtificialIntelligenceInterface()[self.index].processAI(allBinaryLayerManager)
-    
+function processAI(this::SequenceAI, allBinaryLayerManager)
+        AllBinary.processAI(AllBinary.getArtificialIntelligenceInterface(this)[this.index + 1], allBinaryLayerManager)
+        nothing
+end
 
-    def next(self) -> None:
-        from org.allbinary.ai.ArtificialIntelligence import ArtificialIntelligence
-        from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-        from org.allbinary.ai.ArtificialIntelligenceTransitionInterface import ArtificialIntelligenceTransitionInterface
-        self.index += 1
-        artificialIntelligenceInterface: ArtificialIntelligenceInterface = self.getSelectedArtificialIntelligenceInterface()
-        if artificialIntelligenceInterface.getId() == ArtificialIntelligence.AI_ID:
-            artificialIntelligenceTransitionInterface: ArtificialIntelligenceTransitionInterface = artificialIntelligenceInterface
-            artificialIntelligenceTransitionInterface.transition()
-    
 
-    def getIndex(self) -> int:
-        return self.index
-    
+function next(this::SequenceAI)
+        this.index += Int32(1)
+        local artificialIntelligenceInterface = AllBinary.getSelectedArtificialIntelligenceInterface(this)
+        if AllBinary.getId(artificialIntelligenceInterface) == staticGet_AI_ID(ArtificialIntelligence)
+            local artificialIntelligenceTransitionInterface = (artificialIntelligenceInterface)
+            AllBinary.transition(artificialIntelligenceTransitionInterface)
+        end
+        nothing
+end
 
-    def setIndex(self, index: int) -> None:
-        self.index = index
-    
 
-    def getSelectedArtificialIntelligenceInterface(self) -> ArtificialIntelligenceInterface:
-        from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-        return self.getArtificialIntelligenceInterface()[self.index]
-    
+function getIndex(this::SequenceAI)
+        return this.index
+end
 
-    def getName(self) -> str:
-        return SequenceAI.SEQUENCE_AI
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(str(super()))
-        stringBuffer.append(" Selected AI: ")
-        stringBuffer.append(StringUtil.getInstance().toString(self.getSelectedArtificialIntelligenceInterface()))
-        return str(stringBuffer)
+function setIndex(this::SequenceAI, index)
+        this.index = index
+        nothing
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.ai.ArtificialIntelligence import ArtificialIntelligence
-# from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-# from org.allbinary.ai.ArtificialIntelligenceTransitionInterface import ArtificialIntelligenceTransitionInterface
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function getSelectedArtificialIntelligenceInterface(this::SequenceAI)
+        return AllBinary.getArtificialIntelligenceInterface(this)[this.index + 1]
+end
+
+
+function getName(this::SequenceAI)
+        return staticGet_SEQUENCE_AI(SequenceAI)
+end
+
+
+function toString(this::SequenceAI)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, AllBinary.toString(this))
+        AllBinary.append(stringBuffer, " Selected AI: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(AllBinary.getInstance(StringUtil), AllBinary.getSelectedArtificialIntelligenceInterface(this)))
+        return AllBinary.toString(stringBuffer)
+end
 

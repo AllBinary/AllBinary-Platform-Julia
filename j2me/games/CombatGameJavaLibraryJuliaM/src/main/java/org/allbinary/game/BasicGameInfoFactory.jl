@@ -1,48 +1,74 @@
 # Generated Code Do Not Modify
 # package org.allbinary.game
 
-from __future__ import annotations
+mutable struct BasicGameInfoFactory <: JObject
+    currentReleaseIndex::Int32
+    currentDestroyIndex::Int32
+    total::Int32
+    BasicGameInfoFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BasicGameInfoFactory_SINGLETONValue = Ref{Any}(nothing)
+const BasicGameInfoFactory_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{BasicGameInfoFactory})
+    if !BasicGameInfoFactory_SINGLETONSet[]
+        BasicGameInfoFactory_SINGLETONSet[] = true
+        BasicGameInfoFactory_SINGLETONValue[] = newBasicGameInfoFactory()
+    end
+    BasicGameInfoFactory_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{BasicGameInfoFactory}, value)
+    BasicGameInfoFactory_SINGLETONSet[] = true
+    BasicGameInfoFactory_SINGLETONValue[] = value
+end
 
-
-class BasicGameInfoFactory:
-    SINGLETON: BasicGameInfoFactory = None
-
-    def _init_fields(self) -> None:
-        self.currentReleaseIndex: int = 0
-        self.currentDestroyIndex: int = 0
-        self.total: int = 0
-    
-
-    @staticmethod
-    def getInstance() -> BasicGameInfoFactory:
-        return BasicGameInfoFactory.SINGLETON
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def init(self, total: int) -> None:
-        self.currentReleaseIndex = 0
-        self.currentDestroyIndex = 0
-        self.total = total
-    
-
-    def isPeaked(self) -> bool:
-        if self.currentDestroyIndex >= self.total:
-            return True
-        else:
-            return False
-    
-
-    def howManyLeft(self) -> int:
-        return self.total - self.currentDestroyIndex
+function initFieldsBasicGameInfoFactory(this::BasicGameInfoFactory)
+    this.currentReleaseIndex = Int32(0)
+    this.currentDestroyIndex = Int32(0)
+    this.total = Int32(0)
+    this.currentReleaseIndex = Int32(0)
+    this.currentDestroyIndex = Int32(0)
+    this.total = Int32(0)
+    nothing
+end
 
 
-def _BasicGameInfoFactory_SINGLETON() -> object:
-    return BasicGameInfoFactory()
+function getInstance(::Type{BasicGameInfoFactory})
+        return staticGet_SINGLETON(BasicGameInfoFactory)
+end
 
-lazy_static(BasicGameInfoFactory, "SINGLETON", _BasicGameInfoFactory_SINGLETON)
+
+function initBasicGameInfoFactory(this::BasicGameInfoFactory)
+        initFieldsBasicGameInfoFactory(this)
+        nothing
+        nothing
+end
+
+function newBasicGameInfoFactory()
+    this = BasicGameInfoFactory()
+    initBasicGameInfoFactory(this)
+    this
+end
+
+
+function init(this::BasicGameInfoFactory, total)
+        this.currentReleaseIndex = Int32(0)
+        this.currentDestroyIndex = Int32(0)
+        this.total = total
+        nothing
+end
+
+
+function isPeaked(this::BasicGameInfoFactory)
+        if this.currentDestroyIndex >= this.total
+            return true
+        else
+            return false
+        end
+end
+
+
+function howManyLeft(this::BasicGameInfoFactory)
+        return this.total - this.currentDestroyIndex
+end
 

@@ -1,46 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration
 
-from __future__ import annotations
+mutable struct GameSpeed <: JObject
+    GameSpeed() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameSpeed_instanceValue = Ref{Any}(nothing)
+const GameSpeed_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameSpeed})
+    if !GameSpeed_instanceSet[]
+        GameSpeed_instanceSet[] = true
+        GameSpeed_instanceValue[] = newGameSpeed()
+    end
+    GameSpeed_instanceValue[]
+end
+function staticSet_instance(::Type{GameSpeed}, value)
+    GameSpeed_instanceSet[] = true
+    GameSpeed_instanceValue[] = value
+end
+
+function initFieldsGameSpeed(this::GameSpeed)
+    nothing
+end
+
+function initGameSpeed(this::GameSpeed)
+    initFieldsGameSpeed(this)
+end
+
+function newGameSpeed()
+    this = GameSpeed()
+    initGameSpeed(this)
+    this
+end
 
 
-class GameSpeed:
-    instance: GameSpeed = None
-    
-
-    def getSpeed(self) -> int:
-        from org.allbinary.game.configuration.GameConfigurationCentral import GameConfigurationCentral
-        speedGameConfiguration: GameConfiguration = GameConfigurationCentral.getInstance().SPEED
-        return (int(speedGameConfiguration.getMaxValue()) - int(speedGameConfiguration.getValue()) + 1)
-    
-
-    def getDelay(self) -> int:
-        from org.allbinary.game.configuration.GameConfigurationCentral import GameConfigurationCentral
-        speedGameConfiguration: GameConfiguration = GameConfigurationCentral.getInstance().SPEED
-        return 19 * (int(speedGameConfiguration.getMaxValue()) - int(speedGameConfiguration.getValue()))
-    
-
-    @staticmethod
-    def getInstance() -> GameSpeed:
-        return GameSpeed.instance
+function getSpeed(this::GameSpeed)
+        local speedGameConfiguration = AllBinary.getInstance(GameConfigurationCentral).SPEED
+        return (AllBinary.intValue(AllBinary.getMaxValue(speedGameConfiguration)) - AllBinary.intValue(AllBinary.getValue(speedGameConfiguration)) + Int32(1))
+end
 
 
-def _GameSpeed_instance() -> object:
-    return GameSpeed()
+function getDelay(this::GameSpeed)
+        local speedGameConfiguration = AllBinary.getInstance(GameConfigurationCentral).SPEED
+        return Int32(19) * (AllBinary.intValue(AllBinary.getMaxValue(speedGameConfiguration)) - AllBinary.intValue(AllBinary.getValue(speedGameConfiguration)))
+end
 
-lazy_static(GameSpeed, "instance", _GameSpeed_instance)
+
+function getInstance(::Type{GameSpeed})
+        return staticGet_instance(GameSpeed)
+end
 

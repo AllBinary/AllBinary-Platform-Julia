@@ -1,32 +1,44 @@
 # Generated Code Do Not Modify
 # package org.allbinary.animation.vector
 
-from __future__ import annotations
+# extends RectangleFilledAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ARectangleFilledAnimation <: JObject
+    x::Int32
+    y::Int32
+    ARectangleFilledAnimation() = new()
+end
 
-from org.allbinary.animation.vector.RectangleFilledAnimation import RectangleFilledAnimation
+
+function initFieldsARectangleFilledAnimation(this::ARectangleFilledAnimation)
+    this.x = Int32(0)
+    this.y = Int32(0)
+    this.x = Int32(0)
+    this.y = Int32(0)
+    nothing
+end
 
 
-class ARectangleFilledAnimation(RectangleFilledAnimation):
+function initARectangleFilledAnimation(this::ARectangleFilledAnimation)
+        initRectangleFilledAnimation(this, Int32(0), Int32(0), AllBinary.getInstance(BasicColorFactory).BLACK)
+        initFieldsARectangleFilledAnimation(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.x: int = 0
-        self.y: int = 0
-    
+function newARectangleFilledAnimation()
+    this = ARectangleFilledAnimation()
+    initARectangleFilledAnimation(this)
+    this
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        super().__init__(0, 0, BasicColorFactory.getInstance().BLACK)
-        self._init_fields()
-    
 
-    def nextFrame(self) -> None:
-        pass
-    
+function nextFrame(this::ARectangleFilledAnimation)
+        nothing
+        nothing
+end
 
-    def paintXY(self, graphics: Graphics, unusedX: int, unusedY: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        super().paintXY(graphics, self.x, self.y)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
 
+function paintXY(this::ARectangleFilledAnimation, graphics, unusedX, unusedY)
+        AllBinary.paintXY(this, graphics, this.x, this.y)
+        nothing
+end
 

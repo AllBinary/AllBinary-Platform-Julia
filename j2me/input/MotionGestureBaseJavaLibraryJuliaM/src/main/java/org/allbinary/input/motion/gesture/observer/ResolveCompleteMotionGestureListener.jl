@@ -1,65 +1,67 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gesture.observer
 
-from __future__ import annotations
+mutable struct ResolveCompleteMotionGestureListener <: JObject
+    logUtil::Any
+    ResolveCompleteMotionGestureListener() = new()
+end
 
-from org.allbinary.input.motion.gesture.observer.CompleteMotionGestureListenerInterface import CompleteMotionGestureListenerInterface
+
+function initFieldsResolveCompleteMotionGestureListener(this::ResolveCompleteMotionGestureListener)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
 
 
-class ResolveCompleteMotionGestureListener(CompleteMotionGestureListenerInterface):
+function initResolveCompleteMotionGestureListener(this::ResolveCompleteMotionGestureListener)
+        initFieldsResolveCompleteMotionGestureListener(this)
+        local commonStrings = AllBinary.getInstance(CommonStrings)
+        AllBinary.putF(this.logUtil, "MotionGesture to CompleteMotionGesture Reciever", this, commonStrings.CONSTRUCTOR)
+        AllBinary.addListener(AllBinary.getInstance(CompleteMotionGestureInputEventHandler), newGameKeyFromMotionGestureEventListener())
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-    
+function newResolveCompleteMotionGestureListener()
+    this = ResolveCompleteMotionGestureListener()
+    initResolveCompleteMotionGestureListener(this)
+    this
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.game.input.CompleteMotionGestureInputEventHandler import CompleteMotionGestureInputEventHandler
-        from org.allbinary.game.input.motion.action.GameKeyFromMotionGestureEventListener import GameKeyFromMotionGestureEventListener
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self._init_fields()
-        commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.logUtil.putF("MotionGesture to CompleteMotionGesture Reciever", self, commonStrings.CONSTRUCTOR)
-        CompleteMotionGestureInputEventHandler.getInstance().addListener(GameKeyFromMotionGestureEventListener())
-    
 
-    # throws Exception
-    def onMotionGestureCompleted(self, list_: BasicArrayList) -> None:
-        from org.allbinary.game.input.CompleteMotionGestureInputEventHandler import CompleteMotionGestureInputEventHandler
-        from org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent import GameKeyCompleteMotionGestureInputEvent
-        from org.allbinary.input.motion.gesture.MotionGestureToMotionGestureActionAssociation import MotionGestureToMotionGestureActionAssociation
-        from org.allbinary.input.motion.gesture.configuration.MotionGestureConfiguration import MotionGestureConfiguration
-        from org.allbinary.input.motion.gesture.configuration.MotionGestureConfigurationFactory import MotionGestureConfigurationFactory
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        configuration: MotionGestureConfiguration = MotionGestureConfigurationFactory.getInstance()
-        commandActionsList: BasicArrayList = configuration.getAssociateCommandActionsList()
-        size: int = commandActionsList.size()
-        for index in range(size - 1, 0 - 1, -1):
-            association: MotionGestureToMotionGestureActionAssociation = commandActionsList.objectArray[index]
-            if association.isMotionGestureArrayEquals(list_) == True:
-                completeMotionGestureInputEvent: GameKeyCompleteMotionGestureInputEvent = association.getCommandAction()
-                CompleteMotionGestureInputEventHandler.getInstance().fireEvent(completeMotionGestureInputEvent)
+function onMotionGestureCompleted(this::ResolveCompleteMotionGestureListener, list)
+        local configuration = AllBinary.getInstance(MotionGestureConfigurationFactory)
+        local commandActionsList = AllBinary.getAssociateCommandActionsList(configuration)
+        local size::Int32 = AllBinary.size(commandActionsList)
+        let
+            local index::Int32 = size - Int32(1)
+            while index >= Int32(0)
+            try
+            local association = (commandActionsList.objectArray[index + 1])
+            if AllBinary.isMotionGestureArrayEquals(association, list) == true
+                local completeMotionGestureInputEvent = (AllBinary.getCommandAction(association))
+                AllBinary.fireEvent(AllBinary.getInstance(CompleteMotionGestureInputEventHandler), completeMotionGestureInputEvent)
                 break
-# from org.allbinary.game.input.CompleteMotionGestureInputEventHandler import CompleteMotionGestureInputEventHandler
-# from org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent import GameKeyCompleteMotionGestureInputEvent
-# from org.allbinary.game.input.motion.action.GameKeyFromMotionGestureEventListener import GameKeyFromMotionGestureEventListener
-# from org.allbinary.input.motion.gesture.MotionGestureToMotionGestureActionAssociation import MotionGestureToMotionGestureActionAssociation
-# from org.allbinary.input.motion.gesture.configuration.MotionGestureConfiguration import MotionGestureConfiguration
-# from org.allbinary.input.motion.gesture.configuration.MotionGestureConfigurationFactory import MotionGestureConfigurationFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

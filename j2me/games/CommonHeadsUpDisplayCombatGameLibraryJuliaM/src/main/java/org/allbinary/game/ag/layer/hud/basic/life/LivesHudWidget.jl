@@ -1,87 +1,112 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic.life
 
-from __future__ import annotations
+# extends BasicHud: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LivesHudWidget <: JObject
+    lifeInterface::Any
+    xArray::Any
+    animationInterface::Any
+    LivesHudWidget() = new()
+end
 
-from org.allbinary.game.graphics.hud.BasicHud import BasicHud
-from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
 
-
-class LivesHudWidget(BasicHud, PaintableInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.ag.life.Life import Life
-        self.lifeInterface: Life = None
-        self.xArray: list[int] = None
-        self.animationInterface: Animation = None
+function initFieldsLivesHudWidget(this::LivesHudWidget)
+    this.lifeInterface = nothing
+    this.xArray = nothing
+    this.animationInterface = nothing
     
-
-    def __init__(self, animationInterface: Animation, lifeInterface: Life, location: int, direction: int) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.ag.life.Life import Life
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        super().__init__(location, direction, 2, BasicColorFactory.getInstance().WHITE)
-        self._init_fields()
-        self.lifeInterface = lifeInterface
-        size: int = int(self.getLifeInterface().getMaxlives())
-        self.xArray = [0] * (size)
-        self.animationInterface = animationInterface
-        self.updateMaxWidth = self.lifeInterface.getMaxlives() * 16
-        self.updateMaxHeight = 16
     
-
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        super().updateMeasurement(graphics)
-        maxLives: int = int(self.getLifeInterface().getMaxlives())
-        for index in range(0, maxLives):
-            self.xArray[index] = self.getX() + (index * 16)
     
+    nothing
+end
 
-    def onDisplayChangeEvent(self, displayChangeEvent: DisplayChangeEvent) -> None:
-        from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
-        super().onDisplayChangeEvent(displayChangeEvent)
-        self.myFontProcessor = self.updateMyFontProcessor
-    
 
-    def setX(self, x: int) -> None:
-        super().setX(x)
-        self.myFontProcessor = self.updateMyFontProcessor
-    
+function initLivesHudWidget(this::LivesHudWidget, animationInterface, lifeInterface, location, direction)
+        initBasicHud(this, location, direction, Int32(2), AllBinary.getInstance(BasicColorFactory).WHITE)
+        initFieldsLivesHudWidget(this)
+        this.lifeInterface = lifeInterface
+        local size::Int32 = ((AllBinary.getMaxlives(AllBinary.getLifeInterface(this))) % Int32)
+        this.xArray = jNewArray(Int32, size, Int32(0))
+        this.animationInterface = animationInterface
+        this.updateMaxWidth = AllBinary.getMaxlives(this.lifeInterface) * Int32(16)
+        this.updateMaxHeight = Int32(16)
+        nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        index = int(self.getLifeInterface().get())
-        while (index := index - 1) >= 0:
-            self.animationInterface.paintXY(graphics, self.xArray[index], self.getY())
-    
+function newLivesHudWidget(animationInterface, lifeInterface, location, direction)
+    this = LivesHudWidget()
+    initLivesHudWidget(this, animationInterface, lifeInterface, location, direction)
+    this
+end
 
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
 
-    def getLifeInterface(self) -> Life:
-        from org.allbinary.game.ag.life.Life import Life
-        return self.lifeInterface
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.game.ag.life.Life import Life
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
+function updateMeasurement(this::LivesHudWidget, graphics)
+        AllBinary.updateMeasurement(this, graphics)
+        local maxLives::Int32 = ((AllBinary.getMaxlives(AllBinary.getLifeInterface(this))) % Int32)
+        let
+            local index::Int32 = Int32(0)
+            while index < maxLives
+            try
+            this.xArray[index + 1] = AllBinary.getX(this) + (index * Int32(16))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
+
+function onDisplayChangeEvent(this::LivesHudWidget, displayChangeEvent)
+        AllBinary.onDisplayChangeEvent(this, displayChangeEvent)
+        this.myFontProcessor = this.updateMyFontProcessor
+        nothing
+end
+
+
+function setX(this::LivesHudWidget, x)
+        AllBinary.setX(this, x)
+        this.myFontProcessor = this.updateMyFontProcessor
+        nothing
+end
+
+
+function paint(this::LivesHudWidget, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        let
+            local index::Int32 = ((AllBinary.get(AllBinary.getLifeInterface(this))) % Int32)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.paintXY(this.animationInterface, graphics, this.xArray[index + 1], AllBinary.getY(this))
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function paintThreed(this::LivesHudWidget, graphics)
+        nothing
+        nothing
+end
+
+
+function getLifeInterface(this::LivesHudWidget)
+        return this.lifeInterface
+end
 

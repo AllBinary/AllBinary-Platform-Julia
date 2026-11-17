@@ -1,57 +1,65 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends ItemPaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LockablePaintable <: JObject
+    animation::Any
+    lockedIndex::Int32
+    LockablePaintable() = new()
+end
 
-from org.allbinary.graphics.form.ItemPaintable import ItemPaintable
 
-
-class LockablePaintable(ItemPaintable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.logic.system.security.licensing.LockedResources import LockedResources
-        self.animation: Animation = FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(LockedResources.getInstance().LOCKED_DEMO_GAME_FEATURE_RESOURCE).getInstance(0)
-        self.lockedIndex: int = None
+function initFieldsLockablePaintable(this::LockablePaintable)
+    this.animation = nothing
+    this.lockedIndex = Int32(0)
+    this.animation = AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), AllBinary.getInstance(LockedResources).LOCKED_DEMO_GAME_FEATURE_RESOURCE), Int32(0))
     
+    nothing
+end
 
-    def __init__(self, lockedIndex: int) -> None:
-        super().__init__()
-        self._init_fields()
-        self.lockedIndex = lockedIndex
-    
 
-    def paint(self, graphics: Graphics, currentIndex: int, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.logic.system.security.licensing.LockedUtil import LockedUtil
-        if LockedUtil.getInstance().isLocked() and currentIndex >= self.getLockedIndex():
-            self.getAnimation().paintXY(graphics, x, y)
-    
+function initLockablePaintable(this::LockablePaintable, lockedIndex)
+        initItemPaintable(this)
+        initFieldsLockablePaintable(this)
+        this.lockedIndex = lockedIndex
+        nothing
+end
 
-    def getLockedIndex(self) -> int:
-        return self.lockedIndex
-    
+function newLockablePaintable(lockedIndex)
+    this = LockablePaintable()
+    initLockablePaintable(this, lockedIndex)
+    this
+end
 
-    def getAnimation(self) -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        return self.animation
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-# from org.allbinary.logic.system.security.licensing.LockedResources import LockedResources
-# from org.allbinary.logic.system.security.licensing.LockedUtil import LockedUtil
 
+function paint(this::LockablePaintable, graphics, currentIndex, x, y)
+        if AllBinary.isLocked(AllBinary.getInstance(LockedUtil)) && currentIndex >= AllBinary.getLockedIndex(this)
+            AllBinary.paintXY(AllBinary.getAnimation(this), graphics, x, y)
+        end
+        nothing
+end
+
+
+function getLockedIndex(this::LockablePaintable)
+        return this.lockedIndex
+end
+
+
+function getAnimation(this::LockablePaintable)
+        return this.animation
+end
 

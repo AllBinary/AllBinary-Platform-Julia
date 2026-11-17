@@ -1,47 +1,59 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+mutable struct HighScoresBase <: JObject
+    commonStrings::Any
+    HighScoresBase() = new()
+end
 
-from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
+
+function initFieldsHighScoresBase(this::HighScoresBase)
+    this.commonStrings = nothing
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    nothing
+end
 
 
-class HighScoresBase(HighScoresFactoryInterface):
+function initHighScoresBase(this::HighScoresBase)
+        initFieldsHighScoresBase(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-    
+function newHighScoresBase()
+    this = HighScoresBase()
+    initHighScoresBase(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def fetchHighScores(self, gameInfo: GameInfo, highScoresResultsListener: HighScoresResultsListener) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        raise RuntimeError()
-    
+function fetchHighScores(this::HighScoresBase, gameInfo, highScoresResultsListener)
+        throw(jNewException("RuntimeException", ""))
+        nothing
+end
 
-    def fetchHighScoresPreload(self, gameInfo: GameInfo, highScoresResultsListener: HighScoresResultsListener, preload: bool) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        raise RuntimeError()
-    
 
-    def createHighScoresHelper(self) -> HighScoresHelperBaseInterface:
-        raise RuntimeError()
-# from org.allbinary.game.GameInfo import GameInfo
-# from org.allbinary.string.CommonStrings import CommonStrings
+function fetchHighScoresPreload(this::HighScoresBase, gameInfo, highScoresResultsListener, preload)
+        throw(jNewException("RuntimeException", ""))
+        nothing
+end
 
+
+function createHighScoresHelper(this::HighScoresBase)
+        throw(jNewException("RuntimeException", ""))
+end
 

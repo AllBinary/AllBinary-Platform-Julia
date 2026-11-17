@@ -1,100 +1,127 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends Animation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct IndexedAnimation <: JObject
+    logUtil::Any
+    commonStrings::Any
+    animationBehaviorP::Any
+    IndexedAnimation() = new()
+end
 
-from org.allbinary.animation.Animation import Animation
-from org.allbinary.animation.IndexedAnimationInterface import IndexedAnimationInterface
 
-
-class IndexedAnimation(Animation, IndexedAnimationInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.animationBehaviorP: AnimationBehavior = None
+function initFieldsIndexedAnimation(this::IndexedAnimation)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.animationBehaviorP = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
+    nothing
+end
 
-    def __init__(self, animationBehavior: AnimationBehavior) -> None:
-        super().__init__()
-        self._init_fields()
-        self.animationBehaviorP = animationBehavior
-    
 
-    def getAnimationBehavior(self) -> AnimationBehavior:
-        return self.animationBehaviorP
-    
+function initIndexedAnimation(this::IndexedAnimation, animationBehavior)
+        initAnimation(this)
+        initFieldsIndexedAnimation(this)
+        this.animationBehaviorP = animationBehavior
+        nothing
+end
 
-    def reset(self) -> None:
-        self.animationBehaviorP.reset()
-        self.setFrame(0)
-    
+function newIndexedAnimation(animationBehavior)
+    this = IndexedAnimation()
+    initIndexedAnimation(this, animationBehavior)
+    this
+end
 
-    def setFrame(self, index: int) -> None:
-        pass
-    
 
-    def getFrame(self) -> int:
-        return 0
-    
+function getAnimationBehavior(this::IndexedAnimation)
+        return this.animationBehaviorP
+end
 
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        raise Exception(self.commonStrings.NOT_IMPLEMENTED)
-    
 
-    def getSize(self) -> int:
-        return 0
-    
+function reset(this::IndexedAnimation)
+        AllBinary.reset(this.animationBehaviorP)
+        AllBinary.setFrame(this, Int32(0))
+        nothing
+end
 
-    def previousFrame(self) -> None:
-        pass
-    
 
-    def isLastFrame(self) -> bool:
-        if self.getFrame() == self.getSize() - 1:
-            return True
-        else:
-            return False
-    
+function setFrame(this::IndexedAnimation, index)
+        nothing
+        nothing
+end
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
+function getFrame(this::IndexedAnimation)
+        return Int32(0)
+end
 
-    def setState(self, indexedAnimation: IndexedAnimation) -> None:
-        self.setFrame(indexedAnimation.getFrame())
-        self.setDx(indexedAnimation.getDx())
-        self.setDy(indexedAnimation.getDy())
-    
 
-    def getWidth(self) -> int:
-        return 0
-    
+function getAnimationSize(this::IndexedAnimation)
+        throw(jNewException("Exception", this.commonStrings.NOT_IMPLEMENTED))
+end
 
-    def getHeight(self) -> int:
-        return 0
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
 
+function getSize(this::IndexedAnimation)
+        return Int32(0)
+end
+
+
+function previousFrame(this::IndexedAnimation)
+        nothing
+        nothing
+end
+
+
+function isLastFrame(this::IndexedAnimation)
+        if AllBinary.getFrame(this) == AllBinary.getSize(this) - Int32(1)
+            return true
+        else
+            return false
+        end
+end
+
+
+function setSequence(this::IndexedAnimation, sequence)
+        nothing
+        nothing
+end
+
+
+function getSequence(this::IndexedAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
+
+
+function setState(this::IndexedAnimation, indexedAnimation)
+        AllBinary.setFrame(this, AllBinary.getFrame(indexedAnimation))
+        AllBinary.setDx(this, AllBinary.getDx(indexedAnimation))
+        AllBinary.setDy(this, AllBinary.getDy(indexedAnimation))
+        nothing
+end
+
+
+function getWidth(this::IndexedAnimation)
+        return Int32(0)
+end
+
+
+function getHeight(this::IndexedAnimation)
+        return Int32(0)
+end
 

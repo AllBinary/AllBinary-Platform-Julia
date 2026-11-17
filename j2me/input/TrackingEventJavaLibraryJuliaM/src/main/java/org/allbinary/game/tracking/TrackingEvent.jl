@@ -1,69 +1,78 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.tracking
 
-from __future__ import annotations
+# extends AllBinaryEventObject: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TrackingEvent <: JObject
+    layerInterface::Any
+    TrackingEvent() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
+
+function initFieldsTrackingEvent(this::TrackingEvent)
+    this.layerInterface = nothing
+    this.layerInterface = staticGet_NULL_ALLBINARY_LAYER(AllBinaryLayer)
+    nothing
+end
 
 
-class TrackingEvent(AllBinaryEventObject):
+function initTrackingEvent(this::TrackingEvent, allBinaryLayerInterface)
+        initAllBinaryEventObject(this, allBinaryLayerInterface)
+        initFieldsTrackingEvent(this)
+        if allBinaryLayerInterface !== AllBinary.getInstance(TrackingEventHandler)
+            AllBinary.setLayerInterface(this, (allBinaryLayerInterface))
+        end
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.layerInterface: AllBinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
-    
+function newTrackingEvent(allBinaryLayerInterface)
+    this = TrackingEvent()
+    initTrackingEvent(this, allBinaryLayerInterface)
+    this
+end
 
-    def __init__(self, allBinaryLayerInterface: object) -> None:
-        from org.allbinary.game.tracking.TrackingEventHandler import TrackingEventHandler
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(allBinaryLayerInterface)
-        self._init_fields()
-        if allBinaryLayerInterface != TrackingEventHandler.getInstance():
-            self.setLayerInterface(allBinaryLayerInterface)
-    
 
-    def init(self, anyType: object) -> None:
-        self.setSource(anyType)
-    
+function init(this::TrackingEvent, anyType)
+        AllBinary.setSource(this, anyType)
+        nothing
+end
 
-    def getLayerInterface(self) -> AllBinaryLayer:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return self.layerInterface
-    
 
-    def setLayerInterface(self, layerInterface: AllBinaryLayer) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.layerInterface = layerInterface
-    
+function getLayerInterface(this::TrackingEvent)
+        return this.layerInterface
+end
 
-    def setLayerInterfaceForCircularStaticPool(self, layerInterface: AllBinaryLayer) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.layerInterface = layerInterface
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append("TrackingEvent: \n")
-        stringBuffer.append("LayerInterface: ")
-        stringBuffer.append(str(self.layerInterface))
-        return str(stringBuffer)
+function setLayerInterface(this::TrackingEvent, layerInterface)
+        this.layerInterface = layerInterface
+        nothing
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.logic.string.StringMaker import StringMaker
 
+function setLayerInterfaceForCircularStaticPool(this::TrackingEvent, layerInterface)
+        this.layerInterface = layerInterface
+        nothing
+end
+
+
+function toString(this::TrackingEvent)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, "TrackingEvent: \n")
+        AllBinary.append(stringBuffer, "LayerInterface: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(this.layerInterface))
+        return AllBinary.toString(stringBuffer)
+end
 

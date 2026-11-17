@@ -1,42 +1,63 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic
 
-from __future__ import annotations
+mutable struct HudResources <: JObject
+    RESOURCE_LIFE::Any
+    RESOURCE_HEALTH::Any
+    HudResources() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const HudResources_instanceValue = Ref{Any}(nothing)
+const HudResources_instanceSet = Ref(false)
+function staticGet_instance(::Type{HudResources})
+    if !HudResources_instanceSet[]
+        HudResources_instanceSet[] = true
+        HudResources_instanceValue[] = newHudResources()
+    end
+    HudResources_instanceValue[]
+end
+function staticSet_instance(::Type{HudResources}, value)
+    HudResources_instanceSet[] = true
+    HudResources_instanceValue[] = value
+end
+
+function initFieldsHudResources(this::HudResources)
+    this.RESOURCE_LIFE = nothing
+    this.RESOURCE_HEALTH = nothing
+    this.RESOURCE_LIFE = "/hud_life_10_by_10.png"
+    this.RESOURCE_HEALTH = "/hud_health_10_by_10.png"
+    nothing
+end
 
 
-class HudResources:
-    instance: HudResources = None
-
-    def _init_fields(self) -> None:
-        self.RESOURCE_LIFE: str = "/hud_life_10_by_10.png"
-        self.RESOURCE_HEALTH: str = "/hud_health_10_by_10.png"
-    
-
-    @staticmethod
-    def getInstance() -> HudResources:
-        return HudResources.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
+function getInstance(::Type{HudResources})
+        return staticGet_instance(HudResources)
+end
 
 
-def _HudResources_instance() -> object:
-    return HudResources()
+function initHudResources(this::HudResources)
+        initFieldsHudResources(this)
+        nothing
+        nothing
+end
 
-lazy_static(HudResources, "instance", _HudResources_instance)
+function newHudResources()
+    this = HudResources()
+    initHudResources(this)
+    this
+end
 

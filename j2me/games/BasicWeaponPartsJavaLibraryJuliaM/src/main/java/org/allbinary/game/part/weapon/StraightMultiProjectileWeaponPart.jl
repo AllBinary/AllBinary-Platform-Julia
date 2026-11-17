@@ -1,93 +1,89 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.part.weapon
 
-from __future__ import annotations
+# extends BasicWeaponPart: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct StraightMultiProjectileWeaponPart <: JObject
+    weaponLayerCircularStaticPool::Any
+    total::Int32
+    noDecimalTrigTable::Any
+    StraightMultiProjectileWeaponPart() = new()
+end
 
-from org.allbinary.game.part.weapon.BasicWeaponPart import BasicWeaponPart
 
-
-class StraightMultiProjectileWeaponPart(BasicWeaponPart):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-        from org.allbinary.math.NoDecimalTrigTable import NoDecimalTrigTable
-        self.weaponLayerCircularStaticPool: WeaponLayerCircularPool = None
-        self.total: int = None
-        self.noDecimalTrigTable: NoDecimalTrigTable = NoDecimalTrigTable.getInstance()
+function initFieldsStraightMultiProjectileWeaponPart(this::StraightMultiProjectileWeaponPart)
+    this.weaponLayerCircularStaticPool = nothing
+    this.total = Int32(0)
+    this.noDecimalTrigTable = nothing
     
-
-    @staticmethod
-    def createStraightMultiProjectileWeaponPart(animationInterface: Animation, weaponLayerCircularStaticPool: WeaponLayerCircularPool) -> StraightMultiProjectileWeaponPart:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-        from org.allbinary.game.score.NoScoreable import NoScoreable
-        from org.allbinary.graphics.RelativeRelationship import RelativeRelationship
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return StraightMultiProjectileWeaponPart(animationInterface, AllBinaryLayer.NULL_ALLBINARY_LAYER, weaponLayerCircularStaticPool, 2, WeaponProperties.NULL_WEAPON_PROPERTIES, NoScoreable.getInstance(), RelativeRelationship.NULL_RELATIVE_RELATIONSHIP)
     
+    this.noDecimalTrigTable = AllBinary.getInstance(NoDecimalTrigTable)
+    nothing
+end
 
-    def __init__(self, animationInterface: Animation, sourceLayerInterface: AllBinaryLayer, weaponLayerCircularStaticPool: WeaponLayerCircularPool, total: int, weaponProperties: WeaponProperties, scoreableInterface: ScoreableInterface, relativeRelationship: RelativeRelationship) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-        from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-        from org.allbinary.graphics.RelativeRelationship import RelativeRelationship
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(animationInterface, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
-        self._init_fields()
-        self.total = total
-        self.weaponLayerCircularStaticPool = weaponLayerCircularStaticPool
-    
 
-    # throws Exception
-    def processScore(self, allbinaryLayerManager: AllBinaryLayerManager, angle: int, otherAngle: int, weaponProperties: WeaponProperties, scoreableInterface: ScoreableInterface) -> None:
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.game.layer.weapon.WeaponLayer import WeaponLayer
-        from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        sourceLayerInterface: AllBinaryLayer = self.getOwnerLayerInterface()
-        reducedWidth: int = (sourceLayerInterface.getWidth() * 8 / 10)
-        halfWidth: int = (reducedWidth >> 1)
-        x: int = self.relativeRelationship.getX()
-        y: int = self.relativeRelationship.getY()
-        sine: int = 0
-        beamX: int = 0
-        cosine: int = 0
-        beamY: int = 0
-        weaponLayer: WeaponLayer = None
-        increment: int = int(reducedWidth / (self.total - 1))
-        next: int = -halfWidth
-        for index in range(0, self.total):
-            sine = int((next * self.noDecimalTrigTable.sin(angle)))
-            beamX = int((sine / self.noDecimalTrigTable.SCALE))
-            cosine = int((next * self.noDecimalTrigTable.cos(angle)))
-            beamY = -int((cosine / self.noDecimalTrigTable.SCALE))
-            weaponLayer = self.weaponLayerCircularStaticPool.getInstanceWeaponLayer(sourceLayerInterface, x + beamX, y + beamY, 0, angle, otherAngle, weaponProperties, scoreableInterface)
-            allbinaryLayerManager.append(weaponLayer)
+function createStraightMultiProjectileWeaponPart(::Type{StraightMultiProjectileWeaponPart}, animationInterface, weaponLayerCircularStaticPool)
+        return newStraightMultiProjectileWeaponPart(animationInterface, staticGet_NULL_ALLBINARY_LAYER(AllBinaryLayer), weaponLayerCircularStaticPool, Int32(2), staticGet_NULL_WEAPON_PROPERTIES(WeaponProperties), AllBinary.getInstance(NoScoreable), staticGet_NULL_RELATIVE_RELATIONSHIP(RelativeRelationship))
+end
+
+
+function initStraightMultiProjectileWeaponPart(this::StraightMultiProjectileWeaponPart, animationInterface, sourceLayerInterface, weaponLayerCircularStaticPool, total, weaponProperties, scoreableInterface, relativeRelationship)
+        initBasicWeaponPart(this, animationInterface, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
+        initFieldsStraightMultiProjectileWeaponPart(this)
+        this.total = total
+        this.weaponLayerCircularStaticPool = weaponLayerCircularStaticPool
+        nothing
+end
+
+function newStraightMultiProjectileWeaponPart(animationInterface, sourceLayerInterface, weaponLayerCircularStaticPool, total, weaponProperties, scoreableInterface, relativeRelationship)
+    this = StraightMultiProjectileWeaponPart()
+    initStraightMultiProjectileWeaponPart(this, animationInterface, sourceLayerInterface, weaponLayerCircularStaticPool, total, weaponProperties, scoreableInterface, relativeRelationship)
+    this
+end
+
+
+function processScore(this::StraightMultiProjectileWeaponPart, allbinaryLayerManager, angle, otherAngle, weaponProperties, scoreableInterface)
+        local sourceLayerInterface = AllBinary.getOwnerLayerInterface(this)
+        local reducedWidth::Int32 = (AllBinary.getWidth(sourceLayerInterface) * Int32(8) ÷ Int32(10))
+        local halfWidth::Int32 = (reducedWidth >> Int32(1))
+        local x::Int32 = AllBinary.getX(this.relativeRelationship)
+        local y::Int32 = AllBinary.getY(this.relativeRelationship)
+        local sine::Int64 = Int64(0)
+        local beamX::Int32 = Int32(0)
+        local cosine::Int64 = Int64(0)
+        local beamY::Int32 = Int32(0)
+        local weaponLayer = nothing
+        local increment::Int32 = reducedWidth ÷ (this.total - Int32(1))
+        local next::Int32 = -halfWidth
+        let
+            local index::Int32 = Int32(0)
+            while index < this.total
+            try
+            sine = (((next * AllBinary.sin(this.noDecimalTrigTable, ((angle) % Int32)))) % Int64)
+            beamX = (((sine ÷ this.noDecimalTrigTable.SCALE)) % Int32)
+            cosine = (((next * AllBinary.cos(this.noDecimalTrigTable, ((angle) % Int32)))) % Int64)
+            beamY = -(((cosine ÷ this.noDecimalTrigTable.SCALE)) % Int32)
+            weaponLayer = AllBinary.getInstanceWeaponLayer(this.weaponLayerCircularStaticPool, sourceLayerInterface, x + beamX, y + beamY, Int32(0), ((angle) % Int32), ((otherAngle) % Int32), weaponProperties, scoreableInterface)
+            AllBinary.append(allbinaryLayerManager, weaponLayer)
             next += increment
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-# from org.allbinary.game.layer.weapon.WeaponLayer import WeaponLayer
-# from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-# from org.allbinary.game.score.NoScoreable import NoScoreable
-# from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-# from org.allbinary.graphics.RelativeRelationship import RelativeRelationship
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.math.NoDecimalTrigTable import NoDecimalTrigTable
-
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

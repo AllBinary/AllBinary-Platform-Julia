@@ -1,27 +1,41 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.collision
 
-from __future__ import annotations
+mutable struct CollidableBaseBehaviorFactory <: JObject
+    CollidableBaseBehaviorFactory() = new()
+end
 
-from org.allbinary.game.collision.CollidableBaseBehaviorFactoryInterface import CollidableBaseBehaviorFactoryInterface
+
+function initFieldsCollidableBaseBehaviorFactory(this::CollidableBaseBehaviorFactory)
+    nothing
+end
+
+function initCollidableBaseBehaviorFactory(this::CollidableBaseBehaviorFactory)
+    initFieldsCollidableBaseBehaviorFactory(this)
+end
+
+function newCollidableBaseBehaviorFactory()
+    this = CollidableBaseBehaviorFactory()
+    initCollidableBaseBehaviorFactory(this)
+    this
+end
 
 
-class CollidableBaseBehaviorFactory(CollidableBaseBehaviorFactoryInterface):
-    
-
-    def createBehavior(self) -> CollidableBaseBehavior:
-        raise RuntimeError()
-
+function createBehavior(this::CollidableBaseBehaviorFactory)
+        throw(jNewException("RuntimeException", ""))
+end
 

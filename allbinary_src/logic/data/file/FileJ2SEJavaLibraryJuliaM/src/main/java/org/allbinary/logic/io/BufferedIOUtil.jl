@@ -1,45 +1,50 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+mutable struct BufferedIOUtil <: JObject
+    BufferedIOUtil() = new()
+end
 
 
+function initFieldsBufferedIOUtil(this::BufferedIOUtil)
+    nothing
+end
 
-class BufferedIOUtil:
-    
+function initBufferedIOUtil(this::BufferedIOUtil)
+    initFieldsBufferedIOUtil(this)
+end
 
-    # throws Exception
-    @staticmethod
-    def copy(backupFile: AbFile, backupFileBak: AbFile) -> None:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.io.file.AbFileNativeUtil import AbFileNativeUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        line: str = StringUtil.getInstance().EMPTY_STRING
-        tmpOut: BufferedWriter = BufferedWriter(FileWriter(AbFileNativeUtil.get(backupFileBak)))
-        tmpIn: BufferedReader = BufferedReader(FileReader(AbFileNativeUtil.get(backupFile)))
-        while tmpIn.ready():
-            line = tmpIn.readLine()
-            tmpOut.write(line, 0, len(line))
-            tmpOut.newLine()
-        tmpOut.flush()
-# from java.io.BufferedReader import BufferedReader
-# from java.io.BufferedWriter import BufferedWriter
-# from java.io.FileReader import FileReader
-# from java.io.FileWriter import FileWriter
-# from org.allbinary.logic.io.file.AbFile import AbFile
-# from org.allbinary.logic.io.file.AbFileNativeUtil import AbFileNativeUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
+function newBufferedIOUtil()
+    this = BufferedIOUtil()
+    initBufferedIOUtil(this)
+    this
+end
 
+
+function copy(::Type{BufferedIOUtil}, backupFile, backupFileBak)
+        local line = AllBinary.getInstance(StringUtil).EMPTY_STRING
+        local tmpOut = newBufferedWriter(newFileWriter(AllBinary.get(AbFileNativeUtil, backupFileBak)))
+        local tmpIn = newBufferedReader(newFileReader(AllBinary.get(AbFileNativeUtil, backupFile)))
+        while AllBinary.ready(tmpIn)
+            line = AllBinary.readLine(tmpIn)
+            AllBinary.write(tmpOut, line, Int32(0), jLength(line))
+            AllBinary.newLine(tmpOut)
+        end
+        AllBinary.flush(tmpOut)
+        nothing
+end
 

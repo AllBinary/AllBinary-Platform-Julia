@@ -1,53 +1,61 @@
 # Generated Code Do Not Modify
 # package org.allbinary.game.midlet
 
-from __future__ import annotations
+mutable struct GameMidletStateFactory <: JObject
+    logUtil::Any
+    currentGameState::Any
+    GameMidletStateFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameMidletStateFactory_INSTANCEValue = Ref{Any}(nothing)
+const GameMidletStateFactory_INSTANCESet = Ref(false)
+function staticGet_INSTANCE(::Type{GameMidletStateFactory})
+    if !GameMidletStateFactory_INSTANCESet[]
+        GameMidletStateFactory_INSTANCESet[] = true
+        GameMidletStateFactory_INSTANCEValue[] = newGameMidletStateFactory()
+    end
+    GameMidletStateFactory_INSTANCEValue[]
+end
+function staticSet_INSTANCE(::Type{GameMidletStateFactory}, value)
+    GameMidletStateFactory_INSTANCESet[] = true
+    GameMidletStateFactory_INSTANCEValue[] = value
+end
 
-
-class GameMidletStateFactory:
-    INSTANCE: GameMidletStateFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.state.GameState import GameState
-        from org.allbinary.game.state.GameStateFactory import GameStateFactory
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.currentGameState: GameState = GameStateFactory.getInstance().NO_GAME_STATE
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GameMidletStateFactory:
-        return GameMidletStateFactory.INSTANCE
-    
-
-    def getCurrentGameState(self) -> GameState:
-        from org.allbinary.game.state.GameState import GameState
-        return self.currentGameState
-    
-
-    def setCurrentGameState(self, currentGameState: GameState) -> None:
-        from org.allbinary.game.state.GameState import GameState
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonLabels import CommonLabels
-        self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().CURRENT).append(" GameState: ").append(StringUtil.getInstance().toString(currentGameState))), self, "setCurrentGameState")
-        self.currentGameState = currentGameState
-# from org.allbinary.game.state.GameState import GameState
-# from org.allbinary.game.state.GameStateFactory import GameStateFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonLabels import CommonLabels
+function initFieldsGameMidletStateFactory(this::GameMidletStateFactory)
+    this.logUtil = nothing
+    this.currentGameState = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.currentGameState = AllBinary.getInstance(GameStateFactory).NO_GAME_STATE
+    nothing
+end
 
 
-def _GameMidletStateFactory_INSTANCE() -> object:
-    return GameMidletStateFactory()
+function initGameMidletStateFactory(this::GameMidletStateFactory)
+        initFieldsGameMidletStateFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(GameMidletStateFactory, "INSTANCE", _GameMidletStateFactory_INSTANCE)
+function newGameMidletStateFactory()
+    this = GameMidletStateFactory()
+    initGameMidletStateFactory(this)
+    this
+end
+
+
+function getInstance(::Type{GameMidletStateFactory})
+        return staticGet_INSTANCE(GameMidletStateFactory)
+end
+
+
+function getCurrentGameState(this::GameMidletStateFactory)
+        return this.currentGameState
+end
+
+
+function setCurrentGameState(this::GameMidletStateFactory, currentGameState)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).CURRENT), " GameState: "), AllBinary.toString(AllBinary.getInstance(StringUtil), currentGameState))), this, "setCurrentGameState")
+        this.currentGameState = currentGameState
+        nothing
+end
 

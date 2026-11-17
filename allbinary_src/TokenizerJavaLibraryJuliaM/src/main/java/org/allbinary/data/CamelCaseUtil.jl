@@ -1,69 +1,81 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.data
 
-from __future__ import annotations
+mutable struct CamelCaseUtil <: JObject
+    commonSeps::Any
+    CamelCaseUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const CamelCaseUtil_instanceValue = Ref{Any}(nothing)
+const CamelCaseUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{CamelCaseUtil})
+    if !CamelCaseUtil_instanceSet[]
+        CamelCaseUtil_instanceSet[] = true
+        CamelCaseUtil_instanceValue[] = newCamelCaseUtil()
+    end
+    CamelCaseUtil_instanceValue[]
+end
+function staticSet_instance(::Type{CamelCaseUtil}, value)
+    CamelCaseUtil_instanceSet[] = true
+    CamelCaseUtil_instanceValue[] = value
+end
 
+function initFieldsCamelCaseUtil(this::CamelCaseUtil)
+    this.commonSeps = nothing
+    this.commonSeps = AllBinary.getInstance(CommonSeps)
+    nothing
+end
 
-class CamelCaseUtil:
-    instance: CamelCaseUtil = None
+function initCamelCaseUtil(this::CamelCaseUtil)
+    initFieldsCamelCaseUtil(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.string.CommonSeps import CommonSeps
-        self.commonSeps: CommonSeps = CommonSeps.getInstance()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> CamelCaseUtil:
-        return CamelCaseUtil.instance
-    
-
-    # throws Exception
-    def getAsCamelCase(self, string: str, stringBuilder: StringMaker) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-        from org.allbinary.logic.string.tokens.Tokenizer import Tokenizer
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        stringValidationUtil: StringValidationUtil = StringValidationUtil.getInstance()
-        stringBuilder.delete(0, stringBuilder.length())
-        list_: BasicArrayList = BasicArrayListD()
-        tokenizer: Tokenizer = Tokenizer(self.commonSeps.UNDERSCORE)
-        tokenizer.getTokensFromString(string, list_)
-        size: int = list_.size()
-        word: str = None
-        for i in range(0, size):
-            word = list_.get(i)
-            word = (word if stringValidationUtil.isEmpty(word) else str(StringMaker().appendchar(word[0].upper()).append(word[1:].lower())))
-            stringBuilder.append(word)
-        return str(stringBuilder)
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-# from org.allbinary.logic.string.tokens.Tokenizer import Tokenizer
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function newCamelCaseUtil()
+    this = CamelCaseUtil()
+    initCamelCaseUtil(this)
+    this
+end
 
 
-def _CamelCaseUtil_instance() -> object:
-    return CamelCaseUtil()
+function getInstance(::Type{CamelCaseUtil})
+        return staticGet_instance(CamelCaseUtil)
+end
 
-lazy_static(CamelCaseUtil, "instance", _CamelCaseUtil_instance)
+
+function getAsCamelCase(this::CamelCaseUtil, string, stringBuilder)
+        local stringValidationUtil = AllBinary.getInstance(StringValidationUtil)
+        AllBinary.delete(stringBuilder, Int32(0), AllBinary.length(stringBuilder))
+        local list = newBasicArrayListD()
+        local tokenizer = newTokenizer(this.commonSeps.UNDERSCORE)
+        AllBinary.getTokensFromString(tokenizer, string, list)
+        local size::Int32 = AllBinary.size(list)
+        local word = nothing
+        let
+            local i::Int32 = Int32(0)
+            while i < size
+            try
+            word = (AllBinary.get(list, i))
+            word = (AllBinary.isEmpty(stringValidationUtil, word) ? word : AllBinary.toString(AllBinary.append(AllBinary.appendchar(newStringMaker(), AllBinary.toUpperCase(Character, jCharAt(word, Int32(0)))), Base.lowercase(jSubstring(word, Int32(1))))))
+            AllBinary.append(stringBuilder, word)
+            finally
+                i += Int32(1)
+            end
+            end
+        end
+        return AllBinary.toString(stringBuilder)
+end
 

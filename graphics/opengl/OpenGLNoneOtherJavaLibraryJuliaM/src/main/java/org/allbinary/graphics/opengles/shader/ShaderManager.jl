@@ -1,61 +1,80 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles.shader
 
-from __future__ import annotations
+mutable struct ShaderManager <: JObject
+    LOAD_SHADER::Any
+    commonStrings::Any
+    GL_VERTEX_SHADER::Int32
+    GL_FRAGMENT_SHADER::Int32
+    ShaderManager() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ShaderManager_instanceValue = Ref{Any}(nothing)
+const ShaderManager_instanceSet = Ref(false)
+function staticGet_instance(::Type{ShaderManager})
+    if !ShaderManager_instanceSet[]
+        ShaderManager_instanceSet[] = true
+        ShaderManager_instanceValue[] = newShaderManager(-Int32(1), -Int32(1))
+    end
+    ShaderManager_instanceValue[]
+end
+function staticSet_instance(::Type{ShaderManager}, value)
+    ShaderManager_instanceSet[] = true
+    ShaderManager_instanceValue[] = value
+end
 
-
-class ShaderManager:
-    instance: ShaderManager = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.LOAD_SHADER: str = "loadShader"
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.GL_VERTEX_SHADER: int = None
-        self.GL_FRAGMENT_SHADER: int = None
+function initFieldsShaderManager(this::ShaderManager)
+    this.LOAD_SHADER = nothing
+    this.commonStrings = nothing
+    this.GL_VERTEX_SHADER = Int32(0)
+    this.GL_FRAGMENT_SHADER = Int32(0)
+    this.LOAD_SHADER = "loadShader"
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
-
-    @staticmethod
-    def getInstance() -> ShaderManager:
-        return ShaderManager.instance
     
-
-    def __init__(self, GL_VERTEX_SHADER: int, GL_FRAGMENT_SHADER: int) -> None:
-        self._init_fields()
-        self.GL_VERTEX_SHADER = GL_VERTEX_SHADER
-        self.GL_FRAGMENT_SHADER = GL_FRAGMENT_SHADER
-    
-
-    def load(self, gl: GL10, resource: str, shaderAsStringArray: list[str], shaderType: int) -> int:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        return -1
-    
-
-    def loadShader(self, gl: GL10, resource: str, stringList: BasicArrayList, shaderType: int) -> int:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return -1
-# from javax.microedition.khronos.opengles.GL10 import GL10
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
+    nothing
+end
 
 
-def _ShaderManager_instance() -> object:
-    return ShaderManager(-1, -1)
+function getInstance(::Type{ShaderManager})
+        return staticGet_instance(ShaderManager)
+end
 
-lazy_static(ShaderManager, "instance", _ShaderManager_instance)
+
+function initShaderManager(this::ShaderManager, GL_VERTEX_SHADER, GL_FRAGMENT_SHADER)
+        initFieldsShaderManager(this)
+        this.GL_VERTEX_SHADER = GL_VERTEX_SHADER
+        this.GL_FRAGMENT_SHADER = GL_FRAGMENT_SHADER
+        nothing
+end
+
+function newShaderManager(GL_VERTEX_SHADER, GL_FRAGMENT_SHADER)
+    this = ShaderManager()
+    initShaderManager(this, GL_VERTEX_SHADER, GL_FRAGMENT_SHADER)
+    this
+end
+
+
+function load(this::ShaderManager, gl, resource, shaderAsStringArray, shaderType)
+        return -Int32(1)
+end
+
+
+function loadShader(this::ShaderManager, gl, resource, stringList, shaderType)
+        return -Int32(1)
+end
 

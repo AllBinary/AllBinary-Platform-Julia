@@ -1,40 +1,60 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends AnimationBehavior: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct IndexedAnimationBehavior <: JObject
+    frameDelayTime::Int64
+    loopTotal::Int32
+    elapsedTime::Int64
+    loopIndex::Int32
+    IndexedAnimationBehavior() = new()
+end
 
-from org.allbinary.animation.AnimationBehavior import AnimationBehavior
 
-
-class IndexedAnimationBehavior(AnimationBehavior):
-
-    def _init_fields(self) -> None:
-        self.frameDelayTime: int = None
-        self.loopTotal: int = None
-        self.elapsedTime: int = 0
-        self.loopIndex: int = 0
+function initFieldsIndexedAnimationBehavior(this::IndexedAnimationBehavior)
+    this.frameDelayTime = Int64(0)
+    this.loopTotal = Int32(0)
+    this.elapsedTime = Int64(0)
+    this.loopIndex = Int32(0)
     
-
-    def __init__(self, loopTotal: int, frameDelayTime: int) -> None:
-        super().__init__()
-        self._init_fields()
-        self.loopTotal = loopTotal
-        self.frameDelayTime = frameDelayTime
     
+    this.elapsedTime = Int64(0)
+    this.loopIndex = Int32(0)
+    nothing
+end
 
-    def reset(self) -> None:
-        self.loopIndex = 0
 
+function initIndexedAnimationBehavior(this::IndexedAnimationBehavior, loopTotal, frameDelayTime)
+        initAnimationBehavior(this)
+        initFieldsIndexedAnimationBehavior(this)
+        this.loopTotal = loopTotal
+        this.frameDelayTime = frameDelayTime
+        nothing
+end
+
+function newIndexedAnimationBehavior(loopTotal, frameDelayTime)
+    this = IndexedAnimationBehavior()
+    initIndexedAnimationBehavior(this, loopTotal, frameDelayTime)
+    this
+end
+
+
+function reset(this::IndexedAnimationBehavior)
+        this.loopIndex = Int32(0)
+        nothing
+end
 

@@ -1,33 +1,41 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-#
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-#
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-#
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+ 
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+ 
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ 
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic.notification
 
-from __future__ import annotations
+# extends GameNotificationHud: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NoGameGameNotificationHud <: JObject
+    NoGameGameNotificationHud() = new()
+end
 
-from org.allbinary.game.ag.layer.hud.basic.notification.GameNotificationHud import GameNotificationHud
+
+function initFieldsNoGameGameNotificationHud(this::NoGameGameNotificationHud)
+    nothing
+end
 
 
-class NoGameGameNotificationHud(GameNotificationHud):
-    
+function initNoGameGameNotificationHud(this::NoGameGameNotificationHud)
+        initGameNotificationHud(this, AllBinary.getInstance(BasicHudFactory).TOPCENTER, AllBinary.getInstance(BasicHudFactory).HORIZONTAL, Int32(2), AllBinary.getInstance(BasicColorFactory).RED)
+        this.updateMaxWidth = Int32(40)
+        this.updateMaxHeight = Int32(14)
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        super().__init__(BasicHudFactory.getInstance().TOPCENTER, BasicHudFactory.getInstance().HORIZONTAL, 2, BasicColorFactory.getInstance().RED)
-        self.updateMaxWidth = 40
-        self.updateMaxHeight = 14
-# from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-
+function newNoGameGameNotificationHud()
+    this = NoGameGameNotificationHud()
+    initNoGameGameNotificationHud(this)
+    this
+end
 

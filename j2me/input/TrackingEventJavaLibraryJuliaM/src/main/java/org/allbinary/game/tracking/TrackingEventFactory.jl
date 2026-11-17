@@ -1,35 +1,44 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.tracking
 
-from __future__ import annotations
+mutable struct TrackingEventFactory <: JObject
+    TrackingEventFactory() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObjectFactoryInterface import AllBinaryEventObjectFactoryInterface
+
+function initFieldsTrackingEventFactory(this::TrackingEventFactory)
+    nothing
+end
 
 
-class TrackingEventFactory(AllBinaryEventObjectFactoryInterface):
-    
+function initTrackingEventFactory(this::TrackingEventFactory)
+        initFieldsTrackingEventFactory(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        pass
-    
+function newTrackingEventFactory()
+    this = TrackingEventFactory()
+    initTrackingEventFactory(this)
+    this
+end
 
-    def getInstance(self) -> AllBinaryEventObject:
-        from org.allbinary.game.tracking.TrackingEvent import TrackingEvent
-        from org.allbinary.game.tracking.TrackingEventHandler import TrackingEventHandler
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        return TrackingEvent(TrackingEventHandler.getInstance())
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
 
+function getInstance(this::TrackingEventFactory)
+        return newTrackingEvent(AllBinary.getInstance(TrackingEventHandler))
+end
 

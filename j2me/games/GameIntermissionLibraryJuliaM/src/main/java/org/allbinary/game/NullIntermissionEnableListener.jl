@@ -1,43 +1,63 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game
 
-from __future__ import annotations
+mutable struct NullIntermissionEnableListener <: JObject
+    NullIntermissionEnableListener() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.IntermissionEnableListenerInterface import IntermissionEnableListenerInterface
+const NullIntermissionEnableListener_SINGLETONValue = Ref{Any}(nothing)
+const NullIntermissionEnableListener_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{NullIntermissionEnableListener})
+    if !NullIntermissionEnableListener_SINGLETONSet[]
+        NullIntermissionEnableListener_SINGLETONSet[] = true
+        NullIntermissionEnableListener_SINGLETONValue[] = newNullIntermissionEnableListener()
+    end
+    NullIntermissionEnableListener_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{NullIntermissionEnableListener}, value)
+    NullIntermissionEnableListener_SINGLETONSet[] = true
+    NullIntermissionEnableListener_SINGLETONValue[] = value
+end
+
+function initFieldsNullIntermissionEnableListener(this::NullIntermissionEnableListener)
+    nothing
+end
 
 
-class NullIntermissionEnableListener(IntermissionEnableListenerInterface):
-    SINGLETON: IntermissionEnableListenerInterface = None
-    
-
-    @staticmethod
-    def getInstance() -> IntermissionEnableListenerInterface:
-        return NullIntermissionEnableListener.SINGLETON
-    
-
-    def __init__(self) -> None:
-        pass
-    
-
-    def notifyIntermission(self, enable: bool) -> None:
-        pass
+function getInstance(::Type{NullIntermissionEnableListener})
+        return staticGet_SINGLETON(NullIntermissionEnableListener)
+end
 
 
-def _NullIntermissionEnableListener_SINGLETON() -> object:
-    return NullIntermissionEnableListener()
+function initNullIntermissionEnableListener(this::NullIntermissionEnableListener)
+        initFieldsNullIntermissionEnableListener(this)
+        nothing
+        nothing
+end
 
-lazy_static(NullIntermissionEnableListener, "SINGLETON", _NullIntermissionEnableListener_SINGLETON)
+function newNullIntermissionEnableListener()
+    this = NullIntermissionEnableListener()
+    initNullIntermissionEnableListener(this)
+    this
+end
+
+
+function notifyIntermission(this::NullIntermissionEnableListener, enable)
+        nothing
+        nothing
+end
 

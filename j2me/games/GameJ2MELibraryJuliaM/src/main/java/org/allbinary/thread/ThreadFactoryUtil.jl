@@ -1,94 +1,93 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.thread
 
-from __future__ import annotations
+mutable struct ThreadFactoryUtil <: JObject
+    logUtil::Any
+    ThreadFactoryUtil() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
+const ThreadFactoryUtil_instanceValue = Ref{Any}(nothing)
+const ThreadFactoryUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{ThreadFactoryUtil})
+    if !ThreadFactoryUtil_instanceSet[]
+        ThreadFactoryUtil_instanceSet[] = true
+        ThreadFactoryUtil_instanceValue[] = newThreadFactoryUtil()
+    end
+    ThreadFactoryUtil_instanceValue[]
+end
+function staticSet_instance(::Type{ThreadFactoryUtil}, value)
+    ThreadFactoryUtil_instanceSet[] = true
+    ThreadFactoryUtil_instanceValue[] = value
+end
+
+function initFieldsThreadFactoryUtil(this::ThreadFactoryUtil)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
+
+function initThreadFactoryUtil(this::ThreadFactoryUtil)
+    initFieldsThreadFactoryUtil(this)
+end
+
+function newThreadFactoryUtil()
+    this = ThreadFactoryUtil()
+    initThreadFactoryUtil(this)
+    this
+end
 
 
-class ThreadFactoryUtil:
-    instance: ThreadFactoryUtil = None
+function getInstance(::Type{ThreadFactoryUtil})
+        return staticGet_instance(ThreadFactoryUtil)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function getInstanceGameCanvasRunnable(this::ThreadFactoryUtil, runnable)
+        return AllBinary.getInstanceType(this, runnable, AllBinary.getType(runnable))
+end
 
-    @staticmethod
-    def getInstance() -> ThreadFactoryUtil:
-        return ThreadFactoryUtil.instance
-    
 
-    def getInstanceGameCanvasRunnable(self, runnable: GameCanvasRunnableInterface) -> threading.Thread:
-        from org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface import GameCanvasRunnableInterface
-        return self.getInstanceType(runnable, runnable.getType())
-    
+function getInstanceForRunnable(this::ThreadFactoryUtil, runnable)
+        return AllBinary.getInstanceType(this, runnable, AllBinary.getType(runnable))
+end
 
-    def getInstanceForRunnable(self, runnable: ABRunnable) -> threading.Thread:
-        return self.getInstanceType(runnable, runnable.getType())
-    
 
-    def getInstanceType(self, runnable: object, type_: int) -> threading.Thread:
-        from org.allbinary.thread.PrimaryThreadPool import PrimaryThreadPool
-        from org.allbinary.thread.PrimaryThreadPool import PrimaryThreadPool
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.canvas.RunnableCanvas import RunnableCanvas
-        from org.allbinary.game.displayable.canvas.AllBinaryGameCanvas import AllBinaryGameCanvas
-        from org.allbinary.game.displayable.canvas.DemoCanvas import DemoCanvas
-        from org.allbinary.game.displayable.canvas.RunnableCanvasSingleThreadStartRunnable import RunnableCanvasSingleThreadStartRunnable
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        commonStrings: CommonStrings = CommonStrings.getInstance()
-        if J2MEUtil.isHTML():
-            if type_ == DemoCanvas.TYPE or type_ == AllBinaryGameCanvas.TYPE:
-                demoGameSingleThreadStartRunnable: RunnableCanvasSingleThreadStartRunnable = RunnableCanvasSingleThreadStartRunnable(runnable)
-                PreLogUtil.put(str(StringMaker().append("Using Pseudo Thread for DemoCanvas/AllBinaryGameCanvas under PlayN/HTML5: ").append(StringUtil.getInstance().toString(runnable))), self, commonStrings.CONSTRUCTOR)
-                primaryThreadPool: ThreadPool = PrimaryThreadPool.getInstance()
-                primaryThreadPool.runTask(demoGameSingleThreadStartRunnable)
-            else:
-                PreLogUtil.put(str(StringMaker().append("Using Pseudo Thread for Runnable under PlayN/HTML5: ").append(StringUtil.getInstance().toString(runnable))), self, commonStrings.CONSTRUCTOR)
-                primaryThreadPool: ThreadPool = PrimaryThreadPool.getInstance()
-                primaryThreadPool.runTask(runnable)
-        thread: threading.Thread = threading.Thread(target=runnable.run, name=str(runnable))
-        self.logUtil.putF(str(thread), self, commonStrings.CONSTRUCTOR)
+function getInstanceType(this::ThreadFactoryUtil, runnable, type_)
+        local commonStrings = AllBinary.getInstance(CommonStrings)
+        if AllBinary.isHTML(J2MEUtil)
+            if type_ == staticGet_TYPE(DemoCanvas) || type_ == staticGet_TYPE(AllBinaryGameCanvas)
+                local demoGameSingleThreadStartRunnable = newRunnableCanvasSingleThreadStartRunnable((runnable))
+                AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Using Pseudo Thread for DemoCanvas/AllBinaryGameCanvas under PlayN/HTML5: "), AllBinary.toString(AllBinary.getInstance(StringUtil), runnable))), this, commonStrings.CONSTRUCTOR)
+                primaryThreadPool = AllBinary.getInstance(PrimaryThreadPool)
+                AllBinary.runTask(primaryThreadPool, demoGameSingleThreadStartRunnable)
+            else
+                AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Using Pseudo Thread for Runnable under PlayN/HTML5: "), AllBinary.toString(AllBinary.getInstance(StringUtil), runnable))), this, commonStrings.CONSTRUCTOR)
+                local primaryThreadPool = AllBinary.getInstance(PrimaryThreadPool)
+                AllBinary.runTask(primaryThreadPool, runnable)
+            end
+        end
+        local thread = newThread(runnable, AllBinary.toString(runnable))
+        AllBinary.putF(this.logUtil, AllBinary.toString(thread), this, commonStrings.CONSTRUCTOR)
         return thread
-    
-
-    def start(self, thread: threading.Thread) -> None:
-        thread.start()
-# from org.allbinary.J2MEUtil import J2MEUtil
-# from org.allbinary.canvas.RunnableCanvas import RunnableCanvas
-# from org.allbinary.game.displayable.canvas.AllBinaryGameCanvas import AllBinaryGameCanvas
-# from org.allbinary.game.displayable.canvas.DemoCanvas import DemoCanvas
-# from org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface import GameCanvasRunnableInterface
-# from org.allbinary.game.displayable.canvas.RunnableCanvasSingleThreadStartRunnable import RunnableCanvasSingleThreadStartRunnable
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+end
 
 
-def _ThreadFactoryUtil_instance() -> object:
-    return ThreadFactoryUtil()
-
-lazy_static(ThreadFactoryUtil, "instance", _ThreadFactoryUtil_instance)
+function start(this::ThreadFactoryUtil, thread)
+        AllBinary.start(thread)
+        nothing
+end
 

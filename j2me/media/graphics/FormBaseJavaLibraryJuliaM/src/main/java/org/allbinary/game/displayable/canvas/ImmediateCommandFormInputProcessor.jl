@@ -1,99 +1,103 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends CommandFormInputProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImmediateCommandFormInputProcessor <: JObject
+    timeHelper::Any
+    gameCommandCanvas::Any
+    ImmediateCommandFormInputProcessor() = new()
+end
 
-import threading
-from org.allbinary.game.displayable.canvas.CommandFormInputProcessor import CommandFormInputProcessor
 
-
-class ImmediateCommandFormInputProcessor(CommandFormInputProcessor):
-    _lock = threading.RLock()
-
-    def _init_fields(self) -> None:
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.timeHelper: TimeDelayHelper = TimeDelayHelper(25)
-        self.gameCommandCanvas: GameCommandCanvas = None
+function initFieldsImmediateCommandFormInputProcessor(this::ImmediateCommandFormInputProcessor)
+    this.timeHelper = nothing
+    this.gameCommandCanvas = nothing
+    this.timeHelper = newTimeDelayHelper(Int32(25))
     
+    nothing
+end
 
-    def __init__(self, gameKeyEventList: BasicArrayList, playerInputId: int, gameCommandCanvas: GameCommandCanvas, form: ScrollSelectionForm) -> None:
-        from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        super().__init__(gameKeyEventList, playerInputId, gameCommandCanvas, form)
-        self._init_fields()
-        self.gameCommandCanvas = gameCommandCanvas
-    
 
-    def onPressGameKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        with self._lock:
-            return self._onPressGameKeyEvent_unlocked(gameKeyEvent)
+function initImmediateCommandFormInputProcessor(this::ImmediateCommandFormInputProcessor, gameKeyEventList, playerInputId, gameCommandCanvas, form)
+        initCommandFormInputProcessor(this, gameKeyEventList, playerInputId, gameCommandCanvas, form)
+        initFieldsImmediateCommandFormInputProcessor(this)
+        this.gameCommandCanvas = gameCommandCanvas
+        nothing
+end
 
-    def _onPressGameKeyEvent_unlocked(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        try:
-            super().onPressGameKeyEvent(gameKeyEvent)
-            if self.timeHelper.isTimeTNT():
-                self.processInputList()
-                self.gameCommandCanvas.repaintBehavior.onChangeRepaint(self.getCanvas())
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ON_PRESS_GAME_KEY, e)
-    
+function newImmediateCommandFormInputProcessor(gameKeyEventList, playerInputId, gameCommandCanvas, form)
+    this = ImmediateCommandFormInputProcessor()
+    initImmediateCommandFormInputProcessor(this, gameKeyEventList, playerInputId, gameCommandCanvas, form)
+    this
+end
 
-    def onDownGameKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        with self._lock:
-            return self._onDownGameKeyEvent_unlocked(gameKeyEvent)
 
-    def _onDownGameKeyEvent_unlocked(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        try:
-            super().onDownGameKeyEvent(gameKeyEvent)
-            if self.timeHelper.isTimeTNT():
-                self.processInputList()
-                self.gameCommandCanvas.repaintBehavior.onChangeRepaint(self.getCanvas())
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ON_DOWN_GAME_KEY, e)
-    
+function onPressGameKeyEvent(this::ImmediateCommandFormInputProcessor, gameKeyEvent)
+        try
+            AllBinary.onPressGameKeyEvent(this, gameKeyEvent)
+            if AllBinary.isTimeTNT(this.timeHelper)
+                AllBinary.processInputList(this)
+                AllBinary.onChangeRepaint(this.gameCommandCanvas.repaintBehavior, AllBinary.getCanvas(this))
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.gameInputStrings.ON_PRESS_GAME_KEY, e)
+        end
+        nothing
+end
 
-    def onUpGameKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        with self._lock:
-            return self._onUpGameKeyEvent_unlocked(gameKeyEvent)
 
-    def _onUpGameKeyEvent_unlocked(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        try:
-            super().onUpGameKeyEvent(gameKeyEvent)
-            if self.timeHelper.isTimeTNT():
-                self.processInputList()
-                self.gameCommandCanvas.repaintBehavior.onChangeRepaint(self.getCanvas())
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ON_UP_GAME_KEY, e)
-    
+function onDownGameKeyEvent(this::ImmediateCommandFormInputProcessor, gameKeyEvent)
+        try
+            AllBinary.onDownGameKeyEvent(this, gameKeyEvent)
+            if AllBinary.isTimeTNT(this.timeHelper)
+                AllBinary.processInputList(this)
+                AllBinary.onChangeRepaint(this.gameCommandCanvas.repaintBehavior, AllBinary.getCanvas(this))
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.gameInputStrings.ON_DOWN_GAME_KEY, e)
+        end
+        nothing
+end
 
-    def onMotionGestureEvent(self, motionGestureEvent: MotionGestureEvent) -> None:
-        from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-        try:
-            super().onMotionGestureEvent(motionGestureEvent)
-            if self.timeHelper.isTimeTNT():
-                self.processInputList()
-                self.gameCommandCanvas.repaintBehavior.onChangeRepaint(self.getCanvas())
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "onMotionGestureEvent", e)
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-# from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-# from org.allbinary.util.BasicArrayList import BasicArrayList
 
+function onUpGameKeyEvent(this::ImmediateCommandFormInputProcessor, gameKeyEvent)
+        try
+            AllBinary.onUpGameKeyEvent(this, gameKeyEvent)
+            if AllBinary.isTimeTNT(this.timeHelper)
+                AllBinary.processInputList(this)
+                AllBinary.onChangeRepaint(this.gameCommandCanvas.repaintBehavior, AllBinary.getCanvas(this))
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.gameInputStrings.ON_UP_GAME_KEY, e)
+        end
+        nothing
+end
+
+
+function onMotionGestureEvent(this::ImmediateCommandFormInputProcessor, motionGestureEvent)
+        try
+            AllBinary.onMotionGestureEvent(this, motionGestureEvent)
+            if AllBinary.isTimeTNT(this.timeHelper)
+                AllBinary.processInputList(this)
+                AllBinary.onChangeRepaint(this.gameCommandCanvas.repaintBehavior, AllBinary.getCanvas(this))
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "onMotionGestureEvent", e)
+        end
+        nothing
+end
 

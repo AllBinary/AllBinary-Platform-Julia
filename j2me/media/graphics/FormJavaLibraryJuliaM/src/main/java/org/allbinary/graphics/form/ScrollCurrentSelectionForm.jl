@@ -1,190 +1,234 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends ScrollSelectionForm: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ScrollCurrentSelectionForm <: JObject
+    moveForSmallScreen::Bool
+    updateMyFontProcessor::Any
+    myFontProcessor::Any
+    processor::Any
+    preItemIndexDx::Any
+    dx::Int32
+    dy::Int32
+    maxWidth::Int32
+    ScrollCurrentSelectionForm() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
 
-
-class ScrollCurrentSelectionForm(ScrollSelectionForm, UpdateMyFontInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.canvas.Processor import Processor
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        self.moveForSmallScreen: bool = None
-        self.updateMyFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.myFontProcessor: MyFontProcessor = self.updateMyFontProcessor
-        self.processor: Processor = Processor.getInstance()
-        self.preItemIndexDx: ItemIndexDx = ItemIndexDx.getInstance()
-        self.dx: int = 0
-        self.dy: int = 0
-        self.maxWidth: int = 0
+function initFieldsScrollCurrentSelectionForm(this::ScrollCurrentSelectionForm)
+    this.moveForSmallScreen = false
+    this.updateMyFontProcessor = nothing
+    this.myFontProcessor = nothing
+    this.processor = nothing
+    this.preItemIndexDx = nothing
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.maxWidth = Int32(0)
     
+    this.updateMyFontProcessor = newUpdateMyFontProcessor(this)
+    this.myFontProcessor = this.updateMyFontProcessor
+    this.processor = AllBinary.getInstance(Processor)
+    this.preItemIndexDx = AllBinary.getInstance(ItemIndexDx)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.maxWidth = Int32(0)
+    nothing
+end
 
-    def __init__(self, title: str, items: list[ABCustomItem], formPaintableFactory: ItemPaintableFactory, border: int, adjustedExtraBorder: int, moveForSmallScreen: bool, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        super().__init__(title, items, formPaintableFactory, border, adjustedExtraBorder, backgroundBasicColor, foregroundBasicColor)
-        self._init_fields()
-        self.moveForSmallScreen = moveForSmallScreen
-    
 
-    # throws Exception
-    def init(self, rectangle: Rectangle, formType: FormType) -> None:
-        from org.allbinary.graphics.form.FormTypeFactory import FormTypeFactory
-        from org.allbinary.graphics.form.VerticalFormProcessor import VerticalFormProcessor
-        from org.allbinary.graphics.form.VerticalItemIndexDx import VerticalItemIndexDx
-        from org.allbinary.graphics.form.HorizontalFormProcessor import HorizontalFormProcessor
-        from org.allbinary.graphics.form.HorizontalItemIndexDx import HorizontalItemIndexDx
-        from org.allbinary.graphics.form.TempHorizontalFormProcessor import TempHorizontalFormProcessor
-        from org.allbinary.graphics.form.TempHorizontalItemIndexDx import TempHorizontalItemIndexDx
-        from org.allbinary.graphics.Rectangle import Rectangle
-        super().init(rectangle, formType)
-        formTypeFactory: FormTypeFactory = FormTypeFactory.getInstance()
-        if formType == formTypeFactory.TEMP_HORIZONTAL_FORM:
-            self.processor = TempHorizontalFormProcessor(self)
-            self.preItemIndexDx = TempHorizontalItemIndexDx(self)
-        elif formType == formTypeFactory.HORIZONTAL_FORM:
-            self.processor = HorizontalFormProcessor(self)
-            self.preItemIndexDx = HorizontalItemIndexDx(self)
-        elif formType == formTypeFactory.VERTICAL_CENTER_FORM:
-            self.processor = VerticalFormProcessor(self)
-            self.preItemIndexDx = VerticalItemIndexDx(self)
-        elif formType == formTypeFactory.NULL_FORM_TYPE:
-            pass
-        else:
-            self.logUtil.putF(formTypeFactory.UNK, self, self.commonStrings.INIT)
-        self.myFontProcessor = self.updateMyFontProcessor
-    
+function initScrollCurrentSelectionForm(this::ScrollCurrentSelectionForm, title, items, formPaintableFactory, border, adjustedExtraBorder, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
+        initScrollSelectionForm(this, title, items, formPaintableFactory, border, adjustedExtraBorder, backgroundBasicColor, foregroundBasicColor)
+        initFieldsScrollCurrentSelectionForm(this)
+        this.moveForSmallScreen = moveForSmallScreen
+        nothing
+end
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        self.myFontProcessor = MyFontProcessor.getInstance()
-    
+function newScrollCurrentSelectionForm(title, items, formPaintableFactory, border, adjustedExtraBorder, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
+    this = ScrollCurrentSelectionForm()
+    initScrollCurrentSelectionForm(this, title, items, formPaintableFactory, border, adjustedExtraBorder, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
+    this
+end
 
-    def processTempHorizontalForm(self) -> None:
-        self.dx = self.x - 30 + (self.rectangle.getWidth() >> 1)
-        self.dy = self.y
-    
 
-    def processHorizontalForm(self) -> None:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        size: int = self.size()
-        totalWidth: int = 0
-        item: ABCustomItem = None
-        for index in range(0, size):
-            item = self.get(index)
-            totalWidth += item.getMinimumWidth() + self.border
-        self.dx = self.x + (self.rectangle.getWidth() >> 1) - (totalWidth >> 1)
-        self.dy = self.y + (self.rectangle.getHeight() >> 1)
-        if self.moveForSmallScreen:
-            maxTitleHeight: int = 175
-            if self.dy < maxTitleHeight:
-                self.dy = maxTitleHeight
-    
+function init(this::ScrollCurrentSelectionForm, rectangle, formType)
+        AllBinary.init(this, rectangle, formType)
+        local formTypeFactory = AllBinary.getInstance(FormTypeFactory)
+        if formType === formTypeFactory.TEMP_HORIZONTAL_FORM
+            this.processor = newTempHorizontalFormProcessor(this)
+            this.preItemIndexDx = newTempHorizontalItemIndexDx(this)
+        elseif formType === formTypeFactory.HORIZONTAL_FORM
+            this.processor = newHorizontalFormProcessor(this)
+            this.preItemIndexDx = newHorizontalItemIndexDx(this)
+        elseif formType === formTypeFactory.VERTICAL_CENTER_FORM
+            this.processor = newVerticalFormProcessor(this)
+            this.preItemIndexDx = newVerticalItemIndexDx(this)
+        elseif formType === formTypeFactory.NULL_FORM_TYPE
+            nothing
+        else
+            AllBinary.putF(this.logUtil, formTypeFactory.UNK, this, this.commonStrings.INIT)
+        end
+        this.myFontProcessor = this.updateMyFontProcessor
+        nothing
+end
 
-    def processVerticalForm(self) -> None:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        totalHeight: int = 0
-        size: int = self.size()
-        item2: ABCustomItem = None
-        for index in range(0, size):
-            item2 = self.get(index)
-            if self.maxWidth < item2.getMinimumWidth():
-                self.maxWidth = item2.getMinimumWidth()
-            totalHeight += item2.getMinimumHeight() + self.border
-        self.dx = ((self.rectangle.getWidth() - self.maxWidth) / 2)
-        if self.size() > 0:
-            self.dy = self.y + ((self.rectangle.getHeight() - totalHeight) / 2)
-            if self.moveForSmallScreen:
-                maxTitleHeight: int = 175
-                if self.dy < maxTitleHeight:
-                    self.dy = maxTitleHeight
-        else:
-            self.dy = self.y
-    
 
-    def getXTempHorizontalForm(self, index: int, item: ABCustomItem, dx: int, dy: int) -> int:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return self.getDiffX(item)
-    
+function updateMeasurement(this::ScrollCurrentSelectionForm, graphics)
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
 
-    def getXHorizontalForm(self, index: int, item: ABCustomItem, dx: int, dy: int) -> int:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return 0
-    
 
-    def getXVerticalForm(self, index: int, item: ABCustomItem, dx: int, dy: int) -> int:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return self.getDiffX(item) + self.halfBorder
-    
+function processTempHorizontalForm(this::ScrollCurrentSelectionForm)
+        this.dx = this.x - Int32(30) + (AllBinary.getWidth(this.rectangle) >> Int32(1))
+        this.dy = this.y
+        nothing
+end
 
-    def getDiffX(self, item: ABCustomItem) -> int:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return ((self.maxWidth - item.getMinimumWidth()) >> 1)
-    
 
-    def getDx(self) -> int:
-        return self.dx
-    
+function processHorizontalForm(this::ScrollCurrentSelectionForm)
+        local size::Int32 = AllBinary.size(this)
+        local totalWidth::Int32 = Int32(0)
+        local item = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            item = AllBinary.get(this, index)
+            totalWidth += AllBinary.getMinimumWidth(item) + this.border
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        this.dx = this.x + (AllBinary.getWidth(this.rectangle) >> Int32(1)) - (totalWidth >> Int32(1))
+        this.dy = this.y + (AllBinary.getHeight(this.rectangle) >> Int32(1))
+        if this.moveForSmallScreen
+            local maxTitleHeight::Int32 = Int32(175)
+            if this.dy < maxTitleHeight
+                this.dy = maxTitleHeight
+            end
+        end
+        nothing
+end
 
-    def getDy(self) -> int:
-        return self.dy
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from org.allbinary.graphics.form.FormTypeFactory import FormTypeFactory
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        try:
-            self.processor.process()
-            delta: int = 0
-            deltaX: int = self.getDx()
-            deltaY: int = self.getDy()
-            size: int = self.size()
-            formTypeFactory: FormTypeFactory = FormTypeFactory.getInstance()
-            item: ABCustomItem = None
-            for index in range(0, size):
-                item = self.get(index)
-                diffX: int = self.preItemIndexDx.getDx(index, item, self.dx, self.dy)
-                if index == self.getSelectedIndex():
-                    delta = self.paintItem(graphics, index, item, deltaX + diffX, deltaY)
-                    self.paintable.paint(graphics, index, deltaX + diffX, deltaY)
-                else:
-                    delta = self.paintUnselectedItem(graphics, index, item, deltaX + diffX, deltaY)
-                    self.paintable.paint(graphics, index, deltaX + diffX, deltaY)
-                if self.formType == formTypeFactory.TEMP_HORIZONTAL_FORM:
-                    pass
-                elif self.formType == formTypeFactory.HORIZONTAL_FORM:
+function processVerticalForm(this::ScrollCurrentSelectionForm)
+        local totalHeight::Int32 = Int32(0)
+        local size::Int32 = AllBinary.size(this)
+        local item2 = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            item2 = AllBinary.get(this, index)
+            if this.maxWidth < AllBinary.getMinimumWidth(item2)
+                this.maxWidth = AllBinary.getMinimumWidth(item2)
+            end
+            totalHeight += AllBinary.getMinimumHeight(item2) + this.border
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        this.dx = ((AllBinary.getWidth(this.rectangle) - this.maxWidth) ÷ Int32(2))
+        if AllBinary.size(this) > Int32(0)
+            this.dy = this.y + ((AllBinary.getHeight(this.rectangle) - totalHeight) ÷ Int32(2))
+            if this.moveForSmallScreen
+                local maxTitleHeight::Int32 = Int32(175)
+                if this.dy < maxTitleHeight
+                    this.dy = maxTitleHeight
+                end
+            end
+        else
+            this.dy = this.y
+        end
+        nothing
+end
+
+
+function getXTempHorizontalForm(this::ScrollCurrentSelectionForm, index, item, dx, dy)
+        return AllBinary.getDiffX(this, item)
+end
+
+
+function getXHorizontalForm(this::ScrollCurrentSelectionForm, index, item, dx, dy)
+        return Int32(0)
+end
+
+
+function getXVerticalForm(this::ScrollCurrentSelectionForm, index, item, dx, dy)
+        return AllBinary.getDiffX(this, item) + this.halfBorder
+end
+
+
+function getDiffX(this::ScrollCurrentSelectionForm, item)
+        return ((this.maxWidth - AllBinary.getMinimumWidth(item)) >> Int32(1))
+end
+
+
+function getDx(this::ScrollCurrentSelectionForm)
+        return this.dx
+end
+
+
+function getDy(this::ScrollCurrentSelectionForm)
+        return this.dy
+end
+
+
+function paint(this::ScrollCurrentSelectionForm, graphics)
+        try
+            AllBinary.process(this.processor)
+            local delta::Int32 = Int32(0)
+            local deltaX::Int32 = AllBinary.getDx(this)
+            local deltaY::Int32 = AllBinary.getDy(this)
+            local size::Int32 = AllBinary.size(this)
+            local formTypeFactory = AllBinary.getInstance(FormTypeFactory)
+            local item = nothing
+            let
+                local index::Int32 = Int32(0)
+                while index < size
+                try
+                item = AllBinary.get(this, index)
+                local diffX::Int32 = AllBinary.getDx(this.preItemIndexDx, index, item, this.dx, this.dy)
+                if index == AllBinary.getSelectedIndex(this)
+                    delta = AllBinary.paintItem(this, graphics, index, item, deltaX + diffX, deltaY)
+                    AllBinary.paint(this.paintable, graphics, index, deltaX + diffX, deltaY)
+                else
+                    delta = AllBinary.paintUnselectedItem(this, graphics, index, item, deltaX + diffX, deltaY)
+                    AllBinary.paint(this.paintable, graphics, index, deltaX + diffX, deltaY)
+                end
+                if this.formType == formTypeFactory.TEMP_HORIZONTAL_FORM
+                    nothing
+                elseif this.formType == formTypeFactory.HORIZONTAL_FORM
                     deltaX = delta
-                elif self.formType == formTypeFactory.VERTICAL_CENTER_FORM:
+                elseif this.formType == formTypeFactory.VERTICAL_CENTER_FORM
                     deltaY = delta
-                else:
-                    raise Exception(formTypeFactory.UNK)
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.canvasStrings.PAINT, e)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.canvas.Processor import Processor
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-from org.allbinary.graphics.form.ItemIndexDx import ItemIndexDx
-
+                else
+                    throw(jNewException("Exception", formTypeFactory.UNK))
+                end
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.canvasStrings.PAINT, e)
+        end
+        nothing
+end
 

@@ -1,48 +1,43 @@
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.weapon
 
-from __future__ import annotations
+# extends SimpleWeaponLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TempExplosionWeaponLayer <: JObject
+    weaponProperties::Any
+    timeDelayHelper::Any
+    TempExplosionWeaponLayer() = new()
+end
 
-from org.allbinary.game.layer.weapon.SimpleWeaponLayer import SimpleWeaponLayer
+
+function initFieldsTempExplosionWeaponLayer(this::TempExplosionWeaponLayer)
+    this.weaponProperties = nothing
+    this.timeDelayHelper = nothing
+    this.weaponProperties = newWeaponProperties(-Int64(1), -Int64(1), Int32(0), Int32(1000), ((Int32(0)) % Int16))
+    this.timeDelayHelper = newTimeDelayHelper(Int32(0))
+    nothing
+end
 
 
-class TempExplosionWeaponLayer(SimpleWeaponLayer):
+function initTempExplosionWeaponLayer(this::TempExplosionWeaponLayer, name, movement, animationInterface, rectangle, viewPosition, timeDelay)
+        initSimpleWeaponLayer(this, name, staticGet_REMOTE_INFO(RemoteInfo), -Int32(1), movement, animationInterface, AllBinary.createDestroyed(SimpleWeaponLayer), rectangle, viewPosition)
+        initFieldsTempExplosionWeaponLayer(this)
+        this.timeDelayHelper.delay = timeDelay
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.weaponProperties: WeaponProperties = WeaponProperties(-1, -1, 0, 1000, ((int(0) + 32768) % 65536 - 32768))
-        self.timeDelayHelper: TimeDelayHelper = TimeDelayHelper(0)
-    
+function newTempExplosionWeaponLayer(name, movement, animationInterface, rectangle, viewPosition, timeDelay)
+    this = TempExplosionWeaponLayer()
+    initTempExplosionWeaponLayer(this, name, movement, animationInterface, rectangle, viewPosition, timeDelay)
+    this
+end
 
-    def __init__(self, name: str, movement: Movement, animationInterface: Animation, rectangle: Rectangle, viewPosition: ViewPositionBase, timeDelay: int) -> None:
-        from org.allbinary.game.layer.weapon.SimpleWeaponLayer import SimpleWeaponLayer
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.physics.movement.Movement import Movement
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        super().__init__(name, RemoteInfo.REMOTE_INFO, -1, movement, animationInterface, SimpleWeaponLayer.createDestroyed(), rectangle, viewPosition)
-        self._init_fields()
-        self.timeDelayHelper.delay = timeDelay
-    
 
-    # throws Exception
-    def processTick(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        if self.timeDelayHelper.isTime(GameTickTimeDelayHelperFactory.getInstance().startTime):
-            self.getCollidableInferface().collide(self, self)
-            self.totalDamage = self.getInitDamage() + 1
-        super().processTick(allBinaryLayerManager)
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-# from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.physics.movement.Movement import Movement
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-# from org.allbinary.view.ViewPositionBase import ViewPositionBase
-
+function processTick(this::TempExplosionWeaponLayer, allBinaryLayerManager)
+        if AllBinary.isTime(this.timeDelayHelper, AllBinary.getInstance(GameTickTimeDelayHelperFactory).startTime)
+            AllBinary.collide(AllBinary.getCollidableInferface(this), this, this)
+            this.totalDamage = AllBinary.getInitDamage(this) + Int32(1)
+        end
+        AllBinary.processTick(this, allBinaryLayerManager)
+        nothing
+end
 

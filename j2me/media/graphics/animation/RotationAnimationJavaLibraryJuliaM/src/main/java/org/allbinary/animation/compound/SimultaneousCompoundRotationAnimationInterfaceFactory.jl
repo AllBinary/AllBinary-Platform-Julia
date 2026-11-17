@@ -1,50 +1,52 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.compound
 
-from __future__ import annotations
+# extends CompoundAnimationInterfaceFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SimultaneousCompoundRotationAnimationInterfaceFactory <: JObject
+    SimultaneousCompoundRotationAnimationInterfaceFactory() = new()
+end
 
-from org.allbinary.animation.compound.CompoundAnimationInterfaceFactory import CompoundAnimationInterfaceFactory
+
+function initFieldsSimultaneousCompoundRotationAnimationInterfaceFactory(this::SimultaneousCompoundRotationAnimationInterfaceFactory)
+    nothing
+end
 
 
-class SimultaneousCompoundRotationAnimationInterfaceFactory(CompoundAnimationInterfaceFactory):
-    
+function initSimultaneousCompoundRotationAnimationInterfaceFactory(this::SimultaneousCompoundRotationAnimationInterfaceFactory, basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+        initCompoundAnimationInterfaceFactory(this, basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+        if animationBehaviorFactory === AllBinary.getInstance(AnimationBehaviorFactory)
+            AllBinary.log(ForcedLogUtil, "Using default AnimationBehaviorFactory with IndexedAnimationFactory", this)
+        end
+        nothing
+end
 
-    def __init__(self, basicAnimationInterfaceFactoryInterfaceArray: list[AnimationInterfaceFactoryInterface], animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        super().__init__(basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
-        if animationBehaviorFactory == AnimationBehaviorFactory.getInstance():
-            ForcedLogUtil.log("Using default AnimationBehaviorFactory with IndexedAnimationFactory", self)
-    
+function newSimultaneousCompoundRotationAnimationInterfaceFactory(basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+    this = SimultaneousCompoundRotationAnimationInterfaceFactory()
+    initSimultaneousCompoundRotationAnimationInterfaceFactory(this, basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+    this
+end
 
-    def createArray(self, size: int) -> list[Animation]:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.RotationAnimation import RotationAnimation
-        return [None] * (size)
-    
 
-    def createAnimation(self, animationInterfaceArray: list[Animation]) -> Animation:
-        from org.allbinary.animation.compound.SimultaneousCompoundRotationAnimation import SimultaneousCompoundRotationAnimation
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.RotationAnimation import RotationAnimation
-        return SimultaneousCompoundRotationAnimation(animationInterfaceArray, self.animationBehaviorFactory.getOrCreateInstance())
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
-# from org.allbinary.animation.RotationAnimation import RotationAnimation
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
+function createArray(this::SimultaneousCompoundRotationAnimationInterfaceFactory, size)
+        return jNewArray(Any, size, nothing)
+end
 
+
+function createAnimation(this::SimultaneousCompoundRotationAnimationInterfaceFactory, animationInterfaceArray)
+        return newSimultaneousCompoundRotationAnimation((animationInterfaceArray), AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+end
 

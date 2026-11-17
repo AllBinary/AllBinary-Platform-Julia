@@ -1,102 +1,114 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+mutable struct VectorRotationGenerator <: JObject
+    logUtil::Any
+    vectorAnimationUtil::Any
+    angleFactory::Any
+    VectorRotationGenerator() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const VectorRotationGenerator_instanceValue = Ref{Any}(nothing)
+const VectorRotationGenerator_instanceSet = Ref(false)
+function staticGet_instance(::Type{VectorRotationGenerator})
+    if !VectorRotationGenerator_instanceSet[]
+        VectorRotationGenerator_instanceSet[] = true
+        VectorRotationGenerator_instanceValue[] = newVectorRotationGenerator()
+    end
+    VectorRotationGenerator_instanceValue[]
+end
+function staticSet_instance(::Type{VectorRotationGenerator}, value)
+    VectorRotationGenerator_instanceSet[] = true
+    VectorRotationGenerator_instanceValue[] = value
+end
+
+function initFieldsVectorRotationGenerator(this::VectorRotationGenerator)
+    this.logUtil = nothing
+    this.vectorAnimationUtil = nothing
+    this.angleFactory = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.vectorAnimationUtil = AllBinary.getInstance(VectorAnimationUtil)
+    this.angleFactory = AllBinary.getInstance(AngleFactory)
+    nothing
+end
 
 
-class VectorRotationGenerator:
-    instance: VectorRotationGenerator = None
+function getInstance(::Type{VectorRotationGenerator})
+        return staticGet_instance(VectorRotationGenerator)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.math.AngleFactory import AngleFactory
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.vectorAnimationUtil: VectorAnimationUtil = VectorAnimationUtil.getInstance()
-        self.angleFactory: AngleFactory = AngleFactory.getInstance()
-    
 
-    @staticmethod
-    def getInstance() -> VectorRotationGenerator:
-        return VectorRotationGenerator.instance
-    
+function initVectorRotationGenerator(this::VectorRotationGenerator)
+        initFieldsVectorRotationGenerator(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newVectorRotationGenerator()
+    this = VectorRotationGenerator()
+    initVectorRotationGenerator(this)
+    this
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def getInstance(self, vectorRotationInfo: VectorInfo) -> list[list[list[int]]]:
-        from org.allbinary.vector.VectorInfo import VectorInfo
-        return self.getInstanceFrames(vectorRotationInfo.getWidth(), vectorRotationInfo.getHeight(), vectorRotationInfo.getPoints(), vectorRotationInfo.getTotalFrames())
-    
 
-    def getInstanceFrames(self, width: int, height: int, points: list[list[int]], frames: int) -> list[list[list[int]]]:
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListS import BasicArrayListS
-        try:
-            totalAngle: int = self.angleFactory.TOTAL_ANGLE
-            angleIncrement: int = int(totalAngle / frames)
-            pointsBasicArrayList: BasicArrayList = BasicArrayListS(int(totalAngle / angleIncrement))
-            pointBasicArrayList: BasicArrayList = BasicArrayListS(len(points))
-            pointFactory: PointFactory = PointFactory.getInstance()
-            size: int = len(points)
-            for index in range(0, size):
-                pointBasicArrayList.add(pointFactory.createXY(points[index][0], points[index][1]))
-            index: int = 0
-            while index < totalAngle:
-                pointsBasicArrayList.add(self.getListAtAngle(width, height, pointBasicArrayList, self.angleFactory.getAt(index)))
+function getInstance(this::VectorRotationGenerator, vectorRotationInfo)
+        return AllBinary.getInstanceFrames(this, AllBinary.getWidth(vectorRotationInfo), AllBinary.getHeight(vectorRotationInfo), AllBinary.getPoints(vectorRotationInfo), AllBinary.getTotalFrames(vectorRotationInfo))
+end
+
+
+function getInstanceFrames(this::VectorRotationGenerator, width, height, points, frames)
+        try
+            local totalAngle::Int16 = this.angleFactory.TOTAL_ANGLE
+            local angleIncrement::Int32 = ((totalAngle) % Int32) ÷ frames
+            local pointsBasicArrayList = newBasicArrayListS(((totalAngle) % Int32) ÷ angleIncrement)
+            local pointBasicArrayList = newBasicArrayListS(Int32(Base.length(points)))
+            local pointFactory = AllBinary.getInstance(PointFactory)
+            local size::Int32 = Int32(Base.length(points))
+            let
+                local index::Int32 = Int32(0)
+                while index < size
+                try
+                AllBinary.add(pointBasicArrayList, AllBinary.createXY(pointFactory, points[index + 1][Int32(0) + 1], points[index + 1][Int32(1) + 1]))
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+            index = Int32(0)
+            while index < ((totalAngle) % Int32)
+                AllBinary.add(pointsBasicArrayList, AllBinary.getListAtAngle(this, width, height, pointBasicArrayList, AllBinary.getAt(this.angleFactory, index)))
                 index += angleIncrement
-            newPoints: list[list[list[int]]] = self.vectorAnimationUtil.toAnimationArrayFromListOfPointListWithPointsPerFrame(pointsBasicArrayList, pointBasicArrayList.size())
+            end
+            local newPoints = AllBinary.toAnimationArrayFromListOfPointListWithPointsPerFrame(this.vectorAnimationUtil, pointsBasicArrayList, AllBinary.size(pointBasicArrayList))
             return newPoints
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.GET_INSTANCE, e)
-            return NullUtil.getInstance().NULL_INT_ARRAY_ARRAY_ARRAY
-    
-
-    # throws Exception
-    def getListAtAngle(self, width: int, height: int, pointBasicArrayList: BasicArrayList, angle: Angle) -> BasicArrayList:
-        from org.allbinary.graphics.pipeline.BasicGraphicsPipeline import BasicGraphicsPipeline
-        from org.allbinary.math.Angle import Angle
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        graphicsPipe: BasicGraphicsPipeline = BasicGraphicsPipeline(pointBasicArrayList)
-        graphicsPipe.createMatrix()
-        graphicsPipe.translate(-(width >> 1), -(height >> 1))
-        graphicsPipe.rotateToAngle(angle)
-        graphicsPipe.translate((width >> 1), (height >> 1))
-        return graphicsPipe.getMatrix()
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.graphics.pipeline.BasicGraphicsPipeline import BasicGraphicsPipeline
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.math.Angle import Angle
-# from org.allbinary.math.AngleFactory import AngleFactory
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListS import BasicArrayListS
-# from org.allbinary.vector.VectorInfo import VectorInfo
-from org.allbinary.animation.VectorAnimationUtil import VectorAnimationUtil
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.GET_INSTANCE, e)
+            return AllBinary.getInstance(NullUtil).NULL_INT_ARRAY_ARRAY_ARRAY
+        end
+end
 
 
-def _VectorRotationGenerator_instance() -> object:
-    return VectorRotationGenerator()
-
-lazy_static(VectorRotationGenerator, "instance", _VectorRotationGenerator_instance)
+function getListAtAngle(this::VectorRotationGenerator, width, height, pointBasicArrayList, angle)
+        local graphicsPipe = newBasicGraphicsPipeline(pointBasicArrayList)
+        AllBinary.createMatrix(graphicsPipe)
+        AllBinary.translate(graphicsPipe, -(width >> Int32(1)), -(height >> Int32(1)))
+        AllBinary.rotateToAngle(graphicsPipe, angle)
+        AllBinary.translate(graphicsPipe, (width >> Int32(1)), (height >> Int32(1)))
+        return AllBinary.getMatrix(graphicsPipe)
+end
 

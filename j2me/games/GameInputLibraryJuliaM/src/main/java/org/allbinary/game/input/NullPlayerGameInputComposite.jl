@@ -1,52 +1,71 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+mutable struct NullPlayerGameInputComposite <: JObject
+    NullPlayerGameInputComposite() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.input.PlayerGameInputCompositeInterface import PlayerGameInputCompositeInterface
+const NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITEValue = Ref{Any}(nothing)
+const NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITESet = Ref(false)
+function staticGet_NULL_PLAYER_GAME_INPUT_COMPOSITE(::Type{NullPlayerGameInputComposite})
+    if !NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITESet[]
+        NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITESet[] = true
+        NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITEValue[] = newNullPlayerGameInputComposite()
+    end
+    NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITEValue[]
+end
+function staticSet_NULL_PLAYER_GAME_INPUT_COMPOSITE(::Type{NullPlayerGameInputComposite}, value)
+    NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITESet[] = true
+    NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITEValue[] = value
+end
+
+function initFieldsNullPlayerGameInputComposite(this::NullPlayerGameInputComposite)
+    nothing
+end
+
+function initNullPlayerGameInputComposite(this::NullPlayerGameInputComposite)
+    initFieldsNullPlayerGameInputComposite(this)
+end
+
+function newNullPlayerGameInputComposite()
+    this = NullPlayerGameInputComposite()
+    initNullPlayerGameInputComposite(this)
+    this
+end
 
 
-class NullPlayerGameInputComposite(PlayerGameInputCompositeInterface):
-    NULL_PLAYER_GAME_INPUT_COMPOSITE: NullPlayerGameInputComposite = None
-    
-
-    def getName(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
-
-    # throws Exception
-    def processInput(self, layerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-    
-
-    def initInputProcessors(self) -> None:
-        pass
-    
-
-    def getPlayerGameInput(self) -> PlayerGameInput:
-        from org.allbinary.game.input.NoPlayerGameInput import NoPlayerGameInput
-        return NoPlayerGameInput.getInstance()
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.logic.string.StringUtil import StringUtil
+function getName(this::NullPlayerGameInputComposite)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
 
 
-def _NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITE() -> object:
-    return NullPlayerGameInputComposite()
+function processInput(this::NullPlayerGameInputComposite, layerManager)
+        nothing
+        nothing
+end
 
-lazy_static(NullPlayerGameInputComposite, "NULL_PLAYER_GAME_INPUT_COMPOSITE", _NullPlayerGameInputComposite_NULL_PLAYER_GAME_INPUT_COMPOSITE)
+
+function initInputProcessors(this::NullPlayerGameInputComposite)
+        nothing
+        nothing
+end
+
+
+function getPlayerGameInput(this::NullPlayerGameInputComposite)
+        return AllBinary.getInstance(NoPlayerGameInput)
+end
 

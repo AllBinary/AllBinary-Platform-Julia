@@ -1,80 +1,95 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.combat.destroy
 
-from __future__ import annotations
+# extends BasicLayerProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct DestroyedLayerProcessor <: JObject
+    DestroyedLayerProcessor() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.layer.BasicLayerProcessor import BasicLayerProcessor
+const DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSORValue = Ref{Any}(nothing)
+const DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSORSet = Ref(false)
+function staticGet_DESTROYED_LAYER_PROCESSOR(::Type{DestroyedLayerProcessor})
+    if !DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSORSet[]
+        DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSORSet[] = true
+        DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSORValue[] = staticGet_NULL_LAYER_PROCESSOR(BasicLayerProcessor)
+    end
+    DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSORValue[]
+end
+function staticSet_DESTROYED_LAYER_PROCESSOR(::Type{DestroyedLayerProcessor}, value)
+    DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSORSet[] = true
+    DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSORValue[] = value
+end
 
-
-class DestroyedLayerProcessor(BasicLayerProcessor):
-    DESTROYED_LAYER_PROCESSOR: BasicLayerProcessor = None
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    @staticmethod
-    def init() -> None:
-        DestroyedLayerProcessor.DESTROYED_LAYER_PROCESSOR = DestroyedLayerProcessor()
-    
-
-    @staticmethod
-    def getInstance() -> BasicLayerProcessor:
-        return DestroyedLayerProcessor.DESTROYED_LAYER_PROCESSOR
-    
-
-    # throws Exception
-    def process(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.game.combat.destroy.event.DestroyEventCircularStaticPool import DestroyEventCircularStaticPool
-        from org.allbinary.game.combat.destroy.event.DestroyedEvent import DestroyedEvent
-        from org.allbinary.game.combat.destroy.event.DestroyedEventHandler import DestroyedEventHandler
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        list_: BasicArrayList = self.getList()
-        size: int = list_.size()
-        destroyedEventHandler: DestroyedEventHandler = DestroyedEventHandler.getInstance()
-        destroyEventCircularStaticPool: DestroyEventCircularStaticPool = DestroyEventCircularStaticPool.getInstance()
-        destroyedEvent: DestroyedEvent = None
-        layerInterface: AllBinaryLayer = None
-        for index in range(0, size):
-            layerInterfaceCanBeNull: object = list_.objectArray[index]
-            if layerInterfaceCanBeNull is not None:
-                layerInterface = layerInterfaceCanBeNull
-                allBinaryLayerManager.remove(layerInterface)
-                destroyedEvent = destroyEventCircularStaticPool.getInstanceForLayer(layerInterface)
-                destroyedEventHandler.fireEvent(destroyedEvent)
-            else:
-                commonStrings: CommonStrings = CommonStrings.getInstance()
-        list_.clear()
-# from org.allbinary.game.combat.destroy.event.DestroyEventCircularStaticPool import DestroyEventCircularStaticPool
-# from org.allbinary.game.combat.destroy.event.DestroyedEvent import DestroyedEvent
-# from org.allbinary.game.combat.destroy.event.DestroyedEventHandler import DestroyedEventHandler
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
+function initFieldsDestroyedLayerProcessor(this::DestroyedLayerProcessor)
+    nothing
+end
 
 
-def _DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSOR() -> object:
-    return BasicLayerProcessor.NULL_LAYER_PROCESSOR
+function initDestroyedLayerProcessor(this::DestroyedLayerProcessor)
+        initBasicLayerProcessor(this)
+        initFieldsDestroyedLayerProcessor(this)
+        nothing
+        nothing
+end
 
-lazy_static(DestroyedLayerProcessor, "DESTROYED_LAYER_PROCESSOR", _DestroyedLayerProcessor_DESTROYED_LAYER_PROCESSOR)
+function newDestroyedLayerProcessor()
+    this = DestroyedLayerProcessor()
+    initDestroyedLayerProcessor(this)
+    this
+end
+
+
+function init(::Type{DestroyedLayerProcessor})
+        staticSet_DESTROYED_LAYER_PROCESSOR(DestroyedLayerProcessor, newDestroyedLayerProcessor())
+        nothing
+end
+
+
+function getInstance(::Type{DestroyedLayerProcessor})
+        return staticGet_DESTROYED_LAYER_PROCESSOR(DestroyedLayerProcessor)
+end
+
+
+function process(this::DestroyedLayerProcessor, allBinaryLayerManager)
+        local list = AllBinary.getList(this)
+        local size::Int32 = AllBinary.size(list)
+        local destroyedEventHandler = AllBinary.getInstance(DestroyedEventHandler)
+        local destroyEventCircularStaticPool = AllBinary.getInstance(DestroyEventCircularStaticPool)
+        local destroyedEvent = nothing
+        local layerInterface = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            local layerInterfaceCanBeNull = list.objectArray[index + 1]
+            if layerInterfaceCanBeNull !== nothing
+                layerInterface = (layerInterfaceCanBeNull)
+                AllBinary.remove(allBinaryLayerManager, layerInterface)
+                destroyedEvent = AllBinary.getInstanceForLayer(destroyEventCircularStaticPool, layerInterface)
+                AllBinary.fireEvent(destroyedEventHandler, destroyedEvent)
+            else
+                local commonStrings = AllBinary.getInstance(CommonStrings)
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.clear(list)
+        nothing
+end
 

@@ -1,49 +1,62 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+mutable struct DemoLimitedCommandTextItemArrayFactory <: JObject
+    commandTextItemArrayFactory::Any
+    DemoLimitedCommandTextItemArrayFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const DemoLimitedCommandTextItemArrayFactory_instanceValue = Ref{Any}(nothing)
+const DemoLimitedCommandTextItemArrayFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{DemoLimitedCommandTextItemArrayFactory})
+    if !DemoLimitedCommandTextItemArrayFactory_instanceSet[]
+        DemoLimitedCommandTextItemArrayFactory_instanceSet[] = true
+        DemoLimitedCommandTextItemArrayFactory_instanceValue[] = newDemoLimitedCommandTextItemArrayFactory()
+    end
+    DemoLimitedCommandTextItemArrayFactory_instanceValue[]
+end
+function staticSet_instance(::Type{DemoLimitedCommandTextItemArrayFactory}, value)
+    DemoLimitedCommandTextItemArrayFactory_instanceSet[] = true
+    DemoLimitedCommandTextItemArrayFactory_instanceValue[] = value
+end
+
+function initFieldsDemoLimitedCommandTextItemArrayFactory(this::DemoLimitedCommandTextItemArrayFactory)
+    this.commandTextItemArrayFactory = nothing
+    this.commandTextItemArrayFactory = newCommandTextItemArrayFactory(newLimitCommandsVisitor())
+    nothing
+end
+
+function initDemoLimitedCommandTextItemArrayFactory(this::DemoLimitedCommandTextItemArrayFactory)
+    initFieldsDemoLimitedCommandTextItemArrayFactory(this)
+end
+
+function newDemoLimitedCommandTextItemArrayFactory()
+    this = DemoLimitedCommandTextItemArrayFactory()
+    initDemoLimitedCommandTextItemArrayFactory(this)
+    this
+end
 
 
-class DemoLimitedCommandTextItemArrayFactory:
-    instance: DemoLimitedCommandTextItemArrayFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.form.item.CommandTextItemArrayFactory import CommandTextItemArrayFactory
-        from org.allbinary.graphics.form.item.LimitCommandsVisitor import LimitCommandsVisitor
-        self.commandTextItemArrayFactory: CommandTextItemArrayFactory = CommandTextItemArrayFactory(LimitCommandsVisitor())
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> DemoLimitedCommandTextItemArrayFactory:
-        return DemoLimitedCommandTextItemArrayFactory.instance
-    
-
-    def getCommandTextItemArrayFactory(self) -> CommandTextItemArrayFactory:
-        from org.allbinary.graphics.form.item.CommandTextItemArrayFactory import CommandTextItemArrayFactory
-        return self.commandTextItemArrayFactory
-# from org.allbinary.graphics.form.item.CommandTextItemArrayFactory import CommandTextItemArrayFactory
-# from org.allbinary.graphics.form.item.LimitCommandsVisitor import LimitCommandsVisitor
+function getInstance(::Type{DemoLimitedCommandTextItemArrayFactory})
+        return staticGet_instance(DemoLimitedCommandTextItemArrayFactory)
+end
 
 
-def _DemoLimitedCommandTextItemArrayFactory_instance() -> object:
-    return DemoLimitedCommandTextItemArrayFactory()
-
-lazy_static(DemoLimitedCommandTextItemArrayFactory, "instance", _DemoLimitedCommandTextItemArrayFactory_instance)
+function getCommandTextItemArrayFactory(this::DemoLimitedCommandTextItemArrayFactory)
+        return this.commandTextItemArrayFactory
+end
 

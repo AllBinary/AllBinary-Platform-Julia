@@ -1,50 +1,87 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.graphics.hud
 
-from __future__ import annotations
+mutable struct BasicHudFactory <: JObject
+    DIRECTION_EXCEPTION::Any
+    VERTICAL::Int32
+    HORIZONTAL::Int32
+    BOTTOMLEFT::Int32
+    BOTTOMRIGHT::Int32
+    TOPLEFT::Int32
+    TOPRIGHT::Int32
+    BOTTOMCENTER::Int32
+    TOPCENTER::Int32
+    ABSOLUTE::Int32
+    BasicHudFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BasicHudFactory_instanceValue = Ref{Any}(nothing)
+const BasicHudFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{BasicHudFactory})
+    if !BasicHudFactory_instanceSet[]
+        BasicHudFactory_instanceSet[] = true
+        BasicHudFactory_instanceValue[] = newBasicHudFactory()
+    end
+    BasicHudFactory_instanceValue[]
+end
+function staticSet_instance(::Type{BasicHudFactory}, value)
+    BasicHudFactory_instanceSet[] = true
+    BasicHudFactory_instanceValue[] = value
+end
+
+function initFieldsBasicHudFactory(this::BasicHudFactory)
+    this.DIRECTION_EXCEPTION = nothing
+    this.VERTICAL = Int32(0)
+    this.HORIZONTAL = Int32(0)
+    this.BOTTOMLEFT = Int32(0)
+    this.BOTTOMRIGHT = Int32(0)
+    this.TOPLEFT = Int32(0)
+    this.TOPRIGHT = Int32(0)
+    this.BOTTOMCENTER = Int32(0)
+    this.TOPCENTER = Int32(0)
+    this.ABSOLUTE = Int32(0)
+    this.DIRECTION_EXCEPTION = "Only Horizontal Direction is Allowed Currently"
+    this.VERTICAL = Int32(0)
+    this.HORIZONTAL = Int32(1)
+    this.BOTTOMLEFT = Int32(0)
+    this.BOTTOMRIGHT = Int32(1)
+    this.TOPLEFT = Int32(2)
+    this.TOPRIGHT = Int32(3)
+    this.BOTTOMCENTER = Int32(4)
+    this.TOPCENTER = Int32(5)
+    this.ABSOLUTE = Int32(6)
+    nothing
+end
 
 
-class BasicHudFactory:
-    instance: BasicHudFactory = None
-
-    def _init_fields(self) -> None:
-        self.DIRECTION_EXCEPTION: str = "Only Horizontal Direction is Allowed Currently"
-        self.VERTICAL: int = 0
-        self.HORIZONTAL: int = 1
-        self.BOTTOMLEFT: int = 0
-        self.BOTTOMRIGHT: int = 1
-        self.TOPLEFT: int = 2
-        self.TOPRIGHT: int = 3
-        self.BOTTOMCENTER: int = 4
-        self.TOPCENTER: int = 5
-        self.ABSOLUTE: int = 6
-    
-
-    @staticmethod
-    def getInstance() -> BasicHudFactory:
-        return BasicHudFactory.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
+function getInstance(::Type{BasicHudFactory})
+        return staticGet_instance(BasicHudFactory)
+end
 
 
-def _BasicHudFactory_instance() -> object:
-    return BasicHudFactory()
+function initBasicHudFactory(this::BasicHudFactory)
+        initFieldsBasicHudFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(BasicHudFactory, "instance", _BasicHudFactory_instance)
+function newBasicHudFactory()
+    this = BasicHudFactory()
+    initBasicHudFactory(this)
+    this
+end
 

@@ -1,108 +1,165 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.compound
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SimultaneousCompoundIndexAnimation <: JObject
+    animationInterfaceArray::Any
+    SimultaneousCompoundIndexAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
 
-
-class SimultaneousCompoundIndexAnimation(IndexedAnimation):
-
-    def _init_fields(self) -> None:
-        self.animationInterfaceArray: list[IndexedAnimation] = None
+function initFieldsSimultaneousCompoundIndexAnimation(this::SimultaneousCompoundIndexAnimation)
+    this.animationInterfaceArray = nothing
     
+    nothing
+end
 
-    def __init__(self, animationInterfaceArray: list[IndexedAnimation], animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.animationInterfaceArray = animationInterfaceArray
-    
 
-    def setFrame(self, frameIndex: int) -> None:
-        index = len(self.animationInterfaceArray)
-        while (index := index - 1) >= 0:
-            self.animationInterfaceArray[index].setFrame(frameIndex)
-    
+function initSimultaneousCompoundIndexAnimation(this::SimultaneousCompoundIndexAnimation, animationInterfaceArray, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        initFieldsSimultaneousCompoundIndexAnimation(this)
+        this.animationInterfaceArray = animationInterfaceArray
+        nothing
+end
 
-    def getFrame(self) -> int:
-        return self.animationInterfaceArray[0].getFrame()
-    
+function newSimultaneousCompoundIndexAnimation(animationInterfaceArray, animationBehavior)
+    this = SimultaneousCompoundIndexAnimation()
+    initSimultaneousCompoundIndexAnimation(this, animationInterfaceArray, animationBehavior)
+    this
+end
 
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        return self.animationInterfaceArray[0].getAnimationSize()
-    
 
-    def getSize(self) -> int:
-        return self.animationInterfaceArray[0].getSize()
-    
+function setFrame(this::SimultaneousCompoundIndexAnimation, frameIndex)
+        let
+            local index::Int32 = Int32(Base.length(this.animationInterfaceArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.setFrame(this.animationInterfaceArray[index + 1], frameIndex)
+            finally
+            end
+            end
+        end
+        nothing
+end
 
-    def previousFrame(self) -> None:
-        index = len(self.animationInterfaceArray)
-        while (index := index - 1) >= 0:
-            self.animationInterfaceArray[index].previousFrame()
-    
 
-    # throws Exception
-    def nextFrame(self) -> None:
-        index = len(self.animationInterfaceArray)
-        while (index := index - 1) >= 0:
-            self.animationInterfaceArray[index].nextFrame()
-    
+function getFrame(this::SimultaneousCompoundIndexAnimation)
+        return AllBinary.getFrame(this.animationInterfaceArray[Int32(0) + 1])
+end
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
+function getAnimationSize(this::SimultaneousCompoundIndexAnimation)
+        return AllBinary.getAnimationSize(this.animationInterfaceArray[Int32(0) + 1])
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        index = len(self.animationInterfaceArray)
-        while (index := index - 1) >= 0:
-            self.animationInterfaceArray[index].paintXY(graphics, x, y)
-    
 
-    def paintThreedXYZ(self, graphics: Graphics, x: int, y: int, z: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        index = len(self.animationInterfaceArray)
-        while (index := index - 1) >= 0:
-            self.animationInterfaceArray[index].paintThreedXYZ(graphics, x, y, z)
-    
+function getSize(this::SimultaneousCompoundIndexAnimation)
+        return AllBinary.getSize(this.animationInterfaceArray[Int32(0) + 1])
+end
 
-    # throws Exception
-    def set(self, gl: GL) -> None:
-        from javax.microedition.khronos.opengles.GL import GL
-        index = len(self.animationInterfaceArray)
-        while (index := index - 1) >= 0:
-            self.animationInterfaceArray[index].set(gl)
-    
 
-    def getAnimationInterfaceArray(self) -> list[IndexedAnimation]:
-        return self.animationInterfaceArray
-    
+function previousFrame(this::SimultaneousCompoundIndexAnimation)
+        let
+            local index::Int32 = Int32(Base.length(this.animationInterfaceArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.previousFrame(this.animationInterfaceArray[index + 1])
+            finally
+            end
+            end
+        end
+        nothing
+end
 
-    def setAnimationInterfaceArray(self, animationInterfaceArray: list[IndexedAnimation]) -> None:
-        self.animationInterfaceArray = animationInterfaceArray
-# from javax.microedition.khronos.opengles.GL import GL
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
 
+function nextFrame(this::SimultaneousCompoundIndexAnimation)
+        let
+            local index::Int32 = Int32(Base.length(this.animationInterfaceArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.nextFrame(this.animationInterfaceArray[index + 1])
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function setSequence(this::SimultaneousCompoundIndexAnimation, sequence)
+        nothing
+        nothing
+end
+
+
+function getSequence(this::SimultaneousCompoundIndexAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
+
+
+function paintXY(this::SimultaneousCompoundIndexAnimation, graphics, x, y)
+        let
+            local index::Int32 = Int32(Base.length(this.animationInterfaceArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.paintXY(this.animationInterfaceArray[index + 1], graphics, x, y)
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function paintThreedXYZ(this::SimultaneousCompoundIndexAnimation, graphics, x, y, z)
+        let
+            local index::Int32 = Int32(Base.length(this.animationInterfaceArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.paintThreedXYZ(this.animationInterfaceArray[index + 1], graphics, x, y, z)
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function set(this::SimultaneousCompoundIndexAnimation, gl)
+        let
+            local index::Int32 = Int32(Base.length(this.animationInterfaceArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.set(this.animationInterfaceArray[index + 1], gl)
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function getAnimationInterfaceArray(this::SimultaneousCompoundIndexAnimation)
+        return this.animationInterfaceArray
+end
+
+
+function setAnimationInterfaceArray(this::SimultaneousCompoundIndexAnimation, animationInterfaceArray)
+        this.animationInterfaceArray = animationInterfaceArray
+        nothing
+end
 

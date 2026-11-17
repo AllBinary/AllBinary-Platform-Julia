@@ -1,115 +1,152 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.event
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct UpGameKeyEventHandlerBase <: JObject
+    list::Any
+    UpGameKeyEventHandlerBase() = new()
+end
 
-import threading
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const UpGameKeyEventHandlerBase_TOTAL_LISTENERSValue = Ref{Any}(nothing)
+const UpGameKeyEventHandlerBase_TOTAL_LISTENERSSet = Ref(false)
+function staticGet_TOTAL_LISTENERS(::Type{UpGameKeyEventHandlerBase})
+    if !UpGameKeyEventHandlerBase_TOTAL_LISTENERSSet[]
+        UpGameKeyEventHandlerBase_TOTAL_LISTENERSSet[] = true
+        UpGameKeyEventHandlerBase_TOTAL_LISTENERSValue[] = " Total PlayerGameInput Listeners: "
+    end
+    UpGameKeyEventHandlerBase_TOTAL_LISTENERSValue[]
+end
+function staticSet_TOTAL_LISTENERS(::Type{UpGameKeyEventHandlerBase}, value)
+    UpGameKeyEventHandlerBase_TOTAL_LISTENERSSet[] = true
+    UpGameKeyEventHandlerBase_TOTAL_LISTENERSValue[] = value
+end
+const UpGameKeyEventHandlerBase_LISTENER_LABELValue = Ref{Any}(nothing)
+const UpGameKeyEventHandlerBase_LISTENER_LABELSet = Ref(false)
+function staticGet_LISTENER_LABEL(::Type{UpGameKeyEventHandlerBase})
+    if !UpGameKeyEventHandlerBase_LISTENER_LABELSet[]
+        UpGameKeyEventHandlerBase_LISTENER_LABELSet[] = true
+        UpGameKeyEventHandlerBase_LISTENER_LABELValue[] = " PlayerGameInput Listener: "
+    end
+    UpGameKeyEventHandlerBase_LISTENER_LABELValue[]
+end
+function staticSet_LISTENER_LABEL(::Type{UpGameKeyEventHandlerBase}, value)
+    UpGameKeyEventHandlerBase_LISTENER_LABELSet[] = true
+    UpGameKeyEventHandlerBase_LISTENER_LABELValue[] = value
+end
+
+function initFieldsUpGameKeyEventHandlerBase(this::UpGameKeyEventHandlerBase)
+    this.list = nothing
+    this.list = newBasicArrayListD()
+    nothing
+end
 
 
-class UpGameKeyEventHandlerBase(BasicEventHandler):
-    TOTAL_LISTENERS: str = " Total PlayerGameInput Listeners: "
-    LISTENER_LABEL: str = " PlayerGameInput Listener: "
-    _lock = threading.RLock()
+function initUpGameKeyEventHandlerBase(this::UpGameKeyEventHandlerBase)
+        initBasicEventHandler(this)
+        initFieldsUpGameKeyEventHandlerBase(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_: BasicArrayList = BasicArrayListD()
-    
+function newUpGameKeyEventHandlerBase()
+    this = UpGameKeyEventHandlerBase()
+    initUpGameKeyEventHandlerBase(this)
+    this
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
 
-    def addListener(self, playerGameInput: PlayerGameInput) -> None:
-        from org.allbinary.game.input.PlayerGameInput import PlayerGameInput
-        if not self.list_.contains(playerGameInput):
-            self.list_.add(playerGameInput)
-    
+function addListener(this::UpGameKeyEventHandlerBase, playerGameInput)
+        if !AllBinary.contains(this.list, playerGameInput)
+            AllBinary.add(this.list, playerGameInput)
+        end
+        nothing
+end
 
-    def removeAllListeners(self) -> None:
-        self.list_.clear()
-        super().removeAllListeners()
-    
 
-    def removeListenerSingleThreaded(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.list_.remove(eventListenerInterface)
-        super().removeListenerSingleThreaded(eventListenerInterface)
-    
+function removeAllListeners(this::UpGameKeyEventHandlerBase)
+        AllBinary.clear(this.list)
+        AllBinary.removeAllListeners(this)
+        nothing
+end
 
-    def removeListener(self, eventListenerInterface: EventListenerInterface) -> None:
-        with self._lock:
-            return self._removeListener_unlocked(eventListenerInterface)
 
-    def _removeListener_unlocked(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.list_.remove(eventListenerInterface)
-        super().removeListener(eventListenerInterface)
-    
+function removeListenerSingleThreaded(this::UpGameKeyEventHandlerBase, eventListenerInterface)
+        AllBinary.remove(this.list, eventListenerInterface)
+        AllBinary.removeListenerSingleThreaded(this, eventListenerInterface)
+        nothing
+end
 
-    # throws Exception
-    def fireEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.game.input.PlayerGameInput import PlayerGameInput
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        index = self.list_.size()
-        while (index := index - 1) >= 0:
-            try:
-                playerGameInput: PlayerGameInput = self.list_.objectArray[index]
-                playerGameInput.onUpGameKeyEvent(eventObject)
-            except Exception as e:
-                self.logUtil.put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-        super().fireEvent(eventObject)
-    
 
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        upGameKeyEventListenerInterface: UpGameKeyEventListenerInterface = eventListenerInterface
-        upGameKeyEventListenerInterface.onUpGameKeyEvent(eventObject)
-    
+function removeListener(this::UpGameKeyEventHandlerBase, eventListenerInterface)
+        AllBinary.remove(this.list, eventListenerInterface)
+        AllBinary.removeListener(this, eventListenerInterface)
+        nothing
+end
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        stringBuffer: StringMaker = StringMaker()
-        size: int = self.list_.size()
-        stringBuffer.append(str(super()))
-        stringBuffer.append(UpGameKeyEventHandlerBase.TOTAL_LISTENERS)
-        stringBuffer.appendint(size)
-        for index in range(0, size):
-            try:
-                eventListenerInterface: EventListenerInterface = self.list_.get(index)
-                stringBuffer.append(UpGameKeyEventHandlerBase.LISTENER_LABEL)
-                stringBuffer.append(str(eventListenerInterface))
-            except Exception as e:
-                self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.TOSTRING, e)
-        return str(stringBuffer)
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.game.input.PlayerGameInput import PlayerGameInput
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function fireEvent(this::UpGameKeyEventHandlerBase, eventObject)
+        let
+            local index::Int32 = AllBinary.size(this.list)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            try
+                local playerGameInput = (this.list.objectArray[index + 1])
+                AllBinary.onUpGameKeyEvent(playerGameInput, (eventObject))
+            catch e
+                AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, AllBinary.getInstance(EventStrings).FIRE_EVENT, e)
+            end
+            finally
+            end
+            end
+        end
+        AllBinary.fireEvent(this, eventObject)
+        nothing
+end
 
+
+function process(this::UpGameKeyEventHandlerBase, eventObject, eventListenerInterface)
+        local upGameKeyEventListenerInterface = (eventListenerInterface)
+        AllBinary.onUpGameKeyEvent(upGameKeyEventListenerInterface, (eventObject))
+        nothing
+end
+
+
+function toString(this::UpGameKeyEventHandlerBase)
+        local stringBuffer = newStringMaker()
+        local size::Int32 = AllBinary.size(this.list)
+        AllBinary.append(stringBuffer, AllBinary.toString(this))
+        AllBinary.append(stringBuffer, staticGet_TOTAL_LISTENERS(UpGameKeyEventHandlerBase))
+        AllBinary.appendint(stringBuffer, size)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            try
+                local eventListenerInterface = (AllBinary.get(this.list, index))
+                AllBinary.append(stringBuffer, staticGet_LISTENER_LABEL(UpGameKeyEventHandlerBase))
+                AllBinary.append(stringBuffer, AllBinary.toString(eventListenerInterface))
+            catch e
+                AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.TOSTRING, e)
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        return AllBinary.toString(stringBuffer)
+end
 

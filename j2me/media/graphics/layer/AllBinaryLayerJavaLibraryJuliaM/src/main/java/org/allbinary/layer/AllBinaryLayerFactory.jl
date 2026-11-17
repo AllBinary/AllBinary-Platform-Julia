@@ -1,43 +1,47 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2011 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2011 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer
 
-from __future__ import annotations
+mutable struct AllBinaryLayerFactory <: JObject
+    rectangle::Any
+    AllBinaryLayerFactory() = new()
+end
 
-from org.allbinary.layer.AllBinaryLayerFactoryInterface import AllBinaryLayerFactoryInterface
 
-
-class AllBinaryLayerFactory(AllBinaryLayerFactoryInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        self.rectangle: Rectangle = None
+function initFieldsAllBinaryLayerFactory(this::AllBinaryLayerFactory)
+    this.rectangle = nothing
     
+    nothing
+end
 
-    def __init__(self, rectangle: Rectangle) -> None:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        self._init_fields()
-        self.rectangle = rectangle
-    
 
-    def getInstance(self) -> AllBinaryLayer:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.view.ViewPosition import ViewPosition
-        return AllBinaryLayer(StringUtil.getInstance().EMPTY_STRING, self.rectangle, ViewPosition.getInstanceD())
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.view.ViewPosition import ViewPosition
+function initAllBinaryLayerFactory(this::AllBinaryLayerFactory, rectangle)
+        initFieldsAllBinaryLayerFactory(this)
+        this.rectangle = rectangle
+        nothing
+end
 
+function newAllBinaryLayerFactory(rectangle)
+    this = AllBinaryLayerFactory()
+    initAllBinaryLayerFactory(this, rectangle)
+    this
+end
+
+
+function getInstance(this::AllBinaryLayerFactory)
+        return newAllBinaryLayer(AllBinary.getInstance(StringUtil).EMPTY_STRING, this.rectangle, AllBinary.getInstanceD(ViewPosition))
+end
 

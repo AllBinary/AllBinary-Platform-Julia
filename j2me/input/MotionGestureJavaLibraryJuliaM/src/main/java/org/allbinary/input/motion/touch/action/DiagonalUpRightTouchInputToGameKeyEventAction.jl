@@ -1,48 +1,60 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.touch.action
 
-from __future__ import annotations
+# extends GameKeyCompleteMotionGestureInputEvent: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct DiagonalUpRightTouchInputToGameKeyEventAction <: JObject
+    DiagonalUpRightTouchInputToGameKeyEventAction() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent import GameKeyCompleteMotionGestureInputEvent
+const DiagonalUpRightTouchInputToGameKeyEventAction_instanceValue = Ref{Any}(nothing)
+const DiagonalUpRightTouchInputToGameKeyEventAction_instanceSet = Ref(false)
+function staticGet_instance(::Type{DiagonalUpRightTouchInputToGameKeyEventAction})
+    if !DiagonalUpRightTouchInputToGameKeyEventAction_instanceSet[]
+        DiagonalUpRightTouchInputToGameKeyEventAction_instanceSet[] = true
+        DiagonalUpRightTouchInputToGameKeyEventAction_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    DiagonalUpRightTouchInputToGameKeyEventAction_instanceValue[]
+end
+function staticSet_instance(::Type{DiagonalUpRightTouchInputToGameKeyEventAction}, value)
+    DiagonalUpRightTouchInputToGameKeyEventAction_instanceSet[] = true
+    DiagonalUpRightTouchInputToGameKeyEventAction_instanceValue[] = value
+end
 
-
-class DiagonalUpRightTouchInputToGameKeyEventAction(GameKeyCompleteMotionGestureInputEvent):
-    instance: object = None
-    
-
-    @staticmethod
-    def getInstance() -> GameKeyCompleteMotionGestureInputEvent:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if DiagonalUpRightTouchInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT:
-            DiagonalUpRightTouchInputToGameKeyEventAction.instance = DiagonalUpRightTouchInputToGameKeyEventAction()
-        return DiagonalUpRightTouchInputToGameKeyEventAction.instance
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        super().__init__("Diagonal Up Right Action", TouchMotionGestureFactory.getInstance().DIAGONAL_UP_RIGHT, PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping())
-# from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-# from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-# from org.allbinary.logic.NullUtil import NullUtil
+function initFieldsDiagonalUpRightTouchInputToGameKeyEventAction(this::DiagonalUpRightTouchInputToGameKeyEventAction)
+    nothing
+end
 
 
-def _DiagonalUpRightTouchInputToGameKeyEventAction_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{DiagonalUpRightTouchInputToGameKeyEventAction})
+        if staticGet_instance(DiagonalUpRightTouchInputToGameKeyEventAction) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(DiagonalUpRightTouchInputToGameKeyEventAction, newDiagonalUpRightTouchInputToGameKeyEventAction())
+        end
+        return (staticGet_instance(DiagonalUpRightTouchInputToGameKeyEventAction))
+end
 
-lazy_static(DiagonalUpRightTouchInputToGameKeyEventAction, "instance", _DiagonalUpRightTouchInputToGameKeyEventAction_instance)
+
+function initDiagonalUpRightTouchInputToGameKeyEventAction(this::DiagonalUpRightTouchInputToGameKeyEventAction)
+        initGameKeyCompleteMotionGestureInputEvent(this, "Diagonal Up Right Action", AllBinary.getInstance(TouchMotionGestureFactory).DIAGONAL_UP_RIGHT, AllBinary.getInputMapping(AllBinary.getPersistentInputMappingInstance(AllBinary.getInstance(PlatformInputMappingFactory))))
+        nothing
+end
+
+function newDiagonalUpRightTouchInputToGameKeyEventAction()
+    this = DiagonalUpRightTouchInputToGameKeyEventAction()
+    initDiagonalUpRightTouchInputToGameKeyEventAction(this)
+    this
+end
 

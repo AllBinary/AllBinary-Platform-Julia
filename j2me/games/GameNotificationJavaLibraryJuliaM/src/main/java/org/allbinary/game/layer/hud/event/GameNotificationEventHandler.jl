@@ -1,76 +1,86 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.hud.event
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameNotificationEventHandler <: JObject
+    enabled::Bool
+    GameNotificationEventHandler() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const GameNotificationEventHandler_instanceValue = Ref{Any}(nothing)
+const GameNotificationEventHandler_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameNotificationEventHandler})
+    if !GameNotificationEventHandler_instanceSet[]
+        GameNotificationEventHandler_instanceSet[] = true
+        GameNotificationEventHandler_instanceValue[] = newGameNotificationEventHandler()
+    end
+    GameNotificationEventHandler_instanceValue[]
+end
+function staticSet_instance(::Type{GameNotificationEventHandler}, value)
+    GameNotificationEventHandler_instanceSet[] = true
+    GameNotificationEventHandler_instanceValue[] = value
+end
+
+function initFieldsGameNotificationEventHandler(this::GameNotificationEventHandler)
+    this.enabled = false
+    this.enabled = true
+    nothing
+end
 
 
-class GameNotificationEventHandler(BasicEventHandler):
-    instance: GameNotificationEventHandler = None
-    _lock = threading.RLock()
+function initGameNotificationEventHandler(this::GameNotificationEventHandler)
+        initBasicEventHandler(this)
+        initFieldsGameNotificationEventHandler(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.enabled: bool = True
-    
+function newGameNotificationEventHandler()
+    this = GameNotificationEventHandler()
+    initGameNotificationEventHandler(this)
+    this
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
 
-    def removeAllListeners(self) -> None:
-        with self._lock:
-            return self._removeAllListeners_unlocked()
+function removeAllListeners(this::GameNotificationEventHandler)
+        local eventListenerInterface = staticGet_NULL_EVENT_LISTENER(NullEventListener)
+        local list = this.eventListenerInterfaceList
+        if AllBinary.size(list) > Int32(0)
+            eventListenerInterface = (list.objectArray[Int32(0) + 1])
+        end
+        AllBinary.removeAllListeners(this)
+        if eventListenerInterface !== staticGet_NULL_EVENT_LISTENER(NullEventListener)
+            AllBinary.addListenerInterface(this, eventListenerInterface)
+        end
+        nothing
+end
 
-    def _removeAllListeners_unlocked(self) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        from org.allbinary.logic.util.event.NullEventListener import NullEventListener
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        eventListenerInterface: EventListenerInterface = NullEventListener.NULL_EVENT_LISTENER
-        list_: BasicArrayList = self.eventListenerInterfaceList
-        if list_.size() > 0:
-            eventListenerInterface = list_.objectArray[0]
-        super().removeAllListeners()
-        if eventListenerInterface != NullEventListener.NULL_EVENT_LISTENER:
-            self.addListenerInterface(eventListenerInterface)
-    
 
-    @staticmethod
-    def getInstance() -> GameNotificationEventHandler:
-        return GameNotificationEventHandler.instance
-    
+function getInstance(::Type{GameNotificationEventHandler})
+        return staticGet_instance(GameNotificationEventHandler)
+end
 
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        if not self.enabled:
+
+function process(this::GameNotificationEventHandler, eventObject, eventListenerInterface)
+        if !this.enabled
             return
-        gameNotificationListenerInterface: GameNotificationListenerInterface = eventListenerInterface
-        gameNotificationListenerInterface.onGameNotificationEvent(eventObject)
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-# from org.allbinary.logic.util.event.NullEventListener import NullEventListener
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-
-
-def _GameNotificationEventHandler_instance() -> object:
-    return GameNotificationEventHandler()
-
-lazy_static(GameNotificationEventHandler, "instance", _GameNotificationEventHandler_instance)
+        end
+        local gameNotificationListenerInterface = (eventListenerInterface)
+        AllBinary.onGameNotificationEvent(gameNotificationListenerInterface, (eventObject))
+        nothing
+end
 

@@ -1,108 +1,120 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.special
 
-from __future__ import annotations
+mutable struct SpecialGameInput <: JObject
+    SpecialGameInput() = new()
+end
 
-from org.allbinary.game.layer.special.SpecialGameInputInterface import SpecialGameInputInterface
+
+function initFieldsSpecialGameInput(this::SpecialGameInput)
+    nothing
+end
+
+function initSpecialGameInput(this::SpecialGameInput)
+    initFieldsSpecialGameInput(this)
+end
+
+function newSpecialGameInput()
+    this = SpecialGameInput()
+    initSpecialGameInput(this)
+    this
+end
 
 
-class SpecialGameInput(SpecialGameInputInterface):
-    
+function up(this::SpecialGameInput)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def up(self) -> None:
-        pass
-    
 
-    # throws Exception
-    def down(self) -> None:
-        pass
-    
+function down(this::SpecialGameInput)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def right(self) -> None:
-        pass
-    
 
-    # throws Exception
-    def left(self) -> None:
-        pass
-    
+function right(this::SpecialGameInput)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def strafeLeft(self) -> None:
-        pass
-    
 
-    # throws Exception
-    def strafeRight(self) -> None:
-        pass
-    
+function left(this::SpecialGameInput)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def fire(self, layerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-    
 
-    # throws Exception
-    def special1(self, layerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-    
+function strafeLeft(this::SpecialGameInput)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def special2(self, layerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-    
 
-    # throws Exception
-    def special3(self, layerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-    
+function strafeRight(this::SpecialGameInput)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def special4(self, layerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-    
 
-    # throws Exception
-    def special5(self, layerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-    
+function fire(this::SpecialGameInput, layerManager, gameKeyEvent)
+        nothing
+        nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
 
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
+function special1(this::SpecialGameInput, layerManager, gameKeyEvent)
+        nothing
+        nothing
+end
 
+
+function special2(this::SpecialGameInput, layerManager, gameKeyEvent)
+        nothing
+        nothing
+end
+
+
+function special3(this::SpecialGameInput, layerManager, gameKeyEvent)
+        nothing
+        nothing
+end
+
+
+function special4(this::SpecialGameInput, layerManager, gameKeyEvent)
+        nothing
+        nothing
+end
+
+
+function special5(this::SpecialGameInput, layerManager, gameKeyEvent)
+        nothing
+        nothing
+end
+
+
+function paint(this::SpecialGameInput, graphics)
+        nothing
+        nothing
+end
+
+
+function paintThreed(this::SpecialGameInput, graphics)
+        nothing
+        nothing
+end
 

@@ -1,32 +1,39 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+# extends AbFileInputStream: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AbFileLocalInputStream <: JObject
+    AbFileLocalInputStream() = new()
+end
 
-from org.allbinary.logic.io.AbFileInputStream import AbFileInputStream
+
+function initFieldsAbFileLocalInputStream(this::AbFileLocalInputStream)
+    nothing
+end
 
 
-class AbFileLocalInputStream(AbFileInputStream):
-    
+function initAbFileLocalInputStream(this::AbFileLocalInputStream, file)
+        initAbFileInputStream(this, AllBinary.getPath(AllBinary.get(AbFileNativeUtil, file)))
+        nothing
+end
 
-    def __init__(self, file: AbFile) -> None:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.io.file.AbFileNativeUtil import AbFileNativeUtil
-        super().__init__(AbFileNativeUtil.get(file).getPath())
-# from java.io.FileNotFoundException import FileNotFoundException
-# from org.allbinary.logic.io.file.AbFile import AbFile
-# from org.allbinary.logic.io.file.AbFileNativeUtil import AbFileNativeUtil
-
+function newAbFileLocalInputStream(file)
+    this = AbFileLocalInputStream()
+    initAbFileLocalInputStream(this, file)
+    this
+end
 

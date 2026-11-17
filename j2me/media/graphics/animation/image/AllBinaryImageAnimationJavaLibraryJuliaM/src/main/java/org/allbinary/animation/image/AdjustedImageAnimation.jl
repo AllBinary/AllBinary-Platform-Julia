@@ -1,65 +1,82 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends ImageAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AdjustedImageAnimation <: JObject
+    dx::Int32
+    dy::Int32
+    AdjustedImageAnimation() = new()
+end
 
-from org.allbinary.animation.image.ImageAnimation import ImageAnimation
+
+function initFieldsAdjustedImageAnimation(this::AdjustedImageAnimation)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    nothing
+end
 
 
-class AdjustedImageAnimation(ImageAnimation):
+function initAdjustedImageAnimation(this::AdjustedImageAnimation, image, dx, dy, animationBehavior)
+        initImageAnimation(this, image, animationBehavior)
+        initFieldsAdjustedImageAnimation(this)
+        AllBinary.init(this, dx, dy)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.dx: int = 0
-        self.dy: int = 0
-    
+function newAdjustedImageAnimation(image, dx, dy, animationBehavior)
+    this = AdjustedImageAnimation()
+    initAdjustedImageAnimation(this, image, dx, dy, animationBehavior)
+    this
+end
 
-    def __init__(self, image: Image, dx: int, dy: int, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        super().__init__(image, animationBehavior)
-        self._init_fields()
-        self.init(dx, dy)
-    
 
-    # throws Exception
-    def init(self, dx: int, dy: int) -> None:
-        self.setDx(dx)
-        self.setDy(dy)
-    
+function init(this::AdjustedImageAnimation, dx, dy)
+        AllBinary.setDx(this, dx)
+        AllBinary.setDy(this, dy)
+        nothing
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        super().paintXY(graphics, x + self.dx, y + self.dy)
-    
 
-    def setDx(self, dx: int) -> None:
-        self.dx = dx
-    
+function paintXY(this::AdjustedImageAnimation, graphics, x, y)
+        AllBinary.paintXY(this, graphics, x + this.dx, y + this.dy)
+        nothing
+end
 
-    def getDx(self) -> int:
-        return self.dx
-    
 
-    def setDy(self, dy: int) -> None:
-        self.dy = dy
-    
+function setDx(this::AdjustedImageAnimation, dx)
+        this.dx = dx
+        nothing
+end
 
-    def getDy(self) -> int:
-        return self.dy
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
 
+function getDx(this::AdjustedImageAnimation)
+        return this.dx
+end
+
+
+function setDy(this::AdjustedImageAnimation, dy)
+        this.dy = dy
+        nothing
+end
+
+
+function getDy(this::AdjustedImageAnimation)
+        return this.dy
+end
 

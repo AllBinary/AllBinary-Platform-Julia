@@ -1,93 +1,115 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.text
 
-from __future__ import annotations
+# extends TextAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CustomTextAnimation <: JObject
+    fontDebugFactory::Any
+    fontSize::Int32
+    font::Any
+    lastText::Any
+    hasChanged::Bool
+    textWidth::Int32
+    CustomTextAnimation() = new()
+end
 
-from org.allbinary.animation.text.TextAnimation import TextAnimation
-from org.allbinary.animation.text.TextInterface import TextInterface
 
-
-class CustomTextAnimation(TextAnimation, TextInterface):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from org.allbinary.graphics.font.FontDebugFactory import FontDebugFactory
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.fontDebugFactory: FontDebugFactory = FontDebugFactory.getInstance()
-        self.fontSize: int = None
-        self.font: Font = None
-        self.lastText: str = StringUtil.getInstance().INIT_STRING
-        self.hasChanged: bool = True
-        self.textWidth: int = 0
+function initFieldsCustomTextAnimation(this::CustomTextAnimation)
+    this.fontDebugFactory = nothing
+    this.fontSize = Int32(0)
+    this.font = nothing
+    this.lastText = nothing
+    this.hasChanged = false
+    this.textWidth = Int32(0)
+    this.fontDebugFactory = AllBinary.getInstance(FontDebugFactory)
     
-
-    def __init__(self, text: str, fontSize: int, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        super().__init__(text, animationBehavior)
-        self._init_fields()
-        self.fontSize = fontSize
-        self.font = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, fontSize)
     
+    this.lastText = AllBinary.getInstance(StringUtil).INIT_STRING
+    this.hasChanged = true
+    this.textWidth = Int32(0)
+    nothing
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        existingFont: Font = graphics.getFont()
-        self.fontDebugFactory.setFont(self.font, graphics)
-        super().paintXYNoUpdate(graphics, x, y)
-        self.fontDebugFactory.setFont(existingFont, graphics)
-    
 
-    def setScale(self, scaleX: float, scaleY: float) -> None:
-        from javax.microedition.lcdui.Font import Font
-        if scaleX != scaleY:
-            raise RuntimeError()
-        self.hasChanged = True
-        self.font = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, int((float(self.fontSize) * scaleX)))
-    
+function initCustomTextAnimation(this::CustomTextAnimation, text, fontSize, animationBehavior)
+        initTextAnimation(this, text, animationBehavior)
+        initFieldsCustomTextAnimation(this)
+        this.fontSize = fontSize
+        this.font = AllBinary.getFont(Font, staticGet_FACE_SYSTEM(Font), staticGet_STYLE_PLAIN(Font), fontSize)
+        nothing
+end
 
-    def setTextWithOnMeasure(self, text: str, textChangeListener: TextChangeListener) -> None:
-        super().setTextWithOnMeasure(text, textChangeListener)
-    
+function newCustomTextAnimation(text, fontSize, animationBehavior)
+    this = CustomTextAnimation()
+    initCustomTextAnimation(this, text, fontSize, animationBehavior)
+    this
+end
 
-    def setText(self, text: str) -> None:
-        if self.lastText != text:
-            self.hasChanged = True
-            self.lastText = text
-            super().setText(text)
-    
 
-    def getText(self) -> str:
-        return self.lastText
-    
+function paintXY(this::CustomTextAnimation, graphics, x, y)
+        AllBinary.process(this.myFontProcessor, graphics)
+        local existingFont = AllBinary.getFont(graphics)
+        AllBinary.setFont(this.fontDebugFactory, this.font, graphics)
+        AllBinary.paintXYNoUpdate(this, graphics, x, y)
+        AllBinary.setFont(this.fontDebugFactory, existingFont, graphics)
+        nothing
+end
 
-    def getWidth(self) -> int:
-        if self.hasChanged:
-            self.textWidth = self.font.stringWidth(self.textArrayP[0])
-            self.hasChanged = False
-        return self.textWidth
-    
 
-    def getFontHeight(self) -> int:
-        return self.font.getHeight()
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.font.FontDebugFactory import FontDebugFactory
-# from org.allbinary.logic.string.StringUtil import StringUtil
+function setScale(this::CustomTextAnimation, scaleX, scaleY)
+        if scaleX != scaleY
+            throw(jNewException("RuntimeException", ""))
+        end
+        this.hasChanged = true
+        this.font = AllBinary.getFont(Font, staticGet_FACE_SYSTEM(Font), staticGet_STYLE_PLAIN(Font), (jToInt32((Float32(this.fontSize) * scaleX)) % Int32))
+        nothing
+end
 
+
+function setTextWithOnMeasure(this::CustomTextAnimation, text, textChangeListener)
+        AllBinary.setTextWithOnMeasure(this, text, textChangeListener)
+        nothing
+end
+
+
+function setText(this::CustomTextAnimation, text)
+        if this.lastText != text
+            this.hasChanged = true
+            this.lastText = text
+            AllBinary.setText(this, text)
+        end
+        nothing
+end
+
+
+function getText(this::CustomTextAnimation)
+        return this.lastText
+end
+
+
+function getWidth(this::CustomTextAnimation)
+        if this.hasChanged
+            this.textWidth = AllBinary.stringWidth(this.font, this.textArrayP[Int32(0) + 1])
+            this.hasChanged = false
+        end
+        return this.textWidth
+end
+
+
+function getFontHeight(this::CustomTextAnimation)
+        return AllBinary.getHeight(this.font)
+end
 

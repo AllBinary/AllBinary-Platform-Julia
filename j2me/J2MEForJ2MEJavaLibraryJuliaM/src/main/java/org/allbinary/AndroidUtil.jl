@@ -1,36 +1,49 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary
 
-from __future__ import annotations
+mutable struct AndroidUtil <: JObject
+    AndroidUtil() = new()
+end
 
 
+function initFieldsAndroidUtil(this::AndroidUtil)
+    nothing
+end
 
-class AndroidUtil:
-    
 
-    def __init__(self) -> None:
-        pass
-    
+function initAndroidUtil(this::AndroidUtil)
+        initFieldsAndroidUtil(this)
+        nothing
+        nothing
+end
 
-    @staticmethod
-    def isMemoryRestrictive() -> bool:
-        return True
-    
+function newAndroidUtil()
+    this = AndroidUtil()
+    initAndroidUtil(this)
+    this
+end
 
-    @staticmethod
-    def isAndroid() -> bool:
-        return False
 
+function isMemoryRestrictive(::Type{AndroidUtil})
+        return true
+end
+
+
+function isAndroid(::Type{AndroidUtil})
+        return false
+end
 

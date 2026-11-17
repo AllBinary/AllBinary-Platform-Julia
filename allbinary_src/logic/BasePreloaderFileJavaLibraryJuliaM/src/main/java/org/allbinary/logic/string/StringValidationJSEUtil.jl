@@ -1,36 +1,58 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.string
 
-from __future__ import annotations
+mutable struct StringValidationJSEUtil <: JObject
+    StringValidationJSEUtil() = new()
+end
 
 
+function initFieldsStringValidationJSEUtil(this::StringValidationJSEUtil)
+    nothing
+end
 
-class StringValidationJSEUtil:
-    
 
-    def __init__(self) -> None:
-        pass
-    
+function initStringValidationJSEUtil(this::StringValidationJSEUtil)
+        initFieldsStringValidationJSEUtil(this)
+        nothing
+        nothing
+end
 
-    @staticmethod
-    def isBlank(string: str) -> bool:
-        len_: int = len(string)
-        for i in range(0, len_):
-            c: str = string[i]
-            if c.isspace() == False:
-                return False
-        return True
+function newStringValidationJSEUtil()
+    this = StringValidationJSEUtil()
+    initStringValidationJSEUtil(this)
+    this
+end
 
+
+function isBlank(::Type{StringValidationJSEUtil}, string)
+        local len::Int32 = jLength(string)
+        let
+            local i::Int32 = Int32(0)
+            while i < len
+            try
+            local c::UInt16 = jCharAt(string, i)
+            if AllBinary.isWhitespace(Character, c) == false
+                return false
+            end
+            finally
+                i += Int32(1)
+            end
+            end
+        end
+        return true
+end
 

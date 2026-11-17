@@ -1,16 +1,27 @@
 # Generated Code Do Not Modify
 # package org.allbinary.game.collision
 
-from __future__ import annotations
+mutable struct CollisionProcessor <: JObject
+    CollisionProcessor() = new()
+end
 
 
+function initFieldsCollisionProcessor(this::CollisionProcessor)
+    nothing
+end
 
-class CollisionProcessor:
-    
+function initCollisionProcessor(this::CollisionProcessor)
+    initFieldsCollisionProcessor(this)
+end
 
-    def isCollision(self, myLayer: AllBinaryLayer, myLayer2: AllBinaryLayer) -> bool:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return False
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
+function newCollisionProcessor()
+    this = CollisionProcessor()
+    initCollisionProcessor(this)
+    this
+end
 
+
+function isCollision(this::CollisionProcessor, myLayer, myLayer2)
+        return false
+end
 

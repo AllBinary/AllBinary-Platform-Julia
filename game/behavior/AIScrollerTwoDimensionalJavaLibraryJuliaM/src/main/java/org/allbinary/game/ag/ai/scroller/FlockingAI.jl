@@ -1,96 +1,101 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai.scroller
 
-from __future__ import annotations
+# extends BasicAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct FlockingAI <: JObject
+    allowedDistance::Int32
+    FlockingAI() = new()
+end
 
-from org.allbinary.game.ai.BasicAI import BasicAI
 
-
-class FlockingAI(BasicAI):
-
-    def _init_fields(self) -> None:
-        self.allowedDistance: int = None
+function initFieldsFlockingAI(this::FlockingAI)
+    this.allowedDistance = Int32(0)
     
+    nothing
+end
 
-    def __init__(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.ag.ai.scroller.BasePatrolAI import BasePatrolAI
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.ABHashtable import ABHashtable
-        super().__init__(ownerLayerInterface, gameInput)
-        self._init_fields()
-        allowedDistance: int = hashtable.get(BasePatrolAI.MAX_DISTANCE)
-        self.allowedDistance = int(allowedDistance)
-    
 
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.identification.BasicGroupFactory import BasicGroupFactory
-        from org.allbinary.game.layer.identification.GroupLayerManagerListener import GroupLayerManagerListener
-        from org.allbinary.game.layer.weapon.WeaponLayer import WeaponLayer
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        maxDistance: int = 0
-        farAllbinaryLayer: AllBinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
-        groupLayerManagerListener: GroupLayerManagerListener = GroupLayerManagerListener.getInstance()
-        list_: BasicArrayList = groupLayerManagerListener.getList(BasicGroupFactory.getInstance().ENEMY)
-        size: int = list_.size()
-        allBinaryLayer: AllBinaryLayer = None
-        ownerLayerInterface: AllBinaryLayer = None
-        for index in range(0, size):
-            allBinaryLayer = list_.get(index)
-            if allBinaryLayer.getType() != WeaponLayer.getStaticType():
-                distance: int = self.getXYDistance(allBinaryLayer)
-                if distance > maxDistance:
+function initFlockingAI(this::FlockingAI, hashtable, ownerLayerInterface, gameInput)
+        initBasicAI(this, ownerLayerInterface, gameInput)
+        initFieldsFlockingAI(this)
+        local allowedDistance = (AllBinary.get(hashtable, staticGet_MAX_DISTANCE(BasePatrolAI)))
+        this.allowedDistance = AllBinary.intValue(allowedDistance)
+        nothing
+end
+
+function newFlockingAI(hashtable, ownerLayerInterface, gameInput)
+    this = FlockingAI()
+    initFlockingAI(this, hashtable, ownerLayerInterface, gameInput)
+    this
+end
+
+
+function processAI(this::FlockingAI, allBinaryLayerManager)
+        local maxDistance::Int32 = Int32(0)
+        local farAllbinaryLayer = staticGet_NULL_ALLBINARY_LAYER(AllBinaryLayer)
+        local groupLayerManagerListener = AllBinary.getInstance(GroupLayerManagerListener)
+        local list = AllBinary.getList(groupLayerManagerListener, AllBinary.getInstance(BasicGroupFactory).ENEMY)
+        local size::Int32 = AllBinary.size(list)
+        local allBinaryLayer = nothing
+        local ownerLayerInterface = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            allBinaryLayer = (AllBinary.get(list, index))
+            if AllBinary.getType(allBinaryLayer) != AllBinary.getStaticType(WeaponLayer)
+                local distance::Int32 = AllBinary.getXYDistance(this, allBinaryLayer)
+                if distance > maxDistance
                     maxDistance = distance
                     farAllbinaryLayer = allBinaryLayer
-                    if distance > self.allowedDistance:
+                    if distance > this.allowedDistance
                         break
-        if maxDistance > self.allowedDistance:
-            if farAllbinaryLayer != AllBinaryLayer.NULL_ALLBINARY_LAYER:
-                ownerLayerInterface = self.getOwnerLayerInterface()
-                if farAllbinaryLayer.getXP() < ownerLayerInterface.getXP():
-                    self.processKeyAI(Canvas.LEFT)
-                elif farAllbinaryLayer.getXP() > ownerLayerInterface.getXP():
-                    self.processKeyAI(Canvas.RIGHT)
-                elif farAllbinaryLayer.getYP() > ownerLayerInterface.getYP():
-                    self.processKeyAI(Canvas.UP)
-                elif farAllbinaryLayer.getYP() < ownerLayerInterface.getYP():
-                    self.processKeyAI(Canvas.DOWN)
-    
+                    end
+                end
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        if maxDistance > this.allowedDistance
+            if farAllbinaryLayer !== staticGet_NULL_ALLBINARY_LAYER(AllBinaryLayer)
+                ownerLayerInterface = AllBinary.getOwnerLayerInterface(this)
+                if AllBinary.getXP(farAllbinaryLayer) < AllBinary.getXP(ownerLayerInterface)
+                    AllBinary.processKeyAI(this, staticGet_LEFT(Canvas))
+                elseif AllBinary.getXP(farAllbinaryLayer) > AllBinary.getXP(ownerLayerInterface)
+                    AllBinary.processKeyAI(this, staticGet_RIGHT(Canvas))
+                elseif AllBinary.getYP(farAllbinaryLayer) > AllBinary.getYP(ownerLayerInterface)
+                    AllBinary.processKeyAI(this, staticGet_UP(Canvas))
+                elseif AllBinary.getYP(farAllbinaryLayer) < AllBinary.getYP(ownerLayerInterface)
+                    AllBinary.processKeyAI(this, staticGet_DOWN(Canvas))
+                end
+            end
+        end
+        nothing
+end
 
-    def getXYDistance(self, allBinaryLayer: AllBinaryLayer) -> int:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.logic.math.MathUtil import MathUtil
-        ownerLayerInterface: AllBinaryLayer = self.getOwnerLayerInterface()
-        xTotalDistance: int = (allBinaryLayer.getXP() + allBinaryLayer.getHalfWidth()) - (ownerLayerInterface.getXP() + ownerLayerInterface.getHalfWidth())
-        yTotalDistance: int = (allBinaryLayer.getYP() + allBinaryLayer.getHalfHeight()) - (ownerLayerInterface.getYP() + ownerLayerInterface.getHalfHeight())
-        mathUtil: MathUtil = MathUtil.getInstance()
-        totalDistance: int = mathUtil.abs(xTotalDistance) + mathUtil.abs(yTotalDistance)
+
+function getXYDistance(this::FlockingAI, allBinaryLayer)
+        local ownerLayerInterface = AllBinary.getOwnerLayerInterface(this)
+        local xTotalDistance::Int32 = (AllBinary.getXP(allBinaryLayer) + AllBinary.getHalfWidth(allBinaryLayer)) - (AllBinary.getXP(ownerLayerInterface) + AllBinary.getHalfWidth(ownerLayerInterface))
+        local yTotalDistance::Int32 = (AllBinary.getYP(allBinaryLayer) + AllBinary.getHalfHeight(allBinaryLayer)) - (AllBinary.getYP(ownerLayerInterface) + AllBinary.getHalfHeight(ownerLayerInterface))
+        local mathUtil = AllBinary.getInstance(MathUtil)
+        local totalDistance::Int32 = AllBinary.abs(mathUtil, xTotalDistance) + AllBinary.abs(mathUtil, yTotalDistance)
         return totalDistance
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.identification.BasicGroupFactory import BasicGroupFactory
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.game.layer.identification.GroupLayerManagerListener import GroupLayerManagerListener
-# from org.allbinary.game.layer.weapon.WeaponLayer import WeaponLayer
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.logic.math.MathUtil import MathUtil
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-
+end
 

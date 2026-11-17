@@ -1,105 +1,117 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai.scroller
 
-from __future__ import annotations
+# extends BasicAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HorizontalScreenPatrolAI <: JObject
+    keyDirection::Int32
+    displayInfoSingleton::Any
+    firingX::Int32
+    firedIndex::Int32
+    MAX_FIRE::Int32
+    timeDelayHelper::Any
+    secondaryPlayerQueue::Any
+    sound::Any
+    HorizontalScreenPatrolAI() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.ai.BasicAI import BasicAI
+const HorizontalScreenPatrolAI_SOUNDValue = Ref{Any}(nothing)
+const HorizontalScreenPatrolAI_SOUNDSet = Ref(false)
+function staticGet_SOUND(::Type{HorizontalScreenPatrolAI})
+    if !HorizontalScreenPatrolAI_SOUNDSet[]
+        HorizontalScreenPatrolAI_SOUNDSet[] = true
+        HorizontalScreenPatrolAI_SOUNDValue[] = AllBinary.getAt(AllBinary.getInstance(SmallIntegerSingletonFactory), Int32(433))
+    end
+    HorizontalScreenPatrolAI_SOUNDValue[]
+end
+function staticSet_SOUND(::Type{HorizontalScreenPatrolAI}, value)
+    HorizontalScreenPatrolAI_SOUNDSet[] = true
+    HorizontalScreenPatrolAI_SOUNDValue[] = value
+end
 
-
-class HorizontalScreenPatrolAI(BasicAI):
-    SOUND: int = None
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.media.audio.PlayerQueue import PlayerQueue
-        from org.allbinary.media.audio.SecondaryPlayerQueueFactory import SecondaryPlayerQueueFactory
-        from org.allbinary.media.audio.Sound import Sound
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.keyDirection: int = Canvas.LEFT
-        self.displayInfoSingleton: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.firingX: int = self.displayInfoSingleton.getLastHalfWidth()
-        self.firedIndex: int = 0
-        self.MAX_FIRE: int = 28
-        self.timeDelayHelper: TimeDelayHelper = TimeDelayHelper(240)
-        self.secondaryPlayerQueue: PlayerQueue = SecondaryPlayerQueueFactory.getInstance()
-        self.sound: Sound = None
+function initFieldsHorizontalScreenPatrolAI(this::HorizontalScreenPatrolAI)
+    this.keyDirection = Int32(0)
+    this.displayInfoSingleton = nothing
+    this.firingX = Int32(0)
+    this.firedIndex = Int32(0)
+    this.MAX_FIRE = Int32(0)
+    this.timeDelayHelper = nothing
+    this.secondaryPlayerQueue = nothing
+    this.sound = nothing
+    this.keyDirection = staticGet_LEFT(Canvas)
+    this.displayInfoSingleton = AllBinary.getInstance(DisplayInfoSingleton)
+    this.firingX = AllBinary.getLastHalfWidth(this.displayInfoSingleton)
+    this.firedIndex = Int32(0)
+    this.MAX_FIRE = Int32(28)
+    this.timeDelayHelper = newTimeDelayHelper(Int32(240))
+    this.secondaryPlayerQueue = AllBinary.getInstance(SecondaryPlayerQueueFactory)
     
-
-    def __init__(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.media.audio.Sound import Sound
-        from org.allbinary.util.ABHashtable import ABHashtable
-        super().__init__(ownerLayerInterface, gameInput)
-        self._init_fields()
-        self.sound = hashtable.get(HorizontalScreenPatrolAI.SOUND)
-        if self.sound is None:
-            raise Exception("No Sound Provided!!")
-    
-
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-        from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        super().processKeyAI(self.keyDirection)
-        if self.timeDelayHelper.isTimeTNT():
-            layerInterface: AllBinaryLayer = self.getOwnerLayerInterface()
-            currentOwnerLayerX: int = layerInterface.getXP()
-            if currentOwnerLayerX < -layerInterface.getWidth():
-                y: int = MyRandomFactory.getInstance().getAbsoluteNextIntAllowZero(50)
-                layerInterface.setPosition(self.displayInfoSingleton.getLastWidth() + layerInterface.getWidth() + 50, y, layerInterface.getZP())
-                self.firedIndex = 0
-                self.firingX = self.displayInfoSingleton.getLastHalfWidth() + MyRandomFactory.getInstance().getNextInt(self.displayInfoSingleton.getLastHalfWidth())
-                self.secondaryPlayerQueue.add(self.sound)
-            if currentOwnerLayerX < self.firingX and currentOwnerLayerX > -layerInterface.getWidth():
-                super().processKeyAI(Canvas.KEY_NUM1)
-                gameLayerManager: AllBinaryGameLayerManager = allBinaryLayerManager
-                FIRE: int = (gameLayerManager.getGameInfo().getCurrentLevel() + 12) >> 2
-                if FIRE > self.MAX_FIRE:
-                    FIRE = self.MAX_FIRE
-                if self.firedIndex > FIRE:
-                    self.firedIndex = 0
-                    self.firingX = -2147483648
-                self.firedIndex += 1
-    
-
-    def nextDirection(self) -> None:
-        pass
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-# from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.media.audio.PlayerQueue import PlayerQueue
-# from org.allbinary.media.audio.SecondaryPlayerQueueFactory import SecondaryPlayerQueueFactory
-# from org.allbinary.media.audio.Sound import Sound
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-# from org.allbinary.util.ABHashtable import ABHashtable
+    nothing
+end
 
 
-def _HorizontalScreenPatrolAI_SOUND() -> object:
-    from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-    return SmallIntegerSingletonFactory.getInstance().getAt(433)
+function initHorizontalScreenPatrolAI(this::HorizontalScreenPatrolAI, hashtable, ownerLayerInterface, gameInput)
+        initBasicAI(this, ownerLayerInterface, gameInput)
+        initFieldsHorizontalScreenPatrolAI(this)
+        this.sound = (AllBinary.get(hashtable, staticGet_SOUND(HorizontalScreenPatrolAI)))
+        if this.sound === nothing
+            throw(jNewException("Exception", "No Sound Provided!!"))
+        end
+        nothing
+end
 
-lazy_static(HorizontalScreenPatrolAI, "SOUND", _HorizontalScreenPatrolAI_SOUND)
+function newHorizontalScreenPatrolAI(hashtable, ownerLayerInterface, gameInput)
+    this = HorizontalScreenPatrolAI()
+    initHorizontalScreenPatrolAI(this, hashtable, ownerLayerInterface, gameInput)
+    this
+end
+
+
+function processAI(this::HorizontalScreenPatrolAI, allBinaryLayerManager)
+        AllBinary.processKeyAI(this, this.keyDirection)
+        if AllBinary.isTimeTNT(this.timeDelayHelper)
+            local layerInterface = AllBinary.getOwnerLayerInterface(this)
+            local currentOwnerLayerX::Int32 = AllBinary.getXP(layerInterface)
+            if currentOwnerLayerX < -AllBinary.getWidth(layerInterface)
+                local y::Int32 = AllBinary.getAbsoluteNextIntAllowZero(AllBinary.getInstance(MyRandomFactory), Int32(50))
+                AllBinary.setPosition(layerInterface, AllBinary.getLastWidth(this.displayInfoSingleton) + AllBinary.getWidth(layerInterface) + Int32(50), y, AllBinary.getZP(layerInterface))
+                this.firedIndex = Int32(0)
+                this.firingX = AllBinary.getLastHalfWidth(this.displayInfoSingleton) + AllBinary.getNextInt(AllBinary.getInstance(MyRandomFactory), AllBinary.getLastHalfWidth(this.displayInfoSingleton))
+                AllBinary.add(this.secondaryPlayerQueue, this.sound)
+            end
+            if currentOwnerLayerX < this.firingX && currentOwnerLayerX > -AllBinary.getWidth(layerInterface)
+                AllBinary.processKeyAI(this, staticGet_KEY_NUM1(Canvas))
+                local gameLayerManager = (allBinaryLayerManager)
+                local FIRE::Int32 = (AllBinary.getCurrentLevel(AllBinary.getGameInfo(gameLayerManager)) + Int32(12)) >> Int32(2)
+                if FIRE > this.MAX_FIRE
+                    FIRE = this.MAX_FIRE
+                end
+                if this.firedIndex > FIRE
+                    this.firedIndex = Int32(0)
+                    this.firingX = staticGet_MIN_VALUE(Integer)
+                end
+                this.firedIndex += Int32(1)
+            end
+        end
+        nothing
+end
+
+
+function nextDirection(this::HorizontalScreenPatrolAI)
+        nothing
+        nothing
+end
 

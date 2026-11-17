@@ -1,242 +1,261 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.displayable
 
-from __future__ import annotations
+# extends Canvas: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MyCanvas <: JObject
+    logUtil::Any
+    commonStrings::Any
+    canvasStrings::Any
+    stringUtil::Any
+    displayInfo::Any
+    name::Any
+    childNameList::Any
+    commandStack::Any
+    commandListener::Any
+    paused::Bool
+    touchME::Any
+    MyCanvas() = new()
+end
 
-import threading
-from javax.microedition.lcdui.Canvas import Canvas
-from org.allbinary.graphics.displayable.command.MyCommandInterface import MyCommandInterface
-from org.allbinary.graphics.displayable.DisplayableInterface import DisplayableInterface
 
-
-class MyCanvas(Canvas, DisplayableInterface, MyCommandInterface):
-    _lock = threading.RLock()
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from javax.microedition.lcdui.NullCommandListener import NullCommandListener
-        from org.allbinary.input.TouchJ2ME import TouchJ2ME
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.ABStack import ABStack
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.canvasStrings: CanvasStrings = CanvasStrings.getInstance()
-        self.stringUtil: StringUtil = StringUtil.getInstance()
-        self.displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.name: str = None
-        self.childNameList: BasicArrayList = None
-        self.commandStack: ABStack[object] = None
-        self.commandListener: CommandListener = NullCommandListener.NULL_COMMAND_LISTENER
-        self.paused: bool = False
-        self.touchME: TouchJ2ME = TouchJ2ME()
+function initFieldsMyCanvas(this::MyCanvas)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.canvasStrings = nothing
+    this.stringUtil = nothing
+    this.displayInfo = nothing
+    this.name = nothing
+    this.childNameList = nothing
+    this.commandStack = nothing
+    this.commandListener = nothing
+    this.paused = false
+    this.touchME = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.canvasStrings = AllBinary.getInstance(CanvasStrings)
+    this.stringUtil = AllBinary.getInstance(StringUtil)
+    this.displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
     
-
-    def __init__(self, name: str, childNameList: BasicArrayList) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.logic.StdUtil import StdUtil
-        super().__init__()
-        self._init_fields()
-        self.logUtil.putF(self.commonStrings.CONSTRUCTOR, self, self.commonStrings.CONSTRUCTOR)
-        self.displayInfo.update(self, self.canvasStrings.CONSTRUCTOR)
-        self.name = name
-        self.childNameList = childNameList
-        self.commandStack = StdUtil.getInstance().createStack()
     
-
-    def getWidth(self) -> int:
-        return super().getWidth()
     
+    this.commandListener = staticGet_NULL_COMMAND_LISTENER(NullCommandListener)
+    this.paused = false
+    this.touchME = newTouchJ2ME()
+    nothing
+end
 
-    def getHeight(self) -> int:
-        return super().getHeight()
-    
 
-    def setFullScreenMode(self, mode: bool) -> None:
-        super().setFullScreenMode(mode)
-        self.displayInfo.update(self, self.canvasStrings.SET_FULL_SCREEN_MODE)
-    
+function initMyCanvas(this::MyCanvas, name, childNameList)
+        initCanvas(this)
+        initFieldsMyCanvas(this)
+        AllBinary.putF(this.logUtil, this.commonStrings.CONSTRUCTOR, this, this.commonStrings.CONSTRUCTOR)
+        AllBinary.update(this.displayInfo, this, this.canvasStrings.CONSTRUCTOR)
+        this.name = name
+        this.childNameList = childNameList
+        this.commandStack = AllBinary.createStack(AllBinary.getInstance(StdUtil))
+        nothing
+end
 
-    def sizeChanged(self, w: int, h: int) -> None:
-        self.displayInfo.update(self, self.canvasStrings.SIZE_CHANGED)
-    
+function newMyCanvas(name, childNameList)
+    this = MyCanvas()
+    initMyCanvas(this, name, childNameList)
+    this
+end
 
-    def getCommandStack(self) -> ABStack[object]:
-        from org.allbinary.util.ABStack import ABStack
-        return self.commandStack
-    
 
-    def isCommand(self, command: Command) -> bool:
-        with self._lock:
-            return self._isCommand_unlocked(command)
+function getWidth(this::MyCanvas)
+        return AllBinary.getWidth(this)
+end
 
-    def _isCommand_unlocked(self, command: Command) -> bool:
-        from javax.microedition.lcdui.Command import Command
-        return self.commandStack.contains(command)
-    
 
-    def addCommand(self, command: Command) -> None:
-        with self._lock:
-            return self._addCommand_unlocked(command)
+function getHeight(this::MyCanvas)
+        return AllBinary.getHeight(this)
+end
 
-    def _addCommand_unlocked(self, command: Command) -> None:
-        from javax.microedition.lcdui.Command import Command
-        if not self.commandStack.contains(command):
-            self.commandStack.push(command)
-            super().addCommand(command)
-    
 
-    def removeCommand(self, command: Command) -> None:
-        with self._lock:
-            return self._removeCommand_unlocked(command)
+function setFullScreenMode(this::MyCanvas, mode)
+        AllBinary.setFullScreenMode(this, mode)
+        AllBinary.update(this.displayInfo, this, this.canvasStrings.SET_FULL_SCREEN_MODE)
+        nothing
+end
 
-    def _removeCommand_unlocked(self, command: Command) -> None:
-        from javax.microedition.lcdui.Command import Command
-        self.commandStack.removeElement(command)
-        super().removeCommand(command)
-    
 
-    def removeAllCommands(self) -> None:
-        with self._lock:
-            return self._removeAllCommands_unlocked()
+function sizeChanged(this::MyCanvas, w, h)
+        AllBinary.update(this.displayInfo, this, this.canvasStrings.SIZE_CHANGED)
+        nothing
+end
 
-    def _removeAllCommands_unlocked(self) -> None:
-        from javax.microedition.lcdui.Command import Command
-        size: int = self.commandStack.size()
-        for index in range(0, size):
-            super().removeCommand(self.commandStack.pop())
-    
 
-    def setCommandListener(self, l: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        super().setCommandListener(l)
-        self.commandListener = l
-    
+function getCommandStack(this::MyCanvas)
+        return this.commandStack
+end
 
-    def getCustomCommandListener(self) -> CommandListener:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        return self.commandListener
-    
 
-    def isPaused(self) -> bool:
-        with self._lock:
-            return self._isPaused_unlocked()
+function isCommand(this::MyCanvas, command)
+        return AllBinary.contains(this.commandStack, command)
+end
 
-    def _isPaused_unlocked(self) -> bool:
-        return self.paused
-    
 
-    def removePauseCommand(self) -> None:
-        from org.allbinary.graphics.displayable.command.MyCommandsFactory import MyCommandsFactory
-        self.removeCommand(MyCommandsFactory.getInstance().PAUSE_COMMAND)
-    
+function addCommand(this::MyCanvas, command)
+        if !AllBinary.contains(this.commandStack, command)
+            AllBinary.push(this.commandStack, command)
+            AllBinary.addCommand(this, command)
+        end
+        nothing
+end
 
-    def pause(self) -> None:
-        with self._lock:
-            return self._pause_unlocked()
 
-    def _pause_unlocked(self) -> None:
-        from org.allbinary.graphics.displayable.command.MyCommandsFactory import MyCommandsFactory
-        self.logUtil.putF(self.commonStrings.START, self, self.canvasStrings.PAUSE)
-        self.removePauseCommand()
-        self.addCommand(MyCommandsFactory.getInstance().RESUME_COMMAND)
-        self.setPaused(True)
-    
+function removeCommand(this::MyCanvas, command)
+        AllBinary.removeElement(this.commandStack, command)
+        AllBinary.removeCommand(this, command)
+        nothing
+end
 
-    def unPause(self) -> None:
-        with self._lock:
-            return self._unPause_unlocked()
 
-    def _unPause_unlocked(self) -> None:
-        from org.allbinary.graphics.displayable.command.MyCommandsFactory import MyCommandsFactory
-        self.logUtil.putF(self.commonStrings.START, self, self.canvasStrings.UN_PAUSE)
-        self.removeCommand(MyCommandsFactory.getInstance().RESUME_COMMAND)
-        self.addCommand(MyCommandsFactory.getInstance().PAUSE_COMMAND)
-        self.setPaused(False)
-    
+function removeAllCommands(this::MyCanvas)
+        local size::Int32 = AllBinary.size(this.commandStack)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            AllBinary.removeCommand(this, (AllBinary.pop(this.commandStack)))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    # throws Exception
-    def process(self) -> None:
-        self.displayInfo.process()
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
+function setCommandListener(this::MyCanvas, l)
+        AllBinary.setCommandListener(this, l)
+        this.commandListener = l
+        nothing
+end
 
-    def draw(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
 
-    def hasChild(self, displayable: MyCanvas) -> bool:
-        return self.childNameList.contains(displayable.name)
-    
+function getCustomCommandListener(this::MyCanvas)
+        return this.commandListener
+end
 
-    def destroy(self) -> None:
-        self.logUtil.putF("Destroyed MyCanvas", self, "destroy")
-    
 
-    def setPaused(self, isPaused: bool) -> None:
-        self.paused = isPaused
-    
+function isPaused(this::MyCanvas)
+        return this.paused
+end
 
-    def keyPressedByDevice(self, keyCode: int, deviceId: int) -> None:
-        pass
-    
 
-    def keyRepeatedByDevice(self, keyCode: int, deviceId: int) -> None:
-        pass
-    
+function removePauseCommand(this::MyCanvas)
+        AllBinary.removeCommand(this, AllBinary.getInstance(MyCommandsFactory).PAUSE_COMMAND)
+        nothing
+end
 
-    def keyReleasedByDevice(self, keyCode: int, deviceId: int) -> None:
-        pass
-    
 
-    def pointerDragged(self, x: int, y: int) -> None:
-        self.touchME.pointerDragged(x, y)
-    
+function pause(this::MyCanvas)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.canvasStrings.PAUSE)
+        AllBinary.removePauseCommand(this)
+        AllBinary.addCommand(this, AllBinary.getInstance(MyCommandsFactory).RESUME_COMMAND)
+        AllBinary.setPaused(this, true)
+        nothing
+end
 
-    def pointerPressed(self, x: int, y: int) -> None:
-        self.touchME.pointerPressed(x, y)
-    
 
-    def pointerReleased(self, x: int, y: int) -> None:
-        self.touchME.pointerReleased(x, y)
-    
+function unPause(this::MyCanvas)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.canvasStrings.UN_PAUSE)
+        AllBinary.removeCommand(this, AllBinary.getInstance(MyCommandsFactory).RESUME_COMMAND)
+        AllBinary.addCommand(this, AllBinary.getInstance(MyCommandsFactory).PAUSE_COMMAND)
+        AllBinary.setPaused(this, false)
+        nothing
+end
 
-    def nextSong(self, nextSongSound: Sound, leftVolume: int, rightVolume: int) -> None:
-        from org.allbinary.media.audio.Sound import Sound
-        pass
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.NullCommandListener import NullCommandListener
-# from org.allbinary.graphics.displayable.command.MyCommandsFactory import MyCommandsFactory
-# from org.allbinary.input.TouchJ2ME import TouchJ2ME
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.media.audio.Sound import Sound
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.util.ABStack import ABStack
-from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
 
+function process(this::MyCanvas)
+        AllBinary.process(this.displayInfo)
+        nothing
+end
+
+
+function paint(this::MyCanvas, graphics)
+        nothing
+        nothing
+end
+
+
+function draw(this::MyCanvas, graphics)
+        nothing
+        nothing
+end
+
+
+function hasChild(this::MyCanvas, displayable)
+        return AllBinary.contains(this.childNameList, displayable.name)
+end
+
+
+function destroy(this::MyCanvas)
+        AllBinary.putF(this.logUtil, "Destroyed MyCanvas", this, "destroy")
+        nothing
+end
+
+
+function setPaused(this::MyCanvas, isPaused)
+        this.paused = isPaused
+        nothing
+end
+
+
+function keyPressedByDevice(this::MyCanvas, keyCode, deviceId)
+        nothing
+        nothing
+end
+
+
+function keyRepeatedByDevice(this::MyCanvas, keyCode, deviceId)
+        nothing
+        nothing
+end
+
+
+function keyReleasedByDevice(this::MyCanvas, keyCode, deviceId)
+        nothing
+        nothing
+end
+
+
+function pointerDragged(this::MyCanvas, x, y)
+        AllBinary.pointerDragged(this.touchME, x, y)
+        nothing
+end
+
+
+function pointerPressed(this::MyCanvas, x, y)
+        AllBinary.pointerPressed(this.touchME, x, y)
+        nothing
+end
+
+
+function pointerReleased(this::MyCanvas, x, y)
+        AllBinary.pointerReleased(this.touchME, x, y)
+        nothing
+end
+
+
+function nextSong(this::MyCanvas, nextSongSound, leftVolume, rightVolume)
+        nothing
+        nothing
+end
 

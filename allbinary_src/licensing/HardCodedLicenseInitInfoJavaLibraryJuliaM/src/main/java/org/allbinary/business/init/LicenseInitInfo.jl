@@ -1,79 +1,97 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.business.init
 
-from __future__ import annotations
+mutable struct LicenseInitInfo <: JObject
+    id::Any
+    serverList::Any
+    LicenseInitInfo() = new()
+end
 
 
+function initFieldsLicenseInitInfo(this::LicenseInitInfo)
+    this.id = nothing
+    this.serverList = nothing
+    this.id = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    this.serverList = newBasicArrayListD()
+    nothing
+end
 
-class LicenseInitInfo:
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.id: str = StringUtil.getInstance().EMPTY_STRING
-        self.serverList: BasicArrayList = BasicArrayListD()
-    
+function initLicenseInitInfo(this::LicenseInitInfo)
+        initFieldsLicenseInitInfo(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newLicenseInitInfo()
+    this = LicenseInitInfo()
+    initLicenseInitInfo(this)
+    this
+end
 
-    def getLicenseId(self) -> str:
-        return self.id
-    
 
-    def getServer(self, index: int) -> str:
-        return self.serverList.get(index)
-    
+function getLicenseId(this::LicenseInitInfo)
+        return this.id
+end
 
-    def getNumberOfServers(self) -> int:
-        return self.serverList.size()
-    
 
-    def setLicenseId(self, value: str) -> None:
-        self.id = value
-    
+function getServer(this::LicenseInitInfo, index)
+        return (AllBinary.get(this.serverList, index))
+end
 
-    def clearServers(self) -> None:
-        self.serverList.clear()
-    
 
-    def setServer(self, value: str, index: int) -> None:
-        self.serverList.addAt(index, value)
-    
+function getNumberOfServers(this::LicenseInitInfo)
+        return AllBinary.size(this.serverList)
+end
 
-    def addServer(self, value: str) -> None:
-        self.serverList.add(value)
-    
 
-    def getServerList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.serverList
-    
+function setLicenseId(this::LicenseInitInfo, value)
+        this.id = value
+        nothing
+end
 
-    def setServerList(self, servers: BasicArrayList) -> None:
-        from org.allbinary.debug.DebugFactory import DebugFactory
-        from org.allbinary.debug.NoDebug import NoDebug
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        if DebugFactory.getInstance() == NoDebug.getInstance():
-            self.serverList = servers
-# from org.allbinary.debug.DebugFactory import DebugFactory
-# from org.allbinary.debug.NoDebug import NoDebug
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
 
+function clearServers(this::LicenseInitInfo)
+        AllBinary.clear(this.serverList)
+        nothing
+end
+
+
+function setServer(this::LicenseInitInfo, value, index)
+        AllBinary.addAt(this.serverList, index, value)
+        nothing
+end
+
+
+function addServer(this::LicenseInitInfo, value)
+        AllBinary.add(this.serverList, value)
+        nothing
+end
+
+
+function getServerList(this::LicenseInitInfo)
+        return this.serverList
+end
+
+
+function setServerList(this::LicenseInitInfo, servers)
+        if AllBinary.getInstance(DebugFactory) == AllBinary.getInstance(NoDebug)
+            this.serverList = servers
+        end
+        nothing
+end
 

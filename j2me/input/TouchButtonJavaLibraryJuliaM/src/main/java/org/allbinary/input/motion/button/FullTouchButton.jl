@@ -1,62 +1,61 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends TouchButton: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct FullTouchButton <: JObject
+    FullTouchButton() = new()
+end
 
-from org.allbinary.input.motion.button.TouchButton import TouchButton
+
+function initFieldsFullTouchButton(this::FullTouchButton)
+    nothing
+end
 
 
-class FullTouchButton(TouchButton):
-    
+function createButton(::Type{FullTouchButton}, touchButtonInput, touchButtonResource, rawRectangle, cellPosition, xBorder, yBorder)
+        return newFullTouchButton(touchButtonInput, AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), touchButtonResource.RESOURCE), Int32(0)), AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), touchButtonResource.HINT), Int32(0)), rawRectangle, cellPosition, xBorder, yBorder)
+end
 
-    # throws Exception
-    @staticmethod
-    def createButton(touchButtonInput: TouchButtonInput, touchButtonResource: TouchButtonResource, rawRectangle: Rectangle, cellPosition: CellPosition, xBorder: int, yBorder: int) -> FullTouchButton:
-        from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.graphics.CellPosition import CellPosition
-        from org.allbinary.graphics.Rectangle import Rectangle
-        return FullTouchButton(touchButtonInput, FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(touchButtonResource.RESOURCE).getInstance(0), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(touchButtonResource.HINT).getInstance(0), rawRectangle, cellPosition, xBorder, yBorder)
-    
 
-    def __init__(self, touchButtonInput: TouchButtonInput, animationInterface: Animation, hintAnimationInterface: Animation, rawRectangle: Rectangle, cellPosition: CellPosition, xBorder: int, yBorder: int) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.graphics.CellPosition import CellPosition
-        from org.allbinary.graphics.Rectangle import Rectangle
-        super().__init__(touchButtonInput, animationInterface, hintAnimationInterface, rawRectangle, cellPosition, xBorder, yBorder)
-    
+function initFullTouchButton(this::FullTouchButton, touchButtonInput, animationInterface, hintAnimationInterface, rawRectangle, cellPosition, xBorder, yBorder)
+        initTouchButton(this, touchButtonInput, animationInterface, hintAnimationInterface, rawRectangle, cellPosition, xBorder, yBorder)
+        nothing
+end
 
-    def updateRectangle(self) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.graphics.Rectangle import Rectangle
-        try:
-            pointFactory: PointFactory = PointFactory.getInstance()
-            x: int = self.rawRectangle.getWidth() * self.cellPositionP.getColumn()
-            y: int = self.rawRectangle.getHeight() * self.cellPositionP.getRow()
-            self.rectangleP = Rectangle(pointFactory.createXY(x, y), self.rawRectangle.getWidth() + (2 * self.xBorder), self.rawRectangle.getHeight() + (2 * self.yBorder))
-            point: GPoint = self.rectangleP.getPoint()
-            self.animationX = point.getX() + self.xBorder
-            self.animationY = point.getY() + self.yBorder
-            self.hintAnimationY = self.animationY - self.rectangleP.getHeight() >> 1
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "updateRectangle", e)
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-# from org.allbinary.graphics.CellPosition import CellPosition
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.graphics.Rectangle import Rectangle
+function newFullTouchButton(touchButtonInput, animationInterface, hintAnimationInterface, rawRectangle, cellPosition, xBorder, yBorder)
+    this = FullTouchButton()
+    initFullTouchButton(this, touchButtonInput, animationInterface, hintAnimationInterface, rawRectangle, cellPosition, xBorder, yBorder)
+    this
+end
 
+
+function updateRectangle(this::FullTouchButton)
+        try
+            local pointFactory = AllBinary.getInstance(PointFactory)
+            local x::Int32 = AllBinary.getWidth(this.rawRectangle) * AllBinary.getColumn(this.cellPositionP)
+            local y::Int32 = AllBinary.getHeight(this.rawRectangle) * AllBinary.getRow(this.cellPositionP)
+            this.rectangleP = newRectangle(AllBinary.createXY(pointFactory, x, y), AllBinary.getWidth(this.rawRectangle) + (Int32(2) * this.xBorder), AllBinary.getHeight(this.rawRectangle) + (Int32(2) * this.yBorder))
+            local point = AllBinary.getPoint(this.rectangleP)
+            this.animationX = AllBinary.getX(point) + this.xBorder
+            this.animationY = AllBinary.getY(point) + this.yBorder
+            this.hintAnimationY = this.animationY - AllBinary.getHeight(this.rectangleP) >> Int32(1)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "updateRectangle", e)
+        end
+        nothing
+end
 

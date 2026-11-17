@@ -1,97 +1,149 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint
 
-from __future__ import annotations
-
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.paint.Paintable import Paintable
-
-
 #J2SEForJ2ME
-class AboutPaintable(Paintable, UpdateMyFontInterface):
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AboutPaintable <: JObject
+    displayInfoSingleton::Any
+    ABOUT::Any
+    info::Any
+    developers::Any
+    paintableArray::Any
+    myFontProcessor::Any
+    charHeight::Int32
+    aboutBeginWidth::Int32
+    infoBeginWidth::Any
+    developersBeginWidth::Any
+    anchor::Int32
+    AboutPaintable() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        self.displayInfoSingleton: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.ABOUT: str = CanvasStrings.getInstance().ABOUT
-        self.info: list[str] = None
-        self.developers: list[str] = None
-        self.paintableArray: list[Paintable] = [self]
-        self.myFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.charHeight: int = 0
-        self.aboutBeginWidth: int = 0
-        self.infoBeginWidth: list[int] = None
-        self.developersBeginWidth: list[int] = None
-        self.anchor: int = Anchor.TOP_LEFT
+
+function initFieldsAboutPaintable(this::AboutPaintable)
+    this.displayInfoSingleton = nothing
+    this.ABOUT = nothing
+    this.info = nothing
+    this.developers = nothing
+    this.paintableArray = nothing
+    this.myFontProcessor = nothing
+    this.charHeight = Int32(0)
+    this.aboutBeginWidth = Int32(0)
+    this.infoBeginWidth = nothing
+    this.developersBeginWidth = nothing
+    this.anchor = Int32(0)
+    this.displayInfoSingleton = AllBinary.getInstance(DisplayInfoSingleton)
+    this.ABOUT = AllBinary.getInstance(CanvasStrings).ABOUT
     
-
-    @staticmethod
-    def getInstance(info: list[str], developers: list[str]) -> AboutPaintable:
-        return AboutPaintable(info, developers)
     
-
-    def __init__(self, info: list[str], developers: list[str]) -> None:
-        super().__init__()
-        self._init_fields()
-        self.info = info
-        self.infoBeginWidth = [0] * (len(self.info))
-        self.developers = developers
-        self.developersBeginWidth = [0] * (len(self.developers))
+    this.paintableArray = Any[this]
+    this.myFontProcessor = newUpdateMyFontProcessor(this)
+    this.charHeight = Int32(0)
+    this.aboutBeginWidth = Int32(0)
     
-
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.charHeight = font.getHeight()
-        self.aboutBeginWidth = (font.stringWidth(self.ABOUT) >> 1)
-        infoSize: int = len(self.info)
-        for index in range(0, infoSize):
-            self.infoBeginWidth[index] = (font.stringWidth(self.info[index]) >> 1)
-        size: int = len(self.developers)
-        for index in range(0, size):
-            self.developersBeginWidth[index] = (font.stringWidth(self.developers[index]) >> 1)
-        self.myFontProcessor = MyFontProcessor.getInstance()
     
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    nothing
+end
 
-    def getPaintableArrayInstance(self) -> list[Paintable]:
-        return self.paintableArray
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        halfWidth: int = self.displayInfoSingleton.getLastHalfWidth()
-        graphics.drawString(self.ABOUT, halfWidth - self.aboutBeginWidth, 2 * self.charHeight, self.anchor)
-        infoSize: int = len(self.info)
-        for index in range(0, infoSize):
-            graphics.drawString(self.info[index], halfWidth - self.infoBeginWidth[index], (4 + index) * self.charHeight, self.anchor)
-        size: int = len(self.developers)
-        for index in range(0, size):
-            graphics.drawString(self.developers[index], halfWidth - self.developersBeginWidth[index], (5 + infoSize + index) * self.charHeight, self.anchor)
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
+function getInstance(::Type{AboutPaintable}, info, developers)
+        return newAboutPaintable(info, developers)
+end
 
+
+function initAboutPaintable(this::AboutPaintable, info, developers)
+        initPaintable(this)
+        initFieldsAboutPaintable(this)
+        this.info = info
+        this.infoBeginWidth = jNewArray(Int32, Int32(Base.length(this.info)), Int32(0))
+        this.developers = developers
+        this.developersBeginWidth = jNewArray(Int32, Int32(Base.length(this.developers)), Int32(0))
+        nothing
+end
+
+function newAboutPaintable(info, developers)
+    this = AboutPaintable()
+    initAboutPaintable(this, info, developers)
+    this
+end
+
+
+function updateMeasurement(this::AboutPaintable, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.charHeight = AllBinary.getHeight(font)
+        this.aboutBeginWidth = (AllBinary.stringWidth(font, this.ABOUT) >> Int32(1))
+        local infoSize::Int32 = Int32(Base.length(this.info))
+        let
+            local index::Int32 = Int32(0)
+            while index < infoSize
+            try
+            this.infoBeginWidth[index + 1] = (AllBinary.stringWidth(font, this.info[index + 1]) >> Int32(1))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        local size::Int32 = Int32(Base.length(this.developers))
+        let
+            index = Int32(0)
+            while index < size
+            try
+            this.developersBeginWidth[index + 1] = (AllBinary.stringWidth(font, this.developers[index + 1]) >> Int32(1))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
+
+
+function getPaintableArrayInstance(this::AboutPaintable)
+        return this.paintableArray
+end
+
+
+function paint(this::AboutPaintable, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        local halfWidth::Int32 = AllBinary.getLastHalfWidth(this.displayInfoSingleton)
+        AllBinary.drawString(graphics, this.ABOUT, halfWidth - this.aboutBeginWidth, Int32(2) * this.charHeight, this.anchor)
+        local infoSize::Int32 = Int32(Base.length(this.info))
+        let
+            local index::Int32 = Int32(0)
+            while index < infoSize
+            try
+            AllBinary.drawString(graphics, this.info[index + 1], halfWidth - this.infoBeginWidth[index + 1], (Int32(4) + index) * this.charHeight, this.anchor)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        local size::Int32 = Int32(Base.length(this.developers))
+        let
+            index = Int32(0)
+            while index < size
+            try
+            AllBinary.drawString(graphics, this.developers[index + 1], halfWidth - this.developersBeginWidth[index + 1], (Int32(5) + infoSize + index) * this.charHeight, this.anchor)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

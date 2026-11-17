@@ -1,67 +1,89 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.image
 
-from __future__ import annotations
+mutable struct ImageModifierUtil <: JObject
+    ImageModifierUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ImageModifierUtil_instanceValue = Ref{Any}(nothing)
+const ImageModifierUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{ImageModifierUtil})
+    if !ImageModifierUtil_instanceSet[]
+        ImageModifierUtil_instanceSet[] = true
+        ImageModifierUtil_instanceValue[] = newImageModifierUtil()
+    end
+    ImageModifierUtil_instanceValue[]
+end
+function staticSet_instance(::Type{ImageModifierUtil}, value)
+    ImageModifierUtil_instanceSet[] = true
+    ImageModifierUtil_instanceValue[] = value
+end
+
+function initFieldsImageModifierUtil(this::ImageModifierUtil)
+    nothing
+end
+
+function initImageModifierUtil(this::ImageModifierUtil)
+    initFieldsImageModifierUtil(this)
+end
+
+function newImageModifierUtil()
+    this = ImageModifierUtil()
+    initImageModifierUtil(this)
+    this
+end
 
 
-class ImageModifierUtil:
-    instance: ImageModifierUtil = None
-    
+function getInstanceOrCreate(::Type{ImageModifierUtil})
+        return staticGet_instance(ImageModifierUtil)
+end
 
-    @staticmethod
-    def getInstanceOrCreate() -> ImageModifierUtil:
-        return ImageModifierUtil.instance
-    
 
-    def setColor(self, unusedOriginalImage: Image, image: Image, imageIndex: int, basicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        pass
-    
+function setColor(this::ImageModifierUtil, unusedOriginalImage, image, imageIndex, basicColor)
+        nothing
+        nothing
+end
 
-    def changeColor(self, unusedOriginalImage: Image, image: Image, imageIndex: int, basicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        pass
-    
 
-    def setAlpha(self, originalImage: Image, image: Image, imageIndex: int, alphaInt: int) -> None:
-        from javax.microedition.lcdui.Image import Image
-        pass
-    
+function changeColor(this::ImageModifierUtil, unusedOriginalImage, image, imageIndex, basicColor)
+        nothing
+        nothing
+end
 
-    def getImageArray(self, originalImageArray: list[Image]) -> list[Image]:
-        from javax.microedition.lcdui.Image import Image
+
+function setAlpha(this::ImageModifierUtil, originalImage, image, imageIndex, alphaInt)
+        nothing
+        nothing
+end
+
+
+function getImageArray(this::ImageModifierUtil, originalImageArray)
         return originalImageArray
-    
-
-    def handleImage(self, imageArray: list[Image], index: int, image: Image) -> None:
-        from javax.microedition.lcdui.Image import Image
-        pass
-    
-
-    def reset(self) -> None:
-        pass
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.graphics.color.BasicColor import BasicColor
+end
 
 
-def _ImageModifierUtil_instance() -> object:
-    return ImageModifierUtil()
+function handleImage(this::ImageModifierUtil, imageArray, index, image)
+        nothing
+        nothing
+end
 
-lazy_static(ImageModifierUtil, "instance", _ImageModifierUtil_instance)
+
+function reset(this::ImageModifierUtil)
+        nothing
+        nothing
+end
 

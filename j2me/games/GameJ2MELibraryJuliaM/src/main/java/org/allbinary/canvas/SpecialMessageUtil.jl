@@ -1,59 +1,70 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.canvas
 
-from __future__ import annotations
+mutable struct SpecialMessageUtil <: JObject
+    SpecialMessageUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const SpecialMessageUtil_SINGLETONValue = Ref{Any}(nothing)
+const SpecialMessageUtil_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{SpecialMessageUtil})
+    if !SpecialMessageUtil_SINGLETONSet[]
+        SpecialMessageUtil_SINGLETONSet[] = true
+        SpecialMessageUtil_SINGLETONValue[] = newSpecialMessageUtil()
+    end
+    SpecialMessageUtil_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{SpecialMessageUtil}, value)
+    SpecialMessageUtil_SINGLETONSet[] = true
+    SpecialMessageUtil_SINGLETONValue[] = value
+end
 
+function initFieldsSpecialMessageUtil(this::SpecialMessageUtil)
+    nothing
+end
 
-class SpecialMessageUtil:
-    SINGLETON: SpecialMessageUtil = None
-    
+function initSpecialMessageUtil(this::SpecialMessageUtil)
+    initFieldsSpecialMessageUtil(this)
+end
 
-    @staticmethod
-    def getInstance() -> SpecialMessageUtil:
-        return SpecialMessageUtil.SINGLETON
-    
-
-    def get(self) -> str:
-        from org.allbinary.canvas.GameStatisticsFactory import GameStatisticsFactory
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        from org.allbinary.system.Memory import Memory
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(Memory.getInfo())
-        stringBuffer.append(CommonSeps.getInstance().SPACE)
-        stringBuffer.append(str(GameStatisticsFactory.getInstance()))
-        stringBuffer.append(CommonSeps.getInstance().SPACE)
-        stringBuffer.append(" Option: ")
-        if Features.getInstance().isDefault(OpenGLFeatureFactory.getInstance().OPENGL_AUTO_SELECT):
-            stringBuffer.append(OpenGLFeatureFactory.getInstance().OPENGL_AUTO_SELECT.getName())
-        else:
-            stringBuffer.append(OpenGLFeatureFactory.getInstance().OPENGL_MINIMUM.getName())
-        return str(stringBuffer)
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.system.Memory import Memory
+function newSpecialMessageUtil()
+    this = SpecialMessageUtil()
+    initSpecialMessageUtil(this)
+    this
+end
 
 
-def _SpecialMessageUtil_SINGLETON() -> object:
-    return SpecialMessageUtil()
+function getInstance(::Type{SpecialMessageUtil})
+        return staticGet_SINGLETON(SpecialMessageUtil)
+end
 
-lazy_static(SpecialMessageUtil, "SINGLETON", _SpecialMessageUtil_SINGLETON)
+
+function get(this::SpecialMessageUtil)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, AllBinary.getInfo(Memory))
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+        AllBinary.append(stringBuffer, AllBinary.toString(AllBinary.getInstance(GameStatisticsFactory)))
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+        AllBinary.append(stringBuffer, " Option: ")
+        if AllBinary.isDefault(AllBinary.getInstance(Features), AllBinary.getInstance(OpenGLFeatureFactory).OPENGL_AUTO_SELECT)
+            AllBinary.append(stringBuffer, AllBinary.getName(AllBinary.getInstance(OpenGLFeatureFactory).OPENGL_AUTO_SELECT))
+        else
+            AllBinary.append(stringBuffer, AllBinary.getName(AllBinary.getInstance(OpenGLFeatureFactory).OPENGL_MINIMUM))
+        end
+        return AllBinary.toString(stringBuffer)
+end
 

@@ -1,50 +1,67 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io.file
 
-from __future__ import annotations
+mutable struct FileWrapperUtil <: JObject
+    FileWrapperUtil() = new()
+end
 
 
+function initFieldsFileWrapperUtil(this::FileWrapperUtil)
+    nothing
+end
 
-class FileWrapperUtil:
-    
+function initFileWrapperUtil(this::FileWrapperUtil)
+    initFieldsFileWrapperUtil(this)
+end
 
-    @staticmethod
-    def wrapFiles(files: list[object]) -> list[AbFile]:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        try:
-            abFileArray: list[AbFile] = [None] * (len(files))
-            for index in range(len(files) - 1, 0 - 1, -1):
-                abFileArray[index] = AbFile(files[index])
+function newFileWrapperUtil()
+    this = FileWrapperUtil()
+    initFileWrapperUtil(this)
+    this
+end
+
+
+function wrapFiles(::Type{FileWrapperUtil}, files)
+        try
+            local abFileArray = jNewArray(Any, Int32(Base.length(files)), nothing)
+            let
+                local index::Int32 = Int32(Base.length(files)) - Int32(1)
+                while index >= Int32(0)
+                try
+                abFileArray[index + 1] = newAbFile((files[index + 1]))
+                finally
+                    index -= Int32(1)
+                end
+                end
+            end
             return abFileArray
-        except Exception as e:
-            PreLogUtil.putSE("Exception Wrapping Files", "FileWrapperUtil", "wrapFiles", e)
-            return [None] * (0)
-    
+        catch e
+            AllBinary.putSE(PreLogUtil, "Exception Wrapping Files", "FileWrapperUtil", "wrapFiles", e)
+            return jNewArray(Any, Int32(0), nothing)
+        end
+end
 
-    @staticmethod
-    def wrapFile(file: File) -> AbFile:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        try:
-            return AbFile(file)
-        except Exception as e:
-            PreLogUtil.putSE("Exception Wrapping File", "FileWrapperUtil", "wrapFile", e)
-            return AbFile.NULL_FILE
-# from java.io.File import File
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
 
+function wrapFile(::Type{FileWrapperUtil}, file)
+        try
+            return newAbFile(file)
+        catch e
+            AllBinary.putSE(PreLogUtil, "Exception Wrapping File", "FileWrapperUtil", "wrapFile", e)
+            return staticGet_NULL_FILE(AbFile)
+        end
+end
 

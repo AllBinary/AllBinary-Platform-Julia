@@ -1,64 +1,77 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ai
 
-from __future__ import annotations
+mutable struct ArtificialIntelligenceInterfaceFactoryInterfaceFactory <: JObject
+    list::Any
+    ArtificialIntelligenceInterfaceFactoryInterfaceFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETONValue = Ref{Any}(nothing)
+const ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{ArtificialIntelligenceInterfaceFactoryInterfaceFactory})
+    if !ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETONSet[]
+        ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETONSet[] = true
+        ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETONValue[] = newArtificialIntelligenceInterfaceFactoryInterfaceFactory()
+    end
+    ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{ArtificialIntelligenceInterfaceFactoryInterfaceFactory}, value)
+    ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETONSet[] = true
+    ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETONValue[] = value
+end
+
+function initFieldsArtificialIntelligenceInterfaceFactoryInterfaceFactory(this::ArtificialIntelligenceInterfaceFactoryInterfaceFactory)
+    this.list = nothing
+    this.list = AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil))
+    nothing
+end
+
+function initArtificialIntelligenceInterfaceFactoryInterfaceFactory(this::ArtificialIntelligenceInterfaceFactoryInterfaceFactory)
+    initFieldsArtificialIntelligenceInterfaceFactoryInterfaceFactory(this)
+end
+
+function newArtificialIntelligenceInterfaceFactoryInterfaceFactory()
+    this = ArtificialIntelligenceInterfaceFactoryInterfaceFactory()
+    initArtificialIntelligenceInterfaceFactoryInterfaceFactory(this)
+    this
+end
 
 
-class ArtificialIntelligenceInterfaceFactoryInterfaceFactory:
-    SINGLETON: ArtificialIntelligenceInterfaceFactoryInterfaceFactory = None
+function clear(this::ArtificialIntelligenceInterfaceFactoryInterfaceFactory)
+        this.list = newBasicArrayListD()
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        self.list_: BasicArrayList = BasicArrayListUtil.getInstance().getImmutableInstance()
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function getInstance(::Type{ArtificialIntelligenceInterfaceFactoryInterfaceFactory})
+        return staticGet_SINGLETON(ArtificialIntelligenceInterfaceFactoryInterfaceFactory)
+end
 
-    def clear(self) -> None:
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_ = BasicArrayListD()
-    
 
-    @staticmethod
-    def getInstance() -> ArtificialIntelligenceInterfaceFactoryInterfaceFactory:
-        return ArtificialIntelligenceInterfaceFactoryInterfaceFactory.SINGLETON
-    
-
-    def getInstanceFromCollection(self, hashtable: ABHashtable[object, object]) -> ArtificialIntelligenceInterfaceFactoryInterface:
-        from org.allbinary.game.ai.BasicAI import BasicAI
-        from org.allbinary.util.ABHashtable import ABHashtable
-        typeInteger: int = hashtable.get(BasicAI.ID)
-        type_: int = int(typeInteger)
-        artificialIntelligenceInterfaceFactoryInterface: ArtificialIntelligenceInterfaceFactoryInterface = self.list_.objectArray[type_ - 1]
+function getInstanceFromCollection(this::ArtificialIntelligenceInterfaceFactoryInterfaceFactory, hashtable)
+        local typeInteger = (AllBinary.get(hashtable, (staticGet_ID(BasicAI))))
+        local type_::Int32 = AllBinary.intValue(typeInteger)
+        local artificialIntelligenceInterfaceFactoryInterface = (this.list.objectArray[type_ - Int32(1) + 1])
         return artificialIntelligenceInterfaceFactoryInterface
-    
-
-    def add(self, artificialIntelligenceInterfaceFactoryInterface: ArtificialIntelligenceInterfaceFactoryInterface) -> None:
-        self.list_.add(artificialIntelligenceInterfaceFactoryInterface)
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
+end
 
 
-def _ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETON() -> object:
-    return ArtificialIntelligenceInterfaceFactoryInterfaceFactory()
-
-lazy_static(ArtificialIntelligenceInterfaceFactoryInterfaceFactory, "SINGLETON", _ArtificialIntelligenceInterfaceFactoryInterfaceFactory_SINGLETON)
+function add(this::ArtificialIntelligenceInterfaceFactoryInterfaceFactory, artificialIntelligenceInterfaceFactoryInterface)
+        AllBinary.add(this.list, artificialIntelligenceInterfaceFactoryInterface)
+        nothing
+end
 

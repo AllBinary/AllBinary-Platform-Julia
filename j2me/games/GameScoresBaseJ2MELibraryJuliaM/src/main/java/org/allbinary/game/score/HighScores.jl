@@ -1,99 +1,114 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+mutable struct HighScores <: JObject
+    orderedHighScoresList::Any
+    name::Any
+    heading::Any
+    columnOneHeading::Any
+    columnTwoHeading::Any
+    HighScores() = new()
+end
 
-from org.allbinary.game.score.HighScoresInterface import HighScoresInterface
 
-
-class HighScores(HighScoresInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.orderedHighScoresList: BasicArrayList = BasicArrayListD()
-        self.name: str = None
-        self.heading: str = None
-        self.columnOneHeading: str = "Name"
-        self.columnTwoHeading: str = None
+function initFieldsHighScores(this::HighScores)
+    this.orderedHighScoresList = nothing
+    this.name = nothing
+    this.heading = nothing
+    this.columnOneHeading = nothing
+    this.columnTwoHeading = nothing
+    this.orderedHighScoresList = newBasicArrayListD()
     
-
-    def __init__(self, name: str, heading: str, columnTwoHeading: str) -> None:
-        self._init_fields()
-        self.name = name
-        self.heading = heading
-        self.columnTwoHeading = columnTwoHeading
     
-
-    def setList(self, orderedHighScoresList: BasicArrayList) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.orderedHighScoresList = orderedHighScoresList
+    this.columnOneHeading = "Name"
     
+    nothing
+end
 
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.orderedHighScoresList
-    
 
-    def getName(self) -> str:
-        return self.name
-    
+function initHighScores(this::HighScores, name, heading, columnTwoHeading)
+        initFieldsHighScores(this)
+        this.name = name
+        this.heading = heading
+        this.columnTwoHeading = columnTwoHeading
+        nothing
+end
 
-    def getTotal(self) -> int:
-        return self.getList().size()
-    
+function newHighScores(name, heading, columnTwoHeading)
+    this = HighScores()
+    initHighScores(this, name, heading, columnTwoHeading)
+    this
+end
 
-    def addHighScore(self, newHighScore: HighScore) -> None:
-        self.orderedHighScoresList.add(newHighScore)
-    
 
-    def getHeading(self) -> str:
-        return self.heading
-    
+function setList(this::HighScores, orderedHighScoresList)
+        this.orderedHighScoresList = orderedHighScoresList
+        nothing
+end
 
-    def getColumnOneHeading(self) -> str:
-        return self.columnOneHeading
-    
 
-    def getColumnTwoHeading(self) -> str:
-        return self.columnTwoHeading
-    
+function getList(this::HighScores)
+        return this.orderedHighScoresList
+end
 
-    # throws Exception
-    def isBestScore(self, newHighScore: HighScore) -> bool:
-        return False
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        from org.allbinary.string.CommonSeps import CommonSeps
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append("HighScores: ")
-        stringBuffer.append(self.heading)
-        stringBuffer.append(CommonSeps.getInstance().SPACE)
-        stringBuffer.append(CommonLabels.getInstance().TOTAL_LABEL)
-        stringBuffer.appendint(self.orderedHighScoresList.size())
-        return str(stringBuffer)
+function getName(this::HighScores)
+        return this.name
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
 
+function getTotal(this::HighScores)
+        return AllBinary.size(AllBinary.getList(this))
+end
+
+
+function addHighScore(this::HighScores, newHighScore)
+        AllBinary.add(this.orderedHighScoresList, newHighScore)
+        nothing
+end
+
+
+function getHeading(this::HighScores)
+        return this.heading
+end
+
+
+function getColumnOneHeading(this::HighScores)
+        return this.columnOneHeading
+end
+
+
+function getColumnTwoHeading(this::HighScores)
+        return this.columnTwoHeading
+end
+
+
+function isBestScore(this::HighScores, newHighScore)
+        return false
+end
+
+
+function toString(this::HighScores)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, "HighScores: ")
+        AllBinary.append(stringBuffer, this.heading)
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonLabels).TOTAL_LABEL)
+        AllBinary.appendint(stringBuffer, AllBinary.size(this.orderedHighScoresList))
+        return AllBinary.toString(stringBuffer)
+end
 

@@ -1,36 +1,44 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.terrain
 
-from __future__ import annotations
+mutable struct TerrainEventFactory <: JObject
+    TerrainEventFactory() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObjectFactoryInterface import AllBinaryEventObjectFactoryInterface
+
+function initFieldsTerrainEventFactory(this::TerrainEventFactory)
+    nothing
+end
 
 
-class TerrainEventFactory(AllBinaryEventObjectFactoryInterface):
-    
+function initTerrainEventFactory(this::TerrainEventFactory)
+        initFieldsTerrainEventFactory(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        pass
-    
+function newTerrainEventFactory()
+    this = TerrainEventFactory()
+    initTerrainEventFactory(this)
+    this
+end
 
-    def getInstance(self) -> AllBinaryEventObject:
-        from org.allbinary.game.terrain.TerrainEvent import TerrainEvent
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        return TerrainEvent(NullUtil.getInstance().NULL_OBJECT)
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
 
+function getInstance(this::TerrainEventFactory)
+        return newTerrainEvent(AllBinary.getInstance(NullUtil).NULL_OBJECT)
+end
 

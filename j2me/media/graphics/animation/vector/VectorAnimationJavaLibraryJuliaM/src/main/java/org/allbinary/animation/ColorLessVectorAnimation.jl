@@ -1,35 +1,45 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends VectorAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ColorLessVectorAnimation <: JObject
+    ColorLessVectorAnimation() = new()
+end
 
-from org.allbinary.animation.VectorAnimation import VectorAnimation
+
+function initFieldsColorLessVectorAnimation(this::ColorLessVectorAnimation)
+    nothing
+end
 
 
-class ColorLessVectorAnimation(VectorAnimation):
-    
+function initColorLessVectorAnimation(this::ColorLessVectorAnimation, currentPoints, animationBehavior)
+        initVectorAnimation(this, currentPoints, AllBinary.getInstance(BasicColorFactory).WHITE, animationBehavior)
+        nothing
+end
 
-    def __init__(self, currentPoints: list[list[list[int]]], animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        super().__init__(currentPoints, BasicColorFactory.getInstance().WHITE, animationBehavior)
-    
+function newColorLessVectorAnimation(currentPoints, animationBehavior)
+    this = ColorLessVectorAnimation()
+    initColorLessVectorAnimation(this, currentPoints, animationBehavior)
+    this
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.paintVectors(graphics, x, y)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
 
+function paintXY(this::ColorLessVectorAnimation, graphics, x, y)
+        AllBinary.paintVectors(this, graphics, x, y)
+        nothing
+end
 

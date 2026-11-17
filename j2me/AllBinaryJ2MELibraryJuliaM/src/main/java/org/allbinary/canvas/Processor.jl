@@ -1,44 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.canvas
 
-from __future__ import annotations
+mutable struct Processor <: JObject
+    Processor() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const Processor_SINGLETONValue = Ref{Any}(nothing)
+const Processor_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{Processor})
+    if !Processor_SINGLETONSet[]
+        Processor_SINGLETONSet[] = true
+        Processor_SINGLETONValue[] = newProcessor()
+    end
+    Processor_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{Processor}, value)
+    Processor_SINGLETONSet[] = true
+    Processor_SINGLETONValue[] = value
+end
+
+function initFieldsProcessor(this::Processor)
+    nothing
+end
+
+function initProcessor(this::Processor)
+    initFieldsProcessor(this)
+end
+
+function newProcessor()
+    this = Processor()
+    initProcessor(this)
+    this
+end
 
 
-class Processor:
-    SINGLETON: Processor = None
-    
-
-    @staticmethod
-    def getInstance() -> Processor:
-        return Processor.SINGLETON
-    
-
-    # throws Exception
-    def process(self) -> None:
-        pass
-    
-
-    # throws Exception
-    def processt(self, timeDelta: int) -> None:
-        pass
+function getInstance(::Type{Processor})
+        return staticGet_SINGLETON(Processor)
+end
 
 
-def _Processor_SINGLETON() -> object:
-    return Processor()
+function process(this::Processor)
+        nothing
+        nothing
+end
 
-lazy_static(Processor, "SINGLETON", _Processor_SINGLETON)
+
+function processt(this::Processor, timeDelta)
+        nothing
+        nothing
+end
 

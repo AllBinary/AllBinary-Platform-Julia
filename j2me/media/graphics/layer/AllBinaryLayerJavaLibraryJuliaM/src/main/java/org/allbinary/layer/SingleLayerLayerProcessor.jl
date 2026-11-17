@@ -1,34 +1,46 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer
 
-from __future__ import annotations
+# extends LayerProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SingleLayerLayerProcessor <: JObject
+    SingleLayerLayerProcessor() = new()
+end
 
-from org.allbinary.layer.LayerProcessor import LayerProcessor
+
+function initFieldsSingleLayerLayerProcessor(this::SingleLayerLayerProcessor)
+    nothing
+end
 
 
-class SingleLayerLayerProcessor(LayerProcessor):
-    
+function initSingleLayerLayerProcessor(this::SingleLayerLayerProcessor)
+        initLayerProcessor(this, newSingleLayerLayerManager())
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.layer.SingleLayerLayerManager import SingleLayerLayerManager
-        super().__init__(SingleLayerLayerManager())
-    
+function newSingleLayerLayerProcessor()
+    this = SingleLayerLayerProcessor()
+    initSingleLayerLayerProcessor(this)
+    this
+end
 
-    # throws Exception
-    def process(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        layerManager: LayerManager = self.getLayerManager()
-        self.processAt(allBinaryLayerManager, layerManager.getLayerAt(0), 0)
 
+function process(this::SingleLayerLayerProcessor, allBinaryLayerManager)
+        local layerManager = AllBinary.getLayerManager(this)
+        AllBinary.processAt(this, allBinaryLayerManager, (AllBinary.getLayerAt(layerManager, Int32(0))), Int32(0))
+        nothing
+end
 

@@ -1,81 +1,98 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends ImageArrayAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageArraySpecialAnimation <: JObject
+    timeDelayHelper::Any
+    loopCount::Int32
+    loopCountTotal::Int32
+    ImageArraySpecialAnimation() = new()
+end
 
-from org.allbinary.animation.special.SpecialAnimationInterface import SpecialAnimationInterface
-from org.allbinary.animation.image.ImageArrayAnimation import ImageArrayAnimation
+
+function initFieldsImageArraySpecialAnimation(this::ImageArraySpecialAnimation)
+    this.timeDelayHelper = nothing
+    this.loopCount = Int32(0)
+    this.loopCountTotal = Int32(0)
+    this.timeDelayHelper = newTimeDelayHelper(Int32(270))
+    this.loopCount = Int32(0)
+    this.loopCountTotal = Int32(1)
+    nothing
+end
 
 
-class ImageArraySpecialAnimation(ImageArrayAnimation, SpecialAnimationInterface):
+function initImageArraySpecialAnimation(this::ImageArraySpecialAnimation, imageArray, animationBehavior)
+        initImageArrayAnimation(this, imageArray, animationBehavior)
+        initFieldsImageArraySpecialAnimation(this)
+        AllBinary.reset(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.timeDelayHelper: TimeDelayHelper = TimeDelayHelper(270)
-        self.loopCount: int = 0
-        self.loopCountTotal: int = 1
-    
+function newImageArraySpecialAnimation(imageArray, animationBehavior)
+    this = ImageArraySpecialAnimation()
+    initImageArraySpecialAnimation(this, imageArray, animationBehavior)
+    this
+end
 
-    def __init__(self, imageArray: list[Image], animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        super().__init__(imageArray, animationBehavior)
-        self._init_fields()
-        self.reset()
-    
 
-    def getLoopCount(self) -> int:
-        return self.loopCount
-    
+function getLoopCount(this::ImageArraySpecialAnimation)
+        return this.loopCount
+end
 
-    def setLastFrame(self) -> None:
-        self.circularIndexUtil.setIndex(self.circularIndexUtil.getSize() - 1)
-    
 
-    def reset(self) -> None:
-        self.setFrame(self.getSize() - 1)
-        self.loopCount = 0
-    
+function setLastFrame(this::ImageArraySpecialAnimation)
+        AllBinary.setIndex(this.circularIndexUtil, AllBinary.getSize(this.circularIndexUtil) - Int32(1))
+        nothing
+end
 
-    def nextFrame(self) -> None:
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        if self.getFrame() > 0:
-            if self.timeDelayHelper.isTime(GameTickTimeDelayHelperFactory.getInstance().startTime):
-                self.previousFrame()
-                if self.getFrame() == 0:
-                    self.loopCount += 1
-    
 
-    def isComplete(self) -> bool:
-        if self.loopCount < self.loopCountTotal or self.getFrame() != 0:
-            return False
-        else:
-            return True
-    
+function reset(this::ImageArraySpecialAnimation)
+        AllBinary.setFrame(this, AllBinary.getSize(this) - Int32(1))
+        this.loopCount = Int32(0)
+        nothing
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        x = DisplayInfoSingleton.getInstance().getLastHalfWidth() - (self.getImage(self.circularIndexUtil.getIndex()).getWidth() >> 1)
-        y = 5
-        super().paintXY(graphics, x, y)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
 
+function nextFrame(this::ImageArraySpecialAnimation)
+        if AllBinary.getFrame(this) > Int32(0)
+            if AllBinary.isTime(this.timeDelayHelper, AllBinary.getInstance(GameTickTimeDelayHelperFactory).startTime)
+                AllBinary.previousFrame(this)
+                if AllBinary.getFrame(this) == Int32(0)
+                    this.loopCount += Int32(1)
+                end
+            end
+        end
+        nothing
+end
+
+
+function isComplete(this::ImageArraySpecialAnimation)
+        if this.loopCount < this.loopCountTotal || AllBinary.getFrame(this) != Int32(0)
+            return false
+        else
+            return true
+        end
+end
+
+
+function paintXY(this::ImageArraySpecialAnimation, graphics, x, y)
+        x = AllBinary.getLastHalfWidth(AllBinary.getInstance(DisplayInfoSingleton)) - (AllBinary.getWidth(AllBinary.getImage(this, AllBinary.getIndex(this.circularIndexUtil))) >> Int32(1))
+        y = Int32(5)
+        AllBinary.paintXY(this, graphics, x, y)
+        nothing
+end
 

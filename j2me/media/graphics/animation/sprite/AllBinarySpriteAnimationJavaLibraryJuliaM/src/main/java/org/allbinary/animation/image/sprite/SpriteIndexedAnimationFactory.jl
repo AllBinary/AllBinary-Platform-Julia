@@ -1,108 +1,89 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image.sprite
 
-from __future__ import annotations
+# extends BaseImageAnimationFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SpriteIndexedAnimationFactory <: JObject
+    animationFactorySpriteScaleUtil::Any
+    basicColorArray::Any
+    SpriteIndexedAnimationFactory() = new()
+end
 
-from org.allbinary.animation.ProceduralAnimationInterfaceFactoryInterface import ProceduralAnimationInterfaceFactoryInterface
-from org.allbinary.animation.image.BaseImageAnimationFactory import BaseImageAnimationFactory
+
+function initFieldsSpriteIndexedAnimationFactory(this::SpriteIndexedAnimationFactory)
+    this.animationFactorySpriteScaleUtil = nothing
+    this.basicColorArray = nothing
+    this.animationFactorySpriteScaleUtil = AllBinary.getInstance(AnimationFactorySpriteScaleUtil)
+    this.basicColorArray = AllBinary.getInstance(BasicColorUtil).ZERO_ARRAY
+    nothing
+end
 
 
-class SpriteIndexedAnimationFactory(BaseImageAnimationFactory, ProceduralAnimationInterfaceFactoryInterface):
+function createCWHDXY(::Type{SpriteIndexedAnimationFactory}, image, basicColorArray, width, height, dx, dy, animationBehaviorFactory)
+        return newSpriteIndexedAnimationFactory(image, basicColorArray, AllBinary.getArrayInstance(PrimitiveIntUtil), width, height, dx, dy, animationBehaviorFactory)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorUtil import BasicColorUtil
-        from org.allbinary.image.sprite.AnimationFactorySpriteScaleUtil import AnimationFactorySpriteScaleUtil
-        self.animationFactorySpriteScaleUtil: AnimationFactorySpriteScaleUtil = AnimationFactorySpriteScaleUtil.getInstance()
-        self.basicColorArray: list[BasicColor] = BasicColorUtil.getInstance().ZERO_ARRAY
-    
 
-    # throws Exception
-    @staticmethod
-    def createCWHDXY(image: Image, basicColorArray: list[BasicColor], width: int, height: int, dx: int, dy: int, animationBehaviorFactory: AnimationBehaviorFactory) -> SpriteIndexedAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return SpriteIndexedAnimationFactory(image, basicColorArray, PrimitiveIntUtil.getArrayInstance(), width, height, dx, dy, animationBehaviorFactory)
-    
-
-    # throws Exception
-    @staticmethod
-    def createCWH(image: Image, basicColorArray: list[BasicColor], width: int, height: int, animationBehaviorFactory: AnimationBehaviorFactory) -> SpriteIndexedAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        spriteIndexedAnimationFactory: SpriteIndexedAnimationFactory = SpriteIndexedAnimationFactory(image, basicColorArray, PrimitiveIntUtil.getArrayInstance(), width, height, 0, 0, animationBehaviorFactory)
-        spriteIndexedAnimationFactory.initHWH()
+function createCWH(::Type{SpriteIndexedAnimationFactory}, image, basicColorArray, width, height, animationBehaviorFactory)
+        local spriteIndexedAnimationFactory = newSpriteIndexedAnimationFactory(image, basicColorArray, AllBinary.getArrayInstance(PrimitiveIntUtil), width, height, Int32(0), Int32(0), animationBehaviorFactory)
+        AllBinary.initHWH(spriteIndexedAnimationFactory)
         return spriteIndexedAnimationFactory
-    
+end
 
-    # throws Exception
-    @staticmethod
-    def createWH(image: Image, width: int, height: int, animationBehaviorFactory: AnimationBehaviorFactory) -> SpriteIndexedAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.graphics.color.BasicColorUtil import BasicColorUtil
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return SpriteIndexedAnimationFactory(image, BasicColorUtil.getInstance().ZERO_ARRAY, PrimitiveIntUtil.getArrayInstance(), width, height, 0, 0, animationBehaviorFactory)
-    
 
-    def __init__(self, image: Image, basicColorArray: list[BasicColor], sequenceArray: list[int], width: int, height: int, dx: int, dy: int, animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(image, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
-        self._init_fields()
-        self.basicColorArray = basicColorArray
-    
+function createWH(::Type{SpriteIndexedAnimationFactory}, image, width, height, animationBehaviorFactory)
+        return newSpriteIndexedAnimationFactory(image, AllBinary.getInstance(BasicColorUtil).ZERO_ARRAY, AllBinary.getArrayInstance(PrimitiveIntUtil), width, height, Int32(0), Int32(0), animationBehaviorFactory)
+end
 
-    def initHWH(self) -> None:
-        from org.allbinary.AndroidUtil import AndroidUtil
-        self.animationFactoryInitializationVisitor.dx = -(self.animationFactoryInitializationVisitor.width >> 2)
-        self.animationFactoryInitializationVisitor.dy = -(self.animationFactoryInitializationVisitor.height >> 2)
-        if AndroidUtil.isAndroid():
-            self.animationFactoryInitializationVisitor.dx += 3
-    
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.image.sprite.SpriteIndexedAnimation import SpriteIndexedAnimation
-        from org.allbinary.animation.image.sprite.AdjustedSpriteIndexedAnimation import AdjustedSpriteIndexedAnimation
-        from javax.microedition.lcdui.game.Sprite import Sprite
-        from org.allbinary.animation.Animation import Animation
-        sprite: Sprite = self.animationFactorySpriteScaleUtil.createImage(self.getImage(), self.animationFactoryInitializationVisitor.width, self.animationFactoryInitializationVisitor.height, self.scaleProperties.scaleWidth, self.scaleProperties.scaleHeight)
-        if self.animationFactoryInitializationVisitor.dx != 0 or self.animationFactoryInitializationVisitor.dy != 0:
-            return AdjustedSpriteIndexedAnimation(sprite, self.getImage(), self.basicColorArray, self.animationFactoryInitializationVisitor.dx, self.animationFactoryInitializationVisitor.dy, self.animationBehaviorFactory.getOrCreateInstance())
-        else:
-            return SpriteIndexedAnimation(sprite, self.getImage(), self.basicColorArray, self.animationBehaviorFactory.getOrCreateInstance())
-    
+function initSpriteIndexedAnimationFactory(this::SpriteIndexedAnimationFactory, image, basicColorArray, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
+        initBaseImageAnimationFactory(this, image, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
+        initFieldsSpriteIndexedAnimationFactory(this)
+        this.basicColorArray = basicColorArray
+        nothing
+end
 
-    # throws Exception
-    def getInstanceAnimation(self, animationInterface: Animation) -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        return self.getInstance(0)
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.game.Sprite import Sprite
-# from org.allbinary.AndroidUtil import AndroidUtil
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorUtil import BasicColorUtil
-# from org.allbinary.image.sprite.AnimationFactorySpriteScaleUtil import AnimationFactorySpriteScaleUtil
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
+function newSpriteIndexedAnimationFactory(image, basicColorArray, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
+    this = SpriteIndexedAnimationFactory()
+    initSpriteIndexedAnimationFactory(this, image, basicColorArray, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
+    this
+end
 
+
+function initHWH(this::SpriteIndexedAnimationFactory)
+        this.animationFactoryInitializationVisitor.dx = -(this.animationFactoryInitializationVisitor.width >> Int32(2))
+        this.animationFactoryInitializationVisitor.dy = -(this.animationFactoryInitializationVisitor.height >> Int32(2))
+        if AllBinary.isAndroid(AndroidUtil)
+            this.animationFactoryInitializationVisitor.dx += Int32(3)
+        end
+        nothing
+end
+
+
+function getInstance(this::SpriteIndexedAnimationFactory, instanceId)
+        local sprite = AllBinary.createImage(this.animationFactorySpriteScaleUtil, AllBinary.getImage(this), this.animationFactoryInitializationVisitor.width, this.animationFactoryInitializationVisitor.height, this.scaleProperties.scaleWidth, this.scaleProperties.scaleHeight)
+        if this.animationFactoryInitializationVisitor.dx != Int32(0) || this.animationFactoryInitializationVisitor.dy != Int32(0)
+            return newAdjustedSpriteIndexedAnimation(sprite, AllBinary.getImage(this), this.basicColorArray, this.animationFactoryInitializationVisitor.dx, this.animationFactoryInitializationVisitor.dy, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        else
+            return newSpriteIndexedAnimation(sprite, AllBinary.getImage(this), this.basicColorArray, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        end
+end
+
+
+function getInstanceAnimation(this::SpriteIndexedAnimationFactory, animationInterface)
+        return AllBinary.getInstance(this, Int32(0))
+end
 

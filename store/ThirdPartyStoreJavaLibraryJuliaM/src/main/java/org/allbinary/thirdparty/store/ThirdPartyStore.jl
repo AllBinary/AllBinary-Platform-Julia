@@ -1,49 +1,67 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.thirdparty.store
 
-from __future__ import annotations
+mutable struct ThirdPartyStore <: JObject
+    authorized::Bool
+    name::Any
+    ThirdPartyStore() = new()
+end
 
 
-
-class ThirdPartyStore:
-
-    def _init_fields(self) -> None:
-        self.authorized: bool = False
-        self.name: str = None
+function initFieldsThirdPartyStore(this::ThirdPartyStore)
+    this.authorized = false
+    this.name = nothing
+    this.authorized = false
     
+    nothing
+end
 
-    def __init__(self, name: str) -> None:
-        self._init_fields()
-        self.name = name
-    
 
-    def authorize(self, clientInformationInterface: AbeClientInformationInterface) -> None:
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        pass
-    
+function initThirdPartyStore(this::ThirdPartyStore, name)
+        initFieldsThirdPartyStore(this)
+        this.name = name
+        nothing
+end
 
-    def isAuthorized(self) -> bool:
-        return self.authorized
-    
+function newThirdPartyStore(name)
+    this = ThirdPartyStore()
+    initThirdPartyStore(this, name)
+    this
+end
 
-    def setAuthorized(self, authorized: bool) -> None:
-        self.authorized = authorized
-    
 
-    def getName(self) -> str:
-        return self.name
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
+function authorize(this::ThirdPartyStore, clientInformationInterface)
+        nothing
+        nothing
+end
 
+
+function isAuthorized(this::ThirdPartyStore)
+        return this.authorized
+end
+
+
+function setAuthorized(this::ThirdPartyStore, authorized)
+        this.authorized = authorized
+        nothing
+end
+
+
+function getName(this::ThirdPartyStore)
+        return this.name
+end
 

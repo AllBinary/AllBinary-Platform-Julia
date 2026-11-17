@@ -1,78 +1,94 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai.tactical
 
-from __future__ import annotations
+# extends BasicAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicRandomAI <: JObject
+    i_random::Int32
+    inputProbability::Any
+    visitor::Any
+    keyArray::Any
+    myRandomFactory::Any
+    BasicRandomAI() = new()
+end
 
-from org.allbinary.game.ai.BasicAI import BasicAI
 
-
-class BasicRandomAI(BasicAI):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.ag.ai.InputProbability import InputProbability
-        from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-        from org.allbinary.logic.util.visitor.Visitor import Visitor
-        self.i_random: int = 0
-        self.inputProbability: InputProbability = None
-        self.visitor: Visitor = None
-        self.keyArray: list[int] = [Canvas.UP, Canvas.DOWN, Canvas.LEFT, Canvas.RIGHT, Canvas.KEY_NUM1, Canvas.KEY_NUM7, Canvas.KEY_NUM9]
-        self.myRandomFactory: MyRandomFactory = MyRandomFactory.getInstance()
+function initFieldsBasicRandomAI(this::BasicRandomAI)
+    this.i_random = Int32(0)
+    this.inputProbability = nothing
+    this.visitor = nothing
+    this.keyArray = nothing
+    this.myRandomFactory = nothing
+    this.i_random = Int32(0)
     
-
-    def __init__(self, ownerLayerInterface: AllBinaryLayer, gameInput: GameInput, inputProbability: InputProbability, visitor: Visitor) -> None:
-        from org.allbinary.game.ag.ai.InputProbability import InputProbability
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.logic.util.visitor.Visitor import Visitor
-        super().__init__(ownerLayerInterface, gameInput)
-        self._init_fields()
-        self.inputProbability = inputProbability
-        self.visitor = visitor
     
+    this.keyArray = Int32[staticGet_UP(Canvas), staticGet_DOWN(Canvas), staticGet_LEFT(Canvas), staticGet_RIGHT(Canvas), staticGet_KEY_NUM1(Canvas), staticGet_KEY_NUM7(Canvas), staticGet_KEY_NUM9(Canvas)]
+    this.myRandomFactory = AllBinary.getInstance(MyRandomFactory)
+    nothing
+end
 
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        if self.inputProbability.getTimeDelayHelper().isTime(GameTickTimeDelayHelperFactory.getInstance().startTime):
-            self.i_random = self.myRandomFactory.getAbsoluteNextInt(self.inputProbability.getMax())
-            repeat: bool = False
-            repeatLikelyhoodIntegerArray: list[int] = self.inputProbability.getRepeatLikelyhoodIntegerArray()
-            if self.getLastKey() != -1 and int(repeatLikelyhoodIntegerArray[self.getLastKey()]) >= self.i_random:
-                repeat = True
-            if not repeat:
-                likelyhoodIntegerArray: list[list[int]] = self.inputProbability.getLikelyhoodIntegerArray()
-                self.i_random = self.myRandomFactory.getAbsoluteNextInt(self.inputProbability.getMax())
-                size: int = len(self.keyArray)
-                likelyhoodIntegerKeyArray: list[int] = None
-                for index in range(0, size):
-                    key: int = self.keyArray[index]
-                    likelyhoodIntegerKeyArray = likelyhoodIntegerArray[key]
-                    if len(likelyhoodIntegerArray) >= key and likelyhoodIntegerKeyArray[0] is not None:
-                        if self.i_random >= int(likelyhoodIntegerKeyArray[0]) and self.i_random < int(likelyhoodIntegerKeyArray[1]):
-                            self.setLastKey(key)
+
+function initBasicRandomAI(this::BasicRandomAI, ownerLayerInterface, gameInput, inputProbability, visitor)
+        initBasicAI(this, ownerLayerInterface, gameInput)
+        initFieldsBasicRandomAI(this)
+        this.inputProbability = inputProbability
+        this.visitor = visitor
+        nothing
+end
+
+function newBasicRandomAI(ownerLayerInterface, gameInput, inputProbability, visitor)
+    this = BasicRandomAI()
+    initBasicRandomAI(this, ownerLayerInterface, gameInput, inputProbability, visitor)
+    this
+end
+
+
+function processAI(this::BasicRandomAI, allBinaryLayerManager)
+        if AllBinary.isTime(AllBinary.getTimeDelayHelper(this.inputProbability), AllBinary.getInstance(GameTickTimeDelayHelperFactory).startTime)
+            this.i_random = AllBinary.getAbsoluteNextInt(this.myRandomFactory, AllBinary.getMax(this.inputProbability))
+            local repeat::Bool = false
+            local repeatLikelyhoodIntegerArray = AllBinary.getRepeatLikelyhoodIntegerArray(this.inputProbability)
+            if AllBinary.getLastKey(this) != -Int32(1) && AllBinary.intValue(repeatLikelyhoodIntegerArray[AllBinary.getLastKey(this) + 1]) >= this.i_random
+                repeat = true
+            end
+            if !repeat
+                local likelyhoodIntegerArray = AllBinary.getLikelyhoodIntegerArray(this.inputProbability)
+                this.i_random = AllBinary.getAbsoluteNextInt(this.myRandomFactory, AllBinary.getMax(this.inputProbability))
+                local size::Int32 = Int32(Base.length(this.keyArray))
+                local likelyhoodIntegerKeyArray = nothing
+                let
+                    local index::Int32 = Int32(0)
+                    while index < size
+                    try
+                    local key::Int32 = this.keyArray[index + 1]
+                    likelyhoodIntegerKeyArray = likelyhoodIntegerArray[key + 1]
+                    if Int32(Base.length(likelyhoodIntegerArray)) >= key && likelyhoodIntegerKeyArray[Int32(0) + 1] !== nothing
+                        if this.i_random >= AllBinary.intValue(likelyhoodIntegerKeyArray[Int32(0) + 1]) && this.i_random < AllBinary.intValue(likelyhoodIntegerKeyArray[Int32(1) + 1])
+                            AllBinary.setLastKey(this, key)
                             break
-            self.visitor.visit(self)
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.ag.ai.InputProbability import InputProbability
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.logic.util.visitor.Visitor import Visitor
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-
+                        end
+                    end
+                    finally
+                        index += Int32(1)
+                    end
+                    end
+                end
+            end
+            AllBinary.visit(this.visitor, this)
+        end
+        nothing
+end
 

@@ -1,79 +1,105 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.vector
 
-from __future__ import annotations
+# extends Animation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct RectangleAdjustedAnimation <: JObject
+    width::Int32
+    height::Int32
+    offsetX::Int32
+    offsetY::Int32
+    RectangleAdjustedAnimation() = new()
+end
 
-from org.allbinary.animation.Animation import Animation
-from org.allbinary.graphics.color.ColorCompositeInterface import ColorCompositeInterface
 
-
-class RectangleAdjustedAnimation(Animation, ColorCompositeInterface):
-
-    def _init_fields(self) -> None:
-        self.width: int = None
-        self.height: int = None
-        self.offsetX: int = None
-        self.offsetY: int = None
+function initFieldsRectangleAdjustedAnimation(this::RectangleAdjustedAnimation)
+    this.width = Int32(0)
+    this.height = Int32(0)
+    this.offsetX = Int32(0)
+    this.offsetY = Int32(0)
     
-
-    def __init__(self, width: int, height: int, offsetX: int, offsetY: int, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.width = width
-        self.height = height
-        self.offsetX = offsetX
-        self.offsetY = offsetY
-        self.setBasicColorP(basicColor)
     
-
-    def nextFrame(self) -> None:
-        pass
     
-
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.basicSetColorUtil.setBasicColorP3(graphics, self.getBasicColorP(), self.getColor())
-        graphics.drawRect(x + self.offsetX, y + self.offsetY, self.width, self.height)
     
+    nothing
+end
 
-    def setWidth(self, width: int) -> None:
-        self.width = width
-    
 
-    def setHeight(self, height: int) -> None:
-        self.height = height
-    
+function initRectangleAdjustedAnimation(this::RectangleAdjustedAnimation, width, height, offsetX, offsetY, basicColor)
+        initAnimation(this)
+        initFieldsRectangleAdjustedAnimation(this)
+        this.width = width
+        this.height = height
+        this.offsetX = offsetX
+        this.offsetY = offsetY
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 
-    def setOffsetX(self, offsetX: int) -> None:
-        self.offsetX = offsetX
-    
+function newRectangleAdjustedAnimation(width, height, offsetX, offsetY, basicColor)
+    this = RectangleAdjustedAnimation()
+    initRectangleAdjustedAnimation(this, width, height, offsetX, offsetY, basicColor)
+    this
+end
 
-    def setOffsetY(self, offsetY: int) -> None:
-        self.offsetY = offsetY
-    
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return super().getBasicColorP()
-    
+function nextFrame(this::RectangleAdjustedAnimation)
+        nothing
+        nothing
+end
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().setBasicColorP(basicColor)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
 
+function paintXY(this::RectangleAdjustedAnimation, graphics, x, y)
+        AllBinary.setBasicColorP3(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this), AllBinary.getColor(this))
+        AllBinary.drawRect(graphics, x + this.offsetX, y + this.offsetY, this.width, this.height)
+        nothing
+end
+
+
+function setWidth(this::RectangleAdjustedAnimation, width)
+        this.width = width
+        nothing
+end
+
+
+function setHeight(this::RectangleAdjustedAnimation, height)
+        this.height = height
+        nothing
+end
+
+
+function setOffsetX(this::RectangleAdjustedAnimation, offsetX)
+        this.offsetX = offsetX
+        nothing
+end
+
+
+function setOffsetY(this::RectangleAdjustedAnimation, offsetY)
+        this.offsetY = offsetY
+        nothing
+end
+
+
+function getBasicColorP(this::RectangleAdjustedAnimation)
+        return AllBinary.getBasicColorP(this)
+end
+
+
+function setBasicColorP(this::RectangleAdjustedAnimation, basicColor)
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 

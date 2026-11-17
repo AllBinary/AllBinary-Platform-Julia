@@ -1,39 +1,59 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles.shader
 
-from __future__ import annotations
+mutable struct ShaderManagerFactory <: JObject
+    ShaderManagerFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ShaderManagerFactory_instanceValue = Ref{Any}(nothing)
+const ShaderManagerFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{ShaderManagerFactory})
+    if !ShaderManagerFactory_instanceSet[]
+        ShaderManagerFactory_instanceSet[] = true
+        ShaderManagerFactory_instanceValue[] = newShaderManagerFactory()
+    end
+    ShaderManagerFactory_instanceValue[]
+end
+function staticSet_instance(::Type{ShaderManagerFactory}, value)
+    ShaderManagerFactory_instanceSet[] = true
+    ShaderManagerFactory_instanceValue[] = value
+end
+
+function initFieldsShaderManagerFactory(this::ShaderManagerFactory)
+    nothing
+end
+
+function initShaderManagerFactory(this::ShaderManagerFactory)
+    initFieldsShaderManagerFactory(this)
+end
+
+function newShaderManagerFactory()
+    this = ShaderManagerFactory()
+    initShaderManagerFactory(this)
+    this
+end
 
 
-class ShaderManagerFactory:
-    instance: ShaderManagerFactory = None
-    
-
-    @staticmethod
-    def getInstance() -> ShaderManagerFactory:
-        return ShaderManagerFactory.instance
-    
-
-    def create(self) -> ShaderManager:
-        from org.allbinary.graphics.opengles.shader.ShaderManager import ShaderManager
-        return ShaderManager.getInstance()
+function getInstance(::Type{ShaderManagerFactory})
+        return staticGet_instance(ShaderManagerFactory)
+end
 
 
-def _ShaderManagerFactory_instance() -> object:
-    return ShaderManagerFactory()
-
-lazy_static(ShaderManagerFactory, "instance", _ShaderManagerFactory_instance)
+function create(this::ShaderManagerFactory)
+        return AllBinary.getInstance(ShaderManager)
+end
 

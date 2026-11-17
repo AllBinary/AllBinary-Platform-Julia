@@ -1,34 +1,58 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles
 
-from __future__ import annotations
+mutable struct OpenGLThreadUtil <: JObject
+    OpenGLThreadUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const OpenGLThreadUtil_instanceValue = Ref{Any}(nothing)
+const OpenGLThreadUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{OpenGLThreadUtil})
+    if !OpenGLThreadUtil_instanceSet[]
+        OpenGLThreadUtil_instanceSet[] = true
+        OpenGLThreadUtil_instanceValue[] = newOpenGLThreadUtil()
+    end
+    OpenGLThreadUtil_instanceValue[]
+end
+function staticSet_instance(::Type{OpenGLThreadUtil}, value)
+    OpenGLThreadUtil_instanceSet[] = true
+    OpenGLThreadUtil_instanceValue[] = value
+end
+
+function initFieldsOpenGLThreadUtil(this::OpenGLThreadUtil)
+    nothing
+end
+
+function initOpenGLThreadUtil(this::OpenGLThreadUtil)
+    initFieldsOpenGLThreadUtil(this)
+end
+
+function newOpenGLThreadUtil()
+    this = OpenGLThreadUtil()
+    initOpenGLThreadUtil(this)
+    this
+end
 
 
-class OpenGLThreadUtil:
-    instance: OpenGLThreadUtil = None
-    
-
-    @staticmethod
-    def getInstance() -> OpenGLThreadUtil:
-        return OpenGLThreadUtil.instance
-    
-
-    def set(self, glSurfaceView: object) -> None:
-        pass
-    
-
-    def onPause(self) -> None:
-        pass
-    
-
-    def onResume(self) -> None:
-        pass
+function getInstance(::Type{OpenGLThreadUtil})
+        return staticGet_instance(OpenGLThreadUtil)
+end
 
 
-def _OpenGLThreadUtil_instance() -> object:
-    return OpenGLThreadUtil()
+function set(this::OpenGLThreadUtil, glSurfaceView)
+        nothing
+        nothing
+end
 
-lazy_static(OpenGLThreadUtil, "instance", _OpenGLThreadUtil_instance)
+
+function onPause(this::OpenGLThreadUtil)
+        nothing
+        nothing
+end
+
+
+function onResume(this::OpenGLThreadUtil)
+        nothing
+        nothing
+end
 

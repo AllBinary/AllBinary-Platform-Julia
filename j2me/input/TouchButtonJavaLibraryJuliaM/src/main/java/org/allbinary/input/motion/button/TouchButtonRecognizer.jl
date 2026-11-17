@@ -1,134 +1,142 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+mutable struct TouchButtonRecognizer <: JObject
+    logUtil::Any
+    rectangleCollisionUtil::Any
+    upGameKeyEventHandler::Any
+    downGameKeyEventHandler::Any
+    lastPressedTouchButtonInput::Any
+    currentlyPressedTouchButtonSingleton::Any
+    releaseHelper::Any
+    TouchButtonRecognizer() = new()
+end
 
-import threading
+
+function initFieldsTouchButtonRecognizer(this::TouchButtonRecognizer)
+    this.logUtil = nothing
+    this.rectangleCollisionUtil = nothing
+    this.upGameKeyEventHandler = nothing
+    this.downGameKeyEventHandler = nothing
+    this.lastPressedTouchButtonInput = nothing
+    this.currentlyPressedTouchButtonSingleton = nothing
+    this.releaseHelper = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.rectangleCollisionUtil = AllBinary.getInstance(RectangleCollisionUtil)
+    this.upGameKeyEventHandler = AllBinary.getInstance(UpGameKeyEventHandler)
+    this.downGameKeyEventHandler = AllBinary.getInstance(DownGameKeyEventHandler)
+    this.lastPressedTouchButtonInput = AllBinary.getInstance(BasicTouchInputFactory).NONE
+    this.currentlyPressedTouchButtonSingleton = AllBinary.getInstance(CurrentlyPressedTouchButtonSingleton)
+    this.releaseHelper = nothing
+    nothing
+end
 
 
-class TouchButtonRecognizer:
-    _lock = threading.RLock()
+function initTouchButtonRecognizer(this::TouchButtonRecognizer)
+        initFieldsTouchButtonRecognizer(this)
+        if AllBinary.isMultiTouch(AllBinary.getInstance(TouchScreenFactory))
+            this.releaseHelper = newMultitouchReleaseHelper(this)
+        else
+            this.releaseHelper = newReleaseHelper(this)
+        end
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.event.DownGameKeyEventHandler import DownGameKeyEventHandler
-        from org.allbinary.game.input.event.UpGameKeyEventHandler import UpGameKeyEventHandler
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.math.RectangleCollisionUtil import RectangleCollisionUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.rectangleCollisionUtil: RectangleCollisionUtil = RectangleCollisionUtil.getInstance()
-        self.upGameKeyEventHandler: UpGameKeyEventHandler = UpGameKeyEventHandler.getInstance()
-        self.downGameKeyEventHandler: DownGameKeyEventHandler = DownGameKeyEventHandler.getInstance()
-        self.lastPressedTouchButtonInput: TouchButtonInput = BasicTouchInputFactory.getInstance().NONE
-        self.currentlyPressedTouchButtonSingleton: CurrentlyPressedTouchButtonSingleton = CurrentlyPressedTouchButtonSingleton.getInstance()
-        self.releaseHelper: ReleaseHelper = None
-    
+function newTouchButtonRecognizer()
+    this = TouchButtonRecognizer()
+    initTouchButtonRecognizer(this)
+    this
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.input.motion.button.TouchScreenFactory import TouchScreenFactory
-        from org.allbinary.input.motion.button.ReleaseHelper import ReleaseHelper
-        from org.allbinary.input.motion.button.MultitouchReleaseHelper import MultitouchReleaseHelper
-        self._init_fields()
-        if TouchScreenFactory.getInstance().isMultiTouch():
-            self.releaseHelper = MultitouchReleaseHelper(self)
-        else:
-            self.releaseHelper = ReleaseHelper(self)
-    
 
-    # throws Exception
-    def processRelease(self, touchButtonInput: TouchButtonInput, deviceId: int) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        self.releaseHelper.release(touchButtonInput, deviceId)
-        gameKeyEvent: GameKeyEvent = touchButtonInput.getGameKeyEvent()
-        self.upGameKeyEventHandler.fireEvent(gameKeyEvent)
-        self.upGameKeyEventHandler.getInstanceForDevice(deviceId).fireEvent(gameKeyEvent)
-        self.currentlyPressedTouchButtonSingleton.remove(touchButtonInput)
-    
+function processRelease(this::TouchButtonRecognizer, touchButtonInput, deviceId)
+        AllBinary.release(this.releaseHelper, touchButtonInput, deviceId)
+        local gameKeyEvent = AllBinary.getGameKeyEvent(touchButtonInput)
+        AllBinary.fireEvent(this.upGameKeyEventHandler, gameKeyEvent)
+        AllBinary.fireEvent(AllBinary.getInstanceForDevice(this.upGameKeyEventHandler, deviceId), gameKeyEvent)
+        AllBinary.remove(this.currentlyPressedTouchButtonSingleton, touchButtonInput)
+        nothing
+end
 
-    # throws Exception
-    def releaseTouchButtonInput(self, x: int, y: int, deviceId: int) -> bool:
-        with self._lock:
-            return self._releaseTouchButtonInput_unlocked(x, y, deviceId)
 
-    def _releaseTouchButtonInput_unlocked(self, x: int, y: int, deviceId: int) -> bool:
-        from org.allbinary.input.motion.button.TouchButtonFactory import TouchButtonFactory
-        from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        touchButtonInput: TouchButtonInput = self.lastPressedTouchButtonInput
-        if self.currentlyPressedTouchButtonSingleton.contains(touchButtonInput):
-            self.lastPressedTouchButtonInput = BasicTouchInputFactory.getInstance().NONE
-            self.processRelease(touchButtonInput, deviceId)
-            return True
-        else:
-            list_: BasicArrayList = TouchButtonFactory.getInstance().getList()
-            rectangle: Rectangle = None
-            point: GPoint = None
-            touchButton: TouchButton = None
-            for index in range(list_.size() - 1, 0 - 1, -1):
-                touchButton = list_.objectArray[index]
-                rectangle = touchButton.getRectangle()
-                point = rectangle.getPoint()
-                if self.rectangleCollisionUtil.isInside(point.getX(), point.getY(), rectangle.getMaxX(), rectangle.getMaxY(), x, y):
-                    touchButtonInput = touchButton.getTouchButtonInput()
-                    self.processRelease(touchButtonInput, deviceId)
-                    return True
-        return False
-    
+function releaseTouchButtonInput(this::TouchButtonRecognizer, x, y, deviceId)
+        local touchButtonInput = this.lastPressedTouchButtonInput
+        if AllBinary.contains(this.currentlyPressedTouchButtonSingleton, touchButtonInput)
+            this.lastPressedTouchButtonInput = AllBinary.getInstance(BasicTouchInputFactory).NONE
+            AllBinary.processRelease(this, touchButtonInput, deviceId)
+            return true
+        else
+            local list = AllBinary.getList(AllBinary.getInstance(TouchButtonFactory))
+            local rectangle = nothing
+            local point = nothing
+            local touchButton = nothing
+            let
+                local index::Int32 = AllBinary.size(list) - Int32(1)
+                while index >= Int32(0)
+                try
+                touchButton = (list.objectArray[index + 1])
+                rectangle = AllBinary.getRectangle(touchButton)
+                point = AllBinary.getPoint(rectangle)
+                if AllBinary.isInside(this.rectangleCollisionUtil, AllBinary.getX(point), AllBinary.getY(point), AllBinary.getMaxX(rectangle), AllBinary.getMaxY(rectangle), x, y)
+                    touchButtonInput = AllBinary.getTouchButtonInput(touchButton)
+                    AllBinary.processRelease(this, touchButtonInput, deviceId)
+                    return true
+                end
+                finally
+                    index -= Int32(1)
+                end
+                end
+            end
+        end
+        return false
+end
 
-    # throws Exception
-    def pressTouchButtonInput(self, x: int, y: int, deviceId: int) -> bool:
-        with self._lock:
-            return self._pressTouchButtonInput_unlocked(x, y, deviceId)
 
-    def _pressTouchButtonInput_unlocked(self, x: int, y: int, deviceId: int) -> bool:
-        from org.allbinary.input.motion.button.TouchButtonFactory import TouchButtonFactory
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        list_: BasicArrayList = TouchButtonFactory.getInstance().getList()
-        rectangle: Rectangle = None
-        point: GPoint = None
-        touchButton: TouchButton = None
-        touchButtonInput: TouchButtonInput = None
-        gameKeyEvent: GameKeyEvent = None
-        for index in range(list_.size() - 1, 0 - 1, -1):
-            touchButton = list_.objectArray[index]
-            rectangle = touchButton.getRectangle()
-            point = rectangle.getPoint()
-            if self.rectangleCollisionUtil.isInside(point.getX(), point.getY(), rectangle.getMaxX(), rectangle.getMaxY(), x, y):
-                touchButtonInput = touchButton.getTouchButtonInput()
-                if not self.currentlyPressedTouchButtonSingleton.contains(touchButtonInput):
-                    self.releaseHelper.release(touchButtonInput, deviceId)
-                    self.lastPressedTouchButtonInput = touchButtonInput
-                    self.currentlyPressedTouchButtonSingleton.add(touchButtonInput)
-                    gameKeyEvent = touchButtonInput.getGameKeyEvent()
-                    self.downGameKeyEventHandler.fireEvent(gameKeyEvent)
-                    self.downGameKeyEventHandler.getInstanceForDevice(deviceId).fireEvent(gameKeyEvent)
-                return True
-        return False
-# from org.allbinary.game.input.event.DownGameKeyEventHandler import DownGameKeyEventHandler
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.game.input.event.UpGameKeyEventHandler import UpGameKeyEventHandler
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.math.RectangleCollisionUtil import RectangleCollisionUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-from org.allbinary.input.motion.button.CurrentlyPressedTouchButtonSingleton import CurrentlyPressedTouchButtonSingleton
-
+function pressTouchButtonInput(this::TouchButtonRecognizer, x, y, deviceId)
+        local list = AllBinary.getList(AllBinary.getInstance(TouchButtonFactory))
+        local rectangle = nothing
+        local point = nothing
+        local touchButton = nothing
+        local touchButtonInput = nothing
+        local gameKeyEvent = nothing
+        let
+            local index::Int32 = AllBinary.size(list) - Int32(1)
+            while index >= Int32(0)
+            try
+            touchButton = (list.objectArray[index + 1])
+            rectangle = AllBinary.getRectangle(touchButton)
+            point = AllBinary.getPoint(rectangle)
+            if AllBinary.isInside(this.rectangleCollisionUtil, AllBinary.getX(point), AllBinary.getY(point), AllBinary.getMaxX(rectangle), AllBinary.getMaxY(rectangle), x, y)
+                touchButtonInput = AllBinary.getTouchButtonInput(touchButton)
+                if !AllBinary.contains(this.currentlyPressedTouchButtonSingleton, touchButtonInput)
+                    AllBinary.release(this.releaseHelper, touchButtonInput, deviceId)
+                    this.lastPressedTouchButtonInput = touchButtonInput
+                    AllBinary.add(this.currentlyPressedTouchButtonSingleton, touchButtonInput)
+                    gameKeyEvent = AllBinary.getGameKeyEvent(touchButtonInput)
+                    AllBinary.fireEvent(this.downGameKeyEventHandler, gameKeyEvent)
+                    AllBinary.fireEvent(AllBinary.getInstanceForDevice(this.downGameKeyEventHandler, deviceId), gameKeyEvent)
+                end
+                return true
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        return false
+end
 

@@ -1,55 +1,74 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game
 
-from __future__ import annotations
+mutable struct Intermission <: JObject
+    enabled::Bool
+    timeElapsedHelper::Any
+    intermissionEnableListener::Any
+    Intermission() = new()
+end
 
-from org.allbinary.game.IntermissionInterface import IntermissionInterface
+
+function initFieldsIntermission(this::Intermission)
+    this.enabled = false
+    this.timeElapsedHelper = nothing
+    this.intermissionEnableListener = nothing
+    this.enabled = false
+    this.timeElapsedHelper = newTimeDelayHelper(Int32(0))
+    this.intermissionEnableListener = AllBinary.getInstance(NullIntermissionEnableListener)
+    nothing
+end
 
 
-class Intermission(IntermissionInterface):
+function initIntermission(this::Intermission)
+        initFieldsIntermission(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.enabled: bool = False
-        self.timeElapsedHelper: TimeDelayHelper = TimeDelayHelper(0)
-        self.intermissionEnableListener: IntermissionEnableListenerInterface = NullIntermissionEnableListener.getInstance()
-    
+function newIntermission()
+    this = Intermission()
+    initIntermission(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def setListener(self, enableListener: IntermissionEnableListenerInterface) -> None:
-        self.intermissionEnableListener = enableListener
-    
+function setListener(this::Intermission, enableListener)
+        this.intermissionEnableListener = enableListener
+        nothing
+end
 
-    def getTimeDelayHelper(self) -> TimeDelayHelper:
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        return self.timeElapsedHelper
-    
 
-    def setEnabled(self, enabled: bool) -> None:
-        self.enabled = enabled
-        if self.isEnabled():
-            self.getTimeDelayHelper().setStartTimeTNT()
-        self.intermissionEnableListener.notifyIntermission(enabled)
-    
+function getTimeDelayHelper(this::Intermission)
+        return this.timeElapsedHelper
+end
 
-    def isEnabled(self) -> bool:
-        return self.enabled
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-from org.allbinary.game.NullIntermissionEnableListener import NullIntermissionEnableListener
 
+function setEnabled(this::Intermission, enabled)
+        this.enabled = enabled
+        if AllBinary.isEnabled(this)
+            AllBinary.setStartTimeTNT(AllBinary.getTimeDelayHelper(this))
+        end
+        AllBinary.notifyIntermission(this.intermissionEnableListener, enabled)
+        nothing
+end
+
+
+function isEnabled(this::Intermission)
+        return this.enabled
+end
 

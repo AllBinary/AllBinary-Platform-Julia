@@ -1,147 +1,172 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+mutable struct BasicTouchInputFactory <: JObject
+    logUtil::Any
+    SPECIAL_BUTTON_SEVEN_TESTING_ONLY::Any
+    SPECIAL_BUTTON_EIGHT_TESTING_ONLY::Any
+    SPECIAL_BUTTON_SIX::Any
+    SPECIAL_BUTTON_FIVE::Any
+    SPECIAL_BUTTON_FOUR::Any
+    SPECIAL_BUTTON_THREE::Any
+    SPECIAL_BUTTON_TWO::Any
+    SPECIAL_BUTTON_ONE::Any
+    UP::Any
+    LEFT::Any
+    RIGHT::Any
+    DOWN::Any
+    NONE::Any
+    initialized::Bool
+    list::Any
+    BasicTouchInputFactory() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
+const BasicTouchInputFactory_instanceValue = Ref{Any}(nothing)
+const BasicTouchInputFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{BasicTouchInputFactory})
+    if !BasicTouchInputFactory_instanceSet[]
+        BasicTouchInputFactory_instanceSet[] = true
+        BasicTouchInputFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    BasicTouchInputFactory_instanceValue[]
+end
+function staticSet_instance(::Type{BasicTouchInputFactory}, value)
+    BasicTouchInputFactory_instanceSet[] = true
+    BasicTouchInputFactory_instanceValue[] = value
+end
 
-
-class BasicTouchInputFactory:
-    instance: object = None
-    _lock = threading.RLock()
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.SPECIAL_BUTTON_SEVEN_TESTING_ONLY: TouchButtonInput = None
-        self.SPECIAL_BUTTON_EIGHT_TESTING_ONLY: TouchButtonInput = None
-        self.SPECIAL_BUTTON_SIX: TouchButtonInput = None
-        self.SPECIAL_BUTTON_FIVE: TouchButtonInput = None
-        self.SPECIAL_BUTTON_FOUR: TouchButtonInput = None
-        self.SPECIAL_BUTTON_THREE: TouchButtonInput = None
-        self.SPECIAL_BUTTON_TWO: TouchButtonInput = None
-        self.SPECIAL_BUTTON_ONE: TouchButtonInput = None
-        self.UP: TouchButtonInput = None
-        self.LEFT: TouchButtonInput = None
-        self.RIGHT: TouchButtonInput = None
-        self.DOWN: TouchButtonInput = None
-        self.NONE: TouchButtonInput = None
-        self.initialized: bool = False
-        self.list_: BasicArrayList = BasicArrayListD()
+function initFieldsBasicTouchInputFactory(this::BasicTouchInputFactory)
+    this.logUtil = nothing
+    this.SPECIAL_BUTTON_SEVEN_TESTING_ONLY = nothing
+    this.SPECIAL_BUTTON_EIGHT_TESTING_ONLY = nothing
+    this.SPECIAL_BUTTON_SIX = nothing
+    this.SPECIAL_BUTTON_FIVE = nothing
+    this.SPECIAL_BUTTON_FOUR = nothing
+    this.SPECIAL_BUTTON_THREE = nothing
+    this.SPECIAL_BUTTON_TWO = nothing
+    this.SPECIAL_BUTTON_ONE = nothing
+    this.UP = nothing
+    this.LEFT = nothing
+    this.RIGHT = nothing
+    this.DOWN = nothing
+    this.NONE = nothing
+    this.initialized = false
+    this.list = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
-
-    @staticmethod
-    def getInstance() -> BasicTouchInputFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if BasicTouchInputFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            BasicTouchInputFactory.instance = BasicTouchInputFactory()
-        return BasicTouchInputFactory.instance
     
-
-    def __init__(self) -> None:
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.input.motion.button.TouchButtonInput import TouchButtonInput
-        from org.allbinary.game.input.InputFactory import InputFactory
-        self._init_fields()
-        MAX: int = InputFactory.getInstance().MAX
-        self.SPECIAL_BUTTON_SEVEN_TESTING_ONLY = TouchButtonInput(MAX - 41, "Button 7 - Testing Only May Cross Over Key Values")
-        self.SPECIAL_BUTTON_EIGHT_TESTING_ONLY = TouchButtonInput(MAX - 42, "Button 8 - Testing Only May Cross Over Key Values")
-        self.SPECIAL_BUTTON_SIX = TouchButtonInput(MAX - 30, "Button 6")
-        self.SPECIAL_BUTTON_FIVE = TouchButtonInput(MAX - 31, "Button 5")
-        self.SPECIAL_BUTTON_FOUR = TouchButtonInput(MAX - 32, "Button 4")
-        self.SPECIAL_BUTTON_THREE = TouchButtonInput(MAX - 33, "Button 3")
-        self.SPECIAL_BUTTON_TWO = TouchButtonInput(MAX - 34, "Button 2")
-        self.SPECIAL_BUTTON_ONE = TouchButtonInput(MAX - 35, "Button 1")
-        self.UP = TouchButtonInput(MAX - 36, "Up Button")
-        self.LEFT = TouchButtonInput(MAX - 37, "Left Button")
-        self.RIGHT = TouchButtonInput(MAX - 38, "Right Button")
-        self.DOWN = TouchButtonInput(MAX - 39, "Down Button")
-        self.NONE = TouchButtonInput(MAX - 40, "No Button")
     
-
-    def init(self, inputToGameKeyMapping: InputToGameKeyMapping) -> None:
-        with self._lock:
-            return self._init_unlocked(inputToGameKeyMapping)
-
-    def _init_unlocked(self, inputToGameKeyMapping: InputToGameKeyMapping) -> None:
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        if not self.initialized:
-            self.initialized = True
-            self.list_.add(self.UP)
-            self.list_.add(self.LEFT)
-            self.list_.add(self.RIGHT)
-            self.list_.add(self.DOWN)
-            self.list_.add(self.SPECIAL_BUTTON_TWO)
-            self.list_.add(self.SPECIAL_BUTTON_FOUR)
-            self.list_.add(self.SPECIAL_BUTTON_THREE)
-            self.list_.add(self.SPECIAL_BUTTON_ONE)
-            self.list_.add(self.SPECIAL_BUTTON_FIVE)
-            self.list_.add(self.SPECIAL_BUTTON_SIX)
-            self.list_.add(self.SPECIAL_BUTTON_SIX)
-            self.list_.add(self.SPECIAL_BUTTON_SEVEN_TESTING_ONLY)
-            self.list_.add(self.SPECIAL_BUTTON_EIGHT_TESTING_ONLY)
-            self.updateAllFromList(self.list_, inputToGameKeyMapping)
     
-
-    def updateAll(self, inputToGameKeyMapping: InputToGameKeyMapping) -> None:
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        self.updateAllFromList(self.list_, inputToGameKeyMapping)
     
-
-    def updateAllFromList(self, list_: BasicArrayList, inputToGameKeyMapping: InputToGameKeyMapping) -> None:
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().START_LABEL).appendint(list_.size())), self, "updateAll")
-        touchButtonInput: TouchButtonInput = None
-        for index in range(list_.size() - 1, 0 - 1, -1):
-            touchButtonInput = list_.objectArray[index]
-            touchButtonInput.update(inputToGameKeyMapping)
     
+    
+    
+    
+    
+    
+    
+    
+    this.initialized = false
+    this.list = newBasicArrayListD()
+    nothing
+end
 
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.list_
-# from org.allbinary.game.input.InputFactory import InputFactory
-# from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+
+function getInstance(::Type{BasicTouchInputFactory})
+        if staticGet_instance(BasicTouchInputFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(BasicTouchInputFactory, newBasicTouchInputFactory())
+        end
+        return (staticGet_instance(BasicTouchInputFactory))
+end
 
 
-def _BasicTouchInputFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function initBasicTouchInputFactory(this::BasicTouchInputFactory)
+        initFieldsBasicTouchInputFactory(this)
+        local MAX::Int32 = AllBinary.getInstance(InputFactory).MAX
+        this.SPECIAL_BUTTON_SEVEN_TESTING_ONLY = newTouchButtonInput(MAX - Int32(41), "Button 7 - Testing Only May Cross Over Key Values")
+        this.SPECIAL_BUTTON_EIGHT_TESTING_ONLY = newTouchButtonInput(MAX - Int32(42), "Button 8 - Testing Only May Cross Over Key Values")
+        this.SPECIAL_BUTTON_SIX = newTouchButtonInput(MAX - Int32(30), "Button 6")
+        this.SPECIAL_BUTTON_FIVE = newTouchButtonInput(MAX - Int32(31), "Button 5")
+        this.SPECIAL_BUTTON_FOUR = newTouchButtonInput(MAX - Int32(32), "Button 4")
+        this.SPECIAL_BUTTON_THREE = newTouchButtonInput(MAX - Int32(33), "Button 3")
+        this.SPECIAL_BUTTON_TWO = newTouchButtonInput(MAX - Int32(34), "Button 2")
+        this.SPECIAL_BUTTON_ONE = newTouchButtonInput(MAX - Int32(35), "Button 1")
+        this.UP = newTouchButtonInput(MAX - Int32(36), "Up Button")
+        this.LEFT = newTouchButtonInput(MAX - Int32(37), "Left Button")
+        this.RIGHT = newTouchButtonInput(MAX - Int32(38), "Right Button")
+        this.DOWN = newTouchButtonInput(MAX - Int32(39), "Down Button")
+        this.NONE = newTouchButtonInput(MAX - Int32(40), "No Button")
+        nothing
+end
 
-lazy_static(BasicTouchInputFactory, "instance", _BasicTouchInputFactory_instance)
+function newBasicTouchInputFactory()
+    this = BasicTouchInputFactory()
+    initBasicTouchInputFactory(this)
+    this
+end
+
+
+function init(this::BasicTouchInputFactory, inputToGameKeyMapping)
+        if !this.initialized
+            this.initialized = true
+            AllBinary.add(this.list, this.UP)
+            AllBinary.add(this.list, this.LEFT)
+            AllBinary.add(this.list, this.RIGHT)
+            AllBinary.add(this.list, this.DOWN)
+            AllBinary.add(this.list, this.SPECIAL_BUTTON_TWO)
+            AllBinary.add(this.list, this.SPECIAL_BUTTON_FOUR)
+            AllBinary.add(this.list, this.SPECIAL_BUTTON_THREE)
+            AllBinary.add(this.list, this.SPECIAL_BUTTON_ONE)
+            AllBinary.add(this.list, this.SPECIAL_BUTTON_FIVE)
+            AllBinary.add(this.list, this.SPECIAL_BUTTON_SIX)
+            AllBinary.add(this.list, this.SPECIAL_BUTTON_SIX)
+            AllBinary.add(this.list, this.SPECIAL_BUTTON_SEVEN_TESTING_ONLY)
+            AllBinary.add(this.list, this.SPECIAL_BUTTON_EIGHT_TESTING_ONLY)
+            AllBinary.updateAllFromList(this, this.list, inputToGameKeyMapping)
+        end
+        nothing
+end
+
+
+function updateAll(this::BasicTouchInputFactory, inputToGameKeyMapping)
+        AllBinary.updateAllFromList(this, this.list, inputToGameKeyMapping)
+        nothing
+end
+
+
+function updateAllFromList(this::BasicTouchInputFactory, list, inputToGameKeyMapping)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).START_LABEL), AllBinary.size(list))), this, "updateAll")
+        local touchButtonInput = nothing
+        let
+            local index::Int32 = AllBinary.size(list) - Int32(1)
+            while index >= Int32(0)
+            try
+            touchButtonInput = (list.objectArray[index + 1])
+            AllBinary.update(touchButtonInput, inputToGameKeyMapping)
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function getList(this::BasicTouchInputFactory)
+        return this.list
+end
 

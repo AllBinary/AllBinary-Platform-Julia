@@ -1,108 +1,136 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+mutable struct TouchScreenFactory <: JObject
+    logUtil::Any
+    touch::Bool
+    multiTouch::Bool
+    multiTouchDistinct::Bool
+    touchScreenType::Any
+    TouchScreenFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const TouchScreenFactory_SINGLETONValue = Ref{Any}(nothing)
+const TouchScreenFactory_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{TouchScreenFactory})
+    if !TouchScreenFactory_SINGLETONSet[]
+        TouchScreenFactory_SINGLETONSet[] = true
+        TouchScreenFactory_SINGLETONValue[] = newTouchScreenFactory()
+    end
+    TouchScreenFactory_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{TouchScreenFactory}, value)
+    TouchScreenFactory_SINGLETONSet[] = true
+    TouchScreenFactory_SINGLETONValue[] = value
+end
 
-
-class TouchScreenFactory:
-    SINGLETON: TouchScreenFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.touch: bool = False
-        self.multiTouch: bool = False
-        self.multiTouchDistinct: bool = False
-        self.touchScreenType: TouchScreenType = TouchScreenTypesFactory.getInstance().NOTOUCH
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self._init_fields()
-        try:
-            self.setTouch(True)
-            self.setMultiTouch(False)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, TouchScreenFactory.SINGLETON, commonStrings.GET_INSTANCE, e)
-    
-
-    @staticmethod
-    def getInstance() -> TouchScreenFactory:
-        return TouchScreenFactory.SINGLETON
-    
-
-    def setMultiTouch(self, multiTouch: bool) -> None:
-        self.multiTouch = multiTouch
-    
-
-    def isMultiTouch(self) -> bool:
-        return self.multiTouch
-    
-
-    def setTouch(self, touch: bool) -> None:
-        self.touch = touch
-    
-
-    def isTouch(self) -> bool:
-        return self.touch
-    
-
-    def setMultiTouchDistinct(self, multiTouchDistinct: bool) -> None:
-        self.multiTouchDistinct = multiTouchDistinct
-    
-
-    def isMultiTouchDistinct(self) -> bool:
-        return self.multiTouchDistinct
-    
-
-    def setTouchScreenType(self, touchScreenType: TouchScreenType) -> None:
-        self.touchScreenType = touchScreenType
-    
-
-    def getTouchScreenType(self) -> TouchScreenType:
-        return self.touchScreenType
-    
-
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append("TouchScreen: ")
-        stringBuffer.appendboolean(self.isTouch())
-        stringBuffer.append(" MultiTouch: ")
-        stringBuffer.appendboolean(self.isMultiTouch())
-        stringBuffer.append(" Distinct MultiTouch: ")
-        stringBuffer.appendboolean(self.isMultiTouchDistinct())
-        stringBuffer.append(" TouchScreenType: ")
-        stringBuffer.append(StringUtil.getInstance().toString(self.getTouchScreenType()))
-        return str(stringBuffer)
-
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.input.motion.button.TouchScreenTypesFactory import TouchScreenTypesFactory
+function initFieldsTouchScreenFactory(this::TouchScreenFactory)
+    this.logUtil = nothing
+    this.touch = false
+    this.multiTouch = false
+    this.multiTouchDistinct = false
+    this.touchScreenType = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.touch = false
+    this.multiTouch = false
+    this.multiTouchDistinct = false
+    this.touchScreenType = AllBinary.getInstance(TouchScreenTypesFactory).NOTOUCH
+    nothing
+end
 
 
-def _TouchScreenFactory_SINGLETON() -> object:
-    return TouchScreenFactory()
+function initTouchScreenFactory(this::TouchScreenFactory)
+        initFieldsTouchScreenFactory(this)
+        try
+            AllBinary.setTouch(this, true)
+            AllBinary.setMultiTouch(this, false)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, staticGet_SINGLETON(TouchScreenFactory), commonStrings.GET_INSTANCE, e)
+        end
+        nothing
+end
 
-lazy_static(TouchScreenFactory, "SINGLETON", _TouchScreenFactory_SINGLETON)
+function newTouchScreenFactory()
+    this = TouchScreenFactory()
+    initTouchScreenFactory(this)
+    this
+end
+
+
+function getInstance(::Type{TouchScreenFactory})
+        return staticGet_SINGLETON(TouchScreenFactory)
+end
+
+
+function setMultiTouch(this::TouchScreenFactory, multiTouch)
+        this.multiTouch = multiTouch
+        nothing
+end
+
+
+function isMultiTouch(this::TouchScreenFactory)
+        return this.multiTouch
+end
+
+
+function setTouch(this::TouchScreenFactory, touch)
+        this.touch = touch
+        nothing
+end
+
+
+function isTouch(this::TouchScreenFactory)
+        return this.touch
+end
+
+
+function setMultiTouchDistinct(this::TouchScreenFactory, multiTouchDistinct)
+        this.multiTouchDistinct = multiTouchDistinct
+        nothing
+end
+
+
+function isMultiTouchDistinct(this::TouchScreenFactory)
+        return this.multiTouchDistinct
+end
+
+
+function setTouchScreenType(this::TouchScreenFactory, touchScreenType)
+        this.touchScreenType = touchScreenType
+        nothing
+end
+
+
+function getTouchScreenType(this::TouchScreenFactory)
+        return this.touchScreenType
+end
+
+
+function toString(this::TouchScreenFactory)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, "TouchScreen: ")
+        AllBinary.appendboolean(stringBuffer, AllBinary.isTouch(this))
+        AllBinary.append(stringBuffer, " MultiTouch: ")
+        AllBinary.appendboolean(stringBuffer, AllBinary.isMultiTouch(this))
+        AllBinary.append(stringBuffer, " Distinct MultiTouch: ")
+        AllBinary.appendboolean(stringBuffer, AllBinary.isMultiTouchDistinct(this))
+        AllBinary.append(stringBuffer, " TouchScreenType: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(AllBinary.getInstance(StringUtil), AllBinary.getTouchScreenType(this)))
+        return AllBinary.toString(stringBuffer)
+end
 

@@ -1,65 +1,74 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2022 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-# 
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2022 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+  
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.displayable.screen
 
-from __future__ import annotations
+mutable struct WebCommandProcessor <: JObject
+    logUtil::Any
+    aboutCommandProcessor::Any
+    list::Any
+    WebCommandProcessor() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const WebCommandProcessor_instanceValue = Ref{Any}(nothing)
+const WebCommandProcessor_instanceSet = Ref(false)
+function staticGet_instance(::Type{WebCommandProcessor})
+    if !WebCommandProcessor_instanceSet[]
+        WebCommandProcessor_instanceSet[] = true
+        WebCommandProcessor_instanceValue[] = newWebCommandProcessor()
+    end
+    WebCommandProcessor_instanceValue[]
+end
+function staticSet_instance(::Type{WebCommandProcessor}, value)
+    WebCommandProcessor_instanceSet[] = true
+    WebCommandProcessor_instanceValue[] = value
+end
 
+function initFieldsWebCommandProcessor(this::WebCommandProcessor)
+    this.logUtil = nothing
+    this.aboutCommandProcessor = nothing
+    this.list = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.aboutCommandProcessor = AllBinary.getInstance(AboutCommandProcessor)
+    this.list = newBasicArrayListD()
+    nothing
+end
 
-class WebCommandProcessor:
-    instance: WebCommandProcessor = None
+function initWebCommandProcessor(this::WebCommandProcessor)
+    initFieldsWebCommandProcessor(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.aboutCommandProcessor: AboutCommandProcessor = AboutCommandProcessor.getInstance()
-        self.list_: BasicArrayList = BasicArrayListD()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> WebCommandProcessor:
-        return WebCommandProcessor.instance
-    
-
-    def process(self, midletCommandListener: CommandListener, command: Command, canvas: Canvas) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from javax.microedition.lcdui.Command import Command
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.list_.removeAt(0)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.PROCESS, e)
-# from javax.microedition.lcdui.Canvas import Canvas
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-from org.allbinary.graphics.displayable.screen.AboutCommandProcessor import AboutCommandProcessor
+function newWebCommandProcessor()
+    this = WebCommandProcessor()
+    initWebCommandProcessor(this)
+    this
+end
 
 
-def _WebCommandProcessor_instance() -> object:
-    return WebCommandProcessor()
+function getInstance(::Type{WebCommandProcessor})
+        return staticGet_instance(WebCommandProcessor)
+end
 
-lazy_static(WebCommandProcessor, "instance", _WebCommandProcessor_instance)
+
+function process(this::WebCommandProcessor, midletCommandListener, command, canvas)
+        try
+            AllBinary.removeAt(this.list, Int32(0))
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.PROCESS, e)
+        end
+        nothing
+end
 

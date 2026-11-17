@@ -1,87 +1,110 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
+mutable struct PlayerQueue <: JObject
+    commonStrings::Any
+    list::Any
+    max::Int32
+    PlayerQueue() = new()
+end
 
+const PlayerQueue_TOTALValue = Ref{Any}(nothing)
+const PlayerQueue_TOTALSet = Ref(false)
+function staticGet_TOTAL(::Type{PlayerQueue})
+    if !PlayerQueue_TOTALSet[]
+        PlayerQueue_TOTALSet[] = true
+        PlayerQueue_TOTALValue[] = "Sounds In Queue: "
+    end
+    PlayerQueue_TOTALValue[]
+end
+function staticSet_TOTAL(::Type{PlayerQueue}, value)
+    PlayerQueue_TOTALSet[] = true
+    PlayerQueue_TOTALValue[] = value
+end
 
-
-class PlayerQueue:
-    TOTAL: str = "Sounds In Queue: "
-
-    def _init_fields(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.list_: BasicArrayList = BasicArrayListD()
-        self.max: int = None
+function initFieldsPlayerQueue(this::PlayerQueue)
+    this.commonStrings = nothing
+    this.list = nothing
+    this.max = Int32(0)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.list = newBasicArrayListD()
     
+    nothing
+end
 
-    def __init__(self, max: int) -> None:
-        self._init_fields()
-        self.max = max
-    
 
-    def add(self, sound: Sound) -> None:
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        try:
-            if not self.list_.contains(sound):
-                self.list_.add(sound)
-        except Exception as e:
-            PreLogUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.ADD)
-    
+function initPlayerQueue(this::PlayerQueue, max)
+        initFieldsPlayerQueue(this)
+        this.max = max
+        nothing
+end
 
-    def process(self) -> bool:
-        from org.allbinary.media.audio.NoSound import NoSound
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        sound: Sound = NoSound.getInstance()
-        try:
-            played: bool = False
-            if self.list_.size() > 0:
-                sound = self.list_.removeAt(0)
-                if sound is not None:
-                    sound.getPlayerP().start()
-                while self.list_.size() > self.max:
-                    self.list_.removeAt(0)
-                played = True
+function newPlayerQueue(max)
+    this = PlayerQueue()
+    initPlayerQueue(this, max)
+    this
+end
+
+
+function add(this::PlayerQueue, sound)
+        try
+            if !AllBinary.contains(this.list, sound)
+                AllBinary.add(this.list, sound)
+            end
+        catch e
+            AllBinary.put(PreLogUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.ADD)
+        end
+        nothing
+end
+
+
+function process(this::PlayerQueue)
+        local sound = AllBinary.getInstance(NoSound)
+        try
+            local played::Bool = false
+            if AllBinary.size(this.list) > Int32(0)
+                sound = (AllBinary.removeAt(this.list, Int32(0)))
+                if sound !== nothing
+                    AllBinary.start(AllBinary.getPlayerP(sound))
+                end
+                while AllBinary.size(this.list) > this.max
+                    AllBinary.removeAt(this.list, Int32(0))
+                end
+                played = true
+            end
             return played
-        except Exception as e:
-            resource: str = StringUtil.getInstance().EMPTY_STRING
-            if sound is not None:
-                resource = sound.getResource()
-            PreLogUtil.put(str(StringMaker().append(self.commonStrings.EXCEPTION_LABEL).append(resource)), self, self.commonStrings.PROCESS)
-            return False
-    
+        catch e
+            local resource = AllBinary.getInstance(StringUtil).EMPTY_STRING
+            if sound !== nothing
+                resource = AllBinary.getResource(sound)
+            end
+            AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), this.commonStrings.EXCEPTION_LABEL), resource)), this, this.commonStrings.PROCESS)
+            return false
+        end
+end
 
-    def clear(self) -> None:
-        self.list_.clear()
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        return str(StringMaker().append(PlayerQueue.TOTAL).appendint(self.list_.size()))
+function clear(this::PlayerQueue)
+        AllBinary.clear(this.list)
+        nothing
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
 
+function toString(this::PlayerQueue)
+        return AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), staticGet_TOTAL(PlayerQueue)), AllBinary.size(this.list)))
+end
 

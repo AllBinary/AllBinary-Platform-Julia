@@ -1,72 +1,90 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.drop
 
-from __future__ import annotations
+mutable struct DropLayerFactory <: JObject
+    list::Any
+    basicArrayListUtil::Any
+    DropLayerFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const DropLayerFactory_DROP_LAYER_FACTORYValue = Ref{Any}(nothing)
+const DropLayerFactory_DROP_LAYER_FACTORYSet = Ref(false)
+function staticGet_DROP_LAYER_FACTORY(::Type{DropLayerFactory})
+    if !DropLayerFactory_DROP_LAYER_FACTORYSet[]
+        DropLayerFactory_DROP_LAYER_FACTORYSet[] = true
+        DropLayerFactory_DROP_LAYER_FACTORYValue[] = newDropLayerFactory()
+    end
+    DropLayerFactory_DROP_LAYER_FACTORYValue[]
+end
+function staticSet_DROP_LAYER_FACTORY(::Type{DropLayerFactory}, value)
+    DropLayerFactory_DROP_LAYER_FACTORYSet[] = true
+    DropLayerFactory_DROP_LAYER_FACTORYValue[] = value
+end
 
-
-class DropLayerFactory:
-    DROP_LAYER_FACTORY: DropLayerFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        self.list_: BasicArrayList = BasicArrayListD()
-        self.basicArrayListUtil: BasicArrayListUtil = BasicArrayListUtil.getInstance()
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def clear(self) -> None:
-        self.list_.clear()
-    
-
-    @staticmethod
-    def getInstance() -> DropLayerFactory:
-        return DropLayerFactory.DROP_LAYER_FACTORY
-    
-
-    def getSize(self) -> int:
-        return self.list_.size()
-    
-
-    def getRandomInstance(self) -> PickedUpLayerInterfaceFactoryInterface:
-        from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-        return self.basicArrayListUtil.getRandom(self.list_)
-    
-
-    def add(self, layerInterfaceFactoryInterface: PickedUpLayerInterfaceFactoryInterface) -> None:
-        from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-        self.list_.add(layerInterfaceFactoryInterface)
-    
-
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.list_
-# from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
+function initFieldsDropLayerFactory(this::DropLayerFactory)
+    this.list = nothing
+    this.basicArrayListUtil = nothing
+    this.list = newBasicArrayListD()
+    this.basicArrayListUtil = AllBinary.getInstance(BasicArrayListUtil)
+    nothing
+end
 
 
-def _DropLayerFactory_DROP_LAYER_FACTORY() -> object:
-    return DropLayerFactory()
+function initDropLayerFactory(this::DropLayerFactory)
+        initFieldsDropLayerFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(DropLayerFactory, "DROP_LAYER_FACTORY", _DropLayerFactory_DROP_LAYER_FACTORY)
+function newDropLayerFactory()
+    this = DropLayerFactory()
+    initDropLayerFactory(this)
+    this
+end
+
+
+function clear(this::DropLayerFactory)
+        AllBinary.clear(this.list)
+        nothing
+end
+
+
+function getInstance(::Type{DropLayerFactory})
+        return staticGet_DROP_LAYER_FACTORY(DropLayerFactory)
+end
+
+
+function getSize(this::DropLayerFactory)
+        return AllBinary.size(this.list)
+end
+
+
+function getRandomInstance(this::DropLayerFactory)
+        return (AllBinary.getRandom(this.basicArrayListUtil, this.list))
+end
+
+
+function add(this::DropLayerFactory, layerInterfaceFactoryInterface)
+        AllBinary.add(this.list, layerInterfaceFactoryInterface)
+        nothing
+end
+
+
+function getList(this::DropLayerFactory)
+        return this.list
+end
 

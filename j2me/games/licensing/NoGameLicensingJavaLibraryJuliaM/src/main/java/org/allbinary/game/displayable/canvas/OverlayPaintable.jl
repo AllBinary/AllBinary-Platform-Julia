@@ -1,49 +1,61 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends InitUpdatePaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct OverlayPaintable <: JObject
+    logUtil::Any
+    OverlayPaintable() = new()
+end
 
-from org.allbinary.graphics.paint.InitUpdatePaintable import InitUpdatePaintable
+
+function initFieldsOverlayPaintable(this::OverlayPaintable)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
 
 
-class OverlayPaintable(InitUpdatePaintable):
+function initOverlayPaintable(this::OverlayPaintable)
+        initInitUpdatePaintable(this)
+        initFieldsOverlayPaintable(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-    
+function newOverlayPaintable()
+    this = OverlayPaintable()
+    initOverlayPaintable(this)
+    this
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
 
-    def update(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            pass
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.UPDATE, e)
-    
+function update(this::OverlayPaintable)
+        try
+            nothing
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.UPDATE, e)
+        end
+        nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
 
+function paint(this::OverlayPaintable, graphics)
+        nothing
+        nothing
+end
 

@@ -1,34 +1,44 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.bounds.event
 
-from __future__ import annotations
+# extends AllBinaryEventObject: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BoundsChangeEvent <: JObject
+    BoundsChangeEvent() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
+
+function initFieldsBoundsChangeEvent(this::BoundsChangeEvent)
+    nothing
+end
 
 
-class BoundsChangeEvent(AllBinaryEventObject):
-    
+function initBoundsChangeEvent(this::BoundsChangeEvent, rectangle)
+        initAllBinaryEventObject(this, rectangle)
+        nothing
+end
 
-    def __init__(self, rectangle: Rectangle) -> None:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        super().__init__(rectangle)
-    
+function newBoundsChangeEvent(rectangle)
+    this = BoundsChangeEvent()
+    initBoundsChangeEvent(this, rectangle)
+    this
+end
 
-    def getRectangle(self) -> Rectangle:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        return self.getSource()
-# from org.allbinary.graphics.Rectangle import Rectangle
 
+function getRectangle(this::BoundsChangeEvent)
+        return (AllBinary.getSource(this))
+end
 

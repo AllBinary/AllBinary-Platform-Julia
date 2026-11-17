@@ -1,15 +1,24 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends CustomDisplayable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CustomScreen <: JObject
+    CustomScreen() = new()
+end
 
-from org.allbinary.graphics.form.CustomDisplayable import CustomDisplayable
 
+function initFieldsCustomScreen(this::CustomScreen)
+    nothing
+end
 
-class CustomScreen(CustomDisplayable):
+function initCustomScreen(this::CustomScreen)
+    initCustomDisplayable(this)
+    initFieldsCustomScreen(this)
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    pass
-
+function newCustomScreen()
+    this = CustomScreen()
+    initCustomScreen(this)
+    this
+end
 

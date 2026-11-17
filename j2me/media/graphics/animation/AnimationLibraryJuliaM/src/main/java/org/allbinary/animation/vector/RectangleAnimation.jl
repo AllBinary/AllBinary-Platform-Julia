@@ -1,67 +1,85 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.vector
 
-from __future__ import annotations
+# extends Animation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct RectangleAnimation <: JObject
+    width::Int32
+    height::Int32
+    RectangleAnimation() = new()
+end
 
-from org.allbinary.animation.Animation import Animation
-from org.allbinary.graphics.color.ColorCompositeInterface import ColorCompositeInterface
 
-
-class RectangleAnimation(Animation, ColorCompositeInterface):
-
-    def _init_fields(self) -> None:
-        self.width: int = None
-        self.height: int = None
+function initFieldsRectangleAnimation(this::RectangleAnimation)
+    this.width = Int32(0)
+    this.height = Int32(0)
     
-
-    def __init__(self, width: int, height: int, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.width = width
-        self.height = height
-        self.setBasicColorP(basicColor)
     
+    nothing
+end
 
-    def nextFrame(self) -> None:
-        pass
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.basicSetColorUtil.setBasicColorP3(graphics, self.getBasicColorP(), self.getColor())
-        graphics.drawRect(x, y, self.width, self.height)
-    
+function initRectangleAnimation(this::RectangleAnimation, width, height, basicColor)
+        initAnimation(this)
+        initFieldsRectangleAnimation(this)
+        this.width = width
+        this.height = height
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 
-    def setWidth(self, width: int) -> None:
-        self.width = width
-    
+function newRectangleAnimation(width, height, basicColor)
+    this = RectangleAnimation()
+    initRectangleAnimation(this, width, height, basicColor)
+    this
+end
 
-    def setHeight(self, height: int) -> None:
-        self.height = height
-    
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return super().getBasicColorP()
-    
+function nextFrame(this::RectangleAnimation)
+        nothing
+        nothing
+end
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().setBasicColorP(basicColor)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
 
+function paintXY(this::RectangleAnimation, graphics, x, y)
+        AllBinary.setBasicColorP3(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this), AllBinary.getColor(this))
+        AllBinary.drawRect(graphics, x, y, this.width, this.height)
+        nothing
+end
+
+
+function setWidth(this::RectangleAnimation, width)
+        this.width = width
+        nothing
+end
+
+
+function setHeight(this::RectangleAnimation, height)
+        this.height = height
+        nothing
+end
+
+
+function getBasicColorP(this::RectangleAnimation)
+        return AllBinary.getBasicColorP(this)
+end
+
+
+function setBasicColorP(this::RectangleAnimation, basicColor)
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 

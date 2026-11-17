@@ -1,92 +1,91 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.system.security.licensing
 
-from __future__ import annotations
+mutable struct LicenseServerInitFileUtil <: JObject
+    logUtil::Any
+    commonStrings::Any
+    NULL_OUTPUT_STREAM::Any
+    LicenseServerInitFileUtil() = new()
+end
 
 
+function initFieldsLicenseServerInitFileUtil(this::LicenseServerInitFileUtil)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.NULL_OUTPUT_STREAM = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.NULL_OUTPUT_STREAM = AllBinary.nullOutputStream(SimpleFileUtil)
+    nothing
+end
 
-class LicenseServerInitFileUtil:
+function initLicenseServerInitFileUtil(this::LicenseServerInitFileUtil)
+    initFieldsLicenseServerInitFileUtil(this)
+end
 
-    def _init_fields(self) -> None:
-        from java.io.OutputStream import OutputStream
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.io.file.SimpleFileUtil import SimpleFileUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.NULL_OUTPUT_STREAM: OutputStream = SimpleFileUtil.nullOutputStream()
+function newLicenseServerInitFileUtil()
+    this = LicenseServerInitFileUtil()
+    initLicenseServerInitFileUtil(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def init(self) -> None:
-        from org.allbinary.business.init.LicenseInitInfoUtil import LicenseInitInfoUtil
-        from org.allbinary.logic.io.file.FileFactory import FileFactory
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        try:
-            filePath: str = LicenseInitInfoUtil.getInstance().INITFILENAME
-            LicenseInitInfoUtil.getInstance().setFilePath(StringUtil.getInstance().EMPTY_STRING)
-            if FileFactory.getInstance().isFile(filePath):
-                self.logUtil.putF("Using Existing License File", self, self.commonStrings.INIT)
-            else:
-                self.write()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.INIT, e)
-    
+function init(this::LicenseServerInitFileUtil)
+        try
+            local filePath = AllBinary.getInstance(LicenseInitInfoUtil).INITFILENAME
+            AllBinary.setFilePath(AllBinary.getInstance(LicenseInitInfoUtil), AllBinary.getInstance(StringUtil).EMPTY_STRING)
+            if AllBinary.isFile(AllBinary.getInstance(FileFactory), filePath)
+                AllBinary.putF(this.logUtil, "Using Existing License File", this, this.commonStrings.INIT)
+            else
+                AllBinary.write(this)
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.INIT, e)
+        end
+        nothing
+end
 
-    def write(self) -> None:
-        from java.io.InputStream import InputStream
-        from java.io.OutputStream import OutputStream
-        from org.allbinary.business.init.LicenseInitInfoUtil import LicenseInitInfoUtil
-        from org.allbinary.data.resource.ResourceUtil import ResourceUtil
-        from org.allbinary.logic.io.FileStreamFactory import FileStreamFactory
-        from org.allbinary.logic.io.StreamUtil import StreamUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        fileOutputStream: OutputStream = self.NULL_OUTPUT_STREAM
-        try:
-            resourceUtil: ResourceUtil = ResourceUtil.getInstance()
-            filePath: str = LicenseInitInfoUtil.getInstance().INITFILENAME
-            inputStream: InputStream = resourceUtil.getResourceAsStream(filePath)
-            self.logUtil.putF("Writing Default License File", self, self.commonStrings.INIT)
-            fileStreamFactory: FileStreamFactory = FileStreamFactory.getInstance()
-            fileOutputStream = fileStreamFactory.getFileOutputStreamInstance(StringUtil.getInstance().EMPTY_STRING, filePath)
-            b: int = 0
-            index: int = 0
-            while True:
-                b = inputStream.read()
-                if b == -1:
+
+function write(this::LicenseServerInitFileUtil)
+        local fileOutputStream = this.NULL_OUTPUT_STREAM
+        try
+            local resourceUtil = AllBinary.getInstance(ResourceUtil)
+            local filePath = AllBinary.getInstance(LicenseInitInfoUtil).INITFILENAME
+            local inputStream = AllBinary.getResourceAsStream(resourceUtil, filePath)
+            AllBinary.putF(this.logUtil, "Writing Default License File", this, this.commonStrings.INIT)
+            local fileStreamFactory = AllBinary.getInstance(FileStreamFactory)
+            fileOutputStream = AllBinary.getFileOutputStreamInstance(fileStreamFactory, AllBinary.getInstance(StringUtil).EMPTY_STRING, filePath)
+            local b::Int32 = Int32(0)
+            local index::Int32 = Int32(0)
+            while true
+                b = AllBinary.read(inputStream)
+                if b == -Int32(1)
                     break
-                fileOutputStream.write(b)
-                index += 1
-            self.logUtil.putF("Wrote Bytes: " + str(index), self, self.commonStrings.INIT)
-            fileOutputStream.flush()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.INIT, e)
-        finally:
-            StreamUtil.getInstance().close(fileOutputStream)
-# from java.io.InputStream import InputStream
-# from java.io.OutputStream import OutputStream
-# from org.allbinary.business.init.LicenseInitInfoUtil import LicenseInitInfoUtil
-# from org.allbinary.data.resource.ResourceUtil import ResourceUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.io.FileStreamFactory import FileStreamFactory
-# from org.allbinary.logic.io.StreamUtil import StreamUtil
-# from org.allbinary.logic.io.file.FileFactory import FileFactory
-# from org.allbinary.logic.io.file.SimpleFileUtil import SimpleFileUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-
+                end
+                AllBinary.write(fileOutputStream, b)
+                index += Int32(1)
+            end
+            AllBinary.putF(this.logUtil, jstr("Wrote Bytes: ") * jstr(index), this, this.commonStrings.INIT)
+            AllBinary.flush(fileOutputStream)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.INIT, e)
+        finally
+            AllBinary.close(AllBinary.getInstance(StreamUtil), fileOutputStream)
+        end
+        nothing
+end
 

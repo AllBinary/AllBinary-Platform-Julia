@@ -1,62 +1,70 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai.scroller
 
-from __future__ import annotations
+# extends BasicAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TimedFireAI <: JObject
+    maxFireDelayTimeHelper::Any
+    delay::Int32
+    TimedFireAI() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.ai.BasicAI import BasicAI
+const TimedFireAI_TIMEValue = Ref{Any}(nothing)
+const TimedFireAI_TIMESet = Ref(false)
+function staticGet_TIME(::Type{TimedFireAI})
+    if !TimedFireAI_TIMESet[]
+        TimedFireAI_TIMESet[] = true
+        TimedFireAI_TIMEValue[] = AllBinary.getAt(AllBinary.getInstance(SmallIntegerSingletonFactory), Int32(1))
+    end
+    TimedFireAI_TIMEValue[]
+end
+function staticSet_TIME(::Type{TimedFireAI}, value)
+    TimedFireAI_TIMESet[] = true
+    TimedFireAI_TIMEValue[] = value
+end
 
-
-class TimedFireAI(BasicAI):
-    TIME: int = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.maxFireDelayTimeHelper: TimeDelayHelper = TimeDelayHelper(0)
-        self.delay: int = None
+function initFieldsTimedFireAI(this::TimedFireAI)
+    this.maxFireDelayTimeHelper = nothing
+    this.delay = Int32(0)
+    this.maxFireDelayTimeHelper = newTimeDelayHelper(Int32(0))
     
-
-    def __init__(self, delay: int, ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(ownerLayerInterface, gameInput)
-        self._init_fields()
-        self.delay = delay
-    
-
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        timeFiredInterface: TimeFiredInterface = self.getOwnerLayerInterface()
-        if self.maxFireDelayTimeHelper.isTime(GameTickTimeDelayHelperFactory.getInstance().startTime) and timeFiredInterface.getLastFireTime() + self.maxFireDelayTimeHelper.delay < self.maxFireDelayTimeHelper.getStartTime():
-            super().processKeyAI(Canvas.KEY_NUM1)
-            self.maxFireDelayTimeHelper.delay = self.delay
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
+    nothing
+end
 
 
-def _TimedFireAI_TIME() -> object:
-    from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-    return SmallIntegerSingletonFactory.getInstance().getAt(1)
+function initTimedFireAI(this::TimedFireAI, delay, ownerLayerInterface, gameInput)
+        initBasicAI(this, ownerLayerInterface, gameInput)
+        initFieldsTimedFireAI(this)
+        this.delay = delay
+        nothing
+end
 
-lazy_static(TimedFireAI, "TIME", _TimedFireAI_TIME)
+function newTimedFireAI(delay, ownerLayerInterface, gameInput)
+    this = TimedFireAI()
+    initTimedFireAI(this, delay, ownerLayerInterface, gameInput)
+    this
+end
+
+
+function processAI(this::TimedFireAI, allBinaryLayerManager)
+        local timeFiredInterface = (AllBinary.getOwnerLayerInterface(this))
+        if AllBinary.isTime(this.maxFireDelayTimeHelper, AllBinary.getInstance(GameTickTimeDelayHelperFactory).startTime) && AllBinary.getLastFireTime(timeFiredInterface) + this.maxFireDelayTimeHelper.delay < AllBinary.getStartTime(this.maxFireDelayTimeHelper)
+            AllBinary.processKeyAI(this, staticGet_KEY_NUM1(Canvas))
+            this.maxFireDelayTimeHelper.delay = this.delay
+        end
+        nothing
+end
 

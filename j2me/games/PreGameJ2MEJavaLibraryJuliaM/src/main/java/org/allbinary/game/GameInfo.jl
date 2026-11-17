@@ -1,157 +1,200 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game
 
-from __future__ import annotations
+mutable struct GameInfo <: JObject
+    logUtil::Any
+    gameInfoData::Any
+    gameType::Any
+    gameMode::Any
+    playerType::Any
+    highestLevel::Int32
+    currentLevel::Int32
+    NEW_LEVEL::Any
+    SET_CURRENT_LEVEL::Any
+    NEXT_GAME_LEVEL::Any
+    GameInfo() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameInfo_NONEValue = Ref{Any}(nothing)
+const GameInfo_NONESet = Ref(false)
+function staticGet_NONE(::Type{GameInfo})
+    if !GameInfo_NONESet[]
+        GameInfo_NONESet[] = true
+        GameInfo_NONEValue[] = newGameInfo(AllBinary.getInstance(GameTypeFactory).NONE, staticGet_NONE(GameMode), AllBinary.getInstance(PlayerTypesFactory).PLAYER_TYPE_ONE, -Int32(1), -Int32(1))
+    end
+    GameInfo_NONEValue[]
+end
+function staticSet_NONE(::Type{GameInfo}, value)
+    GameInfo_NONESet[] = true
+    GameInfo_NONEValue[] = value
+end
+const GameInfo_LEVEL_NAMEValue = Ref{Any}(nothing)
+const GameInfo_LEVEL_NAMESet = Ref(false)
+function staticGet_LEVEL_NAME(::Type{GameInfo})
+    if !GameInfo_LEVEL_NAMESet[]
+        GameInfo_LEVEL_NAMESet[] = true
+        GameInfo_LEVEL_NAMEValue[] = "LEVEL"
+    end
+    GameInfo_LEVEL_NAMEValue[]
+end
+function staticSet_LEVEL_NAME(::Type{GameInfo}, value)
+    GameInfo_LEVEL_NAMESet[] = true
+    GameInfo_LEVEL_NAMEValue[] = value
+end
 
-
-class GameInfo:
-    NONE: GameInfo = None
-    LEVEL_NAME: str = "LEVEL"
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.gameInfoData: GameInfoData = GameInfoData.getInstance()
-        self.gameType: GameType = None
-        self.gameMode: GameMode = None
-        self.playerType: PlayerType = None
-        self.highestLevel: int = 0
-        self.currentLevel: int = None
-        self.NEW_LEVEL: str = "New Level: "
-        self.SET_CURRENT_LEVEL: str = "setCurrentLevel"
-        self.NEXT_GAME_LEVEL: str = "nextGameLevel"
+function initFieldsGameInfo(this::GameInfo)
+    this.logUtil = nothing
+    this.gameInfoData = nothing
+    this.gameType = nothing
+    this.gameMode = nothing
+    this.playerType = nothing
+    this.highestLevel = Int32(0)
+    this.currentLevel = Int32(0)
+    this.NEW_LEVEL = nothing
+    this.SET_CURRENT_LEVEL = nothing
+    this.NEXT_GAME_LEVEL = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.gameInfoData = AllBinary.getInstance(GameInfoData)
     
-
-    def __init__(self, gameType: GameType, gameMode: GameMode, playerType: PlayerType, highestLevel: int, currentLevel: int) -> None:
-        self._init_fields()
-        self.gameType = gameType
-        self.gameMode = gameMode
-        self.setHighestLevel(highestLevel)
-        self.currentLevel = currentLevel
-        self.playerType = playerType
     
-
-    def getGameType(self) -> GameType:
-        return self.gameType
     
-
-    def getGameMode(self) -> GameMode:
-        return self.gameMode
+    this.highestLevel = Int32(0)
     
+    this.NEW_LEVEL = "New Level: "
+    this.SET_CURRENT_LEVEL = "setCurrentLevel"
+    this.NEXT_GAME_LEVEL = "nextGameLevel"
+    nothing
+end
 
-    def getPlayerType(self) -> PlayerType:
-        return self.playerType
-    
 
-    def getHighestLevel(self) -> int:
-        return self.highestLevel
-    
+function initGameInfo(this::GameInfo, gameType, gameMode, playerType, highestLevel, currentLevel)
+        initFieldsGameInfo(this)
+        this.gameType = gameType
+        this.gameMode = gameMode
+        AllBinary.setHighestLevel(this, highestLevel)
+        this.currentLevel = currentLevel
+        this.playerType = playerType
+        nothing
+end
 
-    def setHighestLevel(self, highestLevel: int) -> None:
-        self.highestLevel = highestLevel
-    
+function newGameInfo(gameType, gameMode, playerType, highestLevel, currentLevel)
+    this = GameInfo()
+    initGameInfo(this, gameType, gameMode, playerType, highestLevel, currentLevel)
+    this
+end
 
-    def getCurrentLevel(self) -> int:
-        return self.currentLevel
-    
 
-    def setCurrentLevel(self, currentLevel: int) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.currentLevel = currentLevel
-        self.logUtil.putF(str(StringMaker().append(self.NEW_LEVEL).appendint(self.getCurrentLevel())), self, self.SET_CURRENT_LEVEL)
-    
+function getGameType(this::GameInfo)
+        return this.gameType
+end
 
-    def nextGameLevel(self) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        from org.allbinary.string.CommonLabels import CommonLabels
-        if self.getCurrentLevel() < self.getHighestLevel():
-            self.currentLevel += 1
-        self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().NEXT).append(CommonSeps.getInstance().SPACE).append(self.NEW_LEVEL).appendint(self.getCurrentLevel())), self, self.NEXT_GAME_LEVEL)
-    
 
-    def previousGameLevel(self) -> None:
-        if self.getCurrentLevel() > 1:
-            self.currentLevel -= 1
-    
+function getGameMode(this::GameInfo)
+        return this.gameMode
+end
 
-    def isLastLevel(self) -> bool:
-        if self.getCurrentLevel() >= self.getHighestLevel():
-            return True
-        else:
-            return False
-    
 
-    def toHashtable(self) -> ABHashtable[object, object]:
-        from org.allbinary.logic.StdUtil import StdUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        hashtable: ABHashtable[object, object] = StdUtil.getInstance().createHashtable()
-        hashtable.put(self.gameInfoData.GAME_TYPE, str(self.getGameType()))
-        hashtable.put(self.gameInfoData.GAME_MODE, str(self.gameMode))
-        hashtable.put(self.gameInfoData.PLAYER_TYPE, str(self.playerType))
-        hashtable.put(self.gameInfoData.HIGHEST_LEVEL, str(self.getHighestLevel()))
-        hashtable.put(self.gameInfoData.CURRENT_LEVEL, str(self.currentLevel))
+function getPlayerType(this::GameInfo)
+        return this.playerType
+end
+
+
+function getHighestLevel(this::GameInfo)
+        return this.highestLevel
+end
+
+
+function setHighestLevel(this::GameInfo, highestLevel)
+        this.highestLevel = highestLevel
+        nothing
+end
+
+
+function getCurrentLevel(this::GameInfo)
+        return this.currentLevel
+end
+
+
+function setCurrentLevel(this::GameInfo, currentLevel)
+        this.currentLevel = currentLevel
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), this.NEW_LEVEL), AllBinary.getCurrentLevel(this))), this, this.SET_CURRENT_LEVEL)
+        nothing
+end
+
+
+function nextGameLevel(this::GameInfo)
+        if AllBinary.getCurrentLevel(this) < AllBinary.getHighestLevel(this)
+            this.currentLevel += Int32(1)
+        end
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).NEXT), AllBinary.getInstance(CommonSeps).SPACE), this.NEW_LEVEL), AllBinary.getCurrentLevel(this))), this, this.NEXT_GAME_LEVEL)
+        nothing
+end
+
+
+function previousGameLevel(this::GameInfo)
+        if AllBinary.getCurrentLevel(this) > Int32(1)
+            this.currentLevel -= Int32(1)
+        end
+        nothing
+end
+
+
+function isLastLevel(this::GameInfo)
+        if AllBinary.getCurrentLevel(this) >= AllBinary.getHighestLevel(this)
+            return true
+        else
+            return false
+        end
+end
+
+
+function toHashtable(this::GameInfo)
+        local hashtable = AllBinary.createHashtable(AllBinary.getInstance(StdUtil))
+        AllBinary.put(hashtable, this.gameInfoData.GAME_TYPE, AllBinary.toString(AllBinary.getGameType(this)))
+        AllBinary.put(hashtable, this.gameInfoData.GAME_MODE, AllBinary.toString(this.gameMode))
+        AllBinary.put(hashtable, this.gameInfoData.PLAYER_TYPE, AllBinary.toString(this.playerType))
+        AllBinary.put(hashtable, this.gameInfoData.HIGHEST_LEVEL, jstr(AllBinary.getHighestLevel(this)))
+        AllBinary.put(hashtable, this.gameInfoData.CURRENT_LEVEL, jstr(this.currentLevel))
         return hashtable
-    
-
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonSeps import CommonSeps
-        stringBuffer: StringMaker = StringMaker()
-        commonSeps: CommonSeps = CommonSeps.getInstance()
-        stringBuffer.append(self.gameInfoData.GAME_TYPE)
-        stringBuffer.append(commonSeps.EQUALS)
-        stringBuffer.append(str(self.getGameType()))
-        stringBuffer.append(commonSeps.COMMA_SEP)
-        stringBuffer.append(self.gameInfoData.GAME_MODE)
-        stringBuffer.append(commonSeps.EQUALS)
-        stringBuffer.append(str(self.gameMode))
-        stringBuffer.append(commonSeps.COMMA_SEP)
-        stringBuffer.append(self.gameInfoData.PLAYER_TYPE)
-        stringBuffer.append(commonSeps.EQUALS)
-        stringBuffer.append(StringUtil.getInstance().toString(self.playerType))
-        stringBuffer.append(commonSeps.COMMA_SEP)
-        stringBuffer.append(self.gameInfoData.HIGHEST_LEVEL)
-        stringBuffer.append(commonSeps.EQUALS)
-        stringBuffer.appendint(self.getHighestLevel())
-        stringBuffer.append(commonSeps.COMMA_SEP)
-        stringBuffer.append(self.gameInfoData.CURRENT_LEVEL)
-        stringBuffer.append(commonSeps.EQUALS)
-        stringBuffer.appendint(self.currentLevel)
-        return str(stringBuffer)
-
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.util.ABHashtable import ABHashtable
-from org.allbinary.game.GameInfoData import GameInfoData
+end
 
 
-def _GameInfo_NONE() -> object:
-    from org.allbinary.game.GameTypeFactory import GameTypeFactory
-    from org.allbinary.game.GameMode import GameMode
-    from org.allbinary.game.PlayerTypesFactory import PlayerTypesFactory
-    return GameInfo(GameTypeFactory.getInstance().NONE, GameMode.NONE, PlayerTypesFactory.getInstance().PLAYER_TYPE_ONE, -1, -1)
-
-lazy_static(GameInfo, "NONE", _GameInfo_NONE)
+function toString(this::GameInfo)
+        local stringBuffer = newStringMaker()
+        local commonSeps = AllBinary.getInstance(CommonSeps)
+        AllBinary.append(stringBuffer, this.gameInfoData.GAME_TYPE)
+        AllBinary.append(stringBuffer, commonSeps.EQUALS)
+        AllBinary.append(stringBuffer, AllBinary.toString(AllBinary.getGameType(this)))
+        AllBinary.append(stringBuffer, commonSeps.COMMA_SEP)
+        AllBinary.append(stringBuffer, this.gameInfoData.GAME_MODE)
+        AllBinary.append(stringBuffer, commonSeps.EQUALS)
+        AllBinary.append(stringBuffer, AllBinary.toString(this.gameMode))
+        AllBinary.append(stringBuffer, commonSeps.COMMA_SEP)
+        AllBinary.append(stringBuffer, this.gameInfoData.PLAYER_TYPE)
+        AllBinary.append(stringBuffer, commonSeps.EQUALS)
+        AllBinary.append(stringBuffer, AllBinary.toString(AllBinary.getInstance(StringUtil), this.playerType))
+        AllBinary.append(stringBuffer, commonSeps.COMMA_SEP)
+        AllBinary.append(stringBuffer, this.gameInfoData.HIGHEST_LEVEL)
+        AllBinary.append(stringBuffer, commonSeps.EQUALS)
+        AllBinary.appendint(stringBuffer, AllBinary.getHighestLevel(this))
+        AllBinary.append(stringBuffer, commonSeps.COMMA_SEP)
+        AllBinary.append(stringBuffer, this.gameInfoData.CURRENT_LEVEL)
+        AllBinary.append(stringBuffer, commonSeps.EQUALS)
+        AllBinary.appendint(stringBuffer, this.currentLevel)
+        return AllBinary.toString(stringBuffer)
+end
 

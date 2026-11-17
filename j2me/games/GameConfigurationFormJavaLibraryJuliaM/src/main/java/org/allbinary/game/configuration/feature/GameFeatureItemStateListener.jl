@@ -1,96 +1,97 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration.feature
 
-from __future__ import annotations
+mutable struct GameFeatureItemStateListener <: JObject
+    logUtil::Any
+    gameOptionsForm::Any
+    GameFeatureItemStateListener() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from javax.microedition.lcdui.ItemStateListener import ItemStateListener
+const GameFeatureItemStateListener_toggleListValue = Ref{Any}(nothing)
+const GameFeatureItemStateListener_toggleListSet = Ref(false)
+function staticGet_toggleList(::Type{GameFeatureItemStateListener})
+    if !GameFeatureItemStateListener_toggleListSet[]
+        GameFeatureItemStateListener_toggleListSet[] = true
+        GameFeatureItemStateListener_toggleListValue[] = newBasicArrayListD()
+    end
+    GameFeatureItemStateListener_toggleListValue[]
+end
+function staticSet_toggleList(::Type{GameFeatureItemStateListener}, value)
+    GameFeatureItemStateListener_toggleListSet[] = true
+    GameFeatureItemStateListener_toggleListValue[] = value
+end
 
-
-class GameFeatureItemStateListener(ItemStateListener):
-    toggleList: BasicArrayList = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.configuration.GameOptionsForm import GameOptionsForm
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.gameOptionsForm: GameOptionsForm = None
+function initFieldsGameFeatureItemStateListener(this::GameFeatureItemStateListener)
+    this.logUtil = nothing
+    this.gameOptionsForm = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
-
-    def __init__(self, gameOptionsForm: GameOptionsForm) -> None:
-        from org.allbinary.game.configuration.feature.GameFeatureFactory import GameFeatureFactory
-        from org.allbinary.game.configuration.GameOptionsForm import GameOptionsForm
-        self._init_fields()
-        self.gameOptionsForm = gameOptionsForm
-        gameFeatureFactory: GameFeatureFactory = GameFeatureFactory.getInstance()
-        GameFeatureItemStateListener.add(gameFeatureFactory.ARTIFICIAL_INTELLEGENCE_PROCESSOR)
-        GameFeatureItemStateListener.add(gameFeatureFactory.COLLIDABLE_INTERFACE_LAYER_PROCESSOR)
-        GameFeatureItemStateListener.add(gameFeatureFactory.DAMAGE_FLOATERS)
-        GameFeatureItemStateListener.add(gameFeatureFactory.DROPPED_ITEMS)
-        GameFeatureItemStateListener.add(gameFeatureFactory.GAME_INPUT_LAYER_PROCESSOR)
-        GameFeatureItemStateListener.add(gameFeatureFactory.HEALTH_BARS)
-        GameFeatureItemStateListener.add(gameFeatureFactory.SOUND)
-        GameFeatureItemStateListener.add(gameFeatureFactory.TICKABLE_LAYER_PROCESSOR)
-    
-
-    @staticmethod
-    def add(gameFeature: GameFeature) -> None:
-        if not GameFeatureItemStateListener.toggleList.contains(gameFeature):
-            GameFeatureItemStateListener.toggleList.add(gameFeature)
-    
-
-    def itemStateChanged(self, item: Item) -> None:
-        from org.allbinary.game.configuration.feature.GameFeatureUtil import GameFeatureUtil
-        from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-        from javax.microedition.lcdui.Item import Item
-        from org.allbinary.game.configuration.GameConfigurationGauge import GameConfigurationGauge
-        from org.allbinary.game.configuration.GameConfigurationUtil import GameConfigurationUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            itemLabel: str = item.getLabel()
-            self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().ITEM_LABEL).append(itemLabel)), self, "itemStateChanged")
-            if isinstance(item, GameConfigurationGauge):
-                GameConfigurationUtil.getInstance().change(self.gameOptionsForm, item)
-            elif isinstance(item, ChoiceGroup):
-                gameFeatureUtil: GameFeatureUtil = GameFeatureUtil.getInstance()
-                if gameFeatureUtil.isExclusive(itemLabel):
-                    gameFeatureUtil.updateExclusiveForChoiceGroup(item)
-                else:
-                    gameFeatureUtil.updateMultiple(item)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "itemStateChanged", e)
-# from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-# from javax.microedition.lcdui.Item import Item
-# from org.allbinary.game.configuration.GameConfigurationGauge import GameConfigurationGauge
-# from org.allbinary.game.configuration.GameConfigurationUtil import GameConfigurationUtil
-# from org.allbinary.game.configuration.GameOptionsForm import GameOptionsForm
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+    nothing
+end
 
 
-def _GameFeatureItemStateListener_toggleList() -> object:
-    from org.allbinary.util.BasicArrayList import BasicArrayList
-    from org.allbinary.util.BasicArrayListD import BasicArrayListD
-    return BasicArrayListD()
+function initGameFeatureItemStateListener(this::GameFeatureItemStateListener, gameOptionsForm)
+        initFieldsGameFeatureItemStateListener(this)
+        this.gameOptionsForm = gameOptionsForm
+        local gameFeatureFactory = AllBinary.getInstance(GameFeatureFactory)
+        AllBinary.add(GameFeatureItemStateListener, gameFeatureFactory.ARTIFICIAL_INTELLEGENCE_PROCESSOR)
+        AllBinary.add(GameFeatureItemStateListener, gameFeatureFactory.COLLIDABLE_INTERFACE_LAYER_PROCESSOR)
+        AllBinary.add(GameFeatureItemStateListener, gameFeatureFactory.DAMAGE_FLOATERS)
+        AllBinary.add(GameFeatureItemStateListener, gameFeatureFactory.DROPPED_ITEMS)
+        AllBinary.add(GameFeatureItemStateListener, gameFeatureFactory.GAME_INPUT_LAYER_PROCESSOR)
+        AllBinary.add(GameFeatureItemStateListener, gameFeatureFactory.HEALTH_BARS)
+        AllBinary.add(GameFeatureItemStateListener, gameFeatureFactory.SOUND)
+        AllBinary.add(GameFeatureItemStateListener, gameFeatureFactory.TICKABLE_LAYER_PROCESSOR)
+        nothing
+end
 
-lazy_static(GameFeatureItemStateListener, "toggleList", _GameFeatureItemStateListener_toggleList)
+function newGameFeatureItemStateListener(gameOptionsForm)
+    this = GameFeatureItemStateListener()
+    initGameFeatureItemStateListener(this, gameOptionsForm)
+    this
+end
+
+
+function add(::Type{GameFeatureItemStateListener}, gameFeature)
+        if !AllBinary.contains(staticGet_toggleList(GameFeatureItemStateListener), gameFeature)
+            AllBinary.add(staticGet_toggleList(GameFeatureItemStateListener), gameFeature)
+        end
+        nothing
+end
+
+
+function itemStateChanged(this::GameFeatureItemStateListener, item)
+        try
+            local itemLabel = AllBinary.getLabel(item)
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).ITEM_LABEL), itemLabel)), this, "itemStateChanged")
+            if Base.isa(item, GameConfigurationGauge)
+                AllBinary.change(AllBinary.getInstance(GameConfigurationUtil), this.gameOptionsForm, (item))
+            elseif Base.isa(item, ChoiceGroup)
+                local gameFeatureUtil = AllBinary.getInstance(GameFeatureUtil)
+                if AllBinary.isExclusive(gameFeatureUtil, itemLabel)
+                    AllBinary.updateExclusiveForChoiceGroup(gameFeatureUtil, (item))
+                else
+                    AllBinary.updateMultiple(gameFeatureUtil, (item))
+                end
+            end
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, "itemStateChanged", e)
+        end
+        nothing
+end
 

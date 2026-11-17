@@ -1,49 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.bounds.event
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BoundsChangeEventHandler <: JObject
+    BoundsChangeEventHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const BoundsChangeEventHandler_SINGLETONValue = Ref{Any}(nothing)
+const BoundsChangeEventHandler_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{BoundsChangeEventHandler})
+    if !BoundsChangeEventHandler_SINGLETONSet[]
+        BoundsChangeEventHandler_SINGLETONSet[] = true
+        BoundsChangeEventHandler_SINGLETONValue[] = newBoundsChangeEventHandler()
+    end
+    BoundsChangeEventHandler_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{BoundsChangeEventHandler}, value)
+    BoundsChangeEventHandler_SINGLETONSet[] = true
+    BoundsChangeEventHandler_SINGLETONValue[] = value
+end
 
-
-class BoundsChangeEventHandler(BasicEventHandler):
-    SINGLETON: BasicEventHandler = None
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    @staticmethod
-    def getInstance() -> BasicEventHandler:
-        return BoundsChangeEventHandler.SINGLETON
-    
-
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        boundsChangeEventListener: BoundsChangeEventListener = eventListenerInterface
-        boundsChangeEventListener.onBoundsChangeEvent(eventObject)
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
+function initFieldsBoundsChangeEventHandler(this::BoundsChangeEventHandler)
+    nothing
+end
 
 
-def _BoundsChangeEventHandler_SINGLETON() -> object:
-    return BoundsChangeEventHandler()
+function initBoundsChangeEventHandler(this::BoundsChangeEventHandler)
+        initBasicEventHandler(this)
+        initFieldsBoundsChangeEventHandler(this)
+        nothing
+        nothing
+end
 
-lazy_static(BoundsChangeEventHandler, "SINGLETON", _BoundsChangeEventHandler_SINGLETON)
+function newBoundsChangeEventHandler()
+    this = BoundsChangeEventHandler()
+    initBoundsChangeEventHandler(this)
+    this
+end
+
+
+function getInstance(::Type{BoundsChangeEventHandler})
+        return staticGet_SINGLETON(BoundsChangeEventHandler)
+end
+
+
+function process(this::BoundsChangeEventHandler, eventObject, eventListenerInterface)
+        local boundsChangeEventListener = (eventListenerInterface)
+        AllBinary.onBoundsChangeEvent(boundsChangeEventListener, (eventObject))
+        nothing
+end
 

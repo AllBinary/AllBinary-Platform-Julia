@@ -1,122 +1,168 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.threed
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #OpenGLNone
-class SWTJOGLProcessor(object):
-    instance: SWTJOGLProcessor = None
-    
+mutable struct SWTJOGLProcessor <: JObject
+    SWTJOGLProcessor() = new()
+end
 
-    @staticmethod
-    def getInstance() -> SWTJOGLProcessor:
-        return SWTJOGLProcessor.instance
-    
+const SWTJOGLProcessor_instanceValue = Ref{Any}(nothing)
+const SWTJOGLProcessor_instanceSet = Ref(false)
+function staticGet_instance(::Type{SWTJOGLProcessor})
+    if !SWTJOGLProcessor_instanceSet[]
+        SWTJOGLProcessor_instanceSet[] = true
+        SWTJOGLProcessor_instanceValue[] = newSWTJOGLProcessor()
+    end
+    SWTJOGLProcessor_instanceValue[]
+end
+function staticSet_instance(::Type{SWTJOGLProcessor}, value)
+    SWTJOGLProcessor_instanceSet[] = true
+    SWTJOGLProcessor_instanceValue[] = value
+end
 
-    def init(self, display: object, comp: object) -> None:
-        pass
-    
+function initFieldsSWTJOGLProcessor(this::SWTJOGLProcessor)
+    nothing
+end
 
-    def isHolderCreated(self) -> bool:
-        return True
-    
+function initSWTJOGLProcessor(this::SWTJOGLProcessor)
+    initFieldsSWTJOGLProcessor(this)
+end
 
-    def setRenderer(self, renderer: object) -> None:
-        pass
-    
-
-    def isJOGL(self) -> bool:
-        return False
-    
-
-    def createSurface(self) -> None:
-        pass
-    
-
-    def onSurfaceCreated(self) -> None:
-        pass
-    
-
-    def onSurfaceChangedForEvent(self, event: object) -> None:
-        pass
-    
-
-    def onSurfaceChanged(self) -> None:
-        pass
-    
-
-    def onSurfaceChangedWH(self, width: int, height: int) -> None:
-        pass
-    
-
-    def addListener(self) -> None:
-        pass
-    
-
-    def addListeners(self, midlet: MIDlet) -> None:
-        from javax.microedition.midlet.MIDlet import MIDlet
-        pass
-    
-
-    def run(self) -> None:
-        pass
-    
-
-    def clear(self) -> None:
-        pass
-    
-
-    def setCustom(self, width: int, height: int, ratio: float) -> None:
-        pass
-    
-
-    def setRatioProcessor(self, ratioProcessor: RatioProcessor) -> None:
-        pass
-    
-
-    def isPortraitRatioProcessor(self) -> bool:
-        return True
-    
-
-    def charWidth(self, font: Font, ch: str) -> int:
-        from javax.microedition.lcdui.Font import Font
-        raise RuntimeError()
-    
-
-    def charsWidth(self, font: Font, ch: list[str], offset: int, length: int) -> int:
-        from javax.microedition.lcdui.Font import Font
-        raise RuntimeError()
-    
-
-    def stringWidth(self, font: Font, str_: str) -> int:
-        from javax.microedition.lcdui.Font import Font
-        raise RuntimeError()
-    
-
-    def substringWidth(self, font: Font, str_: str, offset: int, len_: int) -> int:
-        from javax.microedition.lcdui.Font import Font
-        raise RuntimeError()
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.midlet.MIDlet import MIDlet
+function newSWTJOGLProcessor()
+    this = SWTJOGLProcessor()
+    initSWTJOGLProcessor(this)
+    this
+end
 
 
-def _SWTJOGLProcessor_instance() -> object:
-    return SWTJOGLProcessor()
+function getInstance(::Type{SWTJOGLProcessor})
+        return staticGet_instance(SWTJOGLProcessor)
+end
 
-lazy_static(SWTJOGLProcessor, "instance", _SWTJOGLProcessor_instance)
+
+function init(this::SWTJOGLProcessor, display, comp)
+        nothing
+        nothing
+end
+
+
+function isHolderCreated(this::SWTJOGLProcessor)
+        return true
+end
+
+
+function setRenderer(this::SWTJOGLProcessor, renderer)
+        nothing
+        nothing
+end
+
+
+function isJOGL(this::SWTJOGLProcessor)
+        return false
+end
+
+
+function createSurface(this::SWTJOGLProcessor)
+        nothing
+        nothing
+end
+
+
+function onSurfaceCreated(this::SWTJOGLProcessor)
+        nothing
+        nothing
+end
+
+
+function onSurfaceChangedForEvent(this::SWTJOGLProcessor, event)
+        nothing
+        nothing
+end
+
+
+function onSurfaceChanged(this::SWTJOGLProcessor)
+        nothing
+        nothing
+end
+
+
+function onSurfaceChangedWH(this::SWTJOGLProcessor, width, height)
+        nothing
+        nothing
+end
+
+
+function addListener(this::SWTJOGLProcessor)
+        nothing
+        nothing
+end
+
+
+function addListeners(this::SWTJOGLProcessor, midlet)
+        nothing
+        nothing
+end
+
+
+function run(this::SWTJOGLProcessor)
+        nothing
+        nothing
+end
+
+
+function clear(this::SWTJOGLProcessor)
+        nothing
+        nothing
+end
+
+
+function setCustom(this::SWTJOGLProcessor, width, height, ratio)
+        nothing
+        nothing
+end
+
+
+function setRatioProcessor(this::SWTJOGLProcessor, ratioProcessor)
+        nothing
+        nothing
+end
+
+
+function isPortraitRatioProcessor(this::SWTJOGLProcessor)
+        return true
+end
+
+
+function charWidth(this::SWTJOGLProcessor, font, ch)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function charsWidth(this::SWTJOGLProcessor, font, ch, offset, length)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function stringWidth(this::SWTJOGLProcessor, font, str)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function substringWidth(this::SWTJOGLProcessor, font, str, offset, len)
+        throw(jNewException("RuntimeException", ""))
+end
 

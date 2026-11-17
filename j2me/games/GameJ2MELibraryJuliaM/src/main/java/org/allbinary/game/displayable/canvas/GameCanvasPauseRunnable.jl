@@ -1,58 +1,68 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends GameRunnable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameCanvasPauseRunnable <: JObject
+    logUtil::Any
+    allBinaryGameCanvas::Any
+    GameCanvasPauseRunnable() = new()
+end
 
-from org.allbinary.game.displayable.canvas.GameRunnable import GameRunnable
 
-
-class GameCanvasPauseRunnable(GameRunnable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.allBinaryGameCanvas: AllBinaryGameCanvas = None
+function initFieldsGameCanvasPauseRunnable(this::GameCanvasPauseRunnable)
+    this.logUtil = nothing
+    this.allBinaryGameCanvas = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    nothing
+end
 
-    def __init__(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        super().__init__()
-        self._init_fields()
-        self.allBinaryGameCanvas = allBinaryGameCanvas
-    
 
-    def run(self) -> None:
-        pass
-    
+function initGameCanvasPauseRunnable(this::GameCanvasPauseRunnable, allBinaryGameCanvas)
+        initGameRunnable(this)
+        initFieldsGameCanvasPauseRunnable(this)
+        this.allBinaryGameCanvas = allBinaryGameCanvas
+        nothing
+end
 
-    # throws Exception
-    def processLoopSleep(self) -> None:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            features: Features = Features.getInstance()
-            isOpenGL: bool = features.isDefault(OpenGLFeatureFactory.getInstance().OPENGL)
-            if isOpenGL:
-                self.allBinaryGameCanvas.processSleep()
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.RUN, e)
-# from org.allbinary.AndroidUtil import AndroidUtil
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function newGameCanvasPauseRunnable(allBinaryGameCanvas)
+    this = GameCanvasPauseRunnable()
+    initGameCanvasPauseRunnable(this, allBinaryGameCanvas)
+    this
+end
 
+
+function run(this::GameCanvasPauseRunnable)
+        nothing
+        nothing
+end
+
+
+function processLoopSleep(this::GameCanvasPauseRunnable)
+        try
+            local features = AllBinary.getInstance(Features)
+            local isOpenGL::Bool = AllBinary.isDefault(features, AllBinary.getInstance(OpenGLFeatureFactory).OPENGL)
+            if isOpenGL
+                AllBinary.processSleep(this.allBinaryGameCanvas)
+            end
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.RUN, e)
+        end
+        nothing
+end
 

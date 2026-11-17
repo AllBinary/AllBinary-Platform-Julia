@@ -1,31 +1,41 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.pickup.life
 
-from __future__ import annotations
+mutable struct LifeLayerFactory <: JObject
+    LifeLayerFactory() = new()
+end
 
-from org.allbinary.layer.AllBinaryLayerFactoryInterface import AllBinaryLayerFactoryInterface
+
+function initFieldsLifeLayerFactory(this::LifeLayerFactory)
+    nothing
+end
+
+function initLifeLayerFactory(this::LifeLayerFactory)
+    initFieldsLifeLayerFactory(this)
+end
+
+function newLifeLayerFactory()
+    this = LifeLayerFactory()
+    initLifeLayerFactory(this)
+    this
+end
 
 
-class LifeLayerFactory(AllBinaryLayerFactoryInterface):
-    
-
-    # throws Exception
-    def getInstance(self) -> AllBinaryLayer:
-        from org.allbinary.game.ag.layer.pickup.life.LifeLayer import LifeLayer
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return LifeLayer()
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-
+function getInstance(this::LifeLayerFactory)
+        return newLifeLayer()
+end
 

@@ -1,69 +1,92 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends BaseMenuBehavior: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct InGameMenuBehavior <: JObject
+    InGameMenuBehavior() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.displayable.canvas.BaseMenuBehavior import BaseMenuBehavior
+const InGameMenuBehavior_instanceCValue = Ref{Any}(nothing)
+const InGameMenuBehavior_instanceCSet = Ref(false)
+function staticGet_instanceC(::Type{InGameMenuBehavior})
+    if !InGameMenuBehavior_instanceCSet[]
+        InGameMenuBehavior_instanceCSet[] = true
+        InGameMenuBehavior_instanceCValue[] = newInGameMenuBehavior()
+    end
+    InGameMenuBehavior_instanceCValue[]
+end
+function staticSet_instanceC(::Type{InGameMenuBehavior}, value)
+    InGameMenuBehavior_instanceCSet[] = true
+    InGameMenuBehavior_instanceCValue[] = value
+end
 
+function initFieldsInGameMenuBehavior(this::InGameMenuBehavior)
+    nothing
+end
 
-class InGameMenuBehavior(BaseMenuBehavior):
-    instanceC: InGameMenuBehavior = None
+function initInGameMenuBehavior(this::InGameMenuBehavior)
+    initBaseMenuBehavior(this)
+    initFieldsInGameMenuBehavior(this)
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    @staticmethod
-    def getInstance() -> InGameMenuBehavior:
-        return InGameMenuBehavior.instanceC
-    
-
-    # throws Exception
-    def onDisplayChangeEvent(self, allBinaryGameCanvas: AllBinaryGameCanvas, displayChangeEvent: DisplayChangeEvent) -> None:
-        from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
-        allBinaryGameCanvas.updateMenuFromEvent(displayChangeEvent)
-    
-
-    def initSpecialPaint(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        from org.allbinary.game.displayable.canvas.GameCanvasNonBotPaintable import GameCanvasNonBotPaintable
-        allBinaryGameCanvas.setNonBotPaintableP(GameCanvasNonBotPaintable(allBinaryGameCanvas))
-    
-
-    # throws Exception
-    def initMenu(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.initMenu2()
-    
-
-    # throws Exception
-    def updateMenu(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.initMenu2()
-    
-
-    # throws Exception
-    def popupMenu(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.popupMenu2()
-    
-
-    def closeMenu(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.closeMenu2()
-# from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
+function newInGameMenuBehavior()
+    this = InGameMenuBehavior()
+    initInGameMenuBehavior(this)
+    this
+end
 
 
-def _InGameMenuBehavior_instanceC() -> object:
-    return InGameMenuBehavior()
+function getInstance(::Type{InGameMenuBehavior})
+        return staticGet_instanceC(InGameMenuBehavior)
+end
 
-lazy_static(InGameMenuBehavior, "instanceC", _InGameMenuBehavior_instanceC)
+
+function onDisplayChangeEvent(this::InGameMenuBehavior, allBinaryGameCanvas, displayChangeEvent)
+        AllBinary.updateMenuFromEvent(allBinaryGameCanvas, displayChangeEvent)
+        nothing
+end
+
+
+function initSpecialPaint(this::InGameMenuBehavior, allBinaryGameCanvas)
+        AllBinary.setNonBotPaintableP(allBinaryGameCanvas, newGameCanvasNonBotPaintable(allBinaryGameCanvas))
+        nothing
+end
+
+
+function initMenu(this::InGameMenuBehavior, allBinaryGameCanvas)
+        AllBinary.initMenu2(allBinaryGameCanvas)
+        nothing
+end
+
+
+function updateMenu(this::InGameMenuBehavior, allBinaryGameCanvas)
+        AllBinary.initMenu2(allBinaryGameCanvas)
+        nothing
+end
+
+
+function popupMenu(this::InGameMenuBehavior, allBinaryGameCanvas)
+        AllBinary.popupMenu2(allBinaryGameCanvas)
+        nothing
+end
+
+
+function closeMenu(this::InGameMenuBehavior, allBinaryGameCanvas)
+        AllBinary.closeMenu2(allBinaryGameCanvas)
+        nothing
+end
 

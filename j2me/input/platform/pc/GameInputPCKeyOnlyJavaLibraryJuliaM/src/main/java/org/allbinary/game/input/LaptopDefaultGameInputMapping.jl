@@ -1,83 +1,89 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends PersistentInputMapping: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LaptopDefaultGameInputMapping <: JObject
+    LaptopDefaultGameInputMapping() = new()
+end
 
-from org.allbinary.game.input.mapping.PersistentInputMapping import PersistentInputMapping
+
+function initFieldsLaptopDefaultGameInputMapping(this::LaptopDefaultGameInputMapping)
+    nothing
+end
 
 
-class LaptopDefaultGameInputMapping(PersistentInputMapping):
-    
+function initLaptopDefaultGameInputMapping(this::LaptopDefaultGameInputMapping)
+        initPersistentInputMapping(this, AllBinary.getInstance(GamePersistanceStrings).DEFAULT_INPUT_MAPPING_RECORD_ID)
+        local inputToGameKeyMapping = AllBinary.getInputMapping(this)
+        local pcKeyFactory = AllBinary.getInstance(PCKeyFactory)
+        local gameKeyFactory = AllBinary.getInstance(GameKeyFactory)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.FIRE, pcKeyFactory.ENTER)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM1, pcKeyFactory.FOUR)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM1, pcKeyFactory._P)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM1, pcKeyFactory.p)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.UP, pcKeyFactory.DPAD_UP)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.DOWN, pcKeyFactory.DPAD_DOWN)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.LEFT, pcKeyFactory.DPAD_LEFT)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.RIGHT, pcKeyFactory.DPAD_RIGHT)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM1, pcKeyFactory.FIVE)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM7, pcKeyFactory._Y)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM9, pcKeyFactory._I)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.UP, pcKeyFactory._U)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.LEFT, pcKeyFactory._H)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.RIGHT, pcKeyFactory._J)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.DOWN, pcKeyFactory._N)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM5, pcKeyFactory._M)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM7, pcKeyFactory.y)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM9, pcKeyFactory.i)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.UP, pcKeyFactory.u)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.LEFT, pcKeyFactory.h)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.RIGHT, pcKeyFactory.j)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.DOWN, pcKeyFactory.n)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM5, pcKeyFactory.m)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM7, pcKeyFactory._Q)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM9, pcKeyFactory._E)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.UP, pcKeyFactory._W)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.LEFT, pcKeyFactory._A)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.RIGHT, pcKeyFactory._D)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.DOWN, pcKeyFactory._S)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM5, pcKeyFactory._X)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM7, pcKeyFactory.q)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM9, pcKeyFactory.e)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.UP, pcKeyFactory.w)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.LEFT, pcKeyFactory.a)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.RIGHT, pcKeyFactory.d)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.DOWN, pcKeyFactory.s)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM5, pcKeyFactory.x)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM3, pcKeyFactory.THREE)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM0, pcKeyFactory.ZERO)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM0, pcKeyFactory.ONE)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM0, pcKeyFactory.SPACE)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_POUND, pcKeyFactory.DEL)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_POUND, pcKeyFactory.TWO)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_STAR, pcKeyFactory.ESCAPE)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_STAR, pcKeyFactory.STAR)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.LEVEL_DOWN, pcKeyFactory.COMMA)
+        AllBinary.add(inputToGameKeyMapping, gameKeyFactory.LEVEL_UP, pcKeyFactory.PERIOD)
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.game.input.PCKeyFactory import PCKeyFactory
-        from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-        from org.allbinary.game.configuration.persistance.GamePersistanceStrings import GamePersistanceStrings
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        super().__init__(GamePersistanceStrings.getInstance().DEFAULT_INPUT_MAPPING_RECORD_ID)
-        inputToGameKeyMapping: InputToGameKeyMapping = self.getInputMapping()
-        pcKeyFactory: PCKeyFactory = PCKeyFactory.getInstance()
-        gameKeyFactory: GameKeyFactory = GameKeyFactory.getInstance()
-        inputToGameKeyMapping.add(gameKeyFactory.FIRE, pcKeyFactory.ENTER)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM1, pcKeyFactory.FOUR)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM1, pcKeyFactory._P)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM1, pcKeyFactory.p)
-        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory.DPAD_UP)
-        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory.DPAD_DOWN)
-        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory.DPAD_LEFT)
-        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory.DPAD_RIGHT)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM1, pcKeyFactory.FIVE)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM7, pcKeyFactory._Y)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM9, pcKeyFactory._I)
-        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory._U)
-        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory._H)
-        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory._J)
-        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory._N)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM5, pcKeyFactory._M)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM7, pcKeyFactory.y)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM9, pcKeyFactory.i)
-        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory.u)
-        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory.h)
-        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory.j)
-        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory.n)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM5, pcKeyFactory.m)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM7, pcKeyFactory._Q)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM9, pcKeyFactory._E)
-        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory._W)
-        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory._A)
-        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory._D)
-        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory._S)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM5, pcKeyFactory._X)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM7, pcKeyFactory.q)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM9, pcKeyFactory.e)
-        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory.w)
-        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory.a)
-        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory.d)
-        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory.s)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM5, pcKeyFactory.x)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM3, pcKeyFactory.THREE)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM0, pcKeyFactory.ZERO)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM0, pcKeyFactory.ONE)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM0, pcKeyFactory.SPACE)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_POUND, pcKeyFactory.DEL)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_POUND, pcKeyFactory.TWO)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_STAR, pcKeyFactory.ESCAPE)
-        inputToGameKeyMapping.add(gameKeyFactory.KEY_STAR, pcKeyFactory.STAR)
-        inputToGameKeyMapping.add(gameKeyFactory.LEVEL_DOWN, pcKeyFactory.COMMA)
-        inputToGameKeyMapping.add(gameKeyFactory.LEVEL_UP, pcKeyFactory.PERIOD)
-# from org.allbinary.game.configuration.persistance.GamePersistanceStrings import GamePersistanceStrings
-# from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-
+function newLaptopDefaultGameInputMapping()
+    this = LaptopDefaultGameInputMapping()
+    initLaptopDefaultGameInputMapping(this)
+    this
+end
 

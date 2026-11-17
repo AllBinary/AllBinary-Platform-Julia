@@ -1,60 +1,77 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer
 
-from __future__ import annotations
+mutable struct BasicLayerProcessor <: JObject
+    logUtil::Any
+    list::Any
+    BasicLayerProcessor() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BasicLayerProcessor_NULL_LAYER_PROCESSORValue = Ref{Any}(nothing)
+const BasicLayerProcessor_NULL_LAYER_PROCESSORSet = Ref(false)
+function staticGet_NULL_LAYER_PROCESSOR(::Type{BasicLayerProcessor})
+    if !BasicLayerProcessor_NULL_LAYER_PROCESSORSet[]
+        BasicLayerProcessor_NULL_LAYER_PROCESSORSet[] = true
+        BasicLayerProcessor_NULL_LAYER_PROCESSORValue[] = newBasicLayerProcessor()
+    end
+    BasicLayerProcessor_NULL_LAYER_PROCESSORValue[]
+end
+function staticSet_NULL_LAYER_PROCESSOR(::Type{BasicLayerProcessor}, value)
+    BasicLayerProcessor_NULL_LAYER_PROCESSORSet[] = true
+    BasicLayerProcessor_NULL_LAYER_PROCESSORValue[] = value
+end
 
-
-class BasicLayerProcessor:
-    NULL_LAYER_PROCESSOR: BasicLayerProcessor = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.list_: BasicArrayList = BasicArrayListD()
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def add(self, layerInterface: AllBinaryLayer) -> None:
-        if not self.list_.contains(layerInterface):
-            self.list_.add(layerInterface)
-    
-
-    # throws Exception
-    def process(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        raise Exception(CommonStrings.getInstance().NOT_IMPLEMENTED)
-    
-
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.list_
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function initFieldsBasicLayerProcessor(this::BasicLayerProcessor)
+    this.logUtil = nothing
+    this.list = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.list = newBasicArrayListD()
+    nothing
+end
 
 
-def _BasicLayerProcessor_NULL_LAYER_PROCESSOR() -> object:
-    return BasicLayerProcessor()
+function initBasicLayerProcessor(this::BasicLayerProcessor)
+        initFieldsBasicLayerProcessor(this)
+        nothing
+        nothing
+end
 
-lazy_static(BasicLayerProcessor, "NULL_LAYER_PROCESSOR", _BasicLayerProcessor_NULL_LAYER_PROCESSOR)
+function newBasicLayerProcessor()
+    this = BasicLayerProcessor()
+    initBasicLayerProcessor(this)
+    this
+end
+
+
+function add(this::BasicLayerProcessor, layerInterface)
+        if !AllBinary.contains(this.list, layerInterface)
+            AllBinary.add(this.list, layerInterface)
+        end
+        nothing
+end
+
+
+function process(this::BasicLayerProcessor, allBinaryLayerManager)
+        throw(jNewException("Exception", AllBinary.getInstance(CommonStrings).NOT_IMPLEMENTED))
+        nothing
+end
+
+
+function getList(this::BasicLayerProcessor)
+        return this.list
+end
 

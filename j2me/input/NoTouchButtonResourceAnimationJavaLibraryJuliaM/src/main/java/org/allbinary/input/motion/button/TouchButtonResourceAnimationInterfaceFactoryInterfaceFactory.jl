@@ -1,71 +1,78 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends BaseResourceAnimationInterfaceFactoryInterfaceFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory <: JObject
+    TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory() = new()
+end
 
-from org.allbinary.animation.resource.BaseResourceAnimationInterfaceFactoryInterfaceFactory import BaseResourceAnimationInterfaceFactoryInterfaceFactory
+
+function initFieldsTouchButtonResourceAnimationInterfaceFactoryInterfaceFactory(this::TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory)
+    nothing
+end
 
 
-class TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory(BaseResourceAnimationInterfaceFactoryInterfaceFactory):
-    
+function createFactory(::Type{TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory})
+        return newTouchButtonResourceAnimationInterfaceFactoryInterfaceFactory("TouchButton Animations")
+end
 
-    @staticmethod
-    def createFactory() -> TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory:
-        return TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory("TouchButton Animations")
-    
 
-    def __init__(self, name: str) -> None:
-        from org.allbinary.logic.StdUtil import StdUtil
-        super().__init__(name, StdUtil.getInstance().createHashtable(), StdUtil.getInstance().createHashtable(), StdUtil.getInstance().createHashtable())
-    
+function initTouchButtonResourceAnimationInterfaceFactoryInterfaceFactory(this::TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory, name)
+        initBaseResourceAnimationInterfaceFactoryInterfaceFactory(this, name, AllBinary.createHashtable(AllBinary.getInstance(StdUtil)), AllBinary.createHashtable(AllBinary.getInstance(StdUtil)), AllBinary.createHashtable(AllBinary.getInstance(StdUtil)))
+        nothing
+end
 
-    # throws Exception
-    def init(self, level: int) -> None:
-        from org.allbinary.image.ImageCacheFactory import ImageCacheFactory
-        self.initImageCache(ImageCacheFactory.getInstance(), level)
-    
+function newTouchButtonResourceAnimationInterfaceFactoryInterfaceFactory(name)
+    this = TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory()
+    initTouchButtonResourceAnimationInterfaceFactoryInterfaceFactory(this, name)
+    this
+end
 
-    # throws Exception
-    def initImageCache(self, imageCache: ImageCache, level: int) -> None:
-        from org.allbinary.image.ImageCache import ImageCache
-        if self.isInitialized():
+
+function init(this::TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory, level)
+        AllBinary.initImageCache(this, AllBinary.getInstance(ImageCacheFactory), level)
+        nothing
+end
+
+
+function initImageCache(this::TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory, imageCache, level)
+        if AllBinary.isInitialized(this)
             return
-        super().init(level)
-    
+        end
+        AllBinary.init(this, level)
+        nothing
+end
 
-    def isLoadingLevel(self, level: int) -> bool:
-        from org.allbinary.game.resource.ResourceLoadingLevelFactory import ResourceLoadingLevelFactory
-        resourceLoadingLevelFactory: ResourceLoadingLevelFactory = ResourceLoadingLevelFactory.getInstance()
-        if level == resourceLoadingLevelFactory.LOAD_TOUCH.getLevel():
-            return True
-        else:
-            return super().isLoadingLevel(level)
-    
 
-    def isFeature(self) -> bool:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        if not Features.getInstance().isDefault(OpenGLFeatureFactory.getInstance().OPENGL):
-            return True
-        else:
-            return False
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.resource.ResourceLoadingLevelFactory import ResourceLoadingLevelFactory
-# from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-# from org.allbinary.image.ImageCache import ImageCache
-# from org.allbinary.image.ImageCacheFactory import ImageCacheFactory
-# from org.allbinary.logic.StdUtil import StdUtil
+function isLoadingLevel(this::TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory, level)
+        local resourceLoadingLevelFactory = AllBinary.getInstance(ResourceLoadingLevelFactory)
+        if level == AllBinary.getLevel(resourceLoadingLevelFactory.LOAD_TOUCH)
+            return true
+        else
+            return AllBinary.isLoadingLevel(this, level)
+        end
+end
 
+
+function isFeature(this::TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory)
+        if !AllBinary.isDefault(AllBinary.getInstance(Features), AllBinary.getInstance(OpenGLFeatureFactory).OPENGL)
+            return true
+        else
+            return false
+        end
+end
 

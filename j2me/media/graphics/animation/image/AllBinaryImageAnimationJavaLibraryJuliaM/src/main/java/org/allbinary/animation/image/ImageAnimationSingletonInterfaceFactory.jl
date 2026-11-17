@@ -1,34 +1,39 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends SingletonAnimationInterfaceFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageAnimationSingletonInterfaceFactory <: JObject
+    ImageAnimationSingletonInterfaceFactory() = new()
+end
 
-from org.allbinary.animation.SingletonAnimationInterfaceFactory import SingletonAnimationInterfaceFactory
+
+function initFieldsImageAnimationSingletonInterfaceFactory(this::ImageAnimationSingletonInterfaceFactory)
+    nothing
+end
 
 
-class ImageAnimationSingletonInterfaceFactory(SingletonAnimationInterfaceFactory):
-    
+function initImageAnimationSingletonInterfaceFactory(this::ImageAnimationSingletonInterfaceFactory, animationInterface, width, height)
+        initSingletonAnimationInterfaceFactory(this, newImageAnimation(AllBinary.getInstanceWH(AllBinary.getInstance(AnimationFrameToImageUtil), width, height, animationInterface), AllBinary.getInstance(AnimationBehavior)))
+        nothing
+end
 
-    def __init__(self, animationInterface: Animation, width: int, height: int) -> None:
-        from org.allbinary.animation.image.ImageAnimation import ImageAnimation
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.image.AnimationFrameToImageUtil import AnimationFrameToImageUtil
-        super().__init__(ImageAnimation(AnimationFrameToImageUtil.getInstance().getInstanceWH(width, height, animationInterface), AnimationBehavior.getInstance()))
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.image.AnimationFrameToImageUtil import AnimationFrameToImageUtil
-
+function newImageAnimationSingletonInterfaceFactory(animationInterface, width, height)
+    this = ImageAnimationSingletonInterfaceFactory()
+    initImageAnimationSingletonInterfaceFactory(this, animationInterface, width, height)
+    this
+end
 

@@ -1,30 +1,37 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles.shader
 
-from __future__ import annotations
+mutable struct OpenGLObject3dProcessor <: JObject
+    commonStrings::Any
+    OpenGLObject3dProcessor() = new()
+end
 
 
+function initFieldsOpenGLObject3dProcessor(this::OpenGLObject3dProcessor)
+    this.commonStrings = nothing
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    nothing
+end
 
-class OpenGLObject3dProcessor:
+function initOpenGLObject3dProcessor(this::OpenGLObject3dProcessor)
+    initFieldsOpenGLObject3dProcessor(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
+function newOpenGLObject3dProcessor()
+    this = OpenGLObject3dProcessor()
+    initOpenGLObject3dProcessor(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def process(self, gl: GL10, object3d: object) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
+function process(this::OpenGLObject3dProcessor, gl, object3d)
+        nothing
+        nothing
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def process(self, gl: GL10, object3d: object, index: int) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-# from javax.microedition.khronos.opengles.GL10 import GL10
-# from org.allbinary.string.CommonStrings import CommonStrings
 
+function process(this::OpenGLObject3dProcessor, gl, object3d, index)
+        nothing
+        nothing
+end
 

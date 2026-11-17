@@ -1,55 +1,80 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.state
 
-from __future__ import annotations
+mutable struct GameStateFactory <: JObject
+    index::Int32
+    NO_GAME_STATE::Any
+    PLAYING_GAME_STATE::Any
+    SHOW_END_RESULT_GAME_STATE::Any
+    SHOW_HIGH_SCORE_GAME_STATE::Any
+    GameStateFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameStateFactory_instanceValue = Ref{Any}(nothing)
+const GameStateFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameStateFactory})
+    if !GameStateFactory_instanceSet[]
+        GameStateFactory_instanceSet[] = true
+        GameStateFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    GameStateFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GameStateFactory}, value)
+    GameStateFactory_instanceSet[] = true
+    GameStateFactory_instanceValue[] = value
+end
+
+function initFieldsGameStateFactory(this::GameStateFactory)
+    this.index = Int32(0)
+    this.NO_GAME_STATE = nothing
+    this.PLAYING_GAME_STATE = nothing
+    this.SHOW_END_RESULT_GAME_STATE = nothing
+    this.SHOW_HIGH_SCORE_GAME_STATE = nothing
+    this.index = Int32(0)
+    this.NO_GAME_STATE = AllBinary.createGameState(this, "NO_GAME_STATE")
+    this.PLAYING_GAME_STATE = AllBinary.createGameState(this, "PLAYING_GAME_STATE")
+    this.SHOW_END_RESULT_GAME_STATE = AllBinary.createGameState(this, "SHOW_END_RESULT_GAME_STATE")
+    this.SHOW_HIGH_SCORE_GAME_STATE = AllBinary.createGameState(this, "SHOW_HIGH_SCORE_GAME_STATE")
+    nothing
+end
 
 
-class GameStateFactory:
-    instance: object = None
-
-    def _init_fields(self) -> None:
-        self.index: int = 0
-        self.NO_GAME_STATE: GameState = self.createGameState("NO_GAME_STATE")
-        self.PLAYING_GAME_STATE: GameState = self.createGameState("PLAYING_GAME_STATE")
-        self.SHOW_END_RESULT_GAME_STATE: GameState = self.createGameState("SHOW_END_RESULT_GAME_STATE")
-        self.SHOW_HIGH_SCORE_GAME_STATE: GameState = self.createGameState("SHOW_HIGH_SCORE_GAME_STATE")
-    
-
-    @staticmethod
-    def getInstance() -> GameStateFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if GameStateFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            GameStateFactory.instance = GameStateFactory()
-        return GameStateFactory.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def createGameState(self, name: str) -> GameState:
-        from org.allbinary.game.state.GameState import GameState
-        return GameState(name, ((setattr(self, "index", self.index + 1) or self.index) - 1))
-# from org.allbinary.logic.NullUtil import NullUtil
+function getInstance(::Type{GameStateFactory})
+        if staticGet_instance(GameStateFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(GameStateFactory, newGameStateFactory())
+        end
+        return (staticGet_instance(GameStateFactory))
+end
 
 
-def _GameStateFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function initGameStateFactory(this::GameStateFactory)
+        initFieldsGameStateFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(GameStateFactory, "instance", _GameStateFactory_instance)
+function newGameStateFactory()
+    this = GameStateFactory()
+    initGameStateFactory(this)
+    this
+end
+
+
+function createGameState(this::GameStateFactory, name)
+        return newGameState(name, (let old = this.index; this.index += Int32(1); old end))
+end
 

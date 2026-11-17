@@ -1,105 +1,142 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.part
 
-from __future__ import annotations
+mutable struct CountedLayersHudPaintable <: JObject
+    displayInfoSingleton::Any
+    partInterfaceArray::Any
+    countedTotalStringColor::Int32
+    countedPartsBorder::Int32
+    startIndex::Int32
+    dropSize::Int32
+    myFontProcessor::Any
+    height::Int32
+    CountedLayersHudPaintable() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
+const CountedLayersHudPaintable_XXStringWidthValue = Ref{Any}(nothing)
+const CountedLayersHudPaintable_XXStringWidthSet = Ref(false)
+function staticGet_XXStringWidth(::Type{CountedLayersHudPaintable})
+    if !CountedLayersHudPaintable_XXStringWidthSet[]
+        CountedLayersHudPaintable_XXStringWidthSet[] = true
+        CountedLayersHudPaintable_XXStringWidthValue[] = Int32(0)
+    end
+    CountedLayersHudPaintable_XXStringWidthValue[]
+end
+function staticSet_XXStringWidth(::Type{CountedLayersHudPaintable}, value)
+    CountedLayersHudPaintable_XXStringWidthSet[] = true
+    CountedLayersHudPaintable_XXStringWidthValue[] = value
+end
 
-
-class CountedLayersHudPaintable(PaintableInterface, UpdateMyFontInterface):
-    XXStringWidth: int = 0
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        self.displayInfoSingleton: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.partInterfaceArray: list[PartInterface] = None
-        self.countedTotalStringColor: int = None
-        self.countedPartsBorder: int = None
-        self.startIndex: int = None
-        self.dropSize: int = None
-        self.myFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.height: int = 0
+function initFieldsCountedLayersHudPaintable(this::CountedLayersHudPaintable)
+    this.displayInfoSingleton = nothing
+    this.partInterfaceArray = nothing
+    this.countedTotalStringColor = Int32(0)
+    this.countedPartsBorder = Int32(0)
+    this.startIndex = Int32(0)
+    this.dropSize = Int32(0)
+    this.myFontProcessor = nothing
+    this.height = Int32(0)
+    this.displayInfoSingleton = AllBinary.getInstance(DisplayInfoSingleton)
     
-
-    def __init__(self, partInterfaceArray: list[PartInterface], dropSize: int, startIndex: int, countedTotalStringColor: int, countedPartsBorder: int) -> None:
-        self._init_fields()
-        self.partInterfaceArray = partInterfaceArray
-        self.startIndex = startIndex
-        self.countedTotalStringColor = countedTotalStringColor
-        self.countedPartsBorder = countedPartsBorder
-        self.dropSize = dropSize
     
-
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.height = font.getHeight()
-        if self.dropSize > font.getHeight():
-            self.height = self.dropSize
-        if CountedLayersHudPaintable.XXStringWidth == 0:
-            XXString: str = "XX"
-            CountedLayersHudPaintable.XXStringWidth = font.stringWidth(XXString)
-        self.myFontProcessor = MyFontProcessor.getInstance()
     
-
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.myFontProcessor.process(graphics)
-        lastWidth: int = self.displayInfoSingleton.getLastWidth()
-        widthEdge: int = lastWidth - self.dropSize
-        size: int = len(self.partInterfaceArray)
-        count: int = 0
-        y: int = 0
-        countedLayerInterfaceFactory: CountedLayerInterfaceFactoryPart = None
-        pickedUpLayerInterfaceFactoryInterface: PickedUpLayerInterfaceFactoryInterface = None
-        layerInterface: AllBinaryLayer = None
-        charArray: list[str] = None
-        for index in range(self.startIndex, size):
-            countedLayerInterfaceFactory = self.partInterfaceArray[index]
-            if countedLayerInterfaceFactory.getTotal() > 0:
-                pickedUpLayerInterfaceFactoryInterface = countedLayerInterfaceFactory.getCountedPickedUpLayerInterfaceFactory()
-                layerInterface = pickedUpLayerInterfaceFactoryInterface.getIconLayer()
-                y = 40 + (count * self.height)
-                layerInterface.setPosition(widthEdge, y, layerInterface.getZP())
-                layerInterface.paint(graphics)
-                graphics.setColor(self.countedTotalStringColor)
-                countedLayerInterfaceFactory.paint(graphics)
-                charArray = countedLayerInterfaceFactory.getTotalString()
-                graphics.drawChars(charArray, 0, len(charArray), widthEdge - countedLayerInterfaceFactory.getXOffset(), y, 0)
-                count += 1
-        if count > 0:
-            graphics.setColor(self.countedPartsBorder)
-            graphics.drawRect(lastWidth - (CountedLayersHudPaintable.XXStringWidth + self.dropSize), 40, CountedLayersHudPaintable.XXStringWidth + self.dropSize, (count * self.height) + 3)
     
+    
+    this.myFontProcessor = newUpdateMyFontProcessor(this)
+    this.height = Int32(0)
+    nothing
+end
 
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
 
+function initCountedLayersHudPaintable(this::CountedLayersHudPaintable, partInterfaceArray, dropSize, startIndex, countedTotalStringColor, countedPartsBorder)
+        initFieldsCountedLayersHudPaintable(this)
+        this.partInterfaceArray = partInterfaceArray
+        this.startIndex = startIndex
+        this.countedTotalStringColor = countedTotalStringColor
+        this.countedPartsBorder = countedPartsBorder
+        this.dropSize = dropSize
+        nothing
+end
+
+function newCountedLayersHudPaintable(partInterfaceArray, dropSize, startIndex, countedTotalStringColor, countedPartsBorder)
+    this = CountedLayersHudPaintable()
+    initCountedLayersHudPaintable(this, partInterfaceArray, dropSize, startIndex, countedTotalStringColor, countedPartsBorder)
+    this
+end
+
+
+function updateMeasurement(this::CountedLayersHudPaintable, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.height = AllBinary.getHeight(font)
+        if this.dropSize > AllBinary.getHeight(font)
+            this.height = this.dropSize
+        end
+        if staticGet_XXStringWidth(CountedLayersHudPaintable) == Int32(0)
+            local XXString = "XX"
+            staticSet_XXStringWidth(CountedLayersHudPaintable, AllBinary.stringWidth(font, XXString))
+        end
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
+
+
+function paint(this::CountedLayersHudPaintable, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        local lastWidth::Int32 = AllBinary.getLastWidth(this.displayInfoSingleton)
+        local widthEdge::Int32 = lastWidth - this.dropSize
+        local size::Int32 = Int32(Base.length(this.partInterfaceArray))
+        local count::Int32 = Int32(0)
+        local y::Int32 = Int32(0)
+        local countedLayerInterfaceFactory = nothing
+        local pickedUpLayerInterfaceFactoryInterface = nothing
+        local layerInterface = nothing
+        local charArray = nothing
+        let
+            local index::Int32 = this.startIndex
+            while index < size
+            try
+            countedLayerInterfaceFactory = (this.partInterfaceArray[index + 1])
+            if AllBinary.getTotal(countedLayerInterfaceFactory) > Int32(0)
+                pickedUpLayerInterfaceFactoryInterface = AllBinary.getCountedPickedUpLayerInterfaceFactory(countedLayerInterfaceFactory)
+                layerInterface = AllBinary.getIconLayer(pickedUpLayerInterfaceFactoryInterface)
+                y = Int32(40) + (count * this.height)
+                AllBinary.setPosition(layerInterface, widthEdge, y, AllBinary.getZP(layerInterface))
+                AllBinary.paint(layerInterface, graphics)
+                AllBinary.setColor(graphics, this.countedTotalStringColor)
+                AllBinary.paint(countedLayerInterfaceFactory, graphics)
+                charArray = AllBinary.getTotalString(countedLayerInterfaceFactory)
+                AllBinary.drawChars(graphics, charArray, Int32(0), Int32(Base.length(charArray)), widthEdge - AllBinary.getXOffset(countedLayerInterfaceFactory), y, Int32(0))
+                count += Int32(1)
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        if count > Int32(0)
+            AllBinary.setColor(graphics, this.countedPartsBorder)
+            AllBinary.drawRect(graphics, lastWidth - (staticGet_XXStringWidth(CountedLayersHudPaintable) + this.dropSize), Int32(40), staticGet_XXStringWidth(CountedLayersHudPaintable) + this.dropSize, (count * this.height) + Int32(3))
+        end
+        nothing
+end
+
+
+function paintThreed(this::CountedLayersHudPaintable, graphics)
+        nothing
+        nothing
+end
 

@@ -1,52 +1,45 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.weapon
 
-from __future__ import annotations
+# extends WeaponLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SimpleWeaponLayer <: JObject
+    SimpleWeaponLayer() = new()
+end
 
-from org.allbinary.game.layer.weapon.WeaponLayer import WeaponLayer
+
+function initFieldsSimpleWeaponLayer(this::SimpleWeaponLayer)
+    nothing
+end
 
 
-class SimpleWeaponLayer(WeaponLayer):
-    
+function createDestroyed(::Type{SimpleWeaponLayer})
+        return AllBinary.getInstanceAnimation(AllBinary.getProcedural(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), AllBinary.getInstance(ExplosionResources).THIRD_EXPLOSION_RESOURCE), AllBinary.getInstance(AllBinary.getFactoryInstance(NullIndexedAnimationFactory), Int32(0)))
+end
 
-    # throws Exception
-    @staticmethod
-    def createDestroyed() -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.animation.NullIndexedAnimationFactory import NullIndexedAnimationFactory
-        from org.allbinary.game.combat.damage.ExplosionResources import ExplosionResources
-        return FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().getProcedural(ExplosionResources.getInstance().THIRD_EXPLOSION_RESOURCE).getInstanceAnimation(NullIndexedAnimationFactory.getFactoryInstance().getInstance(0))
-    
 
-    def __init__(self, name: str, remoteInfo: RemoteInfo, multiPlayerType: int, movement: Movement, animationInterface: Animation, destroyedAnimationInterface: Animation, rectangle: Rectangle, viewPosition: ViewPositionBase) -> None:
-        from org.allbinary.game.layer.weapon.CollidableWeaponBehavior import CollidableWeaponBehavior
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.physics.movement.Movement import Movement
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        super().__init__(name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
-        self.setCollidableInferface(CollidableWeaponBehavior(True))
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-# from org.allbinary.animation.NullIndexedAnimationFactory import NullIndexedAnimationFactory
-# from org.allbinary.game.combat.damage.ExplosionResources import ExplosionResources
-# from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.physics.movement.Movement import Movement
-# from org.allbinary.view.ViewPositionBase import ViewPositionBase
+function initSimpleWeaponLayer(this::SimpleWeaponLayer, name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
+        initWeaponLayer(this, name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
+        AllBinary.setCollidableInferface(this, newCollidableWeaponBehavior(true))
+        nothing
+end
 
+function newSimpleWeaponLayer(name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
+    this = SimpleWeaponLayer()
+    initSimpleWeaponLayer(this, name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
+    this
+end
 

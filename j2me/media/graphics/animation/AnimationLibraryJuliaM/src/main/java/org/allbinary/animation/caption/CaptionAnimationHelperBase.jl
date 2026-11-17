@@ -1,53 +1,74 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.caption
 
-from __future__ import annotations
+# extends Animation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CaptionAnimationHelperBase <: JObject
+    CaptionAnimationHelperBase() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.animation.Animation import Animation
+const CaptionAnimationHelperBase_INSTANCEValue = Ref{Any}(nothing)
+const CaptionAnimationHelperBase_INSTANCESet = Ref(false)
+function staticGet_INSTANCE(::Type{CaptionAnimationHelperBase})
+    if !CaptionAnimationHelperBase_INSTANCESet[]
+        CaptionAnimationHelperBase_INSTANCESet[] = true
+        CaptionAnimationHelperBase_INSTANCEValue[] = newCaptionAnimationHelperBase()
+    end
+    CaptionAnimationHelperBase_INSTANCEValue[]
+end
+function staticSet_INSTANCE(::Type{CaptionAnimationHelperBase}, value)
+    CaptionAnimationHelperBase_INSTANCESet[] = true
+    CaptionAnimationHelperBase_INSTANCEValue[] = value
+end
+
+function initFieldsCaptionAnimationHelperBase(this::CaptionAnimationHelperBase)
+    nothing
+end
+
+function initCaptionAnimationHelperBase(this::CaptionAnimationHelperBase)
+    initAnimation(this)
+    initFieldsCaptionAnimationHelperBase(this)
+end
+
+function newCaptionAnimationHelperBase()
+    this = CaptionAnimationHelperBase()
+    initCaptionAnimationHelperBase(this)
+    this
+end
 
 
-class CaptionAnimationHelperBase(Animation):
-    INSTANCE: CaptionAnimationHelperBase = None
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    def isShowing(self) -> bool:
-        return False
-    
-
-    def tick(self) -> None:
-        pass
-    
-
-    def update(self, message: str, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        pass
-    
-
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
+function isShowing(this::CaptionAnimationHelperBase)
+        return false
+end
 
 
-def _CaptionAnimationHelperBase_INSTANCE() -> object:
-    return CaptionAnimationHelperBase()
+function tick(this::CaptionAnimationHelperBase)
+        nothing
+        nothing
+end
 
-lazy_static(CaptionAnimationHelperBase, "INSTANCE", _CaptionAnimationHelperBase_INSTANCE)
+
+function update(this::CaptionAnimationHelperBase, message, basicColor)
+        nothing
+        nothing
+end
+
+
+function paintXY(this::CaptionAnimationHelperBase, graphics, x, y)
+        nothing
+        nothing
+end
 

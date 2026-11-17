@@ -1,62 +1,75 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+mutable struct AnimationFactoryInitializationVisitor <: JObject
+    width::Int32
+    height::Int32
+    dx::Int32
+    dy::Int32
+    originalDx::Int32
+    originalDy::Int32
+    AnimationFactoryInitializationVisitor() = new()
+end
 
 
+function initFieldsAnimationFactoryInitializationVisitor(this::AnimationFactoryInitializationVisitor)
+    this.width = Int32(0)
+    this.height = Int32(0)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.originalDx = Int32(0)
+    this.originalDy = Int32(0)
+    this.width = Int32(0)
+    this.height = Int32(0)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.originalDx = Int32(0)
+    this.originalDy = Int32(0)
+    nothing
+end
 
-class AnimationFactoryInitializationVisitor:
+function initAnimationFactoryInitializationVisitor(this::AnimationFactoryInitializationVisitor)
+    initFieldsAnimationFactoryInitializationVisitor(this)
+end
 
-    def _init_fields(self) -> None:
-        self.width: int = 0
-        self.height: int = 0
-        self.dx: int = 0
-        self.dy: int = 0
-        self.originalDx: int = 0
-        self.originalDy: int = 0
+function newAnimationFactoryInitializationVisitor()
+    this = AnimationFactoryInitializationVisitor()
+    initAnimationFactoryInitializationVisitor(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def visit(self) -> None:
-        pass
-    
+function visit(this::AnimationFactoryInitializationVisitor)
+        nothing
+        nothing
+end
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.math.PositionStrings import PositionStrings
-        from org.allbinary.string.CommonLabels import CommonLabels
-        from org.allbinary.string.CommonSeps import CommonSeps
-        commonSeps: CommonSeps = CommonSeps.getInstance()
-        commonLabels: CommonLabels = CommonLabels.getInstance()
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(PositionStrings.getInstance().DX_LABEL).appendfloat(float(self.dx))
-        stringBuffer.append(PositionStrings.getInstance().DY_LABEL).appendfloat(float(self.dy))
-        stringBuffer.append(commonLabels.WIDTH_LABEL)
-        stringBuffer.appendint(self.width)
-        stringBuffer.append(commonSeps.SPACE)
-        stringBuffer.append(commonLabels.HEIGHT_LABEL)
-        stringBuffer.appendint(self.height)
-        return str(stringBuffer)
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.math.PositionStrings import PositionStrings
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonSeps import CommonSeps
-
+function toString(this::AnimationFactoryInitializationVisitor)
+        local commonSeps = AllBinary.getInstance(CommonSeps)
+        local commonLabels = AllBinary.getInstance(CommonLabels)
+        local stringBuffer = newStringMaker()
+        AllBinary.appendfloat(AllBinary.append(stringBuffer, AllBinary.getInstance(PositionStrings).DX_LABEL), Float32(this.dx))
+        AllBinary.appendfloat(AllBinary.append(stringBuffer, AllBinary.getInstance(PositionStrings).DY_LABEL), Float32(this.dy))
+        AllBinary.append(stringBuffer, commonLabels.WIDTH_LABEL)
+        AllBinary.appendint(stringBuffer, this.width)
+        AllBinary.append(stringBuffer, commonSeps.SPACE)
+        AllBinary.append(stringBuffer, commonLabels.HEIGHT_LABEL)
+        AllBinary.appendint(stringBuffer, this.height)
+        return AllBinary.toString(stringBuffer)
+end
 

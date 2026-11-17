@@ -1,51 +1,64 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint
 
-from __future__ import annotations
+mutable struct ColorFillPaintableFactory <: JObject
+    ColorFillPaintableFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ColorFillPaintableFactory_instanceValue = Ref{Any}(nothing)
+const ColorFillPaintableFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{ColorFillPaintableFactory})
+    if !ColorFillPaintableFactory_instanceSet[]
+        ColorFillPaintableFactory_instanceSet[] = true
+        ColorFillPaintableFactory_instanceValue[] = newColorFillPaintableFactory()
+    end
+    ColorFillPaintableFactory_instanceValue[]
+end
+function staticSet_instance(::Type{ColorFillPaintableFactory}, value)
+    ColorFillPaintableFactory_instanceSet[] = true
+    ColorFillPaintableFactory_instanceValue[] = value
+end
+
+function initFieldsColorFillPaintableFactory(this::ColorFillPaintableFactory)
+    nothing
+end
+
+function initColorFillPaintableFactory(this::ColorFillPaintableFactory)
+    initFieldsColorFillPaintableFactory(this)
+end
+
+function newColorFillPaintableFactory()
+    this = ColorFillPaintableFactory()
+    initColorFillPaintableFactory(this)
+    this
+end
 
 
-class ColorFillPaintableFactory:
-    instance: ColorFillPaintableFactory = None
-    
-
-    @staticmethod
-    def getInstance() -> ColorFillPaintableFactory:
-        return ColorFillPaintableFactory.instance
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def getInstance(self, basicColor: BasicColor, forThreedCanvas: bool) -> ColorFillBasePaintable:
-        from org.allbinary.game.paint.ColorFillPaintable import ColorFillPaintable
-        from org.allbinary.game.paint.OverScanColorFillPaintable import OverScanColorFillPaintable
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.logic.system.os.GenericOperatingSystem import GenericOperatingSystem
-        from org.allbinary.logic.system.os.OperatingSystemFactory import OperatingSystemFactory
-        operatingSystem: GenericOperatingSystem = OperatingSystemFactory.getInstance().getOperatingSystemInstance()
-        if operatingSystem.isOverScan():
-            return OverScanColorFillPaintable(basicColor)
-        else:
-            return ColorFillPaintable(basicColor)
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.logic.system.os.GenericOperatingSystem import GenericOperatingSystem
-# from org.allbinary.logic.system.os.OperatingSystemFactory import OperatingSystemFactory
+function getInstance(::Type{ColorFillPaintableFactory})
+        return staticGet_instance(ColorFillPaintableFactory)
+end
 
 
-def _ColorFillPaintableFactory_instance() -> object:
-    return ColorFillPaintableFactory()
-
-lazy_static(ColorFillPaintableFactory, "instance", _ColorFillPaintableFactory_instance)
+function getInstance(this::ColorFillPaintableFactory, basicColor, forThreedCanvas)
+        local operatingSystem = AllBinary.getOperatingSystemInstance(AllBinary.getInstance(OperatingSystemFactory))
+        if AllBinary.isOverScan(operatingSystem)
+            return newOverScanColorFillPaintable(basicColor)
+        else
+            return newColorFillPaintable(basicColor)
+        end
+end
 

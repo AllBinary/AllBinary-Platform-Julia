@@ -1,90 +1,120 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint.help
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HelpPaintable <: JObject
+    displayInfo::Any
+    updateMyFontProcessor::Any
+    myFontProcessor::Any
+    anchor::Int32
+    title::Any
+    inputInfo::Any
+    basicColor::Any
+    titleBeginWidth::Int32
+    beginWidthArray::Any
+    charHeight::Int32
+    HelpPaintable() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.paint.Paintable import Paintable
 
-
-class HelpPaintable(Paintable, UpdateMyFontInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.updateMyFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.myFontProcessor: MyFontProcessor = self.updateMyFontProcessor
-        self.anchor: int = Anchor.TOP_LEFT
-        self.title: str = None
-        self.inputInfo: list[str] = StringUtil.getInstance().getArrayInstance()
-        self.basicColor: BasicColor = None
-        self.titleBeginWidth: int = 0
-        self.beginWidthArray: list[int] = NullUtil.getInstance().NULL_INT_ARRAY
-        self.charHeight: int = 0
+function initFieldsHelpPaintable(this::HelpPaintable)
+    this.displayInfo = nothing
+    this.updateMyFontProcessor = nothing
+    this.myFontProcessor = nothing
+    this.anchor = Int32(0)
+    this.title = nothing
+    this.inputInfo = nothing
+    this.basicColor = nothing
+    this.titleBeginWidth = Int32(0)
+    this.beginWidthArray = nothing
+    this.charHeight = Int32(0)
+    this.displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+    this.updateMyFontProcessor = newUpdateMyFontProcessor(this)
+    this.myFontProcessor = this.updateMyFontProcessor
+    this.anchor = staticGet_TOP_LEFT(Anchor)
     
-
-    def __init__(self, title: str, backgroundBasicColor: BasicColor, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.title = title
-        self.basicColor = basicColor
+    this.inputInfo = AllBinary.getArrayInstance(AllBinary.getInstance(StringUtil))
     
+    this.titleBeginWidth = Int32(0)
+    this.beginWidthArray = AllBinary.getInstance(NullUtil).NULL_INT_ARRAY
+    this.charHeight = Int32(0)
+    nothing
+end
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.titleBeginWidth = (font.stringWidth(self.title) >> 1)
-        self.charHeight = font.getHeight()
-        size: int = len(self.inputInfo)
-        for index in range(0, size):
-            self.beginWidthArray[index] = (font.stringWidth(self.inputInfo[index]) >> 1)
-        self.myFontProcessor = MyFontProcessor.getInstance()
-    
 
-    def setInputInfoP(self, inputInfo: list[str]) -> None:
-        self.inputInfo = inputInfo
-        self.beginWidthArray = [0] * (len(self.inputInfo))
-        self.myFontProcessor = self.updateMyFontProcessor
-    
+function initHelpPaintable(this::HelpPaintable, title, backgroundBasicColor, basicColor)
+        initPaintable(this)
+        initFieldsHelpPaintable(this)
+        this.title = title
+        this.basicColor = basicColor
+        nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        halfWidth: int = self.displayInfo.getLastHalfWidth()
-        graphics.setColor(int(self.basicColor))
-        graphics.drawString(self.title, halfWidth - self.titleBeginWidth, self.charHeight, self.anchor)
-        size: int = len(self.inputInfo)
-        for index in range(0, size):
-            graphics.drawString(self.inputInfo[index], halfWidth - self.beginWidthArray[index], (index + 3) * self.charHeight, self.anchor)
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
+function newHelpPaintable(title, backgroundBasicColor, basicColor)
+    this = HelpPaintable()
+    initHelpPaintable(this, title, backgroundBasicColor, basicColor)
+    this
+end
 
+
+function updateMeasurement(this::HelpPaintable, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.titleBeginWidth = (AllBinary.stringWidth(font, this.title) >> Int32(1))
+        this.charHeight = AllBinary.getHeight(font)
+        local size::Int32 = Int32(Base.length(this.inputInfo))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            this.beginWidthArray[index + 1] = (AllBinary.stringWidth(font, this.inputInfo[index + 1]) >> Int32(1))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
+
+
+function setInputInfoP(this::HelpPaintable, inputInfo)
+        this.inputInfo = inputInfo
+        this.beginWidthArray = jNewArray(Int32, Int32(Base.length(this.inputInfo)), Int32(0))
+        this.myFontProcessor = this.updateMyFontProcessor
+        nothing
+end
+
+
+function paint(this::HelpPaintable, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        local halfWidth::Int32 = AllBinary.getLastHalfWidth(this.displayInfo)
+        AllBinary.setColor(graphics, AllBinary.intValue(this.basicColor))
+        AllBinary.drawString(graphics, this.title, halfWidth - this.titleBeginWidth, this.charHeight, this.anchor)
+        local size::Int32 = Int32(Base.length(this.inputInfo))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            AllBinary.drawString(graphics, this.inputInfo[index + 1], halfWidth - this.beginWidthArray[index + 1], (index + Int32(3)) * this.charHeight, this.anchor)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

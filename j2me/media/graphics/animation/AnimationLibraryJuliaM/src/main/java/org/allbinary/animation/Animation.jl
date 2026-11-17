@@ -1,132 +1,166 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+mutable struct Animation <: JObject
+    basicSetColorUtil::Any
+    basicColor::Any
+    colorP::Int32
+    changeBasicColorP::Any
+    changeColorP::Int32
+    alphaP::Int32
+    Animation() = new()
+end
 
-from org.allbinary.image.opengles.OpenGLSurfaceChangedInterface import OpenGLSurfaceChangedInterface
-from org.allbinary.animation.AnimationInterface import AnimationInterface
+
+function initFieldsAnimation(this::Animation)
+    this.basicSetColorUtil = nothing
+    this.basicColor = nothing
+    this.colorP = Int32(0)
+    this.changeBasicColorP = nothing
+    this.changeColorP = Int32(0)
+    this.alphaP = Int32(0)
+    this.basicSetColorUtil = AllBinary.getInstance(BasicColorSetUtil)
+    this.basicColor = AllBinary.getInstance(BasicColorFactory).WHITE
+    this.colorP = Int32(0)
+    this.changeBasicColorP = AllBinary.getInstance(BasicColorFactory).NULL_COLOR
+    this.changeColorP = Int32(0)
+    this.alphaP = Int32(0)
+    nothing
+end
 
 
-class Animation(AnimationInterface, OpenGLSurfaceChangedInterface):
+function initAnimation(this::Animation)
+        initFieldsAnimation(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-        self.basicSetColorUtil: BasicColorSetUtil = BasicColorSetUtil.getInstance()
-        self.basicColor: BasicColor = BasicColorFactory.getInstance().WHITE
-        self.colorP: int = 0
-        self.changeBasicColorP: BasicColor = BasicColorFactory.getInstance().NULL_COLOR
-        self.changeColorP: int = 0
-        self.alphaP: int = 0
-    
+function newAnimation()
+    this = Animation()
+    initAnimation(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def setAlpha(self, alpha: int) -> None:
-        self.alphaP = alpha
-    
+function setAlpha(this::Animation, alpha)
+        this.alphaP = alpha
+        nothing
+end
 
-    # throws Exception
-    def nextFrame(self) -> None:
-        pass
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.basicSetColorUtil.setBasicColorP3(graphics, self.getBasicColorP(), self.getColor())
-    
+function nextFrame(this::Animation)
+        nothing
+        nothing
+end
 
-    def paintThreedXYZ(self, graphics: Graphics, x: int, y: int, z: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
 
-    def isThreed(self) -> bool:
-        return False
-    
+function paintXY(this::Animation, graphics, x, y)
+        AllBinary.setBasicColorP3(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this), AllBinary.getColor(this))
+        nothing
+end
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.basicColor
-    
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.basicColor = basicColor
-        self.colorP = int(self.basicColor)
-    
+function paintThreedXYZ(this::Animation, graphics, x, y, z)
+        nothing
+        nothing
+end
 
-    def setBackgroundBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        pass
-    
 
-    def getChangeBasicColor(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.changeBasicColorP
-    
+function isThreed(this::Animation)
+        return false
+end
 
-    def changeBasicColor(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.changeBasicColorP = basicColor
-        self.changeColorP = int(self.changeBasicColorP)
-    
 
-    def getChangeColor(self) -> int:
-        return self.changeColorP
-    
+function getBasicColorP(this::Animation)
+        return this.basicColor
+end
 
-    def getColor(self) -> int:
-        return self.colorP
-    
 
-    def setScale(self, scaleX: float, scaleY: float) -> None:
-        pass
-    
+function setBasicColorP(this::Animation, basicColor)
+        this.basicColor = basicColor
+        this.colorP = AllBinary.intValue(this.basicColor)
+        nothing
+end
 
-    def setMaxScale(self, maxScaleX: float, maxScaleY: float) -> None:
-        pass
-    
 
-    # throws Exception
-    def set(self, gl: GL) -> None:
-        from javax.microedition.khronos.opengles.GL import GL
-        pass
-    
+function setBackgroundBasicColorP(this::Animation, basicColor)
+        nothing
+        nothing
+end
 
-    def setDx(self, dx: int) -> None:
-        pass
-    
 
-    def getDx(self) -> int:
-        return 0
-    
+function getChangeBasicColor(this::Animation)
+        return this.changeBasicColorP
+end
 
-    def setDy(self, dy: int) -> None:
-        pass
-    
 
-    def getDy(self) -> int:
-        return 0
-# from javax.microedition.khronos.opengles.GL import GL
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
+function changeBasicColor(this::Animation, basicColor)
+        this.changeBasicColorP = basicColor
+        this.changeColorP = AllBinary.intValue(this.changeBasicColorP)
+        nothing
+end
 
+
+function getChangeColor(this::Animation)
+        return this.changeColorP
+end
+
+
+function getColor(this::Animation)
+        return this.colorP
+end
+
+
+function setScale(this::Animation, scaleX, scaleY)
+        nothing
+        nothing
+end
+
+
+function setMaxScale(this::Animation, maxScaleX, maxScaleY)
+        nothing
+        nothing
+end
+
+
+function set(this::Animation, gl)
+        nothing
+        nothing
+end
+
+
+function setDx(this::Animation, dx)
+        nothing
+        nothing
+end
+
+
+function getDx(this::Animation)
+        return Int32(0)
+end
+
+
+function setDy(this::Animation, dy)
+        nothing
+        nothing
+end
+
+
+function getDy(this::Animation)
+        return Int32(0)
+end
 

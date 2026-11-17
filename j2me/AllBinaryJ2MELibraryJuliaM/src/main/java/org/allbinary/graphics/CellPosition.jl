@@ -1,76 +1,89 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics
 
-from __future__ import annotations
+# extends V: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CellPosition <: JObject
+    id::Int32
+    column::Int32
+    row::Int32
+    CellPosition() = new()
+end
 
-from org.allbinary.graph.V import V
 
-
-class CellPosition(V):
-
-    def _init_fields(self) -> None:
-        self.id: int = None
-        self.column: int = None
-        self.row: int = None
+function initFieldsCellPosition(this::CellPosition)
+    this.id = Int32(0)
+    this.column = Int32(0)
+    this.row = Int32(0)
     
-
-    def __init__(self, column: int, row: int, columns: int, rows: int) -> None:
-        super().__init__()
-        self._init_fields()
-        self.column = column
-        self.row = row
-        self.id = (row * columns) + column
     
-
-    def getColumn(self) -> int:
-        return self.column
     
+    nothing
+end
 
-    def getRow(self) -> int:
-        return self.row
-    
 
-    def toString(self) -> str:
-        return CellPosition.toStringColRow(self.getColumn(), self.getRow())
+function initCellPosition(this::CellPosition, column, row, columns, rows)
+        initV(this)
+        initFieldsCellPosition(this)
+        this.column = column
+        this.row = row
+        this.id = (row * columns) + column
+        nothing
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-    
+function newCellPosition(column, row, columns, rows)
+    this = CellPosition()
+    initCellPosition(this, column, row, columns, rows)
+    this
+end
 
-    @staticmethod
-    def toStringCellPosition(basicGeographicMapCellPosition: CellPosition) -> str:
-        return CellPosition.toStringColRow(basicGeographicMapCellPosition.getColumn(), basicGeographicMapCellPosition.getRow())
-    
 
-    @staticmethod
-    def toStringColRow(i_column: int, i_row: int) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        stringBuffer: StringMaker = StringMaker()
-        commonSeps: CommonSeps = CommonSeps.getInstance()
-        stringBuffer.append(commonSeps.PARENTHESIS_OPEN)
-        stringBuffer.appendint(i_column)
-        stringBuffer.append(commonSeps.COMMA)
-        stringBuffer.appendint(i_row)
-        stringBuffer.append(commonSeps.PARENTHESIS_CLOSE)
-        return str(stringBuffer)
-    
+function getColumn(this::CellPosition)
+        return this.column
+end
 
-    def getId(self) -> int:
-        return self.id
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
 
+function getRow(this::CellPosition)
+        return this.row
+end
+
+
+function toString(this::CellPosition)
+        return AllBinary.toStringColRow(CellPosition, AllBinary.getColumn(this), AllBinary.getRow(this))
+end
+
+
+function toStringCellPosition(::Type{CellPosition}, basicGeographicMapCellPosition)
+        return AllBinary.toStringColRow(CellPosition, AllBinary.getColumn(basicGeographicMapCellPosition), AllBinary.getRow(basicGeographicMapCellPosition))
+end
+
+
+function toStringColRow(::Type{CellPosition}, i_column, i_row)
+        local stringBuffer = newStringMaker()
+        local commonSeps = AllBinary.getInstance(CommonSeps)
+        AllBinary.append(stringBuffer, commonSeps.PARENTHESIS_OPEN)
+        AllBinary.appendint(stringBuffer, i_column)
+        AllBinary.append(stringBuffer, commonSeps.COMMA)
+        AllBinary.appendint(stringBuffer, i_row)
+        AllBinary.append(stringBuffer, commonSeps.PARENTHESIS_CLOSE)
+        return AllBinary.toString(stringBuffer)
+end
+
+
+function getId(this::CellPosition)
+        return this.id
+end
 

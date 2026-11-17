@@ -1,147 +1,165 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image
 
-from __future__ import annotations
+# extends ImageCacheBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageCache <: JObject
+    commonStrings::Any
+    tsUtil::Any
+    ImageCache() = new()
+end
 
-import time
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.image.ImageCacheBase import ImageCacheBase
+const ImageCache_NULL_IMAGE_CACHEValue = Ref{Any}(nothing)
+const ImageCache_NULL_IMAGE_CACHESet = Ref(false)
+function staticGet_NULL_IMAGE_CACHE(::Type{ImageCache})
+    if !ImageCache_NULL_IMAGE_CACHESet[]
+        ImageCache_NULL_IMAGE_CACHESet[] = true
+        ImageCache_NULL_IMAGE_CACHEValue[] = newImageCache()
+    end
+    ImageCache_NULL_IMAGE_CACHEValue[]
+end
+function staticSet_NULL_IMAGE_CACHE(::Type{ImageCache}, value)
+    ImageCache_NULL_IMAGE_CACHESet[] = true
+    ImageCache_NULL_IMAGE_CACHEValue[] = value
+end
+
+function initFieldsImageCache(this::ImageCache)
+    this.commonStrings = nothing
+    this.tsUtil = nothing
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.tsUtil = AllBinary.getInstance(TsUtil)
+    nothing
+end
 
 
-class ImageCache(ImageCacheBase):
-    NULL_IMAGE_CACHE: ImageCache = None
+function initImageCache(this::ImageCache)
+        initImageCacheBase(this)
+        initFieldsImageCache(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.tsUtil: TsUtil = TsUtil.getInstance()
-    
+function newImageCache()
+    this = ImageCache()
+    initImageCache(this)
+    this
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
 
-    def addListener(self, renderer: object) -> None:
-        pass
-    
+function addListener(this::ImageCache, renderer)
+        nothing
+        nothing
+end
 
-    def getIndex(self, key: object) -> int:
-        from org.allbinary.game.gd.resource.GDResources import GDResources
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        gdResources: GDResources = GDResources.getInstance()
-        resourceStringArray: list[str] = gdResources.resourceStringArray
-        size: int = len(resourceStringArray)
-        for index in range(0, size):
-            if resourceStringArray[index] == key:
+
+function getIndex(this::ImageCache, key)
+        local gdResources = AllBinary.getInstance(GDResources)
+        local resourceStringArray = gdResources.resourceStringArray
+        local size::Int32 = Int32(Base.length(resourceStringArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            if resourceStringArray[index + 1] === key
                 return index
-        self.logUtil.putF(str(StringMaker().append("unable to find key: ").append(StringUtil.getInstance().toString(key))), self, self.commonStrings.RUN)
-        raise RuntimeError()
-    
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "unable to find key: "), AllBinary.toString(AllBinary.getInstance(StringUtil), key))), this, this.commonStrings.RUN)
+        throw(jNewException("RuntimeException", ""))
+end
 
-    # throws Exception
-    def get(self, caller: str, width: int, height: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.NullImage import NullImage
-        foundIndex: int = self.getIndexWH(width, height)
-        image: Image = self.getFromAvailable(foundIndex, width, height)
-        if image == NullImage.NULL_IMAGE:
-            self.volume += width * height
-            if self.volume > 32000:
-                self.tsUtil.gc()
-                self.volume = 0
-            image = self.createImage(caller, width, height)
-            widths: list[int] = self.widths
-            if self.nextIndex > len(widths) - 1:
-                if foundIndex == -1:
-                    foundIndex = self.nextIndex
-                    widths[self.nextIndex] = width
-                    self.heights[self.nextIndex] = height
-                    self.nextIndex += 1
-                self.listOfList[foundIndex].add(image)
+
+function get(this::ImageCache, caller, width, height)
+        local foundIndex::Int32 = AllBinary.getIndexWH(this, width, height)
+        local image = AllBinary.getFromAvailable(this, foundIndex, width, height)
+        if image === staticGet_NULL_IMAGE(NullImage)
+            this.volume += width * height
+            if this.volume > Int32(32000)
+                AllBinary.gc(this.tsUtil)
+                this.volume = Int32(0)
+            end
+            image = AllBinary.createImage(this, caller, width, height)
+            local widths = this.widths
+            if this.nextIndex > Int32(Base.length(widths)) - Int32(1)
+                if foundIndex == -Int32(1)
+                    foundIndex = this.nextIndex
+                    widths[this.nextIndex + 1] = width
+                    this.heights[this.nextIndex + 1] = height
+                    this.nextIndex += 1
+                end
+                AllBinary.add(this.listOfList[foundIndex + 1], image)
+            end
+        end
         return image
-    
+end
 
-    # throws Exception
-    def getWithKey(self, key: object) -> Image:
-        from java.io.InputStream import InputStream
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.NullImage import NullImage
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.data.resource.ResourceUtil import ResourceUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.system.Memory import Memory
-        image: Image = self.getImage(key)
-        if image == NullImage.NULL_IMAGE:
-            resourceUtil: ResourceUtil = ResourceUtil.getInstance()
-            resourceInputStream: InputStream = resourceUtil.getResourceAsStream(key)
-            if resourceInputStream is None:
-                raise RuntimeError(str(StringMaker().append("Image resource is not available for key: ").append(StringUtil.getInstance().toString(key))))
-            try:
-                image = self.createImageFromInputStream(key, resourceInputStream)
-            except Exception as e:
-                self.logUtil.put("Exception: Trying Again After GC", self, self.commonStrings.GET, e)
-                self.logUtil.putF(str(StringMaker().append("InputStream: ").append(StringUtil.getInstance().toString(resourceInputStream))), self, self.commonStrings.GET)
-                self.tsUtil.gc()
-                self.tsUtil.gc()
-                self.logUtil.putF(Memory.getInfo(), self, self.commonStrings.GET)
-                time.sleep((100) / 1000)
-                image = self.createImageFromInputStream(key, resourceInputStream)
-            if J2MEUtil.isHTML():
-                pass
-            else:
-                resourceInputStream.close()
-            self.hashtable.put(key, image)
+
+function getWithKey(this::ImageCache, key)
+        local image = AllBinary.getImage(this, key)
+        if image === staticGet_NULL_IMAGE(NullImage)
+            local resourceUtil = AllBinary.getInstance(ResourceUtil)
+            local resourceInputStream = AllBinary.getResourceAsStream(resourceUtil, (key))
+            if resourceInputStream === nothing
+                throw(jNewException("RuntimeException", AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Image resource is not available for key: "), AllBinary.toString(AllBinary.getInstance(StringUtil), key)))))
+            end
+            try
+                image = AllBinary.createImageFromInputStream(this, key, resourceInputStream)
+            catch e
+                AllBinary.put(this.logUtil, "Exception: Trying Again After GC", this, this.commonStrings.GET, e)
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "InputStream: "), AllBinary.toString(AllBinary.getInstance(StringUtil), resourceInputStream))), this, this.commonStrings.GET)
+                AllBinary.gc(this.tsUtil)
+                AllBinary.gc(this.tsUtil)
+                AllBinary.putF(this.logUtil, AllBinary.getInfo(Memory), this, this.commonStrings.GET)
+                AllBinary.sleep(Thread, Int32(100))
+                image = AllBinary.createImageFromInputStream(this, key, resourceInputStream)
+            end
+            if AllBinary.isHTML(J2MEUtil)
+                nothing
+            else
+                AllBinary.close(resourceInputStream)
+            end
+            AllBinary.put(this.hashtable, key, image)
+        end
         return image
-    
-
-    # throws Exception
-    def loadImageForAnimation(self) -> None:
-        pass
-    
-
-    def progressEnded(self) -> None:
-        pass
-    
-
-    def runTask(self) -> None:
-        pass
-    
-
-    def isLazy(self) -> bool:
-        return False
-# from java.io.InputStream import InputStream
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.NullImage import NullImage
-# from org.allbinary.J2MEUtil import J2MEUtil
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.data.resource.ResourceUtil import ResourceUtil
-# from org.allbinary.game.gd.resource.GDResources import GDResources
-# from org.allbinary.logic.ABSystemWrapper import ABSystemWrapper
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.system.Memory import Memory
+end
 
 
-def _ImageCache_NULL_IMAGE_CACHE() -> object:
-    return ImageCache()
+function loadImageForAnimation(this::ImageCache)
+        nothing
+        nothing
+end
 
-lazy_static(ImageCache, "NULL_IMAGE_CACHE", _ImageCache_NULL_IMAGE_CACHE)
+
+function progressEnded(this::ImageCache)
+        nothing
+        nothing
+end
+
+
+function runTask(this::ImageCache)
+        nothing
+        nothing
+end
+
+
+function isLazy(this::ImageCache)
+        return false
+end
 

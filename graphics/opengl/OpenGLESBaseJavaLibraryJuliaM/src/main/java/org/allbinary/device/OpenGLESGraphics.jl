@@ -1,69 +1,80 @@
 # Generated Code Do Not Modify
 # package org.allbinary.device
 
-from __future__ import annotations
+# extends Graphics: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct OpenGLESGraphics <: JObject
+    commonStrings::Any
+    gl::Any
+    OpenGLESGraphics() = new()
+end
 
-from javax.microedition.lcdui.Graphics import Graphics
-from org.allbinary.image.opengles.OpenGLSurfaceChangedInterface import OpenGLSurfaceChangedInterface
-from org.allbinary.device.GraphicsInterface import GraphicsInterface
+
+function initFieldsOpenGLESGraphics(this::OpenGLESGraphics)
+    this.commonStrings = nothing
+    this.gl = nothing
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.gl = staticGet_NULL_GL10(NullGL10)
+    nothing
+end
 
 
-class OpenGLESGraphics(Graphics, OpenGLSurfaceChangedInterface, GraphicsInterface):
+function initOpenGLESGraphics(this::OpenGLESGraphics)
+        initGraphics(this)
+        initFieldsOpenGLESGraphics(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.gl: GL10 = NullGL10.NULL_GL10
-    
+function newOpenGLESGraphics()
+    this = OpenGLESGraphics()
+    initOpenGLESGraphics(this)
+    this
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
 
-    def updateGL(self, gl: GL) -> None:
-        from javax.microedition.khronos.opengles.GL import GL
-        pass
-    
+function updateGL(this::OpenGLESGraphics, gl)
+        nothing
+        nothing
+end
 
-    def set(self, gl: GL) -> None:
-        from javax.microedition.khronos.opengles.GL import GL
-        pass
-    
 
-    # throws Exception
-    def init(self) -> None:
-        pass
-    
+function set(this::OpenGLESGraphics, gl)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def update(self) -> None:
-        pass
-    
 
-    def setOrthoginalMode(self) -> None:
-        pass
-    
+function init(this::OpenGLESGraphics)
+        nothing
+        nothing
+end
 
-    def setCameraMode(self) -> None:
-        pass
-    
 
-    def getGl10(self) -> GL10:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        return self.gl
-    
+function update(this::OpenGLESGraphics)
+        nothing
+        nothing
+end
 
-    def setFontDebug(self, font: Font, fontDebug: FontDebugBase) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from org.allbinary.graphics.font.FontDebugBase import FontDebugBase
-        raise RuntimeError()
-# from javax.microedition.khronos.opengles.GL import GL
-# from javax.microedition.khronos.opengles.GL10 import GL10
-# from javax.microedition.lcdui.Font import Font
-# from org.allbinary.graphics.font.FontDebugBase import FontDebugBase
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.device.NullGL10 import NullGL10
 
+function setOrthoginalMode(this::OpenGLESGraphics)
+        nothing
+        nothing
+end
+
+
+function setCameraMode(this::OpenGLESGraphics)
+        nothing
+        nothing
+end
+
+
+function getGl10(this::OpenGLESGraphics)
+        return this.gl
+end
+
+
+function setFontDebug(this::OpenGLESGraphics, font, fontDebug)
+        throw(jNewException("RuntimeException", ""))
+        nothing
+end
 

@@ -1,47 +1,67 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.pickup
 
-from __future__ import annotations
+# extends AllBinaryLayerCircularPool: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct PickupLayerCircularStaticPool <: JObject
+    PickupLayerCircularStaticPool() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.layer.AllBinaryLayerCircularPool import AllBinaryLayerCircularPool
+const PickupLayerCircularStaticPool_SINGLETONValue = Ref{Any}(nothing)
+const PickupLayerCircularStaticPool_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{PickupLayerCircularStaticPool})
+    if !PickupLayerCircularStaticPool_SINGLETONSet[]
+        PickupLayerCircularStaticPool_SINGLETONSet[] = true
+        PickupLayerCircularStaticPool_SINGLETONValue[] = newPickupLayerCircularStaticPool()
+    end
+    PickupLayerCircularStaticPool_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{PickupLayerCircularStaticPool}, value)
+    PickupLayerCircularStaticPool_SINGLETONSet[] = true
+    PickupLayerCircularStaticPool_SINGLETONValue[] = value
+end
+
+function initFieldsPickupLayerCircularStaticPool(this::PickupLayerCircularStaticPool)
+    nothing
+end
 
 
-class PickupLayerCircularStaticPool(AllBinaryLayerCircularPool):
-    SINGLETON: PickupLayerCircularStaticPool = None
-    
+function initPickupLayerCircularStaticPool(this::PickupLayerCircularStaticPool)
+        initAllBinaryLayerCircularPool(this)
+        initFieldsPickupLayerCircularStaticPool(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
+function newPickupLayerCircularStaticPool()
+    this = PickupLayerCircularStaticPool()
+    initPickupLayerCircularStaticPool(this)
+    this
+end
 
-    @staticmethod
-    def getInstance() -> PickupLayerCircularStaticPool:
-        return PickupLayerCircularStaticPool.SINGLETON
-    
 
-    # throws Exception
-    def getInstanceXYZ(self, pickedUpLayerInterfaceFactoryInterface: PickedUpLayerInterfaceFactoryInterface, x: int, y: int, z: int) -> PickedUpLayerInterface:
-        pickupLayer: PickupLayer = self.getNextInstance()
-        pickupLayer.initXYZ(x, y, z)
-        pickupLayer.init(pickedUpLayerInterfaceFactoryInterface, pickedUpLayerInterfaceFactoryInterface.getAnimationInterface())
+function getInstance(::Type{PickupLayerCircularStaticPool})
+        return staticGet_SINGLETON(PickupLayerCircularStaticPool)
+end
+
+
+function getInstanceXYZ(this::PickupLayerCircularStaticPool, pickedUpLayerInterfaceFactoryInterface, x, y, z)
+        local pickupLayer = (AllBinary.getNextInstance(this))
+        AllBinary.initXYZ(pickupLayer, x, y, z)
+        AllBinary.init(pickupLayer, pickedUpLayerInterfaceFactoryInterface, AllBinary.getAnimationInterface(pickedUpLayerInterfaceFactoryInterface))
         return pickupLayer
-
-
-def _PickupLayerCircularStaticPool_SINGLETON() -> object:
-    return PickupLayerCircularStaticPool()
-
-lazy_static(PickupLayerCircularStaticPool, "SINGLETON", _PickupLayerCircularStaticPool_SINGLETON)
+end
 

@@ -1,49 +1,65 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MainGameDemoStatePaintable <: JObject
+    ownershipPaintableInterface::Any
+    menuPaintableInterface::Any
+    MainGameDemoStatePaintable() = new()
+end
 
-from org.allbinary.graphics.paint.Paintable import Paintable
 
-
-class MainGameDemoStatePaintable(Paintable):
-
-    def _init_fields(self) -> None:
-        self.ownershipPaintableInterface: Paintable = None
-        self.menuPaintableInterface: Paintable = None
+function initFieldsMainGameDemoStatePaintable(this::MainGameDemoStatePaintable)
+    this.ownershipPaintableInterface = nothing
+    this.menuPaintableInterface = nothing
     
-
-    def __init__(self, ownershipPaintableInterface: Paintable, menuPaintableInterface: Paintable) -> None:
-        super().__init__()
-        self._init_fields()
-        self.ownershipPaintableInterface = ownershipPaintableInterface
-        self.menuPaintableInterface = menuPaintableInterface
     
+    nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.menuPaintableInterface.paint(graphics)
-        self.ownershipPaintableInterface.paint(graphics)
-    
 
-    def getOwnershipPaintableInterface(self) -> Paintable:
-        return self.ownershipPaintableInterface
-    
+function initMainGameDemoStatePaintable(this::MainGameDemoStatePaintable, ownershipPaintableInterface, menuPaintableInterface)
+        initPaintable(this)
+        initFieldsMainGameDemoStatePaintable(this)
+        this.ownershipPaintableInterface = ownershipPaintableInterface
+        this.menuPaintableInterface = menuPaintableInterface
+        nothing
+end
 
-    def getMenuPaintableInterface(self) -> Paintable:
-        return self.menuPaintableInterface
-# from javax.microedition.lcdui.Graphics import Graphics
+function newMainGameDemoStatePaintable(ownershipPaintableInterface, menuPaintableInterface)
+    this = MainGameDemoStatePaintable()
+    initMainGameDemoStatePaintable(this, ownershipPaintableInterface, menuPaintableInterface)
+    this
+end
 
+
+function paint(this::MainGameDemoStatePaintable, graphics)
+        AllBinary.paint(this.menuPaintableInterface, graphics)
+        AllBinary.paint(this.ownershipPaintableInterface, graphics)
+        nothing
+end
+
+
+function getOwnershipPaintableInterface(this::MainGameDemoStatePaintable)
+        return this.ownershipPaintableInterface
+end
+
+
+function getMenuPaintableInterface(this::MainGameDemoStatePaintable)
+        return this.menuPaintableInterface
+end
 

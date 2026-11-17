@@ -1,62 +1,83 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.motion.action
 
-from __future__ import annotations
+mutable struct GameKeyCompleteMotionGestureInputEventFactory <: JObject
+    logUtil::Any
+    eventList::Any
+    GameKeyCompleteMotionGestureInputEventFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameKeyCompleteMotionGestureInputEventFactory_SINGLETONValue = Ref{Any}(nothing)
+const GameKeyCompleteMotionGestureInputEventFactory_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{GameKeyCompleteMotionGestureInputEventFactory})
+    if !GameKeyCompleteMotionGestureInputEventFactory_SINGLETONSet[]
+        GameKeyCompleteMotionGestureInputEventFactory_SINGLETONSet[] = true
+        GameKeyCompleteMotionGestureInputEventFactory_SINGLETONValue[] = newGameKeyCompleteMotionGestureInputEventFactory()
+    end
+    GameKeyCompleteMotionGestureInputEventFactory_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{GameKeyCompleteMotionGestureInputEventFactory}, value)
+    GameKeyCompleteMotionGestureInputEventFactory_SINGLETONSet[] = true
+    GameKeyCompleteMotionGestureInputEventFactory_SINGLETONValue[] = value
+end
 
+function initFieldsGameKeyCompleteMotionGestureInputEventFactory(this::GameKeyCompleteMotionGestureInputEventFactory)
+    this.logUtil = nothing
+    this.eventList = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.eventList = newBasicArrayListD()
+    nothing
+end
 
-class GameKeyCompleteMotionGestureInputEventFactory:
-    SINGLETON: GameKeyCompleteMotionGestureInputEventFactory = None
+function initGameKeyCompleteMotionGestureInputEventFactory(this::GameKeyCompleteMotionGestureInputEventFactory)
+    initFieldsGameKeyCompleteMotionGestureInputEventFactory(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.eventList: BasicArrayList = BasicArrayListD()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GameKeyCompleteMotionGestureInputEventFactory:
-        return GameKeyCompleteMotionGestureInputEventFactory.SINGLETON
-    
-
-    def add(self, gameKeyCompleteMotionGestureInputEvent: GameKeyCompleteMotionGestureInputEvent) -> None:
-        self.eventList.add(gameKeyCompleteMotionGestureInputEvent)
-    
-
-    def updateAll(self) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().START_LABEL).appendint(self.eventList.size())), self, "updateAll")
-        for index in range(self.eventList.size() - 1, 0 - 1, -1):
-            gameKeyCompleteMotionGestureInputEvent: GameKeyCompleteMotionGestureInputEvent = self.eventList.objectArray[index]
-            gameKeyCompleteMotionGestureInputEvent.update()
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function newGameKeyCompleteMotionGestureInputEventFactory()
+    this = GameKeyCompleteMotionGestureInputEventFactory()
+    initGameKeyCompleteMotionGestureInputEventFactory(this)
+    this
+end
 
 
-def _GameKeyCompleteMotionGestureInputEventFactory_SINGLETON() -> object:
-    return GameKeyCompleteMotionGestureInputEventFactory()
+function getInstance(::Type{GameKeyCompleteMotionGestureInputEventFactory})
+        return staticGet_SINGLETON(GameKeyCompleteMotionGestureInputEventFactory)
+end
 
-lazy_static(GameKeyCompleteMotionGestureInputEventFactory, "SINGLETON", _GameKeyCompleteMotionGestureInputEventFactory_SINGLETON)
+
+function add(this::GameKeyCompleteMotionGestureInputEventFactory, gameKeyCompleteMotionGestureInputEvent)
+        AllBinary.add(this.eventList, gameKeyCompleteMotionGestureInputEvent)
+        nothing
+end
+
+
+function updateAll(this::GameKeyCompleteMotionGestureInputEventFactory)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).START_LABEL), AllBinary.size(this.eventList))), this, "updateAll")
+        let
+            local index::Int32 = AllBinary.size(this.eventList) - Int32(1)
+            while index >= Int32(0)
+            try
+            local gameKeyCompleteMotionGestureInputEvent = (this.eventList.objectArray[index + 1])
+            AllBinary.update(gameKeyCompleteMotionGestureInputEvent)
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

@@ -1,146 +1,142 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.event.handler
 
-from __future__ import annotations
+mutable struct BasicEventHandler <: JObject
+    logUtil::Any
+    eventListenerInterfaceList::Any
+    BasicEventHandler() = new()
+end
 
-import threading
-from org.allbinary.logic.util.event.handler.BasicEventHandlerInterface import BasicEventHandlerInterface
+const BasicEventHandler_PERFORMANCE_MESSAGEValue = Ref{Any}(nothing)
+const BasicEventHandler_PERFORMANCE_MESSAGESet = Ref(false)
+function staticGet_PERFORMANCE_MESSAGE(::Type{BasicEventHandler})
+    if !BasicEventHandler_PERFORMANCE_MESSAGESet[]
+        BasicEventHandler_PERFORMANCE_MESSAGESet[] = true
+        BasicEventHandler_PERFORMANCE_MESSAGEValue[] = "Use Custom onEvent Methods for needed optimization"
+    end
+    BasicEventHandler_PERFORMANCE_MESSAGEValue[]
+end
+function staticSet_PERFORMANCE_MESSAGE(::Type{BasicEventHandler}, value)
+    BasicEventHandler_PERFORMANCE_MESSAGESet[] = true
+    BasicEventHandler_PERFORMANCE_MESSAGEValue[] = value
+end
 
-
-class BasicEventHandler(BasicEventHandlerInterface):
-    PERFORMANCE_MESSAGE: str = "Use Custom onEvent Methods for needed optimization"
-    _lock = threading.RLock()
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.eventListenerInterfaceList: BasicArrayList = None
+function initFieldsBasicEventHandler(this::BasicEventHandler)
+    this.logUtil = nothing
+    this.eventListenerInterfaceList = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self._init_fields()
-        self.eventListenerInterfaceList = BasicArrayListD()
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        from org.allbinary.string.CommonStrings import CommonStrings
-        stringBuffer: StringMaker = StringMaker()
-        LISTENER: str = " Listener: "
-        stringBuffer.append("Total Listeners: ")
-        stringBuffer.appendint(self.eventListenerInterfaceList.size())
-        eventListenerInterface: EventListenerInterface = None
-        index: int = 0
-        while index < self.eventListenerInterfaceList.size():
-            try:
-                eventListenerInterface = self.eventListenerInterfaceList.objectArray[index]
-                stringBuffer.append(LISTENER)
-                stringBuffer.append(StringUtil.getInstance().toString(eventListenerInterface))
-            except Exception as e:
-                commonStrings: CommonStrings = CommonStrings.getInstance()
-                self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.TOSTRING, e)
-            index += 1
-        return str(stringBuffer)
+function initBasicEventHandler(this::BasicEventHandler)
+        initFieldsBasicEventHandler(this)
+        this.eventListenerInterfaceList = newBasicArrayListD()
+        nothing
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-    
+function newBasicEventHandler()
+    this = BasicEventHandler()
+    initBasicEventHandler(this)
+    this
+end
 
-    def removeAllListeners(self) -> None:
-        with self._lock:
-            return self._removeAllListeners_unlocked()
 
-    def _removeAllListeners_unlocked(self) -> None:
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.eventListenerInterfaceList = BasicArrayListD()
-    
+function toString(this::BasicEventHandler)
+        local stringBuffer = newStringMaker()
+        local LISTENER = " Listener: "
+        AllBinary.append(stringBuffer, "Total Listeners: ")
+        AllBinary.appendint(stringBuffer, AllBinary.size(this.eventListenerInterfaceList))
+        local eventListenerInterface = nothing
+        local index::Int32 = Int32(0)
+        while index < AllBinary.size(this.eventListenerInterfaceList)
+            try
+                eventListenerInterface = (this.eventListenerInterfaceList.objectArray[index + 1])
+                AllBinary.append(stringBuffer, LISTENER)
+                AllBinary.append(stringBuffer, AllBinary.toString(AllBinary.getInstance(StringUtil), eventListenerInterface))
+            catch e
+                local commonStrings = AllBinary.getInstance(CommonStrings)
+                AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.TOSTRING, e)
+            end
+            index += Int32(1)
+        end
+        return AllBinary.toString(stringBuffer)
+end
 
-    def addListenerSingleThreaded(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        if not self.eventListenerInterfaceList.contains(eventListenerInterface):
-            self.eventListenerInterfaceList.add(eventListenerInterface)
-    
 
-    def addListenerInterface(self, eventListenerInterface: EventListenerInterface) -> None:
-        with self._lock:
-            return self._addListenerInterface_unlocked(eventListenerInterface)
+function removeAllListeners(this::BasicEventHandler)
+        this.eventListenerInterfaceList = newBasicArrayListD()
+        nothing
+end
 
-    def _addListenerInterface_unlocked(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        if not self.eventListenerInterfaceList.contains(eventListenerInterface):
-            self.eventListenerInterfaceList.add(eventListenerInterface)
-    
 
-    def removeListenerSingleThreaded(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.eventListenerInterfaceList.remove(eventListenerInterface)
-    
+function addListenerSingleThreaded(this::BasicEventHandler, eventListenerInterface)
+        if !AllBinary.contains(this.eventListenerInterfaceList, eventListenerInterface)
+            AllBinary.add(this.eventListenerInterfaceList, eventListenerInterface)
+        end
+        nothing
+end
 
-    def removeListener(self, eventListenerInterface: EventListenerInterface) -> None:
-        with self._lock:
-            return self._removeListener_unlocked(eventListenerInterface)
 
-    def _removeListener_unlocked(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.eventListenerInterfaceList.remove(eventListenerInterface)
-    
+function addListenerInterface(this::BasicEventHandler, eventListenerInterface)
+        if !AllBinary.contains(this.eventListenerInterfaceList, eventListenerInterface)
+            AllBinary.add(this.eventListenerInterfaceList, eventListenerInterface)
+        end
+        nothing
+end
 
-    # throws Exception
-    def fireEvent(self, eventObject: AllBinaryEventObject) -> None:
-        with self._lock:
-            return self._fireEvent_unlocked(eventObject)
 
-    def _fireEvent_unlocked(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        from org.allbinary.string.CommonStrings import CommonStrings
-        index: int = 0
-        eventListenerInterface: EventListenerInterface = None
-        while index < self.eventListenerInterfaceList.size():
-            try:
-                eventListenerInterface = self.eventListenerInterfaceList.objectArray[index]
-                self.process(eventObject, eventListenerInterface)
-            except Exception as e:
-                commonStrings: CommonStrings = CommonStrings.getInstance()
-                self.logUtil.put(commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            index += 1
-    
+function removeListenerSingleThreaded(this::BasicEventHandler, eventListenerInterface)
+        AllBinary.remove(this.eventListenerInterfaceList, eventListenerInterface)
+        nothing
+end
 
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        eventListenerInterface.onEvent(eventObject)
-    
 
-    def getEventListenerInterfaceListP(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.eventListenerInterfaceList
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function removeListener(this::BasicEventHandler, eventListenerInterface)
+        AllBinary.remove(this.eventListenerInterfaceList, eventListenerInterface)
+        nothing
+end
 
+
+function fireEvent(this::BasicEventHandler, eventObject)
+        local index::Int32 = Int32(0)
+        local eventListenerInterface = nothing
+        while index < AllBinary.size(this.eventListenerInterfaceList)
+            try
+                eventListenerInterface = (this.eventListenerInterfaceList.objectArray[index + 1])
+                AllBinary.process(this, eventObject, eventListenerInterface)
+            catch e
+                local commonStrings = AllBinary.getInstance(CommonStrings)
+                AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, AllBinary.getInstance(EventStrings).FIRE_EVENT, e)
+            end
+            index += Int32(1)
+        end
+        nothing
+end
+
+
+function process(this::BasicEventHandler, eventObject, eventListenerInterface)
+        AllBinary.onEvent(eventListenerInterface, eventObject)
+        nothing
+end
+
+
+function getEventListenerInterfaceListP(this::BasicEventHandler)
+        return this.eventListenerInterfaceList
+end
 

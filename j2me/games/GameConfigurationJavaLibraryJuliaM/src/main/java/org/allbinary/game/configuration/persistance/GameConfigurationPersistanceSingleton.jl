@@ -1,40 +1,57 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration.persistance
 
-from __future__ import annotations
+# extends KeyValuePersistance: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameConfigurationPersistanceSingleton <: JObject
+    GameConfigurationPersistanceSingleton() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.configuration.persistance.KeyValuePersistance import KeyValuePersistance
+const GameConfigurationPersistanceSingleton_GAME_PERSISTANCEValue = Ref{Any}(nothing)
+const GameConfigurationPersistanceSingleton_GAME_PERSISTANCESet = Ref(false)
+function staticGet_GAME_PERSISTANCE(::Type{GameConfigurationPersistanceSingleton})
+    if !GameConfigurationPersistanceSingleton_GAME_PERSISTANCESet[]
+        GameConfigurationPersistanceSingleton_GAME_PERSISTANCESet[] = true
+        GameConfigurationPersistanceSingleton_GAME_PERSISTANCEValue[] = newGameConfigurationPersistanceSingleton()
+    end
+    GameConfigurationPersistanceSingleton_GAME_PERSISTANCEValue[]
+end
+function staticSet_GAME_PERSISTANCE(::Type{GameConfigurationPersistanceSingleton}, value)
+    GameConfigurationPersistanceSingleton_GAME_PERSISTANCESet[] = true
+    GameConfigurationPersistanceSingleton_GAME_PERSISTANCEValue[] = value
+end
+
+function initFieldsGameConfigurationPersistanceSingleton(this::GameConfigurationPersistanceSingleton)
+    nothing
+end
 
 
-class GameConfigurationPersistanceSingleton(KeyValuePersistance):
-    GAME_PERSISTANCE: GameConfigurationPersistanceSingleton = None
-    
-
-    @staticmethod
-    def getInstance() -> GameConfigurationPersistanceSingleton:
-        return GameConfigurationPersistanceSingleton.GAME_PERSISTANCE
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.game.configuration.persistance.GamePersistanceStrings import GamePersistanceStrings
-        super().__init__(GamePersistanceStrings.getInstance().SAVED_GAME_CONFIGURATION_RECORD_ID)
+function getInstance(::Type{GameConfigurationPersistanceSingleton})
+        return staticGet_GAME_PERSISTANCE(GameConfigurationPersistanceSingleton)
+end
 
 
-def _GameConfigurationPersistanceSingleton_GAME_PERSISTANCE() -> object:
-    return GameConfigurationPersistanceSingleton()
+function initGameConfigurationPersistanceSingleton(this::GameConfigurationPersistanceSingleton)
+        initKeyValuePersistance(this, AllBinary.getInstance(GamePersistanceStrings).SAVED_GAME_CONFIGURATION_RECORD_ID)
+        nothing
+end
 
-lazy_static(GameConfigurationPersistanceSingleton, "GAME_PERSISTANCE", _GameConfigurationPersistanceSingleton_GAME_PERSISTANCE)
+function newGameConfigurationPersistanceSingleton()
+    this = GameConfigurationPersistanceSingleton()
+    initGameConfigurationPersistanceSingleton(this)
+    this
+end
 

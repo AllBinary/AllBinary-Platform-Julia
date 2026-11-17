@@ -1,93 +1,91 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration
 
-from __future__ import annotations
+# extends Init: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct InGameFeatures <: JObject
+    InGameFeatures() = new()
+end
 
-from org.allbinary.init.Init import Init
+
+function initFieldsInGameFeatures(this::InGameFeatures)
+    nothing
+end
+
+function initInGameFeatures(this::InGameFeatures)
+    initInit(this)
+    initFieldsInGameFeatures(this)
+end
+
+function newInGameFeatures()
+    this = InGameFeatures()
+    initInGameFeatures(this)
+    this
+end
 
 
-class InGameFeatures(Init):
+function init(this::InGameFeatures)
+        local LABEL = "Screen Buttons"
+        local orientationData = AllBinary.getInstance(OrientationData)
+        local exclusiveOrientationSensorVector = (AllBinary.get(AllBinary.get(AllBinary.getExclusiveInstance(GameFeatureChoiceGroups)), (orientationData.ORIENTATION_SENSOR_INPUT)))
+        local inGameFeatureChoiceGroups = AllBinary.getExclusiveInstance(InGameFeatureChoiceGroups)
+        if exclusiveOrientationSensorVector !== nothing
+            local inGameExclusiveOrientationSensorVectorCanBeNull = AllBinary.get(AllBinary.get(inGameFeatureChoiceGroups), (orientationData.ORIENTATION_SENSOR_INPUT))
+            if inGameExclusiveOrientationSensorVectorCanBeNull === nothing
+                AllBinary.addToInGameMenu(this)
+            else
+                local inGameExclusiveOrientationSensorVector = (inGameExclusiveOrientationSensorVectorCanBeNull)
+                if AllBinary.size(inGameExclusiveOrientationSensorVector) == Int32(0)
+                    AllBinary.addToInGameMenu(this)
+                end
+            end
+        end
+        local features = AllBinary.getInstance(Features)
+        if AllBinary.isFeature(features, AllBinary.getInstance(TouchFeatureFactory).SHOW_SCREEN_BUTTONS) || AllBinary.isFeature(features, AllBinary.getInstance(TouchFeatureFactory).AUTO_HIDE_SHOW_SCREEN_BUTTONS) || AllBinary.isFeature(features, AllBinary.getInstance(TouchFeatureFactory).HIDE_SCREEN_BUTTONS)
+            local exclusiveScreenButtonsVector = newBasicArrayListD()
+            local touchFeatureFactory = AllBinary.getInstance(TouchFeatureFactory)
+            AllBinary.add(exclusiveScreenButtonsVector, touchFeatureFactory.AUTO_HIDE_SHOW_SCREEN_BUTTONS)
+            AllBinary.add(exclusiveScreenButtonsVector, touchFeatureFactory.SHOW_SCREEN_BUTTONS)
+            AllBinary.add(exclusiveScreenButtonsVector, touchFeatureFactory.HIDE_SCREEN_BUTTONS)
+            AllBinary.add(inGameFeatureChoiceGroups, LABEL, exclusiveScreenButtonsVector)
+        end
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
 
-    def init(self) -> None:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.GameFeatureChoiceGroups import GameFeatureChoiceGroups
-        from org.allbinary.game.configuration.feature.InGameFeatureChoiceGroups import InGameFeatureChoiceGroups
-        from org.allbinary.game.configuration.feature.TouchFeatureFactory import TouchFeatureFactory
-        from org.allbinary.input.gyro.OrientationData import OrientationData
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        LABEL: str = "Screen Buttons"
-        orientationData: OrientationData = OrientationData.getInstance()
-        exclusiveOrientationSensorVector: BasicArrayList = GameFeatureChoiceGroups.getExclusiveInstance().get().get(orientationData.ORIENTATION_SENSOR_INPUT)
-        inGameFeatureChoiceGroups: InGameFeatureChoiceGroups = InGameFeatureChoiceGroups.getExclusiveInstance()
-        if exclusiveOrientationSensorVector is not None:
-            inGameExclusiveOrientationSensorVectorCanBeNull: object = inGameFeatureChoiceGroups.get().get(orientationData.ORIENTATION_SENSOR_INPUT)
-            if inGameExclusiveOrientationSensorVectorCanBeNull is None:
-                self.addToInGameMenu()
-            else:
-                inGameExclusiveOrientationSensorVector: BasicArrayList = inGameExclusiveOrientationSensorVectorCanBeNull
-                if inGameExclusiveOrientationSensorVector.size() == 0:
-                    self.addToInGameMenu()
-        features: Features = Features.getInstance()
-        if features.isFeature(TouchFeatureFactory.getInstance().SHOW_SCREEN_BUTTONS) or features.isFeature(TouchFeatureFactory.getInstance().AUTO_HIDE_SHOW_SCREEN_BUTTONS) or features.isFeature(TouchFeatureFactory.getInstance().HIDE_SCREEN_BUTTONS):
-            exclusiveScreenButtonsVector: BasicArrayList = BasicArrayListD()
-            touchFeatureFactory: TouchFeatureFactory = TouchFeatureFactory.getInstance()
-            exclusiveScreenButtonsVector.add(touchFeatureFactory.AUTO_HIDE_SHOW_SCREEN_BUTTONS)
-            exclusiveScreenButtonsVector.add(touchFeatureFactory.SHOW_SCREEN_BUTTONS)
-            exclusiveScreenButtonsVector.add(touchFeatureFactory.HIDE_SCREEN_BUTTONS)
-            inGameFeatureChoiceGroups.add(LABEL, exclusiveScreenButtonsVector)
-    
+function addToInGameMenu(this::InGameFeatures)
+        local orientationData = AllBinary.getInstance(OrientationData)
+        local inGameExclusiveOrientationSensorVector = newBasicArrayListD()
+        AllBinary.add(inGameExclusiveOrientationSensorVector, AllBinary.getInstance(SensorFeatureFactory).ORIENTATION_SENSORS)
+        AllBinary.add(inGameExclusiveOrientationSensorVector, AllBinary.getInstance(SensorFeatureFactory).NO_ORIENTATION)
+        AllBinary.add(AllBinary.getExclusiveInstance(InGameFeatureChoiceGroups), orientationData.ORIENTATION_SENSOR_INPUT, inGameExclusiveOrientationSensorVector)
+        nothing
+end
 
-    def addToInGameMenu(self) -> None:
-        from org.allbinary.game.configuration.feature.InGameFeatureChoiceGroups import InGameFeatureChoiceGroups
-        from org.allbinary.game.configuration.feature.SensorFeatureFactory import SensorFeatureFactory
-        from org.allbinary.input.gyro.OrientationData import OrientationData
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        orientationData: OrientationData = OrientationData.getInstance()
-        inGameExclusiveOrientationSensorVector: BasicArrayList = BasicArrayListD()
-        inGameExclusiveOrientationSensorVector.add(SensorFeatureFactory.getInstance().ORIENTATION_SENSORS)
-        inGameExclusiveOrientationSensorVector.add(SensorFeatureFactory.getInstance().NO_ORIENTATION)
-        InGameFeatureChoiceGroups.getExclusiveInstance().add(orientationData.ORIENTATION_SENSOR_INPUT, inGameExclusiveOrientationSensorVector)
-    
 
-    def isAny(self) -> bool:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.GameFeatureChoiceGroups import GameFeatureChoiceGroups
-        from org.allbinary.game.configuration.feature.TouchFeatureFactory import TouchFeatureFactory
-        from org.allbinary.input.gyro.OrientationData import OrientationData
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        features: Features = Features.getInstance()
-        touchFeatureFactory: TouchFeatureFactory = TouchFeatureFactory.getInstance()
-        if features.isFeature(touchFeatureFactory.SHOW_SCREEN_BUTTONS) or features.isFeature(touchFeatureFactory.AUTO_HIDE_SHOW_SCREEN_BUTTONS) or features.isFeature(touchFeatureFactory.HIDE_SCREEN_BUTTONS):
-            return True
-        exclusiveOrientationSensorVector: BasicArrayList = GameFeatureChoiceGroups.getExclusiveInstance().get().get(OrientationData.getInstance().ORIENTATION_SENSOR_INPUT)
-        if exclusiveOrientationSensorVector is not None:
-            return True
-        return False
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.configuration.feature.GameFeatureChoiceGroups import GameFeatureChoiceGroups
-# from org.allbinary.game.configuration.feature.InGameFeatureChoiceGroups import InGameFeatureChoiceGroups
-# from org.allbinary.game.configuration.feature.SensorFeatureFactory import SensorFeatureFactory
-# from org.allbinary.game.configuration.feature.TouchFeatureFactory import TouchFeatureFactory
-# from org.allbinary.input.gyro.OrientationData import OrientationData
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-
+function isAny(this::InGameFeatures)
+        local features = AllBinary.getInstance(Features)
+        local touchFeatureFactory = AllBinary.getInstance(TouchFeatureFactory)
+        if AllBinary.isFeature(features, touchFeatureFactory.SHOW_SCREEN_BUTTONS) || AllBinary.isFeature(features, touchFeatureFactory.AUTO_HIDE_SHOW_SCREEN_BUTTONS) || AllBinary.isFeature(features, touchFeatureFactory.HIDE_SCREEN_BUTTONS)
+            return true
+        end
+        local exclusiveOrientationSensorVector = (AllBinary.get(AllBinary.get(AllBinary.getExclusiveInstance(GameFeatureChoiceGroups)), (AllBinary.getInstance(OrientationData).ORIENTATION_SENSOR_INPUT)))
+        if exclusiveOrientationSensorVector !== nothing
+            return true
+        end
+        return false
+end
 

@@ -1,75 +1,65 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends BaseTouchInput: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicNeededTouchButtonsBuilder <: JObject
+    logUtil::Any
+    BasicNeededTouchButtonsBuilder() = new()
+end
 
-from org.allbinary.input.motion.button.BaseTouchInput import BaseTouchInput
+
+function initFieldsBasicNeededTouchButtonsBuilder(this::BasicNeededTouchButtonsBuilder)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
+
+function initBasicNeededTouchButtonsBuilder(this::BasicNeededTouchButtonsBuilder)
+    initBaseTouchInput(this)
+    initFieldsBasicNeededTouchButtonsBuilder(this)
+end
+
+function newBasicNeededTouchButtonsBuilder()
+    this = BasicNeededTouchButtonsBuilder()
+    initBasicNeededTouchButtonsBuilder(this)
+    this
+end
 
 
-class BasicNeededTouchButtonsBuilder(BaseTouchInput):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.input.motion.button.TouchButtonLocationHelper import TouchButtonLocationHelper
-        from org.allbinary.input.motion.button.BasicTouchButtonCellPositionFactory import BasicTouchButtonCellPositionFactory
-        from org.allbinary.input.motion.button.CommonButtons import CommonButtons
-        from org.allbinary.input.motion.button.TouchButton import TouchButton
-        from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-        from org.allbinary.input.motion.button.TouchButton import TouchButton
-        from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-        from org.allbinary.input.motion.button.TouchButton import TouchButton
-        from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-        from org.allbinary.input.motion.button.TouchButton import TouchButton
-        from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        try:
-            self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-            list_: BasicArrayList = BasicArrayListD()
-            touchButtonLocationHelper: TouchButtonLocationHelper = TouchButtonLocationHelper()
-            basicTouchButtonCellPositionFactory: BasicTouchButtonCellPositionFactory = BasicTouchButtonCellPositionFactory()
-            commonButtons: CommonButtons = CommonButtons.getInstance()
-            animationInterface: Animation = NullAnimationFactory.getFactoryInstance().getInstance(0)
-            UP: TouchButton = TouchButton(BasicTouchInputFactory.getInstance().UP, animationInterface, animationInterface, commonButtons.NORMAL_BUTTON, basicTouchButtonCellPositionFactory.SECOND_FROM_BOTTOM_LEFT, touchButtonLocationHelper.getColumnsRemainderHalf(), touchButtonLocationHelper.getRowsRemainderHalf())
-            DOWN: TouchButton = TouchButton(BasicTouchInputFactory.getInstance().DOWN, animationInterface, animationInterface, commonButtons.NORMAL_BUTTON, basicTouchButtonCellPositionFactory.BOTTOM_LEFT, touchButtonLocationHelper.getColumnsRemainderHalf(), touchButtonLocationHelper.getRowsRemainderHalf())
-            LEFT: TouchButton = TouchButton(BasicTouchInputFactory.getInstance().LEFT, animationInterface, animationInterface, commonButtons.NORMAL_BUTTON, basicTouchButtonCellPositionFactory.BOTTOM_SECOND_FROM_RIGHT, touchButtonLocationHelper.getColumnsRemainderHalf(), touchButtonLocationHelper.getRowsRemainderHalf())
-            RIGHT: TouchButton = TouchButton(BasicTouchInputFactory.getInstance().RIGHT, animationInterface, animationInterface, commonButtons.NORMAL_BUTTON, basicTouchButtonCellPositionFactory.BOTTOM_RIGHT, touchButtonLocationHelper.getColumnsRemainderHalf(), touchButtonLocationHelper.getRowsRemainderHalf())
-            list_.add(UP)
-            list_.add(DOWN)
-            list_.add(LEFT)
-            list_.add(RIGHT)
-            return list_
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.GET_LIST, e)
-            return BasicArrayListUtil.getInstance().getImmutableInstance()
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-
+function getList(this::BasicNeededTouchButtonsBuilder)
+        try
+            AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+            local list = newBasicArrayListD()
+            local touchButtonLocationHelper = newTouchButtonLocationHelper()
+            local basicTouchButtonCellPositionFactory = newBasicTouchButtonCellPositionFactory()
+            local commonButtons = AllBinary.getInstance(CommonButtons)
+            local animationInterface = AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0))
+            local UP = newTouchButton(AllBinary.getInstance(BasicTouchInputFactory).UP, animationInterface, animationInterface, commonButtons.NORMAL_BUTTON, basicTouchButtonCellPositionFactory.SECOND_FROM_BOTTOM_LEFT, AllBinary.getColumnsRemainderHalf(touchButtonLocationHelper), AllBinary.getRowsRemainderHalf(touchButtonLocationHelper))
+            local DOWN = newTouchButton(AllBinary.getInstance(BasicTouchInputFactory).DOWN, animationInterface, animationInterface, commonButtons.NORMAL_BUTTON, basicTouchButtonCellPositionFactory.BOTTOM_LEFT, AllBinary.getColumnsRemainderHalf(touchButtonLocationHelper), AllBinary.getRowsRemainderHalf(touchButtonLocationHelper))
+            local LEFT = newTouchButton(AllBinary.getInstance(BasicTouchInputFactory).LEFT, animationInterface, animationInterface, commonButtons.NORMAL_BUTTON, basicTouchButtonCellPositionFactory.BOTTOM_SECOND_FROM_RIGHT, AllBinary.getColumnsRemainderHalf(touchButtonLocationHelper), AllBinary.getRowsRemainderHalf(touchButtonLocationHelper))
+            local RIGHT = newTouchButton(AllBinary.getInstance(BasicTouchInputFactory).RIGHT, animationInterface, animationInterface, commonButtons.NORMAL_BUTTON, basicTouchButtonCellPositionFactory.BOTTOM_RIGHT, AllBinary.getColumnsRemainderHalf(touchButtonLocationHelper), AllBinary.getRowsRemainderHalf(touchButtonLocationHelper))
+            AllBinary.add(list, UP)
+            AllBinary.add(list, DOWN)
+            AllBinary.add(list, LEFT)
+            AllBinary.add(list, RIGHT)
+            return list
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.GET_LIST, e)
+            return AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil))
+        end
+end
 

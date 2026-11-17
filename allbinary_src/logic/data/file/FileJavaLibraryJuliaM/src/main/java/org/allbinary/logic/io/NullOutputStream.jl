@@ -1,49 +1,69 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-# 
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-# 
-# Created By: Travis Berthelot 
-#  
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+  
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+  
+  Created By: Travis Berthelot 
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+# extends OutputStream: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NullOutputStream <: JObject
+    NullOutputStream() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from java.io.OutputStream import OutputStream
+const NullOutputStream_NULL_OUTPUT_STREAMValue = Ref{Any}(nothing)
+const NullOutputStream_NULL_OUTPUT_STREAMSet = Ref(false)
+function staticGet_NULL_OUTPUT_STREAM(::Type{NullOutputStream})
+    if !NullOutputStream_NULL_OUTPUT_STREAMSet[]
+        NullOutputStream_NULL_OUTPUT_STREAMSet[] = true
+        NullOutputStream_NULL_OUTPUT_STREAMValue[] = newNullOutputStream()
+    end
+    NullOutputStream_NULL_OUTPUT_STREAMValue[]
+end
+function staticSet_NULL_OUTPUT_STREAM(::Type{NullOutputStream}, value)
+    NullOutputStream_NULL_OUTPUT_STREAMSet[] = true
+    NullOutputStream_NULL_OUTPUT_STREAMValue[] = value
+end
+
+function initFieldsNullOutputStream(this::NullOutputStream)
+    nothing
+end
+
+function initNullOutputStream(this::NullOutputStream)
+    initOutputStream(this)
+    initFieldsNullOutputStream(this)
+end
+
+function newNullOutputStream()
+    this = NullOutputStream()
+    initNullOutputStream(this)
+    this
+end
 
 
-class NullOutputStream(OutputStream):
-    NULL_OUTPUT_STREAM: NullOutputStream = None
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    # throws IOException
-    def write(self, b: int) -> None:
-        pass
-    
-
-    # throws IOException
-    # Java overloaded method: Python keeps the last definition
-    def write(self, b: list[int], off: int, len_: int) -> None:
-        pass
-    
-
-    def close(self) -> None:
-        pass
-# from java.io.IOException import IOException
+function write(this::NullOutputStream, b)
+        nothing
+        nothing
+end
 
 
-def _NullOutputStream_NULL_OUTPUT_STREAM() -> object:
-    return NullOutputStream()
+function write(this::NullOutputStream, b, off, len)
+        nothing
+        nothing
+end
 
-lazy_static(NullOutputStream, "NULL_OUTPUT_STREAM", _NullOutputStream_NULL_OUTPUT_STREAM)
+
+function close(this::NullOutputStream)
+        nothing
+        nothing
+end
 

@@ -1,36 +1,57 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles
 
-from __future__ import annotations
+mutable struct OpenGLUtil <: JObject
+    OpenGLUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const OpenGLUtil_instanceValue = Ref{Any}(nothing)
+const OpenGLUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{OpenGLUtil})
+    if !OpenGLUtil_instanceSet[]
+        OpenGLUtil_instanceSet[] = true
+        OpenGLUtil_instanceValue[] = newOpenGLUtil()
+    end
+    OpenGLUtil_instanceValue[]
+end
+function staticSet_instance(::Type{OpenGLUtil}, value)
+    OpenGLUtil_instanceSet[] = true
+    OpenGLUtil_instanceValue[] = value
+end
+
+function initFieldsOpenGLUtil(this::OpenGLUtil)
+    nothing
+end
+
+function initOpenGLUtil(this::OpenGLUtil)
+    initFieldsOpenGLUtil(this)
+end
+
+function newOpenGLUtil()
+    this = OpenGLUtil()
+    initOpenGLUtil(this)
+    this
+end
 
 
-class OpenGLUtil:
-    instance: OpenGLUtil = None
-    
+function getInstance(::Type{OpenGLUtil})
+        return staticGet_instance(OpenGLUtil)
+end
 
-    @staticmethod
-    def getInstance() -> OpenGLUtil:
-        return OpenGLUtil.instance
-    
 
-    def addImage(self, image: Image) -> Image:
-        from javax.microedition.lcdui.Image import Image
+function addImage(this::OpenGLUtil, image)
         return image
-    
-
-    def clear(self) -> None:
-        pass
-    
-
-    def addRunnable(self, runnable: object) -> None:
-        pass
-# from javax.microedition.lcdui.Image import Image
+end
 
 
-def _OpenGLUtil_instance() -> object:
-    return OpenGLUtil()
+function clear(this::OpenGLUtil)
+        nothing
+        nothing
+end
 
-lazy_static(OpenGLUtil, "instance", _OpenGLUtil_instance)
+
+function addRunnable(this::OpenGLUtil, runnable)
+        nothing
+        nothing
+end
 

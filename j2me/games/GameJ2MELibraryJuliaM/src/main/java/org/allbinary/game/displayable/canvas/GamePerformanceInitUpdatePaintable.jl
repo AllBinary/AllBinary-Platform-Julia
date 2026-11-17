@@ -1,83 +1,103 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends InitUpdatePaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GamePerformanceInitUpdatePaintable <: JObject
+    halfHeight::Int32
+    yArray::Any
+    myFontProcessor::Any
+    baseRefreshHelperCharArray::Any
+    defaultStringWidth::Int32
+    RED::Int32
+    GamePerformanceInitUpdatePaintable() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.paint.InitUpdatePaintable import InitUpdatePaintable
+
+function initFieldsGamePerformanceInitUpdatePaintable(this::GamePerformanceInitUpdatePaintable)
+    this.halfHeight = Int32(0)
+    this.yArray = nothing
+    this.myFontProcessor = nothing
+    this.baseRefreshHelperCharArray = nothing
+    this.defaultStringWidth = Int32(0)
+    this.RED = Int32(0)
+    this.halfHeight = AllBinary.getLastHalfHeight(AllBinary.getInstance(DisplayInfoSingleton))
+    this.yArray = Int32[this.halfHeight + Int32(30), this.halfHeight + Int32(30), this.halfHeight + Int32(30) + Int32(15), this.halfHeight + Int32(30) + Int32(15), this.halfHeight + Int32(30) + Int32(30), this.halfHeight + Int32(30) + Int32(30), this.halfHeight + Int32(30) + Int32(45), this.halfHeight + Int32(30) + Int32(45)]
+    this.myFontProcessor = newUpdateMyFontProcessor(this)
+    this.baseRefreshHelperCharArray = jNewArrayOf(Vector{UInt16}, Int32(0), () -> jNewArray(UInt16, Int32(0), UInt16(0)))
+    this.defaultStringWidth = Int32(0)
+    this.RED = AllBinary.intValue(AllBinary.getInstance(BasicColorFactory).RED)
+    nothing
+end
+
+function initGamePerformanceInitUpdatePaintable(this::GamePerformanceInitUpdatePaintable)
+    initInitUpdatePaintable(this)
+    initFieldsGamePerformanceInitUpdatePaintable(this)
+end
+
+function newGamePerformanceInitUpdatePaintable()
+    this = GamePerformanceInitUpdatePaintable()
+    initGamePerformanceInitUpdatePaintable(this)
+    this
+end
 
 
-class GamePerformanceInitUpdatePaintable(InitUpdatePaintable, UpdateMyFontInterface):
+function updateMeasurement(this::GamePerformanceInitUpdatePaintable, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.defaultStringWidth = AllBinary.defaultStringWidth(MyFontProcessor, font, Int32(2))
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        self.halfHeight: int = DisplayInfoSingleton.getInstance().getLastHalfHeight()
-        self.yArray: list[int] = [self.halfHeight + 30, self.halfHeight + 30, self.halfHeight + 30 + 15, self.halfHeight + 30 + 15, self.halfHeight + 30 + 30, self.halfHeight + 30 + 30, self.halfHeight + 30 + 45, self.halfHeight + 30 + 45]
-        self.myFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.baseRefreshHelperCharArray: list[list[str]] = [['\0'] * (0) for _ in range(0)]
-        self.defaultStringWidth: int = 0
-        self.RED: int = int(BasicColorFactory.getInstance().RED)
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
+function init(this::GamePerformanceInitUpdatePaintable)
+        nothing
+        nothing
+end
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.defaultStringWidth = MyFontProcessor.defaultStringWidth(font, 2)
-        self.myFontProcessor = MyFontProcessor.getInstance()
-    
 
-    def init(self) -> None:
-        pass
-    
+function update(this::GamePerformanceInitUpdatePaintable)
+        this.baseRefreshHelperCharArray = AllBinary.to2DCharArray(AllBinary.getInstance(GameStatisticsFactory))
+        nothing
+end
 
-    def update(self) -> None:
-        from org.allbinary.canvas.GameStatisticsFactory import GameStatisticsFactory
-        self.baseRefreshHelperCharArray = GameStatisticsFactory.getInstance().to2DCharArray()
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        graphics.setColor(self.RED)
-        charArray: list[str] = None
-        charArray2: list[str] = None
-        size2: int = 0
-        size3: int = 0
-        size: int = len(self.baseRefreshHelperCharArray) - 2
-        for index in range(size, 0 - 1, -2):
-            charArray = self.baseRefreshHelperCharArray[index]
-            charArray2 = self.baseRefreshHelperCharArray[index + 1]
-            size2 = len(charArray)
-            size3 = len(charArray2)
-            graphics.drawChars(charArray, 0, size2, 0, self.yArray[index], 0)
-            graphics.drawChars(charArray2, 0, size3, size2 * self.defaultStringWidth, self.yArray[index + 1], 0)
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.canvas.GameStatisticsFactory import GameStatisticsFactory
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-
+function paint(this::GamePerformanceInitUpdatePaintable, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.setColor(graphics, this.RED)
+        local charArray = nothing
+        local charArray2 = nothing
+        local size2::Int32 = Int32(0)
+        local size3::Int32 = Int32(0)
+        local size::Int32 = Int32(Base.length(this.baseRefreshHelperCharArray)) - Int32(2)
+        let
+            local index::Int32 = size
+            while index >= Int32(0)
+            try
+            charArray = this.baseRefreshHelperCharArray[index + 1]
+            charArray2 = this.baseRefreshHelperCharArray[index + Int32(1) + 1]
+            size2 = Int32(Base.length(charArray))
+            size3 = Int32(Base.length(charArray2))
+            AllBinary.drawChars(graphics, charArray, Int32(0), size2, Int32(0), this.yArray[index + 1], Int32(0))
+            AllBinary.drawChars(graphics, charArray2, Int32(0), size3, size2 * this.defaultStringWidth, this.yArray[index + Int32(1) + 1], Int32(0))
+            finally
+                index -= Int32(2)
+            end
+            end
+        end
+        nothing
+end
 

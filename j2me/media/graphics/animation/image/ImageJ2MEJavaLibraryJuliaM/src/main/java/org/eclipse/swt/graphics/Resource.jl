@@ -1,18 +1,33 @@
 # Generated Code Do Not Modify
 # package org.eclipse.swt.graphics
 
-from __future__ import annotations
+mutable struct Resource <: JObject
+    Resource() = new()
+end
 
 
+function initFieldsResource(this::Resource)
+    nothing
+end
 
-class Resource:
-    
+function initResource(this::Resource)
+    initFieldsResource(this)
+end
 
-    def dispose(self) -> None:
-        pass
-    
+function newResource()
+    this = Resource()
+    initResource(this)
+    this
+end
 
-    def isDisposed(self) -> bool:
-        return False
 
+function dispose(this::Resource)
+        nothing
+        nothing
+end
+
+
+function isDisposed(this::Resource)
+        return false
+end
 

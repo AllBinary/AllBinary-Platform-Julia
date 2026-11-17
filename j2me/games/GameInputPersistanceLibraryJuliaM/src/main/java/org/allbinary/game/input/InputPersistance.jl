@@ -1,185 +1,180 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
-
-from org.allbinary.game.configuration.persistance.BasicPersitance import BasicPersitance
-
-
 #GameInputPersistanceLibrary
-class InputPersistance(BasicPersitance):
+# extends BasicPersitance: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct InputPersistance <: JObject
+    tsUtil::Any
+    hashtableUtil::Any
+    InputPersistance() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        from org.allbinary.util.HashtableUtil import HashtableUtil
-        self.tsUtil: TsUtil = TsUtil.getInstance()
-        self.hashtableUtil: HashtableUtil = HashtableUtil.getInstance()
-    
 
-    def __init__(self, name: str) -> None:
-        super().__init__(name)
-        self._init_fields()
-    
+function initFieldsInputPersistance(this::InputPersistance)
+    this.tsUtil = nothing
+    this.hashtableUtil = nothing
+    this.tsUtil = AllBinary.getInstance(TsUtil)
+    this.hashtableUtil = AllBinary.getInstance(HashtableUtil)
+    nothing
+end
 
-    # throws Exception
-    def loadAll(self, abeClientInformation: AbeClientInformationInterface) -> None:
-        from org.allbinary.game.input.GameKeyMappingFactory import GameKeyMappingFactory
-        from org.allbinary.game.input.InputFactory import InputFactory
-        from java.io.DataInputStream import DataInputStream
-        from javax.microedition.rms.RecordEnumeration import RecordEnumeration
-        from javax.microedition.rms.RecordStore import RecordStore
-        from org.allbinary.game.configuration.persistance.NullRecordComparator import NullRecordComparator
-        from org.allbinary.game.configuration.persistance.NullRecordFilter import NullRecordFilter
-        from org.allbinary.game.configuration.persistance.NullRecordStore import NullRecordStore
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        from org.allbinary.logic.StdUtil import StdUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        recordStore: RecordStore = NullRecordStore.NULL_RECORD_STORE
-        try:
-            recordStore = RecordStore.openRecordStore(self.getRecordId(abeClientInformation), True)
-            recordEnum: RecordEnumeration = recordStore.enumerateRecords(NullRecordFilter.NULL_RECORD_FILTER, NullRecordComparator.NULL_RECORD_COMPARATOR, True)
-            gameActionInputId: int = 0
-            inputId: int = 0
-            gameActionInput: Input = None
-            input: Input = None
-            hashtable: ABHashtable[object, object] = None
-            gameKeyFactory: GameKeyMappingFactory = GameKeyMappingFactory.getInstance()
-            stringBuffer: StringMaker = StringMaker()
-            inputFactory: InputFactory = InputFactory.getInstance()
-            smallIntegerSingletonFactory: SmallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-            stdUtil: StdUtil = StdUtil.getInstance()
-            recordAsBytes: list[int] = None
-            byteArrayInputStream: ByteArrayInputStream = None
-            inputStream: DataInputStream = None
-            while recordEnum.hasNextElement():
-                id: int = recordEnum.nextRecordId()
-                stringBuffer.delete(0, stringBuffer.length())
-                self.logUtil.putF(str(stringBuffer.append(self.persistanceStrings.LOADING_ID).appendint(id)), self, self.persistanceStrings.LOAD_ALL)
-                recordAsBytes = self.tsUtil.getRecord(recordStore, id)
-                if recordAsBytes is not None:
-                    byteArrayInputStream = ByteArrayInputStream(recordAsBytes)
-                    inputStream = DataInputStream(byteArrayInputStream)
-                    hashtable = stdUtil.createHashtable()
-                    value: int = 0
-                    while inputStream.available() > 0:
-                        gameActionInputIdAsString: str = inputStream.readUTF()
-                        value = int(gameActionInputIdAsString)
-                        gameActionInputId = value
-                        inputStream.readUTF()
-                        value = int(inputStream.readUTF())
-                        inputId = value
-                        gameActionInput = gameKeyFactory.getGameKey(gameActionInputId)
-                        input = inputFactory.getInstanceById(inputId)
-                        if input == inputFactory.NO_INPUT or gameActionInput is None:
-                            stringBuffer.delete(0, stringBuffer.length())
-                            if input == inputFactory.NO_INPUT:
-                                stringBuffer.append(self.persistanceStrings.ERROR_LOADING_ID)
-                                stringBuffer.appendlong(inputId)
-                                stringBuffer.append(self.persistanceStrings.GAME_ACTION_INPUT)
-                                stringBuffer.appendlong(gameActionInputId)
-                                PreLogUtil.put(str(stringBuffer), self, self.persistanceStrings.LOAD_ALL)
-                            if gameActionInput is None:
-                                stringBuffer.delete(0, stringBuffer.length())
-                                stringBuffer.append(self.persistanceStrings.ERROR_LOADING)
-                                stringBuffer.appendlong(gameActionInputId)
-                                stringBuffer.append(self.persistanceStrings.ID)
-                                stringBuffer.appendlong(inputId)
-                                PreLogUtil.put(str(stringBuffer), self, self.persistanceStrings.LOAD_ALL)
-                        else:
-                            pass
-                        hashtable.put(input, gameActionInput)
-                    self.valueList.add(hashtable)
-                    self.idList.add(smallIntegerSingletonFactory.getAt(id))
-                else:
-                    pass
-        except Exception as e:
-            raise e
-        finally:
-            if recordStore is not None:
-                PreLogUtil.put(self.persistanceStrings.CLOSING_RECORDSTORE, self, self.persistanceStrings.LOAD_ALL)
-                recordStore.closeRecordStore()
-    
 
-    # throws Exception
-    def save(self, abeClientInformation: AbeClientInformationInterface, hashtable: ABHashtable[object, object]) -> None:
-        from java.io.DataOutputStream import DataOutputStream
-        from javax.microedition.rms.RecordStore import RecordStore
-        from org.allbinary.game.configuration.persistance.NullRecordStore import NullRecordStore
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        from org.allbinary.string.CommonSeps import CommonSeps
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.ABHashtable import ABHashtable
-        recordStore: RecordStore = NullRecordStore.NULL_RECORD_STORE
-        try:
-            stringBuffer: StringMaker = StringMaker()
-            PreLogUtil.put(str(stringBuffer.append(self.persistanceStrings.SAVING).append(StringUtil.getInstance().toString(hashtable))), self, self.commonStrings.SAVE)
-            recordStore = RecordStore.openRecordStore(self.getRecordId(abeClientInformation), True)
-            byteArrayOutputStream: ByteArrayOutputStream = ByteArrayOutputStream()
-            outputStream: DataOutputStream = DataOutputStream(byteArrayOutputStream)
-            gameActionInput: Input = None
-            list_: BasicArrayList = None
-            input: Input = None
-            savedGameBytes: list[int] = None
-            commonSeps: CommonSeps = CommonSeps.getInstance()
-            smallIntegerSingletonFactory: SmallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-            inputObjectArray: list[object] = self.hashtableUtil.getKeysAsArray(hashtable)
-            size: int = len(inputObjectArray)
-            for index in range(0, size):
-                gameActionInput = inputObjectArray[index]
-                list_ = hashtable.get(inputObjectArray[index])
-                for index2 in range(0, list_.size()):
-                    gameActionInputIdAsString: str = str(smallIntegerSingletonFactory.getAt(gameActionInput.getId()))
-                    outputStream.writeUTF(gameActionInputIdAsString)
-                    outputStream.writeUTF(commonSeps.EQUALS)
-                    input = list_.objectArray[index2]
-                    inputIdAsString: str = str(smallIntegerSingletonFactory.getAt(input.getId()))
-                    outputStream.writeUTF(inputIdAsString)
-            savedGameBytes = byteArrayOutputStream.toByteArray()
-            recordStore.addRecord(savedGameBytes, 0, len(savedGameBytes))
-        except Exception as e:
-            raise e
-        finally:
-            if recordStore is not None:
-                PreLogUtil.put(self.persistanceStrings.CLOSING_RECORDSTORE, self, self.commonStrings.SAVE)
-                recordStore.closeRecordStore()
-# from java.io.ByteArrayInputStream import ByteArrayInputStream
-# from java.io.ByteArrayOutputStream import ByteArrayOutputStream
-# from java.io.DataInputStream import DataInputStream
-# from java.io.DataOutputStream import DataOutputStream
-# from javax.microedition.rms.RecordEnumeration import RecordEnumeration
-# from javax.microedition.rms.RecordStore import RecordStore
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.game.configuration.persistance.NullRecordComparator import NullRecordComparator
-# from org.allbinary.game.configuration.persistance.NullRecordFilter import NullRecordFilter
-# from org.allbinary.game.configuration.persistance.NullRecordStore import NullRecordStore
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.HashtableUtil import HashtableUtil
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.util.ABHashtable import ABHashtable
+function initInputPersistance(this::InputPersistance, name)
+        initBasicPersitance(this, name)
+        initFieldsInputPersistance(this)
+        nothing
+end
 
+function newInputPersistance(name)
+    this = InputPersistance()
+    initInputPersistance(this, name)
+    this
+end
+
+
+function loadAll(this::InputPersistance, abeClientInformation)
+        local recordStore = staticGet_NULL_RECORD_STORE(NullRecordStore)
+        try
+            recordStore = AllBinary.openRecordStore(RecordStore, AllBinary.getRecordId(this, abeClientInformation), true)
+            local recordEnum = AllBinary.enumerateRecords(recordStore, staticGet_NULL_RECORD_FILTER(NullRecordFilter), staticGet_NULL_RECORD_COMPARATOR(NullRecordComparator), true)
+            local gameActionInputId::Int64 = Int64(0)
+            local inputId::Int64 = Int64(0)
+            local gameActionInput = nothing
+            local input = nothing
+            local hashtable = nothing
+            local gameKeyFactory = AllBinary.getInstance(GameKeyMappingFactory)
+            local stringBuffer = newStringMaker()
+            local inputFactory = AllBinary.getInstance(InputFactory)
+            local smallIntegerSingletonFactory = AllBinary.getInstance(SmallIntegerSingletonFactory)
+            local stdUtil = AllBinary.getInstance(StdUtil)
+            local recordAsBytes = nothing
+            local byteArrayInputStream = nothing
+            local inputStream = nothing
+            while AllBinary.hasNextElement(recordEnum)
+                local id::Int32 = AllBinary.nextRecordId(recordEnum)
+                AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(stringBuffer, this.persistanceStrings.LOADING_ID), id)), this, this.persistanceStrings.LOAD_ALL)
+                recordAsBytes = AllBinary.getRecord(this.tsUtil, recordStore, id)
+                if recordAsBytes !== nothing
+                    byteArrayInputStream = newByteArrayInputStream(recordAsBytes)
+                    inputStream = newDataInputStream(byteArrayInputStream)
+                    hashtable = AllBinary.createHashtable(stdUtil)
+                    local value::Int32 = Int32(0)
+                    while AllBinary.available(inputStream) > Int32(0)
+                        local gameActionInputIdAsString = AllBinary.readUTF(inputStream)
+                        value = Base.parse(Int32, gameActionInputIdAsString)
+                        gameActionInputId = ((value) % Int64)
+                        AllBinary.readUTF(inputStream)
+                        value = Base.parse(Int32, AllBinary.readUTF(inputStream))
+                        inputId = ((value) % Int64)
+                        gameActionInput = AllBinary.getGameKey(gameKeyFactory, ((gameActionInputId) % Int32))
+                        input = AllBinary.getInstanceById(inputFactory, ((inputId) % Int32))
+                        if input === inputFactory.NO_INPUT || gameActionInput === nothing
+                            AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+                            if input === inputFactory.NO_INPUT
+                                AllBinary.append(stringBuffer, this.persistanceStrings.ERROR_LOADING_ID)
+                                AllBinary.appendlong(stringBuffer, inputId)
+                                AllBinary.append(stringBuffer, this.persistanceStrings.GAME_ACTION_INPUT)
+                                AllBinary.appendlong(stringBuffer, gameActionInputId)
+                                AllBinary.put(PreLogUtil, AllBinary.toString(stringBuffer), this, this.persistanceStrings.LOAD_ALL)
+                            end
+                            if gameActionInput === nothing
+                                AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+                                AllBinary.append(stringBuffer, this.persistanceStrings.ERROR_LOADING)
+                                AllBinary.appendlong(stringBuffer, gameActionInputId)
+                                AllBinary.append(stringBuffer, this.persistanceStrings.ID)
+                                AllBinary.appendlong(stringBuffer, inputId)
+                                AllBinary.put(PreLogUtil, AllBinary.toString(stringBuffer), this, this.persistanceStrings.LOAD_ALL)
+                            end
+                        else
+                            nothing
+                        end
+                        AllBinary.put(hashtable, input, gameActionInput)
+                    end
+                    AllBinary.add(this.valueList, hashtable)
+                    AllBinary.add(this.idList, AllBinary.getAt(smallIntegerSingletonFactory, id))
+                else
+                    nothing
+                end
+            end
+        catch e
+            throw(e)
+        finally
+            if recordStore !== nothing
+                AllBinary.put(PreLogUtil, this.persistanceStrings.CLOSING_RECORDSTORE, this, this.persistanceStrings.LOAD_ALL)
+                AllBinary.closeRecordStore(recordStore)
+            end
+        end
+        nothing
+end
+
+
+function save(this::InputPersistance, abeClientInformation, hashtable)
+        local recordStore = staticGet_NULL_RECORD_STORE(NullRecordStore)
+        try
+            local stringBuffer = newStringMaker()
+            AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.append(AllBinary.append(stringBuffer, this.persistanceStrings.SAVING), AllBinary.toString(AllBinary.getInstance(StringUtil), hashtable))), this, this.commonStrings.SAVE)
+            recordStore = AllBinary.openRecordStore(RecordStore, AllBinary.getRecordId(this, abeClientInformation), true)
+            local byteArrayOutputStream = newByteArrayOutputStream()
+            local outputStream = newDataOutputStream(byteArrayOutputStream)
+            local gameActionInput = nothing
+            local list = nothing
+            local input = nothing
+            local savedGameBytes = nothing
+            local commonSeps = AllBinary.getInstance(CommonSeps)
+            local smallIntegerSingletonFactory = AllBinary.getInstance(SmallIntegerSingletonFactory)
+            local inputObjectArray = AllBinary.getKeysAsArray(this.hashtableUtil, hashtable)
+            local size::Int32 = Int32(Base.length(inputObjectArray))
+            let
+                local index::Int32 = Int32(0)
+                while index < size
+                try
+                gameActionInput = (inputObjectArray[index + 1])
+                list = (AllBinary.get(hashtable, (inputObjectArray[index + 1])))
+                let
+                    local index2::Int32 = Int32(0)
+                    while index2 < AllBinary.size(list)
+                    try
+                    local gameActionInputIdAsString = AllBinary.toString(AllBinary.getAt(smallIntegerSingletonFactory, AllBinary.getId(gameActionInput)))
+                    AllBinary.writeUTF(outputStream, gameActionInputIdAsString)
+                    AllBinary.writeUTF(outputStream, commonSeps.EQUALS)
+                    input = (list.objectArray[index2 + 1])
+                    local inputIdAsString = AllBinary.toString(AllBinary.getAt(smallIntegerSingletonFactory, AllBinary.getId(input)))
+                    AllBinary.writeUTF(outputStream, inputIdAsString)
+                    finally
+                        index2 += Int32(1)
+                    end
+                    end
+                end
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+            savedGameBytes = AllBinary.toByteArray(byteArrayOutputStream)
+            AllBinary.addRecord(recordStore, savedGameBytes, Int32(0), Int32(Base.length(savedGameBytes)))
+        catch e
+            throw(e)
+        finally
+            if recordStore !== nothing
+                AllBinary.put(PreLogUtil, this.persistanceStrings.CLOSING_RECORDSTORE, this, this.commonStrings.SAVE)
+                AllBinary.closeRecordStore(recordStore)
+            end
+        end
+        nothing
+end
 

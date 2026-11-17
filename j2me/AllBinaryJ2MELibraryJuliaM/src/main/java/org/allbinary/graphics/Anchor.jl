@@ -1,31 +1,49 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics
 
-from __future__ import annotations
+mutable struct Anchor <: JObject
+    Anchor() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const Anchor_TOP_LEFTValue = Ref{Any}(nothing)
+const Anchor_TOP_LEFTSet = Ref(false)
+function staticGet_TOP_LEFT(::Type{Anchor})
+    if !Anchor_TOP_LEFTSet[]
+        Anchor_TOP_LEFTSet[] = true
+        Anchor_TOP_LEFTValue[] = staticGet_TOP(Graphics) & staticGet_LEFT(Graphics)
+    end
+    Anchor_TOP_LEFTValue[]
+end
+function staticSet_TOP_LEFT(::Type{Anchor}, value)
+    Anchor_TOP_LEFTSet[] = true
+    Anchor_TOP_LEFTValue[] = value
+end
 
+function initFieldsAnchor(this::Anchor)
+    nothing
+end
 
-class Anchor:
-    TOP_LEFT: int = None
-# from javax.microedition.lcdui.Graphics import Graphics
+function initAnchor(this::Anchor)
+    initFieldsAnchor(this)
+end
 
-
-def _Anchor_TOP_LEFT() -> object:
-    from javax.microedition.lcdui.Graphics import Graphics
-    return Graphics.TOP & Graphics.LEFT
-
-lazy_static(Anchor, "TOP_LEFT", _Anchor_TOP_LEFT)
+function newAnchor()
+    this = Anchor()
+    initAnchor(this)
+    this
+end
 

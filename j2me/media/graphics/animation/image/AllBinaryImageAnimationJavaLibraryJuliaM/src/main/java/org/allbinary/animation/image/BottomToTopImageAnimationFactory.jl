@@ -1,43 +1,45 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends BaseImageAnimationFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BottomToTopImageAnimationFactory <: JObject
+    BottomToTopImageAnimationFactory() = new()
+end
 
-from org.allbinary.animation.image.BaseImageAnimationFactory import BaseImageAnimationFactory
+
+function initFieldsBottomToTopImageAnimationFactory(this::BottomToTopImageAnimationFactory)
+    nothing
+end
 
 
-class BottomToTopImageAnimationFactory(BaseImageAnimationFactory):
-    
+function initBottomToTopImageAnimationFactory(this::BottomToTopImageAnimationFactory, image, animationBehaviorFactory)
+        initBaseImageAnimationFactory(this, image, AllBinary.getArrayInstance(PrimitiveIntUtil), AllBinary.getWidth(image), AllBinary.getHeight(image), Int32(0), Int32(0), animationBehaviorFactory)
+        nothing
+end
 
-    def __init__(self, image: Image, animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        super().__init__(image, PrimitiveIntUtil.getArrayInstance(), image.getWidth(), image.getHeight(), 0, 0, animationBehaviorFactory)
-    
+function newBottomToTopImageAnimationFactory(image, animationBehaviorFactory)
+    this = BottomToTopImageAnimationFactory()
+    initBottomToTopImageAnimationFactory(this, image, animationBehaviorFactory)
+    this
+end
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.image.BottomToTopImageAnimation import BottomToTopImageAnimation
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.Animation import Animation
-        scaledImage: Image = self.animationFactoryImageScaleUtil.createImage(self.getImage(), self.animationFactoryInitializationVisitor.width, self.animationFactoryInitializationVisitor.height, self.scaleProperties.scaleWidth, self.scaleProperties.scaleHeight)
-        return BottomToTopImageAnimation(scaledImage, self.animationBehaviorFactory.getOrCreateInstance())
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
 
+function getInstance(this::BottomToTopImageAnimationFactory, instanceId)
+        local scaledImage = AllBinary.createImage(this.animationFactoryImageScaleUtil, AllBinary.getImage(this), this.animationFactoryInitializationVisitor.width, this.animationFactoryInitializationVisitor.height, this.scaleProperties.scaleWidth, this.scaleProperties.scaleHeight)
+        return newBottomToTopImageAnimation(scaledImage, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+end
 

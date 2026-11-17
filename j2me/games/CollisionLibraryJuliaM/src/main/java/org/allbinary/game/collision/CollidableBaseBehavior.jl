@@ -1,98 +1,106 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.collision
 
-from __future__ import annotations
+mutable struct CollidableBaseBehavior <: JObject
+    logUtil::Any
+    commonStrings::Any
+    layerCollisionUtil::Any
+    collidable::Bool
+    CollidableBaseBehavior() = new()
+end
 
-from org.allbinary.game.collision.CollidableInterface import CollidableInterface
+
+function initFieldsCollidableBaseBehavior(this::CollidableBaseBehavior)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.layerCollisionUtil = nothing
+    this.collidable = false
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.layerCollisionUtil = AllBinary.getInstance(LayerCollisionUtil)
+    this.collidable = true
+    nothing
+end
 
 
-class CollidableBaseBehavior(CollidableInterface):
+function initCollidableBaseBehavior(this::CollidableBaseBehavior, collidable)
+        initFieldsCollidableBaseBehavior(this)
+        this.collidable = collidable
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.layerCollisionUtil: LayerCollisionUtil = LayerCollisionUtil.getInstance()
-        self.collidable: bool = True
-    
+function newCollidableBaseBehavior(collidable)
+    this = CollidableBaseBehavior()
+    initCollidableBaseBehavior(this, collidable)
+    this
+end
 
-    def __init__(self, collidable: bool) -> None:
-        self._init_fields()
-        self.collidable = collidable
-    
 
-    def update(self) -> None:
-        pass
-    
+function update(this::CollidableBaseBehavior)
+        nothing
+        nothing
+end
 
-    def getName(self) -> str:
-        return type(self).__module__ + "." + type(self).__qualname__
-    
 
-    def setCollidable(self, collidable: bool) -> None:
-        self.collidable = collidable
-    
+function getName(this::CollidableBaseBehavior)
+        return jClassName(this)
+end
 
-    def isCollidable(self, ownerLayer: CollidableCompositeLayer) -> bool:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        return self.collidable
-    
 
-    # throws Exception
-    def collide(self, ownerLayer: CollidableCompositeLayer, allbinaryCollidableLayer: CollidableCompositeLayer) -> None:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        raise Exception(str(StringMaker().append(self.commonStrings.NOT_IMPLEMENTED).append(CommonLabels.getInstance().COLON_SEP).append(type(self).__module__ + "." + type(self).__qualname__)))
-    
+function setCollidable(this::CollidableBaseBehavior, collidable)
+        this.collidable = collidable
+        nothing
+end
 
-    def isCollision(self, ownerLayer: CollidableCompositeLayer, collisionLayer: CollidableCompositeLayer) -> bool:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        return self.layerCollisionUtil.isCollision(ownerLayer, collisionLayer)
-    
 
-    def isCollisionInterface(self, ownerLayer: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableInterfaceCompositeInterface) -> bool:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return self.layerCollisionUtil.isCollision(ownerLayer, collidableInterfaceCompositeInterface)
-    
+function isCollidable(this::CollidableBaseBehavior, ownerLayer)
+        return this.collidable
+end
 
-    # throws Exception
-    def collideInterface(self, ownerLayer: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableInterfaceCompositeInterface) -> None:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        raise Exception(self.commonStrings.NOT_IMPLEMENTED)
-    
 
-    def paint(self, ownerLayer: CollidableCompositeLayer, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        pass
-    
+function collide(this::CollidableBaseBehavior, ownerLayer, allbinaryCollidableLayer)
+        throw(jNewException("Exception", AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), this.commonStrings.NOT_IMPLEMENTED), AllBinary.getInstance(CommonLabels).COLON_SEP), jClassName(this)))))
+        nothing
+end
 
-    def getCollisionTypeWith(self, layerInterface: AllBinaryLayer) -> CollisionType:
-        from org.allbinary.game.collision.CollisionTypeFactory import CollisionTypeFactory
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return CollisionTypeFactory.getInstance().NONE
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.game.collision.LayerCollisionUtil import LayerCollisionUtil
 
+function isCollision(this::CollidableBaseBehavior, ownerLayer, collisionLayer)
+        return AllBinary.isCollision(this.layerCollisionUtil, ownerLayer, collisionLayer)
+end
+
+
+function isCollisionInterface(this::CollidableBaseBehavior, ownerLayer, collidableInterfaceCompositeInterface)
+        return AllBinary.isCollision(this.layerCollisionUtil, ownerLayer, (collidableInterfaceCompositeInterface))
+end
+
+
+function collideInterface(this::CollidableBaseBehavior, ownerLayer, collidableInterfaceCompositeInterface)
+        throw(jNewException("Exception", this.commonStrings.NOT_IMPLEMENTED))
+        nothing
+end
+
+
+function paint(this::CollidableBaseBehavior, ownerLayer, graphics)
+        nothing
+        nothing
+end
+
+
+function getCollisionTypeWith(this::CollidableBaseBehavior, layerInterface)
+        return AllBinary.getInstance(CollisionTypeFactory).NONE
+end
 

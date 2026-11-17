@@ -1,11 +1,22 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
+mutable struct ChoiceGroupItem <: JObject
+    ChoiceGroupItem() = new()
+end
 
 
+function initFieldsChoiceGroupItem(this::ChoiceGroupItem)
+    nothing
+end
 
-class ChoiceGroupItem:
-    pass
+function initChoiceGroupItem(this::ChoiceGroupItem)
+    initFieldsChoiceGroupItem(this)
+end
 
+function newChoiceGroupItem()
+    this = ChoiceGroupItem()
+    initChoiceGroupItem(this)
+    this
+end
 

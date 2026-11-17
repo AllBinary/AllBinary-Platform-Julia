@@ -1,54 +1,64 @@
 # Generated Code Do Not Modify
 # package org.allbinary.physics.movement
 
-from __future__ import annotations
+# extends BasicConstantVelocityMovement: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct PreciseConstantVelocityMovement <: JObject
+    accumulatedX::Int32
+    accumulatedY::Int32
+    accumulatedZ::Int32
+    factorValue::Int32
+    PreciseConstantVelocityMovement() = new()
+end
 
-from org.allbinary.physics.movement.BasicConstantVelocityMovement import BasicConstantVelocityMovement
+
+function initFieldsPreciseConstantVelocityMovement(this::PreciseConstantVelocityMovement)
+    this.accumulatedX = Int32(0)
+    this.accumulatedY = Int32(0)
+    this.accumulatedZ = Int32(0)
+    this.factorValue = Int32(0)
+    this.accumulatedX = Int32(0)
+    this.accumulatedY = Int32(0)
+    this.accumulatedZ = Int32(0)
+    this.factorValue = AllBinary.getInstance(ScaleFactorFactory).DEFAULT_SCALE_VALUE
+    nothing
+end
 
 
-class PreciseConstantVelocityMovement(BasicConstantVelocityMovement):
+function initPreciseConstantVelocityMovement(this::PreciseConstantVelocityMovement, basicDecimal, velocityProperties)
+        initBasicConstantVelocityMovement(this, basicDecimal, velocityProperties)
+        initFieldsPreciseConstantVelocityMovement(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.math.ScaleFactorFactory import ScaleFactorFactory
-        self.accumulatedX: int = 0
-        self.accumulatedY: int = 0
-        self.accumulatedZ: int = 0
-        self.factorValue: int = ScaleFactorFactory.getInstance().DEFAULT_SCALE_VALUE
-    
+function newPreciseConstantVelocityMovement(basicDecimal, velocityProperties)
+    this = PreciseConstantVelocityMovement()
+    initPreciseConstantVelocityMovement(this, basicDecimal, velocityProperties)
+    this
+end
 
-    def __init__(self, basicDecimal: BasicDecimal, velocityProperties: BasicVelocityProperties) -> None:
-        from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        super().__init__(basicDecimal, velocityProperties)
-        self._init_fields()
-    
 
-    def init(self, speedBasicDecimal: BasicDecimal, angle: int, otherAngle: int) -> None:
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        pass
-    
+function init(this::PreciseConstantVelocityMovement, speedBasicDecimal, angle, otherAngle)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def process(self, layer: AllBinaryGameLayer) -> None:
-        from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
-        from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-        from org.allbinary.logic.math.MathUtil import MathUtil
-        mathUtil: MathUtil = MathUtil.getInstance()
-        velocityProperties: BasicVelocityProperties = self.getVelocityProperties()
-        self.accumulatedX = int((self.accumulatedX + velocityProperties.getVelocityXBasicDecimalP().getUnscaled()))
-        self.accumulatedY = int((self.accumulatedY + velocityProperties.getVelocityYBasicDecimalP().getUnscaled()))
-        self.accumulatedZ = int((self.accumulatedZ + velocityProperties.getVelocityZBasicDecimalP().getUnscaled()))
-        layer.moveDXYZ(int(self.accumulatedX / self.factorValue), int(self.accumulatedY / self.factorValue), int(self.accumulatedZ / self.factorValue))
-        if mathUtil.abs(self.accumulatedX) > self.factorValue:
-            self.accumulatedX = 0
-        if mathUtil.abs(self.accumulatedY) > self.factorValue:
-            self.accumulatedY = 0
-        if mathUtil.abs(self.accumulatedZ) > self.factorValue:
-            self.accumulatedZ = 0
-# from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
-# from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-# from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-# from org.allbinary.logic.math.MathUtil import MathUtil
-# from org.allbinary.logic.math.ScaleFactorFactory import ScaleFactorFactory
 
+function process(this::PreciseConstantVelocityMovement, layer)
+        local mathUtil = AllBinary.getInstance(MathUtil)
+        local velocityProperties = AllBinary.getVelocityProperties(this)
+        this.accumulatedX = (((this.accumulatedX + AllBinary.getUnscaled(AllBinary.getVelocityXBasicDecimalP(velocityProperties)))) % Int32)
+        this.accumulatedY = (((this.accumulatedY + AllBinary.getUnscaled(AllBinary.getVelocityYBasicDecimalP(velocityProperties)))) % Int32)
+        this.accumulatedZ = (((this.accumulatedZ + AllBinary.getUnscaled(AllBinary.getVelocityZBasicDecimalP(velocityProperties)))) % Int32)
+        AllBinary.moveDXYZ(layer, this.accumulatedX ÷ this.factorValue, this.accumulatedY ÷ this.factorValue, this.accumulatedZ ÷ this.factorValue)
+        if AllBinary.abs(mathUtil, this.accumulatedX) > this.factorValue
+            this.accumulatedX = Int32(0)
+        end
+        if AllBinary.abs(mathUtil, this.accumulatedY) > this.factorValue
+            this.accumulatedY = Int32(0)
+        end
+        if AllBinary.abs(mathUtil, this.accumulatedZ) > this.factorValue
+            this.accumulatedZ = Int32(0)
+        end
+        nothing
+end
 

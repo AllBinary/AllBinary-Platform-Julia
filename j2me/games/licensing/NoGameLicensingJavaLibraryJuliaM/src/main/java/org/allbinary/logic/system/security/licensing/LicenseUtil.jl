@@ -1,62 +1,76 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.system.security.licensing
 
-from __future__ import annotations
+mutable struct LicenseUtil <: JObject
+    LicenseUtil() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
+const LicenseUtil_instanceValue = Ref{Any}(nothing)
+const LicenseUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{LicenseUtil})
+    if !LicenseUtil_instanceSet[]
+        LicenseUtil_instanceSet[] = true
+        LicenseUtil_instanceValue[] = newLicenseUtil()
+    end
+    LicenseUtil_instanceValue[]
+end
+function staticSet_instance(::Type{LicenseUtil}, value)
+    LicenseUtil_instanceSet[] = true
+    LicenseUtil_instanceValue[] = value
+end
 
+function initFieldsLicenseUtil(this::LicenseUtil)
+    nothing
+end
 
-class LicenseUtil:
-    instance: LicenseUtil = None
-    _lock = threading.RLock()
-    
+function initLicenseUtil(this::LicenseUtil)
+    initFieldsLicenseUtil(this)
+end
 
-    @staticmethod
-    def getInstance() -> LicenseUtil:
-        return LicenseUtil.instance
-    
-
-    def init(self) -> None:
-        pass
-    
-
-    def isRunning(self) -> bool:
-        with self._lock:
-            return self._isRunning_unlocked()
-
-    def _isRunning_unlocked(self) -> bool:
-        return False
-    
-
-    def setRunning(self, running: bool) -> None:
-        with self._lock:
-            return self._setRunning_unlocked(running)
-
-    def _setRunning_unlocked(self, running: bool) -> None:
-        pass
-    
-
-    def shouldWait(self, commandListener: CommandListener) -> bool:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        return self.isRunning()
-# from javax.microedition.lcdui.CommandListener import CommandListener
+function newLicenseUtil()
+    this = LicenseUtil()
+    initLicenseUtil(this)
+    this
+end
 
 
-def _LicenseUtil_instance() -> object:
-    return LicenseUtil()
+function getInstance(::Type{LicenseUtil})
+        return staticGet_instance(LicenseUtil)
+end
 
-lazy_static(LicenseUtil, "instance", _LicenseUtil_instance)
+
+function init(this::LicenseUtil)
+        nothing
+        nothing
+end
+
+
+function isRunning(this::LicenseUtil)
+        return false
+end
+
+
+function setRunning(this::LicenseUtil, running)
+        nothing
+        nothing
+end
+
+
+function shouldWait(this::LicenseUtil, commandListener)
+        return AllBinary.isRunning(this)
+end
 

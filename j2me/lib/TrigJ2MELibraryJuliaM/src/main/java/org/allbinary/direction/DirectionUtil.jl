@@ -1,67 +1,82 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.direction
 
-from __future__ import annotations
+mutable struct DirectionUtil <: JObject
+    directionArray::Any
+    directionArray2::Any
+    DirectionUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const DirectionUtil_instanceValue = Ref{Any}(nothing)
+const DirectionUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{DirectionUtil})
+    if !DirectionUtil_instanceSet[]
+        DirectionUtil_instanceSet[] = true
+        DirectionUtil_instanceValue[] = newDirectionUtil()
+    end
+    DirectionUtil_instanceValue[]
+end
+function staticSet_instance(::Type{DirectionUtil}, value)
+    DirectionUtil_instanceSet[] = true
+    DirectionUtil_instanceValue[] = value
+end
 
-
-class DirectionUtil:
-    instance: DirectionUtil = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.math.Angle import Angle
-        self.directionArray: list[Angle] = [None] * (10)
-        self.directionArray2: list[Angle] = [None] * (10)
-    
-
-    @staticmethod
-    def getInstance() -> DirectionUtil:
-        return DirectionUtil.instance
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.direction.DirectionFactory import DirectionFactory
-        from org.allbinary.math.AngleFactory import AngleFactory
-        self._init_fields()
-        angleFactory: AngleFactory = AngleFactory.getInstance()
-        directionFactory: DirectionFactory = DirectionFactory.getInstance()
-        self.directionArray[directionFactory.LEFT.getValue()] = angleFactory.LEFT
-        self.directionArray[directionFactory.RIGHT.getValue()] = angleFactory.RIGHT
-        self.directionArray[directionFactory.UP.getValue()] = angleFactory.UP
-        self.directionArray[directionFactory.DOWN.getValue()] = angleFactory.DOWN
-        self.directionArray2[directionFactory.LEFT.getValue()] = angleFactory.LEFT
-        self.directionArray2[directionFactory.RIGHT.getValue()] = angleFactory.RIGHT
-        self.directionArray2[directionFactory.UP.getValue()] = angleFactory.UP
-        self.directionArray2[directionFactory.DOWN.getValue()] = angleFactory.DOWN
-    
-
-    def getAngle(self, direction: Direction) -> Angle:
-        from org.allbinary.math.Angle import Angle
-        return self.directionArray2[direction.getValue()]
-    
-
-    def getFrameAngle(self, direction: Direction) -> Angle:
-        from org.allbinary.math.Angle import Angle
-        return self.directionArray[direction.getValue()]
-# from org.allbinary.math.Angle import Angle
-# from org.allbinary.math.AngleFactory import AngleFactory
+function initFieldsDirectionUtil(this::DirectionUtil)
+    this.directionArray = nothing
+    this.directionArray2 = nothing
+    this.directionArray = jNewArray(Any, Int32(10), nothing)
+    this.directionArray2 = jNewArray(Any, Int32(10), nothing)
+    nothing
+end
 
 
-def _DirectionUtil_instance() -> object:
-    return DirectionUtil()
+function getInstance(::Type{DirectionUtil})
+        return staticGet_instance(DirectionUtil)
+end
 
-lazy_static(DirectionUtil, "instance", _DirectionUtil_instance)
+
+function initDirectionUtil(this::DirectionUtil)
+        initFieldsDirectionUtil(this)
+        local angleFactory = AllBinary.getInstance(AngleFactory)
+        local directionFactory = AllBinary.getInstance(DirectionFactory)
+        this.directionArray[AllBinary.getValue(directionFactory.LEFT) + 1] = angleFactory.LEFT
+        this.directionArray[AllBinary.getValue(directionFactory.RIGHT) + 1] = angleFactory.RIGHT
+        this.directionArray[AllBinary.getValue(directionFactory.UP) + 1] = angleFactory.UP
+        this.directionArray[AllBinary.getValue(directionFactory.DOWN) + 1] = angleFactory.DOWN
+        this.directionArray2[AllBinary.getValue(directionFactory.LEFT) + 1] = angleFactory.LEFT
+        this.directionArray2[AllBinary.getValue(directionFactory.RIGHT) + 1] = angleFactory.RIGHT
+        this.directionArray2[AllBinary.getValue(directionFactory.UP) + 1] = angleFactory.UP
+        this.directionArray2[AllBinary.getValue(directionFactory.DOWN) + 1] = angleFactory.DOWN
+        nothing
+end
+
+function newDirectionUtil()
+    this = DirectionUtil()
+    initDirectionUtil(this)
+    this
+end
+
+
+function getAngle(this::DirectionUtil, direction)
+        return this.directionArray2[AllBinary.getValue(direction) + 1]
+end
+
+
+function getFrameAngle(this::DirectionUtil, direction)
+        return this.directionArray[AllBinary.getValue(direction) + 1]
+end
 

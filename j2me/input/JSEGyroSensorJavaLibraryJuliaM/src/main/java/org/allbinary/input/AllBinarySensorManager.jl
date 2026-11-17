@@ -1,65 +1,86 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input
 
-from __future__ import annotations
+mutable struct AllBinarySensorManager <: JObject
+    ORIENTATION_SENSOR_INPUT::Any
+    ORIENTATION_TYPE::Any
+    list::Any
+    AllBinarySensorManager() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const AllBinarySensorManager_instanceValue = Ref{Any}(nothing)
+const AllBinarySensorManager_instanceSet = Ref(false)
+function staticGet_instance(::Type{AllBinarySensorManager})
+    if !AllBinarySensorManager_instanceSet[]
+        AllBinarySensorManager_instanceSet[] = true
+        AllBinarySensorManager_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    AllBinarySensorManager_instanceValue[]
+end
+function staticSet_instance(::Type{AllBinarySensorManager}, value)
+    AllBinarySensorManager_instanceSet[] = true
+    AllBinarySensorManager_instanceValue[] = value
+end
 
-
-class AllBinarySensorManager:
-    instance: object = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.ORIENTATION_SENSOR_INPUT: str = "Orientation Sensor Input"
-        self.ORIENTATION_TYPE: str = "Orientation Type"
-        self.list_: BasicArrayList = BasicArrayListD()
-    
-
-    @staticmethod
-    def getInstance() -> AllBinarySensorManager:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if AllBinarySensorManager.instance == NullUtil.getInstance().NULL_OBJECT:
-            AllBinarySensorManager.instance = AllBinarySensorManager()
-        return AllBinarySensorManager.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def init(self) -> None:
-        pass
-    
-
-    def getSensorNamesList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.list_
-    
-
-    def shutdown(self) -> None:
-        pass
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function initFieldsAllBinarySensorManager(this::AllBinarySensorManager)
+    this.ORIENTATION_SENSOR_INPUT = nothing
+    this.ORIENTATION_TYPE = nothing
+    this.list = nothing
+    this.ORIENTATION_SENSOR_INPUT = "Orientation Sensor Input"
+    this.ORIENTATION_TYPE = "Orientation Type"
+    this.list = newBasicArrayListD()
+    nothing
+end
 
 
-def _AllBinarySensorManager_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{AllBinarySensorManager})
+        if staticGet_instance(AllBinarySensorManager) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(AllBinarySensorManager, newAllBinarySensorManager())
+        end
+        return (staticGet_instance(AllBinarySensorManager))
+end
 
-lazy_static(AllBinarySensorManager, "instance", _AllBinarySensorManager_instance)
+
+function initAllBinarySensorManager(this::AllBinarySensorManager)
+        initFieldsAllBinarySensorManager(this)
+        nothing
+        nothing
+end
+
+function newAllBinarySensorManager()
+    this = AllBinarySensorManager()
+    initAllBinarySensorManager(this)
+    this
+end
+
+
+function init(this::AllBinarySensorManager)
+        nothing
+        nothing
+end
+
+
+function getSensorNamesList(this::AllBinarySensorManager)
+        return this.list
+end
+
+
+function shutdown(this::AllBinarySensorManager)
+        nothing
+        nothing
+end
 

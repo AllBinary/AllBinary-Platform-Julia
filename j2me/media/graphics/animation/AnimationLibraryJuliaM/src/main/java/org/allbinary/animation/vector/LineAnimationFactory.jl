@@ -1,48 +1,53 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.vector
 
-from __future__ import annotations
+mutable struct LineAnimationFactory <: JObject
+    basicColor::Any
+    LineAnimationFactory() = new()
+end
 
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
 
-
-class LineAnimationFactory(AnimationInterfaceFactoryInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.basicColor: BasicColor = None
+function initFieldsLineAnimationFactory(this::LineAnimationFactory)
+    this.basicColor = nothing
     
+    nothing
+end
 
-    def __init__(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self._init_fields()
-        self.basicColor = basicColor
-    
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.vector.LineAnimation import LineAnimation
-        from org.allbinary.animation.Animation import Animation
-        return LineAnimation(self.basicColor)
-    
+function initLineAnimationFactory(this::LineAnimationFactory, basicColor)
+        initFieldsLineAnimationFactory(this)
+        this.basicColor = basicColor
+        nothing
+end
 
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.media.ScaleProperties import ScaleProperties
+function newLineAnimationFactory(basicColor)
+    this = LineAnimationFactory()
+    initLineAnimationFactory(this, basicColor)
+    this
+end
 
+
+function getInstance(this::LineAnimationFactory, instanceId)
+        return newLineAnimation(this.basicColor)
+end
+
+
+function setInitialScale(this::LineAnimationFactory, scaleProperties)
+        nothing
+        nothing
+end
 

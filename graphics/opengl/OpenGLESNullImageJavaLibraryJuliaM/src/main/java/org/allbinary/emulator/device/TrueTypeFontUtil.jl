@@ -1,77 +1,92 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2011 AllBinary 
-# 
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-# 
-# Created By: Travis Berthelot 
-#  
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2011 AllBinary 
+  
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+  
+  Created By: Travis Berthelot 
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.emulator.device
 
-from __future__ import annotations
+# extends TrueTypeFontUtilBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TrueTypeFontUtil <: JObject
+    fontImage::Any
+    TrueTypeFontUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.emulator.device.TrueTypeFontUtilBase import TrueTypeFontUtilBase
+const TrueTypeFontUtil_instanceValue = Ref{Any}(nothing)
+const TrueTypeFontUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{TrueTypeFontUtil})
+    if !TrueTypeFontUtil_instanceSet[]
+        TrueTypeFontUtil_instanceSet[] = true
+        TrueTypeFontUtil_instanceValue[] = newTrueTypeFontUtil()
+    end
+    TrueTypeFontUtil_instanceValue[]
+end
+function staticSet_instance(::Type{TrueTypeFontUtil}, value)
+    TrueTypeFontUtil_instanceSet[] = true
+    TrueTypeFontUtil_instanceValue[] = value
+end
 
-
-class TrueTypeFontUtil(TrueTypeFontUtilBase):
-    instance: TrueTypeFontUtil = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.image.opengles.OpenGLESImage import OpenGLESImage
-        self.fontImage: OpenGLESImage = OpenGLESImage.NULL_OPENGL_IMAGE
-    
-
-    @staticmethod
-    def getInstance() -> TrueTypeFontUtil:
-        return TrueTypeFontUtil.instance
-    
-
-    def __init__(self) -> None:
-        super().__init__(1)
-        self._init_fields()
-    
-
-    def getAsTextureSize(self, textureSize: int) -> int:
-        raise RuntimeError()
-    
-
-    def getCellSize(self, cellSize: int) -> int:
-        raise RuntimeError()
-    
-
-    def getFontBitmap(self, filename: str, fontSize: int, cellSize: int, basicColor: BasicColor) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        raise RuntimeError()
-    
-
-    def saveFontAtlasAsFile(self) -> None:
-        pass
-    
-
-    def getFontBitmapGL(self, gl: GL10, filename: str, cellSize: int, basicColor: BasicColor) -> Image:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        raise RuntimeError()
-    
-
-    def getFontWidths(self, filename: str, fontSize: int) -> list[int]:
-        raise RuntimeError()
-# from javax.microedition.khronos.opengles.GL10 import GL10
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.image.opengles.OpenGLESImage import OpenGLESImage
+function initFieldsTrueTypeFontUtil(this::TrueTypeFontUtil)
+    this.fontImage = nothing
+    this.fontImage = staticGet_NULL_OPENGL_IMAGE(OpenGLESImage)
+    nothing
+end
 
 
-def _TrueTypeFontUtil_instance() -> object:
-    return TrueTypeFontUtil()
+function getInstance(::Type{TrueTypeFontUtil})
+        return staticGet_instance(TrueTypeFontUtil)
+end
 
-lazy_static(TrueTypeFontUtil, "instance", _TrueTypeFontUtil_instance)
+
+function initTrueTypeFontUtil(this::TrueTypeFontUtil)
+        initTrueTypeFontUtilBase(this, Int32(1))
+        initFieldsTrueTypeFontUtil(this)
+        nothing
+end
+
+function newTrueTypeFontUtil()
+    this = TrueTypeFontUtil()
+    initTrueTypeFontUtil(this)
+    this
+end
+
+
+function getAsTextureSize(this::TrueTypeFontUtil, textureSize)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function getCellSize(this::TrueTypeFontUtil, cellSize)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function getFontBitmap(this::TrueTypeFontUtil, filename, fontSize, cellSize, basicColor)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function saveFontAtlasAsFile(this::TrueTypeFontUtil)
+        nothing
+        nothing
+end
+
+
+function getFontBitmapGL(this::TrueTypeFontUtil, gl, filename, cellSize, basicColor)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function getFontWidths(this::TrueTypeFontUtil, filename, fontSize)
+        throw(jNewException("RuntimeException", ""))
+end
 

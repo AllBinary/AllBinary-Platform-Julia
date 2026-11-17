@@ -1,191 +1,193 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
-
-from org.allbinary.game.displayable.canvas.BasicMenuInputProcessor import BasicMenuInputProcessor
-
-
 #In general allow scrolling of the menu and selection the center item
-class CommandFormInputProcessor(BasicMenuInputProcessor):
+# extends BasicMenuInputProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CommandFormInputProcessor <: JObject
+    MOTION_GESTURE_SOURCE_ID::Int32
+    CLICK_DELAY::Int32
+    clickTimeHelper::Any
+    DOUBLE_CLICK_DELAY::Int32
+    doubleClickTimeHelper::Any
+    isSingleKeyProcessing::Bool
+    form::Any
+    hasPressed::Bool
+    PROCESS_COMMAND::Any
+    NAME_LABEL::Any
+    CommandFormInputProcessor() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.configuration.feature.InputFeatureFactory import InputFeatureFactory
-        from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-        from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.MOTION_GESTURE_SOURCE_ID: int = GameKeyEventFactory.getInstance().MOTION_GESTURE_SOURCE_ID
-        self.CLICK_DELAY: int = 150
-        self.clickTimeHelper: TimeDelayHelper = TimeDelayHelper(self.CLICK_DELAY)
-        self.DOUBLE_CLICK_DELAY: int = 1200
-        self.doubleClickTimeHelper: TimeDelayHelper = TimeDelayHelper(self.DOUBLE_CLICK_DELAY)
-        self.isSingleKeyProcessing: bool = InputFeatureFactory.getInstance().isSingleKeyProcessing()
-        self.form: ScrollSelectionForm = None
-        self.hasPressed: bool = False
-        self.PROCESS_COMMAND: str = "processCommand"
-        self.NAME_LABEL: str = " ScrollSelectionForm: "
+
+function initFieldsCommandFormInputProcessor(this::CommandFormInputProcessor)
+    this.MOTION_GESTURE_SOURCE_ID = Int32(0)
+    this.CLICK_DELAY = Int32(0)
+    this.clickTimeHelper = nothing
+    this.DOUBLE_CLICK_DELAY = Int32(0)
+    this.doubleClickTimeHelper = nothing
+    this.isSingleKeyProcessing = false
+    this.form = nothing
+    this.hasPressed = false
+    this.PROCESS_COMMAND = nothing
+    this.NAME_LABEL = nothing
+    this.MOTION_GESTURE_SOURCE_ID = AllBinary.getInstance(GameKeyEventFactory).MOTION_GESTURE_SOURCE_ID
+    this.CLICK_DELAY = Int32(150)
+    this.clickTimeHelper = newTimeDelayHelper(this.CLICK_DELAY)
+    this.DOUBLE_CLICK_DELAY = Int32(1200)
+    this.doubleClickTimeHelper = newTimeDelayHelper(this.DOUBLE_CLICK_DELAY)
+    this.isSingleKeyProcessing = AllBinary.isSingleKeyProcessing(AllBinary.getInstance(InputFeatureFactory))
     
+    this.hasPressed = false
+    this.PROCESS_COMMAND = "processCommand"
+    this.NAME_LABEL = " ScrollSelectionForm: "
+    nothing
+end
 
-    def __init__(self, gameKeyEventList: BasicArrayList, playerInputId: int, gameCanvas: MyCanvas, form: ScrollSelectionForm) -> None:
-        from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-        from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        super().__init__(gameKeyEventList, playerInputId, gameCanvas)
-        self._init_fields()
-        self.form = form
-    
 
-    # throws Exception
-    def processInput(self, key: int) -> int:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.media.audio.PrimaryPlayerQueueFactory import PrimaryPlayerQueueFactory
-        from org.allbinary.media.audio.SelectSound import SelectSound
-        if key == Canvas.LEFT or key == Canvas.RIGHT or key == Canvas.UP or key == Canvas.DOWN:
-            PrimaryPlayerQueueFactory.getInstance().add(SelectSound.getInstance())
-            self.form.processInputKey(key)
-            return 1
-        elif key == Canvas.FIRE:
-            PrimaryPlayerQueueFactory.getInstance().add(SelectSound.getInstance())
-            return self.processCommand()
-        return 0
-    
+function initCommandFormInputProcessor(this::CommandFormInputProcessor, gameKeyEventList, playerInputId, gameCanvas, form)
+        initBasicMenuInputProcessor(this, gameKeyEventList, playerInputId, gameCanvas)
+        initFieldsCommandFormInputProcessor(this)
+        this.form = form
+        nothing
+end
 
-    def processCommand(self) -> int:
-        from org.allbinary.game.displayable.canvas.CommandRunnable import CommandRunnable
-        from org.allbinary.game.displayable.canvas.CommandRunnable import CommandRunnable
-        from javax.microedition.lcdui.Command import Command
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.layer.SWTUtil import SWTUtil
-        from org.allbinary.graphics.form.CommandCurrentSelectionForm import CommandCurrentSelectionForm
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        from org.allbinary.thread.PrimaryThreadPool import PrimaryThreadPool
-        commandCurrentSelectionForm: CommandCurrentSelectionForm = self.form
-        command: Command = commandCurrentSelectionForm.getSelectedCommand()
-        self.logUtil.putF(str(command), self, self.PROCESS_COMMAND)
-        features: Features = Features.getInstance()
-        openGLFeatureFactory: OpenGLFeatureFactory = OpenGLFeatureFactory.getInstance()
-        if SWTUtil.isSWT and features.isFeature(openGLFeatureFactory.OPENGL) and command != GameCommandsFactory.getInstance().EXIT_COMMAND:
-            CommandRunnable(self, command).run()
-        else:
-            PrimaryThreadPool.getInstance().runTask(CommandRunnable(self, command))
-        if command == GameCommandsFactory.getInstance().QUIT_COMMAND:
-            return -1
-        else:
-            return 1
-    
+function newCommandFormInputProcessor(gameKeyEventList, playerInputId, gameCanvas, form)
+    this = CommandFormInputProcessor()
+    initCommandFormInputProcessor(this, gameKeyEventList, playerInputId, gameCanvas, form)
+    this
+end
 
-    # throws Exception
-    def processInputList(self) -> int:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        try:
-            motionInputsIndex: int = self.processMotionInputs()
-            list_: BasicArrayList = self.getGameKeyEventList()
-            size: int = list_.size()
-            key: int = 0
-            gameKeyEvent: GameKeyEvent = None
-            for index in range(0, size):
-                gameKeyEvent = list_.objectArray[index]
-                key = gameKeyEvent.getKey()
-                if gameKeyEvent.getSourceId() != self.MOTION_GESTURE_SOURCE_ID:
-                    if self.processInput(key) == 1:
+
+function processInput(this::CommandFormInputProcessor, key)
+        if key == staticGet_LEFT(Canvas) || key == staticGet_RIGHT(Canvas) || key == staticGet_UP(Canvas) || key == staticGet_DOWN(Canvas)
+            AllBinary.add(AllBinary.getInstance(PrimaryPlayerQueueFactory), AllBinary.getInstance(SelectSound))
+            AllBinary.processInputKey(this.form, key)
+            return Int32(1)
+        elseif key == staticGet_FIRE(Canvas)
+            AllBinary.add(AllBinary.getInstance(PrimaryPlayerQueueFactory), AllBinary.getInstance(SelectSound))
+            return AllBinary.processCommand(this)
+        end
+        return Int32(0)
+end
+
+
+function processCommand(this::CommandFormInputProcessor)
+        local commandCurrentSelectionForm = (this.form)
+        local command = AllBinary.getSelectedCommand(commandCurrentSelectionForm)
+        AllBinary.putF(this.logUtil, AllBinary.toString(command), this, this.PROCESS_COMMAND)
+        local features = AllBinary.getInstance(Features)
+        local openGLFeatureFactory = AllBinary.getInstance(OpenGLFeatureFactory)
+        if staticGet_isSWT(SWTUtil) && AllBinary.isFeature(features, openGLFeatureFactory.OPENGL) && command !== AllBinary.getInstance(GameCommandsFactory).EXIT_COMMAND
+            AllBinary.run(newCommandRunnable(this, command))
+        else
+            AllBinary.runTask(AllBinary.getInstance(PrimaryThreadPool), newCommandRunnable(this, command))
+        end
+        if command === AllBinary.getInstance(GameCommandsFactory).QUIT_COMMAND
+            return -Int32(1)
+        else
+            return Int32(1)
+        end
+end
+
+
+function processInputList(this::CommandFormInputProcessor)
+        try
+            local motionInputsIndex::Int32 = AllBinary.processMotionInputs(this)
+            local list = AllBinary.getGameKeyEventList(this)
+            local size::Int32 = AllBinary.size(list)
+            local key::Int32 = Int32(0)
+            local gameKeyEvent = nothing
+            let
+                local index::Int32 = Int32(0)
+                while index < size
+                try
+                gameKeyEvent = (list.objectArray[index + 1])
+                key = AllBinary.getKey(gameKeyEvent)
+                if AllBinary.getSourceId(gameKeyEvent) != this.MOTION_GESTURE_SOURCE_ID
+                    if AllBinary.processInput(this, key) == Int32(1)
                         break
-            self.clear()
-            if size > 0 or motionInputsIndex >= 0:
-                return 1
-            else:
-                return -1
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.PROCESS_INPUT, e)
-            return -1
-    
+                    end
+                end
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+            AllBinary.clear(this)
+            if size > Int32(0) || motionInputsIndex >= Int32(0)
+                return Int32(1)
+            else
+                return -Int32(1)
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.gameInputStrings.PROCESS_INPUT, e)
+            return -Int32(1)
+        end
+end
 
-    # throws Exception
-    def processMotionInputs(self) -> int:
-        from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-        lastIndex: int = self.motionGestureEventList.size() - 1
-        if lastIndex >= 0:
-            motionGestureEvent: MotionGestureEvent = self.motionGestureEventList.objectArray[lastIndex]
-            self.processMotionInput(motionGestureEvent)
-        self.motionGestureEventList.clear()
+
+function processMotionInputs(this::CommandFormInputProcessor)
+        local lastIndex::Int32 = AllBinary.size(this.motionGestureEventList) - Int32(1)
+        if lastIndex >= Int32(0)
+            local motionGestureEvent = (this.motionGestureEventList.objectArray[lastIndex + 1])
+            AllBinary.processMotionInput(this, motionGestureEvent)
+        end
+        AllBinary.clear(this.motionGestureEventList)
         return lastIndex
-    
+end
 
-    # throws Exception
-    def processMotionInput(self, motionGestureEvent: MotionGestureEvent) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-        from org.allbinary.media.audio.PrimaryPlayerQueueFactory import PrimaryPlayerQueueFactory
-        from org.allbinary.media.audio.SelectSound import SelectSound
-        touchMotionGestureFactory: TouchMotionGestureFactory = TouchMotionGestureFactory.getInstance()
-        motionGestureInput: MotionGestureInput = motionGestureEvent.getMotionGesture()
-        if motionGestureInput == touchMotionGestureFactory.RELEASED:
-            point: GPoint = motionGestureEvent.getCurrentPoint()
-            if self.form.isInForm(point):
-                index: int = self.form.getSelectedIndexForPoint(point)
-                if index != -1:
-                    PrimaryPlayerQueueFactory.getInstance().add(SelectSound.getInstance())
-                    if index == self.form.getSelectedIndex():
-                        if self.clickTimeHelper.isTimeTNT():
-                            self.processCommand()
-                    else:
-                        self.form.setSelectedIndex(index)
-                else:
-                    pass
-            if self.hasPressed:
-                if not self.doubleClickTimeHelper.isTimeTNT():
-                    self.logUtil.putF("Double Press", self, self.gameInputStrings.PROCESS_MOTION_INPUT)
-                    self.processCommand()
-                self.doubleClickTimeHelper.delay = self.DOUBLE_CLICK_DELAY
-                self.doubleClickTimeHelper.setStartTimeTNT()
-            self.hasPressed = False
-        elif motionGestureInput == touchMotionGestureFactory.PRESSED:
-            self.doubleClickTimeHelper.delay = 0
-            self.hasPressed = True
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        return str(StringMaker().append(str(super())).append(self.NAME_LABEL).append(str(self.form)))
+function processMotionInput(this::CommandFormInputProcessor, motionGestureEvent)
+        local touchMotionGestureFactory = AllBinary.getInstance(TouchMotionGestureFactory)
+        local motionGestureInput = AllBinary.getMotionGesture(motionGestureEvent)
+        if motionGestureInput === touchMotionGestureFactory.RELEASED
+            local point = AllBinary.getCurrentPoint(motionGestureEvent)
+            if AllBinary.isInForm(this.form, point)
+                local index::Int32 = AllBinary.getSelectedIndexForPoint(this.form, point)
+                if index != -Int32(1)
+                    AllBinary.add(AllBinary.getInstance(PrimaryPlayerQueueFactory), AllBinary.getInstance(SelectSound))
+                    if index == AllBinary.getSelectedIndex(this.form)
+                        if AllBinary.isTimeTNT(this.clickTimeHelper)
+                            AllBinary.processCommand(this)
+                        end
+                    else
+                        AllBinary.setSelectedIndex(this.form, index)
+                    end
+                else
+                    nothing
+                end
+            end
+            if this.hasPressed
+                if !AllBinary.isTimeTNT(this.doubleClickTimeHelper)
+                    AllBinary.putF(this.logUtil, "Double Press", this, this.gameInputStrings.PROCESS_MOTION_INPUT)
+                    AllBinary.processCommand(this)
+                end
+                this.doubleClickTimeHelper.delay = this.DOUBLE_CLICK_DELAY
+                AllBinary.setStartTimeTNT(this.doubleClickTimeHelper)
+            end
+            this.hasPressed = false
+        elseif motionGestureInput === touchMotionGestureFactory.PRESSED
+            this.doubleClickTimeHelper.delay = Int32(0)
+            this.hasPressed = true
+        end
+        nothing
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from javax.microedition.lcdui.Canvas import Canvas
-# from javax.microedition.lcdui.Command import Command
-# from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.configuration.feature.InputFeatureFactory import InputFeatureFactory
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-# from org.allbinary.game.layer.SWTUtil import SWTUtil
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-# from org.allbinary.graphics.form.CommandCurrentSelectionForm import CommandCurrentSelectionForm
-# from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-# from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-# from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-# from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-# from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.media.audio.PrimaryPlayerQueueFactory import PrimaryPlayerQueueFactory
-# from org.allbinary.media.audio.SelectSound import SelectSound
-# from org.allbinary.thread.PrimaryThreadPool import PrimaryThreadPool
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-# from org.allbinary.util.BasicArrayList import BasicArrayList
 
+function toString(this::CommandFormInputProcessor)
+        return AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.toString(this)), this.NAME_LABEL), AllBinary.toString(this.form)))
+end
 

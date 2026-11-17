@@ -1,68 +1,74 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.pickup
 
-from __future__ import annotations
+# extends AllBinaryLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct IconLayer <: JObject
+    animationInterface::Any
+    IconLayer() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
+const IconLayer_NULL_ICON_LAYERValue = Ref{Any}(nothing)
+const IconLayer_NULL_ICON_LAYERSet = Ref(false)
+function staticGet_NULL_ICON_LAYER(::Type{IconLayer})
+    if !IconLayer_NULL_ICON_LAYERSet[]
+        IconLayer_NULL_ICON_LAYERSet[] = true
+        IconLayer_NULL_ICON_LAYERValue[] = newIconLayer(AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0)), Int32(0), Int32(0))
+    end
+    IconLayer_NULL_ICON_LAYERValue[]
+end
+function staticSet_NULL_ICON_LAYER(::Type{IconLayer}, value)
+    IconLayer_NULL_ICON_LAYERSet[] = true
+    IconLayer_NULL_ICON_LAYERValue[] = value
+end
 
-
-class IconLayer(AllBinaryLayer):
-    NULL_ICON_LAYER: IconLayer = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        self.animationInterface: Animation = None
+function initFieldsIconLayer(this::IconLayer)
+    this.animationInterface = nothing
     
-
-    def __init__(self, animationInterface: Animation, width: int, height: int) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.view.ViewPosition import ViewPosition
-        super().__init__(StringUtil.getInstance().EMPTY_STRING, Rectangle(PointFactory.getInstance().ZERO_ZERO, width, height), ViewPosition.getInstanceD())
-        self._init_fields()
-        self.animationInterface = animationInterface
-    
-
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animationInterface.paintXY(graphics, self.x, self.y)
-    
-
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animationInterface.paintThreedXYZ(graphics, self.x, self.y, self.z)
-    
-
-    def getAnimationInterface(self) -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        return self.animationInterface
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.view.ViewPosition import ViewPosition
+    nothing
+end
 
 
-def _IconLayer_NULL_ICON_LAYER() -> object:
-    from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-    return IconLayer(NullAnimationFactory.getFactoryInstance().getInstance(0), 0, 0)
+function initIconLayer(this::IconLayer, animationInterface, width, height)
+        initAllBinaryLayer(this, AllBinary.getInstance(StringUtil).EMPTY_STRING, newRectangle(AllBinary.getInstance(PointFactory).ZERO_ZERO, width, height), AllBinary.getInstanceD(ViewPosition))
+        initFieldsIconLayer(this)
+        this.animationInterface = animationInterface
+        nothing
+end
 
-lazy_static(IconLayer, "NULL_ICON_LAYER", _IconLayer_NULL_ICON_LAYER)
+function newIconLayer(animationInterface, width, height)
+    this = IconLayer()
+    initIconLayer(this, animationInterface, width, height)
+    this
+end
+
+
+function paint(this::IconLayer, graphics)
+        AllBinary.paintXY(this.animationInterface, graphics, this.x, this.y)
+        nothing
+end
+
+
+function paintThreed(this::IconLayer, graphics)
+        AllBinary.paintThreedXYZ(this.animationInterface, graphics, this.x, this.y, this.z)
+        nothing
+end
+
+
+function getAnimationInterface(this::IconLayer)
+        return this.animationInterface
+end
 

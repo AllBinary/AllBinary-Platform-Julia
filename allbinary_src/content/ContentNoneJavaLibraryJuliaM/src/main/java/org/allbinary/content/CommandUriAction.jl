@@ -1,53 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.content
 
-from __future__ import annotations
+mutable struct CommandUriAction <: JObject
+    logUtil::Any
+    CommandUriAction() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const CommandUriAction_instanceValue = Ref{Any}(nothing)
+const CommandUriAction_instanceSet = Ref(false)
+function staticGet_instance(::Type{CommandUriAction})
+    if !CommandUriAction_instanceSet[]
+        CommandUriAction_instanceSet[] = true
+        CommandUriAction_instanceValue[] = newCommandUriAction()
+    end
+    CommandUriAction_instanceValue[]
+end
+function staticSet_instance(::Type{CommandUriAction}, value)
+    CommandUriAction_instanceSet[] = true
+    CommandUriAction_instanceValue[] = value
+end
+
+function initFieldsCommandUriAction(this::CommandUriAction)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
+
+function initCommandUriAction(this::CommandUriAction)
+    initFieldsCommandUriAction(this)
+end
+
+function newCommandUriAction()
+    this = CommandUriAction()
+    initCommandUriAction(this)
+    this
+end
 
 
-class CommandUriAction:
-    instance: CommandUriAction = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> CommandUriAction:
-        return CommandUriAction.instance
-    
-
-    def add(self, command: Command, url: str) -> None:
-        from javax.microedition.lcdui.Command import Command
-        pass
-    
-
-    def process(self, command: Command) -> None:
-        from javax.microedition.lcdui.Command import Command
-        pass
-# from javax.microedition.lcdui.Command import Command
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
+function getInstance(::Type{CommandUriAction})
+        return staticGet_instance(CommandUriAction)
+end
 
 
-def _CommandUriAction_instance() -> object:
-    return CommandUriAction()
+function add(this::CommandUriAction, command, url)
+        nothing
+        nothing
+end
 
-lazy_static(CommandUriAction, "instance", _CommandUriAction_instance)
+
+function process(this::CommandUriAction, command)
+        nothing
+        nothing
+end
 

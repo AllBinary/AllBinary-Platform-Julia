@@ -1,37 +1,47 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.health
 
-from __future__ import annotations
+# extends HealthBarAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HealthBarTwodAnimation <: JObject
+    HealthBarTwodAnimation() = new()
+end
 
-from org.allbinary.game.health.HealthBarAnimation import HealthBarAnimation
+
+function initFieldsHealthBarTwodAnimation(this::HealthBarTwodAnimation)
+    nothing
+end
 
 
-class HealthBarTwodAnimation(HealthBarAnimation):
-    
+function initHealthBarTwodAnimation(this::HealthBarTwodAnimation, layerInterface, location)
+        initHealthBarAnimation(this, layerInterface, location)
+        nothing
+end
 
-    def __init__(self, layerInterface: AllBinaryLayer, location: int) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(layerInterface, location)
-    
+function newHealthBarTwodAnimation(layerInterface, location)
+    this = HealthBarTwodAnimation()
+    initHealthBarTwodAnimation(this, layerInterface, location)
+    this
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        ax: int = self.allbinaryLayer.getViewPosition().getX()
-        self.basicSetColorUtil.setBasicColorP3(graphics, self.basicColor, self.colorP)
-        graphics.fillRect(ax, self.getY() - 1, self.x2, self.thickness)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
 
+function paintXY(this::HealthBarTwodAnimation, graphics, x, y)
+        local ax::Int32 = AllBinary.getX(AllBinary.getViewPosition(this.allbinaryLayer))
+        AllBinary.setBasicColorP3(this.basicSetColorUtil, graphics, this.basicColor, this.colorP)
+        AllBinary.fillRect(graphics, ax, AllBinary.getY(this) - Int32(1), this.x2, this.thickness)
+        nothing
+end
 

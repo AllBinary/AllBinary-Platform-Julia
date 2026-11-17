@@ -1,59 +1,72 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.gyro
 
-from __future__ import annotations
+mutable struct OrientationToGameKeyEvent <: JObject
+    allBinaryGyroSensor::Any
+    MIN::Int32
+    OrientationToGameKeyEvent() = new()
+end
 
 
+function initFieldsOrientationToGameKeyEvent(this::OrientationToGameKeyEvent)
+    this.allBinaryGyroSensor = nothing
+    this.MIN = Int32(0)
+    this.allBinaryGyroSensor = nothing
+    this.MIN = Int32(15)
+    nothing
+end
 
-class OrientationToGameKeyEvent:
 
-    def _init_fields(self) -> None:
-        self.allBinaryGyroSensor: AllBinaryOrientationSensor = None
-        self.MIN: int = 15
-    
+function initOrientationToGameKeyEvent(this::OrientationToGameKeyEvent)
+        initFieldsOrientationToGameKeyEvent(this)
+        if AllBinary.isFeature(AllBinary.getInstance(Features), AllBinary.getInstance(SensorFeatureFactory).NO_ORIENTATION)
+            this.allBinaryGyroSensor = newNoGyroSensor()
+        else
+            throw(jNewException("Exception", "Not Such Feature"))
+        end
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.input.gyro.NoGyroSensor import NoGyroSensor
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.SensorFeatureFactory import SensorFeatureFactory
-        self._init_fields()
-        if Features.getInstance().isFeature(SensorFeatureFactory.getInstance().NO_ORIENTATION):
-            self.allBinaryGyroSensor = NoGyroSensor()
-        else:
-            raise Exception("Not Such Feature")
-    
+function newOrientationToGameKeyEvent()
+    this = OrientationToGameKeyEvent()
+    initOrientationToGameKeyEvent(this)
+    this
+end
 
-    def setAllBinaryGyroSensor(self, allBinaryGyroSensor: AllBinaryOrientationSensor) -> None:
-        self.allBinaryGyroSensor = allBinaryGyroSensor
-    
 
-    def getAllBinaryGyroSensor(self) -> AllBinaryOrientationSensor:
-        return self.allBinaryGyroSensor
-    
+function setAllBinaryGyroSensor(this::OrientationToGameKeyEvent, allBinaryGyroSensor)
+        this.allBinaryGyroSensor = allBinaryGyroSensor
+        nothing
+end
 
-    # throws Exception
-    def process(self) -> None:
-        pass
-    
 
-    # throws Exception
-    def updateGameKeyEvents(self, orientation: Orientation, yaw: int, pitch: int, roll: int) -> None:
-        from org.allbinary.logic.math.Orientation import Orientation
-        pass
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.configuration.feature.SensorFeatureFactory import SensorFeatureFactory
-# from org.allbinary.logic.math.Orientation import Orientation
+function getAllBinaryGyroSensor(this::OrientationToGameKeyEvent)
+        return this.allBinaryGyroSensor
+end
 
+
+function process(this::OrientationToGameKeyEvent)
+        nothing
+        nothing
+end
+
+
+function updateGameKeyEvents(this::OrientationToGameKeyEvent, orientation, yaw, pitch, roll)
+        nothing
+        nothing
+end
 

@@ -1,60 +1,60 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics
 
-from __future__ import annotations
+# extends PlatformBitmapBaseFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct OpenGLBitmapFactory <: JObject
+    ARGB_8888::Any
+    OpenGLBitmapFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.platform.graphics.PlatformBitmapBaseFactory import PlatformBitmapBaseFactory
+const OpenGLBitmapFactory_instanceValue = Ref{Any}(nothing)
+const OpenGLBitmapFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{OpenGLBitmapFactory})
+    if !OpenGLBitmapFactory_instanceSet[]
+        OpenGLBitmapFactory_instanceSet[] = true
+        OpenGLBitmapFactory_instanceValue[] = newOpenGLBitmapFactory()
+    end
+    OpenGLBitmapFactory_instanceValue[]
+end
+function staticSet_instance(::Type{OpenGLBitmapFactory}, value)
+    OpenGLBitmapFactory_instanceSet[] = true
+    OpenGLBitmapFactory_instanceValue[] = value
+end
 
+function initFieldsOpenGLBitmapFactory(this::OpenGLBitmapFactory)
+    this.ARGB_8888 = nothing
+    this.ARGB_8888 = newOpenGLBitmapConfig(AllBinary.getInstance(NullUtil).NULL_OBJECT)
+    nothing
+end
 
-class OpenGLBitmapFactory(PlatformBitmapBaseFactory):
-    instance: OpenGLBitmapFactory = None
+function initOpenGLBitmapFactory(this::OpenGLBitmapFactory)
+    initPlatformBitmapBaseFactory(this)
+    initFieldsOpenGLBitmapFactory(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.NullUtil import NullUtil
-        self.ARGB_8888: OpenGLBitmapConfig = OpenGLBitmapConfig(NullUtil.getInstance().NULL_OBJECT)
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> OpenGLBitmapFactory:
-        return OpenGLBitmapFactory.instance
-    
-
-    def createBitmap(self, width: int, height: int, config: OpenGLBitmapConfig) -> OpenGLBitmap:
-        from org.allbinary.graphics.OpenGLBitmap import OpenGLBitmap
-        from org.allbinary.logic.NullUtil import NullUtil
-        return OpenGLBitmap(NullUtil.getInstance().NULL_OBJECT)
-    
-
-    # throws IOException
-    def decodeStream(self, inputStream: InputStream) -> OpenGLBitmap:
-        from org.allbinary.graphics.OpenGLBitmap import OpenGLBitmap
-        from java.io.InputStream import InputStream
-        from org.allbinary.logic.NullUtil import NullUtil
-        return OpenGLBitmap(NullUtil.getInstance().NULL_OBJECT)
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def createBitmap(self, image: Image) -> PlatformBitmapBase:
-        from org.allbinary.graphics.OpenGLBitmap import OpenGLBitmap
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.platform.graphics.PlatformBitmapBase import PlatformBitmapBase
-        return OpenGLBitmap(NullUtil.getInstance().NULL_OBJECT)
-# from java.io.IOException import IOException
-# from java.io.InputStream import InputStream
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.platform.graphics.PlatformBitmapBase import PlatformBitmapBase
-from org.allbinary.graphics.OpenGLBitmapConfig import OpenGLBitmapConfig
+function newOpenGLBitmapFactory()
+    this = OpenGLBitmapFactory()
+    initOpenGLBitmapFactory(this)
+    this
+end
 
 
-def _OpenGLBitmapFactory_instance() -> object:
-    return OpenGLBitmapFactory()
+function getInstance(::Type{OpenGLBitmapFactory})
+        return staticGet_instance(OpenGLBitmapFactory)
+end
 
-lazy_static(OpenGLBitmapFactory, "instance", _OpenGLBitmapFactory_instance)
+
+function createBitmap(this::OpenGLBitmapFactory, width, height, config)
+        return newOpenGLBitmap(AllBinary.getInstance(NullUtil).NULL_OBJECT)
+end
+
+
+function decodeStream(this::OpenGLBitmapFactory, inputStream)
+        return newOpenGLBitmap(AllBinary.getInstance(NullUtil).NULL_OBJECT)
+end
+
+
+function createBitmap(this::OpenGLBitmapFactory, image)
+        return newOpenGLBitmap(AllBinary.getInstance(NullUtil).NULL_OBJECT)
+end
 

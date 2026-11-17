@@ -1,42 +1,50 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint
 
-from __future__ import annotations
+# extends ColorFillBasePaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ColorFillPaintable <: JObject
+    displayInfoSingleton::Any
+    ColorFillPaintable() = new()
+end
 
-from org.allbinary.game.paint.ColorFillBasePaintable import ColorFillBasePaintable
+
+function initFieldsColorFillPaintable(this::ColorFillPaintable)
+    this.displayInfoSingleton = nothing
+    this.displayInfoSingleton = AllBinary.getInstance(DisplayInfoSingleton)
+    nothing
+end
 
 
-class ColorFillPaintable(ColorFillBasePaintable):
+function initColorFillPaintable(this::ColorFillPaintable, basicColor)
+        initColorFillBasePaintable(this, basicColor)
+        initFieldsColorFillPaintable(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        self.displayInfoSingleton: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-    
+function newColorFillPaintable(basicColor)
+    this = ColorFillPaintable()
+    initColorFillPaintable(this, basicColor)
+    this
+end
 
-    def __init__(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(basicColor)
-        self._init_fields()
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        graphics.setColor(self.colorP)
-        graphics.fillRect(0, 0, self.displayInfoSingleton.getLastWidth(), self.displayInfoSingleton.getLastHeight())
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-
+function paint(this::ColorFillPaintable, graphics)
+        AllBinary.setColor(graphics, this.colorP)
+        AllBinary.fillRect(graphics, Int32(0), Int32(0), AllBinary.getLastWidth(this.displayInfoSingleton), AllBinary.getLastHeight(this.displayInfoSingleton))
+        nothing
+end
 

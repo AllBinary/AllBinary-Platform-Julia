@@ -1,102 +1,122 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.terrain
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TerrainEventHandler <: JObject
+    list::Any
+    TerrainEventHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const TerrainEventHandler_hashtableValue = Ref{Any}(nothing)
+const TerrainEventHandler_hashtableSet = Ref(false)
+function staticGet_hashtable(::Type{TerrainEventHandler})
+    if !TerrainEventHandler_hashtableSet[]
+        TerrainEventHandler_hashtableSet[] = true
+        TerrainEventHandler_hashtableValue[] = AllBinary.getInstance(StdUtil).NULL_TABLE
+    end
+    TerrainEventHandler_hashtableValue[]
+end
+function staticSet_hashtable(::Type{TerrainEventHandler}, value)
+    TerrainEventHandler_hashtableSet[] = true
+    TerrainEventHandler_hashtableValue[] = value
+end
 
-
-class TerrainEventHandler(BasicEventHandler):
-    hashtable: ABHashtable[object, object] = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_: BasicArrayList = BasicArrayListD()
-    
-
-    @staticmethod
-    def init() -> None:
-        from org.allbinary.logic.StdUtil import StdUtil
-        TerrainEventHandler.hashtable = StdUtil.getInstance().createHashtable()
-    
-
-    @staticmethod
-    def getInstance(anyType: object) -> TerrainEventHandler:
-        eventHandlerCanBeNull: object = TerrainEventHandler.hashtable.get(anyType)
-        if eventHandlerCanBeNull is None:
-            eventHandlerCanBeNull = TerrainEventHandler()
-            TerrainEventHandler.hashtable.put(anyType, eventHandlerCanBeNull)
-        return eventHandlerCanBeNull
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def addListener(self, terrainEventListener: TerrainEventListener) -> None:
-        if not self.list_.contains(terrainEventListener):
-            self.list_.add(terrainEventListener)
-    
-
-    def removeAllListeners(self) -> None:
-        self.list_.clear()
-        super().removeAllListeners()
-    
-
-    def removeListener(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.list_.remove(eventListenerInterface)
-        super().removeListener(eventListenerInterface)
-    
-
-    # throws Exception
-    def fireEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        index = self.list_.size()
-        while (index := index - 1) >= 0:
-            try:
-                terrainEventListener: TerrainEventListener = self.list_.get(index)
-                terrainEventListener.onTerrainEvent(eventObject)
-            except Exception as e:
-                self.logUtil.put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-        super().fireEvent(eventObject)
-    
-
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        terrainEventListenerInterface: TerrainEventListenerInterface = eventListenerInterface
-        terrainEventListenerInterface.onTerrainEvent(eventObject)
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function initFieldsTerrainEventHandler(this::TerrainEventHandler)
+    this.list = nothing
+    this.list = newBasicArrayListD()
+    nothing
+end
 
 
-def _TerrainEventHandler_hashtable() -> object:
-    from org.allbinary.logic.StdUtil import StdUtil
-    from org.allbinary.util.ABHashtable import ABHashtable
-    return StdUtil.getInstance().NULL_TABLE
+function init(::Type{TerrainEventHandler})
+        staticSet_hashtable(TerrainEventHandler, AllBinary.createHashtable(AllBinary.getInstance(StdUtil)))
+        nothing
+end
 
-lazy_static(TerrainEventHandler, "hashtable", _TerrainEventHandler_hashtable)
+
+function getInstance(::Type{TerrainEventHandler}, anyType)
+        local eventHandlerCanBeNull = AllBinary.get(staticGet_hashtable(TerrainEventHandler), anyType)
+        if eventHandlerCanBeNull === nothing
+            eventHandlerCanBeNull = newTerrainEventHandler()
+            AllBinary.put(staticGet_hashtable(TerrainEventHandler), anyType, eventHandlerCanBeNull)
+        end
+        return (eventHandlerCanBeNull)
+end
+
+
+function initTerrainEventHandler(this::TerrainEventHandler)
+        initBasicEventHandler(this)
+        initFieldsTerrainEventHandler(this)
+        nothing
+        nothing
+end
+
+function newTerrainEventHandler()
+    this = TerrainEventHandler()
+    initTerrainEventHandler(this)
+    this
+end
+
+
+function addListener(this::TerrainEventHandler, terrainEventListener)
+        if !AllBinary.contains(this.list, terrainEventListener)
+            AllBinary.add(this.list, terrainEventListener)
+        end
+        nothing
+end
+
+
+function removeAllListeners(this::TerrainEventHandler)
+        AllBinary.clear(this.list)
+        AllBinary.removeAllListeners(this)
+        nothing
+end
+
+
+function removeListener(this::TerrainEventHandler, eventListenerInterface)
+        AllBinary.remove(this.list, eventListenerInterface)
+        AllBinary.removeListener(this, eventListenerInterface)
+        nothing
+end
+
+
+function fireEvent(this::TerrainEventHandler, eventObject)
+        let
+            local index::Int32 = AllBinary.size(this.list)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            try
+                local terrainEventListener = (AllBinary.get(this.list, index))
+                AllBinary.onTerrainEvent(terrainEventListener, (eventObject))
+            catch e
+                AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, AllBinary.getInstance(EventStrings).FIRE_EVENT, e)
+            end
+            finally
+            end
+            end
+        end
+        AllBinary.fireEvent(this, eventObject)
+        nothing
+end
+
+
+function process(this::TerrainEventHandler, eventObject, eventListenerInterface)
+        local terrainEventListenerInterface = (eventListenerInterface)
+        AllBinary.onTerrainEvent(terrainEventListenerInterface, (eventObject))
+        nothing
+end
 

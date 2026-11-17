@@ -1,35 +1,54 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+mutable struct NoButtonsTouchInputFactory <: JObject
+    NoButtonsTouchInputFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const NoButtonsTouchInputFactory_instanceValue = Ref{Any}(nothing)
+const NoButtonsTouchInputFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{NoButtonsTouchInputFactory})
+    if !NoButtonsTouchInputFactory_instanceSet[]
+        NoButtonsTouchInputFactory_instanceSet[] = true
+        NoButtonsTouchInputFactory_instanceValue[] = newBaseTouchInput()
+    end
+    NoButtonsTouchInputFactory_instanceValue[]
+end
+function staticSet_instance(::Type{NoButtonsTouchInputFactory}, value)
+    NoButtonsTouchInputFactory_instanceSet[] = true
+    NoButtonsTouchInputFactory_instanceValue[] = value
+end
+
+function initFieldsNoButtonsTouchInputFactory(this::NoButtonsTouchInputFactory)
+    nothing
+end
+
+function initNoButtonsTouchInputFactory(this::NoButtonsTouchInputFactory)
+    initFieldsNoButtonsTouchInputFactory(this)
+end
+
+function newNoButtonsTouchInputFactory()
+    this = NoButtonsTouchInputFactory()
+    initNoButtonsTouchInputFactory(this)
+    this
+end
 
 
-class NoButtonsTouchInputFactory:
-    instance: BaseTouchInput = None
-    
-
-    @staticmethod
-    def getInstance() -> BaseTouchInput:
-        return NoButtonsTouchInputFactory.instance
-
-
-def _NoButtonsTouchInputFactory_instance() -> object:
-    from org.allbinary.input.motion.button.BaseTouchInput import BaseTouchInput
-    return BaseTouchInput()
-
-lazy_static(NoButtonsTouchInputFactory, "instance", _NoButtonsTouchInputFactory_instance)
+function getInstance(::Type{NoButtonsTouchInputFactory})
+        return staticGet_instance(NoButtonsTouchInputFactory)
+end
 

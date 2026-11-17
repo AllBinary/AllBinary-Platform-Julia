@@ -1,106 +1,123 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.text
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CustomTextBoxIndexedAnimation <: JObject
+    customTextBox::Any
+    lastText::Any
+    hasChanged::Bool
+    textChangeListener::Any
+    CustomTextBoxIndexedAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-from org.allbinary.game.input.event.RawKeyEventListener import RawKeyEventListener
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.animation.text.TextInterface import TextInterface
 
-
-class CustomTextBoxIndexedAnimation(IndexedAnimation, RawKeyEventListener, UpdateMyFontInterface, TextInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.form.item.CustomTextBox import CustomTextBox
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.customTextBox: CustomTextBox = None
-        self.lastText: str = StringUtil.getInstance().INIT_STRING
-        self.hasChanged: bool = True
-        self.textChangeListener: TextChangeListener = TextChangeListener.getInstance()
+function initFieldsCustomTextBoxIndexedAnimation(this::CustomTextBoxIndexedAnimation)
+    this.customTextBox = nothing
+    this.lastText = nothing
+    this.hasChanged = false
+    this.textChangeListener = nothing
     
+    this.lastText = AllBinary.getInstance(StringUtil).INIT_STRING
+    this.hasChanged = true
+    this.textChangeListener = AllBinary.getInstance(TextChangeListener)
+    nothing
+end
 
-    def __init__(self, customTextBox: CustomTextBox) -> None:
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.graphics.form.item.CustomTextBox import CustomTextBox
-        super().__init__(AnimationBehavior.getInstance())
-        self._init_fields()
-        self.customTextBox = customTextBox
-    
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.customTextBox.getTextFieldItem().setForegroundBasicColorP(basicColor)
-    
+function initCustomTextBoxIndexedAnimation(this::CustomTextBoxIndexedAnimation, customTextBox)
+        initIndexedAnimation(this, AllBinary.getInstance(AnimationBehavior))
+        initFieldsCustomTextBoxIndexedAnimation(this)
+        this.customTextBox = customTextBox
+        nothing
+end
 
-    def setBackgroundBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.customTextBox.getTextFieldItem().setBackgroundBasicColorP(basicColor)
-    
+function newCustomTextBoxIndexedAnimation(customTextBox)
+    this = CustomTextBoxIndexedAnimation()
+    initCustomTextBoxIndexedAnimation(this, customTextBox)
+    this
+end
 
-    def setTextWithOnMeasure(self, text: str, textChangeListener: TextChangeListener) -> None:
-        self.setText(text)
-        self.textChangeListener = textChangeListener
-    
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from org.allbinary.animation.text.TextChangeListener import TextChangeListener
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        font: Font = graphics.getFont()
-        self.textChangeListener.onMeasure()
-        self.textChangeListener = TextChangeListener.getInstance()
-    
+function setBasicColorP(this::CustomTextBoxIndexedAnimation, basicColor)
+        AllBinary.setForegroundBasicColorP(AllBinary.getTextFieldItem(this.customTextBox), basicColor)
+        nothing
+end
 
-    def setText(self, text: str) -> None:
-        if self.lastText != text:
-            self.hasChanged = True
-            self.lastText = text
-            self.customTextBox.getTextFieldItem().setString(text)
-    
 
-    def getText(self) -> str:
-        return self.customTextBox.getTextFieldItem().getString()
-    
+function setBackgroundBasicColorP(this::CustomTextBoxIndexedAnimation, basicColor)
+        AllBinary.setBackgroundBasicColorP(AllBinary.getTextFieldItem(this.customTextBox), basicColor)
+        nothing
+end
 
-    def onEventRaw(self, keyCode: int, deviceId: int, repeated: bool) -> None:
-        self.customTextBox.onEventRaw(keyCode, deviceId, repeated)
-    
 
-    def getFontHeight(self) -> int:
-        return self.customTextBox.getTextFieldItem().getFontHeight()
-    
+function setTextWithOnMeasure(this::CustomTextBoxIndexedAnimation, text, textChangeListener)
+        AllBinary.setText(this, text)
+        this.textChangeListener = textChangeListener
+        nothing
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.customTextBox.paintXY(graphics, x, y)
-    
 
-    def paintThreedXYZ(self, graphics: Graphics, x: int, y: int, z: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
+function updateMeasurement(this::CustomTextBoxIndexedAnimation, graphics)
+        local font = AllBinary.getFont(graphics)
+        AllBinary.onMeasure(this.textChangeListener)
+        this.textChangeListener = AllBinary.getInstance(TextChangeListener)
+        nothing
+end
 
-    def getWidth(self) -> int:
-        return super().getWidth()
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.form.item.CustomTextBox import CustomTextBox
-# from org.allbinary.logic.string.StringUtil import StringUtil
-from org.allbinary.animation.text.TextChangeListener import TextChangeListener
 
+function setText(this::CustomTextBoxIndexedAnimation, text)
+        if this.lastText != text
+            this.hasChanged = true
+            this.lastText = text
+            AllBinary.setString(AllBinary.getTextFieldItem(this.customTextBox), text)
+        end
+        nothing
+end
+
+
+function getText(this::CustomTextBoxIndexedAnimation)
+        return AllBinary.getString(AllBinary.getTextFieldItem(this.customTextBox))
+end
+
+
+function onEventRaw(this::CustomTextBoxIndexedAnimation, keyCode, deviceId, repeated)
+        AllBinary.onEventRaw(this.customTextBox, keyCode, deviceId, repeated)
+        nothing
+end
+
+
+function getFontHeight(this::CustomTextBoxIndexedAnimation)
+        return AllBinary.getFontHeight(AllBinary.getTextFieldItem(this.customTextBox))
+end
+
+
+function paintXY(this::CustomTextBoxIndexedAnimation, graphics, x, y)
+        AllBinary.paintXY(this.customTextBox, graphics, x, y)
+        nothing
+end
+
+
+function paintThreedXYZ(this::CustomTextBoxIndexedAnimation, graphics, x, y, z)
+        nothing
+        nothing
+end
+
+
+function getWidth(this::CustomTextBoxIndexedAnimation)
+        return AllBinary.getWidth(this)
+end
 

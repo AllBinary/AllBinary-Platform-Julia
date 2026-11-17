@@ -1,32 +1,44 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.special
 
-from __future__ import annotations
+# extends GameInputProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SpecialGameInputInterfaceProcessor <: JObject
+    specialGameInputInterface::Any
+    SpecialGameInputInterfaceProcessor() = new()
+end
 
-from org.allbinary.game.input.GameInputProcessor import GameInputProcessor
 
-
-class SpecialGameInputInterfaceProcessor(GameInputProcessor):
-
-    def _init_fields(self) -> None:
-        self.specialGameInputInterface: SpecialGameInputInterface = None
+function initFieldsSpecialGameInputInterfaceProcessor(this::SpecialGameInputInterfaceProcessor)
+    this.specialGameInputInterface = nothing
     
+    nothing
+end
 
-    def __init__(self, collidableDestroyableDamageableLayer: SpecialGameInputInterface) -> None:
-        super().__init__()
-        self._init_fields()
-        self.specialGameInputInterface = collidableDestroyableDamageableLayer
 
+function initSpecialGameInputInterfaceProcessor(this::SpecialGameInputInterfaceProcessor, collidableDestroyableDamageableLayer)
+        initGameInputProcessor(this)
+        initFieldsSpecialGameInputInterfaceProcessor(this)
+        this.specialGameInputInterface = collidableDestroyableDamageableLayer
+        nothing
+end
+
+function newSpecialGameInputInterfaceProcessor(collidableDestroyableDamageableLayer)
+    this = SpecialGameInputInterfaceProcessor()
+    initSpecialGameInputInterfaceProcessor(this, collidableDestroyableDamageableLayer)
+    this
+end
 

@@ -1,126 +1,161 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends InitUpdatePaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct StartIntermissionPaintable <: JObject
+    fontDebugFactory::Any
+    basicSetColorUtil::Any
+    gameCanvas::Any
+    stringArray::Any
+    fontSize::Int32
+    font::Any
+    lastWidth::Any
+    updateMyFontProcessor::Any
+    myFontProcessor::Any
+    basicColor::Any
+    color::Int32
+    lineYOffsetArray::Any
+    hasChanged::Bool
+    anchor::Int32
+    fontHeightP::Int32
+    BEGIN_LEVEL::Any
+    EMPTY_STRING::Any
+    StartIntermissionPaintable() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.paint.InitUpdatePaintable import InitUpdatePaintable
 
-
-class StartIntermissionPaintable(InitUpdatePaintable, UpdateMyFontInterface):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-        from org.allbinary.graphics.font.FontDebugFactory import FontDebugFactory
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.fontDebugFactory: FontDebugFactory = FontDebugFactory.getInstance()
-        self.basicSetColorUtil: BasicColorSetUtil = BasicColorSetUtil.getInstance()
-        self.gameCanvas: AllBinaryGameCanvas = None
-        self.stringArray: list[str] = None
-        self.fontSize: int = None
-        self.font: Font = None
-        self.lastWidth: list[int] = None
-        self.updateMyFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.myFontProcessor: MyFontProcessor = self.updateMyFontProcessor
-        self.basicColor: BasicColor = BasicColorFactory.getInstance().BLACK
-        self.color: int = None
-        self.lineYOffsetArray: list[int] = NullUtil.getInstance().NULL_INT_ARRAY
-        self.hasChanged: bool = True
-        self.anchor: int = Anchor.TOP_LEFT
-        self.fontHeightP: int = 0
-        self.BEGIN_LEVEL: str = "Begin Level "
-        self.EMPTY_STRING: str = StringUtil.getInstance().EMPTY_STRING
+function initFieldsStartIntermissionPaintable(this::StartIntermissionPaintable)
+    this.fontDebugFactory = nothing
+    this.basicSetColorUtil = nothing
+    this.gameCanvas = nothing
+    this.stringArray = nothing
+    this.fontSize = Int32(0)
+    this.font = nothing
+    this.lastWidth = nothing
+    this.updateMyFontProcessor = nothing
+    this.myFontProcessor = nothing
+    this.basicColor = nothing
+    this.color = Int32(0)
+    this.lineYOffsetArray = nothing
+    this.hasChanged = false
+    this.anchor = Int32(0)
+    this.fontHeightP = Int32(0)
+    this.BEGIN_LEVEL = nothing
+    this.EMPTY_STRING = nothing
+    this.fontDebugFactory = AllBinary.getInstance(FontDebugFactory)
+    this.basicSetColorUtil = AllBinary.getInstance(BasicColorSetUtil)
     
-
-    def __init__(self, gameCanvas: AllBinaryGameCanvas, stringArray: list[str], basicColor: BasicColor, font: Font) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.gameCanvas = gameCanvas
-        self.stringArray = stringArray
-        self.lastWidth = [0] * (len(self.stringArray))
-        self.setBasicColorP(basicColor)
-        self.color = int(basicColor)
-        self.fontSize = font.getSize()
-        self.font = font
     
-
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.fontHeightP = font.getHeight()
-        self.myFontProcessor = MyFontProcessor.getInstance()
     
-
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        self.myFontProcessor.process(graphics)
-        existingFont: Font = graphics.getFont()
-        self.fontDebugFactory.setFont(self.font, graphics)
-        displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.basicSetColorUtil.setBasicColorP3(graphics, self.basicColor, self.color)
-        beginWidth: int = 0
-        for index in range(len(self.lineYOffsetArray) - 1, 0 - 1, -1):
-            if self.hasChanged:
-                self.lastWidth[index] = (graphics.getFont().stringWidth(self.stringArray[index]) >> 1)
-            beginWidth = self.lastWidth[index]
-            graphics.drawString(self.stringArray[index], displayInfo.getLastHalfWidth() - beginWidth, displayInfo.getLastHalfHeight() - self.lineYOffsetArray[index], self.anchor)
-        self.hasChanged = False
-        self.fontDebugFactory.setFont(existingFont, graphics)
     
-
-    def update(self) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        level: int = self.gameCanvas.getLayerManager().getGameInfo().getCurrentLevel()
-        self.stringArray[0] = str(StringMaker().append(self.BEGIN_LEVEL).appendint(level))
-        for index in range(len(self.stringArray) - 1, 1 - 1, -1):
-            self.stringArray[index] = self.EMPTY_STRING
     
-
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.basicColor = basicColor
+    this.updateMyFontProcessor = newUpdateMyFontProcessor(this)
+    this.myFontProcessor = this.updateMyFontProcessor
+    this.basicColor = AllBinary.getInstance(BasicColorFactory).BLACK
     
+    this.lineYOffsetArray = AllBinary.getInstance(NullUtil).NULL_INT_ARRAY
+    this.hasChanged = true
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    this.fontHeightP = Int32(0)
+    this.BEGIN_LEVEL = "Begin Level "
+    this.EMPTY_STRING = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    nothing
+end
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.basicColor
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.font.FontDebugFactory import FontDebugFactory
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function initStartIntermissionPaintable(this::StartIntermissionPaintable, gameCanvas, stringArray, basicColor, font)
+        initInitUpdatePaintable(this)
+        initFieldsStartIntermissionPaintable(this)
+        this.gameCanvas = gameCanvas
+        this.stringArray = stringArray
+        this.lastWidth = jNewArray(Int32, Int32(Base.length(this.stringArray)), Int32(0))
+        AllBinary.setBasicColorP(this, basicColor)
+        this.color = AllBinary.intValue(basicColor)
+        this.fontSize = AllBinary.getSize(font)
+        this.font = font
+        nothing
+end
+
+function newStartIntermissionPaintable(gameCanvas, stringArray, basicColor, font)
+    this = StartIntermissionPaintable()
+    initStartIntermissionPaintable(this, gameCanvas, stringArray, basicColor, font)
+    this
+end
+
+
+function updateMeasurement(this::StartIntermissionPaintable, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.fontHeightP = AllBinary.getHeight(font)
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
+
+
+function paint(this::StartIntermissionPaintable, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        local existingFont = AllBinary.getFont(graphics)
+        AllBinary.setFont(this.fontDebugFactory, this.font, graphics)
+        local displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+        AllBinary.setBasicColorP3(this.basicSetColorUtil, graphics, this.basicColor, this.color)
+        local beginWidth::Int32 = Int32(0)
+        let
+            local index::Int32 = Int32(Base.length(this.lineYOffsetArray)) - Int32(1)
+            while index >= Int32(0)
+            try
+            if this.hasChanged
+                this.lastWidth[index + 1] = (AllBinary.stringWidth(AllBinary.getFont(graphics), this.stringArray[index + 1]) >> Int32(1))
+            end
+            beginWidth = this.lastWidth[index + 1]
+            AllBinary.drawString(graphics, this.stringArray[index + 1], AllBinary.getLastHalfWidth(displayInfo) - beginWidth, AllBinary.getLastHalfHeight(displayInfo) - this.lineYOffsetArray[index + 1], this.anchor)
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        this.hasChanged = false
+        AllBinary.setFont(this.fontDebugFactory, existingFont, graphics)
+        nothing
+end
+
+
+function update(this::StartIntermissionPaintable)
+        local level::Int32 = AllBinary.getCurrentLevel(AllBinary.getGameInfo(AllBinary.getLayerManager(this.gameCanvas)))
+        this.stringArray[Int32(0) + 1] = AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), this.BEGIN_LEVEL), level))
+        let
+            local index::Int32 = Int32(Base.length(this.stringArray)) - Int32(1)
+            while index >= Int32(1)
+            try
+            this.stringArray[index + 1] = this.EMPTY_STRING
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function setBasicColorP(this::StartIntermissionPaintable, basicColor)
+        this.basicColor = basicColor
+        nothing
+end
+
+
+function getBasicColorP(this::StartIntermissionPaintable)
+        return this.basicColor
+end
 

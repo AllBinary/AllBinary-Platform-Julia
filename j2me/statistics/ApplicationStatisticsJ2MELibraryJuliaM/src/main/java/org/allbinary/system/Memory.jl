@@ -39,9 +39,9 @@ end
 function getInfo(::Type{Memory})
         local stringBuffer = newStringMaker()
         AllBinary.append(stringBuffer, "Memory: Free: ")
-        AllBinary.appendlong(stringBuffer, ((AllBinary.freeMemory(AllBinary.getRuntime(Runtime))) % Int64))
+        AllBinary.appendlong(stringBuffer, AllBinary.freeMemory(AllBinary.getRuntime(Runtime)))
         AllBinary.append(stringBuffer, " Total: ")
-        AllBinary.appendlong(stringBuffer, ((AllBinary.totalMemory(AllBinary.getRuntime(Runtime))) % Int64))
+        AllBinary.appendlong(stringBuffer, AllBinary.totalMemory(AllBinary.getRuntime(Runtime)))
         return AllBinary.toString(stringBuffer)
 end
 

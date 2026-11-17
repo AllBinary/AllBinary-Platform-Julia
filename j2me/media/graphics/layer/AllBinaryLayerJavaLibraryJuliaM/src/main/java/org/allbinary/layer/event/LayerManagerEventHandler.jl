@@ -1,123 +1,150 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer.event
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LayerManagerEventHandler <: JObject
+    list::Any
+    CREATE::Any
+    DELETE::Any
+    LayerManagerEventHandler() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const LayerManagerEventHandler_instanceValue = Ref{Any}(nothing)
+const LayerManagerEventHandler_instanceSet = Ref(false)
+function staticGet_instance(::Type{LayerManagerEventHandler})
+    if !LayerManagerEventHandler_instanceSet[]
+        LayerManagerEventHandler_instanceSet[] = true
+        LayerManagerEventHandler_instanceValue[] = newLayerManagerEventHandler()
+    end
+    LayerManagerEventHandler_instanceValue[]
+end
+function staticSet_instance(::Type{LayerManagerEventHandler}, value)
+    LayerManagerEventHandler_instanceSet[] = true
+    LayerManagerEventHandler_instanceValue[] = value
+end
 
-
-class LayerManagerEventHandler(BasicEventHandler):
-    instance: LayerManagerEventHandler = None
-    _lock = threading.RLock()
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_: BasicArrayList = BasicArrayListD()
-        self.CREATE: str = "Create"
-        self.DELETE: str = "Delete"
-    
-
-    @staticmethod
-    def getInstance() -> LayerManagerEventHandler:
-        return LayerManagerEventHandler.instance
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def addListener(self, layerManagerEventListener: LayerManagerEventListener) -> None:
-        if not self.list_.contains(layerManagerEventListener):
-            self.list_.add(layerManagerEventListener)
-    
-
-    def removeAllListeners(self) -> None:
-        self.list_.clear()
-        super().removeAllListeners()
-    
-
-    def removeListener(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.list_.remove(eventListenerInterface)
-        super().removeListener(eventListenerInterface)
-    
-
-    # throws Exception
-    def fireEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        index = self.list_.size()
-        while (index := index - 1) >= 0:
-            try:
-                layerManagerEventListener: LayerManagerEventListener = self.list_.objectArray[index]
-                layerManagerEventListener.onCreateLayerManagerEvent(eventObject)
-            except Exception as e:
-                self.logUtil.put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-        super().fireEvent(eventObject)
-    
-
-    # throws Exception
-    def fireDeleteEvent(self, eventObject: AllBinaryEventObject) -> None:
-        with self._lock:
-            return self._fireDeleteEvent_unlocked(eventObject)
-
-    def _fireDeleteEvent_unlocked(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        index = self.list_.size()
-        while (index := index - 1) >= 0:
-            try:
-                layerManagerEventListener: LayerManagerEventListener = self.list_.objectArray[index]
-                layerManagerEventListener.onDeleteLayerManagerEvent(eventObject)
-            except Exception as e:
-                self.logUtil.put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-        eventListenerInterfaceList: BasicArrayList = self.eventListenerInterfaceList
-        eventListenerInterface: EventListenerInterface = None
-        layerManagerEventListenerInterface: LayerManagerEventListenerInterface = None
-        listenerIndex: int = 0
-        while listenerIndex < eventListenerInterfaceList.size():
-            try:
-                eventListenerInterface = eventListenerInterfaceList.objectArray[listenerIndex]
-                layerManagerEventListenerInterface = (eventListenerInterface)
-                layerManagerEventListenerInterface.onDeleteLayerManagerEvent(eventObject)
-            except Exception as e:
-                self.logUtil.put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            listenerIndex += 1
-    
-
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        layerManagerEventListenerInterface: LayerManagerEventListenerInterface = (eventListenerInterface)
-        layerManagerEventListenerInterface.onCreateLayerManagerEvent(eventObject)
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function initFieldsLayerManagerEventHandler(this::LayerManagerEventHandler)
+    this.list = nothing
+    this.CREATE = nothing
+    this.DELETE = nothing
+    this.list = newBasicArrayListD()
+    this.CREATE = "Create"
+    this.DELETE = "Delete"
+    nothing
+end
 
 
-def _LayerManagerEventHandler_instance() -> object:
-    return LayerManagerEventHandler()
+function getInstance(::Type{LayerManagerEventHandler})
+        return staticGet_instance(LayerManagerEventHandler)
+end
 
-lazy_static(LayerManagerEventHandler, "instance", _LayerManagerEventHandler_instance)
+
+function initLayerManagerEventHandler(this::LayerManagerEventHandler)
+        initBasicEventHandler(this)
+        initFieldsLayerManagerEventHandler(this)
+        nothing
+        nothing
+end
+
+function newLayerManagerEventHandler()
+    this = LayerManagerEventHandler()
+    initLayerManagerEventHandler(this)
+    this
+end
+
+
+function addListener(this::LayerManagerEventHandler, layerManagerEventListener)
+        if !AllBinary.contains(this.list, layerManagerEventListener)
+            AllBinary.add(this.list, layerManagerEventListener)
+        end
+        nothing
+end
+
+
+function removeAllListeners(this::LayerManagerEventHandler)
+        AllBinary.clear(this.list)
+        AllBinary.removeAllListeners(this)
+        nothing
+end
+
+
+function removeListener(this::LayerManagerEventHandler, eventListenerInterface)
+        AllBinary.remove(this.list, eventListenerInterface)
+        AllBinary.removeListener(this, eventListenerInterface)
+        nothing
+end
+
+
+function fireEvent(this::LayerManagerEventHandler, eventObject)
+        let
+            local index::Int32 = AllBinary.size(this.list)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            try
+                local layerManagerEventListener = (this.list.objectArray[index + 1])
+                AllBinary.onCreateLayerManagerEvent(layerManagerEventListener, (eventObject))
+            catch e
+                AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, AllBinary.getInstance(EventStrings).FIRE_EVENT, e)
+            end
+            finally
+            end
+            end
+        end
+        AllBinary.fireEvent(this, eventObject)
+        nothing
+end
+
+
+function fireDeleteEvent(this::LayerManagerEventHandler, eventObject)
+        let
+            local index::Int32 = AllBinary.size(this.list)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            try
+                local layerManagerEventListener = (this.list.objectArray[index + 1])
+                AllBinary.onDeleteLayerManagerEvent(layerManagerEventListener, (eventObject))
+            catch e
+                AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, AllBinary.getInstance(EventStrings).FIRE_EVENT, e)
+            end
+            finally
+            end
+            end
+        end
+        local eventListenerInterfaceList = this.eventListenerInterfaceList
+        local eventListenerInterface = nothing
+        local layerManagerEventListenerInterface = nothing
+        local listenerIndex::Int32 = Int32(0)
+        while listenerIndex < AllBinary.size(eventListenerInterfaceList)
+            try
+                eventListenerInterface = (eventListenerInterfaceList.objectArray[listenerIndex + 1])
+                layerManagerEventListenerInterface = ((eventListenerInterface))
+                AllBinary.onDeleteLayerManagerEvent(layerManagerEventListenerInterface, (eventObject))
+            catch e
+                AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, AllBinary.getInstance(EventStrings).FIRE_EVENT, e)
+            end
+            listenerIndex += Int32(1)
+        end
+        nothing
+end
+
+
+function process(this::LayerManagerEventHandler, eventObject, eventListenerInterface)
+        local layerManagerEventListenerInterface = ((eventListenerInterface))
+        AllBinary.onCreateLayerManagerEvent(layerManagerEventListenerInterface, (eventObject))
+        nothing
+end
 

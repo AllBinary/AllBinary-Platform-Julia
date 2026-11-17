@@ -1,66 +1,74 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item.validation
 
-from __future__ import annotations
+# extends Visitor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TextItemUserIdentifierVisitor <: JObject
+    logUtil::Any
+    TextItemUserIdentifierVisitor() = new()
+end
 
-from org.allbinary.logic.util.visitor.Visitor import Visitor
+
+function initFieldsTextItemUserIdentifierVisitor(this::TextItemUserIdentifierVisitor)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
 
 
-class TextItemUserIdentifierVisitor(Visitor):
+function initTextItemUserIdentifierVisitor(this::TextItemUserIdentifierVisitor)
+        initVisitor(this)
+        initFieldsTextItemUserIdentifierVisitor(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-    
+function newTextItemUserIdentifierVisitor()
+    this = TextItemUserIdentifierVisitor()
+    initTextItemUserIdentifierVisitor(this)
+    this
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
 
-    def visit(self, anyType: object) -> object:
-        from org.allbinary.game.input.TextNotificationUtil import TextNotificationUtil
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        value: str = anyType
-        if len(value) < 2:
-            charValue: str = value[0]
-            stringValidationUtil: StringValidationUtil = StringValidationUtil.getInstance()
-            if stringValidationUtil.isNumber(value):
-                return BooleanFactory.getInstance().TRUE
-            elif self.isLetter(charValue):
-                return BooleanFactory.getInstance().TRUE
-            else:
-                try:
-                    TextNotificationUtil.getInstance().fireError("Only Letters & Numbers Allowed")
-                except Exception as e:
-                    commonStrings: CommonStrings = CommonStrings.getInstance()
-                    self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.VISIT, e)
-                return BooleanFactory.getInstance().FALSE
-        else:
-            return BooleanFactory.getInstance().FALSE
-    
+function visit(this::TextItemUserIdentifierVisitor, anyType)
+        local value = (anyType)
+        if jLength(value) < Int32(2)
+            local charValue::UInt16 = jCharAt(value, Int32(0))
+            local stringValidationUtil = AllBinary.getInstance(StringValidationUtil)
+            if AllBinary.isNumber(stringValidationUtil, value)
+                return AllBinary.getInstance(BooleanFactory).TRUE
+            elseif AllBinary.isLetter(this, charValue)
+                return AllBinary.getInstance(BooleanFactory).TRUE
+            else
+                try
+                    AllBinary.fireError(AllBinary.getInstance(TextNotificationUtil), "Only Letters & Numbers Allowed")
+                catch e
+                    local commonStrings = AllBinary.getInstance(CommonStrings)
+                    AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.VISIT, e)
+                end
+                return AllBinary.getInstance(BooleanFactory).FALSE
+            end
+        else
+            return AllBinary.getInstance(BooleanFactory).FALSE
+        end
+end
 
-    def isLetter(self, charValue: str) -> bool:
-        value: int = ord(charValue)
-        return (value > 64 and value < 91) or (value > 96 and value < 123)
-# from org.allbinary.game.input.TextNotificationUtil import TextNotificationUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-# from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
 
+function isLetter(this::TextItemUserIdentifierVisitor, charValue)
+        local value::Int32 = ((charValue) % Int32)
+        return (value > Int32(64) && value < Int32(91)) || (value > Int32(96) && value < Int32(123))
+end
 

@@ -1,31 +1,41 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+mutable struct TouchButtonsPaintableFactory <: JObject
+    TouchButtonsPaintableFactory() = new()
+end
 
 
+function initFieldsTouchButtonsPaintableFactory(this::TouchButtonsPaintableFactory)
+    nothing
+end
 
-class TouchButtonsPaintableFactory:
-    
+function initTouchButtonsPaintableFactory(this::TouchButtonsPaintableFactory)
+    initFieldsTouchButtonsPaintableFactory(this)
+end
 
-    @staticmethod
-    def getInstance(basicColor: BasicColor) -> Paintable:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        return Paintable()
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.paint.Paintable import Paintable
+function newTouchButtonsPaintableFactory()
+    this = TouchButtonsPaintableFactory()
+    initTouchButtonsPaintableFactory(this)
+    this
+end
 
+
+function getInstance(::Type{TouchButtonsPaintableFactory}, basicColor)
+        return newPaintable()
+end
 

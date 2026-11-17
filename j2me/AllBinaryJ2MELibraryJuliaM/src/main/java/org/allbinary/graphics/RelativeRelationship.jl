@@ -1,71 +1,93 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics
 
-from __future__ import annotations
+mutable struct RelativeRelationship <: JObject
+    typesAllowedList::Any
+    x::Int32
+    y::Int32
+    z::Int32
+    RelativeRelationship() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const RelativeRelationship_NULL_RELATIVE_RELATIONSHIPValue = Ref{Any}(nothing)
+const RelativeRelationship_NULL_RELATIVE_RELATIONSHIPSet = Ref(false)
+function staticGet_NULL_RELATIVE_RELATIONSHIP(::Type{RelativeRelationship})
+    if !RelativeRelationship_NULL_RELATIVE_RELATIONSHIPSet[]
+        RelativeRelationship_NULL_RELATIVE_RELATIONSHIPSet[] = true
+        RelativeRelationship_NULL_RELATIVE_RELATIONSHIPValue[] = newRelativeRelationship(AllBinary.getInstance(PointFactory).ZERO_ZERO, AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil)))
+    end
+    RelativeRelationship_NULL_RELATIVE_RELATIONSHIPValue[]
+end
+function staticSet_NULL_RELATIVE_RELATIONSHIP(::Type{RelativeRelationship}, value)
+    RelativeRelationship_NULL_RELATIVE_RELATIONSHIPSet[] = true
+    RelativeRelationship_NULL_RELATIVE_RELATIONSHIPValue[] = value
+end
 
-
-class RelativeRelationship:
-    NULL_RELATIVE_RELATIONSHIP: RelativeRelationship = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.typesAllowedList: BasicArrayList = None
-        self.x: int = None
-        self.y: int = None
-        self.z: int = None
+function initFieldsRelativeRelationship(this::RelativeRelationship)
+    this.typesAllowedList = nothing
+    this.x = Int32(0)
+    this.y = Int32(0)
+    this.z = Int32(0)
     
-
-    def __init__(self, point: GPoint, typesAllowedList: BasicArrayList) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self._init_fields()
-        self.x = point.getX()
-        self.y = point.getY()
-        self.z = point.getZ()
-        self.typesAllowedList = typesAllowedList
     
-
-    def getX(self) -> int:
-        return self.x
     
-
-    def getY(self) -> int:
-        return self.y
     
-
-    def getZ(self) -> int:
-        return self.z
-    
-
-    def getTypesAllowedList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.typesAllowedList
-    
-
-    def setTypesAllowedList(self, typesAllowedList: BasicArrayList) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.typesAllowedList = typesAllowedList
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
+    nothing
+end
 
 
-def _RelativeRelationship_NULL_RELATIVE_RELATIONSHIP() -> object:
-    from org.allbinary.graphics.PointFactory import PointFactory
-    from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-    return RelativeRelationship(PointFactory.getInstance().ZERO_ZERO, BasicArrayListUtil.getInstance().getImmutableInstance())
+function initRelativeRelationship(this::RelativeRelationship, point, typesAllowedList)
+        initFieldsRelativeRelationship(this)
+        this.x = AllBinary.getX(point)
+        this.y = AllBinary.getY(point)
+        this.z = AllBinary.getZ(point)
+        this.typesAllowedList = typesAllowedList
+        nothing
+end
 
-lazy_static(RelativeRelationship, "NULL_RELATIVE_RELATIONSHIP", _RelativeRelationship_NULL_RELATIVE_RELATIONSHIP)
+function newRelativeRelationship(point, typesAllowedList)
+    this = RelativeRelationship()
+    initRelativeRelationship(this, point, typesAllowedList)
+    this
+end
+
+
+function getX(this::RelativeRelationship)
+        return this.x
+end
+
+
+function getY(this::RelativeRelationship)
+        return this.y
+end
+
+
+function getZ(this::RelativeRelationship)
+        return this.z
+end
+
+
+function getTypesAllowedList(this::RelativeRelationship)
+        return this.typesAllowedList
+end
+
+
+function setTypesAllowedList(this::RelativeRelationship, typesAllowedList)
+        this.typesAllowedList = typesAllowedList
+        nothing
+end
 

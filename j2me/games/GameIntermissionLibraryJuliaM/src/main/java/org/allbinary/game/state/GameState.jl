@@ -1,37 +1,47 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.state
 
-from __future__ import annotations
+mutable struct GameState <: JObject
+    name::Any
+    GameState() = new()
+end
 
 
-
-class GameState:
-
-    def _init_fields(self) -> None:
-        self.name: str = None
+function initFieldsGameState(this::GameState)
+    this.name = nothing
     
+    nothing
+end
 
-    def __init__(self, name: str, state: int) -> None:
-        self._init_fields()
-        self.name = name
-    
 
-    def toString(self) -> str:
-        return self.name
+function initGameState(this::GameState, name, state)
+        initFieldsGameState(this)
+        this.name = name
+        nothing
+end
 
-    def __str__(self) -> str:
-        return self.toString()
+function newGameState(name, state)
+    this = GameState()
+    initGameState(this, name, state)
+    this
+end
 
+
+function toString(this::GameState)
+        return this.name
+end
 

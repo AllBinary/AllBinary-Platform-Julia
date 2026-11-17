@@ -1,120 +1,173 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-# 
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+  
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer
 
-from __future__ import annotations
+# extends LayerManagerLoggingBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LayerManagerLogging <: JObject
+    logUtil::Any
+    stringBuilder::Any
+    APPEND::Any
+    APPEND_::Any
+    _AT_::Any
+    ATTEMPT_REMOVE_::Any
+    REMOVE_::Any
+    REMOVE::Any
+    DID_NOT_REMOVE::Any
+    CLEAR::Any
+    LayerManagerLogging() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.layer.LayerManagerLoggingBase import LayerManagerLoggingBase
+const LayerManagerLogging_instanceValue = Ref{Any}(nothing)
+const LayerManagerLogging_instanceSet = Ref(false)
+function staticGet_instance(::Type{LayerManagerLogging})
+    if !LayerManagerLogging_instanceSet[]
+        LayerManagerLogging_instanceSet[] = true
+        LayerManagerLogging_instanceValue[] = newLayerManagerLogging()
+    end
+    LayerManagerLogging_instanceValue[]
+end
+function staticSet_instance(::Type{LayerManagerLogging}, value)
+    LayerManagerLogging_instanceSet[] = true
+    LayerManagerLogging_instanceValue[] = value
+end
+const LayerManagerLogging_removeFailedValue = Ref{Any}(nothing)
+const LayerManagerLogging_removeFailedSet = Ref(false)
+function staticGet_removeFailed(::Type{LayerManagerLogging})
+    if !LayerManagerLogging_removeFailedSet[]
+        LayerManagerLogging_removeFailedSet[] = true
+        LayerManagerLogging_removeFailedValue[] = false
+    end
+    LayerManagerLogging_removeFailedValue[]
+end
+function staticSet_removeFailed(::Type{LayerManagerLogging}, value)
+    LayerManagerLogging_removeFailedSet[] = true
+    LayerManagerLogging_removeFailedValue[] = value
+end
 
+function initFieldsLayerManagerLogging(this::LayerManagerLogging)
+    this.logUtil = nothing
+    this.stringBuilder = nothing
+    this.APPEND = nothing
+    this.APPEND_ = nothing
+    this._AT_ = nothing
+    this.ATTEMPT_REMOVE_ = nothing
+    this.REMOVE_ = nothing
+    this.REMOVE = nothing
+    this.DID_NOT_REMOVE = nothing
+    this.CLEAR = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.stringBuilder = newStringMaker()
+    this.APPEND = "append"
+    this.APPEND_ = " append: "
+    this._AT_ = " at: "
+    this.ATTEMPT_REMOVE_ = " Remove Attempt: "
+    this.REMOVE_ = " Remove: "
+    this.REMOVE = "remove"
+    this.DID_NOT_REMOVE = " Did not remove: "
+    this.CLEAR = " Clear List"
+    nothing
+end
 
-class LayerManagerLogging(LayerManagerLoggingBase):
-    instance: LayerManagerLogging = None
-    removeFailed: bool = False
+function initLayerManagerLogging(this::LayerManagerLogging)
+    initLayerManagerLoggingBase(this)
+    initFieldsLayerManagerLogging(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.stringBuilder: StringMaker = StringMaker()
-        self.APPEND: str = "append"
-        self.APPEND_: str = " append: "
-        self._AT_: str = " at: "
-        self.ATTEMPT_REMOVE_: str = " Remove Attempt: "
-        self.REMOVE_: str = " Remove: "
-        self.REMOVE: str = "remove"
-        self.DID_NOT_REMOVE: str = " Did not remove: "
-        self.CLEAR: str = " Clear List"
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> LayerManagerLogging:
-        return LayerManagerLogging.instance
-    
-
-    # throws Exception
-    def append(self, layerInterface: AllBinaryLayer) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        self.stringBuilder.delete(0, self.stringBuilder.length())
-        self.logUtil.putF(str(self.stringBuilder.appendint(int(TsUtil.getInstance().hashCode(self))).append(self.APPEND_).append(layerInterface.getName())), self, self.APPEND)
-    
-
-    def appendAt(self, layerInterface: AllBinaryLayer, index: int) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        self.stringBuilder.delete(0, self.stringBuilder.length())
-        self.logUtil.putF(str(self.stringBuilder.appendint(int(TsUtil.getInstance().hashCode(self))).append(self.APPEND_).append(layerInterface.getName()).append(self._AT_).appendint(index)), self, self.APPEND)
-    
-
-    def remove(self, layerInterface: AllBinaryLayer) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        if layerInterface is None:
-            self.stringBuilder.delete(0, self.stringBuilder.length())
-            self.logUtil.putF(str(self.stringBuilder.appendint(int(TsUtil.getInstance().hashCode(self))).append(self.ATTEMPT_REMOVE_).append(StringUtil.getInstance().toString(layerInterface))), self, self.REMOVE)
-        else:
-            self.stringBuilder.delete(0, self.stringBuilder.length())
-            self.logUtil.putF(str(self.stringBuilder.appendint(int(TsUtil.getInstance().hashCode(self))).append(self.ATTEMPT_REMOVE_).append(layerInterface.getName())), self, self.REMOVE)
-    
-
-    def removeResult(self, layerManager: LayerManager, layerInterface: AllBinaryLayer, result: bool) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        if layerInterface is None:
-            self.stringBuilder.delete(0, self.stringBuilder.length())
-            self.logUtil.putF(str(self.stringBuilder.appendint(int(TsUtil.getInstance().hashCode(self))).append(self.REMOVE_).append(StringUtil.getInstance().toString(layerInterface))), self, self.REMOVE)
-        elif result:
-            if LayerManagerLogging.removeFailed:
-                self.stringBuilder.delete(0, self.stringBuilder.length())
-                self.logUtil.putF(str(self.stringBuilder.appendint(int(TsUtil.getInstance().hashCode(self))).append(self.REMOVE_).append(layerInterface.getName())), self, self.REMOVE)
-        else:
-            self.stringBuilder.delete(0, self.stringBuilder.length())
-            self.logUtil.putF(str(self.stringBuilder.appendint(int(TsUtil.getInstance().hashCode(self))).append(self.DID_NOT_REMOVE).append(layerInterface.getName())), self, self.REMOVE)
-            LayerManagerLogging.removeFailed = True
-    
-
-    def log(self, layerManager: LayerManager) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        from org.allbinary.string.CommonSeps import CommonSeps
-        self.stringBuilder.delete(0, self.stringBuilder.length())
-        size: int = layerManager.getSize()
-        commonSeps: CommonSeps = CommonSeps.getInstance()
-        self.stringBuilder.append(format(TsUtil.getInstance().hashCode(layerManager), "x")).append(commonSeps.COLON_SEP)
-        self.stringBuilder.appendint(size).append(commonSeps.COLON_SEP)
-        allBinaryLayer: AllBinaryLayer = None
-        for index in range(0, size):
-            allBinaryLayer = (layerManager.getLayerAt(index))
-            self.stringBuilder.append(allBinaryLayer.getName()).append(commonSeps.COMMA)
-        self.logUtil.putF(str(self.stringBuilder), self, self.REMOVE)
-    
-
-    def clear(self) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        self.stringBuilder.delete(0, self.stringBuilder.length())
-        self.logUtil.putF(str(self.stringBuilder.appendint(int(TsUtil.getInstance().hashCode(self))).append(self.CLEAR)), self, self.CLEAR)
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonSeps import CommonSeps
+function newLayerManagerLogging()
+    this = LayerManagerLogging()
+    initLayerManagerLogging(this)
+    this
+end
 
 
-def _LayerManagerLogging_instance() -> object:
-    return LayerManagerLogging()
+function getInstance(::Type{LayerManagerLogging})
+        return staticGet_instance(LayerManagerLogging)
+end
 
-lazy_static(LayerManagerLogging, "instance", _LayerManagerLogging_instance)
+
+function append(this::LayerManagerLogging, layerInterface)
+        AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.appendint(this.stringBuilder, ((AllBinary.hashCode(AllBinary.getInstance(TsUtil), this)) % Int32)), this.APPEND_), AllBinary.getName(layerInterface))), this, this.APPEND)
+        nothing
+end
+
+
+function appendAt(this::LayerManagerLogging, layerInterface, index)
+        AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.appendint(this.stringBuilder, ((AllBinary.hashCode(AllBinary.getInstance(TsUtil), this)) % Int32)), this.APPEND_), AllBinary.getName(layerInterface)), this._AT_), index)), this, this.APPEND)
+        nothing
+end
+
+
+function remove(this::LayerManagerLogging, layerInterface)
+        if layerInterface === nothing
+            AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.appendint(this.stringBuilder, ((AllBinary.hashCode(AllBinary.getInstance(TsUtil), this)) % Int32)), this.ATTEMPT_REMOVE_), AllBinary.toString(AllBinary.getInstance(StringUtil), layerInterface))), this, this.REMOVE)
+        else
+            AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.appendint(this.stringBuilder, ((AllBinary.hashCode(AllBinary.getInstance(TsUtil), this)) % Int32)), this.ATTEMPT_REMOVE_), AllBinary.getName(layerInterface))), this, this.REMOVE)
+        end
+        nothing
+end
+
+
+function removeResult(this::LayerManagerLogging, layerManager, layerInterface, result)
+        if layerInterface === nothing
+            AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.appendint(this.stringBuilder, ((AllBinary.hashCode(AllBinary.getInstance(TsUtil), this)) % Int32)), this.REMOVE_), AllBinary.toString(AllBinary.getInstance(StringUtil), layerInterface))), this, this.REMOVE)
+        elseif result
+            if staticGet_removeFailed(LayerManagerLogging)
+                AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.appendint(this.stringBuilder, ((AllBinary.hashCode(AllBinary.getInstance(TsUtil), this)) % Int32)), this.REMOVE_), AllBinary.getName(layerInterface))), this, this.REMOVE)
+            end
+        else
+            AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.appendint(this.stringBuilder, ((AllBinary.hashCode(AllBinary.getInstance(TsUtil), this)) % Int32)), this.DID_NOT_REMOVE), AllBinary.getName(layerInterface))), this, this.REMOVE)
+            staticSet_removeFailed(LayerManagerLogging, true)
+        end
+        nothing
+end
+
+
+function log(this::LayerManagerLogging, layerManager)
+        AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+        local size::Int32 = AllBinary.getSize(layerManager)
+        local commonSeps = AllBinary.getInstance(CommonSeps)
+        AllBinary.append(AllBinary.append(this.stringBuilder, AllBinary.toHexString(Integer, AllBinary.hashCode(AllBinary.getInstance(TsUtil), layerManager))), commonSeps.COLON_SEP)
+        AllBinary.append(AllBinary.appendint(this.stringBuilder, size), commonSeps.COLON_SEP)
+        local allBinaryLayer = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            allBinaryLayer = ((AllBinary.getLayerAt(layerManager, index)))
+            AllBinary.append(AllBinary.append(this.stringBuilder, AllBinary.getName(allBinaryLayer)), commonSeps.COMMA)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.putF(this.logUtil, AllBinary.toString(this.stringBuilder), this, this.REMOVE)
+        nothing
+end
+
+
+function clear(this::LayerManagerLogging)
+        AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.appendint(this.stringBuilder, ((AllBinary.hashCode(AllBinary.getInstance(TsUtil), this)) % Int32)), this.CLEAR)), this, this.CLEAR)
+        nothing
+end
 

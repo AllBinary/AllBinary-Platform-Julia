@@ -1,36 +1,45 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.special
 
-from __future__ import annotations
+# extends SpecialGameInputProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct Special3GameInputProcessor <: JObject
+    Special3GameInputProcessor() = new()
+end
 
-from org.allbinary.game.layer.special.SpecialGameInputProcessor import SpecialGameInputProcessor
+
+function initFieldsSpecial3GameInputProcessor(this::Special3GameInputProcessor)
+    nothing
+end
 
 
-class Special3GameInputProcessor(SpecialGameInputProcessor):
-    
+function initSpecial3GameInputProcessor(this::Special3GameInputProcessor, collidableDestroyableDamageableLayer)
+        initSpecialGameInputProcessor(this, collidableDestroyableDamageableLayer)
+        nothing
+end
 
-    def __init__(self, collidableDestroyableDamageableLayer: CollidableDestroyableDamageableLayer) -> None:
-        super().__init__(collidableDestroyableDamageableLayer)
-    
+function newSpecial3GameInputProcessor(collidableDestroyableDamageableLayer)
+    this = Special3GameInputProcessor()
+    initSpecial3GameInputProcessor(this, collidableDestroyableDamageableLayer)
+    this
+end
 
-    # throws Exception
-    def processEvent(self, allbinaryLayerManager: AllBinaryLayerManager, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        self.collidableDestroyableDamageableLayer.special3(allbinaryLayerManager, gameKeyEvent)
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
 
+function processEvent(this::Special3GameInputProcessor, allbinaryLayerManager, gameKeyEvent)
+        AllBinary.special3(this.collidableDestroyableDamageableLayer, allbinaryLayerManager, gameKeyEvent)
+        nothing
+end
 

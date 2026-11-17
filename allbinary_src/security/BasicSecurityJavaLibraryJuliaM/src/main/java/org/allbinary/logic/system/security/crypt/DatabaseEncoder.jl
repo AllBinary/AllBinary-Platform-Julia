@@ -1,81 +1,92 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.system.security.crypt
 
-from __future__ import annotations
+mutable struct DatabaseEncoder <: JObject
+    DatabaseEncoder() = new()
+end
 
 
+function initFieldsDatabaseEncoder(this::DatabaseEncoder)
+    nothing
+end
 
-class DatabaseEncoder:
-    
 
-    def __init__(self) -> None:
-        pass
-    
+function initDatabaseEncoder(this::DatabaseEncoder)
+        initFieldsDatabaseEncoder(this)
+        nothing
+        nothing
+end
 
-    @staticmethod
-    def encode(value: list[int]) -> str:
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonSeps import CommonSeps
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            array: list[int] = value
-            stringBuffer: StringMaker = StringMaker()
-            for index in range(0, len(array)):
-                stringBuffer.append(str(int(array[index])))
-                if index < len(array) - 1:
-                    stringBuffer.append(CommonSeps.getInstance().SPACE)
-            return str(stringBuffer)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            PreLogUtil.putOE(commonStrings.EXCEPTION, "DatabaseEncoder", "decode", e)
-            return StringUtil.getInstance().EMPTY_STRING
-    
+function newDatabaseEncoder()
+    this = DatabaseEncoder()
+    initDatabaseEncoder(this)
+    this
+end
 
-    @staticmethod
-    def decode(value: str) -> list[int]:
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.tokens.Tokenizer import Tokenizer
-        from org.allbinary.string.CommonSeps import CommonSeps
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        try:
-            tokenizer: Tokenizer = Tokenizer(CommonSeps.getInstance().SPACE)
-            vector: BasicArrayList = tokenizer.getTokensFromString(value, BasicArrayListD())
-            size: int = vector.size()
-            decode: list[int] = [0] * (size)
-            byteOfData: str = None
-            for index in range(0, size):
-                byteOfData = vector.objectArray[index]
-                decode[index] = Byte.parseByte(byteOfData)
+
+function encode(::Type{DatabaseEncoder}, value)
+        try
+            local array = value
+            local stringBuffer = newStringMaker()
+            let
+                local index::Int32 = Int32(0)
+                while index < Int32(Base.length(array))
+                try
+                AllBinary.append(stringBuffer, AllBinary.toString(array[index + 1]))
+                if index < Int32(Base.length(array)) - Int32(1)
+                    AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+                end
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+            return AllBinary.toString(stringBuffer)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.putOE(PreLogUtil, commonStrings.EXCEPTION, "DatabaseEncoder", "decode", e)
+            return AllBinary.getInstance(StringUtil).EMPTY_STRING
+        end
+end
+
+
+function decode(::Type{DatabaseEncoder}, value)
+        try
+            local tokenizer = newTokenizer(AllBinary.getInstance(CommonSeps).SPACE)
+            local vector = AllBinary.getTokensFromString(tokenizer, value, newBasicArrayListD())
+            local size::Int32 = AllBinary.size(vector)
+            local decode = jNewArray(Int8, size, Int8(0))
+            local byteOfData = nothing
+            let
+                local index::Int32 = Int32(0)
+                while index < size
+                try
+                byteOfData = (vector.objectArray[index + 1])
+                decode[index + 1] = AllBinary.parseByte(Byte, byteOfData)
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
             return decode
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            PreLogUtil.putSE(commonStrings.EXCEPTION, "DatabaseEncoder", "decode", e)
-            return NullUtil.getInstance().NULL_BYTE_ARRAY
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.string.tokens.Tokenizer import Tokenizer
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.putSE(PreLogUtil, commonStrings.EXCEPTION, "DatabaseEncoder", "decode", e)
+            return AllBinary.getInstance(NullUtil).NULL_BYTE_ARRAY
+        end
+end
 

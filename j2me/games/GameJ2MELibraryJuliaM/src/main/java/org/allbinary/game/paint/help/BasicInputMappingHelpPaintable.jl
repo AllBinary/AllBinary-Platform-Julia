@@ -1,101 +1,109 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint.help
 
-from __future__ import annotations
+# extends HelpPaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicInputMappingHelpPaintable <: JObject
+    gameInputMappingArray::Any
+    NONE::Any
+    BasicInputMappingHelpPaintable() = new()
+end
 
-from org.allbinary.game.paint.help.HelpPaintable import HelpPaintable
 
-
-class BasicInputMappingHelpPaintable(HelpPaintable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-        from org.allbinary.game.input.mapping.GameInputMapping import GameInputMapping
-        self.gameInputMappingArray: list[GameInputMapping] = None
-        self.NONE: GameKey = GameKeyFactory.getInstance().NONE
+function initFieldsBasicInputMappingHelpPaintable(this::BasicInputMappingHelpPaintable)
+    this.gameInputMappingArray = nothing
+    this.NONE = nothing
     
+    this.NONE = AllBinary.getInstance(GameKeyFactory).NONE
+    nothing
+end
 
-    def __init__(self, gameInputMappingArray: list[GameInputMapping], basicColor: BasicColor) -> None:
-        from org.allbinary.game.input.mapping.GameInputMapping import GameInputMapping
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        super().__init__("Help Screen", BasicColorFactory.getInstance().BLACK, basicColor)
-        self._init_fields()
-        self.gameInputMappingArray = gameInputMappingArray
-        self.update(self.NONE, self.NONE)
-    
 
-    def update(self, selectedGameKey: GameKey, selectedInput: Input) -> None:
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.Input import Input
-        from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-        from org.allbinary.game.input.mapping.GameInputMapping import GameInputMapping
-        from org.allbinary.game.input.mapping.PersistentInputMapping import PersistentInputMapping
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        gameKeyMapping: PersistentInputMapping = PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance()
-        EQUAL: str = " = "
-        stringMaker: StringMaker = StringMaker()
-        size: int = len(self.gameInputMappingArray)
-        keyInfo: list[str] = [None] * (size)
-        gameInputMapping: GameInputMapping = None
-        gameKey: GameKey = None
-        list_: BasicArrayList = None
-        for index in range(0, size):
-            gameInputMapping = self.gameInputMappingArray[index]
-            gameKey = gameInputMapping.getGameKey()
-            list_ = gameKeyMapping.getInputMapping().getMappedInput(gameKey)
-            stringMaker.delete(0, stringMaker.length())
-            keyInfo[index] = str(stringMaker.append(gameInputMapping.getName()).append(EQUAL).append(self.get(list_)))
-        super().setInputInfoP(keyInfo)
-    
+function initBasicInputMappingHelpPaintable(this::BasicInputMappingHelpPaintable, gameInputMappingArray, basicColor)
+        initHelpPaintable(this, "Help Screen", AllBinary.getInstance(BasicColorFactory).BLACK, basicColor)
+        initFieldsBasicInputMappingHelpPaintable(this)
+        this.gameInputMappingArray = gameInputMappingArray
+        AllBinary.update(this, this.NONE, this.NONE)
+        nothing
+end
 
-    def get(self, keyList: BasicArrayList) -> str:
-        from org.allbinary.game.input.Input import Input
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        commonSeps: CommonSeps = CommonSeps.getInstance()
-        stringBuffer: StringMaker = StringMaker()
-        AND: str = "and "
-        key: Input = None
-        size: int = keyList.size()
-        for index in range(0, size):
-            key = keyList.objectArray[index]
-            stringBuffer.append(key.getName())
-            if index + 1 < keyList.size():
-                if keyList.size() == 2:
-                    stringBuffer.append(commonSeps.SPACE).append(AND)
-                else:
-                    if index + 2 == keyList.size():
-                        stringBuffer.append(commonSeps.COMMA_SEP)
-                        stringBuffer.append(AND)
-                    else:
-                        stringBuffer.append(commonSeps.COMMA_SEP)
-        return str(stringBuffer)
-# from org.allbinary.game.input.GameKey import GameKey
-# from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-# from org.allbinary.game.input.Input import Input
-# from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-# from org.allbinary.game.input.mapping.GameInputMapping import GameInputMapping
-# from org.allbinary.game.input.mapping.PersistentInputMapping import PersistentInputMapping
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.util.BasicArrayList import BasicArrayList
+function newBasicInputMappingHelpPaintable(gameInputMappingArray, basicColor)
+    this = BasicInputMappingHelpPaintable()
+    initBasicInputMappingHelpPaintable(this, gameInputMappingArray, basicColor)
+    this
+end
 
+
+function update(this::BasicInputMappingHelpPaintable, selectedGameKey, selectedInput)
+        local gameKeyMapping = AllBinary.getPersistentInputMappingInstance(AllBinary.getInstance(PlatformInputMappingFactory))
+        local EQUAL = " = "
+        local stringMaker = newStringMaker()
+        local size::Int32 = Int32(Base.length(this.gameInputMappingArray))
+        local keyInfo = jNewArray(Any, size, nothing)
+        local gameInputMapping = nothing
+        local gameKey = nothing
+        local list = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            gameInputMapping = this.gameInputMappingArray[index + 1]
+            gameKey = AllBinary.getGameKey(gameInputMapping)
+            list = AllBinary.getMappedInput(AllBinary.getInputMapping(gameKeyMapping), gameKey)
+            AllBinary.delete(stringMaker, Int32(0), AllBinary.length(stringMaker))
+            keyInfo[index + 1] = AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(stringMaker, AllBinary.getName(gameInputMapping)), EQUAL), AllBinary.get(this, list)))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.setInputInfoP(this, keyInfo)
+        nothing
+end
+
+
+function get(this::BasicInputMappingHelpPaintable, keyList)
+        local commonSeps = AllBinary.getInstance(CommonSeps)
+        local stringBuffer = newStringMaker()
+        local AND = "and "
+        local key = nothing
+        local size::Int32 = AllBinary.size(keyList)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            key = (keyList.objectArray[index + 1])
+            AllBinary.append(stringBuffer, AllBinary.getName(key))
+            if index + Int32(1) < AllBinary.size(keyList)
+                if AllBinary.size(keyList) == Int32(2)
+                    AllBinary.append(AllBinary.append(stringBuffer, commonSeps.SPACE), AND)
+                else
+                    if index + Int32(2) == AllBinary.size(keyList)
+                        AllBinary.append(stringBuffer, commonSeps.COMMA_SEP)
+                        AllBinary.append(stringBuffer, AND)
+                    else
+                        AllBinary.append(stringBuffer, commonSeps.COMMA_SEP)
+                    end
+                end
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        return AllBinary.toString(stringBuffer)
+end
 

@@ -1,39 +1,57 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gesture.configuration
 
-from __future__ import annotations
+mutable struct MotionGestureConfigurationFactory <: JObject
+    MotionGestureConfigurationFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const MotionGestureConfigurationFactory_configValue = Ref{Any}(nothing)
+const MotionGestureConfigurationFactory_configSet = Ref(false)
+function staticGet_config(::Type{MotionGestureConfigurationFactory})
+    if !MotionGestureConfigurationFactory_configSet[]
+        MotionGestureConfigurationFactory_configSet[] = true
+        MotionGestureConfigurationFactory_configValue[] = newMotionGestureConfiguration()
+    end
+    MotionGestureConfigurationFactory_configValue[]
+end
+function staticSet_config(::Type{MotionGestureConfigurationFactory}, value)
+    MotionGestureConfigurationFactory_configSet[] = true
+    MotionGestureConfigurationFactory_configValue[] = value
+end
+
+function initFieldsMotionGestureConfigurationFactory(this::MotionGestureConfigurationFactory)
+    nothing
+end
 
 
-class MotionGestureConfigurationFactory:
-    config: MotionGestureConfiguration = None
-    
+function initMotionGestureConfigurationFactory(this::MotionGestureConfigurationFactory)
+        initFieldsMotionGestureConfigurationFactory(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        pass
-    
-
-    @staticmethod
-    def getInstance() -> MotionGestureConfiguration:
-        return MotionGestureConfigurationFactory.config
+function newMotionGestureConfigurationFactory()
+    this = MotionGestureConfigurationFactory()
+    initMotionGestureConfigurationFactory(this)
+    this
+end
 
 
-def _MotionGestureConfigurationFactory_config() -> object:
-    from org.allbinary.input.motion.gesture.configuration.MotionGestureConfiguration import MotionGestureConfiguration
-    return MotionGestureConfiguration()
-
-lazy_static(MotionGestureConfigurationFactory, "config", _MotionGestureConfigurationFactory_config)
+function getInstance(::Type{MotionGestureConfigurationFactory})
+        return staticGet_config(MotionGestureConfigurationFactory)
+end
 

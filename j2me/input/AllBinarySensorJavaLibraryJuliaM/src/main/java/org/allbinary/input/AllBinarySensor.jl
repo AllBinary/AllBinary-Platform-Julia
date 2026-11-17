@@ -1,76 +1,111 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input
 
-from __future__ import annotations
+mutable struct AllBinarySensor <: JObject
+    logUtil::Any
+    commonStrings::Any
+    AllBinarySensor() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.input.AllBinarySensorListener import AllBinarySensorListener
+const AllBinarySensor_NULL_ALLBINARY_SENSORValue = Ref{Any}(nothing)
+const AllBinarySensor_NULL_ALLBINARY_SENSORSet = Ref(false)
+function staticGet_NULL_ALLBINARY_SENSOR(::Type{AllBinarySensor})
+    if !AllBinarySensor_NULL_ALLBINARY_SENSORSet[]
+        AllBinarySensor_NULL_ALLBINARY_SENSORSet[] = true
+        AllBinarySensor_NULL_ALLBINARY_SENSORValue[] = newAllBinarySensor()
+    end
+    AllBinarySensor_NULL_ALLBINARY_SENSORValue[]
+end
+function staticSet_NULL_ALLBINARY_SENSOR(::Type{AllBinarySensor}, value)
+    AllBinarySensor_NULL_ALLBINARY_SENSORSet[] = true
+    AllBinarySensor_NULL_ALLBINARY_SENSORValue[] = value
+end
+const AllBinarySensor_maxValue = Ref{Any}(nothing)
+const AllBinarySensor_maxSet = Ref(false)
+function staticGet_max(::Type{AllBinarySensor})
+    if !AllBinarySensor_maxSet[]
+        AllBinarySensor_maxSet[] = true
+        AllBinarySensor_maxValue[] = Int32(100)
+    end
+    AllBinarySensor_maxValue[]
+end
+function staticSet_max(::Type{AllBinarySensor}, value)
+    AllBinarySensor_maxSet[] = true
+    AllBinarySensor_maxValue[] = value
+end
 
-
-class AllBinarySensor(AllBinarySensorListener):
-    NULL_ALLBINARY_SENSOR: AllBinarySensor = None
-    max: int = 100
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def init(self) -> None:
-        pass
-    
-
-    # throws Exception
-    def update(self) -> None:
-        pass
-    
-
-    @staticmethod
-    def setMax(max: int) -> None:
-        AllBinarySensor.max = max
-    
-
-    @staticmethod
-    def getMax() -> int:
-        return AllBinarySensor.max
-    
-
-    def getId(self) -> int:
-        return AllBinarySensor.getMax()
-    
-
-    def shutdown(self) -> None:
-        self.logUtil.putF(self.commonStrings.START, self, "shutdown")
-    
-
-    def onSensorChange(self) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        ForcedLogUtil.log(self.commonStrings.NOT_IMPLEMENTED, self)
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function initFieldsAllBinarySensor(this::AllBinarySensor)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    nothing
+end
 
 
-def _AllBinarySensor_NULL_ALLBINARY_SENSOR() -> object:
-    return AllBinarySensor()
+function initAllBinarySensor(this::AllBinarySensor)
+        initFieldsAllBinarySensor(this)
+        nothing
+        nothing
+end
 
-lazy_static(AllBinarySensor, "NULL_ALLBINARY_SENSOR", _AllBinarySensor_NULL_ALLBINARY_SENSOR)
+function newAllBinarySensor()
+    this = AllBinarySensor()
+    initAllBinarySensor(this)
+    this
+end
+
+
+function init(this::AllBinarySensor)
+        nothing
+        nothing
+end
+
+
+function update(this::AllBinarySensor)
+        nothing
+        nothing
+end
+
+
+function setMax(::Type{AllBinarySensor}, max)
+        staticSet_max(AllBinarySensor, max)
+        nothing
+end
+
+
+function getMax(::Type{AllBinarySensor})
+        return staticGet_max(AllBinarySensor)
+end
+
+
+function getId(this::AllBinarySensor)
+        return AllBinary.getMax(AllBinarySensor)
+end
+
+
+function shutdown(this::AllBinarySensor)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, "shutdown")
+        nothing
+end
+
+
+function onSensorChange(this::AllBinarySensor)
+        AllBinary.log(ForcedLogUtil, this.commonStrings.NOT_IMPLEMENTED, this)
+        nothing
+end
 

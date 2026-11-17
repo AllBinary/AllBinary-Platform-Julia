@@ -1,42 +1,56 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.android.input.motion
 
-from __future__ import annotations
+# extends AnalogControllerVisitor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AllAnalogControllerVisitor <: JObject
+    AllAnalogControllerVisitor() = new()
+end
 
-from org.allbinary.android.input.motion.AnalogControllerVisitor import AnalogControllerVisitor
+
+function initFieldsAllAnalogControllerVisitor(this::AllAnalogControllerVisitor)
+    nothing
+end
+
+function initAllAnalogControllerVisitor(this::AllAnalogControllerVisitor)
+    initAnalogControllerVisitor(this)
+    initFieldsAllAnalogControllerVisitor(this)
+end
+
+function newAllAnalogControllerVisitor()
+    this = AllAnalogControllerVisitor()
+    initAllAnalogControllerVisitor(this)
+    this
+end
 
 
-class AllAnalogControllerVisitor(AnalogControllerVisitor):
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    def process(self, allbinaryLayerManager: AllBinaryLayerManager, analogLocationInputProcessor: AnalogLocationInputProcessor) -> None:
-        from org.allbinary.game.input.analog.AnalogLocationInput import AnalogLocationInput
-        from org.allbinary.game.input.analog.AnalogLocationInputFactory import AnalogLocationInputFactory
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        analogLocationInputList: BasicArrayList = AnalogLocationInputFactory.getInstance().getList()
-        analogLocationInput: AnalogLocationInput = None
-        for index in range(analogLocationInputList.size() - 1, 0 - 1, -1):
-            analogLocationInput = analogLocationInputList.get(index)
-            analogLocationInputProcessor.process(allbinaryLayerManager, analogLocationInput)
-# from org.allbinary.game.input.analog.AnalogLocationInput import AnalogLocationInput
-# from org.allbinary.game.input.analog.AnalogLocationInputFactory import AnalogLocationInputFactory
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-
+function process(this::AllAnalogControllerVisitor, allbinaryLayerManager, analogLocationInputProcessor)
+        local analogLocationInputList = AllBinary.getList(AllBinary.getInstance(AnalogLocationInputFactory))
+        local analogLocationInput = nothing
+        let
+            local index::Int32 = AllBinary.size(analogLocationInputList) - Int32(1)
+            while index >= Int32(0)
+            try
+            analogLocationInput = (AllBinary.get(analogLocationInputList, index))
+            AllBinary.process(analogLocationInputProcessor, allbinaryLayerManager, analogLocationInput)
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

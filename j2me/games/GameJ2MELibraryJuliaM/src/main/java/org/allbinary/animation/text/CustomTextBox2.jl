@@ -1,34 +1,40 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.text
 
-from __future__ import annotations
+# extends CustomTextBox: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CustomTextBox2 <: JObject
+    CustomTextBox2() = new()
+end
 
-from org.allbinary.graphics.form.item.CustomTextBox import CustomTextBox
+
+function initFieldsCustomTextBox2(this::CustomTextBox2)
+    nothing
+end
 
 
-class CustomTextBox2(CustomTextBox):
-    
+function initCustomTextBox2(this::CustomTextBox2, cmdListener, label, text, maxSize, constraints, font, backgroundBasicColor, foregroundBasicColor)
+        initCustomTextBox(this, cmdListener, label, text, maxSize, constraints, font, backgroundBasicColor, foregroundBasicColor)
+        AllBinary.setFocus(AllBinary.getTextFieldItem(this), true)
+        nothing
+end
 
-    def __init__(self, cmdListener: CommandListener, label: str, text: str, maxSize: int, constraints: int, font: Font, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from javax.microedition.lcdui.Font import Font
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(cmdListener, label, text, maxSize, constraints, font, backgroundBasicColor, foregroundBasicColor)
-        self.getTextFieldItem().setFocus(True)
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.Font import Font
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-
+function newCustomTextBox2(cmdListener, label, text, maxSize, constraints, font, backgroundBasicColor, foregroundBasicColor)
+    this = CustomTextBox2()
+    initCustomTextBox2(this, cmdListener, label, text, maxSize, constraints, font, backgroundBasicColor, foregroundBasicColor)
+    this
+end
 

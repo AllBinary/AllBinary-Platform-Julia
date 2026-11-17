@@ -1,38 +1,51 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends Processor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HorizontalFormProcessor <: JObject
+    scrollCurrentSelectionForm::Any
+    HorizontalFormProcessor() = new()
+end
 
-from org.allbinary.canvas.Processor import Processor
 
-
-class HorizontalFormProcessor(Processor):
-
-    def _init_fields(self) -> None:
-        self.scrollCurrentSelectionForm: ScrollCurrentSelectionForm = None
+function initFieldsHorizontalFormProcessor(this::HorizontalFormProcessor)
+    this.scrollCurrentSelectionForm = nothing
     
+    nothing
+end
 
-    def __init__(self, scrollCurrentSelectionForm: ScrollCurrentSelectionForm) -> None:
-        super().__init__()
-        self._init_fields()
-        self.scrollCurrentSelectionForm = scrollCurrentSelectionForm
-    
 
-    # throws Exception
-    def process(self) -> None:
-        self.scrollCurrentSelectionForm.processHorizontalForm()
-        self.scrollCurrentSelectionForm.processor = Processor.getInstance()
+function initHorizontalFormProcessor(this::HorizontalFormProcessor, scrollCurrentSelectionForm)
+        initProcessor(this)
+        initFieldsHorizontalFormProcessor(this)
+        this.scrollCurrentSelectionForm = scrollCurrentSelectionForm
+        nothing
+end
 
+function newHorizontalFormProcessor(scrollCurrentSelectionForm)
+    this = HorizontalFormProcessor()
+    initHorizontalFormProcessor(this, scrollCurrentSelectionForm)
+    this
+end
+
+
+function process(this::HorizontalFormProcessor)
+        AllBinary.processHorizontalForm(this.scrollCurrentSelectionForm)
+        this.scrollCurrentSelectionForm.processor = AllBinary.getInstance(Processor)
+        nothing
+end
 

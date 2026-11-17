@@ -1,51 +1,59 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer.relationship
 
-from __future__ import annotations
+# extends RelativeRelationship: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct RelativeLayerRelationship <: JObject
+    layer::Any
+    RelativeLayerRelationship() = new()
+end
 
-from org.allbinary.graphics.RelativeRelationship import RelativeRelationship
+
+function initFieldsRelativeLayerRelationship(this::RelativeLayerRelationship)
+    this.layer = nothing
+    this.layer = staticGet_NULL_ALLBINARY_LAYER(AllBinaryLayer)
+    nothing
+end
 
 
-class RelativeLayerRelationship(RelativeRelationship):
+function initRelativeLayerRelationship(this::RelativeLayerRelationship, layer, point, typesAllowedList)
+        initRelativeRelationship(this, point, typesAllowedList)
+        initFieldsRelativeLayerRelationship(this)
+        this.layer = layer
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.layer: AllBinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
-    
+function newRelativeLayerRelationship(layer, point, typesAllowedList)
+    this = RelativeLayerRelationship()
+    initRelativeLayerRelationship(this, layer, point, typesAllowedList)
+    this
+end
 
-    def __init__(self, layer: AllBinaryLayer, point: GPoint, typesAllowedList: BasicArrayList) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        super().__init__(point, typesAllowedList)
-        self._init_fields()
-        self.layer = layer
-    
 
-    def getX(self) -> int:
-        return self.layer.getXP() + super().getX()
-    
+function getX(this::RelativeLayerRelationship)
+        return AllBinary.getXP(this.layer) + AllBinary.getX(this)
+end
 
-    def getY(self) -> int:
-        return self.layer.getYP() + super().getY()
-    
 
-    def getZ(self) -> int:
-        return self.layer.getZP() + super().getZ()
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.util.BasicArrayList import BasicArrayList
+function getY(this::RelativeLayerRelationship)
+        return AllBinary.getYP(this.layer) + AllBinary.getY(this)
+end
 
+
+function getZ(this::RelativeLayerRelationship)
+        return AllBinary.getZP(this.layer) + AllBinary.getZ(this)
+end
 

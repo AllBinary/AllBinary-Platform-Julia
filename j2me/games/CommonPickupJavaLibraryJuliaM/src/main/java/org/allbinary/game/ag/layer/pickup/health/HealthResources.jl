@@ -1,41 +1,60 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.pickup.health
 
-from __future__ import annotations
+mutable struct HealthResources <: JObject
+    RESOURCE::Any
+    HealthResources() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const HealthResources_SINGLETONValue = Ref{Any}(nothing)
+const HealthResources_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{HealthResources})
+    if !HealthResources_SINGLETONSet[]
+        HealthResources_SINGLETONSet[] = true
+        HealthResources_SINGLETONValue[] = newHealthResources()
+    end
+    HealthResources_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{HealthResources}, value)
+    HealthResources_SINGLETONSet[] = true
+    HealthResources_SINGLETONValue[] = value
+end
+
+function initFieldsHealthResources(this::HealthResources)
+    this.RESOURCE = nothing
+    this.RESOURCE = "health_drop_20_by_20.png"
+    nothing
+end
 
 
-class HealthResources:
-    SINGLETON: HealthResources = None
+function initHealthResources(this::HealthResources)
+        initFieldsHealthResources(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.RESOURCE: str = "health_drop_20_by_20.png"
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> HealthResources:
-        return HealthResources.SINGLETON
+function newHealthResources()
+    this = HealthResources()
+    initHealthResources(this)
+    this
+end
 
 
-def _HealthResources_SINGLETON() -> object:
-    return HealthResources()
-
-lazy_static(HealthResources, "SINGLETON", _HealthResources_SINGLETON)
+function getInstance(::Type{HealthResources})
+        return staticGet_SINGLETON(HealthResources)
+end
 

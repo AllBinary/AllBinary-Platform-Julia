@@ -1,281 +1,311 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io.file
 
-from __future__ import annotations
+mutable struct AbFile <: JObject
+    file::Any
+    AbFile() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.io.file.AbFileInterface import AbFileInterface
+const AbFile_NULL_FILEValue = Ref{Any}(nothing)
+const AbFile_NULL_FILESet = Ref(false)
+function staticGet_NULL_FILE(::Type{AbFile})
+    if !AbFile_NULL_FILESet[]
+        AbFile_NULL_FILESet[] = true
+        AbFile_NULL_FILEValue[] = AllBinary.createAbFileFromRawPath(AbFile, AllBinary.getInstance(StringUtil).EMPTY_STRING)
+    end
+    AbFile_NULL_FILEValue[]
+end
+function staticSet_NULL_FILE(::Type{AbFile}, value)
+    AbFile_NULL_FILESet[] = true
+    AbFile_NULL_FILEValue[] = value
+end
 
-
-class AbFile(AbFileInterface):
-    NULL_FILE: AbFile = None
-
-    def _init_fields(self) -> None:
-        self.file: File = None
+function initFieldsAbFile(this::AbFile)
+    this.file = nothing
     
-
-    # throws Exception
-    @staticmethod
-    def createAbFileWithChild(file: AbFile, childPathName: str) -> AbFile:
-        return AbFile(File(file.getFile(), childPathName))
-    
-
-    # throws Exception
-    @staticmethod
-    def createAbFile(filePath: str) -> AbFile:
-        from org.allbinary.logic.io.path.AbPath import AbPath
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return AbFile(File(AbPath(filePath, StringUtil.getInstance().EMPTY_STRING).toFileSystemString()))
-    
-
-    # throws Exception
-    @staticmethod
-    def createAbFilePathAndName(filePath: str, fileName: str) -> AbFile:
-        from org.allbinary.logic.io.path.AbPath import AbPath
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return AbFile(File(AbPath(filePath, StringUtil.getInstance().EMPTY_STRING).toFileSystemString(), fileName))
-    
-
-    @staticmethod
-    def createAbFileFromAbPath(abPath: AbPath) -> AbFile:
-        from org.allbinary.logic.io.path.AbPath import AbPath
-        return AbFile(File(abPath.toFileSystemString()))
-    
-
-    @staticmethod
-    def createAbFileFromRawPath(filePath: str) -> AbFile:
-        return AbFile(File(filePath))
-    
-
-    def __init__(self, file: File) -> None:
-        self._init_fields()
-        self.file = file
-    
-
-    def getFile(self) -> File:
-        return self.file
-    
-
-    def getName(self) -> str:
-        return self.file.getName()
-    
-
-    def getParent(self) -> str:
-        return self.file.getParent()
-    
-
-    def getParentFile(self) -> object:
-        return self.file.getParentFile()
-    
-
-    def getPath(self) -> str:
-        return self.file.getPath()
-    
-
-    def isAbsolute(self) -> bool:
-        return self.file.isAbsolute()
-    
-
-    def getAbsolutePath(self) -> str:
-        return self.file.getAbsolutePath()
-    
-
-    def getAbsoluteFile(self) -> object:
-        return self.file.getAbsoluteFile()
-    
-
-    # throws IOException
-    def getCanonicalPath(self) -> str:
-        return self.file.getCanonicalPath()
-    
-
-    # throws IOException
-    def getCanonicalFile(self) -> object:
-        return self.file.getCanonicalFile()
-    
-
-    def toURI(self) -> URI:
-        return self.file.toURI()
-    
-
-    def canRead(self) -> bool:
-        return self.file.canRead()
-    
-
-    def canWrite(self) -> bool:
-        return self.file.canWrite()
-    
-
-    def exists(self) -> bool:
-        return self.file.exists()
-    
-
-    def isDirectory(self) -> bool:
-        return self.file.isDirectory()
-    
-
-    def isFile(self) -> bool:
-        return self.file.isFile()
-    
-
-    def isHidden(self) -> bool:
-        return self.file.isHidden()
-    
-
-    def lastModified(self) -> int:
-        return self.file.lastModified()
-    
-
-    def length(self) -> int:
-        return self.file.length()
-    
-
-    # throws IOException
-    def createNewFile(self) -> bool:
-        return self.file.createNewFile()
-    
-
-    # throws IOException
-    def delete(self) -> bool:
-        return self.file.delete()
-    
-
-    def deleteOnExit(self) -> None:
-        self.file.deleteOnExit()
-    
-
-    def list_(self) -> list[str]:
-        return self.file.list_()
-    
-
-    def listWithFilter(self, filter: FilenameFilter) -> list[str]:
-        return self.file.list_(filter)
-    
-
-    def listFiles(self) -> list[object]:
-        return self.file.listFiles()
-    
-
-    def listFilesFileNameFilter(self, filter: FilenameFilter) -> list[object]:
-        return self.file.listFiles(filter)
-    
-
-    def listFilesFileFilter(self, filter: FileFilter) -> list[object]:
-        return self.file.listFiles(filter)
-    
-
-    def mkdir(self) -> bool:
-        return self.file.mkdir()
-    
-
-    def mkdirs(self) -> bool:
-        return self.file.mkdirs()
-    
-
-    def renameTo(self, dest: AbFile) -> bool:
-        return self.file.renameTo(dest.getFile())
-    
-
-    def setLastModified(self, time: int) -> bool:
-        return self.file.setLastModified(time)
-    
-
-    def setReadOnly(self) -> bool:
-        return self.file.setReadOnly()
-    
-
-    def setWritable(self, writable: bool, ownerOnly: bool) -> bool:
-        return self.file.setExecutable(writable, ownerOnly)
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def setWritable(self, writable: bool) -> bool:
-        return self.file.setWritable(writable)
-    
-
-    def setReadable(self, readable: bool, ownerOnly: bool) -> bool:
-        return self.file.setReadable(readable, ownerOnly)
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def setReadable(self, readable: bool) -> bool:
-        return self.file.setReadable(readable)
-    
-
-    def setExecutable(self, executable: bool, ownerOnly: bool) -> bool:
-        return self.file.setExecutable(executable, ownerOnly)
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def setExecutable(self, executable: bool) -> bool:
-        return self.file.setExecutable(executable)
-    
-
-    def canExecute(self) -> bool:
-        return self.file.canExecute()
-    
-
-    def getTotalSpace(self) -> int:
-        return self.file.getTotalSpace()
-    
-
-    def getFreeSpace(self) -> int:
-        return self.file.getFreeSpace()
-    
-
-    def getUsableSpace(self) -> int:
-        return self.file.getUsableSpace()
-    
-
-    def compareTo(self, pathname: File) -> int:
-        return self.file.compareTo(pathname)
-    
-
-    def equals(self, obj: object) -> bool:
-        from org.allbinary.TsUtil import TsUtil
-        return TsUtil.getInstance().equalsNotstring(self.file, obj)
-
-    def __eq__(self, other: object) -> bool:
-        return self.equals(other)
-    
-
-    def hashCode(self) -> int:
-        return hash(self.file)
-
-    def __hash__(self) -> int:
-        return self.hashCode()
-    
-
-    def toString(self) -> str:
-        return str(self.file)
-
-    def __str__(self) -> str:
-        return self.toString()
-# from java.io.File import File
-# from java.io.FileFilter import FileFilter
-# from java.io.FilenameFilter import FilenameFilter
-# from java.io.IOException import IOException
-# from java.net.URI import URI
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.logic.io.path.AbPath import AbPath
-# from org.allbinary.logic.string.StringUtil import StringUtil
+    nothing
+end
 
 
-def _AbFile_NULL_FILE() -> object:
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return AbFile.createAbFileFromRawPath(StringUtil.getInstance().EMPTY_STRING)
+function createAbFileWithChild(::Type{AbFile}, file, childPathName)
+        return newAbFile(newFile(AllBinary.getFile(file), childPathName))
+end
 
-lazy_static(AbFile, "NULL_FILE", _AbFile_NULL_FILE)
+
+function createAbFile(::Type{AbFile}, filePath)
+        return newAbFile(newFile(AllBinary.toFileSystemString(newAbPath(filePath, AllBinary.getInstance(StringUtil).EMPTY_STRING))))
+end
+
+
+function createAbFilePathAndName(::Type{AbFile}, filePath, fileName)
+        return newAbFile(newFile(AllBinary.toFileSystemString(newAbPath(filePath, AllBinary.getInstance(StringUtil).EMPTY_STRING)), fileName))
+end
+
+
+function createAbFileFromAbPath(::Type{AbFile}, abPath)
+        return newAbFile(newFile(AllBinary.toFileSystemString(abPath)))
+end
+
+
+function createAbFileFromRawPath(::Type{AbFile}, filePath)
+        return newAbFile(newFile(filePath))
+end
+
+
+function initAbFile(this::AbFile, file)
+        initFieldsAbFile(this)
+        this.file = file
+        nothing
+end
+
+function newAbFile(file)
+    this = AbFile()
+    initAbFile(this, file)
+    this
+end
+
+
+function getFile(this::AbFile)
+        return this.file
+end
+
+
+function getName(this::AbFile)
+        return AllBinary.getName(this.file)
+end
+
+
+function getParent(this::AbFile)
+        return AllBinary.getParent(this.file)
+end
+
+
+function getParentFile(this::AbFile)
+        return AllBinary.getParentFile(this.file)
+end
+
+
+function getPath(this::AbFile)
+        return AllBinary.getPath(this.file)
+end
+
+
+function isAbsolute(this::AbFile)
+        return AllBinary.isAbsolute(this.file)
+end
+
+
+function getAbsolutePath(this::AbFile)
+        return AllBinary.getAbsolutePath(this.file)
+end
+
+
+function getAbsoluteFile(this::AbFile)
+        return AllBinary.getAbsoluteFile(this.file)
+end
+
+
+function getCanonicalPath(this::AbFile)
+        return AllBinary.getCanonicalPath(this.file)
+end
+
+
+function getCanonicalFile(this::AbFile)
+        return AllBinary.getCanonicalFile(this.file)
+end
+
+
+function toURI(this::AbFile)
+        return AllBinary.toURI(this.file)
+end
+
+
+function canRead(this::AbFile)
+        return AllBinary.canRead(this.file)
+end
+
+
+function canWrite(this::AbFile)
+        return AllBinary.canWrite(this.file)
+end
+
+
+function exists(this::AbFile)
+        return AllBinary.exists(this.file)
+end
+
+
+function isDirectory(this::AbFile)
+        return AllBinary.isDirectory(this.file)
+end
+
+
+function isFile(this::AbFile)
+        return AllBinary.isFile(this.file)
+end
+
+
+function isHidden(this::AbFile)
+        return AllBinary.isHidden(this.file)
+end
+
+
+function lastModified(this::AbFile)
+        return AllBinary.lastModified(this.file)
+end
+
+
+function length(this::AbFile)
+        return ((AllBinary.length(this.file)) % Int64)
+end
+
+
+function createNewFile(this::AbFile)
+        return AllBinary.createNewFile(this.file)
+end
+
+
+function delete(this::AbFile)
+        return AllBinary.delete(this.file)
+end
+
+
+function deleteOnExit(this::AbFile)
+        AllBinary.deleteOnExit(this.file)
+        nothing
+end
+
+
+function list(this::AbFile)
+        return AllBinary.list(this.file)
+end
+
+
+function listWithFilter(this::AbFile, filter)
+        return AllBinary.list(this.file, filter)
+end
+
+
+function listFiles(this::AbFile)
+        return (AllBinary.listFiles(this.file))
+end
+
+
+function listFilesFileNameFilter(this::AbFile, filter)
+        return (AllBinary.listFiles(this.file, filter))
+end
+
+
+function listFilesFileFilter(this::AbFile, filter)
+        return (AllBinary.listFiles(this.file, filter))
+end
+
+
+function mkdir(this::AbFile)
+        return AllBinary.mkdir(this.file)
+end
+
+
+function mkdirs(this::AbFile)
+        return AllBinary.mkdirs(this.file)
+end
+
+
+function renameTo(this::AbFile, dest)
+        return AllBinary.renameTo(this.file, AllBinary.getFile(dest))
+end
+
+
+function setLastModified(this::AbFile, time)
+        return AllBinary.setLastModified(this.file, time)
+end
+
+
+function setReadOnly(this::AbFile)
+        return AllBinary.setReadOnly(this.file)
+end
+
+
+function setWritable(this::AbFile, writable, ownerOnly)
+        return AllBinary.setExecutable(this.file, writable, ownerOnly)
+end
+
+
+function setWritable(this::AbFile, writable)
+        return AllBinary.setWritable(this.file, writable)
+end
+
+
+function setReadable(this::AbFile, readable, ownerOnly)
+        return AllBinary.setReadable(this.file, readable, ownerOnly)
+end
+
+
+function setReadable(this::AbFile, readable)
+        return AllBinary.setReadable(this.file, readable)
+end
+
+
+function setExecutable(this::AbFile, executable, ownerOnly)
+        return AllBinary.setExecutable(this.file, executable, ownerOnly)
+end
+
+
+function setExecutable(this::AbFile, executable)
+        return AllBinary.setExecutable(this.file, executable)
+end
+
+
+function canExecute(this::AbFile)
+        return AllBinary.canExecute(this.file)
+end
+
+
+function getTotalSpace(this::AbFile)
+        return AllBinary.getTotalSpace(this.file)
+end
+
+
+function getFreeSpace(this::AbFile)
+        return AllBinary.getFreeSpace(this.file)
+end
+
+
+function getUsableSpace(this::AbFile)
+        return AllBinary.getUsableSpace(this.file)
+end
+
+
+function compareTo(this::AbFile, pathname)
+        return AllBinary.compareTo(this.file, pathname)
+end
+
+
+function equals(this::AbFile, obj)
+        return AllBinary.equalsNotstring(AllBinary.getInstance(TsUtil), this.file, obj)
+end
+
+
+function hashCode(this::AbFile)
+        return AllBinary.hashCode(this.file)
+end
+
+
+function toString(this::AbFile)
+        return AllBinary.toString(this.file)
+end
 

@@ -1,159 +1,219 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.special
 
-from __future__ import annotations
+# extends SpecialAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TitleAnimation <: JObject
+    systemWrapper::Any
+    deltaX::Float32
+    deltaY::Float32
+    deltaZ::Float32
+    basicColorArray::Any
+    dxArray::Any
+    dyArray::Any
+    widthP::Int32
+    animationInterfaceArray::Any
+    sizeP::Int32
+    y::Int32
+    lastFrameStartTime::Int64
+    displayInfoSingleton::Any
+    CLEAR_COLOR::Any
+    TitleAnimation() = new()
+end
 
-import time
-from org.allbinary.animation.special.SpecialAnimation import SpecialAnimation
 
-
-class TitleAnimation(SpecialAnimation):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.logic.ABSystemWrapper import ABSystemWrapper
-        self.systemWrapper: ABSystemWrapper = ABSystemWrapper.getInstance()
-        self.deltaX: float = 0.0
-        self.deltaY: float = 0.0
-        self.deltaZ: float = 0.0
-        self.basicColorArray: list[BasicColor] = None
-        self.dxArray: list[int] = None
-        self.dyArray: list[int] = None
-        self.widthP: int = None
-        self.animationInterfaceArray: list[IndexedAnimation] = None
-        self.sizeP: int = None
-        self.y: int = None
-        self.lastFrameStartTime: int = None
-        self.displayInfoSingleton: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.CLEAR_COLOR: BasicColor = BasicColorFactory.getInstance().CLEAR_COLOR
+function initFieldsTitleAnimation(this::TitleAnimation)
+    this.systemWrapper = nothing
+    this.deltaX = 0.0f0
+    this.deltaY = 0.0f0
+    this.deltaZ = 0.0f0
+    this.basicColorArray = nothing
+    this.dxArray = nothing
+    this.dyArray = nothing
+    this.widthP = Int32(0)
+    this.animationInterfaceArray = nothing
+    this.sizeP = Int32(0)
+    this.y = Int32(0)
+    this.lastFrameStartTime = Int64(0)
+    this.displayInfoSingleton = nothing
+    this.CLEAR_COLOR = nothing
+    this.systemWrapper = AllBinary.getInstance(ABSystemWrapper)
+    this.deltaX = 0.0f0
+    this.deltaY = 0.0f0
+    this.deltaZ = 0.0f0
     
-
-    @staticmethod
-    def createAnimation(animationInterfaceArray: list[IndexedAnimation], basicColorArray: list[BasicColor], dxArray: list[int], dyArray: list[int], y: int, width: int) -> TitleAnimation:
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        from org.allbinary.animation.IndexedAnimationBehavior import IndexedAnimationBehavior
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return TitleAnimation(animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width, IndexedAnimationBehavior(1, 250))
     
-
-    def __init__(self, animationInterfaceArray: list[IndexedAnimation], basicColorArray: list[BasicColor], dxArray: list[int], dyArray: list[int], y: int, width: int, animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.lastFrameStartTime = self.systemWrapper.currentTimeMillis()
-        self.animationInterfaceArray = animationInterfaceArray
-        self.sizeP = len(self.animationInterfaceArray)
-        self.basicColorArray = basicColorArray
-        self.dxArray = dxArray
-        self.dyArray = dyArray
-        self.y = y
-        self.widthP = width
-        self.reset()
     
+    
+    
+    
+    
+    
+    this.displayInfoSingleton = AllBinary.getInstance(DisplayInfoSingleton)
+    this.CLEAR_COLOR = AllBinary.getInstance(BasicColorFactory).CLEAR_COLOR
+    nothing
+end
 
-    def nextFrame(self) -> None:
-        from org.allbinary.animation.IndexedAnimationBehavior import IndexedAnimationBehavior
-        currentTime: int = self.systemWrapper.currentTimeMillis()
-        totalTimeElapsed: int = currentTime - self.lastFrameStartTime
-        indexedAnimationBehavior: IndexedAnimationBehavior = self.getAnimationBehavior()
-        if totalTimeElapsed > indexedAnimationBehavior.frameDelayTime:
-            self.previousFrame()
-            self.lastFrameStartTime = currentTime
-        if self.animationInterfaceArray[0].getFrame() == 0:
+
+function createAnimation(::Type{TitleAnimation}, animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width)
+        return newTitleAnimation(animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width, newIndexedAnimationBehavior(Int32(1), Int32(250)))
+end
+
+
+function initTitleAnimation(this::TitleAnimation, animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width, animationBehavior)
+        initSpecialAnimation(this, animationBehavior)
+        initFieldsTitleAnimation(this)
+        this.lastFrameStartTime = AllBinary.currentTimeMillis(this.systemWrapper)
+        this.animationInterfaceArray = animationInterfaceArray
+        this.sizeP = Int32(Base.length(this.animationInterfaceArray))
+        this.basicColorArray = basicColorArray
+        this.dxArray = dxArray
+        this.dyArray = dyArray
+        this.y = y
+        this.widthP = width
+        AllBinary.reset(this)
+        nothing
+end
+
+function newTitleAnimation(animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width, animationBehavior)
+    this = TitleAnimation()
+    initTitleAnimation(this, animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width, animationBehavior)
+    this
+end
+
+
+function nextFrame(this::TitleAnimation)
+        local currentTime::Int64 = AllBinary.currentTimeMillis(this.systemWrapper)
+        local totalTimeElapsed::Int64 = currentTime - this.lastFrameStartTime
+        local indexedAnimationBehavior = (AllBinary.getAnimationBehavior(this))
+        if totalTimeElapsed > indexedAnimationBehavior.frameDelayTime
+            AllBinary.previousFrame(this)
+            this.lastFrameStartTime = currentTime
+        end
+        if AllBinary.getFrame(this.animationInterfaceArray[Int32(0) + 1]) == Int32(0)
             indexedAnimationBehavior.loopIndex += 1
-    
+        end
+        nothing
+end
 
-    def isComplete(self) -> bool:
-        from org.allbinary.animation.IndexedAnimationBehavior import IndexedAnimationBehavior
-        indexedAnimationBehavior: IndexedAnimationBehavior = self.getAnimationBehavior()
-        if indexedAnimationBehavior.loopTotal == -1 or indexedAnimationBehavior.loopIndex < indexedAnimationBehavior.loopTotal or self.getFrame() != 0:
-            return False
-        else:
-            return True
-    
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
+function isComplete(this::TitleAnimation)
+        local indexedAnimationBehavior = (AllBinary.getAnimationBehavior(this))
+        if indexedAnimationBehavior.loopTotal == -Int32(1) || indexedAnimationBehavior.loopIndex < indexedAnimationBehavior.loopTotal || AllBinary.getFrame(this) != Int32(0)
+            return false
+        else
+            return true
+        end
+end
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
 
-    def getSize(self) -> int:
-        return self.animationInterfaceArray[0].getSize()
-    
+function setSequence(this::TitleAnimation, sequence)
+        nothing
+        nothing
+end
 
-    def getFrame(self) -> int:
-        return self.animationInterfaceArray[0].getFrame()
-    
 
-    def setFrame(self, frame: int) -> None:
-        for index in range(0, self.sizeP):
-            self.animationInterfaceArray[index].setFrame(frame)
-    
+function getSequence(this::TitleAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
 
-    def setLastFrame(self) -> None:
-        self.setFrame(self.getSize() - 1)
-    
 
-    def reset(self) -> None:
-        from org.allbinary.animation.IndexedAnimationBehavior import IndexedAnimationBehavior
-        self.setLastFrame()
-        indexedAnimationBehavior: IndexedAnimationBehavior = (self.getAnimationBehavior())
-        indexedAnimationBehavior.reset()
-    
+function getSize(this::TitleAnimation)
+        return AllBinary.getSize(this.animationInterfaceArray[Int32(0) + 1])
+end
 
-    def previousFrame(self) -> None:
-        for index in range(0, self.sizeP):
-            self.animationInterfaceArray[index].previousFrame()
-    
 
-    def paintFrameXY(self, graphics: Graphics, frame: int, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.setFrame(frame)
-        self.paintXY(graphics, x, y)
-    
+function getFrame(this::TitleAnimation)
+        return AllBinary.getFrame(this.animationInterfaceArray[Int32(0) + 1])
+end
 
-    def paintXY(self, graphics: Graphics, ax: int, ay: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        x: int = 0
-        if self.widthP != -2147483648:
-            x = ((self.displayInfoSingleton.getLastWidth() - self.widthP) / 2)
-        deltaX: int = 0
-        deltaY: int = 0
-        for index in range(0, self.sizeP):
-            deltaX = self.dxArray[index] + x
-            deltaY = self.dyArray[index] + self.y
-            if self.basicColorArray[index] != self.CLEAR_COLOR:
-                self.basicSetColorUtil.setBasicColorP(graphics, self.basicColorArray[index])
-            self.animationInterfaceArray[index].paintXY(graphics, deltaX, deltaY)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-# from org.allbinary.animation.IndexedAnimationBehavior import IndexedAnimationBehavior
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.logic.ABSystemWrapper import ABSystemWrapper
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
 
+function setFrame(this::TitleAnimation, frame)
+        let
+            local index::Int32 = Int32(0)
+            while index < this.sizeP
+            try
+            AllBinary.setFrame(this.animationInterfaceArray[index + 1], frame)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function setLastFrame(this::TitleAnimation)
+        AllBinary.setFrame(this, AllBinary.getSize(this) - Int32(1))
+        nothing
+end
+
+
+function reset(this::TitleAnimation)
+        AllBinary.setLastFrame(this)
+        local indexedAnimationBehavior = ((AllBinary.getAnimationBehavior(this)))
+        AllBinary.reset(indexedAnimationBehavior)
+        nothing
+end
+
+
+function previousFrame(this::TitleAnimation)
+        let
+            local index::Int32 = Int32(0)
+            while index < this.sizeP
+            try
+            AllBinary.previousFrame(this.animationInterfaceArray[index + 1])
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function paintFrameXY(this::TitleAnimation, graphics, frame, x, y)
+        AllBinary.setFrame(this, frame)
+        AllBinary.paintXY(this, graphics, x, y)
+        nothing
+end
+
+
+function paintXY(this::TitleAnimation, graphics, ax, ay)
+        local x::Int32 = Int32(0)
+        if this.widthP != staticGet_MIN_VALUE(Integer)
+            x = ((AllBinary.getLastWidth(this.displayInfoSingleton) - this.widthP) ÷ Int32(2))
+        end
+        local deltaX::Int32 = Int32(0)
+        local deltaY::Int32 = Int32(0)
+        let
+            local index::Int32 = Int32(0)
+            while index < this.sizeP
+            try
+            deltaX = this.dxArray[index + 1] + x
+            deltaY = this.dyArray[index + 1] + this.y
+            if this.basicColorArray[index + 1] !== this.CLEAR_COLOR
+                AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, this.basicColorArray[index + 1])
+            end
+            AllBinary.paintXY(this.animationInterfaceArray[index + 1], graphics, deltaX, deltaY)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

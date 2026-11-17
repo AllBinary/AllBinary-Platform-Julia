@@ -1,44 +1,66 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+mutable struct TouchScreenTypesFactory <: JObject
+    FINGER::Any
+    NOTOUCH::Any
+    STYLUS::Any
+    UNDEFINED::Any
+    TouchScreenTypesFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const TouchScreenTypesFactory_instanceValue = Ref{Any}(nothing)
+const TouchScreenTypesFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{TouchScreenTypesFactory})
+    if !TouchScreenTypesFactory_instanceSet[]
+        TouchScreenTypesFactory_instanceSet[] = true
+        TouchScreenTypesFactory_instanceValue[] = newTouchScreenTypesFactory()
+    end
+    TouchScreenTypesFactory_instanceValue[]
+end
+function staticSet_instance(::Type{TouchScreenTypesFactory}, value)
+    TouchScreenTypesFactory_instanceSet[] = true
+    TouchScreenTypesFactory_instanceValue[] = value
+end
+
+function initFieldsTouchScreenTypesFactory(this::TouchScreenTypesFactory)
+    this.FINGER = nothing
+    this.NOTOUCH = nothing
+    this.STYLUS = nothing
+    this.UNDEFINED = nothing
+    this.FINGER = newTouchScreenType("Finger")
+    this.NOTOUCH = newTouchScreenType("No Touch")
+    this.STYLUS = newTouchScreenType("Stylus")
+    this.UNDEFINED = newTouchScreenType("Undefined")
+    nothing
+end
+
+function initTouchScreenTypesFactory(this::TouchScreenTypesFactory)
+    initFieldsTouchScreenTypesFactory(this)
+end
+
+function newTouchScreenTypesFactory()
+    this = TouchScreenTypesFactory()
+    initTouchScreenTypesFactory(this)
+    this
+end
 
 
-class TouchScreenTypesFactory:
-    instance: TouchScreenTypesFactory = None
-
-    def _init_fields(self) -> None:
-        self.FINGER: TouchScreenType = TouchScreenType("Finger")
-        self.NOTOUCH: TouchScreenType = TouchScreenType("No Touch")
-        self.STYLUS: TouchScreenType = TouchScreenType("Stylus")
-        self.UNDEFINED: TouchScreenType = TouchScreenType("Undefined")
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> TouchScreenTypesFactory:
-        return TouchScreenTypesFactory.instance
-from org.allbinary.input.motion.button.TouchScreenType import TouchScreenType
-
-
-def _TouchScreenTypesFactory_instance() -> object:
-    return TouchScreenTypesFactory()
-
-lazy_static(TouchScreenTypesFactory, "instance", _TouchScreenTypesFactory_instance)
+function getInstance(::Type{TouchScreenTypesFactory})
+        return staticGet_instance(TouchScreenTypesFactory)
+end
 

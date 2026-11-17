@@ -1,28 +1,41 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+mutable struct ScrollSelectionFormNoneFactory <: JObject
+    ScrollSelectionFormNoneFactory() = new()
+end
 
 
+function initFieldsScrollSelectionFormNoneFactory(this::ScrollSelectionFormNoneFactory)
+    nothing
+end
 
-class ScrollSelectionFormNoneFactory:
-    
+function initScrollSelectionFormNoneFactory(this::ScrollSelectionFormNoneFactory)
+    initFieldsScrollSelectionFormNoneFactory(this)
+end
 
-    @staticmethod
-    def getInstance() -> ScrollSelectionForm:
-        from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-        return ScrollSelectionForm.getNullScrollSelectionFormHorizontal()
+function newScrollSelectionFormNoneFactory()
+    this = ScrollSelectionFormNoneFactory()
+    initScrollSelectionFormNoneFactory(this)
+    this
+end
 
+
+function getInstance(::Type{ScrollSelectionFormNoneFactory})
+        return AllBinary.getNullScrollSelectionFormHorizontal(ScrollSelectionForm)
+end
 

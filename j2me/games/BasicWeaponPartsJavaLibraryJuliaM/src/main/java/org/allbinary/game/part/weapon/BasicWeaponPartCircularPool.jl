@@ -1,61 +1,64 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.part.weapon
 
-from __future__ import annotations
+mutable struct BasicWeaponPartCircularPool <: JObject
+    basicWeaponPart::Any
+    BasicWeaponPartCircularPool() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
+const BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOLValue = Ref{Any}(nothing)
+const BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOLSet = Ref(false)
+function staticGet_NULL_BASIC_WEAPON_PART_CIRCULAR_POOL(::Type{BasicWeaponPartCircularPool})
+    if !BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOLSet[]
+        BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOLSet[] = true
+        BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOLValue[] = newBasicWeaponPartCircularPool()
+    end
+    BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOLValue[]
+end
+function staticSet_NULL_BASIC_WEAPON_PART_CIRCULAR_POOL(::Type{BasicWeaponPartCircularPool}, value)
+    BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOLSet[] = true
+    BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOLValue[] = value
+end
 
+function initFieldsBasicWeaponPartCircularPool(this::BasicWeaponPartCircularPool)
+    this.basicWeaponPart = nothing
+    this.basicWeaponPart = staticGet_NULL_BASIC_WEAPON_PART(BasicWeaponPart)
+    nothing
+end
 
-class BasicWeaponPartCircularPool:
-    NULL_BASIC_WEAPON_PART_CIRCULAR_POOL: BasicWeaponPartCircularPool = None
-    _lock = threading.RLock()
+function initBasicWeaponPartCircularPool(this::BasicWeaponPartCircularPool)
+    initFieldsBasicWeaponPartCircularPool(this)
+end
 
-    def _init_fields(self) -> None:
-        self.basicWeaponPart: BasicWeaponPart = BasicWeaponPart.NULL_BASIC_WEAPON_PART
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    # throws Exception
-    def init(self, basicWeaponPartFactoryInterface: BasicWeaponPartFactoryInterface) -> None:
-        self.basicWeaponPart = basicWeaponPartFactoryInterface.getInstance()
-    
-
-    # throws Exception
-    def getInstance(self, sourceLayerInterface: AllBinaryLayer, weaponProperties: WeaponProperties, scoreableInterface: ScoreableInterface, relativeRelationship: RelativeRelationship) -> BasicWeaponPart:
-        with self._lock:
-            return self._getInstance_unlocked(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
-
-    def _getInstance_unlocked(self, sourceLayerInterface: AllBinaryLayer, weaponProperties: WeaponProperties, scoreableInterface: ScoreableInterface, relativeRelationship: RelativeRelationship) -> BasicWeaponPart:
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-        from org.allbinary.graphics.RelativeRelationship import RelativeRelationship
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.basicWeaponPart.init(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
-        return self.basicWeaponPart
-# from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-# from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-# from org.allbinary.graphics.RelativeRelationship import RelativeRelationship
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-from org.allbinary.game.part.weapon.BasicWeaponPart import BasicWeaponPart
+function newBasicWeaponPartCircularPool()
+    this = BasicWeaponPartCircularPool()
+    initBasicWeaponPartCircularPool(this)
+    this
+end
 
 
-def _BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOL() -> object:
-    return BasicWeaponPartCircularPool()
+function init(this::BasicWeaponPartCircularPool, basicWeaponPartFactoryInterface)
+        this.basicWeaponPart = AllBinary.getInstance(basicWeaponPartFactoryInterface)
+        nothing
+end
 
-lazy_static(BasicWeaponPartCircularPool, "NULL_BASIC_WEAPON_PART_CIRCULAR_POOL", _BasicWeaponPartCircularPool_NULL_BASIC_WEAPON_PART_CIRCULAR_POOL)
+
+function getInstance(this::BasicWeaponPartCircularPool, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
+        AllBinary.init(this.basicWeaponPart, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
+        return this.basicWeaponPart
+end
 

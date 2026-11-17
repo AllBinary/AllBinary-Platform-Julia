@@ -1,46 +1,62 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends Processor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct StartIntermissionProcessor <: JObject
+    logUtil::Any
+    commonStrings::Any
+    gameCanvas::Any
+    WAIT::Int64
+    StartIntermissionProcessor() = new()
+end
 
-from org.allbinary.canvas.Processor import Processor
 
-
-class StartIntermissionProcessor(Processor):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.gameCanvas: AllBinaryGameCanvas = None
-        self.WAIT: int = 5000
+function initFieldsStartIntermissionProcessor(this::StartIntermissionProcessor)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.gameCanvas = nothing
+    this.WAIT = Int64(0)
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
+    this.WAIT = Int64(5000)
+    nothing
+end
 
-    def __init__(self, gameCanvas: AllBinaryGameCanvas) -> None:
-        super().__init__()
-        self._init_fields()
-        self.gameCanvas = gameCanvas
-    
 
-    # throws Exception
-    def process(self) -> None:
-        if self.gameCanvas.getStartIntermissionInterface().getTimeDelayHelper().isElapsedTNT(self.WAIT):
-            self.logUtil.putF("Intermission End", self, self.commonStrings.PROCESS)
-            self.gameCanvas.getStartIntermissionInterface().setEnabled(False)
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function initStartIntermissionProcessor(this::StartIntermissionProcessor, gameCanvas)
+        initProcessor(this)
+        initFieldsStartIntermissionProcessor(this)
+        this.gameCanvas = gameCanvas
+        nothing
+end
 
+function newStartIntermissionProcessor(gameCanvas)
+    this = StartIntermissionProcessor()
+    initStartIntermissionProcessor(this, gameCanvas)
+    this
+end
+
+
+function process(this::StartIntermissionProcessor)
+        if AllBinary.isElapsedTNT(AllBinary.getTimeDelayHelper(AllBinary.getStartIntermissionInterface(this.gameCanvas)), this.WAIT)
+            AllBinary.putF(this.logUtil, "Intermission End", this, this.commonStrings.PROCESS)
+            AllBinary.setEnabled(AllBinary.getStartIntermissionInterface(this.gameCanvas), false)
+        end
+        nothing
+end
 

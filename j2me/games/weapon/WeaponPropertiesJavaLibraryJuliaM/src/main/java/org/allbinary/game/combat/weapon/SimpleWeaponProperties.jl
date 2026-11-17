@@ -1,60 +1,86 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.combat.weapon
 
-from __future__ import annotations
+mutable struct SimpleWeaponProperties <: JObject
+    damage::Int32
+    dissipation::Int16
+    range::Int32
+    SimpleWeaponProperties() = new()
+end
 
 
+function initFieldsSimpleWeaponProperties(this::SimpleWeaponProperties)
+    this.damage = Int32(0)
+    this.dissipation = Int16(0)
+    this.range = Int32(0)
+    this.damage = Int32(0)
+    this.dissipation = Int16(0)
+    this.range = Int32(0)
+    nothing
+end
 
-class SimpleWeaponProperties:
+function initSimpleWeaponProperties(this::SimpleWeaponProperties)
+    initFieldsSimpleWeaponProperties(this)
+end
 
-    def _init_fields(self) -> None:
-        self.damage: int = 0
-        self.dissipation: int = 0
-        self.range: int = 0
+function newSimpleWeaponProperties()
+    this = SimpleWeaponProperties()
+    initSimpleWeaponProperties(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def set(self, simpleWeaponProperties: SimpleWeaponProperties) -> None:
-        self.setDamage(simpleWeaponProperties.getDamage())
-        self.setDissipation(simpleWeaponProperties.getDissipation())
-        self.setRange(simpleWeaponProperties.getRange())
-    
+function set(this::SimpleWeaponProperties, simpleWeaponProperties)
+        AllBinary.setDamage(this, AllBinary.getDamage(simpleWeaponProperties))
+        AllBinary.setDissipation(this, AllBinary.getDissipation(simpleWeaponProperties))
+        AllBinary.setRange(this, AllBinary.getRange(simpleWeaponProperties))
+        nothing
+end
 
-    def setDamage(self, damage: int) -> None:
-        self.damage = damage
-    
 
-    def getDamage(self) -> int:
-        return self.damage
-    
+function setDamage(this::SimpleWeaponProperties, damage)
+        this.damage = damage
+        nothing
+end
 
-    def setDissipation(self, dissipation: int) -> None:
-        self.dissipation = dissipation
-    
 
-    def getDissipation(self) -> int:
-        return self.dissipation
-    
+function getDamage(this::SimpleWeaponProperties)
+        return this.damage
+end
 
-    def getRange(self) -> int:
-        return self.range
-    
 
-    def setRange(self, range: int) -> None:
-        self.range = range
+function setDissipation(this::SimpleWeaponProperties, dissipation)
+        this.dissipation = dissipation
+        nothing
+end
 
+
+function getDissipation(this::SimpleWeaponProperties)
+        return this.dissipation
+end
+
+
+function getRange(this::SimpleWeaponProperties)
+        return this.range
+end
+
+
+function setRange(this::SimpleWeaponProperties, range)
+        this.range = range
+        nothing
+end
 

@@ -1,76 +1,78 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.init
 
-from __future__ import annotations
+mutable struct DefaultGameInitializationListener <: JObject
+    logUtil::Any
+    swtJOGLProcessor::Any
+    firstTime::Bool
+    DefaultGameInitializationListener() = new()
+end
 
-import time
-import threading
-from org.allbinary.game.configuration.event.GameInitializedListenerInterface import GameInitializedListenerInterface
+
+function initFieldsDefaultGameInitializationListener(this::DefaultGameInitializationListener)
+    this.logUtil = nothing
+    this.swtJOGLProcessor = nothing
+    this.firstTime = false
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.swtJOGLProcessor = AllBinary.getInstance(SWTJOGLProcessor)
+    this.firstTime = true
+    nothing
+end
 
 
-class DefaultGameInitializationListener(GameInitializedListenerInterface):
+function initDefaultGameInitializationListener(this::DefaultGameInitializationListener)
+        initFieldsDefaultGameInitializationListener(this)
+        local gameInitializedEventHandler = AllBinary.getInstance(GameInitializedEventHandler)
+        AllBinary.removeAllListeners(gameInitializedEventHandler)
+        AllBinary.addListenerInterface(gameInitializedEventHandler, (this))
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.threed.SWTJOGLProcessor import SWTJOGLProcessor
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.swtJOGLProcessor: SWTJOGLProcessor = SWTJOGLProcessor.getInstance()
-        self.firstTime: bool = True
-    
+function newDefaultGameInitializationListener()
+    this = DefaultGameInitializationListener()
+    initDefaultGameInitializationListener(this)
+    this
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.game.configuration.event.GameInitializedEventHandler import GameInitializedEventHandler
-        self._init_fields()
-        gameInitializedEventHandler: GameInitializedEventHandler = GameInitializedEventHandler.getInstance()
-        gameInitializedEventHandler.removeAllListeners()
-        gameInitializedEventHandler.addListenerInterface(self)
-    
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
+function onEvent(this::DefaultGameInitializationListener, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
 
-    def onGameInitialized(self, gameInitializedEvent: GameInitializedEvent) -> None:
-        from org.allbinary.game.configuration.event.GameInitializedEvent import GameInitializedEvent
-        from org.allbinary.game.resource.FeatureResourceInitializationUtil import FeatureResourceInitializationUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        ON_GAME_INITIALIZED: str = "onGameInitialized"
-        commonStrings: CommonStrings = CommonStrings.getInstance()
-        try:
-            self.logUtil.putF(commonStrings.START, self, ON_GAME_INITIALIZED)
-            while not self.swtJOGLProcessor.isHolderCreated():
-                self.logUtil.putF(commonStrings.UPDATE, self, ON_GAME_INITIALIZED)
-                time.sleep((20) / 1000)
-            FeatureResourceInitializationUtil.getInstance().init(gameInitializedEvent.getLevel())
-            if self.firstTime:
-                self.firstTime = False
-            else:
-                self.swtJOGLProcessor.onSurfaceChanged()
-        except Exception as e:
-            self.logUtil.put(commonStrings.EXCEPTION, self, ON_GAME_INITIALIZED, e)
-# from org.allbinary.game.configuration.event.GameInitializedEvent import GameInitializedEvent
-# from org.allbinary.game.configuration.event.GameInitializedEventHandler import GameInitializedEventHandler
-# from org.allbinary.game.resource.FeatureResourceInitializationUtil import FeatureResourceInitializationUtil
-# from org.allbinary.graphics.threed.SWTJOGLProcessor import SWTJOGLProcessor
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.string.CommonStrings import CommonStrings
 
+function onGameInitialized(this::DefaultGameInitializationListener, gameInitializedEvent)
+        local ON_GAME_INITIALIZED = "onGameInitialized"
+        local commonStrings = AllBinary.getInstance(CommonStrings)
+        try
+            AllBinary.putF(this.logUtil, commonStrings.START, this, ON_GAME_INITIALIZED)
+            while !AllBinary.isHolderCreated(this.swtJOGLProcessor)
+                AllBinary.putF(this.logUtil, commonStrings.UPDATE, this, ON_GAME_INITIALIZED)
+                AllBinary.sleep(Thread, Int32(20))
+            end
+            AllBinary.init(AllBinary.getInstance(FeatureResourceInitializationUtil), AllBinary.getLevel(gameInitializedEvent))
+            if this.firstTime
+                this.firstTime = false
+            else
+                AllBinary.onSurfaceChanged(this.swtJOGLProcessor)
+            end
+        catch e
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, ON_GAME_INITIALIZED, e)
+        end
+        nothing
+end
 

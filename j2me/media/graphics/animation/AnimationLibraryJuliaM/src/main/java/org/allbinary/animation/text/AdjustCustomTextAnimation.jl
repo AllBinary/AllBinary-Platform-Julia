@@ -1,58 +1,76 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.text
 
-from __future__ import annotations
+# extends CustomTextAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AdjustCustomTextAnimation <: JObject
+    dx::Int32
+    dy::Int32
+    AdjustCustomTextAnimation() = new()
+end
 
-from org.allbinary.animation.text.CustomTextAnimation import CustomTextAnimation
 
-
-class AdjustCustomTextAnimation(CustomTextAnimation):
-
-    def _init_fields(self) -> None:
-        self.dx: int = None
-        self.dy: int = None
+function initFieldsAdjustCustomTextAnimation(this::AdjustCustomTextAnimation)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
     
-
-    def __init__(self, text: str, fontSize: int, dx: int, dy: int, animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        super().__init__(text, fontSize, animationBehavior)
-        self._init_fields()
-        self.dx = dx
-        self.dy = dy
     
+    nothing
+end
 
-    def getDx(self) -> int:
-        return self.dx
-    
 
-    def setDx(self, dx: int) -> None:
-        self.dx = dx
-    
+function initAdjustCustomTextAnimation(this::AdjustCustomTextAnimation, text, fontSize, dx, dy, animationBehavior)
+        initCustomTextAnimation(this, text, fontSize, animationBehavior)
+        initFieldsAdjustCustomTextAnimation(this)
+        this.dx = dx
+        this.dy = dy
+        nothing
+end
 
-    def getDy(self) -> int:
-        return self.dy
-    
+function newAdjustCustomTextAnimation(text, fontSize, dx, dy, animationBehavior)
+    this = AdjustCustomTextAnimation()
+    initAdjustCustomTextAnimation(this, text, fontSize, dx, dy, animationBehavior)
+    this
+end
 
-    def setDy(self, dy: int) -> None:
-        self.dy = dy
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        super().paintXY(graphics, x + self.dx, y + self.dy)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
+function getDx(this::AdjustCustomTextAnimation)
+        return this.dx
+end
 
+
+function setDx(this::AdjustCustomTextAnimation, dx)
+        this.dx = dx
+        nothing
+end
+
+
+function getDy(this::AdjustCustomTextAnimation)
+        return this.dy
+end
+
+
+function setDy(this::AdjustCustomTextAnimation, dy)
+        this.dy = dy
+        nothing
+end
+
+
+function paintXY(this::AdjustCustomTextAnimation, graphics, x, y)
+        AllBinary.paintXY(this, graphics, x + this.dx, y + this.dy)
+        nothing
+end
 

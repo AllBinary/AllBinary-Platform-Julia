@@ -1,35 +1,45 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.thirdparty.store
 
-from __future__ import annotations
+# extends ThirdPartyStore: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NoThirdPartyStore <: JObject
+    NoThirdPartyStore() = new()
+end
 
-from org.allbinary.thirdparty.store.ThirdPartyStore import ThirdPartyStore
+
+function initFieldsNoThirdPartyStore(this::NoThirdPartyStore)
+    nothing
+end
 
 
-class NoThirdPartyStore(ThirdPartyStore):
-    
+function initNoThirdPartyStore(this::NoThirdPartyStore)
+        initThirdPartyStore(this, AllBinary.getInstance(StringUtil).EMPTY_STRING)
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        super().__init__(StringUtil.getInstance().EMPTY_STRING)
-    
+function newNoThirdPartyStore()
+    this = NoThirdPartyStore()
+    initNoThirdPartyStore(this)
+    this
+end
 
-    def authorize(self, clientInformationInterface: AbeClientInformationInterface) -> None:
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        self.setAuthorized(True)
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
 
+function authorize(this::NoThirdPartyStore, clientInformationInterface)
+        AllBinary.setAuthorized(this, true)
+        nothing
+end
 

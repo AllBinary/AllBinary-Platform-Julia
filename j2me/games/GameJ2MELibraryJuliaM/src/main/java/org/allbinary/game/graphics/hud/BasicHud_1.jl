@@ -1,264 +1,299 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.graphics.hud
 
-from __future__ import annotations
+mutable struct BasicHud_1 <: JObject
+    logUtil::Any
+    commonStrings::Any
+    canvasStrings::Any
+    basicSetColorUtil::Any
+    displayInfo::Any
+    updateMyFontProcessor::Any
+    myFontProcessor::Any
+    location::Int32
+    direction::Int32
+    bufferZone::Int32
+    hudGraphicsPosition::Any
+    x::Int32
+    y::Int32
+    basicColor::Any
+    color::Int32
+    updateMaxWidth::Int32
+    updateMaxHeight::Int32
+    offsetY::Int32
+    BasicHud_1() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
 
-
-class BasicHud_1(UpdateMyFontInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-        from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.canvasStrings: CanvasStrings = CanvasStrings.getInstance()
-        self.basicSetColorUtil: BasicColorSetUtil = BasicColorSetUtil.getInstance()
-        self.displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.updateMyFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.myFontProcessor: MyFontProcessor = self.updateMyFontProcessor
-        self.location: int = 0
-        self.direction: int = 0
-        self.bufferZone: int = 0
-        self.hudGraphicsPosition: HudGraphicsPosition = HudGraphicsPosition.NULL_HUD_GRAPHICS_POSITION
-        self.x: int = 0
-        self.y: int = 0
-        self.basicColor: BasicColor = BasicColorFactory.getInstance().BLACK
-        self.color: int = None
-        self.updateMaxWidth: int = 0
-        self.updateMaxHeight: int = 0
-        self.offsetY: int = 0
+function initFieldsBasicHud_1(this::BasicHud_1)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.canvasStrings = nothing
+    this.basicSetColorUtil = nothing
+    this.displayInfo = nothing
+    this.updateMyFontProcessor = nothing
+    this.myFontProcessor = nothing
+    this.location = Int32(0)
+    this.direction = Int32(0)
+    this.bufferZone = Int32(0)
+    this.hudGraphicsPosition = nothing
+    this.x = Int32(0)
+    this.y = Int32(0)
+    this.basicColor = nothing
+    this.color = Int32(0)
+    this.updateMaxWidth = Int32(0)
+    this.updateMaxHeight = Int32(0)
+    this.offsetY = Int32(0)
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.canvasStrings = AllBinary.getInstance(CanvasStrings)
+    this.basicSetColorUtil = AllBinary.getInstance(BasicColorSetUtil)
+    this.displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+    this.updateMyFontProcessor = newUpdateMyFontProcessor(this)
+    this.myFontProcessor = this.updateMyFontProcessor
+    this.location = Int32(0)
+    this.direction = Int32(0)
+    this.bufferZone = Int32(0)
+    this.hudGraphicsPosition = staticGet_NULL_HUD_GRAPHICS_POSITION(HudGraphicsPosition)
+    this.x = Int32(0)
+    this.y = Int32(0)
+    this.basicColor = AllBinary.getInstance(BasicColorFactory).BLACK
     
+    this.updateMaxWidth = Int32(0)
+    this.updateMaxHeight = Int32(0)
+    this.offsetY = Int32(0)
+    nothing
+end
 
-    def __init__(self, location: int, direction: int, bufferZone: int, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        self._init_fields()
-        self.setLocation(location)
-        self.setDirection(direction)
-        self.setBufferZone(bufferZone)
-        self.onDisplayChangeEvent(DisplayInfoSingleton.getInstance().displayChangeEvent)
-        self.setBasicColorP(basicColor)
-        self.color = int(basicColor)
-    
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.hudGraphicsPosition = self.getHudGraphicsPositionWH(self.displayInfo.getLastWidth(), self.displayInfo.getLastHeight(), self.updateMaxWidth, self.updateMaxHeight)
-            self.x = self.hudGraphicsPosition.getPoint().getX()
-            self.setY(self.hudGraphicsPosition.getPoint().getY())
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, self.canvasStrings.ON_DISPLAY_CHANGE_EVENT, e)
-        self.myFontProcessor = MyFontProcessor.getInstance()
-    
+function initBasicHud_1(this::BasicHud_1, location, direction, bufferZone, basicColor)
+        initFieldsBasicHud_1(this)
+        AllBinary.setLocation(this, location)
+        AllBinary.setDirection(this, direction)
+        AllBinary.setBufferZone(this, bufferZone)
+        AllBinary.onDisplayChangeEvent(this, AllBinary.getInstance(DisplayInfoSingleton).displayChangeEvent)
+        AllBinary.setBasicColorP(this, basicColor)
+        this.color = AllBinary.intValue(basicColor)
+        nothing
+end
 
-    def getLocation(self) -> int:
-        return self.location
-    
+function newBasicHud_1(location, direction, bufferZone, basicColor)
+    this = BasicHud_1()
+    initBasicHud_1(this, location, direction, bufferZone, basicColor)
+    this
+end
 
-    def getDirection(self) -> int:
-        return self.direction
-    
 
-    # throws Exception
-    def getHudGraphicsPositionWH(self, width: int, height: int, maxWidth: int, maxHeight: int) -> HudGraphicsPosition:
-        from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-        from org.allbinary.game.graphics.hud.HudGraphicsPosition import HudGraphicsPosition
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.Anchor import Anchor
-        x: int = 0
-        y: int = 0
-        anchor: int = 0
-        basicHudFactory: BasicHudFactory = BasicHudFactory.getInstance()
-        if basicHudFactory.BOTTOMLEFT == self.getLocation():
-            x = self.bufferZone + 2
-            y = height - maxHeight - self.bufferZone
-            anchor = Graphics.BOTTOM & Graphics.LEFT
-        elif basicHudFactory.BOTTOMRIGHT == self.getLocation():
+function updateMeasurement(this::BasicHud_1, graphics)
+        try
+            this.hudGraphicsPosition = AllBinary.getHudGraphicsPositionWH(this, AllBinary.getLastWidth(this.displayInfo), AllBinary.getLastHeight(this.displayInfo), this.updateMaxWidth, this.updateMaxHeight)
+            this.x = AllBinary.getX(AllBinary.getPoint(this.hudGraphicsPosition))
+            AllBinary.setY(this, AllBinary.getY(AllBinary.getPoint(this.hudGraphicsPosition)))
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, this.canvasStrings.ON_DISPLAY_CHANGE_EVENT, e)
+        end
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
+
+
+function getLocation(this::BasicHud_1)
+        return this.location
+end
+
+
+function getDirection(this::BasicHud_1)
+        return this.direction
+end
+
+
+function getHudGraphicsPositionWH(this::BasicHud_1, width, height, maxWidth, maxHeight)
+        local x::Int32 = Int32(0)
+        local y::Int32 = Int32(0)
+        local anchor::Int32 = Int32(0)
+        local basicHudFactory = AllBinary.getInstance(BasicHudFactory)
+        if basicHudFactory.BOTTOMLEFT == AllBinary.getLocation(this)
+            x = this.bufferZone + Int32(2)
+            y = height - maxHeight - this.bufferZone
+            anchor = staticGet_BOTTOM(Graphics) & staticGet_LEFT(Graphics)
+        elseif basicHudFactory.BOTTOMRIGHT == AllBinary.getLocation(this)
             x = width - maxWidth
-            y = height - maxHeight - self.bufferZone
-            anchor = Graphics.BOTTOM & Graphics.RIGHT
-        elif basicHudFactory.TOPLEFT == self.getLocation():
-            x = self.bufferZone + 2
-            y = self.bufferZone + 5
-            anchor = Anchor.TOP_LEFT
-        elif basicHudFactory.TOPRIGHT == self.getLocation():
+            y = height - maxHeight - this.bufferZone
+            anchor = staticGet_BOTTOM(Graphics) & staticGet_RIGHT(Graphics)
+        elseif basicHudFactory.TOPLEFT == AllBinary.getLocation(this)
+            x = this.bufferZone + Int32(2)
+            y = this.bufferZone + Int32(5)
+            anchor = staticGet_TOP_LEFT(Anchor)
+        elseif basicHudFactory.TOPRIGHT == AllBinary.getLocation(this)
             x = width - maxWidth
-            y = self.bufferZone + 5
-            anchor = Graphics.TOP & Graphics.RIGHT
-        elif basicHudFactory.TOPCENTER == self.getLocation():
-            x = (int((width - maxWidth) / 2))
-            y = self.bufferZone + 5
-            anchor = Graphics.TOP & Graphics.HCENTER
-        elif basicHudFactory.BOTTOMCENTER == self.getLocation():
-            x = (int((width - maxWidth) / 2))
-            y = height - maxHeight - self.bufferZone
-            anchor = Graphics.BOTTOM & Graphics.HCENTER
-        elif basicHudFactory.ABSOLUTE == self.getLocation():
+            y = this.bufferZone + Int32(5)
+            anchor = staticGet_TOP(Graphics) & staticGet_RIGHT(Graphics)
+        elseif basicHudFactory.TOPCENTER == AllBinary.getLocation(this)
+            x = ((width - maxWidth) ÷ Int32(2))
+            y = this.bufferZone + Int32(5)
+            anchor = staticGet_TOP(Graphics) & staticGet_HCENTER(Graphics)
+        elseif basicHudFactory.BOTTOMCENTER == AllBinary.getLocation(this)
+            x = ((width - maxWidth) ÷ Int32(2))
+            y = height - maxHeight - this.bufferZone
+            anchor = staticGet_BOTTOM(Graphics) & staticGet_HCENTER(Graphics)
+        elseif basicHudFactory.ABSOLUTE == AllBinary.getLocation(this)
             x = maxHeight
             y = maxWidth
-            anchor = 0
-        return HudGraphicsPosition(self.getPoint(x, y), anchor)
-    
+            anchor = Int32(0)
+        end
+        return newHudGraphicsPosition(AllBinary.getPoint(this, x, y), anchor)
+end
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
 
-    def onDisplayChangeEvent(self, displayChangeEvent: DisplayChangeEvent) -> None:
-        from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
-        self.myFontProcessor = self.updateMyFontProcessor
-    
+function onEvent(this::BasicHud_1, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
 
-    def getPoint(self, x: int, y: int) -> GPoint:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.graphics.PointFactory import PointFactory
-        return PointFactory.getInstance().createXY(x, y)
-    
 
-    def getBufferZone(self) -> int:
-        return self.bufferZone
-    
+function onDisplayChangeEvent(this::BasicHud_1, displayChangeEvent)
+        this.myFontProcessor = this.updateMyFontProcessor
+        nothing
+end
 
-    def setBufferZone(self, bufferZone: int) -> None:
-        self.bufferZone = bufferZone
-    
 
-    def setLocation(self, location: int) -> None:
-        self.location = location
-    
+function getPoint(this::BasicHud_1, x, y)
+        return AllBinary.createXY(AllBinary.getInstance(PointFactory), x, y)
+end
 
-    def setDirection(self, direction: int) -> None:
-        self.direction = direction
-    
 
-    def getHudGraphicsPosition(self) -> HudGraphicsPosition:
-        return self.hudGraphicsPosition
-    
+function getBufferZone(this::BasicHud_1)
+        return this.bufferZone
+end
 
-    def getColor(self) -> int:
-        return self.color
-    
 
-    def getX(self) -> int:
-        return self.x
-    
+function setBufferZone(this::BasicHud_1, bufferZone)
+        this.bufferZone = bufferZone
+        nothing
+end
 
-    def setX(self, x: int) -> None:
-        self.x = x
-    
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.basicColor = basicColor
-    
+function setLocation(this::BasicHud_1, location)
+        this.location = location
+        nothing
+end
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.basicColor
-    
 
-    def setY(self, y: int) -> None:
-        self.y = y
-    
+function setDirection(this::BasicHud_1, direction)
+        this.direction = direction
+        nothing
+end
 
-    def getY(self) -> int:
-        return self.y
-    
 
-    def paintSSO(self, graphics: Graphics, string: str, string2: str, offset: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        self.basicSetColorUtil.setBasicColorP(graphics, self.getBasicColorP())
-        graphics.drawString(string, self.x, self.getY(), self.hudGraphicsPosition.getAnchor())
-        graphics.drawString(string2, self.x + offset, self.getY(), self.hudGraphicsPosition.getAnchor())
-    
+function getHudGraphicsPosition(this::BasicHud_1)
+        return this.hudGraphicsPosition
+end
 
-    def paintSSOO(self, graphics: Graphics, string: str, string2: str, offset: int, offset2: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        graphics.setColor(self.getColor())
-        graphics.drawString(string, self.x + offset, self.getY(), self.hudGraphicsPosition.getAnchor())
-        graphics.drawString(string2, self.x + offset2, self.getY(), self.hudGraphicsPosition.getAnchor())
-    
 
-    def paintDXY(self, graphics: Graphics, charArray: list[str], offset: int, len_: int, charArray2: list[str], offset2: int, len2: int, xOffset: int, xOffset2: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        self.basicSetColorUtil.setBasicColorP(graphics, self.getBasicColorP())
-        y: int = self.getY()
-        graphics.drawChars(charArray, offset, len_, self.x + xOffset, y, self.hudGraphicsPosition.getAnchor())
-        graphics.drawChars(charArray2, offset2, len2, self.x + xOffset2, y, self.hudGraphicsPosition.getAnchor())
-    
+function getColor(this::BasicHud_1)
+        return this.color
+end
 
-    def paintDX(self, graphics: Graphics, charArray: list[str], offset: int, len_: int, charArray2: list[str], offset2: int, len2: int, xOffset: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        self.basicSetColorUtil.setBasicColorP(graphics, self.getBasicColorP())
-        y: int = self.getY()
-        graphics.drawChars(charArray, offset, len_, self.x, y, self.hudGraphicsPosition.getAnchor())
-        graphics.drawChars(charArray2, offset2, len2, self.x + xOffset, y, self.hudGraphicsPosition.getAnchor())
-    
 
-    def paintOffsetAndLength(self, graphics: Graphics, charArray: list[str], offset: int, len_: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        self.basicSetColorUtil.setBasicColorP(graphics, self.getBasicColorP())
-        y: int = self.getY()
-        graphics.drawChars(charArray, offset, len_, self.x, y, self.hudGraphicsPosition.getAnchor())
-    
+function getX(this::BasicHud_1)
+        return this.x
+end
 
-    def paintString(self, graphics: Graphics, string: str) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        self.basicSetColorUtil.setBasicColorP(graphics, self.getBasicColorP())
-        y: int = self.getY() + self.offsetY
-        graphics.drawString(string, self.x, y, self.hudGraphicsPosition.getAnchor())
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-# from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.game.graphics.hud.HudGraphicsPosition import HudGraphicsPosition
 
+function setX(this::BasicHud_1, x)
+        this.x = x
+        nothing
+end
+
+
+function setBasicColorP(this::BasicHud_1, basicColor)
+        this.basicColor = basicColor
+        nothing
+end
+
+
+function getBasicColorP(this::BasicHud_1)
+        return this.basicColor
+end
+
+
+function setY(this::BasicHud_1, y)
+        this.y = y
+        nothing
+end
+
+
+function getY(this::BasicHud_1)
+        return this.y
+end
+
+
+function paintSSO(this::BasicHud_1, graphics, string, string2, offset)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this))
+        AllBinary.drawString(graphics, string, this.x, AllBinary.getY(this), AllBinary.getAnchor(this.hudGraphicsPosition))
+        AllBinary.drawString(graphics, string2, this.x + offset, AllBinary.getY(this), AllBinary.getAnchor(this.hudGraphicsPosition))
+        nothing
+end
+
+
+function paintSSOO(this::BasicHud_1, graphics, string, string2, offset, offset2)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.setColor(graphics, AllBinary.getColor(this))
+        AllBinary.drawString(graphics, string, this.x + offset, AllBinary.getY(this), AllBinary.getAnchor(this.hudGraphicsPosition))
+        AllBinary.drawString(graphics, string2, this.x + offset2, AllBinary.getY(this), AllBinary.getAnchor(this.hudGraphicsPosition))
+        nothing
+end
+
+
+function paintDXY(this::BasicHud_1, graphics, charArray, offset, len, charArray2, offset2, len2, xOffset, xOffset2)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this))
+        local y::Int32 = AllBinary.getY(this)
+        AllBinary.drawChars(graphics, charArray, offset, len, this.x + xOffset, y, AllBinary.getAnchor(this.hudGraphicsPosition))
+        AllBinary.drawChars(graphics, charArray2, offset2, len2, this.x + xOffset2, y, AllBinary.getAnchor(this.hudGraphicsPosition))
+        nothing
+end
+
+
+function paintDX(this::BasicHud_1, graphics, charArray, offset, len, charArray2, offset2, len2, xOffset)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this))
+        local y::Int32 = AllBinary.getY(this)
+        AllBinary.drawChars(graphics, charArray, offset, len, this.x, y, AllBinary.getAnchor(this.hudGraphicsPosition))
+        AllBinary.drawChars(graphics, charArray2, offset2, len2, this.x + xOffset, y, AllBinary.getAnchor(this.hudGraphicsPosition))
+        nothing
+end
+
+
+function paintOffsetAndLength(this::BasicHud_1, graphics, charArray, offset, len)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this))
+        local y::Int32 = AllBinary.getY(this)
+        AllBinary.drawChars(graphics, charArray, offset, len, this.x, y, AllBinary.getAnchor(this.hudGraphicsPosition))
+        nothing
+end
+
+
+function paintString(this::BasicHud_1, graphics, string)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this))
+        local y::Int32 = AllBinary.getY(this) + this.offsetY
+        AllBinary.drawString(graphics, string, this.x, y, AllBinary.getAnchor(this.hudGraphicsPosition))
+        nothing
+end
 

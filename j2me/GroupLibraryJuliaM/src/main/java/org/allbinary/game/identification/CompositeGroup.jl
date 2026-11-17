@@ -1,72 +1,82 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.identification
 
-from __future__ import annotations
+mutable struct CompositeGroup <: JObject
+    logUtil::Any
+    groupInterface::Any
+    list::Any
+    CompositeGroup() = new()
+end
 
 
-
-class CompositeGroup:
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.groupInterface: Group = None
-        self.list_: BasicArrayList = BasicArrayListD()
+function initFieldsCompositeGroup(this::CompositeGroup)
+    this.logUtil = nothing
+    this.groupInterface = nothing
+    this.list = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    this.list = newBasicArrayListD()
+    nothing
+end
 
-    def __init__(self, groupInterface: Group) -> None:
-        self._init_fields()
-        self.groupInterface = groupInterface
-    
 
-    def clear(self) -> None:
-        self.list_.clear()
-    
+function initCompositeGroup(this::CompositeGroup, groupInterface)
+        initFieldsCompositeGroup(this)
+        this.groupInterface = groupInterface
+        nothing
+end
 
-    def add(self, groupInterface: Group) -> None:
-        from org.allbinary.game.identification.GroupCommonFactory import GroupCommonFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        commonStrings: CommonStrings = CommonStrings.getInstance()
-        groupCommonFactory: GroupCommonFactory = GroupCommonFactory.getInstance()
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(groupCommonFactory.ADDING_LABEL)
-        stringBuffer.append(str(groupInterface))
-        stringBuffer.append(groupCommonFactory.TO_LABEL)
-        stringBuffer.append(StringUtil.getInstance().toString(self.groupInterface))
-        self.logUtil.putF(str(stringBuffer), self, commonStrings.ADD)
-        self.list_.add(groupInterface)
-    
+function newCompositeGroup(groupInterface)
+    this = CompositeGroup()
+    initCompositeGroup(this, groupInterface)
+    this
+end
 
-    def isInGroup(self, groupInterface: Group) -> bool:
-        if self.list_.contains(groupInterface):
-            return True
-        else:
-            return False
-    
 
-    def getGroup(self) -> Group:
-        return self.groupInterface
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function clear(this::CompositeGroup)
+        AllBinary.clear(this.list)
+        nothing
+end
 
+
+function add(this::CompositeGroup, groupInterface)
+        local commonStrings = AllBinary.getInstance(CommonStrings)
+        local groupCommonFactory = AllBinary.getInstance(GroupCommonFactory)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, groupCommonFactory.ADDING_LABEL)
+        AllBinary.append(stringBuffer, AllBinary.toString(groupInterface))
+        AllBinary.append(stringBuffer, groupCommonFactory.TO_LABEL)
+        AllBinary.append(stringBuffer, AllBinary.toString(AllBinary.getInstance(StringUtil), this.groupInterface))
+        AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, commonStrings.ADD)
+        AllBinary.add(this.list, groupInterface)
+        nothing
+end
+
+
+function isInGroup(this::CompositeGroup, groupInterface)
+        if AllBinary.contains(this.list, groupInterface)
+            return true
+        else
+            return false
+        end
+end
+
+
+function getGroup(this::CompositeGroup)
+        return this.groupInterface
+end
 

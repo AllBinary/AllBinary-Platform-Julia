@@ -1,143 +1,152 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TouchButton <: JObject
+    logUtil::Any
+    commonStrings::Any
+    touchButtonInput::Any
+    animationInterface::Any
+    hintAnimationInterface::Any
+    rawRectangle::Any
+    xBorder::Int32
+    yBorder::Int32
+    rectangleP::Any
+    cellPositionP::Any
+    animationX::Int32
+    animationY::Int32
+    hintAnimationY::Int32
+    TouchButton() = new()
+end
 
-from org.allbinary.graphics.paint.Paintable import Paintable
 
-
-class TouchButton(Paintable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.graphics.CellPosition import CellPosition
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.graphics.RectangleFactory import RectangleFactory
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.touchButtonInput: TouchButtonInput = None
-        self.animationInterface: Animation = None
-        self.hintAnimationInterface: Animation = None
-        self.rawRectangle: Rectangle = None
-        self.xBorder: int = None
-        self.yBorder: int = None
-        self.rectangleP: Rectangle = RectangleFactory.SINGLETON
-        self.cellPositionP: CellPosition = None
-        self.animationX: int = 0
-        self.animationY: int = 0
-        self.hintAnimationY: int = 0
+function initFieldsTouchButton(this::TouchButton)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.touchButtonInput = nothing
+    this.animationInterface = nothing
+    this.hintAnimationInterface = nothing
+    this.rawRectangle = nothing
+    this.xBorder = Int32(0)
+    this.yBorder = Int32(0)
+    this.rectangleP = nothing
+    this.cellPositionP = nothing
+    this.animationX = Int32(0)
+    this.animationY = Int32(0)
+    this.hintAnimationY = Int32(0)
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
-
-    # throws Exception
-    @staticmethod
-    def createButton(touchButtonInput: TouchButtonInput, touchButtonResource: TouchButtonResource, rawRectangle: Rectangle, cellPosition: CellPosition, xBorder: int, yBorder: int) -> TouchButton:
-        from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.graphics.CellPosition import CellPosition
-        from org.allbinary.graphics.Rectangle import Rectangle
-        return TouchButton(touchButtonInput, FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(touchButtonResource.RESOURCE).getInstance(0), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(touchButtonResource.HINT).getInstance(0), rawRectangle, cellPosition, xBorder, yBorder)
     
-
-    def __init__(self, touchButtonInput: TouchButtonInput, animationInterface: Animation, hintAnimationInterface: Animation, rawRectangle: Rectangle, cellPosition: CellPosition, xBorder: int, yBorder: int) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.graphics.CellPosition import CellPosition
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        super().__init__()
-        self._init_fields()
-        self.touchButtonInput = touchButtonInput
-        self.animationInterface = animationInterface
-        self.hintAnimationInterface = hintAnimationInterface
-        self.rawRectangle = rawRectangle
-        self.cellPositionP = cellPosition
-        self.xBorder = xBorder
-        self.yBorder = yBorder
-        self.updateRectangle()
-        self.logUtil.putF(str(StringMaker().append("Created: ").append(str(self))), self, self.commonStrings.CONSTRUCTOR)
     
-
-    def paintHint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.hintAnimationInterface.paintXY(graphics, self.animationX, self.hintAnimationY)
     
-
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animationInterface.paintXY(graphics, self.animationX, self.animationY)
     
-
-    def updateRectangle(self) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.graphics.Rectangle import Rectangle
-        try:
-            pointFactory: PointFactory = PointFactory.getInstance()
-            x: int = self.rawRectangle.getWidth() * self.cellPositionP.getColumn()
-            y: int = self.rawRectangle.getHeight() * self.cellPositionP.getRow()
-            self.rectangleP = Rectangle(pointFactory.createXY(x + self.xBorder, y + self.yBorder), self.rawRectangle.getWidth(), self.rawRectangle.getHeight())
-            point: GPoint = self.rectangleP.getPoint()
-            self.animationX = point.getX()
-            self.animationY = point.getY()
-            self.hintAnimationY = self.animationY - 32
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "updateRectangle", e)
     
-
-    def getCellPosition(self) -> CellPosition:
-        from org.allbinary.graphics.CellPosition import CellPosition
-        return self.cellPositionP
+    this.rectangleP = staticGet_SINGLETON(RectangleFactory)
     
+    this.animationX = Int32(0)
+    this.animationY = Int32(0)
+    this.hintAnimationY = Int32(0)
+    nothing
+end
 
-    def getRectangle(self) -> Rectangle:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        return self.rectangleP
-    
 
-    def getTouchButtonInput(self) -> TouchButtonInput:
-        return self.touchButtonInput
-    
+function createButton(::Type{TouchButton}, touchButtonInput, touchButtonResource, rawRectangle, cellPosition, xBorder, yBorder)
+        return newTouchButton(touchButtonInput, AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), touchButtonResource.RESOURCE), Int32(0)), AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), touchButtonResource.HINT), Int32(0)), rawRectangle, cellPosition, xBorder, yBorder)
+end
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        stringBuffer: StringMaker = StringMaker()
-        stringUtil: StringUtil = StringUtil.getInstance()
-        stringBuffer.append("TouchButton: ")
-        stringBuffer.append(stringUtil.toString(self.getRectangle()))
-        stringBuffer.append(" CellPosition: ")
-        stringBuffer.append(stringUtil.toString(self.cellPositionP))
-        stringBuffer.append(" xBorder: ")
-        stringBuffer.appendint(self.xBorder)
-        stringBuffer.append(" yBorder: ")
-        stringBuffer.appendint(self.yBorder)
-        return str(stringBuffer)
 
-    def __str__(self) -> str:
-        return self.toString()
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-# from org.allbinary.graphics.CellPosition import CellPosition
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.graphics.RectangleFactory import RectangleFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function initTouchButton(this::TouchButton, touchButtonInput, animationInterface, hintAnimationInterface, rawRectangle, cellPosition, xBorder, yBorder)
+        initPaintable(this)
+        initFieldsTouchButton(this)
+        this.touchButtonInput = touchButtonInput
+        this.animationInterface = animationInterface
+        this.hintAnimationInterface = hintAnimationInterface
+        this.rawRectangle = rawRectangle
+        this.cellPositionP = cellPosition
+        this.xBorder = xBorder
+        this.yBorder = yBorder
+        AllBinary.updateRectangle(this)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Created: "), AllBinary.toString(this))), this, this.commonStrings.CONSTRUCTOR)
+        nothing
+end
 
+function newTouchButton(touchButtonInput, animationInterface, hintAnimationInterface, rawRectangle, cellPosition, xBorder, yBorder)
+    this = TouchButton()
+    initTouchButton(this, touchButtonInput, animationInterface, hintAnimationInterface, rawRectangle, cellPosition, xBorder, yBorder)
+    this
+end
+
+
+function paintHint(this::TouchButton, graphics)
+        AllBinary.paintXY(this.hintAnimationInterface, graphics, this.animationX, this.hintAnimationY)
+        nothing
+end
+
+
+function paint(this::TouchButton, graphics)
+        AllBinary.paintXY(this.animationInterface, graphics, this.animationX, this.animationY)
+        nothing
+end
+
+
+function updateRectangle(this::TouchButton)
+        try
+            local pointFactory = AllBinary.getInstance(PointFactory)
+            local x::Int32 = AllBinary.getWidth(this.rawRectangle) * AllBinary.getColumn(this.cellPositionP)
+            local y::Int32 = AllBinary.getHeight(this.rawRectangle) * AllBinary.getRow(this.cellPositionP)
+            this.rectangleP = newRectangle(AllBinary.createXY(pointFactory, x + this.xBorder, y + this.yBorder), AllBinary.getWidth(this.rawRectangle), AllBinary.getHeight(this.rawRectangle))
+            local point = AllBinary.getPoint(this.rectangleP)
+            this.animationX = AllBinary.getX(point)
+            this.animationY = AllBinary.getY(point)
+            this.hintAnimationY = this.animationY - Int32(32)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "updateRectangle", e)
+        end
+        nothing
+end
+
+
+function getCellPosition(this::TouchButton)
+        return this.cellPositionP
+end
+
+
+function getRectangle(this::TouchButton)
+        return this.rectangleP
+end
+
+
+function getTouchButtonInput(this::TouchButton)
+        return this.touchButtonInput
+end
+
+
+function toString(this::TouchButton)
+        local stringBuffer = newStringMaker()
+        local stringUtil = AllBinary.getInstance(StringUtil)
+        AllBinary.append(stringBuffer, "TouchButton: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(stringUtil, AllBinary.getRectangle(this)))
+        AllBinary.append(stringBuffer, " CellPosition: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(stringUtil, this.cellPositionP))
+        AllBinary.append(stringBuffer, " xBorder: ")
+        AllBinary.appendint(stringBuffer, this.xBorder)
+        AllBinary.append(stringBuffer, " yBorder: ")
+        AllBinary.appendint(stringBuffer, this.yBorder)
+        return AllBinary.toString(stringBuffer)
+end
 

@@ -1,51 +1,64 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+mutable struct BaseAnimationInterfaceFactoryInterfaceComposite <: JObject
+    basicAnimationInterfaceFactoryInterfaceArray::Any
+    BaseAnimationInterfaceFactoryInterfaceComposite() = new()
+end
 
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
 
-
-class BaseAnimationInterfaceFactoryInterfaceComposite(AnimationInterfaceFactoryInterface):
-
-    def _init_fields(self) -> None:
-        self.basicAnimationInterfaceFactoryInterfaceArray: list[BasicAnimationInterfaceFactoryInterface] = None
+function initFieldsBaseAnimationInterfaceFactoryInterfaceComposite(this::BaseAnimationInterfaceFactoryInterfaceComposite)
+    this.basicAnimationInterfaceFactoryInterfaceArray = nothing
     
+    nothing
+end
 
-    def __init__(self, basicAnimationInterfaceFactoryInterfaceArray: list[BasicAnimationInterfaceFactoryInterface]) -> None:
-        self._init_fields()
-        self.basicAnimationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
-    
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        return NullAnimationFactory.getFactoryInstance().getInstance(0)
-    
+function initBaseAnimationInterfaceFactoryInterfaceComposite(this::BaseAnimationInterfaceFactoryInterfaceComposite, basicAnimationInterfaceFactoryInterfaceArray)
+        initFieldsBaseAnimationInterfaceFactoryInterfaceComposite(this)
+        this.basicAnimationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
+        nothing
+end
 
-    def getBasicAnimationInterfaceFactoryInterfaceArray(self) -> list[BasicAnimationInterfaceFactoryInterface]:
-        return self.basicAnimationInterfaceFactoryInterfaceArray
-    
+function newBaseAnimationInterfaceFactoryInterfaceComposite(basicAnimationInterfaceFactoryInterfaceArray)
+    this = BaseAnimationInterfaceFactoryInterfaceComposite()
+    initBaseAnimationInterfaceFactoryInterfaceComposite(this, basicAnimationInterfaceFactoryInterfaceArray)
+    this
+end
 
-    def setBasicAnimationInterfaceFactoryInterfaceArray(self, basicAnimationInterfaceFactoryInterfaceArray: list[BasicAnimationInterfaceFactoryInterface]) -> None:
-        self.basicAnimationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
-    
 
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from org.allbinary.media.ScaleProperties import ScaleProperties
+function getInstance(this::BaseAnimationInterfaceFactoryInterfaceComposite, instanceId)
+        return AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0))
+end
 
+
+function getBasicAnimationInterfaceFactoryInterfaceArray(this::BaseAnimationInterfaceFactoryInterfaceComposite)
+        return this.basicAnimationInterfaceFactoryInterfaceArray
+end
+
+
+function setBasicAnimationInterfaceFactoryInterfaceArray(this::BaseAnimationInterfaceFactoryInterfaceComposite, basicAnimationInterfaceFactoryInterfaceArray)
+        this.basicAnimationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
+        nothing
+end
+
+
+function setInitialScale(this::BaseAnimationInterfaceFactoryInterfaceComposite, scaleProperties)
+        nothing
+        nothing
+end
 

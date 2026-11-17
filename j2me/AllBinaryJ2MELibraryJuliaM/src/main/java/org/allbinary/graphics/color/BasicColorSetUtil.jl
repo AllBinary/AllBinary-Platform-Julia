@@ -1,49 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.color
 
-from __future__ import annotations
+mutable struct BasicColorSetUtil <: JObject
+    BasicColorSetUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BasicColorSetUtil_instanceValue = Ref{Any}(nothing)
+const BasicColorSetUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{BasicColorSetUtil})
+    if !BasicColorSetUtil_instanceSet[]
+        BasicColorSetUtil_instanceSet[] = true
+        BasicColorSetUtil_instanceValue[] = newBasicColorSetUtil()
+    end
+    BasicColorSetUtil_instanceValue[]
+end
+function staticSet_instance(::Type{BasicColorSetUtil}, value)
+    BasicColorSetUtil_instanceSet[] = true
+    BasicColorSetUtil_instanceValue[] = value
+end
 
-
-class BasicColorSetUtil:
-    instance: BasicColorSetUtil = None
-    
-
-    @staticmethod
-    def getInstance() -> BasicColorSetUtil:
-        return BasicColorSetUtil.instance
-    
-
-    def __init__(self) -> None:
-        pass
-    
-
-    def setBasicColorP(self, graphics: Graphics, basicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        graphics.setColor(int(basicColor))
-    
-
-    def setBasicColorP3(self, graphics: Graphics, basicColor: BasicColor, value: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        graphics.setColor(value)
-# from javax.microedition.lcdui.Graphics import Graphics
+function initFieldsBasicColorSetUtil(this::BasicColorSetUtil)
+    nothing
+end
 
 
-def _BasicColorSetUtil_instance() -> object:
-    return BasicColorSetUtil()
+function getInstance(::Type{BasicColorSetUtil})
+        return staticGet_instance(BasicColorSetUtil)
+end
 
-lazy_static(BasicColorSetUtil, "instance", _BasicColorSetUtil_instance)
+
+function initBasicColorSetUtil(this::BasicColorSetUtil)
+        initFieldsBasicColorSetUtil(this)
+        nothing
+        nothing
+end
+
+function newBasicColorSetUtil()
+    this = BasicColorSetUtil()
+    initBasicColorSetUtil(this)
+    this
+end
+
+
+function setBasicColorP(this::BasicColorSetUtil, graphics, basicColor)
+        AllBinary.setColor(graphics, AllBinary.intValue(basicColor))
+        nothing
+end
+
+
+function setBasicColorP3(this::BasicColorSetUtil, graphics, basicColor, value)
+        AllBinary.setColor(graphics, value)
+        nothing
+end
 

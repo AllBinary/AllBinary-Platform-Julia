@@ -1,49 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gesture.observer
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MovedMotionGesturesHandler <: JObject
+    MovedMotionGesturesHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const MovedMotionGesturesHandler_SINGLETONValue = Ref{Any}(nothing)
+const MovedMotionGesturesHandler_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{MovedMotionGesturesHandler})
+    if !MovedMotionGesturesHandler_SINGLETONSet[]
+        MovedMotionGesturesHandler_SINGLETONSet[] = true
+        MovedMotionGesturesHandler_SINGLETONValue[] = newMovedMotionGesturesHandler()
+    end
+    MovedMotionGesturesHandler_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{MovedMotionGesturesHandler}, value)
+    MovedMotionGesturesHandler_SINGLETONSet[] = true
+    MovedMotionGesturesHandler_SINGLETONValue[] = value
+end
 
-
-class MovedMotionGesturesHandler(BasicEventHandler):
-    SINGLETON: MovedMotionGesturesHandler = None
-    
-
-    @staticmethod
-    def getInstance() -> MovedMotionGesturesHandler:
-        return MovedMotionGesturesHandler.SINGLETON
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        baseMotionGestureEventListener: BaseMotionGestureEventListener = eventListenerInterface
-        baseMotionGestureEventListener.onMotionGestureEvent(eventObject)
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
+function initFieldsMovedMotionGesturesHandler(this::MovedMotionGesturesHandler)
+    nothing
+end
 
 
-def _MovedMotionGesturesHandler_SINGLETON() -> object:
-    return MovedMotionGesturesHandler()
+function getInstance(::Type{MovedMotionGesturesHandler})
+        return staticGet_SINGLETON(MovedMotionGesturesHandler)
+end
 
-lazy_static(MovedMotionGesturesHandler, "SINGLETON", _MovedMotionGesturesHandler_SINGLETON)
+
+function initMovedMotionGesturesHandler(this::MovedMotionGesturesHandler)
+        initBasicEventHandler(this)
+        initFieldsMovedMotionGesturesHandler(this)
+        nothing
+        nothing
+end
+
+function newMovedMotionGesturesHandler()
+    this = MovedMotionGesturesHandler()
+    initMovedMotionGesturesHandler(this)
+    this
+end
+
+
+function process(this::MovedMotionGesturesHandler, eventObject, eventListenerInterface)
+        local baseMotionGestureEventListener = (eventListenerInterface)
+        AllBinary.onMotionGestureEvent(baseMotionGestureEventListener, (eventObject))
+        nothing
+end
 

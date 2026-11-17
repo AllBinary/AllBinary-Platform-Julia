@@ -1,62 +1,68 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.bounds
 
-from __future__ import annotations
+mutable struct LayerBounds <: JObject
+    logUtil::Any
+    rectangle::Any
+    LayerBounds() = new()
+end
 
-from org.allbinary.bounds.event.BoundsChangeEventListener import BoundsChangeEventListener
 
-
-class LayerBounds(BoundsChangeEventListener):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.rectangle: Rectangle = None
+function initFieldsLayerBounds(this::LayerBounds)
+    this.logUtil = nothing
+    this.rectangle = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    nothing
+end
 
-    def __init__(self, rectangle: Rectangle) -> None:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        self._init_fields()
-        self.rectangle = rectangle
-    
 
-    def getRectangleP(self) -> Rectangle:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        return self.rectangle
-    
+function initLayerBounds(this::LayerBounds, rectangle)
+        initFieldsLayerBounds(this)
+        this.rectangle = rectangle
+        nothing
+end
 
-    def visit(self, boundsVisitorInterface: BoundsVisitorInterface) -> None:
-        pass
-    
+function newLayerBounds(rectangle)
+    this = LayerBounds()
+    initLayerBounds(this, rectangle)
+    this
+end
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
 
-    def onBoundsChangeEvent(self, boundsChangeEvent: BoundsChangeEvent) -> None:
-        from org.allbinary.bounds.event.BoundsChangeEvent import BoundsChangeEvent
-        self.rectangle = boundsChangeEvent.getRectangle()
-# from org.allbinary.bounds.event.BoundsChangeEvent import BoundsChangeEvent
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
+function getRectangleP(this::LayerBounds)
+        return this.rectangle
+end
 
+
+function visit(this::LayerBounds, boundsVisitorInterface)
+        nothing
+        nothing
+end
+
+
+function onEvent(this::LayerBounds, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
+
+
+function onBoundsChangeEvent(this::LayerBounds, boundsChangeEvent)
+        this.rectangle = AllBinary.getRectangle(boundsChangeEvent)
+        nothing
+end
 

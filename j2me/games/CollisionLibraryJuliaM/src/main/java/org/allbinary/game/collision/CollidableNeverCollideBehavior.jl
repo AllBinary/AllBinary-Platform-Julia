@@ -1,49 +1,61 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.collision
 
-from __future__ import annotations
+# extends CollidableBaseBehavior: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CollidableNeverCollideBehavior <: JObject
+    CollidableNeverCollideBehavior() = new()
+end
 
-from org.allbinary.game.collision.CollidableBaseBehavior import CollidableBaseBehavior
+
+function initFieldsCollidableNeverCollideBehavior(this::CollidableNeverCollideBehavior)
+    nothing
+end
 
 
-class CollidableNeverCollideBehavior(CollidableBaseBehavior):
-    
+function initCollidableNeverCollideBehavior(this::CollidableNeverCollideBehavior, isCollidable)
+        initCollidableBaseBehavior(this, isCollidable)
+        nothing
+end
 
-    def __init__(self, isCollidable: bool) -> None:
-        super().__init__(isCollidable)
-    
+function newCollidableNeverCollideBehavior(isCollidable)
+    this = CollidableNeverCollideBehavior()
+    initCollidableNeverCollideBehavior(this, isCollidable)
+    this
+end
 
-    def isCollision(self, ownerLayer: CollidableCompositeLayer, allbinaryCollidableLayer: CollidableCompositeLayer) -> bool:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        return False
-    
 
-    # throws Exception
-    def collide(self, ownerLayer: CollidableCompositeLayer, allbinaryCollidableLayer: CollidableCompositeLayer) -> None:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        pass
-    
+function isCollision(this::CollidableNeverCollideBehavior, ownerLayer, allbinaryCollidableLayer)
+        return false
+end
 
-    def collideInterface(self, ownerLayer: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableInterfaceCompositeInterface) -> None:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        pass
-    
 
-    def isCollisionInterface(self, ownerLayer: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableInterfaceCompositeInterface) -> bool:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        return False
-# from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
+function collide(this::CollidableNeverCollideBehavior, ownerLayer, allbinaryCollidableLayer)
+        nothing
+        nothing
+end
 
+
+function collideInterface(this::CollidableNeverCollideBehavior, ownerLayer, collidableInterfaceCompositeInterface)
+        nothing
+        nothing
+end
+
+
+function isCollisionInterface(this::CollidableNeverCollideBehavior, ownerLayer, collidableInterfaceCompositeInterface)
+        return false
+end
 

@@ -1,124 +1,109 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.midlet
 
-from __future__ import annotations
+# extends GameMidlet: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct DemoGameMidlet <: JObject
+    DemoGameMidlet() = new()
+end
 
-import threading
-from org.allbinary.game.midlet.GameMidlet import GameMidlet
+
+function initFieldsDemoGameMidlet(this::DemoGameMidlet)
+    nothing
+end
 
 
-class DemoGameMidlet(GameMidlet):
-    _lock = threading.RLock()
-    
+function initDemoGameMidlet(this::DemoGameMidlet, clientInformationFactory)
+        initGameMidlet(this, clientInformationFactory)
+        nothing
+end
 
-    def __init__(self, clientInformationFactory: ClientInformationFactory) -> None:
-        from org.allbinary.logic.system.security.licensing.ClientInformationFactory import ClientInformationFactory
-        super().__init__(clientInformationFactory)
-    
+function newDemoGameMidlet(clientInformationFactory)
+    this = DemoGameMidlet()
+    initDemoGameMidlet(this, clientInformationFactory)
+    this
+end
 
-    # throws Exception
-    def isContinue(self) -> bool:
-        from org.allbinary.util.ABHashtable import ABHashtable
-        hashtable: ABHashtable[object, object] = self.getStartStateHashtable()
-        if hashtable is not None and hashtable.size() > 0:
-            return True
-        else:
-            return False
-    
 
-    def getHighestLevel(self) -> int:
-        return 1
-    
+function isContinue(this::DemoGameMidlet)
+        local hashtable = AllBinary.getStartStateHashtable(this)
+        if hashtable !== nothing && AllBinary.size(hashtable) > Int32(0)
+            return true
+        else
+            return false
+        end
+end
 
-    # throws Exception
-    def createDemoGameCanvasRunnableInterface(self) -> GameCanvasRunnableInterface:
-        from org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface import GameCanvasRunnableInterface
-        from org.allbinary.game.displayable.canvas.NullGameCanvasRunnable import NullGameCanvasRunnable
-        self.logUtil.putF(self.commonStrings.NOT_IMPLEMENTED, self, self.commonStrings.CREATE)
-        return NullGameCanvasRunnable.NULL_GAME_CANVAS_RUNNABLE
-    
 
-    # throws Exception
-    def createGameCanvasRunnable(self, allBinaryGameLayerManager: AllBinaryGameLayerManager) -> GameCanvasRunnableInterface:
-        from org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface import GameCanvasRunnableInterface
-        from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-        raise Exception(self.commonStrings.NOT_IMPLEMENTED)
-    
+function getHighestLevel(this::DemoGameMidlet)
+        return Int32(1)
+end
 
-    # throws Exception
-    def createGameCanvasRunnableInterface(self) -> GameCanvasRunnableInterface:
-        from org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface import GameCanvasRunnableInterface
-        return self.createGameCanvasRunnable(self.createGameLayerManager())
-    
 
-    def demoSetup(self) -> None:
-        pass
-    
+function createDemoGameCanvasRunnableInterface(this::DemoGameMidlet)
+        AllBinary.putF(this.logUtil, this.commonStrings.NOT_IMPLEMENTED, this, this.commonStrings.CREATE)
+        return staticGet_NULL_GAME_CANVAS_RUNNABLE(NullGameCanvasRunnable)
+end
 
-    def postDemoSetup(self) -> None:
-        pass
-    
 
-    # throws Exception
-    def setDemo(self) -> None:
-        with self._lock:
-            return self._setDemo_unlocked()
+function createGameCanvasRunnable(this::DemoGameMidlet, allBinaryGameLayerManager)
+        throw(jNewException("Exception", this.commonStrings.NOT_IMPLEMENTED))
+end
 
-    def _setDemo_unlocked(self) -> None:
-        from org.allbinary.game.midlet.DemoRunnable import DemoRunnable
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        from org.allbinary.thread.PrimaryThreadPool import PrimaryThreadPool
-        self.logUtil.putF(self.commonStrings.START, self, "setDemo")
-        progressCanvas: ProgressCanvas = ProgressCanvasFactory.getInstance()
-        progressCanvas.start()
-        PrimaryThreadPool.getInstance().runTask(DemoRunnable(self))
-    
 
-    # throws Exception
-    def createGame(self) -> None:
-        with self._lock:
-            return self._createGame_unlocked()
+function createGameCanvasRunnableInterface(this::DemoGameMidlet)
+        return AllBinary.createGameCanvasRunnable(this, AllBinary.createGameLayerManager(this))
+end
 
-    def _createGame_unlocked(self) -> None:
-        from org.allbinary.game.midlet.CreateGameRunnable import CreateGameRunnable
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        from org.allbinary.logic.StdUtil import StdUtil
-        from org.allbinary.thread.PrimaryThreadPool import PrimaryThreadPool
-        from org.allbinary.util.ABHashtable import ABHashtable
-        CREATE_GAME: str = "createGame"
-        self.logUtil.putF(self.commonStrings.START, self, CREATE_GAME)
-        progressCanvas: ProgressCanvas = ProgressCanvasFactory.getInstance()
-        progressCanvas.start()
-        hashtable: ABHashtable[object, object] = self.getStartStateHashtable()
-        self.setStartStateHashtable(StdUtil.getInstance().NULL_TABLE)
-        PrimaryThreadPool.getInstance().runTask(CreateGameRunnable(self, hashtable))
-        self.logUtil.putF(self.commonStrings.END, self, CREATE_GAME)
-    
 
-    def isReady(self) -> bool:
-        return True
-# from org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface import GameCanvasRunnableInterface
-# from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-# from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-# from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.logic.system.security.licensing.ClientInformationFactory import ClientInformationFactory
-# from org.allbinary.thread.PrimaryThreadPool import PrimaryThreadPool
-# from org.allbinary.game.displayable.canvas.NullGameCanvasRunnable import NullGameCanvasRunnable
-# from org.allbinary.util.ABHashtable import ABHashtable
+function demoSetup(this::DemoGameMidlet)
+        nothing
+        nothing
+end
 
+
+function postDemoSetup(this::DemoGameMidlet)
+        nothing
+        nothing
+end
+
+
+function setDemo(this::DemoGameMidlet)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, "setDemo")
+        local progressCanvas = AllBinary.getInstance(ProgressCanvasFactory)
+        AllBinary.start(progressCanvas)
+        AllBinary.runTask(AllBinary.getInstance(PrimaryThreadPool), newDemoRunnable(this))
+        nothing
+end
+
+
+function createGame(this::DemoGameMidlet)
+        local CREATE_GAME = "createGame"
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, CREATE_GAME)
+        local progressCanvas = AllBinary.getInstance(ProgressCanvasFactory)
+        AllBinary.start(progressCanvas)
+        local hashtable = AllBinary.getStartStateHashtable(this)
+        AllBinary.setStartStateHashtable(this, AllBinary.getInstance(StdUtil).NULL_TABLE)
+        AllBinary.runTask(AllBinary.getInstance(PrimaryThreadPool), newCreateGameRunnable(this, hashtable))
+        AllBinary.putF(this.logUtil, this.commonStrings.END, this, CREATE_GAME)
+        nothing
+end
+
+
+function isReady(this::DemoGameMidlet)
+        return true
+end
 

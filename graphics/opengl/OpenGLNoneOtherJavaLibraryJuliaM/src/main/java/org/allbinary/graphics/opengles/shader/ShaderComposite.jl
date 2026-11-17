@@ -1,73 +1,121 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles.shader
 
-from __future__ import annotations
+mutable struct ShaderComposite <: JObject
+    disableProgramShaderOpenGLProcessor::Any
+    requiresOpenGLVersion::Any
+    shaderArray::Any
+    shaderInitializer::Any
+    compositeShaderUpdater::Any
+    modelViewProjection::Any
+    colorOpenGLProcessor::Any
+    vertexOpenGLProcessor::Any
+    useProgramShaderOpenGLProcessor::Any
+    shaderMatrixOpenGLProcessor::Any
+    colorEnableVertexAttribArrayOpenGLProcessor::Any
+    normalEnableVertexAttribArrayOpenGLProcessor::Any
+    vertexEnableVertexAttribArrayOpenGLProcessor::Any
+    textureEnableVertexAttribArrayOpenGLProcessor::Any
+    colorDisableVertexAttribArrayOpenGLProcessor::Any
+    normalDisableVertexAttribArrayOpenGLProcessor::Any
+    vertexDisableVertexAttribArrayOpenGLProcessor::Any
+    textureDisableVertexAttribArrayOpenGLProcessor::Any
+    uniformLightPositionOpenGLProcessor::Any
+    uniformLightColorOpenGLProcessor::Any
+    uniformCameraPositionOpenGLProcessor::Any
+    uniformTextureUnitOpenGLProcessor::Any
+    programHandle::Int32
+    ShaderComposite() = new()
+end
 
 
-
-class ShaderComposite:
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.opengles.NullOpenGLProcessorFactory import NullOpenGLProcessorFactory
-        from org.allbinary.graphics.opengles.OpenGLProcessor import OpenGLProcessor
-        self.disableProgramShaderOpenGLProcessor: OpenGLProcessor = None
-        self.requiresOpenGLVersion: str = None
-        self.shaderArray: list[Shader] = None
-        self.shaderInitializer: ShaderInitializer = None
-        self.compositeShaderUpdater: CompositeShaderUpdater = None
-        self.modelViewProjection: ModelViewProjection = None
-        self.colorOpenGLProcessor: OpenGLProcessor = None
-        self.vertexOpenGLProcessor: OpenGLProcessor = None
-        self.useProgramShaderOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.shaderMatrixOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.colorEnableVertexAttribArrayOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.normalEnableVertexAttribArrayOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.vertexEnableVertexAttribArrayOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.textureEnableVertexAttribArrayOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.colorDisableVertexAttribArrayOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.normalDisableVertexAttribArrayOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.vertexDisableVertexAttribArrayOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.textureDisableVertexAttribArrayOpenGLProcessor: OpenGLProcessor = NullOpenGLProcessorFactory.getInstance()
-        self.uniformLightPositionOpenGLProcessor: OpenGLObject3dProcessor = NullOpenGLTextureProcessor.getInstance()
-        self.uniformLightColorOpenGLProcessor: OpenGLObject3dProcessor = NullOpenGLTextureProcessor.getInstance()
-        self.uniformCameraPositionOpenGLProcessor: OpenGLObject3dProcessor = NullOpenGLTextureProcessor.getInstance()
-        self.uniformTextureUnitOpenGLProcessor: OpenGLObject3dProcessor = NullOpenGLTextureProcessor.getInstance()
-        self.programHandle: int = 0
+function initFieldsShaderComposite(this::ShaderComposite)
+    this.disableProgramShaderOpenGLProcessor = nothing
+    this.requiresOpenGLVersion = nothing
+    this.shaderArray = nothing
+    this.shaderInitializer = nothing
+    this.compositeShaderUpdater = nothing
+    this.modelViewProjection = nothing
+    this.colorOpenGLProcessor = nothing
+    this.vertexOpenGLProcessor = nothing
+    this.useProgramShaderOpenGLProcessor = nothing
+    this.shaderMatrixOpenGLProcessor = nothing
+    this.colorEnableVertexAttribArrayOpenGLProcessor = nothing
+    this.normalEnableVertexAttribArrayOpenGLProcessor = nothing
+    this.vertexEnableVertexAttribArrayOpenGLProcessor = nothing
+    this.textureEnableVertexAttribArrayOpenGLProcessor = nothing
+    this.colorDisableVertexAttribArrayOpenGLProcessor = nothing
+    this.normalDisableVertexAttribArrayOpenGLProcessor = nothing
+    this.vertexDisableVertexAttribArrayOpenGLProcessor = nothing
+    this.textureDisableVertexAttribArrayOpenGLProcessor = nothing
+    this.uniformLightPositionOpenGLProcessor = nothing
+    this.uniformLightColorOpenGLProcessor = nothing
+    this.uniformCameraPositionOpenGLProcessor = nothing
+    this.uniformTextureUnitOpenGLProcessor = nothing
+    this.programHandle = Int32(0)
     
-
-    def __init__(self, requiresOpenGLVersion: str, shaderArray: list[Shader], compositeShaderUpdater: CompositeShaderUpdater, shaderInitializer: ShaderInitializer, modelViewProjection: ModelViewProjection, colorOpenGLProcessor: OpenGLProcessor, vertexOpenGLProcessor: OpenGLProcessor, disableProgramShaderOpenGLProcessor: OpenGLProcessor) -> None:
-        from org.allbinary.graphics.opengles.OpenGLProcessor import OpenGLProcessor
-        self._init_fields()
-        self.requiresOpenGLVersion = requiresOpenGLVersion
-        self.shaderArray = shaderArray
-        self.shaderInitializer = shaderInitializer
-        self.compositeShaderUpdater = compositeShaderUpdater
-        self.modelViewProjection = modelViewProjection
-        self.colorOpenGLProcessor = colorOpenGLProcessor
-        self.vertexOpenGLProcessor = vertexOpenGLProcessor
-        self.disableProgramShaderOpenGLProcessor = disableProgramShaderOpenGLProcessor
     
+    
+    
+    
+    
+    
+    
+    this.useProgramShaderOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.shaderMatrixOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.colorEnableVertexAttribArrayOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.normalEnableVertexAttribArrayOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.vertexEnableVertexAttribArrayOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.textureEnableVertexAttribArrayOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.colorDisableVertexAttribArrayOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.normalDisableVertexAttribArrayOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.vertexDisableVertexAttribArrayOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.textureDisableVertexAttribArrayOpenGLProcessor = AllBinary.getInstance(NullOpenGLProcessorFactory)
+    this.uniformLightPositionOpenGLProcessor = AllBinary.getInstance(NullOpenGLTextureProcessor)
+    this.uniformLightColorOpenGLProcessor = AllBinary.getInstance(NullOpenGLTextureProcessor)
+    this.uniformCameraPositionOpenGLProcessor = AllBinary.getInstance(NullOpenGLTextureProcessor)
+    this.uniformTextureUnitOpenGLProcessor = AllBinary.getInstance(NullOpenGLTextureProcessor)
+    this.programHandle = Int32(0)
+    nothing
+end
 
-    def init(self, gl: GL10) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.programHandle = self.shaderInitializer.init(gl, self.shaderArray, StringUtil.getInstance().getArrayInstance())
-# from javax.microedition.khronos.opengles.GL10 import GL10
-# from org.allbinary.graphics.opengles.NullOpenGLProcessorFactory import NullOpenGLProcessorFactory
-# from org.allbinary.graphics.opengles.OpenGLProcessor import OpenGLProcessor
-# from org.allbinary.logic.string.StringUtil import StringUtil
-from org.allbinary.graphics.opengles.shader.NullOpenGLTextureProcessor import NullOpenGLTextureProcessor
 
+function initShaderComposite(this::ShaderComposite, requiresOpenGLVersion, shaderArray, compositeShaderUpdater, shaderInitializer, modelViewProjection, colorOpenGLProcessor, vertexOpenGLProcessor, disableProgramShaderOpenGLProcessor)
+        initFieldsShaderComposite(this)
+        this.requiresOpenGLVersion = requiresOpenGLVersion
+        this.shaderArray = shaderArray
+        this.shaderInitializer = shaderInitializer
+        this.compositeShaderUpdater = compositeShaderUpdater
+        this.modelViewProjection = modelViewProjection
+        this.colorOpenGLProcessor = colorOpenGLProcessor
+        this.vertexOpenGLProcessor = vertexOpenGLProcessor
+        this.disableProgramShaderOpenGLProcessor = disableProgramShaderOpenGLProcessor
+        nothing
+end
+
+function newShaderComposite(requiresOpenGLVersion, shaderArray, compositeShaderUpdater, shaderInitializer, modelViewProjection, colorOpenGLProcessor, vertexOpenGLProcessor, disableProgramShaderOpenGLProcessor)
+    this = ShaderComposite()
+    initShaderComposite(this, requiresOpenGLVersion, shaderArray, compositeShaderUpdater, shaderInitializer, modelViewProjection, colorOpenGLProcessor, vertexOpenGLProcessor, disableProgramShaderOpenGLProcessor)
+    this
+end
+
+
+function init(this::ShaderComposite, gl)
+        this.programHandle = AllBinary.init(this.shaderInitializer, gl, this.shaderArray, AllBinary.getArrayInstance(AllBinary.getInstance(StringUtil)))
+        nothing
+end
 

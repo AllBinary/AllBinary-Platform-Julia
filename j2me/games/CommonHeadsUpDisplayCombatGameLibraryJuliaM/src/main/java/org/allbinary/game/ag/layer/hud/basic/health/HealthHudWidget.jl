@@ -1,106 +1,144 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic.health
 
-from __future__ import annotations
+# extends BasicHud: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HealthHudWidget <: JObject
+    healthScale::Int32
+    animationInterface::Any
+    healthInterface::Any
+    max::Int32
+    xArray::Any
+    gameTickTimeDelayHelper::Any
+    timeDelayHelper::Any
+    slowBeatTimeDelayHelper::Any
+    mediumBeatTimeDelayHelper::Any
+    fastBeatTimeDelayHelper::Any
+    HealthHudWidget() = new()
+end
 
-from org.allbinary.game.graphics.hud.BasicHud import BasicHud
-from org.allbinary.game.health.HealthListenerInterface import HealthListenerInterface
-from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
 
-
-class HealthHudWidget(BasicHud, PaintableInterface, HealthListenerInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.health.Health import Health
-        from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        from org.allbinary.time.NoTimeDelayHelper import NoTimeDelayHelper
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.healthScale: int = None
-        self.animationInterface: Animation = None
-        self.healthInterface: Health = None
-        self.max: int = 0
-        self.xArray: list[int] = None
-        self.gameTickTimeDelayHelper: GameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
-        self.timeDelayHelper: TimeDelayHelper = NoTimeDelayHelper.SINGLETON
-        self.slowBeatTimeDelayHelper: TimeDelayHelper = TimeDelayHelper(1280)
-        self.mediumBeatTimeDelayHelper: TimeDelayHelper = TimeDelayHelper(640)
-        self.fastBeatTimeDelayHelper: TimeDelayHelper = TimeDelayHelper(320)
+function initFieldsHealthHudWidget(this::HealthHudWidget)
+    this.healthScale = Int32(0)
+    this.animationInterface = nothing
+    this.healthInterface = nothing
+    this.max = Int32(0)
+    this.xArray = nothing
+    this.gameTickTimeDelayHelper = nothing
+    this.timeDelayHelper = nothing
+    this.slowBeatTimeDelayHelper = nothing
+    this.mediumBeatTimeDelayHelper = nothing
+    this.fastBeatTimeDelayHelper = nothing
     
-
-    def __init__(self, animationInterface: Animation, healthInterface: Health, location: int, direction: int) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.health.Health import Health
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        super().__init__(location, direction, 2, BasicColorFactory.getInstance().WHITE)
-        self._init_fields()
-        self.animationInterface = animationInterface
-        self.healthInterface = healthInterface
-        self.healthInterface.addListener(self)
-        self.healthScale = (self.healthInterface.getMaxHealth() / 6) + 1
-        self.onHealthChange()
-        self.updateMaxWidth = healthInterface.getMaxHealth() * 16
-        self.updateMaxHeight = 16
-        self.xArray = [0] * (30)
-        self.update()
     
-
-    def update(self) -> None:
-        if self.xArray is not None:
-            for index in range(0, len(self.xArray)):
-                self.xArray[index] = self.getX() + (index * 16)
     
-
-    def setX(self, x: int) -> None:
-        super().setX(x)
-        self.update()
+    this.max = Int32(0)
     
+    this.gameTickTimeDelayHelper = AllBinary.getInstance(GameTickTimeDelayHelperFactory)
+    this.timeDelayHelper = staticGet_SINGLETON(NoTimeDelayHelper)
+    this.slowBeatTimeDelayHelper = newTimeDelayHelper(Int32(1280))
+    this.mediumBeatTimeDelayHelper = newTimeDelayHelper(Int32(640))
+    this.fastBeatTimeDelayHelper = newTimeDelayHelper(Int32(320))
+    nothing
+end
 
-    def onHealthChange(self) -> None:
-        from org.allbinary.time.NoTimeDelayHelper import NoTimeDelayHelper
-        self.max = (self.healthInterface.getHealth() / self.healthScale)
-        self.timeDelayHelper = NoTimeDelayHelper.SINGLETON
-        if self.max <= 1 and self.healthInterface.isAlive():
-            self.max = 1
-            if self.healthScale - self.healthInterface.getHealth() > int((self.healthScale * 2) / 3):
-                self.timeDelayHelper = self.slowBeatTimeDelayHelper
-            elif self.healthScale - self.healthInterface.getHealth() > int(self.healthScale / 3):
-                self.timeDelayHelper = self.mediumBeatTimeDelayHelper
-            else:
-                self.timeDelayHelper = self.fastBeatTimeDelayHelper
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        for index in range(0, self.max):
-            if self.timeDelayHelper.isTime(self.gameTickTimeDelayHelper.startTime):
-                self.animationInterface.paintXY(graphics, self.xArray[index], self.getY())
-    
+function initHealthHudWidget(this::HealthHudWidget, animationInterface, healthInterface, location, direction)
+        initBasicHud(this, location, direction, Int32(2), AllBinary.getInstance(BasicColorFactory).WHITE)
+        initFieldsHealthHudWidget(this)
+        this.animationInterface = animationInterface
+        this.healthInterface = healthInterface
+        AllBinary.addListener(this.healthInterface, this)
+        this.healthScale = (AllBinary.getMaxHealth(this.healthInterface) ÷ Int32(6)) + Int32(1)
+        AllBinary.onHealthChange(this)
+        this.updateMaxWidth = AllBinary.getMaxHealth(healthInterface) * Int32(16)
+        this.updateMaxHeight = Int32(16)
+        this.xArray = jNewArray(Int32, Int32(30), Int32(0))
+        AllBinary.update(this)
+        nothing
+end
 
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.game.health.Health import Health
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-# from org.allbinary.time.NoTimeDelayHelper import NoTimeDelayHelper
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
+function newHealthHudWidget(animationInterface, healthInterface, location, direction)
+    this = HealthHudWidget()
+    initHealthHudWidget(this, animationInterface, healthInterface, location, direction)
+    this
+end
 
+
+function update(this::HealthHudWidget)
+        if this.xArray !== nothing
+            let
+                local index::Int32 = Int32(0)
+                while index < Int32(Base.length(this.xArray))
+                try
+                this.xArray[index + 1] = AllBinary.getX(this) + (index * Int32(16))
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+        end
+        nothing
+end
+
+
+function setX(this::HealthHudWidget, x)
+        AllBinary.setX(this, x)
+        AllBinary.update(this)
+        nothing
+end
+
+
+function onHealthChange(this::HealthHudWidget)
+        this.max = (AllBinary.getHealth(this.healthInterface) ÷ this.healthScale)
+        this.timeDelayHelper = staticGet_SINGLETON(NoTimeDelayHelper)
+        if this.max <= Int32(1) && AllBinary.isAlive(this.healthInterface)
+            this.max = Int32(1)
+            if this.healthScale - AllBinary.getHealth(this.healthInterface) > (this.healthScale * Int32(2)) ÷ Int32(3)
+                this.timeDelayHelper = this.slowBeatTimeDelayHelper
+            elseif this.healthScale - AllBinary.getHealth(this.healthInterface) > this.healthScale ÷ Int32(3)
+                this.timeDelayHelper = this.mediumBeatTimeDelayHelper
+            else
+                this.timeDelayHelper = this.fastBeatTimeDelayHelper
+            end
+        end
+        nothing
+end
+
+
+function paint(this::HealthHudWidget, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        let
+            local index::Int32 = Int32(0)
+            while index < this.max
+            try
+            if AllBinary.isTime(this.timeDelayHelper, this.gameTickTimeDelayHelper.startTime)
+                AllBinary.paintXY(this.animationInterface, graphics, this.xArray[index + 1], AllBinary.getY(this))
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function paintThreed(this::HealthHudWidget, graphics)
+        nothing
+        nothing
+end
 

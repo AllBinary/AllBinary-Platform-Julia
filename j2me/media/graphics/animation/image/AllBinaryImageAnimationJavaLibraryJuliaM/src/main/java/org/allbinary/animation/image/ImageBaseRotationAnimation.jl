@@ -1,91 +1,96 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends RotationAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageBaseRotationAnimation <: JObject
+    image::Any
+    anchor::Int32
+    ImageBaseRotationAnimation() = new()
+end
 
-from org.allbinary.animation.RotationAnimation import RotationAnimation
 
-
-class ImageBaseRotationAnimation(RotationAnimation):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.graphics.Anchor import Anchor
-        self.image: Image = None
-        self.anchor: int = Anchor.TOP_LEFT
+function initFieldsImageBaseRotationAnimation(this::ImageBaseRotationAnimation)
+    this.image = nothing
+    this.anchor = Int32(0)
     
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    nothing
+end
 
-    def __init__(self, image: Image, angleInfo: AngleInfo, totalAngle: int, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.math.AngleInfo import AngleInfo
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        super().__init__(angleInfo, CircularIndexUtil.createInstance(totalAngle / angleInfo.getAngleIncrementInfo().getAngleIncrement()), animationBehavior)
-        self._init_fields()
-        self.image = image
-    
 
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        return self.getSize()
-    
+function initImageBaseRotationAnimation(this::ImageBaseRotationAnimation, image, angleInfo, totalAngle, animationBehavior)
+        initRotationAnimation(this, angleInfo, AllBinary.createInstance(CircularIndexUtil, totalAngle ÷ AllBinary.getAngleIncrement(AllBinary.getAngleIncrementInfo(angleInfo))), animationBehavior)
+        initFieldsImageBaseRotationAnimation(this)
+        this.image = image
+        nothing
+end
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
+function newImageBaseRotationAnimation(image, angleInfo, totalAngle, animationBehavior)
+    this = ImageBaseRotationAnimation()
+    initImageBaseRotationAnimation(this, image, angleInfo, totalAngle, animationBehavior)
+    this
+end
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        graphics.drawImage(self.image, x, y, self.anchor)
-    
+function getAnimationSize(this::ImageBaseRotationAnimation)
+        return AllBinary.getSize(this)
+end
 
-    def getImage(self) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        return self.image
-    
 
-    def getWidth(self) -> int:
-        return self.image.getWidth()
-    
+function setSequence(this::ImageBaseRotationAnimation, sequence)
+        nothing
+        nothing
+end
 
-    def getHeight(self) -> int:
-        return self.image.getHeight()
-    
 
-    # throws Exception
-    def close(self) -> None:
-        from org.allbinary.DisposalUtil import DisposalUtil
-        DisposalUtil.getInstance().disposeImage(self.image)
-    
+function getSequence(this::ImageBaseRotationAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
 
-    # throws Throwable
-    def finalize(self) -> None:
-        from org.allbinary.DisposalUtil import DisposalUtil
-        DisposalUtil.getInstance().disposeImage(self.image)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.DisposalUtil import DisposalUtil
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-# from org.allbinary.math.AngleInfo import AngleInfo
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
 
+function paintXY(this::ImageBaseRotationAnimation, graphics, x, y)
+        AllBinary.drawImage(graphics, this.image, x, y, this.anchor)
+        nothing
+end
+
+
+function getImage(this::ImageBaseRotationAnimation)
+        return this.image
+end
+
+
+function getWidth(this::ImageBaseRotationAnimation)
+        return AllBinary.getWidth(this.image)
+end
+
+
+function getHeight(this::ImageBaseRotationAnimation)
+        return AllBinary.getHeight(this.image)
+end
+
+
+function close(this::ImageBaseRotationAnimation)
+        AllBinary.disposeImage(AllBinary.getInstance(DisposalUtil), this.image)
+        nothing
+end
+
+
+function finalize(this::ImageBaseRotationAnimation)
+        AllBinary.disposeImage(AllBinary.getInstance(DisposalUtil), this.image)
+        nothing
+end
 

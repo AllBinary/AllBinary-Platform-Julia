@@ -1,70 +1,84 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends ImageSegmentAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct RightToLeftImageAnimation <: JObject
+    startWidth::Int32
+    currentWidth::Int32
+    anchor::Int32
+    RightToLeftImageAnimation() = new()
+end
 
-from org.allbinary.animation.image.ImageSegmentAnimation import ImageSegmentAnimation
+
+function initFieldsRightToLeftImageAnimation(this::RightToLeftImageAnimation)
+    this.startWidth = Int32(0)
+    this.currentWidth = Int32(0)
+    this.anchor = Int32(0)
+    this.startWidth = Int32(0)
+    this.currentWidth = Int32(0)
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    nothing
+end
 
 
-class RightToLeftImageAnimation(ImageSegmentAnimation):
+function initRightToLeftImageAnimation(this::RightToLeftImageAnimation, image, animationBehavior)
+        initImageSegmentAnimation(this, image, AllBinary.getArrayInstance(PrimitiveIntUtil), animationBehavior)
+        initFieldsRightToLeftImageAnimation(this)
+        AllBinary.setFrame(this, AllBinary.getSize(this) - Int32(1))
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Anchor import Anchor
-        self.startWidth: int = 0
-        self.currentWidth: int = 0
-        self.anchor: int = Anchor.TOP_LEFT
-    
+function newRightToLeftImageAnimation(image, animationBehavior)
+    this = RightToLeftImageAnimation()
+    initRightToLeftImageAnimation(this, image, animationBehavior)
+    this
+end
 
-    def __init__(self, image: Image, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        super().__init__(image, PrimitiveIntUtil.getArrayInstance(), animationBehavior)
-        self._init_fields()
-        self.setFrame(self.getSize() - 1)
-    
 
-    def nextFrame(self) -> None:
-        super().previousFrame()
-        self.update()
-    
+function nextFrame(this::RightToLeftImageAnimation)
+        AllBinary.previousFrame(this)
+        AllBinary.update(this)
+        nothing
+end
 
-    def previousFrame(self) -> None:
-        super().nextFrame()
-        self.update()
-    
 
-    def setFrame(self, index: int) -> None:
-        super().setFrame(index)
-        self.update()
-    
+function previousFrame(this::RightToLeftImageAnimation)
+        AllBinary.nextFrame(this)
+        AllBinary.update(this)
+        nothing
+end
 
-    def update(self) -> None:
-        self.startWidth = self.getDrawWidth() * self.getFrame() / self.getSize()
-        self.currentWidth = self.getDrawWidth() - self.startWidth
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from javax.microedition.lcdui.game.Sprite import Sprite
-        graphics.drawRegion(self.getImage(), self.startWidth, self.getStartY(), self.currentWidth, self.getDrawHeight(), Sprite.TRANS_NONE, x + self.startWidth, y, self.anchor)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.game.Sprite import Sprite
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
+function setFrame(this::RightToLeftImageAnimation, index)
+        AllBinary.setFrame(this, index)
+        AllBinary.update(this)
+        nothing
+end
 
+
+function update(this::RightToLeftImageAnimation)
+        this.startWidth = AllBinary.getDrawWidth(this) * AllBinary.getFrame(this) / AllBinary.getSize(this)
+        this.currentWidth = AllBinary.getDrawWidth(this) - this.startWidth
+        nothing
+end
+
+
+function paintXY(this::RightToLeftImageAnimation, graphics, x, y)
+        AllBinary.drawRegion(graphics, AllBinary.getImage(this), this.startWidth, AllBinary.getStartY(this), this.currentWidth, AllBinary.getDrawHeight(this), staticGet_TRANS_NONE(Sprite), x + this.startWidth, y, this.anchor)
+        nothing
+end
 

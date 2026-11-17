@@ -1,91 +1,117 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai
 
-from __future__ import annotations
+# extends KeyPressesAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MultiKeyPressesAI <: JObject
+    toggleTimeHelper::Any
+    gameTickTimeDelayHelper::Any
+    MultiKeyPressesAI() = new()
+end
 
-from org.allbinary.game.ag.ai.KeyPressesAI import KeyPressesAI
+
+function initFieldsMultiKeyPressesAI(this::MultiKeyPressesAI)
+    this.toggleTimeHelper = nothing
+    this.gameTickTimeDelayHelper = nothing
+    this.toggleTimeHelper = newTimeDelayHelper(Int32(600))
+    this.gameTickTimeDelayHelper = AllBinary.getInstance(GameTickTimeDelayHelperFactory)
+    nothing
+end
 
 
-class MultiKeyPressesAI(KeyPressesAI):
+function initMultiKeyPressesAI(this::MultiKeyPressesAI, hashtable, ownerLayerInterface, gameInput)
+        initKeyPressesAI(this, hashtable, ownerLayerInterface, gameInput)
+        initFieldsMultiKeyPressesAI(this)
+        AllBinary.update(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.toggleTimeHelper: TimeDelayHelper = TimeDelayHelper(600)
-        self.gameTickTimeDelayHelper: GameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
-    
+function newMultiKeyPressesAI(hashtable, ownerLayerInterface, gameInput)
+    this = MultiKeyPressesAI()
+    initMultiKeyPressesAI(this, hashtable, ownerLayerInterface, gameInput)
+    this
+end
 
-    def __init__(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.ABHashtable import ABHashtable
-        super().__init__(hashtable, ownerLayerInterface, gameInput)
-        self._init_fields()
-        self.update()
-    
 
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-    
+function processAI(this::MultiKeyPressesAI, allBinaryLayerManager)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def update(self) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        gameInput: GameInput = self.getGameInput()
-        keys: list[int] = self.keys
-        size: int = len(keys)
-        if self.isOn():
-            for index in range(0, size):
-                key: int = int(keys[index])
-                if key != -1:
-                    gameInput.add(self.gameKeyEventFactory.getInstanceForKey(self, key))
-        else:
-            for index in range(0, size):
-                key: int = int(keys[index])
-                if key != -1:
-                    gameInput.addForRemoval(self.gameKeyEventFactory.getInstanceForKey(self, key))
-    
 
-    # throws Exception
-    def toggle(self) -> None:
-        if self.toggleTimeHelper.isTime(self.gameTickTimeDelayHelper.startTime):
-            super().toggle()
-            self.update()
-    
+function update(this::MultiKeyPressesAI)
+        local gameInput = AllBinary.getGameInput(this)
+        local keys = this.keys
+        local size::Int32 = Int32(Base.length(keys))
+        if AllBinary.isOn(this)
+            let
+                index = Int32(0)
+                while index < size
+                try
+                key = AllBinary.intValue(keys[index + 1])
+                if key != -Int32(1)
+                    AllBinary.add(gameInput, AllBinary.getInstanceForKey(this.gameKeyEventFactory, this, key))
+                end
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+        else
+            let
+                local index::Int32 = Int32(0)
+                while index < size
+                try
+                local key::Int32 = AllBinary.intValue(keys[index + 1])
+                if key != -Int32(1)
+                    AllBinary.addForRemoval(gameInput, AllBinary.getInstanceForKey(this.gameKeyEventFactory, this, key))
+                end
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+        end
+        nothing
+end
 
-    # throws Exception
-    def disable(self) -> None:
-        if self.toggleTimeHelper.isTime(self.gameTickTimeDelayHelper.startTime):
-            super().disable()
-            self.update()
-    
 
-    # throws Exception
-    def enable(self) -> None:
-        if self.toggleTimeHelper.isTime(self.gameTickTimeDelayHelper.startTime):
-            super().enable()
-            self.update()
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-# from org.allbinary.util.ABHashtable import ABHashtable
+function toggle(this::MultiKeyPressesAI)
+        if AllBinary.isTime(this.toggleTimeHelper, this.gameTickTimeDelayHelper.startTime)
+            AllBinary.toggle(this)
+            AllBinary.update(this)
+        end
+        nothing
+end
 
+
+function disable(this::MultiKeyPressesAI)
+        if AllBinary.isTime(this.toggleTimeHelper, this.gameTickTimeDelayHelper.startTime)
+            AllBinary.disable(this)
+            AllBinary.update(this)
+        end
+        nothing
+end
+
+
+function enable(this::MultiKeyPressesAI)
+        if AllBinary.isTime(this.toggleTimeHelper, this.gameTickTimeDelayHelper.startTime)
+            AllBinary.enable(this)
+            AllBinary.update(this)
+        end
+        nothing
+end
 

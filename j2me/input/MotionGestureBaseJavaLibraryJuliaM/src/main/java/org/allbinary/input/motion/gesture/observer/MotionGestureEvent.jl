@@ -1,106 +1,135 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gesture.observer
 
-from __future__ import annotations
+# extends AllBinaryEventObject: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MotionGestureEvent <: JObject
+    motionGesture::Any
+    id::Int32
+    previousPoint::Any
+    currentPoint::Any
+    commonLabels::Any
+    MotionGestureEvent() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
+const MotionGestureEvent_PREVIOUSValue = Ref{Any}(nothing)
+const MotionGestureEvent_PREVIOUSSet = Ref(false)
+function staticGet_PREVIOUS(::Type{MotionGestureEvent})
+    if !MotionGestureEvent_PREVIOUSSet[]
+        MotionGestureEvent_PREVIOUSSet[] = true
+        MotionGestureEvent_PREVIOUSValue[] = " Previous: "
+    end
+    MotionGestureEvent_PREVIOUSValue[]
+end
+function staticSet_PREVIOUS(::Type{MotionGestureEvent}, value)
+    MotionGestureEvent_PREVIOUSSet[] = true
+    MotionGestureEvent_PREVIOUSValue[] = value
+end
+const MotionGestureEvent_HASHCODEValue = Ref{Any}(nothing)
+const MotionGestureEvent_HASHCODESet = Ref(false)
+function staticGet_HASHCODE(::Type{MotionGestureEvent})
+    if !MotionGestureEvent_HASHCODESet[]
+        MotionGestureEvent_HASHCODESet[] = true
+        MotionGestureEvent_HASHCODEValue[] = " hashcode: "
+    end
+    MotionGestureEvent_HASHCODEValue[]
+end
+function staticSet_HASHCODE(::Type{MotionGestureEvent}, value)
+    MotionGestureEvent_HASHCODESet[] = true
+    MotionGestureEvent_HASHCODEValue[] = value
+end
 
-
-class MotionGestureEvent(AllBinaryEventObject):
-    PREVIOUS: str = " Previous: "
-    HASHCODE: str = " hashcode: "
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        from org.allbinary.string.CommonLabels import CommonLabels
-        self.motionGesture: MotionGestureInput = TouchMotionGestureFactory.getInstance().NO_MOTION
-        self.id: int = None
-        self.previousPoint: GPoint = PointFactory.getInstance().ZERO_ZERO
-        self.currentPoint: GPoint = PointFactory.getInstance().ZERO_ZERO
-        self.commonLabels: CommonLabels = CommonLabels.getInstance()
+function initFieldsMotionGestureEvent(this::MotionGestureEvent)
+    this.motionGesture = nothing
+    this.id = Int32(0)
+    this.previousPoint = nothing
+    this.currentPoint = nothing
+    this.commonLabels = nothing
+    this.motionGesture = AllBinary.getInstance(TouchMotionGestureFactory).NO_MOTION
     
+    this.previousPoint = AllBinary.getInstance(PointFactory).ZERO_ZERO
+    this.currentPoint = AllBinary.getInstance(PointFactory).ZERO_ZERO
+    this.commonLabels = AllBinary.getInstance(CommonLabels)
+    nothing
+end
 
-    def __init__(self, source: object, id: int, motionGesture: MotionGestureInput) -> None:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        super().__init__(source)
-        self._init_fields()
-        self.id = id
-        self.setMotionGesture(motionGesture)
-    
 
-    def getMotionGesture(self) -> MotionGestureInput:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        return self.motionGesture
-    
+function initMotionGestureEvent(this::MotionGestureEvent, source, id, motionGesture)
+        initAllBinaryEventObject(this, source)
+        initFieldsMotionGestureEvent(this)
+        this.id = id
+        AllBinary.setMotionGesture(this, motionGesture)
+        nothing
+end
 
-    def setMotionGesture(self, motionGesture: MotionGestureInput) -> None:
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        self.motionGesture = motionGesture
-    
+function newMotionGestureEvent(source, id, motionGesture)
+    this = MotionGestureEvent()
+    initMotionGestureEvent(this, source, id, motionGesture)
+    this
+end
 
-    def getPreviousPoint(self) -> GPoint:
-        from org.allbinary.graphics.GPoint import GPoint
-        return self.previousPoint
-    
 
-    def setPreviousPoint(self, previousPoint: GPoint) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        self.previousPoint = previousPoint
-    
+function getMotionGesture(this::MotionGestureEvent)
+        return this.motionGesture
+end
 
-    def getCurrentPoint(self) -> GPoint:
-        from org.allbinary.graphics.GPoint import GPoint
-        return self.currentPoint
-    
 
-    def setCurrentPoint(self, currentPoint: GPoint) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        self.currentPoint = currentPoint
-    
+function setMotionGesture(this::MotionGestureEvent, motionGesture)
+        this.motionGesture = motionGesture
+        nothing
+end
 
-    def toString(self) -> str:
-        from org.allbinary.TsUtil import TsUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        stringBuffer: StringMaker = StringMaker()
-        stringUtil: StringUtil = StringUtil.getInstance()
-        stringBuffer.append(stringUtil.toString(self.motionGesture))
-        stringBuffer.append(self.commonLabels.CURRENT)
-        stringBuffer.append(stringUtil.toString(self.currentPoint))
-        stringBuffer.append(MotionGestureEvent.PREVIOUS)
-        stringBuffer.append(stringUtil.toString(self.previousPoint))
-        stringBuffer.append(MotionGestureEvent.HASHCODE)
-        stringBuffer.appendint(int(TsUtil.getInstance().hashCode(self)))
-        return str(stringBuffer)
 
-    def __str__(self) -> str:
-        return self.toString()
-    
+function getPreviousPoint(this::MotionGestureEvent)
+        return this.previousPoint
+end
 
-    def getId(self) -> int:
-        return self.id
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-# from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonLabels import CommonLabels
 
+function setPreviousPoint(this::MotionGestureEvent, previousPoint)
+        this.previousPoint = previousPoint
+        nothing
+end
+
+
+function getCurrentPoint(this::MotionGestureEvent)
+        return this.currentPoint
+end
+
+
+function setCurrentPoint(this::MotionGestureEvent, currentPoint)
+        this.currentPoint = currentPoint
+        nothing
+end
+
+
+function toString(this::MotionGestureEvent)
+        local stringBuffer = newStringMaker()
+        local stringUtil = AllBinary.getInstance(StringUtil)
+        AllBinary.append(stringBuffer, AllBinary.toString(stringUtil, this.motionGesture))
+        AllBinary.append(stringBuffer, this.commonLabels.CURRENT)
+        AllBinary.append(stringBuffer, AllBinary.toString(stringUtil, this.currentPoint))
+        AllBinary.append(stringBuffer, staticGet_PREVIOUS(MotionGestureEvent))
+        AllBinary.append(stringBuffer, AllBinary.toString(stringUtil, this.previousPoint))
+        AllBinary.append(stringBuffer, staticGet_HASHCODE(MotionGestureEvent))
+        AllBinary.appendint(stringBuffer, ((AllBinary.hashCode(AllBinary.getInstance(TsUtil), this)) % Int32))
+        return AllBinary.toString(stringBuffer)
+end
+
+
+function getId(this::MotionGestureEvent)
+        return this.id
+end
 

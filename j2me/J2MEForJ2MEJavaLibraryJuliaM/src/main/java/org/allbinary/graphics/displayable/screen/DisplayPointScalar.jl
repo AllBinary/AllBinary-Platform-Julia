@@ -1,48 +1,69 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.displayable.screen
 
-from __future__ import annotations
+mutable struct DisplayPointScalar <: JObject
+    DisplayPointScalar() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const DisplayPointScalar_instanceValue = Ref{Any}(nothing)
+const DisplayPointScalar_instanceSet = Ref(false)
+function staticGet_instance(::Type{DisplayPointScalar})
+    if !DisplayPointScalar_instanceSet[]
+        DisplayPointScalar_instanceSet[] = true
+        DisplayPointScalar_instanceValue[] = newDisplayPointScalar()
+    end
+    DisplayPointScalar_instanceValue[]
+end
+function staticSet_instance(::Type{DisplayPointScalar}, value)
+    DisplayPointScalar_instanceSet[] = true
+    DisplayPointScalar_instanceValue[] = value
+end
+
+function initFieldsDisplayPointScalar(this::DisplayPointScalar)
+    nothing
+end
+
+function initDisplayPointScalar(this::DisplayPointScalar)
+    initFieldsDisplayPointScalar(this)
+end
+
+function newDisplayPointScalar()
+    this = DisplayPointScalar()
+    initDisplayPointScalar(this)
+    this
+end
 
 
-class DisplayPointScalar:
-    instance: DisplayPointScalar = None
-    
+function getInstance(::Type{DisplayPointScalar})
+        return staticGet_instance(DisplayPointScalar)
+end
 
-    @staticmethod
-    def getInstance() -> DisplayPointScalar:
-        return DisplayPointScalar.instance
-    
 
-    def processX(self, value: int) -> int:
+function processX(this::DisplayPointScalar, value)
         return value
-    
+end
 
-    def processY(self, value: int) -> int:
+
+function processY(this::DisplayPointScalar, value)
         return value
-    
+end
 
-    def process(self, point: GPoint) -> GPoint:
-        from org.allbinary.graphics.GPoint import GPoint
+
+function process(this::DisplayPointScalar, point)
         return point
-# from org.allbinary.graphics.GPoint import GPoint
-
-
-def _DisplayPointScalar_instance() -> object:
-    return DisplayPointScalar()
-
-lazy_static(DisplayPointScalar, "instance", _DisplayPointScalar_instance)
+end
 

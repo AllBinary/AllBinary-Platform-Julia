@@ -1,123 +1,128 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.pickup
 
-from __future__ import annotations
+# extends MultiPlayerGameLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct PickupLayer <: JObject
+    pickedUpLayerInterfaceFactoryInterface::Any
+    destroyed::Bool
+    animationInterface::Any
+    PickupLayer() = new()
+end
 
-from org.allbinary.game.multiplayer.layer.MultiPlayerGameLayer import MultiPlayerGameLayer
-from org.allbinary.game.layer.pickup.PickedUpLayerInterface import PickedUpLayerInterface
-from org.allbinary.game.layer.pickup.PickupableInterface import PickupableInterface
+
+function initFieldsPickupLayer(this::PickupLayer)
+    this.pickedUpLayerInterfaceFactoryInterface = nothing
+    this.destroyed = false
+    this.animationInterface = nothing
+    this.pickedUpLayerInterfaceFactoryInterface = staticGet_NULL_COUNTED_PICKUP_LAYER_FACTORY(CountedPickedUpLayerInterfaceFactory)
+    this.destroyed = false
+    this.animationInterface = AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0))
+    nothing
+end
 
 
-class PickupLayer(MultiPlayerGameLayer, PickedUpLayerInterface, PickupableInterface):
+function initPickupLayer(this::PickupLayer, name, remoteInfo, total, pickedUpLayerInterfaceFactoryInterface, animationInterface, rectangle, viewPosition)
+        initMultiPlayerGameLayer(this, remoteInfo, AllBinary.getInstance(BasicGroupFactory).NONE_ARRAY, name, rectangle, viewPosition)
+        initFieldsPickupLayer(this)
+        AllBinary.setCollidableInferface(this, AllBinary.createBehavior(AllBinary.getInstance(CollidableAlwaysPickupNeverCollideBehaviorFactory)))
+        AllBinary.setLayerWidth(this, Int32(10))
+        AllBinary.setLayerHeight(this, Int32(10))
+        AllBinary.init(this, pickedUpLayerInterfaceFactoryInterface, animationInterface)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        self.pickedUpLayerInterfaceFactoryInterface: PickedUpLayerInterfaceFactoryInterface = CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
-        self.destroyed: bool = False
-        self.animationInterface: Animation = NullAnimationFactory.getFactoryInstance().getInstance(0)
-    
+function newPickupLayer(name, remoteInfo, total, pickedUpLayerInterfaceFactoryInterface, animationInterface, rectangle, viewPosition)
+    this = PickupLayer()
+    initPickupLayer(this, name, remoteInfo, total, pickedUpLayerInterfaceFactoryInterface, animationInterface, rectangle, viewPosition)
+    this
+end
 
-    def __init__(self, name: str, remoteInfo: RemoteInfo, total: int, pickedUpLayerInterfaceFactoryInterface: PickedUpLayerInterfaceFactoryInterface, animationInterface: Animation, rectangle: Rectangle, viewPosition: ViewPositionBase) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.collision.CollidableAlwaysPickupNeverCollideBehaviorFactory import CollidableAlwaysPickupNeverCollideBehaviorFactory
-        from org.allbinary.game.identification.BasicGroupFactory import BasicGroupFactory
-        from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        super().__init__(remoteInfo, BasicGroupFactory.getInstance().NONE_ARRAY, name, rectangle, viewPosition)
-        self._init_fields()
-        self.setCollidableInferface(CollidableAlwaysPickupNeverCollideBehaviorFactory.getInstance().createBehavior())
-        self.setLayerWidth(10)
-        self.setLayerHeight(10)
-        self.init(pickedUpLayerInterfaceFactoryInterface, animationInterface)
-    
 
-    def init(self, pickedUpLayerInterfaceFactoryInterface: PickedUpLayerInterfaceFactoryInterface, animationInterface: Animation) -> None:
-        from org.allbinary.animation.Animation import Animation
-        self.pickedUpLayerInterfaceFactoryInterface = pickedUpLayerInterfaceFactoryInterface
-        self.animationInterface = animationInterface
-        self.setDestroyed(False)
-    
+function init(this::PickupLayer, pickedUpLayerInterfaceFactoryInterface, animationInterface)
+        this.pickedUpLayerInterfaceFactoryInterface = pickedUpLayerInterfaceFactoryInterface
+        this.animationInterface = animationInterface
+        AllBinary.setDestroyed(this, false)
+        nothing
+end
 
-    def initXYZ(self, x: int, y: int, z: int) -> None:
-        self.setPosition(x, y, z)
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        viewPosition: ViewPositionBase = self.getViewPosition()
-        viewX: int = viewPosition.getX()
-        viewY: int = viewPosition.getY()
-        self.animationInterface.paintXY(graphics, viewX, viewY)
-    
+function initXYZ(this::PickupLayer, x, y, z)
+        AllBinary.setPosition(this, x, y, z)
+        nothing
+end
 
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        viewPosition: ViewPositionBase = self.getViewPosition()
-        viewX: int = viewPosition.getX()
-        viewY: int = viewPosition.getY()
-        self.animationInterface.paintThreedXYZ(graphics, viewX, viewY, 3)
-    
 
-    def getPickedUpLayerInterfaceFactoryInterface(self) -> PickedUpLayerInterfaceFactoryInterface:
-        return self.pickedUpLayerInterfaceFactoryInterface
-    
+function paint(this::PickupLayer, graphics)
+        local viewPosition = AllBinary.getViewPosition(this)
+        local viewX::Int32 = AllBinary.getX(viewPosition)
+        local viewY::Int32 = AllBinary.getY(viewPosition)
+        AllBinary.paintXY(this.animationInterface, graphics, viewX, viewY)
+        nothing
+end
 
-    def setPickedUp(self) -> None:
-        self.setDestroyed(True)
-    
 
-    def isDestroyed(self) -> bool:
-        return self.destroyed
-    
+function paintThreed(this::PickupLayer, graphics)
+        local viewPosition = AllBinary.getViewPosition(this)
+        local viewX::Int32 = AllBinary.getX(viewPosition)
+        local viewY::Int32 = AllBinary.getY(viewPosition)
+        AllBinary.paintThreedXYZ(this.animationInterface, graphics, viewX, viewY, Int32(3))
+        nothing
+end
 
-    def setDestroyed(self, destroyed: bool) -> None:
-        from org.allbinary.game.combat.destroy.DestroyedLayerProcessor import DestroyedLayerProcessor
-        self.destroyed = destroyed
-        if self.isDestroyed():
-            DestroyedLayerProcessor.getInstance().add(self)
-    
 
-    def damage(self, damage: int, damageType: int) -> None:
-        pass
-    
+function getPickedUpLayerInterfaceFactoryInterface(this::PickupLayer)
+        return this.pickedUpLayerInterfaceFactoryInterface
+end
 
-    def getDamage(self, damageType: int) -> int:
-        return 0
-    
 
-    # throws Exception
-    def set(self, gl: GL) -> None:
-        from javax.microedition.khronos.opengles.GL import GL
-        from org.allbinary.image.opengles.OpenGLSurfaceChangedInterface import OpenGLSurfaceChangedInterface
-        openGLSurfaceChangedInterface: OpenGLSurfaceChangedInterface = self.animationInterface
-        openGLSurfaceChangedInterface.set(gl)
-# from javax.microedition.khronos.opengles.GL import GL
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-# from org.allbinary.game.collision.CollidableAlwaysPickupNeverCollideBehaviorFactory import CollidableAlwaysPickupNeverCollideBehaviorFactory
-# from org.allbinary.game.combat.destroy.DestroyedLayerProcessor import DestroyedLayerProcessor
-# from org.allbinary.game.identification.BasicGroupFactory import BasicGroupFactory
-# from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.image.opengles.OpenGLSurfaceChangedInterface import OpenGLSurfaceChangedInterface
-# from org.allbinary.view.ViewPositionBase import ViewPositionBase
-from org.allbinary.game.layer.pickup.CountedPickedUpLayerInterfaceFactory import CountedPickedUpLayerInterfaceFactory
+function setPickedUp(this::PickupLayer)
+        AllBinary.setDestroyed(this, true)
+        nothing
+end
 
+
+function isDestroyed(this::PickupLayer)
+        return this.destroyed
+end
+
+
+function setDestroyed(this::PickupLayer, destroyed)
+        this.destroyed = destroyed
+        if AllBinary.isDestroyed(this)
+            AllBinary.add(AllBinary.getInstance(DestroyedLayerProcessor), this)
+        end
+        nothing
+end
+
+
+function damage(this::PickupLayer, damage, damageType)
+        nothing
+        nothing
+end
+
+
+function getDamage(this::PickupLayer, damageType)
+        return Int32(0)
+end
+
+
+function set(this::PickupLayer, gl)
+        local openGLSurfaceChangedInterface = (this.animationInterface)
+        AllBinary.set(openGLSurfaceChangedInterface, gl)
+        nothing
+end
 

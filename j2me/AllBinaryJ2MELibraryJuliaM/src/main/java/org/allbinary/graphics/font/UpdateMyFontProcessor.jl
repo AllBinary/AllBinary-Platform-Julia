@@ -1,38 +1,50 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.font
 
-from __future__ import annotations
+# extends MyFontProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct UpdateMyFontProcessor <: JObject
+    updateMeasurementProcessor::Any
+    UpdateMyFontProcessor() = new()
+end
 
-from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
 
-
-class UpdateMyFontProcessor(MyFontProcessor):
-
-    def _init_fields(self) -> None:
-        self.updateMeasurementProcessor: UpdateMyFontInterface = None
+function initFieldsUpdateMyFontProcessor(this::UpdateMyFontProcessor)
+    this.updateMeasurementProcessor = nothing
     
+    nothing
+end
 
-    def __init__(self, keyValueDrawCharArray: UpdateMyFontInterface) -> None:
-        super().__init__()
-        self._init_fields()
-        self.updateMeasurementProcessor = keyValueDrawCharArray
-    
 
-    def process(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.updateMeasurementProcessor.updateMeasurement(graphics)
-# from javax.microedition.lcdui.Graphics import Graphics
+function initUpdateMyFontProcessor(this::UpdateMyFontProcessor, keyValueDrawCharArray)
+        initMyFontProcessor(this)
+        initFieldsUpdateMyFontProcessor(this)
+        this.updateMeasurementProcessor = keyValueDrawCharArray
+        nothing
+end
 
+function newUpdateMyFontProcessor(keyValueDrawCharArray)
+    this = UpdateMyFontProcessor()
+    initUpdateMyFontProcessor(this, keyValueDrawCharArray)
+    this
+end
+
+
+function process(this::UpdateMyFontProcessor, graphics)
+        AllBinary.updateMeasurement(this.updateMeasurementProcessor, graphics)
+        nothing
+end
 

@@ -1,80 +1,109 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai
 
-from __future__ import annotations
+# extends BasicAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct KeyPressesAI <: JObject
+    on::Bool
+    keys::Any
+    KeyPressesAI() = new()
+end
 
-from org.allbinary.game.ai.BasicAI import BasicAI
 
-
-class KeyPressesAI(BasicAI):
-
-    def _init_fields(self) -> None:
-        self.on: bool = True
-        self.keys: list[int] = None
+function initFieldsKeyPressesAI(this::KeyPressesAI)
+    this.on = false
+    this.keys = nothing
+    this.on = true
     
+    nothing
+end
 
-    def __init__(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.HashtableUtil import HashtableUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        super().__init__(ownerLayerInterface, gameInput)
-        self._init_fields()
-        self.keys = [None] * (hashtable.size())
-        objectArray: list[object] = HashtableUtil.getInstance().getKeysAsArray(hashtable)
-        size: int = len(objectArray)
-        for index in range(0, size):
-            self.keys[index] = hashtable.get(objectArray[index])
-    
 
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        if self.on:
-            for index in range(0, len(self.keys)):
-                super().processKeyAI(int(self.keys[index]))
-    
+function initKeyPressesAI(this::KeyPressesAI, hashtable, ownerLayerInterface, gameInput)
+        initBasicAI(this, ownerLayerInterface, gameInput)
+        initFieldsKeyPressesAI(this)
+        this.keys = jNewArray(Int32, AllBinary.size(hashtable), nothing)
+        local objectArray = AllBinary.getKeysAsArray(AllBinary.getInstance(HashtableUtil), hashtable)
+        local size::Int32 = Int32(Base.length(objectArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            this.keys[index + 1] = (AllBinary.get(hashtable, (objectArray[index + 1])))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    # throws Exception
-    def toggle(self) -> None:
-        if self.isOn():
-            self.setOn(False)
-        else:
-            self.setOn(True)
-    
+function newKeyPressesAI(hashtable, ownerLayerInterface, gameInput)
+    this = KeyPressesAI()
+    initKeyPressesAI(this, hashtable, ownerLayerInterface, gameInput)
+    this
+end
 
-    # throws Exception
-    def disable(self) -> None:
-        self.setOn(False)
-    
 
-    # throws Exception
-    def enable(self) -> None:
-        self.setOn(True)
-    
+function processAI(this::KeyPressesAI, allBinaryLayerManager)
+        if this.on
+            let
+                local index::Int32 = Int32(0)
+                while index < Int32(Base.length(this.keys))
+                try
+                AllBinary.processKeyAI(this, AllBinary.intValue(this.keys[index + 1]))
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+        end
+        nothing
+end
 
-    def setOn(self, on: bool) -> None:
-        self.on = on
-    
 
-    def isOn(self) -> bool:
-        return self.on
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.util.HashtableUtil import HashtableUtil
-# from org.allbinary.util.ABHashtable import ABHashtable
+function toggle(this::KeyPressesAI)
+        if AllBinary.isOn(this)
+            AllBinary.setOn(this, false)
+        else
+            AllBinary.setOn(this, true)
+        end
+        nothing
+end
 
+
+function disable(this::KeyPressesAI)
+        AllBinary.setOn(this, false)
+        nothing
+end
+
+
+function enable(this::KeyPressesAI)
+        AllBinary.setOn(this, true)
+        nothing
+end
+
+
+function setOn(this::KeyPressesAI, on)
+        this.on = on
+        nothing
+end
+
+
+function isOn(this::KeyPressesAI)
+        return this.on
+end
 

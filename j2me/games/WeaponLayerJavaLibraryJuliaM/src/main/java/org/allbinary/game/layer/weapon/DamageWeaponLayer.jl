@@ -1,39 +1,40 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.weapon
 
-from __future__ import annotations
+# extends WeaponLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct DamageWeaponLayer <: JObject
+    DamageWeaponLayer() = new()
+end
 
-from org.allbinary.game.layer.weapon.WeaponLayer import WeaponLayer
+
+function initFieldsDamageWeaponLayer(this::DamageWeaponLayer)
+    nothing
+end
 
 
-class DamageWeaponLayer(WeaponLayer):
-    
+function initDamageWeaponLayer(this::DamageWeaponLayer, name, remoteInfo, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition, username, actorSessionId, id, multiPlayerType)
+        initWeaponLayer(this, name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
+        AllBinary.setCollidableInferface(this, newCollidableDamageWeaponBehavior(true))
+        nothing
+end
 
-    def __init__(self, name: str, remoteInfo: RemoteInfo, movement: Movement, animationInterface: Animation, destroyedAnimationInterface: Animation, rectangle: Rectangle, viewPosition: ViewPositionBase, username: str, actorSessionId: int, id: int, multiPlayerType: int) -> None:
-        from org.allbinary.game.layer.weapon.CollidableDamageWeaponBehavior import CollidableDamageWeaponBehavior
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.physics.movement.Movement import Movement
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        super().__init__(name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
-        self.setCollidableInferface(CollidableDamageWeaponBehavior(True))
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.physics.movement.Movement import Movement
-# from org.allbinary.view.ViewPositionBase import ViewPositionBase
-
+function newDamageWeaponLayer(name, remoteInfo, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition, username, actorSessionId, id, multiPlayerType)
+    this = DamageWeaponLayer()
+    initDamageWeaponLayer(this, name, remoteInfo, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition, username, actorSessionId, id, multiPlayerType)
+    this
+end
 

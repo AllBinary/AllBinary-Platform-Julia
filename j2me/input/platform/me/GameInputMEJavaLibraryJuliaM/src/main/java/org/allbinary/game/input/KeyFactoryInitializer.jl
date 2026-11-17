@@ -1,36 +1,47 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends Init: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct KeyFactoryInitializer <: JObject
+    logUtil::Any
+    KeyFactoryInitializer() = new()
+end
 
-from org.allbinary.init.Init import Init
+
+function initFieldsKeyFactoryInitializer(this::KeyFactoryInitializer)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
+
+function initKeyFactoryInitializer(this::KeyFactoryInitializer)
+    initInit(this)
+    initFieldsKeyFactoryInitializer(this)
+end
+
+function newKeyFactoryInitializer()
+    this = KeyFactoryInitializer()
+    initKeyFactoryInitializer(this)
+    this
+end
 
 
-class KeyFactoryInitializer(Init):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def init(self) -> None:
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.INIT)
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-
+function init(this::KeyFactoryInitializer)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.INIT)
+        nothing
+end
 

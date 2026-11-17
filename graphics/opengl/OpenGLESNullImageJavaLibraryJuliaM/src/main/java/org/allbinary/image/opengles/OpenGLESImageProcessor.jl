@@ -1,55 +1,78 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image.opengles
 
-from __future__ import annotations
+mutable struct OpenGLESImageProcessor <: JObject
+    OpenGLESImageProcessor() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const OpenGLESImageProcessor_instanceValue = Ref{Any}(nothing)
+const OpenGLESImageProcessor_instanceSet = Ref(false)
+function staticGet_instance(::Type{OpenGLESImageProcessor})
+    if !OpenGLESImageProcessor_instanceSet[]
+        OpenGLESImageProcessor_instanceSet[] = true
+        OpenGLESImageProcessor_instanceValue[] = newOpenGLESImageProcessor()
+    end
+    OpenGLESImageProcessor_instanceValue[]
+end
+function staticSet_instance(::Type{OpenGLESImageProcessor}, value)
+    OpenGLESImageProcessor_instanceSet[] = true
+    OpenGLESImageProcessor_instanceValue[] = value
+end
 
+function initFieldsOpenGLESImageProcessor(this::OpenGLESImageProcessor)
+    nothing
+end
 
-class OpenGLESImageProcessor:
-    instance: OpenGLESImageProcessor = None
-    
+function initOpenGLESImageProcessor(this::OpenGLESImageProcessor)
+    initFieldsOpenGLESImageProcessor(this)
+end
 
-    @staticmethod
-    def getInstance() -> OpenGLESImageProcessor:
-        return OpenGLESImageProcessor.instance
-    
-
-    def translate(self, gl: GL10, translateX: float, translateY: float) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
-
-    def rotate(self, gl: GL10, angle: float) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
-
-    def scale(self, gl: GL10, scaleX: float, scaleY: float) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
-
-    def colorMask(self, gl: GL10, red: float, green: float, blue: float, alpha: float) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-# from javax.microedition.khronos.opengles.GL10 import GL10
+function newOpenGLESImageProcessor()
+    this = OpenGLESImageProcessor()
+    initOpenGLESImageProcessor(this)
+    this
+end
 
 
-def _OpenGLESImageProcessor_instance() -> object:
-    return OpenGLESImageProcessor()
+function getInstance(::Type{OpenGLESImageProcessor})
+        return staticGet_instance(OpenGLESImageProcessor)
+end
 
-lazy_static(OpenGLESImageProcessor, "instance", _OpenGLESImageProcessor_instance)
+
+function translate(this::OpenGLESImageProcessor, gl, translateX, translateY)
+        nothing
+        nothing
+end
+
+
+function rotate(this::OpenGLESImageProcessor, gl, angle)
+        nothing
+        nothing
+end
+
+
+function scale(this::OpenGLESImageProcessor, gl, scaleX, scaleY)
+        nothing
+        nothing
+end
+
+
+function colorMask(this::OpenGLESImageProcessor, gl, red, green, blue, alpha)
+        nothing
+        nothing
+end
 

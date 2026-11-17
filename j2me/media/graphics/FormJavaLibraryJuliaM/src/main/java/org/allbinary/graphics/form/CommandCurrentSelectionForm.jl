@@ -1,214 +1,236 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends ScrollCurrentSelectionForm: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CommandCurrentSelectionForm <: JObject
+    selectedAnimationArray::Any
+    unSelectedAnimationArray::Any
+    CommandCurrentSelectionForm() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.form.ScrollCurrentSelectionForm import ScrollCurrentSelectionForm
+
+function initFieldsCommandCurrentSelectionForm(this::CommandCurrentSelectionForm)
+    this.selectedAnimationArray = nothing
+    this.unSelectedAnimationArray = nothing
+    this.selectedAnimationArray = jNewArray(Any, Int32(16), nothing)
+    this.unSelectedAnimationArray = jNewArray(Any, Int32(16), nothing)
+    nothing
+end
 
 
-class CommandCurrentSelectionForm(ScrollCurrentSelectionForm, UpdateMyFontInterface):
+function initCommandCurrentSelectionForm(this::CommandCurrentSelectionForm, title, items, border, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
+        initScrollCurrentSelectionForm(this, title, items, AllBinary.getInstance(ItemPaintableFactory), border, -Int32(3), moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
+        initFieldsCommandCurrentSelectionForm(this)
+        AllBinary.initAnimations(this)
+        AllBinary.addAll(this, items)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        self.selectedAnimationArray: list[Animation] = [None] * (16)
-        self.unSelectedAnimationArray: list[Animation] = [None] * (16)
-    
+function newCommandCurrentSelectionForm(title, items, border, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
+    this = CommandCurrentSelectionForm()
+    initCommandCurrentSelectionForm(this, title, items, border, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
+    this
+end
 
-    def __init__(self, title: str, items: list[ABCustomItem], border: int, moveForSmallScreen: bool, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from org.allbinary.graphics.form.ItemPaintableFactory import ItemPaintableFactory
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        super().__init__(title, items, ItemPaintableFactory.getInstance(), border, -3, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
-        self._init_fields()
-        self.initAnimations()
-        self.addAll(items)
-    
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.updateAll(graphics, self.getAllitems())
-        super().updateMeasurement(graphics)
-    
+function updateMeasurement(this::CommandCurrentSelectionForm, graphics)
+        AllBinary.updateAll(this, graphics, AllBinary.getAllitems(this))
+        AllBinary.updateMeasurement(this, graphics)
+        nothing
+end
 
-    def initAnimations(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        nullAnimation: Animation = NullAnimationFactory.getFactoryInstance().getInstance(0)
-        index = len(self.selectedAnimationArray)
-        while (index := index - 1) >= 0:
-            self.selectedAnimationArray[index] = nullAnimation
-        index = len(self.unSelectedAnimationArray)
-        while (index := index - 1) >= 0:
-            self.unSelectedAnimationArray[index] = nullAnimation
-    
 
-    def addAll(self, items: list[ABCustomItem]) -> None:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        index = len(items)
-        while (index := index - 1) >= 0:
-            self.addAt(index, items[index])
-    
+function initAnimations(this::CommandCurrentSelectionForm)
+        local nullAnimation = AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0))
+        let
+            local index::Int32 = Int32(Base.length(this.selectedAnimationArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            this.selectedAnimationArray[index + 1] = nullAnimation
+            finally
+            end
+            end
+        end
+        let
+            index = Int32(Base.length(this.unSelectedAnimationArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            this.unSelectedAnimationArray[index + 1] = nullAnimation
+            finally
+            end
+            end
+        end
+        nothing
+end
 
-    def addAt(self, index: int, item: ABCustomItem) -> None:
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.animation.vector.RectangleAdjustedAnimation import RectangleAdjustedAnimation
-        from org.allbinary.animation.vector.RectangleFilledAdjustedAnimation import RectangleFilledAdjustedAnimation
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        basicColorFactory: BasicColorFactory = BasicColorFactory.getInstance()
-        buttonColor: BasicColor = basicColorFactory.TRANSPARENT_GREY
-        selectedButtonColor: BasicColor = basicColorFactory.TRANSPARENT_RED
-        width: int = item.getMinimumWidth()
-        height: int = item.getMinimumHeight()
-        adjustedBorder: int = 3
-        offset: int = -(self.halfBorder + adjustedBorder)
-        rectWidth: int = width + self.border - adjustedBorder
-        rectHeight: int = height + self.border - adjustedBorder
-        if J2MEUtil.isJ2ME() or J2MEUtil.isHTML():
-            self.selectedAnimationArray[index] = RectangleAdjustedAnimation(rectWidth, rectHeight, offset, offset, selectedButtonColor)
-        else:
-            self.selectedAnimationArray[index] = RectangleFilledAdjustedAnimation(rectWidth, rectHeight, offset, offset, selectedButtonColor)
-        adjustedBorder = 4
-        if J2MEUtil.isJ2ME() or J2MEUtil.isHTML():
-            self.unSelectedAnimationArray[index] = RectangleAdjustedAnimation(rectWidth, rectHeight, offset, offset, buttonColor)
-        else:
-            self.unSelectedAnimationArray[index] = RectangleFilledAdjustedAnimation(rectWidth, rectHeight, offset, offset, buttonColor)
-    
 
-    def updateAll(self, graphics: Graphics, items: list[ABCustomItem]) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        index = len(items)
-        while (index := index - 1) >= 0:
-            items[index].preMeasurement(graphics)
-            self.updateAt(index, items[index])
-    
+function addAll(this::CommandCurrentSelectionForm, items)
+        let
+            local index::Int32 = Int32(Base.length(items))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.addAt(this, index, items[index + 1])
+            finally
+            end
+            end
+        end
+        nothing
+end
 
-    def updateAt(self, index: int, item: ABCustomItem) -> None:
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.animation.vector.RectangleAdjustedAnimation import RectangleAdjustedAnimation
-        from org.allbinary.animation.vector.RectangleFilledAdjustedAnimation import RectangleFilledAdjustedAnimation
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        basicColorFactory: BasicColorFactory = BasicColorFactory.getInstance()
-        buttonColor: BasicColor = basicColorFactory.TRANSPARENT_GREY
-        selectedButtonColor: BasicColor = basicColorFactory.TRANSPARENT_RED
-        width: int = item.getMinimumWidth()
-        height: int = item.getMinimumHeight()
-        adjustedBorder: int = 3
-        offset: int = -(self.halfBorder + adjustedBorder)
-        rectWidth: int = width + self.border - adjustedBorder
-        rectHeight: int = height + self.border - adjustedBorder
-        if J2MEUtil.isJ2ME() or J2MEUtil.isHTML():
-            rectangleAdjustedAnimation: RectangleAdjustedAnimation = self.selectedAnimationArray[index]
-            rectangleAdjustedAnimation.setWidth(rectWidth)
-            rectangleAdjustedAnimation.setHeight(rectHeight)
-            rectangleAdjustedAnimation.setOffsetX(offset)
-            rectangleAdjustedAnimation.setOffsetY(offset)
-            rectangleAdjustedAnimation.setBasicColorP(selectedButtonColor)
-        else:
-            rectangleAdjustedAnimation: RectangleFilledAdjustedAnimation = self.selectedAnimationArray[index]
-            rectangleAdjustedAnimation.setWidth(rectWidth)
-            rectangleAdjustedAnimation.setHeight(rectHeight)
-            rectangleAdjustedAnimation.setOffsetX(offset)
-            rectangleAdjustedAnimation.setOffsetY(offset)
-            rectangleAdjustedAnimation.setBasicColorP(selectedButtonColor)
-        adjustedBorder = 4
-        if J2MEUtil.isJ2ME() or J2MEUtil.isHTML():
-            rectangleAdjustedAnimation: RectangleAdjustedAnimation = self.unSelectedAnimationArray[index]
-            rectangleAdjustedAnimation.setWidth(rectWidth)
-            rectangleAdjustedAnimation.setHeight(rectHeight)
-            rectangleAdjustedAnimation.setOffsetX(offset)
-            rectangleAdjustedAnimation.setOffsetY(offset)
-            rectangleAdjustedAnimation.setBasicColorP(buttonColor)
-        else:
-            rectangleAdjustedAnimation: RectangleFilledAdjustedAnimation = self.unSelectedAnimationArray[index]
-            rectangleAdjustedAnimation.setWidth(rectWidth)
-            rectangleAdjustedAnimation.setHeight(rectHeight)
-            rectangleAdjustedAnimation.setOffsetX(offset)
-            rectangleAdjustedAnimation.setOffsetY(offset)
-            rectangleAdjustedAnimation.setBasicColorP(buttonColor)
-    
 
-    def getSelectedCommand(self) -> Command:
-        from javax.microedition.lcdui.Command import Command
-        from org.allbinary.graphics.form.item.CommandTextItem import CommandTextItem
-        index: int = super().getSelectedIndex()
-        commandTextItem: CommandTextItem = self.get(index)
-        return commandTextItem.getCommand()
-    
+function addAt(this::CommandCurrentSelectionForm, index, item)
+        local basicColorFactory = AllBinary.getInstance(BasicColorFactory)
+        local buttonColor = basicColorFactory.TRANSPARENT_GREY
+        local selectedButtonColor = basicColorFactory.TRANSPARENT_RED
+        local width::Int32 = AllBinary.getMinimumWidth(item)
+        local height::Int32 = AllBinary.getMinimumHeight(item)
+        local adjustedBorder::Int32 = Int32(3)
+        local offset::Int32 = -(this.halfBorder + adjustedBorder)
+        local rectWidth::Int32 = width + this.border - adjustedBorder
+        local rectHeight::Int32 = height + this.border - adjustedBorder
+        if AllBinary.isJ2ME(J2MEUtil) || AllBinary.isHTML(J2MEUtil)
+            this.selectedAnimationArray[index + 1] = newRectangleAdjustedAnimation(rectWidth, rectHeight, offset, offset, selectedButtonColor)
+        else
+            this.selectedAnimationArray[index + 1] = newRectangleFilledAdjustedAnimation(rectWidth, rectHeight, offset, offset, selectedButtonColor)
+        end
+        adjustedBorder = Int32(4)
+        if AllBinary.isJ2ME(J2MEUtil) || AllBinary.isHTML(J2MEUtil)
+            this.unSelectedAnimationArray[index + 1] = newRectangleAdjustedAnimation(rectWidth, rectHeight, offset, offset, buttonColor)
+        else
+            this.unSelectedAnimationArray[index + 1] = newRectangleFilledAdjustedAnimation(rectWidth, rectHeight, offset, offset, buttonColor)
+        end
+        nothing
+end
 
-    def append(self, item: ABCustomItem) -> int:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        result: int = super().append(item)
-        self.addAt(result, item)
+
+function updateAll(this::CommandCurrentSelectionForm, graphics, items)
+        let
+            local index::Int32 = Int32(Base.length(items))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.preMeasurement(items[index + 1], graphics)
+            AllBinary.updateAt(this, index, items[index + 1])
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function updateAt(this::CommandCurrentSelectionForm, index, item)
+        local basicColorFactory = AllBinary.getInstance(BasicColorFactory)
+        local buttonColor = basicColorFactory.TRANSPARENT_GREY
+        local selectedButtonColor = basicColorFactory.TRANSPARENT_RED
+        local width::Int32 = AllBinary.getMinimumWidth(item)
+        local height::Int32 = AllBinary.getMinimumHeight(item)
+        local adjustedBorder::Int32 = Int32(3)
+        local offset::Int32 = -(this.halfBorder + adjustedBorder)
+        local rectWidth::Int32 = width + this.border - adjustedBorder
+        local rectHeight::Int32 = height + this.border - adjustedBorder
+        if AllBinary.isJ2ME(J2MEUtil) || AllBinary.isHTML(J2MEUtil)
+            rectangleAdjustedAnimation = (this.selectedAnimationArray[index + 1])
+            AllBinary.setWidth(rectangleAdjustedAnimation, rectWidth)
+            AllBinary.setHeight(rectangleAdjustedAnimation, rectHeight)
+            AllBinary.setOffsetX(rectangleAdjustedAnimation, offset)
+            AllBinary.setOffsetY(rectangleAdjustedAnimation, offset)
+            AllBinary.setBasicColorP(rectangleAdjustedAnimation, selectedButtonColor)
+        else
+            local rectangleAdjustedAnimation = (this.selectedAnimationArray[index + 1])
+            AllBinary.setWidth(rectangleAdjustedAnimation, rectWidth)
+            AllBinary.setHeight(rectangleAdjustedAnimation, rectHeight)
+            AllBinary.setOffsetX(rectangleAdjustedAnimation, offset)
+            AllBinary.setOffsetY(rectangleAdjustedAnimation, offset)
+            AllBinary.setBasicColorP(rectangleAdjustedAnimation, selectedButtonColor)
+        end
+        adjustedBorder = Int32(4)
+        if AllBinary.isJ2ME(J2MEUtil) || AllBinary.isHTML(J2MEUtil)
+            rectangleAdjustedAnimation = (this.unSelectedAnimationArray[index + 1])
+            AllBinary.setWidth(rectangleAdjustedAnimation, rectWidth)
+            AllBinary.setHeight(rectangleAdjustedAnimation, rectHeight)
+            AllBinary.setOffsetX(rectangleAdjustedAnimation, offset)
+            AllBinary.setOffsetY(rectangleAdjustedAnimation, offset)
+            AllBinary.setBasicColorP(rectangleAdjustedAnimation, buttonColor)
+        else
+            rectangleAdjustedAnimation = (this.unSelectedAnimationArray[index + 1])
+            AllBinary.setWidth(rectangleAdjustedAnimation, rectWidth)
+            AllBinary.setHeight(rectangleAdjustedAnimation, rectHeight)
+            AllBinary.setOffsetX(rectangleAdjustedAnimation, offset)
+            AllBinary.setOffsetY(rectangleAdjustedAnimation, offset)
+            AllBinary.setBasicColorP(rectangleAdjustedAnimation, buttonColor)
+        end
+        nothing
+end
+
+
+function getSelectedCommand(this::CommandCurrentSelectionForm)
+        local index::Int32 = AllBinary.getSelectedIndex(this)
+        local commandTextItem = (AllBinary.get(this, index))
+        return AllBinary.getCommand(commandTextItem)
+end
+
+
+function append(this::CommandCurrentSelectionForm, item)
+        local result::Int32 = AllBinary.append(this, item)
+        AllBinary.addAt(this, result, item)
         return result
-    
+end
 
-    def delete(self, itemNum: int) -> None:
-        super().delete(itemNum)
-    
 
-    def deleteAll(self) -> None:
-        self.initAnimations()
-        super().deleteAll()
-    
+function delete(this::CommandCurrentSelectionForm, itemNum)
+        AllBinary.delete(this, itemNum)
+        nothing
+end
 
-    def insert(self, itemNum: int, item: ABCustomItem) -> None:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        super().insert(itemNum, item)
-    
 
-    def set(self, itemNum: int, item: ABCustomItem) -> None:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        super().set(itemNum, item)
-    
+function deleteAll(this::CommandCurrentSelectionForm)
+        AllBinary.initAnimations(this)
+        AllBinary.deleteAll(this)
+        nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        super().paint(graphics)
-    
 
-    # throws Exception
-    def paintItem(self, graphics: Graphics, index: int, item: ABCustomItem, x: int, y: int) -> int:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        self.selectedAnimationArray[index].paintXY(graphics, x, y)
-        return super().paintItem(graphics, index, item, x, y)
-    
+function insert(this::CommandCurrentSelectionForm, itemNum, item)
+        AllBinary.insert(this, itemNum, item)
+        nothing
+end
 
-    # throws Exception
-    def paintUnselectedItem(self, graphics: Graphics, index: int, item: ABCustomItem, x: int, y: int) -> int:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        self.unSelectedAnimationArray[index].paintXY(graphics, x, y)
-        return super().paintUnselectedItem(graphics, index, item, x, y)
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.J2MEUtil import J2MEUtil
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-# from org.allbinary.animation.vector.RectangleAdjustedAnimation import RectangleAdjustedAnimation
-# from org.allbinary.animation.vector.RectangleFilledAdjustedAnimation import RectangleFilledAdjustedAnimation
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.form.item.CommandTextItem import CommandTextItem
-# from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
 
+function set(this::CommandCurrentSelectionForm, itemNum, item)
+        AllBinary.set(this, itemNum, item)
+        nothing
+end
+
+
+function paint(this::CommandCurrentSelectionForm, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.paint(this, graphics)
+        nothing
+end
+
+
+function paintItem(this::CommandCurrentSelectionForm, graphics, index, item, x, y)
+        AllBinary.paintXY(this.selectedAnimationArray[index + 1], graphics, x, y)
+        return AllBinary.paintItem(this, graphics, index, item, x, y)
+end
+
+
+function paintUnselectedItem(this::CommandCurrentSelectionForm, graphics, index, item, x, y)
+        AllBinary.paintXY(this.unSelectedAnimationArray[index + 1], graphics, x, y)
+        return AllBinary.paintUnselectedItem(this, graphics, index, item, x, y)
+end
 

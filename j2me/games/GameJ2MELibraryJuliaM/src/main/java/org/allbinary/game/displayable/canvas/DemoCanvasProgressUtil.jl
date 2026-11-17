@@ -1,46 +1,54 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+mutable struct DemoCanvasProgressUtil <: JObject
+    DemoCanvasProgressUtil() = new()
+end
 
 
+function initFieldsDemoCanvasProgressUtil(this::DemoCanvasProgressUtil)
+    nothing
+end
 
-class DemoCanvasProgressUtil:
-    
+function initDemoCanvasProgressUtil(this::DemoCanvasProgressUtil)
+    initFieldsDemoCanvasProgressUtil(this)
+end
 
-    @staticmethod
-    def showProgress(demoCanvas: DemoCanvas) -> None:
-        DemoCanvasProgressUtil.showProgressOptionallyInTheBackground(demoCanvas, False)
-    
+function newDemoCanvasProgressUtil()
+    this = DemoCanvasProgressUtil()
+    initDemoCanvasProgressUtil(this)
+    this
+end
 
-    @staticmethod
-    def showProgressOptionallyInTheBackground(demoCanvas: DemoCanvas, background: bool) -> None:
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        from org.allbinary.graphics.paint.PaintableComposite import PaintableComposite
-        from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-        progressCanvas: ProgressCanvas = ProgressCanvasFactory.getInstance()
-        progressCanvas.startBackground(background)
-        paintableArray: list[PaintableInterface] = [None] * (2)
-        paintableArray[0] = progressCanvas
-        paintableArray[1] = demoCanvas.getDefaultPaintableInterface()
-        demoCanvas.setDefaultPaintableInterface(PaintableComposite(paintableArray))
-        demoCanvas.setPaintableInterface(demoCanvas.getDefaultPaintableInterface())
-# from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-# from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-# from org.allbinary.graphics.paint.PaintableComposite import PaintableComposite
-# from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
 
+function showProgress(::Type{DemoCanvasProgressUtil}, demoCanvas)
+        AllBinary.showProgressOptionallyInTheBackground(DemoCanvasProgressUtil, demoCanvas, false)
+        nothing
+end
+
+
+function showProgressOptionallyInTheBackground(::Type{DemoCanvasProgressUtil}, demoCanvas, background)
+        local progressCanvas = AllBinary.getInstance(ProgressCanvasFactory)
+        AllBinary.startBackground(progressCanvas, background)
+        local paintableArray = jNewArray(Any, Int32(2), nothing)
+        paintableArray[Int32(0) + 1] = progressCanvas
+        paintableArray[Int32(1) + 1] = AllBinary.getDefaultPaintableInterface(demoCanvas)
+        AllBinary.setDefaultPaintableInterface(demoCanvas, newPaintableComposite(paintableArray))
+        AllBinary.setPaintableInterface(demoCanvas, AllBinary.getDefaultPaintableInterface(demoCanvas))
+        nothing
+end
 

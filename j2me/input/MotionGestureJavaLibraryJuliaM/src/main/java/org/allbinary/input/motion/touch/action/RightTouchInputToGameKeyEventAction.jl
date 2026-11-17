@@ -1,48 +1,60 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.touch.action
 
-from __future__ import annotations
+# extends GameKeyCompleteMotionGestureInputEvent: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct RightTouchInputToGameKeyEventAction <: JObject
+    RightTouchInputToGameKeyEventAction() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent import GameKeyCompleteMotionGestureInputEvent
+const RightTouchInputToGameKeyEventAction_instanceValue = Ref{Any}(nothing)
+const RightTouchInputToGameKeyEventAction_instanceSet = Ref(false)
+function staticGet_instance(::Type{RightTouchInputToGameKeyEventAction})
+    if !RightTouchInputToGameKeyEventAction_instanceSet[]
+        RightTouchInputToGameKeyEventAction_instanceSet[] = true
+        RightTouchInputToGameKeyEventAction_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    RightTouchInputToGameKeyEventAction_instanceValue[]
+end
+function staticSet_instance(::Type{RightTouchInputToGameKeyEventAction}, value)
+    RightTouchInputToGameKeyEventAction_instanceSet[] = true
+    RightTouchInputToGameKeyEventAction_instanceValue[] = value
+end
 
-
-class RightTouchInputToGameKeyEventAction(GameKeyCompleteMotionGestureInputEvent):
-    instance: object = None
-    
-
-    @staticmethod
-    def getInstance() -> GameKeyCompleteMotionGestureInputEvent:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if RightTouchInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT:
-            RightTouchInputToGameKeyEventAction.instance = RightTouchInputToGameKeyEventAction()
-        return RightTouchInputToGameKeyEventAction.instance
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        super().__init__("Right Action", TouchMotionGestureFactory.getInstance().RIGHT, PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping())
-# from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-# from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-# from org.allbinary.logic.NullUtil import NullUtil
+function initFieldsRightTouchInputToGameKeyEventAction(this::RightTouchInputToGameKeyEventAction)
+    nothing
+end
 
 
-def _RightTouchInputToGameKeyEventAction_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{RightTouchInputToGameKeyEventAction})
+        if staticGet_instance(RightTouchInputToGameKeyEventAction) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(RightTouchInputToGameKeyEventAction, newRightTouchInputToGameKeyEventAction())
+        end
+        return (staticGet_instance(RightTouchInputToGameKeyEventAction))
+end
 
-lazy_static(RightTouchInputToGameKeyEventAction, "instance", _RightTouchInputToGameKeyEventAction_instance)
+
+function initRightTouchInputToGameKeyEventAction(this::RightTouchInputToGameKeyEventAction)
+        initGameKeyCompleteMotionGestureInputEvent(this, "Right Action", AllBinary.getInstance(TouchMotionGestureFactory).RIGHT, AllBinary.getInputMapping(AllBinary.getPersistentInputMappingInstance(AllBinary.getInstance(PlatformInputMappingFactory))))
+        nothing
+end
+
+function newRightTouchInputToGameKeyEventAction()
+    this = RightTouchInputToGameKeyEventAction()
+    initRightTouchInputToGameKeyEventAction(this)
+    this
+end
 

@@ -1,47 +1,55 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+mutable struct BaseTouchInput <: JObject
+    commonStrings::Any
+    basicArrayListUtil::Any
+    BaseTouchInput() = new()
+end
 
 
+function initFieldsBaseTouchInput(this::BaseTouchInput)
+    this.commonStrings = nothing
+    this.basicArrayListUtil = nothing
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.basicArrayListUtil = AllBinary.getInstance(BasicArrayListUtil)
+    nothing
+end
 
-class BaseTouchInput:
 
-    def _init_fields(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.basicArrayListUtil: BasicArrayListUtil = BasicArrayListUtil.getInstance()
-    
+function initBaseTouchInput(this::BaseTouchInput)
+        initFieldsBaseTouchInput(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newBaseTouchInput()
+    this = BaseTouchInput()
+    initBaseTouchInput(this)
+    this
+end
 
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.basicArrayListUtil.getImmutableInstance()
-    
 
-    def toString(self) -> str:
-        return type(self).__module__ + "." + type(self).__qualname__
+function getList(this::BaseTouchInput)
+        return AllBinary.getImmutableInstance(this.basicArrayListUtil)
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
 
+function toString(this::BaseTouchInput)
+        return jClassName(this)
+end
 

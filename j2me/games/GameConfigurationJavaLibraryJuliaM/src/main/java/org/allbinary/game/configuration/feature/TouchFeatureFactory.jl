@@ -1,45 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration.feature
 
-from __future__ import annotations
+mutable struct TouchFeatureFactory <: JObject
+    TOUCH_ENABLED::Any
+    SHOW_SCREEN_BUTTONS::Any
+    AUTO_HIDE_SHOW_SCREEN_BUTTONS::Any
+    HIDE_SCREEN_BUTTONS::Any
+    TouchFeatureFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const TouchFeatureFactory_instanceValue = Ref{Any}(nothing)
+const TouchFeatureFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{TouchFeatureFactory})
+    if !TouchFeatureFactory_instanceSet[]
+        TouchFeatureFactory_instanceSet[] = true
+        TouchFeatureFactory_instanceValue[] = newTouchFeatureFactory()
+    end
+    TouchFeatureFactory_instanceValue[]
+end
+function staticSet_instance(::Type{TouchFeatureFactory}, value)
+    TouchFeatureFactory_instanceSet[] = true
+    TouchFeatureFactory_instanceValue[] = value
+end
+
+function initFieldsTouchFeatureFactory(this::TouchFeatureFactory)
+    this.TOUCH_ENABLED = nothing
+    this.SHOW_SCREEN_BUTTONS = nothing
+    this.AUTO_HIDE_SHOW_SCREEN_BUTTONS = nothing
+    this.HIDE_SCREEN_BUTTONS = nothing
+    this.TOUCH_ENABLED = newTouchFeature("Touch Enabled")
+    this.SHOW_SCREEN_BUTTONS = newTouchFeature("Show")
+    this.AUTO_HIDE_SHOW_SCREEN_BUTTONS = newTouchFeature("Auto Hide (One Level)")
+    this.HIDE_SCREEN_BUTTONS = newTouchFeature("Hide")
+    nothing
+end
 
 
-class TouchFeatureFactory:
-    instance: TouchFeatureFactory = None
-
-    def _init_fields(self) -> None:
-        self.TOUCH_ENABLED: TouchFeature = TouchFeature("Touch Enabled")
-        self.SHOW_SCREEN_BUTTONS: TouchFeature = TouchFeature("Show")
-        self.AUTO_HIDE_SHOW_SCREEN_BUTTONS: TouchFeature = TouchFeature("Auto Hide (One Level)")
-        self.HIDE_SCREEN_BUTTONS: TouchFeature = TouchFeature("Hide")
-    
-
-    @staticmethod
-    def getInstance() -> TouchFeatureFactory:
-        return TouchFeatureFactory.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-from org.allbinary.game.configuration.feature.TouchFeature import TouchFeature
+function getInstance(::Type{TouchFeatureFactory})
+        return staticGet_instance(TouchFeatureFactory)
+end
 
 
-def _TouchFeatureFactory_instance() -> object:
-    return TouchFeatureFactory()
+function initTouchFeatureFactory(this::TouchFeatureFactory)
+        initFieldsTouchFeatureFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(TouchFeatureFactory, "instance", _TouchFeatureFactory_instance)
+function newTouchFeatureFactory()
+    this = TouchFeatureFactory()
+    initTouchFeatureFactory(this)
+    this
+end
 

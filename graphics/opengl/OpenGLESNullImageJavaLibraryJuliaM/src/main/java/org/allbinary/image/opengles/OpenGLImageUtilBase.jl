@@ -1,51 +1,56 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image.opengles
 
-from __future__ import annotations
+mutable struct OpenGLImageUtilBase <: JObject
+    OpenGLImageUtilBase() = new()
+end
 
 
+function initFieldsOpenGLImageUtilBase(this::OpenGLImageUtilBase)
+    nothing
+end
 
-class OpenGLImageUtilBase:
-    
+function initOpenGLImageUtilBase(this::OpenGLImageUtilBase)
+    initFieldsOpenGLImageUtilBase(this)
+end
 
-    def paint(self, alphaBitmap: OpenGLBitmap, originalBitmap: OpenGLBitmap, index: int) -> OpenGLBitmap:
-        from org.allbinary.graphics.OpenGLBitmap import OpenGLBitmap
-        raise RuntimeError()
-    
+function newOpenGLImageUtilBase()
+    this = OpenGLImageUtilBase()
+    initOpenGLImageUtilBase(this)
+    this
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def paint(self, colorBitmap: OpenGLBitmap, originalBitmap: OpenGLBitmap, alpha: int, basicColor: BasicColor) -> OpenGLBitmap:
-        from org.allbinary.graphics.OpenGLBitmap import OpenGLBitmap
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        raise RuntimeError()
-    
 
-    # throws IOException
-    def createImage(self, name: str) -> OpenGLBitmap:
-        from org.allbinary.graphics.OpenGLBitmap import OpenGLBitmap
-        raise RuntimeError()
-    
+function paint(this::OpenGLImageUtilBase, alphaBitmap, originalBitmap, index)
+        throw(jNewException("RuntimeException", ""))
+end
 
-    # throws IOException
-    def createImageFromInputStream(self, inputStream: InputStream) -> OpenGLBitmap:
-        from java.io.InputStream import InputStream
-        from org.allbinary.graphics.OpenGLBitmap import OpenGLBitmap
-        raise RuntimeError()
-# from java.io.IOException import IOException
-# from java.io.InputStream import InputStream
-# from org.allbinary.graphics.OpenGLBitmap import OpenGLBitmap
-# from org.allbinary.graphics.color.BasicColor import BasicColor
 
+function paint(this::OpenGLImageUtilBase, colorBitmap, originalBitmap, alpha, basicColor)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function createImage(this::OpenGLImageUtilBase, name)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function createImageFromInputStream(this::OpenGLImageUtilBase, inputStream)
+        throw(jNewException("RuntimeException", ""))
+end
 

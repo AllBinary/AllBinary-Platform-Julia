@@ -1,40 +1,48 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.mapping
 
-from __future__ import annotations
+mutable struct MotionInputMappingEventListener <: JObject
+    MotionInputMappingEventListener() = new()
+end
 
-from org.allbinary.game.input.mapping.event.InputMappingEventListenerInterface import InputMappingEventListenerInterface
+
+function initFieldsMotionInputMappingEventListener(this::MotionInputMappingEventListener)
+    nothing
+end
+
+function initMotionInputMappingEventListener(this::MotionInputMappingEventListener)
+    initFieldsMotionInputMappingEventListener(this)
+end
+
+function newMotionInputMappingEventListener()
+    this = MotionInputMappingEventListener()
+    initMotionInputMappingEventListener(this)
+    this
+end
 
 
-class MotionInputMappingEventListener(InputMappingEventListenerInterface):
-    
+function onEvent(this::MotionInputMappingEventListener, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
 
-    # throws Exception
-    def onInputMappingEvent(self, inputMappingEvent: InputMappingEvent) -> None:
-        from org.allbinary.game.input.mapping.event.InputMappingEvent import InputMappingEvent
-        pass
-# from org.allbinary.game.input.mapping.event.InputMappingEvent import InputMappingEvent
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-
+function onInputMappingEvent(this::MotionInputMappingEventListener, inputMappingEvent)
+        nothing
+        nothing
+end
 

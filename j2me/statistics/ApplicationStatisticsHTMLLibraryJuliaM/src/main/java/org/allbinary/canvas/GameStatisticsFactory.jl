@@ -1,60 +1,75 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.canvas
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.canvas.BaseGameStatistics import BaseGameStatistics
-
-
 #ActualPlatform
-class GameStatisticsFactory(BaseGameStatistics):
-    instance: GameStatisticsFactory = None
+# extends BaseGameStatistics: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameStatisticsFactory <: JObject
+    stringBuffer::Any
+    GameStatisticsFactory() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.stringBuffer: StringMaker = StringMaker()
+const GameStatisticsFactory_instanceValue = Ref{Any}(nothing)
+const GameStatisticsFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameStatisticsFactory})
+    if !GameStatisticsFactory_instanceSet[]
+        GameStatisticsFactory_instanceSet[] = true
+        GameStatisticsFactory_instanceValue[] = newGameStatisticsFactory()
+    end
+    GameStatisticsFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GameStatisticsFactory}, value)
+    GameStatisticsFactory_instanceSet[] = true
+    GameStatisticsFactory_instanceValue[] = value
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
+function initFieldsGameStatisticsFactory(this::GameStatisticsFactory)
+    this.stringBuffer = nothing
+    this.stringBuffer = newStringMaker()
+    nothing
+end
 
-    @staticmethod
-    def getInstance() -> GameStatisticsFactory:
-        return GameStatisticsFactory.instance
-    
+function initGameStatisticsFactory(this::GameStatisticsFactory)
+    initBaseGameStatistics(this)
+    initFieldsGameStatisticsFactory(this)
+end
 
-    def add(self, string: str) -> None:
-        if self.stringBuffer.length() > 12000:
-            self.stringBuffer.delete(0, self.stringBuffer.length())
-            self.stringBuffer.append("Old Stats Cleared")
-        self.stringBuffer.append(string)
-    
-
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        return str(StringMaker().append(str(super())).append(str(self.stringBuffer)))
-
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.string.StringMaker import StringMaker
+function newGameStatisticsFactory()
+    this = GameStatisticsFactory()
+    initGameStatisticsFactory(this)
+    this
+end
 
 
-def _GameStatisticsFactory_instance() -> object:
-    return GameStatisticsFactory()
+function getInstance(::Type{GameStatisticsFactory})
+        return staticGet_instance(GameStatisticsFactory)
+end
 
-lazy_static(GameStatisticsFactory, "instance", _GameStatisticsFactory_instance)
+
+function add(this::GameStatisticsFactory, string)
+        if AllBinary.length(this.stringBuffer) > Int32(12000)
+            AllBinary.delete(this.stringBuffer, Int32(0), AllBinary.length(this.stringBuffer))
+            AllBinary.append(this.stringBuffer, "Old Stats Cleared")
+        end
+        AllBinary.append(this.stringBuffer, string)
+        nothing
+end
+
+
+function toString(this::GameStatisticsFactory)
+        return AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.toString(this)), AllBinary.toString(this.stringBuffer)))
+end
 

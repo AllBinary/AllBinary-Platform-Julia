@@ -1,12 +1,23 @@
 # Generated Code Do Not Modify
 # package java.lang
 
-from __future__ import annotations
-
-
-
 #J2SE to J2ME compatibility
-class Deprecated:
-    pass
+mutable struct Deprecated <: JObject
+    Deprecated() = new()
+end
 
+
+function initFieldsDeprecated(this::Deprecated)
+    nothing
+end
+
+function initDeprecated(this::Deprecated)
+    initFieldsDeprecated(this)
+end
+
+function newDeprecated()
+    this = Deprecated()
+    initDeprecated(this)
+    this
+end
 

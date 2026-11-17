@@ -1,49 +1,72 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.displayable.command
 
-from __future__ import annotations
+mutable struct MyCommandsFactory <: JObject
+    NO_COMMAND::Any
+    GAUGE_CHANGE::Any
+    SET_DISPLAYABLE::Any
+    PAUSE_COMMAND::Any
+    RESUME_COMMAND::Any
+    MyCommandsFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const MyCommandsFactory_instanceValue = Ref{Any}(nothing)
+const MyCommandsFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{MyCommandsFactory})
+    if !MyCommandsFactory_instanceSet[]
+        MyCommandsFactory_instanceSet[] = true
+        MyCommandsFactory_instanceValue[] = newMyCommandsFactory()
+    end
+    MyCommandsFactory_instanceValue[]
+end
+function staticSet_instance(::Type{MyCommandsFactory}, value)
+    MyCommandsFactory_instanceSet[] = true
+    MyCommandsFactory_instanceValue[] = value
+end
+
+function initFieldsMyCommandsFactory(this::MyCommandsFactory)
+    this.NO_COMMAND = nothing
+    this.GAUGE_CHANGE = nothing
+    this.SET_DISPLAYABLE = nothing
+    this.PAUSE_COMMAND = nothing
+    this.RESUME_COMMAND = nothing
+    this.NO_COMMAND = newCommand(AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(StringUtil).EMPTY_STRING, -Int32(1), -Int32(1))
+    this.GAUGE_CHANGE = newCommand("GAUGE_CHANGE", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_ITEM(Command), Int32(1))
+    this.SET_DISPLAYABLE = newCommand("Display", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SCREEN(Command), Int32(2))
+    this.PAUSE_COMMAND = newCommand("Pause", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SCREEN(Command), Int32(0))
+    this.RESUME_COMMAND = newCommand("Resume", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SCREEN(Command), Int32(0))
+    nothing
+end
 
 
-class MyCommandsFactory:
-    instance: MyCommandsFactory = None
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Command import Command
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.NO_COMMAND: Command = Command(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING, -1, -1)
-        self.GAUGE_CHANGE: Command = Command("GAUGE_CHANGE", StringUtil.getInstance().EMPTY_STRING, Command.ITEM, 1)
-        self.SET_DISPLAYABLE: Command = Command("Display", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 2)
-        self.PAUSE_COMMAND: Command = Command("Pause", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 0)
-        self.RESUME_COMMAND: Command = Command("Resume", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 0)
-    
-
-    @staticmethod
-    def getInstance() -> MyCommandsFactory:
-        return MyCommandsFactory.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-# from javax.microedition.lcdui.Command import Command
-# from org.allbinary.logic.string.StringUtil import StringUtil
+function getInstance(::Type{MyCommandsFactory})
+        return staticGet_instance(MyCommandsFactory)
+end
 
 
-def _MyCommandsFactory_instance() -> object:
-    return MyCommandsFactory()
+function initMyCommandsFactory(this::MyCommandsFactory)
+        initFieldsMyCommandsFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(MyCommandsFactory, "instance", _MyCommandsFactory_instance)
+function newMyCommandsFactory()
+    this = MyCommandsFactory()
+    initMyCommandsFactory(this)
+    this
+end
 

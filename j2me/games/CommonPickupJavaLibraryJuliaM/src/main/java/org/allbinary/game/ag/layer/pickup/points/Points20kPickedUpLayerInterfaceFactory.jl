@@ -1,78 +1,78 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.pickup.points
 
-from __future__ import annotations
+# extends PickedUpLayerInterfaceFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct Points20kPickedUpLayerInterfaceFactory <: JObject
+    pool::Any
+    Points20kPickedUpLayerInterfaceFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactory import PickedUpLayerInterfaceFactory
-from org.allbinary.game.layer.pickup.PickupProcessorInterface import PickupProcessorInterface
+const Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceValue = Ref{Any}(nothing)
+const Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceSet = Ref(false)
+function staticGet_pickedUpLayerInterfaceFactoryInterface(::Type{Points20kPickedUpLayerInterfaceFactory})
+    if !Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceSet[]
+        Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceSet[] = true
+        Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceValue[] = staticGet_NULL_COUNTED_PICKUP_LAYER_FACTORY(CountedPickedUpLayerInterfaceFactory)
+    end
+    Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceValue[]
+end
+function staticSet_pickedUpLayerInterfaceFactoryInterface(::Type{Points20kPickedUpLayerInterfaceFactory}, value)
+    Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceSet[] = true
+    Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceValue[] = value
+end
 
-
-class Points20kPickedUpLayerInterfaceFactory(PickedUpLayerInterfaceFactory, PickupProcessorInterface):
-    pickedUpLayerInterfaceFactoryInterface: PickedUpLayerInterfaceFactoryInterface = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.configuration.GameConfigurationUtil import GameConfigurationUtil
-        self.pool: PointsLayerCircularStaticPool = PointsLayerCircularStaticPool(PointsLayerFactory(GameConfigurationUtil.getInstance().getCompetitionValue() * 20000), 1)
-    
-
-    # throws Exception
-    @staticmethod
-    def init() -> None:
-        Points20kPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface = Points20kPickedUpLayerInterfaceFactory()
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.game.ag.layer.pickup.points.PointsResources import PointsResources
-        from org.allbinary.game.ag.layer.pickup.points.PointsResources import PointsResources
-        from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.game.layer.pickup.IconLayerFactory import IconLayerFactory
-        from org.allbinary.game.layer.pickup.PickedUpLayerTypeFactory import PickedUpLayerTypeFactory
-        super().__init__(PickedUpLayerTypeFactory.getInstance().POINTS, IconLayerFactory.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(PointsResources.getInstance().RESOURCE_2).getInstance(0), 10, 10), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(PointsResources.getInstance().RESOURCE_2).getInstance(0))
-        self._init_fields()
-    
-
-    def getTotal(self) -> int:
-        return 1
-    
-
-    @staticmethod
-    def getInstance() -> PickedUpLayerInterfaceFactoryInterface:
-        from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-        return Points20kPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface
-    
-
-    # throws Exception
-    def process(self, sourceLayerInterface: AllBinaryLayer) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.pool.visit(sourceLayerInterface)
-# from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-# from org.allbinary.game.configuration.GameConfigurationUtil import GameConfigurationUtil
-# from org.allbinary.game.layer.pickup.CountedPickedUpLayerInterfaceFactory import CountedPickedUpLayerInterfaceFactory
-# from org.allbinary.game.layer.pickup.IconLayerFactory import IconLayerFactory
-# from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-# from org.allbinary.game.layer.pickup.PickedUpLayerTypeFactory import PickedUpLayerTypeFactory
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-from org.allbinary.game.ag.layer.pickup.points.PointsLayerCircularStaticPool import PointsLayerCircularStaticPool
-from org.allbinary.game.ag.layer.pickup.points.PointsLayerFactory import PointsLayerFactory
+function initFieldsPoints20kPickedUpLayerInterfaceFactory(this::Points20kPickedUpLayerInterfaceFactory)
+    this.pool = nothing
+    this.pool = newPointsLayerCircularStaticPool(newPointsLayerFactory(AllBinary.getCompetitionValue(AllBinary.getInstance(GameConfigurationUtil)) * Int32(20000)), Int32(1))
+    nothing
+end
 
 
-def _Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterface() -> object:
-    from org.allbinary.game.layer.pickup.CountedPickedUpLayerInterfaceFactory import CountedPickedUpLayerInterfaceFactory
-    from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-    return CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
+function init(::Type{Points20kPickedUpLayerInterfaceFactory})
+        staticSet_pickedUpLayerInterfaceFactoryInterface(Points20kPickedUpLayerInterfaceFactory, newPoints20kPickedUpLayerInterfaceFactory())
+        nothing
+end
 
-lazy_static(Points20kPickedUpLayerInterfaceFactory, "pickedUpLayerInterfaceFactoryInterface", _Points20kPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterface)
+
+function initPoints20kPickedUpLayerInterfaceFactory(this::Points20kPickedUpLayerInterfaceFactory)
+        initPickedUpLayerInterfaceFactory(this, AllBinary.getInstance(PickedUpLayerTypeFactory).POINTS, AllBinary.getInstance(IconLayerFactory, AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), AllBinary.getInstance(PointsResources).RESOURCE_2), Int32(0)), Int32(10), Int32(10)), AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), AllBinary.getInstance(PointsResources).RESOURCE_2), Int32(0)))
+        initFieldsPoints20kPickedUpLayerInterfaceFactory(this)
+        nothing
+end
+
+function newPoints20kPickedUpLayerInterfaceFactory()
+    this = Points20kPickedUpLayerInterfaceFactory()
+    initPoints20kPickedUpLayerInterfaceFactory(this)
+    this
+end
+
+
+function getTotal(this::Points20kPickedUpLayerInterfaceFactory)
+        return Int32(1)
+end
+
+
+function getInstance(::Type{Points20kPickedUpLayerInterfaceFactory})
+        return staticGet_pickedUpLayerInterfaceFactoryInterface(Points20kPickedUpLayerInterfaceFactory)
+end
+
+
+function process(this::Points20kPickedUpLayerInterfaceFactory, sourceLayerInterface)
+        AllBinary.visit(this.pool, sourceLayerInterface)
+        nothing
+end
 

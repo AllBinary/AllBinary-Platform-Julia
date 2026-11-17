@@ -1,106 +1,120 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2026 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2026 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io.file
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #FileJ2SE should be the same as J2SEForJ2ME
-class AbFileSystem:
-    instance: AbFileSystem = None
+mutable struct AbFileSystem <: JObject
+    logUtil::Any
+    commonStrings::Any
+    AbFileSystem() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
+const AbFileSystem_instanceValue = Ref{Any}(nothing)
+const AbFileSystem_instanceSet = Ref(false)
+function staticGet_instance(::Type{AbFileSystem})
+    if !AbFileSystem_instanceSet[]
+        AbFileSystem_instanceSet[] = true
+        AbFileSystem_instanceValue[] = newAbFileSystem()
+    end
+    AbFileSystem_instanceValue[]
+end
+function staticSet_instance(::Type{AbFileSystem}, value)
+    AbFileSystem_instanceSet[] = true
+    AbFileSystem_instanceValue[] = value
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function initFieldsAbFileSystem(this::AbFileSystem)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    nothing
+end
 
-    @staticmethod
-    def getInstance() -> AbFileSystem:
-        return AbFileSystem.instance
-    
+function initAbFileSystem(this::AbFileSystem)
+    initFieldsAbFileSystem(this)
+end
 
-    def isDirectoryOrFile(self, path: str) -> bool:
-        file: File = File(path)
-        return file.isDirectory() or file.isFile()
-    
+function newAbFileSystem()
+    this = AbFileSystem()
+    initAbFileSystem(this)
+    this
+end
 
-    def isDirectory(self, path: str) -> bool:
-        return File(path).isDirectory()
-    
 
-    def getFilesAsStringArrayForPath(self, currentDirPath: str) -> list[str]:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        file: File = File(currentDirPath)
-        if file.exists():
-            return file.list_()
-        else:
-            return StringUtil.getInstance().getArrayInstance()
-    
+function getInstance(::Type{AbFileSystem})
+        return staticGet_instance(AbFileSystem)
+end
 
-    def readAsString(self, fileName: str) -> str:
-        bytes: list[int] = [0] * (1000000)
-        return self.readAsString(fileName, bytes)
-    
 
-    # Java overloaded method: Python keeps the last definition
-    def readAsString(self, fileName: str, bytes: list[int]) -> str:
-        from java.io.FileInputStream import FileInputStream
-        from java.io.InputStream import InputStream
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        closeable: object = NullUtil.getInstance().NULL_OBJECT
-        try:
-            idFile: InputStream = FileInputStream(fileName)
+function isDirectoryOrFile(this::AbFileSystem, path)
+        local file = newFile(path)
+        return AllBinary.isDirectory(file) || AllBinary.isFile(file)
+end
+
+
+function isDirectory(this::AbFileSystem, path)
+        return AllBinary.isDirectory(newFile(path))
+end
+
+
+function getFilesAsStringArrayForPath(this::AbFileSystem, currentDirPath)
+        local file = newFile(currentDirPath)
+        if AllBinary.exists(file)
+            return AllBinary.list(file)
+        else
+            return AllBinary.getArrayInstance(AllBinary.getInstance(StringUtil))
+        end
+end
+
+
+function readAsString(this::AbFileSystem, fileName)
+        local bytes = jNewArray(Int8, Int32(1000000), Int8(0))
+        return AllBinary.readAsString(this, fileName, bytes)
+end
+
+
+function readAsString(this::AbFileSystem, fileName, bytes)
+        local closeable = AllBinary.getInstance(NullUtil).NULL_OBJECT
+        try
+            local idFile = newFileInputStream(fileName)
             closeable = idFile
-            size: int = idFile.read(bytes)
-            if size > 0:
-                return bytes(bytes, 0, size).decode()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "readAsString", e)
-        finally:
-            self.close(closeable)
-        return StringUtil.getInstance().EMPTY_STRING
-    
-
-    def close(self, closeable: object) -> bool:
-        from java.io.InputStream import InputStream
-        try:
-            if closeable is not None:
-                inputStream: InputStream = (closeable)
-                inputStream.close()
-            return True
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.CLOSE, e)
-            return False
-# from java.io.File import File
-# from java.io.FileInputStream import FileInputStream
-# from java.io.InputStream import InputStream
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+            local size::Int32 = AllBinary.read(idFile, bytes)
+            if size > Int32(0)
+                return jFromChars(bytes, Int32(0), size)
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "readAsString", e)
+        finally
+            AllBinary.close(this, closeable)
+        end
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
 
 
-def _AbFileSystem_instance() -> object:
-    return AbFileSystem()
-
-lazy_static(AbFileSystem, "instance", _AbFileSystem_instance)
+function close(this::AbFileSystem, closeable)
+        try
+            if closeable !== nothing
+                local inputStream = ((closeable))
+                AllBinary.close(inputStream)
+            end
+            return true
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.CLOSE, e)
+            return false
+        end
+end
 

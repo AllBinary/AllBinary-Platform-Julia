@@ -1,79 +1,92 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration
 
-from __future__ import annotations
+# extends CommandForm: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct InGameOptionsForm <: JObject
+    InGameOptionsForm() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.graphics.displayable.screen.CommandForm import CommandForm
+const InGameOptionsForm_DISPLAYValue = Ref{Any}(nothing)
+const InGameOptionsForm_DISPLAYSet = Ref(false)
+function staticGet_DISPLAY(::Type{InGameOptionsForm})
+    if !InGameOptionsForm_DISPLAYSet[]
+        InGameOptionsForm_DISPLAYSet[] = true
+        InGameOptionsForm_DISPLAYValue[] = newCommand("Options In Game", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SCREEN(Command), Int32(1))
+    end
+    InGameOptionsForm_DISPLAYValue[]
+end
+function staticSet_DISPLAY(::Type{InGameOptionsForm}, value)
+    InGameOptionsForm_DISPLAYSet[] = true
+    InGameOptionsForm_DISPLAYValue[] = value
+end
+const InGameOptionsForm_SAVEValue = Ref{Any}(nothing)
+const InGameOptionsForm_SAVESet = Ref(false)
+function staticGet_SAVE(::Type{InGameOptionsForm})
+    if !InGameOptionsForm_SAVESet[]
+        InGameOptionsForm_SAVESet[] = true
+        InGameOptionsForm_SAVEValue[] = newCommand("Save", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SCREEN(Command), Int32(1))
+    end
+    InGameOptionsForm_SAVEValue[]
+end
+function staticSet_SAVE(::Type{InGameOptionsForm}, value)
+    InGameOptionsForm_SAVESet[] = true
+    InGameOptionsForm_SAVEValue[] = value
+end
+const InGameOptionsForm_DEFAULTValue = Ref{Any}(nothing)
+const InGameOptionsForm_DEFAULTSet = Ref(false)
+function staticGet_DEFAULT(::Type{InGameOptionsForm})
+    if !InGameOptionsForm_DEFAULTSet[]
+        InGameOptionsForm_DEFAULTSet[] = true
+        InGameOptionsForm_DEFAULTValue[] = newCommand("Default", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SCREEN(Command), Int32(1))
+    end
+    InGameOptionsForm_DEFAULTValue[]
+end
+function staticSet_DEFAULT(::Type{InGameOptionsForm}, value)
+    InGameOptionsForm_DEFAULTSet[] = true
+    InGameOptionsForm_DEFAULTValue[] = value
+end
+
+function initFieldsInGameOptionsForm(this::InGameOptionsForm)
+    nothing
+end
 
 
-class InGameOptionsForm(CommandForm):
-    DISPLAY: Command = None
-    SAVE: Command = None
-    DEFAULT: Command = None
-    
+function initInGameOptionsForm(this::InGameOptionsForm, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        initCommandForm(this, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        local gameFeatureFormUtil = AllBinary.getInstance(GameFeatureFormUtil)
+        AllBinary.addChoiceGroup(gameFeatureFormUtil, this, AllBinary.get(AllBinary.getExclusiveInstance(InGameFeatureChoiceGroups)), staticGet_EXCLUSIVE(Choice))
+        AllBinary.addChoiceGroup(gameFeatureFormUtil, this, AllBinary.get(AllBinary.getMultipleInstance(InGameFeatureChoiceGroups)), staticGet_MULTIPLE(Choice))
+        AllBinary.initCommands(this, commandListener)
+        nothing
+end
 
-    def __init__(self, commandListener: CommandListener, title: str, backgrounBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.Choice import Choice
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.configuration.feature.GameFeatureFormUtil import GameFeatureFormUtil
-        from org.allbinary.game.configuration.feature.InGameFeatureChoiceGroups import InGameFeatureChoiceGroups
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(commandListener, title, backgrounBasicColor, foregroundBasicColor)
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        gameFeatureFormUtil: GameFeatureFormUtil = GameFeatureFormUtil.getInstance()
-        gameFeatureFormUtil.addChoiceGroup(self, InGameFeatureChoiceGroups.getExclusiveInstance().get(), Choice.EXCLUSIVE)
-        gameFeatureFormUtil.addChoiceGroup(self, InGameFeatureChoiceGroups.getMultipleInstance().get(), Choice.MULTIPLE)
-        self.initCommands(commandListener)
-    
-
-    def initCommands(self, cmdListener: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        self.removeAllCommands()
-        self.addCommand(GameCommandsFactory.getInstance().CLOSE_AND_SHOW_GAME_CANVAS)
-        self.addCommand(InGameOptionsForm.DEFAULT)
-        self.setCommandListener(cmdListener)
-# from javax.microedition.lcdui.Choice import Choice
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-# from org.allbinary.game.configuration.feature.GameFeatureFormUtil import GameFeatureFormUtil
-# from org.allbinary.game.configuration.feature.InGameFeatureChoiceGroups import InGameFeatureChoiceGroups
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.logic.string.StringUtil import StringUtil
+function newInGameOptionsForm(commandListener, title, backgrounBasicColor, foregroundBasicColor)
+    this = InGameOptionsForm()
+    initInGameOptionsForm(this, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+    this
+end
 
 
-def _InGameOptionsForm_DISPLAY() -> object:
-    from javax.microedition.lcdui.Command import Command
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return Command("Options In Game", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-
-lazy_static(InGameOptionsForm, "DISPLAY", _InGameOptionsForm_DISPLAY)
-
-def _InGameOptionsForm_SAVE() -> object:
-    from javax.microedition.lcdui.Command import Command
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return Command("Save", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-
-lazy_static(InGameOptionsForm, "SAVE", _InGameOptionsForm_SAVE)
-
-def _InGameOptionsForm_DEFAULT() -> object:
-    from javax.microedition.lcdui.Command import Command
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return Command("Default", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-
-lazy_static(InGameOptionsForm, "DEFAULT", _InGameOptionsForm_DEFAULT)
+function initCommands(this::InGameOptionsForm, cmdListener)
+        AllBinary.removeAllCommands(this)
+        AllBinary.addCommand(this, AllBinary.getInstance(GameCommandsFactory).CLOSE_AND_SHOW_GAME_CANVAS)
+        AllBinary.addCommand(this, staticGet_DEFAULT(InGameOptionsForm))
+        AllBinary.setCommandListener(this, cmdListener)
+        nothing
+end
 

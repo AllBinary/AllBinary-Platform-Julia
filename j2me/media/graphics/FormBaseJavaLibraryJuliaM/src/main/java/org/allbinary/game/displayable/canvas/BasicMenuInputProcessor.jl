@@ -1,72 +1,75 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends PlayerGameInput: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicMenuInputProcessor <: JObject
+    motionGestureEventList::Any
+    canvas::Any
+    BasicMenuInputProcessor() = new()
+end
 
-from org.allbinary.game.input.PlayerGameInput import PlayerGameInput
-from org.allbinary.input.motion.gesture.observer.BaseMotionGestureEventListener import BaseMotionGestureEventListener
+
+function initFieldsBasicMenuInputProcessor(this::BasicMenuInputProcessor)
+    this.motionGestureEventList = nothing
+    this.canvas = nothing
+    this.motionGestureEventList = newBasicArrayListD()
+    this.canvas = staticGet_NULL_CANVAS(NullCanvas)
+    nothing
+end
 
 
-class BasicMenuInputProcessor(PlayerGameInput, BaseMotionGestureEventListener):
+function initBasicMenuInputProcessor(this::BasicMenuInputProcessor, gameKeyEventList, playerInputId, gameCanvas)
+        initPlayerGameInput(this, gameKeyEventList, newBasicArrayListD(), playerInputId)
+        initFieldsBasicMenuInputProcessor(this)
+        this.canvas = gameCanvas
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from javax.microedition.lcdui.NullCanvas import NullCanvas
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.motionGestureEventList: BasicArrayList = BasicArrayListD()
-        self.canvas: Canvas = NullCanvas.NULL_CANVAS
-    
+function newBasicMenuInputProcessor(gameKeyEventList, playerInputId, gameCanvas)
+    this = BasicMenuInputProcessor()
+    initBasicMenuInputProcessor(this, gameKeyEventList, playerInputId, gameCanvas)
+    this
+end
 
-    def __init__(self, gameKeyEventList: BasicArrayList, playerInputId: int, gameCanvas: Canvas) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        super().__init__(gameKeyEventList, BasicArrayListD(), playerInputId)
-        self._init_fields()
-        self.canvas = gameCanvas
-    
 
-    def onMotionGestureEvent(self, motionGestureEvent: MotionGestureEvent) -> None:
-        from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-        self.motionGestureEventList.add(motionGestureEvent)
-    
+function onMotionGestureEvent(this::BasicMenuInputProcessor, motionGestureEvent)
+        AllBinary.add(this.motionGestureEventList, motionGestureEvent)
+        nothing
+end
 
-    def onScrolledMotionGestureEvent(self, motionGestureEvent: MotionGestureEvent) -> None:
-        from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-        pass
-    
 
-    def setCanvas(self, canvas: MyCanvas) -> None:
-        from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-        self.canvas = canvas
-    
+function onScrolledMotionGestureEvent(this::BasicMenuInputProcessor, motionGestureEvent)
+        nothing
+        nothing
+end
 
-    def getCanvas(self) -> MyCanvas:
-        from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-        return self.canvas
-    
 
-    # throws Exception
-    def processInputList(self) -> int:
-        return -1
-# from javax.microedition.lcdui.Canvas import Canvas
-# from javax.microedition.lcdui.NullCanvas import NullCanvas
-# from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-# from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function setCanvas(this::BasicMenuInputProcessor, canvas)
+        this.canvas = canvas
+        nothing
+end
 
+
+function getCanvas(this::BasicMenuInputProcessor)
+        return (this.canvas)
+end
+
+
+function processInputList(this::BasicMenuInputProcessor)
+        return -Int32(1)
+end
 

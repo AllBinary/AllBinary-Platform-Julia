@@ -1,60 +1,57 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends BaseImageAnimationFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageAnimationFactory <: JObject
+    ImageAnimationFactory() = new()
+end
 
-from org.allbinary.animation.image.BaseImageAnimationFactory import BaseImageAnimationFactory
+
+function initFieldsImageAnimationFactory(this::ImageAnimationFactory)
+    nothing
+end
 
 
-class ImageAnimationFactory(BaseImageAnimationFactory):
-    
+function createFactory(::Type{ImageAnimationFactory}, image)
+        return newImageAnimationFactory(image, AllBinary.getWidth(image), AllBinary.getHeight(image), Int32(0), Int32(0), AllBinary.getInstance(AnimationBehaviorFactory))
+end
 
-    # throws Exception
-    @staticmethod
-    def createFactory(image: Image) -> ImageAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        return ImageAnimationFactory(image, image.getWidth(), image.getHeight(), 0, 0, AnimationBehaviorFactory.getInstance())
-    
 
-    def __init__(self, image: Image, width: int, height: int, dx: int, dy: int, animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        super().__init__(image, PrimitiveIntUtil.getArrayInstance(), width, height, dx, dy, animationBehaviorFactory)
-    
+function initImageAnimationFactory(this::ImageAnimationFactory, image, width, height, dx, dy, animationBehaviorFactory)
+        initBaseImageAnimationFactory(this, image, AllBinary.getArrayInstance(PrimitiveIntUtil), width, height, dx, dy, animationBehaviorFactory)
+        nothing
+end
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.image.ImageAnimation import ImageAnimation
-        from org.allbinary.animation.image.AdjustedImageAnimation import AdjustedImageAnimation
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.graphics.opengles.OpenGLUtil import OpenGLUtil
-        scaledImage: Image = self.animationFactoryImageScaleUtil.createImage(self.getImage(), self.animationFactoryInitializationVisitor.width, self.animationFactoryInitializationVisitor.height, self.scaleProperties.scaleWidth, self.scaleProperties.scaleHeight)
-        openGLUtil: OpenGLUtil = OpenGLUtil.getInstance()
-        scaledImage = openGLUtil.addImage(scaledImage)
-        if self.animationFactoryInitializationVisitor.dx != 0 or self.animationFactoryInitializationVisitor.dy != 0:
-            self.animationFactoryImageScaleUtil.processAdjust(self)
-            return AdjustedImageAnimation(scaledImage, self.animationFactoryInitializationVisitor.dx, self.animationFactoryInitializationVisitor.dy, self.animationBehaviorFactory.getOrCreateInstance())
-        else:
-            return ImageAnimation(scaledImage, self.animationBehaviorFactory.getOrCreateInstance())
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.graphics.opengles.OpenGLUtil import OpenGLUtil
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
+function newImageAnimationFactory(image, width, height, dx, dy, animationBehaviorFactory)
+    this = ImageAnimationFactory()
+    initImageAnimationFactory(this, image, width, height, dx, dy, animationBehaviorFactory)
+    this
+end
 
+
+function getInstance(this::ImageAnimationFactory, instanceId)
+        local scaledImage = AllBinary.createImage(this.animationFactoryImageScaleUtil, AllBinary.getImage(this), this.animationFactoryInitializationVisitor.width, this.animationFactoryInitializationVisitor.height, this.scaleProperties.scaleWidth, this.scaleProperties.scaleHeight)
+        local openGLUtil = AllBinary.getInstance(OpenGLUtil)
+        scaledImage = AllBinary.addImage(openGLUtil, scaledImage)
+        if this.animationFactoryInitializationVisitor.dx != Int32(0) || this.animationFactoryInitializationVisitor.dy != Int32(0)
+            AllBinary.processAdjust(this.animationFactoryImageScaleUtil, this)
+            return newAdjustedImageAnimation(scaledImage, this.animationFactoryInitializationVisitor.dx, this.animationFactoryInitializationVisitor.dy, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        else
+            return newImageAnimation(scaledImage, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        end
+end
 

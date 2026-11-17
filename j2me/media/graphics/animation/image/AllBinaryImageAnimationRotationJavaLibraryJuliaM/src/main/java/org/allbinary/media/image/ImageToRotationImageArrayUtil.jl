@@ -1,52 +1,76 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.image
 
-from __future__ import annotations
+mutable struct ImageToRotationImageArrayUtil <: JObject
+    ImageToRotationImageArrayUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ImageToRotationImageArrayUtil_instanceValue = Ref{Any}(nothing)
+const ImageToRotationImageArrayUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{ImageToRotationImageArrayUtil})
+    if !ImageToRotationImageArrayUtil_instanceSet[]
+        ImageToRotationImageArrayUtil_instanceSet[] = true
+        ImageToRotationImageArrayUtil_instanceValue[] = newImageToRotationImageArrayUtil()
+    end
+    ImageToRotationImageArrayUtil_instanceValue[]
+end
+function staticSet_instance(::Type{ImageToRotationImageArrayUtil}, value)
+    ImageToRotationImageArrayUtil_instanceSet[] = true
+    ImageToRotationImageArrayUtil_instanceValue[] = value
+end
+
+function initFieldsImageToRotationImageArrayUtil(this::ImageToRotationImageArrayUtil)
+    nothing
+end
 
 
-class ImageToRotationImageArrayUtil:
-    instance: ImageToRotationImageArrayUtil = None
-    
+function getInstance(::Type{ImageToRotationImageArrayUtil})
+        return staticGet_instance(ImageToRotationImageArrayUtil)
+end
 
-    @staticmethod
-    def getInstance() -> ImageToRotationImageArrayUtil:
-        return ImageToRotationImageArrayUtil.instance
-    
 
-    def __init__(self) -> None:
-        pass
-    
+function initImageToRotationImageArrayUtil(this::ImageToRotationImageArrayUtil)
+        initFieldsImageToRotationImageArrayUtil(this)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def generate(self, image: Image, angleIncrement: int, totalAngle: int) -> list[Image]:
-        from org.allbinary.media.image.ImageRotationUtil import ImageRotationUtil
-        from javax.microedition.lcdui.Image import Image
-        imageRotationUtil: ImageRotationUtil = ImageRotationUtil.getInstance()
-        totalFrames: int = int(totalAngle / angleIncrement)
-        imageArray: list[Image] = [None] * (totalFrames)
-        imageArray[0] = image
-        for index in range(1, totalFrames):
-            imageArray[index] = imageRotationUtil.createRotatedImage(image, index * angleIncrement)
+function newImageToRotationImageArrayUtil()
+    this = ImageToRotationImageArrayUtil()
+    initImageToRotationImageArrayUtil(this)
+    this
+end
+
+
+function generate(this::ImageToRotationImageArrayUtil, image, angleIncrement, totalAngle)
+        local imageRotationUtil = AllBinary.getInstance(ImageRotationUtil)
+        local totalFrames::Int32 = totalAngle ÷ angleIncrement
+        local imageArray = jNewArray(Any, totalFrames, nothing)
+        imageArray[Int32(0) + 1] = image
+        let
+            local index::Int32 = Int32(1)
+            while index < totalFrames
+            try
+            imageArray[index + 1] = AllBinary.createRotatedImage(imageRotationUtil, image, index * angleIncrement)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
         return imageArray
-# from javax.microedition.lcdui.Image import Image
-
-
-def _ImageToRotationImageArrayUtil_instance() -> object:
-    return ImageToRotationImageArrayUtil()
-
-lazy_static(ImageToRotationImageArrayUtil, "instance", _ImageToRotationImageArrayUtil_instance)
+end
 

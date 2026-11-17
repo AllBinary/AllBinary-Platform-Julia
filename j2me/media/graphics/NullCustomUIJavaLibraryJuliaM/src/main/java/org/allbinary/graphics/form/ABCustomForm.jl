@@ -1,89 +1,104 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends CustomScreen: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ABCustomForm <: JObject
+    logUtil::Any
+    commonStrings::Any
+    ABCustomForm() = new()
+end
 
-from org.allbinary.graphics.form.CustomScreen import CustomScreen
+
+function initFieldsABCustomForm(this::ABCustomForm)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    nothing
+end
 
 
-class ABCustomForm(CustomScreen):
+function initABCustomForm(this::ABCustomForm, title, items, backgroundBasicColor, foregroundBasicColor)
+        initCustomScreen(this)
+        initFieldsABCustomForm(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-    
+function newABCustomForm(title, items, backgroundBasicColor, foregroundBasicColor)
+    this = ABCustomForm()
+    initABCustomForm(this, title, items, backgroundBasicColor, foregroundBasicColor)
+    this
+end
 
-    def __init__(self, title: str, items: list[ABCustomItem], backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        super().__init__()
-        self._init_fields()
-    
 
-    def getAllitems(self) -> list[ABCustomItem]:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return [None] * (0)
-    
+function getAllitems(this::ABCustomForm)
+        return jNewArray(Any, Int32(0), nothing)
+end
 
-    def size(self) -> int:
-        return 0
-    
 
-    def setSelectedIndex(self, index: int) -> None:
-        pass
-    
+function size(this::ABCustomForm)
+        return Int32(0)
+end
 
-    def getSelectedIndex(self) -> int:
-        return 0
-    
 
-    def deleteAll(self) -> None:
-        pass
-    
+function setSelectedIndex(this::ABCustomForm, index)
+        nothing
+        nothing
+end
 
-    def delete(self, itemNum: int) -> None:
-        pass
-    
 
-    def append(self, item: ABCustomItem) -> int:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return -1
-    
+function getSelectedIndex(this::ABCustomForm)
+        return Int32(0)
+end
 
-    def insert(self, itemNum: int, item: ABCustomItem) -> None:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        pass
-    
 
-    def set(self, itemNum: int, item: ABCustomItem) -> None:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        pass
-    
+function deleteAll(this::ABCustomForm)
+        nothing
+        nothing
+end
 
-    def get(self, itemNum: int) -> ABCustomItem:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return ABCustomItem.getNullInstance()
-    
 
-    def getWidth(self) -> int:
-        raise RuntimeError()
-    
+function delete(this::ABCustomForm, itemNum)
+        nothing
+        nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
 
-    def getTitle(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function append(this::ABCustomForm, item)
+        return -Int32(1)
+end
 
+
+function insert(this::ABCustomForm, itemNum, item)
+        nothing
+        nothing
+end
+
+
+function set(this::ABCustomForm, itemNum, item)
+        nothing
+        nothing
+end
+
+
+function get(this::ABCustomForm, itemNum)
+        return AllBinary.getNullInstance(ABCustomItem)
+end
+
+
+function getWidth(this::ABCustomForm)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function paint(this::ABCustomForm, graphics)
+        nothing
+        nothing
+end
+
+
+function getTitle(this::ABCustomForm)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
 

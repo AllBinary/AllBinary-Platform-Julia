@@ -1,39 +1,53 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends AnimationBehaviorFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct IndexedAnimationBehaviorFactory <: JObject
+    frameDelayTime::Int64
+    loopTotal::Int32
+    IndexedAnimationBehaviorFactory() = new()
+end
 
-from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
 
-
-class IndexedAnimationBehaviorFactory(AnimationBehaviorFactory):
-
-    def _init_fields(self) -> None:
-        self.frameDelayTime: int = None
-        self.loopTotal: int = None
+function initFieldsIndexedAnimationBehaviorFactory(this::IndexedAnimationBehaviorFactory)
+    this.frameDelayTime = Int64(0)
+    this.loopTotal = Int32(0)
     
-
-    def __init__(self, loopTotal: int, frameDelayTime: int) -> None:
-        super().__init__()
-        self._init_fields()
-        self.loopTotal = loopTotal
-        self.frameDelayTime = frameDelayTime
     
+    nothing
+end
 
-    def getOrCreateInstance(self) -> AnimationBehavior:
-        from org.allbinary.animation.IndexedAnimationBehavior import IndexedAnimationBehavior
-        return IndexedAnimationBehavior(self.loopTotal, self.frameDelayTime)
 
+function initIndexedAnimationBehaviorFactory(this::IndexedAnimationBehaviorFactory, loopTotal, frameDelayTime)
+        initAnimationBehaviorFactory(this)
+        initFieldsIndexedAnimationBehaviorFactory(this)
+        this.loopTotal = loopTotal
+        this.frameDelayTime = frameDelayTime
+        nothing
+end
+
+function newIndexedAnimationBehaviorFactory(loopTotal, frameDelayTime)
+    this = IndexedAnimationBehaviorFactory()
+    initIndexedAnimationBehaviorFactory(this, loopTotal, frameDelayTime)
+    this
+end
+
+
+function getOrCreateInstance(this::IndexedAnimationBehaviorFactory)
+        return newIndexedAnimationBehavior(this.loopTotal, this.frameDelayTime)
+end
 

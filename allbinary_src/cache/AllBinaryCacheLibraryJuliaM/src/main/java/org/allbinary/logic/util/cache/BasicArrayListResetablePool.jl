@@ -1,40 +1,55 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.cache
 
-from __future__ import annotations
+# extends AbstractArrayListPool: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicArrayListResetablePool <: JObject
+    BasicArrayListResetablePool() = new()
+end
 
-from org.allbinary.logic.util.cache.AbstractArrayListPool import AbstractArrayListPool
+
+function initFieldsBasicArrayListResetablePool(this::BasicArrayListResetablePool)
+    nothing
+end
 
 
-class BasicArrayListResetablePool(AbstractArrayListPool):
-    
+function initBasicArrayListResetablePool(this::BasicArrayListResetablePool, cacheableInterfaceFactoryInterface)
+        initAbstractArrayListPool(this, cacheableInterfaceFactoryInterface)
+        nothing
+end
 
-    def __init__(self, cacheableInterfaceFactoryInterface: CacheableInterfaceFactoryInterface) -> None:
-        super().__init__(cacheableInterfaceFactoryInterface)
-    
+function newBasicArrayListResetablePool(cacheableInterfaceFactoryInterface)
+    this = BasicArrayListResetablePool()
+    initBasicArrayListResetablePool(this, cacheableInterfaceFactoryInterface)
+    this
+end
 
-    def clear(self) -> None:
-        pass
-    
 
-    # throws Exception
-    def remove(self, key: object) -> CacheableInterface:
-        size: int = self.buffers.size()
-        if size > 0:
-            return self.buffers.removeAt(size - 1)
-        else:
-            return self.cacheableInterfaceFactoryInterface.getInstance(key)
+function clear(this::BasicArrayListResetablePool)
+        nothing
+        nothing
+end
 
+
+function remove(this::BasicArrayListResetablePool, key)
+        local size::Int32 = AllBinary.size(this.buffers)
+        if size > Int32(0)
+            return (AllBinary.removeAt(this.buffers, size - Int32(1)))
+        else
+            return AllBinary.getInstance(this.cacheableInterfaceFactoryInterface, key)
+        end
+end
 

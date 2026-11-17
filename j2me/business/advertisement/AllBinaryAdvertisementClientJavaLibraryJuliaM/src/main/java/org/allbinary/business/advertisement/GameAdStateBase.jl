@@ -1,130 +1,166 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.business.advertisement
 
-from __future__ import annotations
+mutable struct GameAdStateBase <: JObject
+    adConfigurationP::Any
+    advertisementsP::Any
+    okayToShowAdsP::Bool
+    GameAdStateBase() = new()
+end
 
 
-
-class GameAdStateBase:
-
-    def _init_fields(self) -> None:
-        self.adConfigurationP: AdConfiguration = None
-        self.advertisementsP: Advertisements = Advertisements()
-        self.okayToShowAdsP: bool = False
+function initFieldsGameAdStateBase(this::GameAdStateBase)
+    this.adConfigurationP = nothing
+    this.advertisementsP = nothing
+    this.okayToShowAdsP = false
     
+    this.advertisementsP = newAdvertisements()
+    this.okayToShowAdsP = false
+    nothing
+end
 
-    def __init__(self, adConfiguration: AdConfiguration) -> None:
-        self._init_fields()
-        self.adConfigurationP = adConfiguration
-    
 
-    def initViewArray(self, viewArray: list[object]) -> None:
-        pass
-    
+function initGameAdStateBase(this::GameAdStateBase, adConfiguration)
+        initFieldsGameAdStateBase(this)
+        this.adConfigurationP = adConfiguration
+        nothing
+end
 
-    def onStart(self, anyType: object) -> None:
-        self.init()
-    
+function newGameAdStateBase(adConfiguration)
+    this = GameAdStateBase()
+    initGameAdStateBase(this, adConfiguration)
+    this
+end
 
-    def init(self) -> None:
-        pass
-    
 
-    def isShowingAtLocation(self, location: int) -> bool:
-        return False
-    
+function initViewArray(this::GameAdStateBase, viewArray)
+        nothing
+        nothing
+end
 
-    def isShowingAt(self) -> bool:
-        return False
-    
 
-    def show(self) -> None:
-        pass
-    
+function onStart(this::GameAdStateBase, anyType)
+        AllBinary.init(this)
+        nothing
+end
 
-    def hide(self) -> None:
-        pass
-    
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
+function init(this::GameAdStateBase)
+        nothing
+        nothing
+end
 
-    def processAdState(self, gameState: GameState, gameType: GameType) -> None:
-        from org.allbinary.game.GameType import GameType
-        from org.allbinary.game.state.GameState import GameState
-        pass
-    
 
-    def processPageAdState(self) -> None:
-        pass
-    
+function isShowingAtLocation(this::GameAdStateBase, location)
+        return false
+end
 
-    # throws Exception
-    def playingAdState(self) -> None:
-        pass
-    
 
-    # throws Exception
-    def playingAdStateWH(self, width: int, height: int) -> None:
-        pass
-    
+function isShowingAt(this::GameAdStateBase)
+        return false
+end
 
-    # throws Exception
-    def notPlayingAdState(self) -> None:
-        pass
-    
 
-    def setGameIsReady(self, gameIsReady: bool) -> None:
-        pass
-    
+function show(this::GameAdStateBase)
+        nothing
+        nothing
+end
 
-    def isGameIsReady(self) -> bool:
-        return False
-    
 
-    def getAdvertisements(self) -> Advertisements:
-        return self.advertisementsP
-    
+function hide(this::GameAdStateBase)
+        nothing
+        nothing
+end
 
-    def getAdConfiguration(self) -> AdConfiguration:
-        return self.adConfigurationP
-    
 
-    def isOkayToShowPageAd(self) -> bool:
-        return False
-    
+function onEvent(this::GameAdStateBase, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
 
-    def setOkayToShowAds(self, okayToShowAds: bool) -> None:
-        self.okayToShowAdsP = okayToShowAds
-    
 
-    def isOkayToShowAds(self) -> bool:
-        return self.okayToShowAdsP
-    
+function processAdState(this::GameAdStateBase, gameState, gameType)
+        nothing
+        nothing
+end
 
-    def isEnabled(self) -> bool:
-        return False
-# from org.allbinary.game.GameType import GameType
-# from org.allbinary.game.state.GameState import GameState
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-from org.allbinary.business.advertisement.Advertisements import Advertisements
 
+function processPageAdState(this::GameAdStateBase)
+        nothing
+        nothing
+end
+
+
+function playingAdState(this::GameAdStateBase)
+        nothing
+        nothing
+end
+
+
+function playingAdStateWH(this::GameAdStateBase, width, height)
+        nothing
+        nothing
+end
+
+
+function notPlayingAdState(this::GameAdStateBase)
+        nothing
+        nothing
+end
+
+
+function setGameIsReady(this::GameAdStateBase, gameIsReady)
+        nothing
+        nothing
+end
+
+
+function isGameIsReady(this::GameAdStateBase)
+        return false
+end
+
+
+function getAdvertisements(this::GameAdStateBase)
+        return this.advertisementsP
+end
+
+
+function getAdConfiguration(this::GameAdStateBase)
+        return this.adConfigurationP
+end
+
+
+function isOkayToShowPageAd(this::GameAdStateBase)
+        return false
+end
+
+
+function setOkayToShowAds(this::GameAdStateBase, okayToShowAds)
+        this.okayToShowAdsP = okayToShowAds
+        nothing
+end
+
+
+function isOkayToShowAds(this::GameAdStateBase)
+        return this.okayToShowAdsP
+end
+
+
+function isEnabled(this::GameAdStateBase)
+        return false
+end
 

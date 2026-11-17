@@ -1,72 +1,101 @@
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct FillAnimation <: JObject
+    pixelBuffer::Any
+    width::Int32
+    height::Int32
+    FillAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
 
-
-class FillAnimation(IndexedAnimation):
-
-    def _init_fields(self) -> None:
-        self.pixelBuffer: list[int] = None
-        self.width: int = None
-        self.height: int = None
+function initFieldsFillAnimation(this::FillAnimation)
+    this.pixelBuffer = nothing
+    this.width = Int32(0)
+    this.height = Int32(0)
     
-
-    def __init__(self, pixelBuffer: list[int], width: int, height: int, animationBehavior: AnimationBehavior) -> None:
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.width = 100
-        self.height = 100
-        self.pixelBuffer = pixelBuffer
     
-
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        changed: bool = False
-        if self.getBasicColorP() is None or int(self.getBasicColorP()) != int(basicColor):
-            changed = True
-        super().setBasicColorP(basicColor)
-        if changed:
-            self.updateModifiers()
     
+    nothing
+end
 
-    def changeBasicColor(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        changed: bool = False
-        if self.getChangeBasicColor() is None or int(self.getChangeBasicColor()) != int(basicColor):
-            changed = True
-        super().changeBasicColor(basicColor)
-        if changed:
-            self.updateModifiers()
-    
 
-    def setAlpha(self, alpha: int) -> None:
-        changed: bool = False
-        if self.alphaP != alpha:
-            changed = True
-        super().setAlpha(alpha)
-        if changed:
-            self.updateModifiers()
-    
+function initFillAnimation(this::FillAnimation, pixelBuffer, width, height, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        initFieldsFillAnimation(this)
+        this.width = Int32(100)
+        this.height = Int32(100)
+        this.pixelBuffer = pixelBuffer
+        nothing
+end
 
-    def setScale(self, scaleX: float, scaleY: float) -> None:
-        pass
-    
+function newFillAnimation(pixelBuffer, width, height, animationBehavior)
+    this = FillAnimation()
+    initFillAnimation(this, pixelBuffer, width, height, animationBehavior)
+    this
+end
 
-    def setMaxScale(self, maxScaleX: float, maxScaleY: float) -> None:
-        pass
-    
 
-    def updateModifiers(self) -> None:
-        pass
-    
+function setBasicColorP(this::FillAnimation, basicColor)
+        local changed::Bool = false
+        if AllBinary.getBasicColorP(this) === nothing || AllBinary.intValue(AllBinary.getBasicColorP(this)) != AllBinary.intValue(basicColor)
+            changed = true
+        end
+        AllBinary.setBasicColorP(this, basicColor)
+        if changed
+            AllBinary.updateModifiers(this)
+        end
+        nothing
+end
 
-    def paint(self, g: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        g.drawRGB(self.pixelBuffer, 0, self.width, 0, 0, self.width, self.height, True)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
 
+function changeBasicColor(this::FillAnimation, basicColor)
+        local changed::Bool = false
+        if AllBinary.getChangeBasicColor(this) === nothing || AllBinary.intValue(AllBinary.getChangeBasicColor(this)) != AllBinary.intValue(basicColor)
+            changed = true
+        end
+        AllBinary.changeBasicColor(this, basicColor)
+        if changed
+            AllBinary.updateModifiers(this)
+        end
+        nothing
+end
+
+
+function setAlpha(this::FillAnimation, alpha)
+        local changed::Bool = false
+        if this.alphaP != alpha
+            changed = true
+        end
+        AllBinary.setAlpha(this, alpha)
+        if changed
+            AllBinary.updateModifiers(this)
+        end
+        nothing
+end
+
+
+function setScale(this::FillAnimation, scaleX, scaleY)
+        nothing
+        nothing
+end
+
+
+function setMaxScale(this::FillAnimation, maxScaleX, maxScaleY)
+        nothing
+        nothing
+end
+
+
+function updateModifiers(this::FillAnimation)
+        nothing
+        nothing
+end
+
+
+function paint(this::FillAnimation, g)
+        AllBinary.drawRGB(g, this.pixelBuffer, Int32(0), this.width, Int32(0), Int32(0), this.width, this.height, true)
+        nothing
+end
 

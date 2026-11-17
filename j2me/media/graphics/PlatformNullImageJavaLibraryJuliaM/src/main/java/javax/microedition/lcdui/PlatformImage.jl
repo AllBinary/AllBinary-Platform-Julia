@@ -1,70 +1,96 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package javax.microedition.lcdui
 
-from __future__ import annotations
-
-
-
 #PlatformNullImageJavaLibrary
-class PlatformImage:
-    
+mutable struct PlatformImage <: JObject
+    PlatformImage() = new()
+end
 
-    def getImage(self, graphicsSurface2: object) -> object:
-        from javax.microedition.lcdui.NullImage import NullImage
-        return NullImage.NULL_IMAGE
-    
 
-    def getSurfaceWidth(self, graphicsSurface2: object, width: int) -> int:
+function initFieldsPlatformImage(this::PlatformImage)
+    nothing
+end
+
+function initPlatformImage(this::PlatformImage)
+    initFieldsPlatformImage(this)
+end
+
+function newPlatformImage()
+    this = PlatformImage()
+    initPlatformImage(this)
+    this
+end
+
+
+function getImage(this::PlatformImage, graphicsSurface2)
+        return staticGet_NULL_IMAGE(NullImage)
+end
+
+
+function getSurfaceWidth(this::PlatformImage, graphicsSurface2, width)
         return width
-    
+end
 
-    def getSurfaceHeight(self, graphicsSurface2: object, height: int) -> int:
+
+function getSurfaceHeight(this::PlatformImage, graphicsSurface2, height)
         return height
-    
+end
 
-    def getWidth(self, image: Image, width: int) -> int:
+
+function getWidth(this::PlatformImage, image, width)
         return width
-    
+end
 
-    def getHeight(self, image: Image, height: int) -> int:
+
+function getHeight(this::PlatformImage, image, height)
         return height
-    
+end
 
-    def getGraphics(self, graphicsSurface: object, width: int, height: int, image: Image) -> Graphics:
-        raise RuntimeError()
-    
 
-    def drawImage(self, image: Image, x: int, y: int, anchor: int, g2: Graphics, g: object) -> None:
-        pass
-    
+function getGraphics(this::PlatformImage, graphicsSurface, width, height, image)
+        throw(jNewException("RuntimeException", ""))
+end
 
-    def drawRegion(self, image: Image, x_src: int, y_src: int, width: int, height: int, transform: int, x_dst: int, y_dst: int, anchor: int, g: Graphics) -> None:
-        pass
-    
 
-    def getRGB(self, argb: list[int], offset: int, scanlength: int, x: int, y: int, width: int, height: int, image: Image) -> None:
-        pass
-    
+function drawImage(this::PlatformImage, image, x, y, anchor, g2, g)
+        nothing
+        nothing
+end
 
-    def setRGB(self, argb: list[int], offset: int, scanlength: int, x: int, y: int, width: int, height: int, image: Image) -> None:
-        pass
-    
 
-    def getData(self, image: Image) -> list[int]:
-        from org.allbinary.logic.NullUtil import NullUtil
-        return NullUtil.getInstance().NULL_INT_ARRAY
-# from org.allbinary.logic.NullUtil import NullUtil
+function drawRegion(this::PlatformImage, image, x_src, y_src, width, height, transform, x_dst, y_dst, anchor, g)
+        nothing
+        nothing
+end
 
+
+function getRGB(this::PlatformImage, argb, offset, scanlength, x, y, width, height, image)
+        nothing
+        nothing
+end
+
+
+function setRGB(this::PlatformImage, argb, offset, scanlength, x, y, width, height, image)
+        nothing
+        nothing
+end
+
+
+function getData(this::PlatformImage, image)
+        return AllBinary.getInstance(NullUtil).NULL_INT_ARRAY
+end
 

@@ -1,81 +1,98 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+mutable struct GameKeyMappingFactory <: JObject
+    intKeyToGameKey::Any
+    GameKeyMappingFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameKeyMappingFactory_instanceValue = Ref{Any}(nothing)
+const GameKeyMappingFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameKeyMappingFactory})
+    if !GameKeyMappingFactory_instanceSet[]
+        GameKeyMappingFactory_instanceSet[] = true
+        GameKeyMappingFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    GameKeyMappingFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GameKeyMappingFactory}, value)
+    GameKeyMappingFactory_instanceSet[] = true
+    GameKeyMappingFactory_instanceValue[] = value
+end
 
-
-class GameKeyMappingFactory:
-    instance: object = None
-
-    def _init_fields(self) -> None:
-        self.intKeyToGameKey: list[GameKey] = [None] * (InputFactory.getInstance().MAX)
-    
-
-    @staticmethod
-    def getInstance() -> GameKeyMappingFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if GameKeyMappingFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            GameKeyMappingFactory.instance = GameKeyMappingFactory()
-        return GameKeyMappingFactory.instance
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-        self._init_fields()
-        gameKeyFactory: GameKeyFactory = GameKeyFactory.getInstance()
-        self.setGameKey(gameKeyFactory.NONE)
-        self.setGameKey(gameKeyFactory.UP)
-        self.setGameKey(gameKeyFactory.DOWN)
-        self.setGameKey(gameKeyFactory.LEFT)
-        self.setGameKey(gameKeyFactory.RIGHT)
-        self.setGameKey(gameKeyFactory.KEY_POUND)
-        self.setGameKey(gameKeyFactory.KEY_STAR)
-        self.setGameKey(gameKeyFactory.KEY_NUM0)
-        self.setGameKey(gameKeyFactory.KEY_NUM1)
-        self.setGameKey(gameKeyFactory.KEY_NUM2)
-        self.setGameKey(gameKeyFactory.KEY_NUM3)
-        self.setGameKey(gameKeyFactory.KEY_NUM4)
-        self.setGameKey(gameKeyFactory.KEY_NUM5)
-        self.setGameKey(gameKeyFactory.KEY_NUM6)
-        self.setGameKey(gameKeyFactory.KEY_NUM7)
-        self.setGameKey(gameKeyFactory.KEY_NUM8)
-        self.setGameKey(gameKeyFactory.KEY_NUM9)
-        self.setGameKey(gameKeyFactory.GAME_A)
-        self.setGameKey(gameKeyFactory.GAME_B)
-        self.setGameKey(gameKeyFactory.GAME_C)
-        self.setGameKey(gameKeyFactory.GAME_D)
-        self.setGameKey(gameKeyFactory.FIRE)
-        self.setGameKey(gameKeyFactory.LEVEL_DOWN)
-        self.setGameKey(gameKeyFactory.LEVEL_UP)
-    
-
-    def getGameKey(self, key: int) -> GameKey:
-        return self.intKeyToGameKey[key]
-    
-
-    def setGameKey(self, gameKey: GameKey) -> None:
-        self.intKeyToGameKey[gameKey.getId()] = gameKey
-# from org.allbinary.logic.NullUtil import NullUtil
-from org.allbinary.game.input.InputFactory import InputFactory
+function initFieldsGameKeyMappingFactory(this::GameKeyMappingFactory)
+    this.intKeyToGameKey = nothing
+    this.intKeyToGameKey = jNewArray(Any, AllBinary.getInstance(InputFactory).MAX, nothing)
+    nothing
+end
 
 
-def _GameKeyMappingFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{GameKeyMappingFactory})
+        if staticGet_instance(GameKeyMappingFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(GameKeyMappingFactory, newGameKeyMappingFactory())
+        end
+        return (staticGet_instance(GameKeyMappingFactory))
+end
 
-lazy_static(GameKeyMappingFactory, "instance", _GameKeyMappingFactory_instance)
+
+function initGameKeyMappingFactory(this::GameKeyMappingFactory)
+        initFieldsGameKeyMappingFactory(this)
+        local gameKeyFactory = AllBinary.getInstance(GameKeyFactory)
+        AllBinary.setGameKey(this, gameKeyFactory.NONE)
+        AllBinary.setGameKey(this, gameKeyFactory.UP)
+        AllBinary.setGameKey(this, gameKeyFactory.DOWN)
+        AllBinary.setGameKey(this, gameKeyFactory.LEFT)
+        AllBinary.setGameKey(this, gameKeyFactory.RIGHT)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_POUND)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_STAR)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM0)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM1)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM2)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM3)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM4)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM5)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM6)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM7)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM8)
+        AllBinary.setGameKey(this, gameKeyFactory.KEY_NUM9)
+        AllBinary.setGameKey(this, gameKeyFactory.GAME_A)
+        AllBinary.setGameKey(this, gameKeyFactory.GAME_B)
+        AllBinary.setGameKey(this, gameKeyFactory.GAME_C)
+        AllBinary.setGameKey(this, gameKeyFactory.GAME_D)
+        AllBinary.setGameKey(this, gameKeyFactory.FIRE)
+        AllBinary.setGameKey(this, gameKeyFactory.LEVEL_DOWN)
+        AllBinary.setGameKey(this, gameKeyFactory.LEVEL_UP)
+        nothing
+end
+
+function newGameKeyMappingFactory()
+    this = GameKeyMappingFactory()
+    initGameKeyMappingFactory(this)
+    this
+end
+
+
+function getGameKey(this::GameKeyMappingFactory, key)
+        return this.intKeyToGameKey[key + 1]
+end
+
+
+function setGameKey(this::GameKeyMappingFactory, gameKey)
+        this.intKeyToGameKey[AllBinary.getId(gameKey) + 1] = gameKey
+        nothing
+end
 

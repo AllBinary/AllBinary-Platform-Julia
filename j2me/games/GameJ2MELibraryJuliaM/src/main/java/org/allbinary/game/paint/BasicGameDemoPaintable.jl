@@ -1,79 +1,95 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint
 
-from __future__ import annotations
+# extends StatePaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicGameDemoPaintable <: JObject
+    mainDemoStatePaintable::Any
+    ownershipPaintable::Any
+    helpPaintableInterface::Any
+    currentStatePaintable::Any
+    BasicGameDemoPaintable() = new()
+end
 
-from org.allbinary.graphics.paint.StatePaintable import StatePaintable
 
-
-class BasicGameDemoPaintable(StatePaintable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        self.mainDemoStatePaintable: Paintable = None
-        self.ownershipPaintable: Paintable = None
-        self.helpPaintableInterface: Paintable = None
-        self.currentStatePaintable: Paintable = NullPaintable.getInstance()
+function initFieldsBasicGameDemoPaintable(this::BasicGameDemoPaintable)
+    this.mainDemoStatePaintable = nothing
+    this.ownershipPaintable = nothing
+    this.helpPaintableInterface = nothing
+    this.currentStatePaintable = nothing
     
-
-    def __init__(self, mainDemoStatePaintable: Paintable, ownershipPaintable: Paintable, helpPaintableInterface: Paintable) -> None:
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        super().__init__()
-        self._init_fields()
-        self.mainDemoStatePaintable = mainDemoStatePaintable
-        self.setCurrentStatePaintable(NullPaintable.getInstance())
-        self.ownershipPaintable = ownershipPaintable
-        self.helpPaintableInterface = helpPaintableInterface
     
-
-    def setState(self, state: int) -> None:
-        if state == 0:
-            self.setCurrentStatePaintable(self.getMainDemoStatePaintable())
-        elif state == 1:
-            self.setCurrentStatePaintable(self.helpPaintableInterface)
-        else:
-            self.setCurrentStatePaintable(self.ownershipPaintable)
     
+    this.currentStatePaintable = AllBinary.getInstance(NullPaintable)
+    nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.getCurrentStatePaintable().paint(graphics)
-    
 
-    def getHelpPaintableInterface(self) -> Paintable:
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        return self.helpPaintableInterface
-    
+function initBasicGameDemoPaintable(this::BasicGameDemoPaintable, mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface)
+        initStatePaintable(this)
+        initFieldsBasicGameDemoPaintable(this)
+        this.mainDemoStatePaintable = mainDemoStatePaintable
+        AllBinary.setCurrentStatePaintable(this, AllBinary.getInstance(NullPaintable))
+        this.ownershipPaintable = ownershipPaintable
+        this.helpPaintableInterface = helpPaintableInterface
+        nothing
+end
 
-    def setCurrentStatePaintable(self, currentStatePaintable: Paintable) -> None:
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        self.currentStatePaintable = currentStatePaintable
-    
+function newBasicGameDemoPaintable(mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface)
+    this = BasicGameDemoPaintable()
+    initBasicGameDemoPaintable(this, mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface)
+    this
+end
 
-    def getCurrentStatePaintable(self) -> Paintable:
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        return self.currentStatePaintable
-    
 
-    def getMainDemoStatePaintable(self) -> Paintable:
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        return self.mainDemoStatePaintable
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-# from org.allbinary.graphics.paint.Paintable import Paintable
+function setState(this::BasicGameDemoPaintable, state)
+        if state == Int32(0)
+            AllBinary.setCurrentStatePaintable(this, AllBinary.getMainDemoStatePaintable(this))
+        elseif state == Int32(1)
+            AllBinary.setCurrentStatePaintable(this, this.helpPaintableInterface)
+        else
+            AllBinary.setCurrentStatePaintable(this, this.ownershipPaintable)
+        end
+        nothing
+end
 
+
+function paint(this::BasicGameDemoPaintable, graphics)
+        AllBinary.paint(AllBinary.getCurrentStatePaintable(this), graphics)
+        nothing
+end
+
+
+function getHelpPaintableInterface(this::BasicGameDemoPaintable)
+        return this.helpPaintableInterface
+end
+
+
+function setCurrentStatePaintable(this::BasicGameDemoPaintable, currentStatePaintable)
+        this.currentStatePaintable = currentStatePaintable
+        nothing
+end
+
+
+function getCurrentStatePaintable(this::BasicGameDemoPaintable)
+        return this.currentStatePaintable
+end
+
+
+function getMainDemoStatePaintable(this::BasicGameDemoPaintable)
+        return this.mainDemoStatePaintable
+end
 

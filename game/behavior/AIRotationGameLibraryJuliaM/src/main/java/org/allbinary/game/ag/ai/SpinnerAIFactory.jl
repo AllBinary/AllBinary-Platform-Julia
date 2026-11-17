@@ -1,39 +1,42 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai
 
-from __future__ import annotations
+mutable struct SpinnerAIFactory <: JObject
+    SpinnerAIFactory() = new()
+end
 
-from org.allbinary.game.ai.ArtificialIntelligenceInterfaceFactoryInterface import ArtificialIntelligenceInterfaceFactoryInterface
+
+function initFieldsSpinnerAIFactory(this::SpinnerAIFactory)
+    nothing
+end
+
+function initSpinnerAIFactory(this::SpinnerAIFactory)
+    initFieldsSpinnerAIFactory(this)
+end
+
+function newSpinnerAIFactory()
+    this = SpinnerAIFactory()
+    initSpinnerAIFactory(this)
+    this
+end
 
 
-class SpinnerAIFactory(ArtificialIntelligenceInterfaceFactoryInterface):
-    
-
-    def getInstance(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> ArtificialIntelligenceInterface:
-        from org.allbinary.game.ag.ai.SpinnerAI import SpinnerAI
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.ABHashtable import ABHashtable
-        direction: list[int] = [Canvas.LEFT]
-        return SpinnerAI(direction, ownerLayerInterface, gameInput)
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.util.ABHashtable import ABHashtable
-
+function getInstance(this::SpinnerAIFactory, hashtable, ownerLayerInterface, gameInput)
+        local direction = Int32[staticGet_LEFT(Canvas)]
+        return newSpinnerAI(direction, ownerLayerInterface, gameInput)
+end
 

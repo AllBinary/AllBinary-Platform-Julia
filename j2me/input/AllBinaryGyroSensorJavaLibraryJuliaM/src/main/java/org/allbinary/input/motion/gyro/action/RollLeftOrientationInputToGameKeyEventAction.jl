@@ -1,48 +1,60 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gyro.action
 
-from __future__ import annotations
+# extends GameKeyCompleteMotionGestureInputEvent: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct RollLeftOrientationInputToGameKeyEventAction <: JObject
+    RollLeftOrientationInputToGameKeyEventAction() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent import GameKeyCompleteMotionGestureInputEvent
+const RollLeftOrientationInputToGameKeyEventAction_instanceValue = Ref{Any}(nothing)
+const RollLeftOrientationInputToGameKeyEventAction_instanceSet = Ref(false)
+function staticGet_instance(::Type{RollLeftOrientationInputToGameKeyEventAction})
+    if !RollLeftOrientationInputToGameKeyEventAction_instanceSet[]
+        RollLeftOrientationInputToGameKeyEventAction_instanceSet[] = true
+        RollLeftOrientationInputToGameKeyEventAction_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    RollLeftOrientationInputToGameKeyEventAction_instanceValue[]
+end
+function staticSet_instance(::Type{RollLeftOrientationInputToGameKeyEventAction}, value)
+    RollLeftOrientationInputToGameKeyEventAction_instanceSet[] = true
+    RollLeftOrientationInputToGameKeyEventAction_instanceValue[] = value
+end
 
-
-class RollLeftOrientationInputToGameKeyEventAction(GameKeyCompleteMotionGestureInputEvent):
-    instance: object = None
-    
-
-    @staticmethod
-    def getInstance() -> GameKeyCompleteMotionGestureInputEvent:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if RollLeftOrientationInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT:
-            RollLeftOrientationInputToGameKeyEventAction.instance = RollLeftOrientationInputToGameKeyEventAction()
-        return RollLeftOrientationInputToGameKeyEventAction.instance
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-        from org.allbinary.input.gyro.OrientationMotionGestureFactory import OrientationMotionGestureFactory
-        super().__init__("Roll Left Action", OrientationMotionGestureFactory.getInstance().ROLL_LEFT, PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping())
-# from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-# from org.allbinary.input.gyro.OrientationMotionGestureFactory import OrientationMotionGestureFactory
-# from org.allbinary.logic.NullUtil import NullUtil
+function initFieldsRollLeftOrientationInputToGameKeyEventAction(this::RollLeftOrientationInputToGameKeyEventAction)
+    nothing
+end
 
 
-def _RollLeftOrientationInputToGameKeyEventAction_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{RollLeftOrientationInputToGameKeyEventAction})
+        if staticGet_instance(RollLeftOrientationInputToGameKeyEventAction) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(RollLeftOrientationInputToGameKeyEventAction, newRollLeftOrientationInputToGameKeyEventAction())
+        end
+        return (staticGet_instance(RollLeftOrientationInputToGameKeyEventAction))
+end
 
-lazy_static(RollLeftOrientationInputToGameKeyEventAction, "instance", _RollLeftOrientationInputToGameKeyEventAction_instance)
+
+function initRollLeftOrientationInputToGameKeyEventAction(this::RollLeftOrientationInputToGameKeyEventAction)
+        initGameKeyCompleteMotionGestureInputEvent(this, "Roll Left Action", AllBinary.getInstance(OrientationMotionGestureFactory).ROLL_LEFT, AllBinary.getInputMapping(AllBinary.getPersistentInputMappingInstance(AllBinary.getInstance(PlatformInputMappingFactory))))
+        nothing
+end
+
+function newRollLeftOrientationInputToGameKeyEventAction()
+    this = RollLeftOrientationInputToGameKeyEventAction()
+    initRollLeftOrientationInputToGameKeyEventAction(this)
+    this
+end
 

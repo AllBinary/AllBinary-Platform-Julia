@@ -1,258 +1,297 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.canvas.transition.progress
 
-from __future__ import annotations
+# extends RunnableCanvas: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ProgressCanvas <: JObject
+    hasPainted::Bool
+    backgroundBasicColor::Any
+    GAUGE_PAINTABLE::Any
+    maxValue::Float32
+    gauge::Any
+    TEXT::Any
+    updateMyFontProcessor::Any
+    myFontProcessor::Any
+    allbinaryMidlet::Any
+    value::Float32
+    text::Any
+    background::Bool
+    paintable::Any
+    inProgress::Bool
+    IN_GAME_PROCESSOR::Any
+    inGameProcessor::Any
+    progressEndListener::Any
+    backgroundLabel::Any
+    START_BACKGROUND::Any
+    ADD_PORTION::Any
+    ADD_EARLY_PORTION::Any
+    ProgressCanvas() = new()
+end
 
-from org.allbinary.canvas.RunnableCanvas import RunnableCanvas
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
 
-
-class ProgressCanvas(RunnableCanvas, PaintableInterface, UpdateMyFontInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.canvas.Processor import Processor
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        from org.allbinary.graphics.form.item.ABCustomGaugeItem import ABCustomGaugeItem
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        from org.allbinary.midlet.AllBinaryMidlet import AllBinaryMidlet
-        from org.allbinary.thread.PathFindingThreadPool import PathFindingThreadPool
-        from org.allbinary.thread.ThreadPool import ThreadPool
-        self.hasPainted: bool = False
-        self.backgroundBasicColor: BasicColor = None
-        self.GAUGE_PAINTABLE: Paintable = ProgressPaintable(self)
-        self.maxValue: float = 100.0
-        self.gauge: ABCustomGaugeItem = None
-        self.TEXT: str = self.commonStrings.LOADING
-        self.updateMyFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.myFontProcessor: MyFontProcessor = self.updateMyFontProcessor
-        self.allbinaryMidlet: AllBinaryMidlet = AllBinaryMidlet.getNullInstance()
-        self.value: float = 0.0
-        self.text: str = self.TEXT
-        self.background: bool = True
-        self.paintable: PaintableInterface = self.GAUGE_PAINTABLE
-        self.inProgress: bool = False
-        self.IN_GAME_PROCESSOR: Processor = (Processor()  # Java anonymous class body:
-#         self.pathFindingThreadPool: ThreadPool = PathFindingThreadPool.getInstance()
-#         
-# 
-#         # throws Exception
-#         def process(self) -> None:
-#             self.pathFindingThreadPool.runAPriorityTask()
-)
-        self.inGameProcessor: Processor = Processor.getInstance()
-        self.progressEndListener: ProgressEndListener = ProgressEndListener.instance
-        self.backgroundLabel: str = "Background AI Game Loading..."
-        self.START_BACKGROUND: str = "startBackground"
-        self.ADD_PORTION: str = "addPortion"
-        self.ADD_EARLY_PORTION: str = "addEarlyPortion"
+function initFieldsProgressCanvas(this::ProgressCanvas)
+    this.hasPainted = false
+    this.backgroundBasicColor = nothing
+    this.GAUGE_PAINTABLE = nothing
+    this.maxValue = 0.0f0
+    this.gauge = nothing
+    this.TEXT = nothing
+    this.updateMyFontProcessor = nothing
+    this.myFontProcessor = nothing
+    this.allbinaryMidlet = nothing
+    this.value = 0.0f0
+    this.text = nothing
+    this.background = false
+    this.paintable = nothing
+    this.inProgress = false
+    this.IN_GAME_PROCESSOR = nothing
+    this.inGameProcessor = nothing
+    this.progressEndListener = nothing
+    this.backgroundLabel = nothing
+    this.START_BACKGROUND = nothing
+    this.ADD_PORTION = nothing
+    this.ADD_EARLY_PORTION = nothing
+    this.hasPainted = false
     
-
-    def __init__(self, title: str, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from javax.microedition.lcdui.NullCommandListener import NullCommandListener
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-        from org.allbinary.graphics.form.item.ABCustomGaugeItem import ABCustomGaugeItem
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        super().__init__(NullCommandListener.NULL_COMMAND_LISTENER, CanvasStrings.getInstance().EMPTY_CHILD_NAME_LIST, False)
-        self._init_fields()
-        self.backgroundBasicColor = backgroundBasicColor
-        self.gauge = ABCustomGaugeItem(StringUtil.getInstance().EMPTY_STRING, int(self.maxValue), 0, backgroundBasicColor, foregroundBasicColor)
+    this.GAUGE_PAINTABLE = newProgressPaintable(this)
+    this.maxValue = 100.0f0
     
+    this.TEXT = this.commonStrings.LOADING
+    this.updateMyFontProcessor = newUpdateMyFontProcessor(this)
+    this.myFontProcessor = this.updateMyFontProcessor
+    this.allbinaryMidlet = AllBinary.getNullInstance(AllBinaryMidlet)
+    this.value = 0.0f0
+    this.text = this.TEXT
+    this.background = true
+    this.paintable = this.GAUGE_PAINTABLE
+    this.inProgress = false
+    this.IN_GAME_PROCESSOR = newProcessor() #= Java anonymous class body: implement it as a named type
+        this.pathFindingThreadPool = AllBinary.getInstance(PathFindingThreadPool)
+        
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        font: Font = graphics.getFont()
-        self.gauge.setHeight(font.getHeight() + 2)
-        self.myFontProcessor = MyFontProcessor.getInstance()
-    
+function process(this::ProgressCanvas)
+            AllBinary.runAPriorityTask(this.pathFindingThreadPool)
+        nothing
+end =#
+    this.inGameProcessor = AllBinary.getInstance(Processor)
+    this.progressEndListener = staticGet_instance(ProgressEndListener)
+    this.backgroundLabel = "Background AI Game Loading..."
+    this.START_BACKGROUND = "startBackground"
+    this.ADD_PORTION = "addPortion"
+    this.ADD_EARLY_PORTION = "addEarlyPortion"
+    nothing
+end
 
-    def init(self, gameMidlet: AllBinaryMidlet) -> None:
-        from org.allbinary.midlet.AllBinaryMidlet import AllBinaryMidlet
-        self.allbinaryMidlet = gameMidlet
-    
 
-    # throws Exception
-    def update(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
+function initProgressCanvas(this::ProgressCanvas, title, backgroundBasicColor, foregroundBasicColor)
+        initRunnableCanvas(this, staticGet_NULL_COMMAND_LISTENER(NullCommandListener), AllBinary.getInstance(CanvasStrings).EMPTY_CHILD_NAME_LIST, false)
+        initFieldsProgressCanvas(this)
+        this.backgroundBasicColor = backgroundBasicColor
+        this.gauge = newABCustomGaugeItem(AllBinary.getInstance(StringUtil).EMPTY_STRING, (jToInt32(this.maxValue) % Int32), Int32(0), backgroundBasicColor, foregroundBasicColor)
+        nothing
+end
 
-    def initCommands(self, cmdListener: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        pass
-    
+function newProgressCanvas(title, backgroundBasicColor, foregroundBasicColor)
+    this = ProgressCanvas()
+    initProgressCanvas(this, title, backgroundBasicColor, foregroundBasicColor)
+    this
+end
 
-    def getMaxValue(self) -> float:
-        return self.maxValue
-    
 
-    def start(self) -> None:
-        from org.allbinary.canvas.Processor import Processor
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.START_METHOD_NAME)
-        self.setBackground(True)
-        self.gauge.setHeight(30)
-        self.gauge.setLabel(self.commonStrings.PLEASE_WAIT)
-        self.setText(self.TEXT)
-        self.setValue(0)
-        self.inGameProcessor = Processor.getInstance()
-        self.paintable = self.GAUGE_PAINTABLE
-        self.inProgress = True
-    
+function updateMeasurement(this::ProgressCanvas, graphics)
+        local font = AllBinary.getFont(graphics)
+        AllBinary.setHeight(this.gauge, AllBinary.getHeight(font) + Int32(2))
+        this.myFontProcessor = AllBinary.getInstance(MyFontProcessor)
+        nothing
+end
 
-    def startBackground(self, background: bool) -> None:
-        from org.allbinary.canvas.Processor import Processor
-        self.logUtil.putF(self.commonStrings.START, self, self.START_BACKGROUND)
-        self.setBackground(background)
-        self.myFontProcessor = self.updateMyFontProcessor
-        self.gauge.setLabel(self.backgroundLabel)
-        self.setText(self.TEXT)
-        self.setValue(0)
-        self.inGameProcessor = Processor.getInstance()
-        self.paintable = self.GAUGE_PAINTABLE
-    
 
-    def endActual(self) -> None:
-        from javax.microedition.lcdui.NullCanvas import NullCanvas
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        self.allbinaryMidlet.commandAction(GameCommandsFactory.getInstance().SHOW_GAME_CANVAS, NullCanvas.NULL_CANVAS)
-        self.inProgress = False
-        self.inGame()
-    
+function init(this::ProgressCanvas, gameMidlet)
+        this.allbinaryMidlet = gameMidlet
+        nothing
+end
 
-    def inGame(self) -> None:
-        self.progressEndListener.onEndEvent()
-        self.inGameProcessor = self.IN_GAME_PROCESSOR
-    
 
-    def end(self) -> None:
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.END_METHOD_NAME)
-        self.gauge.setValue(self.getMaxValue())
-        self.endActual()
-        self.paintable = NullPaintable.getInstance()
-    
+function update(this::ProgressCanvas, graphics)
+        nothing
+        nothing
+end
 
-    def endFromInitialLazyLoadingComplete(self) -> None:
-        self.progressEndListener.onEndEvent()
-        self.gauge.setValue(self.getMaxValue())
-        self.inGameProcessor = self.IN_GAME_PROCESSOR
-    
 
-    def isInGame(self) -> bool:
-        if self.inGameProcessor == self.IN_GAME_PROCESSOR:
-            return True
-        return False
-    
+function initCommands(this::ProgressCanvas, cmdListener)
+        nothing
+        nothing
+end
 
-    def endIfPaintedSinceStart(self) -> None:
-        pass
-    
 
-    def addEarlyPortion(self, value: int, text: str, index: int) -> None:
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.setText(str(StringMaker().append(text).append(str(SmallIntegerSingletonFactory.getInstance().getAt(index)))))
-        self.gauge.setValue(self.gauge.getValue() + self.getMaxValue() / float(value))
-    
+function getMaxValue(this::ProgressCanvas)
+        return this.maxValue
+end
 
-    def addPortion(self, value: int, text: str, index: int) -> None:
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.setText(str(StringMaker().append(text).append(str(SmallIntegerSingletonFactory.getInstance().getAt(index)))))
-        PreLogUtil.put(self.text, self, self.ADD_PORTION)
-        self.gauge.setValue(self.gauge.getValue() + self.getMaxValue() / float(value))
-    
 
-    def addNormalPortion(self, value: int, text: str) -> None:
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        if self.text != text:
-            PreLogUtil.put(text, self, self.ADD_PORTION)
-        self.setText(text)
-        self.gauge.setValue(self.gauge.getValue() + self.getMaxValue() / float(value))
-    
+function start(this::ProgressCanvas)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.START_METHOD_NAME)
+        AllBinary.setBackground(this, true)
+        AllBinary.setHeight(this.gauge, Int32(30))
+        AllBinary.setLabel(this.gauge, this.commonStrings.PLEASE_WAIT)
+        AllBinary.setText(this, this.TEXT)
+        AllBinary.setValue(this, Int32(0))
+        this.inGameProcessor = AllBinary.getInstance(Processor)
+        this.paintable = this.GAUGE_PAINTABLE
+        this.inProgress = true
+        nothing
+end
 
-    def setValue(self, value: int) -> None:
-        self.value = float(value)
-        self.gauge.setValue(float(value))
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.paintable.paint(graphics)
-    
+function startBackground(this::ProgressCanvas, background)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.START_BACKGROUND)
+        AllBinary.setBackground(this, background)
+        this.myFontProcessor = this.updateMyFontProcessor
+        AllBinary.setLabel(this.gauge, this.backgroundLabel)
+        AllBinary.setText(this, this.TEXT)
+        AllBinary.setValue(this, Int32(0))
+        this.inGameProcessor = AllBinary.getInstance(Processor)
+        this.paintable = this.GAUGE_PAINTABLE
+        nothing
+end
 
-    def paint2(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        graphics.setColor(int(self.backgroundBasicColor))
-        graphics.fillRect(0, 0, self.displayInfo.getLastWidth(), self.displayInfo.getLastHeight())
-        self.gauge.paintXY(graphics, 0, 0)
-        self.hasPainted = True
-    
 
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
+function endActual(this::ProgressCanvas)
+        AllBinary.commandAction(this.allbinaryMidlet, AllBinary.getInstance(GameCommandsFactory).SHOW_GAME_CANVAS, staticGet_NULL_CANVAS(NullCanvas))
+        this.inProgress = false
+        AllBinary.inGame(this)
+        nothing
+end
 
-    def getValue(self) -> float:
-        return self.value
-    
 
-    def setText(self, text: str) -> None:
-        self.text = text
-    
+function inGame(this::ProgressCanvas)
+        AllBinary.onEndEvent(this.progressEndListener)
+        this.inGameProcessor = this.IN_GAME_PROCESSOR
+        nothing
+end
 
-    def getText(self) -> str:
-        return self.text
-    
 
-    def setBackground(self, background: bool) -> None:
-        self.background = background
-    
+function end_(this::ProgressCanvas)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.END_METHOD_NAME)
+        AllBinary.setValue(this.gauge, AllBinary.getMaxValue(this))
+        AllBinary.endActual(this)
+        this.paintable = AllBinary.getInstance(NullPaintable)
+        nothing
+end
 
-    def isBackground(self) -> bool:
-        return self.background
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.NullCanvas import NullCanvas
-# from javax.microedition.lcdui.NullCommandListener import NullCommandListener
-# from org.allbinary.canvas.Processor import Processor
-# from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-# from org.allbinary.graphics.form.item.ABCustomGaugeItem import ABCustomGaugeItem
-# from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-# from org.allbinary.graphics.paint.Paintable import Paintable
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.midlet.AllBinaryMidlet import AllBinaryMidlet
-# from org.allbinary.thread.PathFindingThreadPool import PathFindingThreadPool
-# from org.allbinary.thread.ThreadPool import ThreadPool
-from org.allbinary.graphics.canvas.transition.progress.ProgressPaintable import ProgressPaintable
-from org.allbinary.graphics.canvas.transition.progress.ProgressEndListener import ProgressEndListener
 
+function endFromInitialLazyLoadingComplete(this::ProgressCanvas)
+        AllBinary.onEndEvent(this.progressEndListener)
+        AllBinary.setValue(this.gauge, AllBinary.getMaxValue(this))
+        this.inGameProcessor = this.IN_GAME_PROCESSOR
+        nothing
+end
+
+
+function isInGame(this::ProgressCanvas)
+        if this.inGameProcessor === this.IN_GAME_PROCESSOR
+            return true
+        end
+        return false
+end
+
+
+function endIfPaintedSinceStart(this::ProgressCanvas)
+        nothing
+        nothing
+end
+
+
+function addEarlyPortion(this::ProgressCanvas, value, text, index)
+        AllBinary.setText(this, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), text), AllBinary.toString(AllBinary.getAt(AllBinary.getInstance(SmallIntegerSingletonFactory), index)))))
+        AllBinary.setValue(this.gauge, AllBinary.getValue(this.gauge) + AllBinary.getMaxValue(this) ÷ Float32(value))
+        nothing
+end
+
+
+function addPortion(this::ProgressCanvas, value, text, index)
+        AllBinary.setText(this, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), text), AllBinary.toString(AllBinary.getAt(AllBinary.getInstance(SmallIntegerSingletonFactory), index)))))
+        AllBinary.put(PreLogUtil, this.text, this, this.ADD_PORTION)
+        AllBinary.setValue(this.gauge, AllBinary.getValue(this.gauge) + AllBinary.getMaxValue(this) ÷ Float32(value))
+        nothing
+end
+
+
+function addNormalPortion(this::ProgressCanvas, value, text)
+        if this.text != text
+            AllBinary.put(PreLogUtil, text, this, this.ADD_PORTION)
+        end
+        AllBinary.setText(this, text)
+        AllBinary.setValue(this.gauge, AllBinary.getValue(this.gauge) + AllBinary.getMaxValue(this) ÷ Float32(value))
+        nothing
+end
+
+
+function setValue(this::ProgressCanvas, value)
+        this.value = Float32(value)
+        AllBinary.setValue(this.gauge, Float32(value))
+        nothing
+end
+
+
+function paint(this::ProgressCanvas, graphics)
+        AllBinary.paint(this.paintable, graphics)
+        nothing
+end
+
+
+function paint2(this::ProgressCanvas, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.setColor(graphics, AllBinary.intValue(this.backgroundBasicColor))
+        AllBinary.fillRect(graphics, Int32(0), Int32(0), AllBinary.getLastWidth(this.displayInfo), AllBinary.getLastHeight(this.displayInfo))
+        AllBinary.paintXY(this.gauge, graphics, Int32(0), Int32(0))
+        this.hasPainted = true
+        nothing
+end
+
+
+function paintThreed(this::ProgressCanvas, graphics)
+        nothing
+        nothing
+end
+
+
+function getValue(this::ProgressCanvas)
+        return this.value
+end
+
+
+function setText(this::ProgressCanvas, text)
+        this.text = text
+        nothing
+end
+
+
+function getText(this::ProgressCanvas)
+        return this.text
+end
+
+
+function setBackground(this::ProgressCanvas, background)
+        this.background = background
+        nothing
+end
+
+
+function isBackground(this::ProgressCanvas)
+        return this.background
+end
 

@@ -1,56 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends BasicArrayListResetablePool: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageArrayRotationAnimationPool <: JObject
+    ImageArrayRotationAnimationPool() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.cache.BasicArrayListResetablePool import BasicArrayListResetablePool
+const ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOLValue = Ref{Any}(nothing)
+const ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOLSet = Ref(false)
+function staticGet_IMAGE_ROTATION_ANIMATION_POOL(::Type{ImageArrayRotationAnimationPool})
+    if !ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOLSet[]
+        ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOLSet[] = true
+        ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOLValue[] = newImageArrayRotationAnimationPool(newImageArrayRotationAnimationCacheableInterfaceFactory())
+    end
+    ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOLValue[]
+end
+function staticSet_IMAGE_ROTATION_ANIMATION_POOL(::Type{ImageArrayRotationAnimationPool}, value)
+    ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOLSet[] = true
+    ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOLValue[] = value
+end
+
+function initFieldsImageArrayRotationAnimationPool(this::ImageArrayRotationAnimationPool)
+    nothing
+end
 
 
-class ImageArrayRotationAnimationPool(BasicArrayListResetablePool):
-    IMAGE_ROTATION_ANIMATION_POOL: PoolInterface = None
-    
+function initImageArrayRotationAnimationPool(this::ImageArrayRotationAnimationPool, cacheableInterfaceFactoryInterface)
+        initBasicArrayListResetablePool(this, cacheableInterfaceFactoryInterface)
+        nothing
+end
 
-    def __init__(self, cacheableInterfaceFactoryInterface: CacheableInterfaceFactoryInterface) -> None:
-        from org.allbinary.logic.util.cache.CacheableInterfaceFactoryInterface import CacheableInterfaceFactoryInterface
-        super().__init__(cacheableInterfaceFactoryInterface)
-    
+function newImageArrayRotationAnimationPool(cacheableInterfaceFactoryInterface)
+    this = ImageArrayRotationAnimationPool()
+    initImageArrayRotationAnimationPool(this, cacheableInterfaceFactoryInterface)
+    this
+end
 
-    @staticmethod
-    def getInstance() -> PoolInterface:
-        from org.allbinary.logic.util.cache.PoolInterface import PoolInterface
-        return ImageArrayRotationAnimationPool.IMAGE_ROTATION_ANIMATION_POOL
-    
 
-    # throws Exception
-    def remove(self, key: object) -> CacheableInterface:
-        from org.allbinary.logic.util.cache.CacheableInterface import CacheableInterface
-        cacheableInterface: CacheableInterface = super().remove(key)
-        allBinaryImageRotationAnimationInfo: ImageArrayRotationAnimationInfo = key
-        imageArrayRotationAnimationCacheable: ImageArrayRotationAnimationCacheable = (cacheableInterface)
-        imageArrayRotationAnimationCacheable.setImageArray(allBinaryImageRotationAnimationInfo.getImageArray())
+function getInstance(::Type{ImageArrayRotationAnimationPool})
+        return staticGet_IMAGE_ROTATION_ANIMATION_POOL(ImageArrayRotationAnimationPool)
+end
+
+
+function remove(this::ImageArrayRotationAnimationPool, key)
+        local cacheableInterface = AllBinary.remove(this, key)
+        local allBinaryImageRotationAnimationInfo = (key)
+        local imageArrayRotationAnimationCacheable = ((cacheableInterface))
+        AllBinary.setImageArray(imageArrayRotationAnimationCacheable, AllBinary.getImageArray(allBinaryImageRotationAnimationInfo))
         return cacheableInterface
-# from org.allbinary.logic.util.cache.CacheableInterface import CacheableInterface
-# from org.allbinary.logic.util.cache.CacheableInterfaceFactoryInterface import CacheableInterfaceFactoryInterface
-# from org.allbinary.logic.util.cache.PoolInterface import PoolInterface
-
-
-def _ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOL() -> object:
-    from org.allbinary.animation.image.ImageArrayRotationAnimationCacheableInterfaceFactory import ImageArrayRotationAnimationCacheableInterfaceFactory
-    from org.allbinary.logic.util.cache.PoolInterface import PoolInterface
-    return ImageArrayRotationAnimationPool(ImageArrayRotationAnimationCacheableInterfaceFactory())
-
-lazy_static(ImageArrayRotationAnimationPool, "IMAGE_ROTATION_ANIMATION_POOL", _ImageArrayRotationAnimationPool_IMAGE_ROTATION_ANIMATION_POOL)
+end
 

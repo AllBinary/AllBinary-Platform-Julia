@@ -1,60 +1,60 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.motion.action
 
-from __future__ import annotations
+# extends CompleteMotionGestureInputEventListener: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SingleKeyPressGameKeyFromMotionGestureEventListener <: JObject
+    logUtil::Any
+    SingleKeyPressGameKeyFromMotionGestureEventListener() = new()
+end
 
-from org.allbinary.game.input.CompleteMotionGestureInputEventListener import CompleteMotionGestureInputEventListener
+
+function initFieldsSingleKeyPressGameKeyFromMotionGestureEventListener(this::SingleKeyPressGameKeyFromMotionGestureEventListener)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
+
+function initSingleKeyPressGameKeyFromMotionGestureEventListener(this::SingleKeyPressGameKeyFromMotionGestureEventListener)
+    initCompleteMotionGestureInputEventListener(this)
+    initFieldsSingleKeyPressGameKeyFromMotionGestureEventListener(this)
+end
+
+function newSingleKeyPressGameKeyFromMotionGestureEventListener()
+    this = SingleKeyPressGameKeyFromMotionGestureEventListener()
+    initSingleKeyPressGameKeyFromMotionGestureEventListener(this)
+    this
+end
 
 
-class SingleKeyPressGameKeyFromMotionGestureEventListener(CompleteMotionGestureInputEventListener):
+function onEvent(this::SingleKeyPressGameKeyFromMotionGestureEventListener, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
-
-    def onCompleteMotionGestureInputEvent(self, completeMotionGestureInputEvent: CompleteMotionGestureInputEvent) -> None:
-        from org.allbinary.game.input.CompleteMotionGestureInputEvent import CompleteMotionGestureInputEvent
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.game.input.event.PressGameKeyEventHandler import PressGameKeyEventHandler
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            gameKeyCompleteMotionGestureInputEvent: GameKeyCompleteMotionGestureInputEvent = completeMotionGestureInputEvent
-            gameKeyEvent: GameKeyEvent = gameKeyCompleteMotionGestureInputEvent.getGameKeyEvent()
-            PressGameKeyEventHandler.getInstance().fireEvent(gameKeyEvent)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "onCompleteMotionGestureInputEvent", e)
-# from org.allbinary.game.input.CompleteMotionGestureInputEvent import CompleteMotionGestureInputEvent
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.game.input.event.PressGameKeyEventHandler import PressGameKeyEventHandler
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.string.CommonStrings import CommonStrings
-
+function onCompleteMotionGestureInputEvent(this::SingleKeyPressGameKeyFromMotionGestureEventListener, completeMotionGestureInputEvent)
+        try
+            local gameKeyCompleteMotionGestureInputEvent = (completeMotionGestureInputEvent)
+            local gameKeyEvent = AllBinary.getGameKeyEvent(gameKeyCompleteMotionGestureInputEvent)
+            AllBinary.fireEvent(AllBinary.getInstance(PressGameKeyEventHandler), gameKeyEvent)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, "onCompleteMotionGestureInputEvent", e)
+        end
+        nothing
+end
 

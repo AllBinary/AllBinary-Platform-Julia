@@ -1,189 +1,200 @@
 # Generated Code Do Not Modify
 # package org.allbinary.configuration
 
-from __future__ import annotations
+mutable struct ApplicationConfiguration <: JObject
+    logUtil::Any
+    fullscreen::Bool
+    showTitleBar::Bool
+    progressBarView::Bool
+    FILE::Any
+    ApplicationConfiguration() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ApplicationConfiguration_instanceValue = Ref{Any}(nothing)
+const ApplicationConfiguration_instanceSet = Ref(false)
+function staticGet_instance(::Type{ApplicationConfiguration})
+    if !ApplicationConfiguration_instanceSet[]
+        ApplicationConfiguration_instanceSet[] = true
+        ApplicationConfiguration_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    ApplicationConfiguration_instanceValue[]
+end
+function staticSet_instance(::Type{ApplicationConfiguration}, value)
+    ApplicationConfiguration_instanceSet[] = true
+    ApplicationConfiguration_instanceValue[] = value
+end
+
+function initFieldsApplicationConfiguration(this::ApplicationConfiguration)
+    this.logUtil = nothing
+    this.fullscreen = false
+    this.showTitleBar = false
+    this.progressBarView = false
+    this.FILE = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.fullscreen = true
+    this.showTitleBar = false
+    this.progressBarView = false
+    this.FILE = "ReloadConfiguration.dat"
+    nothing
+end
 
 
-class ApplicationConfiguration:
-    instance: object = None
+function getInstance(::Type{ApplicationConfiguration})
+        if staticGet_instance(ApplicationConfiguration) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(ApplicationConfiguration, newApplicationConfiguration())
+        end
+        return (staticGet_instance(ApplicationConfiguration))
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.fullscreen: bool = True
-        self.showTitleBar: bool = False
-        self.progressBarView: bool = False
-        self.FILE: str = "ReloadConfiguration.dat"
-    
 
-    @staticmethod
-    def getInstance() -> ApplicationConfiguration:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if ApplicationConfiguration.instance == NullUtil.getInstance().NULL_OBJECT:
-            ApplicationConfiguration.instance = ApplicationConfiguration()
-        return ApplicationConfiguration.instance
-    
+function initApplicationConfiguration(this::ApplicationConfiguration)
+        initFieldsApplicationConfiguration(this)
+        try
+            if AllBinary.isFile(AllBinary.getInstance(FileFactory), this.FILE)
+                AllBinary.read(this)
+            else
+                AllBinary.write(this)
+            end
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.CONSTRUCTOR, e)
+        end
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.logic.io.file.FileFactory import FileFactory
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self._init_fields()
-        try:
-            if FileFactory.getInstance().isFile(self.FILE):
-                self.read()
-            else:
-                self.write()
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.CONSTRUCTOR, e)
-    
+function newApplicationConfiguration()
+    this = ApplicationConfiguration()
+    initApplicationConfiguration(this)
+    this
+end
 
-    # throws Exception
-    def read(self) -> None:
-        from java.io.InputStream import InputStream
-        from org.allbinary.logic.io.AbDataInputStream import AbDataInputStream
-        from org.allbinary.logic.io.FileStreamFactory import FileStreamFactory
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        fileInputStreamFactory: FileStreamFactory = FileStreamFactory.getInstance()
-        fileInputStream: InputStream = fileInputStreamFactory.getFileInputStreamInstance(StringUtil.getInstance().EMPTY_STRING, self.FILE)
-        dataInputStream: AbDataInputStream = AbDataInputStream(fileInputStream)
-        fullScreen: int = dataInputStream.readInt()
-        if fullScreen == 0:
-            self.setFullscreen(False)
-        elif fullScreen == 1:
-            self.setFullscreen(True)
-        else:
-            raise Exception("Invalid FullScreen ActivityConfiguration")
-        progressBarView: int = dataInputStream.readInt()
-        if progressBarView == 0:
-            self.setProgressBarView(False)
-        elif progressBarView == 1:
-            self.setProgressBarView(True)
-        else:
-            raise Exception("Invalid ProgressBarView ActivityConfiguration")
-        showTitleBar: int = dataInputStream.readInt()
-        if showTitleBar == 0:
-            self.setShowTitleBar(False)
-        elif showTitleBar == 1:
-            self.setShowTitleBar(True)
-        else:
-            raise Exception("Invalid ShowTitleBar ActivityConfiguration")
-        self.logUtil.putF("Read Configuration: " + str(self), self, "read")
-    
 
-    # throws Exception
-    def write(self) -> None:
-        from java.io.Closeable import Closeable
-        from java.io.OutputStream import OutputStream
-        from org.allbinary.logic.io.AbDataOutputStream import AbDataOutputStream
-        from org.allbinary.logic.io.FileStreamFactory import FileStreamFactory
-        from org.allbinary.logic.io.NullCloseable import NullCloseable
-        from org.allbinary.logic.io.StreamUtil import StreamUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        closeable: Closeable = NullCloseable.NULL_CLOSEABLE
-        try:
-            self.logUtil.putF("Write Configuration: " + str(self), self, "write")
-            fileInputStreamFactory: FileStreamFactory = FileStreamFactory.getInstance()
-            fileOutputStream: OutputStream = fileInputStreamFactory.getFileOutputStreamInstance(StringUtil.getInstance().EMPTY_STRING, self.FILE)
-            dataOutputStream: AbDataOutputStream = AbDataOutputStream(fileOutputStream)
+function read(this::ApplicationConfiguration)
+        local fileInputStreamFactory = AllBinary.getInstance(FileStreamFactory)
+        local fileInputStream = AllBinary.getFileInputStreamInstance(fileInputStreamFactory, AllBinary.getInstance(StringUtil).EMPTY_STRING, this.FILE)
+        local dataInputStream = newAbDataInputStream(fileInputStream)
+        local fullScreen::Int32 = AllBinary.readInt(dataInputStream)
+        if fullScreen == Int32(0)
+            AllBinary.setFullscreen(this, false)
+        elseif fullScreen == Int32(1)
+            AllBinary.setFullscreen(this, true)
+        else
+            throw(jNewException("Exception", "Invalid FullScreen ActivityConfiguration"))
+        end
+        local progressBarView::Int32 = AllBinary.readInt(dataInputStream)
+        if progressBarView == Int32(0)
+            AllBinary.setProgressBarView(this, false)
+        elseif progressBarView == Int32(1)
+            AllBinary.setProgressBarView(this, true)
+        else
+            throw(jNewException("Exception", "Invalid ProgressBarView ActivityConfiguration"))
+        end
+        local showTitleBar::Int32 = AllBinary.readInt(dataInputStream)
+        if showTitleBar == Int32(0)
+            AllBinary.setShowTitleBar(this, false)
+        elseif showTitleBar == Int32(1)
+            AllBinary.setShowTitleBar(this, true)
+        else
+            throw(jNewException("Exception", "Invalid ShowTitleBar ActivityConfiguration"))
+        end
+        AllBinary.putF(this.logUtil, jstr("Read Configuration: ") * jstr(AllBinary.toString(this)), this, "read")
+        nothing
+end
+
+
+function write(this::ApplicationConfiguration)
+        local closeable = staticGet_NULL_CLOSEABLE(NullCloseable)
+        try
+            AllBinary.putF(this.logUtil, jstr("Write Configuration: ") * jstr(AllBinary.toString(this)), this, "write")
+            local fileInputStreamFactory = AllBinary.getInstance(FileStreamFactory)
+            local fileOutputStream = AllBinary.getFileOutputStreamInstance(fileInputStreamFactory, AllBinary.getInstance(StringUtil).EMPTY_STRING, this.FILE)
+            local dataOutputStream = newAbDataOutputStream(fileOutputStream)
             closeable = dataOutputStream
-            if self.isFullscreen():
-                dataOutputStream.writeInt(1)
-            else:
-                dataOutputStream.writeInt(0)
-            if self.isProgressBarView():
-                dataOutputStream.writeInt(1)
-            else:
-                dataOutputStream.writeInt(0)
-            if self.isShowTitleBar():
-                dataOutputStream.writeInt(1)
-            else:
-                dataOutputStream.writeInt(0)
-            dataOutputStream.flush()
-        except Exception as e:
-            raise e
-        finally:
-            StreamUtil.getInstance().close(closeable)
-    
-
-    # throws Exception
-    def update(self, gameFeature: Feature) -> None:
-        from org.allbinary.game.configuration.feature.Feature import Feature
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.MainFeatureFactory import MainFeatureFactory
-        if gameFeature == MainFeatureFactory.getInstance().FULL_SCREEN:
-            features: Features = Features.getInstance()
-            if features.isFeature(gameFeature):
-                if not self.isFullscreen():
-                    self.setFullscreen(True)
-                    self.write()
-            else:
-                if self.isFullscreen():
-                    self.setFullscreen(False)
-                    self.write()
-    
-
-    def setFullscreen(self, fullscreen: bool) -> None:
-        self.fullscreen = fullscreen
-    
-
-    def isFullscreen(self) -> bool:
-        return self.fullscreen
-    
-
-    def setShowTitleBar(self, showTitleBar: bool) -> None:
-        self.showTitleBar = showTitleBar
-    
-
-    def isShowTitleBar(self) -> bool:
-        return self.showTitleBar
-    
-
-    def setProgressBarView(self, progressBarView: bool) -> None:
-        self.progressBarView = progressBarView
-    
-
-    def isProgressBarView(self) -> bool:
-        return self.progressBarView
-    
-
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append("isFullscreen: ")
-        stringBuffer.appendboolean(self.isFullscreen())
-        stringBuffer.append(" isProgressBarView: ")
-        stringBuffer.appendboolean(self.isProgressBarView())
-        stringBuffer.append(" isShowTitleBar: ")
-        stringBuffer.appendboolean(self.isShowTitleBar())
-        return str(stringBuffer)
-
-    def __str__(self) -> str:
-        return self.toString()
-# from java.io.Closeable import Closeable
-# from java.io.InputStream import InputStream
-# from java.io.OutputStream import OutputStream
-# from org.allbinary.game.configuration.feature.Feature import Feature
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.configuration.feature.MainFeatureFactory import MainFeatureFactory
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.io.AbDataInputStream import AbDataInputStream
-# from org.allbinary.logic.io.AbDataOutputStream import AbDataOutputStream
-# from org.allbinary.logic.io.FileStreamFactory import FileStreamFactory
-# from org.allbinary.logic.io.NullCloseable import NullCloseable
-# from org.allbinary.logic.io.StreamUtil import StreamUtil
-# from org.allbinary.logic.io.file.FileFactory import FileFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+            if AllBinary.isFullscreen(this)
+                AllBinary.writeInt(dataOutputStream, Int32(1))
+            else
+                AllBinary.writeInt(dataOutputStream, Int32(0))
+            end
+            if AllBinary.isProgressBarView(this)
+                AllBinary.writeInt(dataOutputStream, Int32(1))
+            else
+                AllBinary.writeInt(dataOutputStream, Int32(0))
+            end
+            if AllBinary.isShowTitleBar(this)
+                AllBinary.writeInt(dataOutputStream, Int32(1))
+            else
+                AllBinary.writeInt(dataOutputStream, Int32(0))
+            end
+            AllBinary.flush(dataOutputStream)
+        catch e
+            throw(e)
+        finally
+            AllBinary.close(AllBinary.getInstance(StreamUtil), closeable)
+        end
+        nothing
+end
 
 
-def _ApplicationConfiguration_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function update(this::ApplicationConfiguration, gameFeature)
+        if gameFeature === AllBinary.getInstance(MainFeatureFactory).FULL_SCREEN
+            local features = AllBinary.getInstance(Features)
+            if AllBinary.isFeature(features, gameFeature)
+                if !AllBinary.isFullscreen(this)
+                    AllBinary.setFullscreen(this, true)
+                    AllBinary.write(this)
+                end
+            else
+                if AllBinary.isFullscreen(this)
+                    AllBinary.setFullscreen(this, false)
+                    AllBinary.write(this)
+                end
+            end
+        end
+        nothing
+end
 
-lazy_static(ApplicationConfiguration, "instance", _ApplicationConfiguration_instance)
+
+function setFullscreen(this::ApplicationConfiguration, fullscreen)
+        this.fullscreen = fullscreen
+        nothing
+end
+
+
+function isFullscreen(this::ApplicationConfiguration)
+        return this.fullscreen
+end
+
+
+function setShowTitleBar(this::ApplicationConfiguration, showTitleBar)
+        this.showTitleBar = showTitleBar
+        nothing
+end
+
+
+function isShowTitleBar(this::ApplicationConfiguration)
+        return this.showTitleBar
+end
+
+
+function setProgressBarView(this::ApplicationConfiguration, progressBarView)
+        this.progressBarView = progressBarView
+        nothing
+end
+
+
+function isProgressBarView(this::ApplicationConfiguration)
+        return this.progressBarView
+end
+
+
+function toString(this::ApplicationConfiguration)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, "isFullscreen: ")
+        AllBinary.appendboolean(stringBuffer, AllBinary.isFullscreen(this))
+        AllBinary.append(stringBuffer, " isProgressBarView: ")
+        AllBinary.appendboolean(stringBuffer, AllBinary.isProgressBarView(this))
+        AllBinary.append(stringBuffer, " isShowTitleBar: ")
+        AllBinary.appendboolean(stringBuffer, AllBinary.isShowTitleBar(this))
+        return AllBinary.toString(stringBuffer)
+end
 

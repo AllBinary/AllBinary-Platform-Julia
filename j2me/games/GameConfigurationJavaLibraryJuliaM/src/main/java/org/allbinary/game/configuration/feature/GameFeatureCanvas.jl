@@ -1,33 +1,47 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration.feature
 
-from __future__ import annotations
+# extends Canvas: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameFeatureCanvas <: JObject
+    GameFeatureCanvas() = new()
+end
 
-from javax.microedition.lcdui.Canvas import Canvas
+
+function initFieldsGameFeatureCanvas(this::GameFeatureCanvas)
+    nothing
+end
 
 
-class GameFeatureCanvas(Canvas):
-    
+function initGameFeatureCanvas(this::GameFeatureCanvas)
+        initCanvas(this)
+        initFieldsGameFeatureCanvas(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
+function newGameFeatureCanvas()
+    this = GameFeatureCanvas()
+    initGameFeatureCanvas(this)
+    this
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
 
+function paint(this::GameFeatureCanvas, graphics)
+        nothing
+        nothing
+end
 

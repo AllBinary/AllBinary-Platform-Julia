@@ -1,45 +1,54 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory <: JObject
+    TouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory() = new()
+end
 
-from org.allbinary.input.motion.button.TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory import TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory
+
+function initFieldsTouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory(this::TouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory)
+    nothing
+end
 
 
-class TouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory(TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory):
-    
+function initTouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory(this::TouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory)
+        initTouchButtonResourceAnimationInterfaceFactoryInterfaceFactory(this, "OpenGL TouchButton Animations")
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__("OpenGL TouchButton Animations")
-    
+function newTouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory()
+    this = TouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory()
+    initTouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory(this)
+    this
+end
 
-    # throws Exception
-    def init(self, level: int) -> None:
-        from org.allbinary.image.opengles.OpenGLImageCacheFactory import OpenGLImageCacheFactory
-        super().initImageCache(OpenGLImageCacheFactory.getInstance(), level)
-    
 
-    def isFeature(self) -> bool:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        if Features.getInstance().isDefault(OpenGLFeatureFactory.getInstance().OPENGL):
-            return True
-        else:
-            return False
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-# from org.allbinary.image.opengles.OpenGLImageCacheFactory import OpenGLImageCacheFactory
+function init(this::TouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory, level)
+        AllBinary.initImageCache(this, AllBinary.getInstance(OpenGLImageCacheFactory), level)
+        nothing
+end
 
+
+function isFeature(this::TouchButtonResourceOpenGLESAnimationInterfaceFactoryInterfaceFactory)
+        if AllBinary.isDefault(AllBinary.getInstance(Features), AllBinary.getInstance(OpenGLFeatureFactory).OPENGL)
+            return true
+        else
+            return false
+        end
+end
 

@@ -1,83 +1,139 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+mutable struct VectorAnimationUtil <: JObject
+    VectorAnimationUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const VectorAnimationUtil_instanceValue = Ref{Any}(nothing)
+const VectorAnimationUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{VectorAnimationUtil})
+    if !VectorAnimationUtil_instanceSet[]
+        VectorAnimationUtil_instanceSet[] = true
+        VectorAnimationUtil_instanceValue[] = newVectorAnimationUtil()
+    end
+    VectorAnimationUtil_instanceValue[]
+end
+function staticSet_instance(::Type{VectorAnimationUtil}, value)
+    VectorAnimationUtil_instanceSet[] = true
+    VectorAnimationUtil_instanceValue[] = value
+end
+
+function initFieldsVectorAnimationUtil(this::VectorAnimationUtil)
+    nothing
+end
 
 
-class VectorAnimationUtil:
-    instance: VectorAnimationUtil = None
-    
+function getInstance(::Type{VectorAnimationUtil})
+        return staticGet_instance(VectorAnimationUtil)
+end
 
-    @staticmethod
-    def getInstance() -> VectorAnimationUtil:
-        return VectorAnimationUtil.instance
-    
 
-    def __init__(self) -> None:
-        pass
-    
+function initVectorAnimationUtil(this::VectorAnimationUtil)
+        initFieldsVectorAnimationUtil(this)
+        nothing
+        nothing
+end
 
-    def toAnimationArrayFromListOfPointListWithPointsPerFrame(self, vector: BasicArrayList, pointsPerFrame: int) -> list[list[list[int]]]:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        size: int = vector.size()
-        points: list[list[list[int]]] = [[[0] * (2) for _ in range(pointsPerFrame)] for _ in range(size)]
-        nextBasicArrayList: BasicArrayList = None
-        framePoints: list[list[int]] = None
-        for index in range(0, size):
-            nextBasicArrayList = vector.objectArray[index]
-            framePoints = self.toFrameArrayFromPointBasicArrayList(nextBasicArrayList)
-            for pointIndex in range(0, len(framePoints)):
-                points[index][pointIndex][0] = framePoints[pointIndex][0]
-                points[index][pointIndex][1] = framePoints[pointIndex][1]
+function newVectorAnimationUtil()
+    this = VectorAnimationUtil()
+    initVectorAnimationUtil(this)
+    this
+end
+
+
+function toAnimationArrayFromListOfPointListWithPointsPerFrame(this::VectorAnimationUtil, vector, pointsPerFrame)
+        local size::Int32 = AllBinary.size(vector)
+        local points = jNewArrayOf(Vector{Vector{Int32}}, size, () -> jNewArrayOf(Vector{Int32}, pointsPerFrame, () -> jNewArray(Int32, Int32(2), Int32(0))))
+        local nextBasicArrayList = nothing
+        local framePoints = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            nextBasicArrayList = (vector.objectArray[index + 1])
+            framePoints = AllBinary.toFrameArrayFromPointBasicArrayList(this, nextBasicArrayList)
+            let
+                local pointIndex::Int32 = Int32(0)
+                while pointIndex < Int32(Base.length(framePoints))
+                try
+                points[index + 1][pointIndex + 1][Int32(0) + 1] = framePoints[pointIndex + 1][Int32(0) + 1]
+                points[index + 1][pointIndex + 1][Int32(1) + 1] = framePoints[pointIndex + 1][Int32(1) + 1]
+                finally
+                    pointIndex += Int32(1)
+                end
+                end
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
         return points
-    
+end
 
-    def toAnimationArrayFromListOfPointList(self, vector: BasicArrayList) -> list[list[list[int]]]:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        size: int = vector.size()
-        points: list[list[list[int]]] = [[[0] * (0) for _ in range(0)] for _ in range(size)]
-        nextBasicArrayList: BasicArrayList = None
-        framePoints: list[list[int]] = None
-        for index in range(0, size):
-            nextBasicArrayList = vector.objectArray[index]
-            framePoints = self.toFrameArrayFromPointBasicArrayList(nextBasicArrayList)
-            points[index] = [[0] * (2) for _ in range(len(framePoints))]
-            for pointIndex in range(0, len(framePoints)):
-                points[index][pointIndex][0] = framePoints[pointIndex][0]
-                points[index][pointIndex][1] = framePoints[pointIndex][1]
+
+function toAnimationArrayFromListOfPointList(this::VectorAnimationUtil, vector)
+        local size::Int32 = AllBinary.size(vector)
+        local points = jNewArrayOf(Vector{Vector{Int32}}, size, () -> jNewArrayOf(Vector{Int32}, Int32(0), () -> jNewArray(Int32, Int32(0), Int32(0))))
+        local nextBasicArrayList = nothing
+        local framePoints = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            nextBasicArrayList = (vector.objectArray[index + 1])
+            framePoints = AllBinary.toFrameArrayFromPointBasicArrayList(this, nextBasicArrayList)
+            points[index + 1] = jNewArrayOf(Vector{Int32}, Int32(Base.length(framePoints)), () -> jNewArray(Int32, Int32(2), Int32(0)))
+            let
+                local pointIndex::Int32 = Int32(0)
+                while pointIndex < Int32(Base.length(framePoints))
+                try
+                points[index + 1][pointIndex + 1][Int32(0) + 1] = framePoints[pointIndex + 1][Int32(0) + 1]
+                points[index + 1][pointIndex + 1][Int32(1) + 1] = framePoints[pointIndex + 1][Int32(1) + 1]
+                finally
+                    pointIndex += Int32(1)
+                end
+                end
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
         return points
-    
+end
 
-    def toFrameArrayFromPointBasicArrayList(self, list_: BasicArrayList) -> list[list[int]]:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        points: list[list[int]] = [[0] * (2) for _ in range(list_.size())]
-        size: int = list_.size()
-        for index in range(0, size):
-            nextPoint: GPoint = list_.objectArray[index]
-            points[index][0] = nextPoint.getX()
-            points[index][1] = nextPoint.getY()
+
+function toFrameArrayFromPointBasicArrayList(this::VectorAnimationUtil, list)
+        local points = jNewArrayOf(Vector{Int32}, AllBinary.size(list), () -> jNewArray(Int32, Int32(2), Int32(0)))
+        local size::Int32 = AllBinary.size(list)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            local nextPoint = (list.objectArray[index + 1])
+            points[index + 1][Int32(0) + 1] = AllBinary.getX(nextPoint)
+            points[index + 1][Int32(1) + 1] = AllBinary.getY(nextPoint)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
         return points
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-
-
-def _VectorAnimationUtil_instance() -> object:
-    return VectorAnimationUtil()
-
-lazy_static(VectorAnimationUtil, "instance", _VectorAnimationUtil_instance)
+end
 

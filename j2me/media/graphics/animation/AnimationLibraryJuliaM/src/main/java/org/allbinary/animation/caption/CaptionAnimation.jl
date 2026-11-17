@@ -1,60 +1,84 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.caption
 
-from __future__ import annotations
+# extends Animation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CaptionAnimation <: JObject
+    animationInterface::Any
+    overlayAnimationInterface::Any
+    captionDx::Int32
+    captionDy::Int32
+    dx::Int32
+    dy::Int32
+    CaptionAnimation() = new()
+end
 
-from org.allbinary.animation.Animation import Animation
 
-
-class CaptionAnimation(Animation):
-
-    def _init_fields(self) -> None:
-        self.animationInterface: Animation = None
-        self.overlayAnimationInterface: Animation = None
-        self.captionDx: int = None
-        self.captionDy: int = None
-        self.dx: int = None
-        self.dy: int = None
+function initFieldsCaptionAnimation(this::CaptionAnimation)
+    this.animationInterface = nothing
+    this.overlayAnimationInterface = nothing
+    this.captionDx = Int32(0)
+    this.captionDy = Int32(0)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
     
-
-    def __init__(self, animationInterface: Animation, overlayAnimationInterface: Animation, captionDx: int, captionDy: int, dx: int, dy: int) -> None:
-        super().__init__()
-        self._init_fields()
-        self.animationInterface = animationInterface
-        self.overlayAnimationInterface = overlayAnimationInterface
-        self.captionDx = captionDx
-        self.captionDy = captionDy
-        self.dx = dx
-        self.dy = dy
     
-
-    # throws Exception
-    def nextFrame(self) -> None:
-        pass
     
-
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animationInterface.paintXY(graphics, x + self.captionDx, y + self.captionDy)
-        self.overlayAnimationInterface.paintXY(graphics, x + self.captionDx + self.dx, y + self.captionDy + self.dy)
     
+    
+    
+    nothing
+end
 
-    def paintThreedXYZ(self, graphics: Graphics, x: int, y: int, z: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animationInterface.paintThreedXYZ(graphics, x + self.captionDx, y + self.captionDy, z)
-        self.overlayAnimationInterface.paintThreedXYZ(graphics, x + self.captionDx + self.dx, y + self.captionDy + self.dy, z)
-# from javax.microedition.lcdui.Graphics import Graphics
 
+function initCaptionAnimation(this::CaptionAnimation, animationInterface, overlayAnimationInterface, captionDx, captionDy, dx, dy)
+        initAnimation(this)
+        initFieldsCaptionAnimation(this)
+        this.animationInterface = animationInterface
+        this.overlayAnimationInterface = overlayAnimationInterface
+        this.captionDx = captionDx
+        this.captionDy = captionDy
+        this.dx = dx
+        this.dy = dy
+        nothing
+end
+
+function newCaptionAnimation(animationInterface, overlayAnimationInterface, captionDx, captionDy, dx, dy)
+    this = CaptionAnimation()
+    initCaptionAnimation(this, animationInterface, overlayAnimationInterface, captionDx, captionDy, dx, dy)
+    this
+end
+
+
+function nextFrame(this::CaptionAnimation)
+        nothing
+        nothing
+end
+
+
+function paintXY(this::CaptionAnimation, graphics, x, y)
+        AllBinary.paintXY(this.animationInterface, graphics, x + this.captionDx, y + this.captionDy)
+        AllBinary.paintXY(this.overlayAnimationInterface, graphics, x + this.captionDx + this.dx, y + this.captionDy + this.dy)
+        nothing
+end
+
+
+function paintThreedXYZ(this::CaptionAnimation, graphics, x, y, z)
+        AllBinary.paintThreedXYZ(this.animationInterface, graphics, x + this.captionDx, y + this.captionDy, z)
+        AllBinary.paintThreedXYZ(this.overlayAnimationInterface, graphics, x + this.captionDx + this.dx, y + this.captionDy + this.dy, z)
+        nothing
+end
 

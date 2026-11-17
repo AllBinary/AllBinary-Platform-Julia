@@ -1,52 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.terrain
 
-from __future__ import annotations
+mutable struct BasicTerrainInfo <: JObject
+    angle::Any
+    BasicTerrainInfo() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BasicTerrainInfo_NULL_BASIC_TERRAIN_INFOValue = Ref{Any}(nothing)
+const BasicTerrainInfo_NULL_BASIC_TERRAIN_INFOSet = Ref(false)
+function staticGet_NULL_BASIC_TERRAIN_INFO(::Type{BasicTerrainInfo})
+    if !BasicTerrainInfo_NULL_BASIC_TERRAIN_INFOSet[]
+        BasicTerrainInfo_NULL_BASIC_TERRAIN_INFOSet[] = true
+        BasicTerrainInfo_NULL_BASIC_TERRAIN_INFOValue[] = newBasicTerrainInfo(AllBinary.getInstance(AngleFactory).NOT_ANGLE)
+    end
+    BasicTerrainInfo_NULL_BASIC_TERRAIN_INFOValue[]
+end
+function staticSet_NULL_BASIC_TERRAIN_INFO(::Type{BasicTerrainInfo}, value)
+    BasicTerrainInfo_NULL_BASIC_TERRAIN_INFOSet[] = true
+    BasicTerrainInfo_NULL_BASIC_TERRAIN_INFOValue[] = value
+end
 
-
-class BasicTerrainInfo:
-    NULL_BASIC_TERRAIN_INFO: BasicTerrainInfo = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.math.Angle import Angle
-        self.angle: Angle = None
+function initFieldsBasicTerrainInfo(this::BasicTerrainInfo)
+    this.angle = nothing
     
-
-    def __init__(self, angle: Angle) -> None:
-        from org.allbinary.math.Angle import Angle
-        self._init_fields()
-        self.angle = angle
-    
-
-    def getAngle(self) -> Angle:
-        from org.allbinary.math.Angle import Angle
-        return self.angle
-    
-
-    def setAngle(self, angle: Angle) -> None:
-        from org.allbinary.math.Angle import Angle
-        self.angle = angle
-# from org.allbinary.math.Angle import Angle
-# from org.allbinary.math.AngleFactory import AngleFactory
+    nothing
+end
 
 
-def _BasicTerrainInfo_NULL_BASIC_TERRAIN_INFO() -> object:
-    from org.allbinary.math.AngleFactory import AngleFactory
-    return BasicTerrainInfo(AngleFactory.getInstance().NOT_ANGLE)
+function initBasicTerrainInfo(this::BasicTerrainInfo, angle)
+        initFieldsBasicTerrainInfo(this)
+        this.angle = angle
+        nothing
+end
 
-lazy_static(BasicTerrainInfo, "NULL_BASIC_TERRAIN_INFO", _BasicTerrainInfo_NULL_BASIC_TERRAIN_INFO)
+function newBasicTerrainInfo(angle)
+    this = BasicTerrainInfo()
+    initBasicTerrainInfo(this, angle)
+    this
+end
+
+
+function getAngle(this::BasicTerrainInfo)
+        return this.angle
+end
+
+
+function setAngle(this::BasicTerrainInfo, angle)
+        this.angle = angle
+        nothing
+end
 

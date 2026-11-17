@@ -1,57 +1,72 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.resources
 
-from __future__ import annotations
+mutable struct OnDemandResources <: JObject
+    logUtil::Any
+    OnDemandResources() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const OnDemandResources_NULL_ON_DEMAND_RESOURCESValue = Ref{Any}(nothing)
+const OnDemandResources_NULL_ON_DEMAND_RESOURCESSet = Ref(false)
+function staticGet_NULL_ON_DEMAND_RESOURCES(::Type{OnDemandResources})
+    if !OnDemandResources_NULL_ON_DEMAND_RESOURCESSet[]
+        OnDemandResources_NULL_ON_DEMAND_RESOURCESSet[] = true
+        OnDemandResources_NULL_ON_DEMAND_RESOURCESValue[] = newOnDemandResources()
+    end
+    OnDemandResources_NULL_ON_DEMAND_RESOURCESValue[]
+end
+function staticSet_NULL_ON_DEMAND_RESOURCES(::Type{OnDemandResources}, value)
+    OnDemandResources_NULL_ON_DEMAND_RESOURCESSet[] = true
+    OnDemandResources_NULL_ON_DEMAND_RESOURCESValue[] = value
+end
 
-
-class OnDemandResources:
-    NULL_ON_DEMAND_RESOURCES: OnDemandResources = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    # throws Exception
-    def waitFor(self) -> None:
-        pass
-    
-
-    # throws Exception
-    def init(self) -> None:
-        pass
-    
-
-    # throws Exception
-    def initAt(self, imageCache: ImageCache, resourceAnimationInterfaceFactoryInterfaceFactory: BaseResourceAnimationInterfaceFactoryInterfaceFactory, portion: int, loadingString: str, index: int) -> int:
-        from org.allbinary.animation.resource.BaseResourceAnimationInterfaceFactoryInterfaceFactory import BaseResourceAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.image.ImageCache import ImageCache
-        return 0
-# from org.allbinary.animation.resource.BaseResourceAnimationInterfaceFactoryInterfaceFactory import BaseResourceAnimationInterfaceFactoryInterfaceFactory
-# from org.allbinary.image.ImageCache import ImageCache
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
+function initFieldsOnDemandResources(this::OnDemandResources)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
 
 
-def _OnDemandResources_NULL_ON_DEMAND_RESOURCES() -> object:
-    return OnDemandResources()
+function initOnDemandResources(this::OnDemandResources)
+        initFieldsOnDemandResources(this)
+        nothing
+        nothing
+end
 
-lazy_static(OnDemandResources, "NULL_ON_DEMAND_RESOURCES", _OnDemandResources_NULL_ON_DEMAND_RESOURCES)
+function newOnDemandResources()
+    this = OnDemandResources()
+    initOnDemandResources(this)
+    this
+end
+
+
+function waitFor(this::OnDemandResources)
+        nothing
+        nothing
+end
+
+
+function init(this::OnDemandResources)
+        nothing
+        nothing
+end
+
+
+function initAt(this::OnDemandResources, imageCache, resourceAnimationInterfaceFactoryInterfaceFactory, portion, loadingString, index)
+        return Int32(0)
+end
 

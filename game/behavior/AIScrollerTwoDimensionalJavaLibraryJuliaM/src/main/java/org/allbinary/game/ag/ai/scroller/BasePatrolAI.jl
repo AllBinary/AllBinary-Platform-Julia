@@ -1,115 +1,154 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai.scroller
 
-from __future__ import annotations
+# extends BasicAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasePatrolAI <: JObject
+    maxDistance::Any
+    currentDistance::Int32
+    xTotalDistance::Int32
+    lastKeyDirection::Int32
+    keyDirection::Int32
+    BasePatrolAI() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.ai.BasicAI import BasicAI
+const BasePatrolAI_MAX_DISTANCEValue = Ref{Any}(nothing)
+const BasePatrolAI_MAX_DISTANCESet = Ref(false)
+function staticGet_MAX_DISTANCE(::Type{BasePatrolAI})
+    if !BasePatrolAI_MAX_DISTANCESet[]
+        BasePatrolAI_MAX_DISTANCESet[] = true
+        BasePatrolAI_MAX_DISTANCEValue[] = AllBinary.getAt(AllBinary.getInstance(SmallIntegerSingletonFactory), Int32(2))
+    end
+    BasePatrolAI_MAX_DISTANCEValue[]
+end
+function staticSet_MAX_DISTANCE(::Type{BasePatrolAI}, value)
+    BasePatrolAI_MAX_DISTANCESet[] = true
+    BasePatrolAI_MAX_DISTANCEValue[] = value
+end
+const BasePatrolAI_DIRECTION_ARRAYValue = Ref{Any}(nothing)
+const BasePatrolAI_DIRECTION_ARRAYSet = Ref(false)
+function staticGet_DIRECTION_ARRAY(::Type{BasePatrolAI})
+    if !BasePatrolAI_DIRECTION_ARRAYSet[]
+        BasePatrolAI_DIRECTION_ARRAYSet[] = true
+        BasePatrolAI_DIRECTION_ARRAYValue[] = AllBinary.getAt(AllBinary.getInstance(SmallIntegerSingletonFactory), Int32(3))
+    end
+    BasePatrolAI_DIRECTION_ARRAYValue[]
+end
+function staticSet_DIRECTION_ARRAY(::Type{BasePatrolAI}, value)
+    BasePatrolAI_DIRECTION_ARRAYSet[] = true
+    BasePatrolAI_DIRECTION_ARRAYValue[] = value
+end
+const BasePatrolAI_FIRING_DISTANCEValue = Ref{Any}(nothing)
+const BasePatrolAI_FIRING_DISTANCESet = Ref(false)
+function staticGet_FIRING_DISTANCE(::Type{BasePatrolAI})
+    if !BasePatrolAI_FIRING_DISTANCESet[]
+        BasePatrolAI_FIRING_DISTANCESet[] = true
+        BasePatrolAI_FIRING_DISTANCEValue[] = AllBinary.getAt(AllBinary.getInstance(SmallIntegerSingletonFactory), Int32(4))
+    end
+    BasePatrolAI_FIRING_DISTANCEValue[]
+end
+function staticSet_FIRING_DISTANCE(::Type{BasePatrolAI}, value)
+    BasePatrolAI_FIRING_DISTANCESet[] = true
+    BasePatrolAI_FIRING_DISTANCEValue[] = value
+end
+const BasePatrolAI_SPEEDValue = Ref{Any}(nothing)
+const BasePatrolAI_SPEEDSet = Ref(false)
+function staticGet_SPEED(::Type{BasePatrolAI})
+    if !BasePatrolAI_SPEEDSet[]
+        BasePatrolAI_SPEEDSet[] = true
+        BasePatrolAI_SPEEDValue[] = AllBinary.getAt(AllBinary.getInstance(SmallIntegerSingletonFactory), Int32(5))
+    end
+    BasePatrolAI_SPEEDValue[]
+end
+function staticSet_SPEED(::Type{BasePatrolAI}, value)
+    BasePatrolAI_SPEEDSet[] = true
+    BasePatrolAI_SPEEDValue[] = value
+end
 
-
-class BasePatrolAI(BasicAI):
-    MAX_DISTANCE: int = None
-    DIRECTION_ARRAY: int = None
-    FIRING_DISTANCE: int = None
-    SPEED: int = None
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        self.maxDistance: int = None
-        self.currentDistance: int = None
-        self.xTotalDistance: int = 0
-        self.lastKeyDirection: int = Canvas.RIGHT
-        self.keyDirection: int = Canvas.RIGHT
+function initFieldsBasePatrolAI(this::BasePatrolAI)
+    this.maxDistance = nothing
+    this.currentDistance = Int32(0)
+    this.xTotalDistance = Int32(0)
+    this.lastKeyDirection = Int32(0)
+    this.keyDirection = Int32(0)
     
-
-    def __init__(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.ABHashtable import ABHashtable
-        super().__init__(ownerLayerInterface, gameInput)
-        self._init_fields()
-        self.maxDistance = hashtable.get(BasePatrolAI.MAX_DISTANCE)
-        self.currentDistance = int(self.maxDistance)
     
-
-    def update(self) -> None:
-        self.updateTotalDistance()
-        self.changeDirectionIfReachedPacingAreaMax()
-    
-
-    def updateTotalDistance(self) -> None:
-        from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-        from org.allbinary.game.physics.velocity.VelocityInterfaceCompositeInterface import VelocityInterfaceCompositeInterface
-        velocityInterfaceCompositeInterface: VelocityInterfaceCompositeInterface = self.getOwnerLayerInterface()
-        velocityProperties: BasicVelocityProperties = velocityInterfaceCompositeInterface.getVelocityProperties()
-        self.xTotalDistance += velocityProperties.getVelocityXBasicDecimalP().getScaled()
-    
-
-    def changeDirectionIfReachedPacingAreaMax(self) -> None:
-        from org.allbinary.logic.math.MathUtil import MathUtil
-        mathUtil: MathUtil = MathUtil.getInstance()
-        totalDistance: int = mathUtil.abs(self.xTotalDistance)
-        if totalDistance > self.currentDistance:
-            self.nextDirection()
-    
-
-    def nextDirection(self) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        if self.lastKeyDirection == Canvas.LEFT:
-            self.keyDirection = Canvas.RIGHT
-            self.lastKeyDirection = self.keyDirection
-            self.xTotalDistance = 0
-        elif self.lastKeyDirection == Canvas.RIGHT:
-            self.keyDirection = Canvas.LEFT
-            self.lastKeyDirection = self.keyDirection
-            self.xTotalDistance = 0
-    
-
-    def disable(self) -> None:
-        pass
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-# from org.allbinary.game.physics.velocity.VelocityInterfaceCompositeInterface import VelocityInterfaceCompositeInterface
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.logic.math.MathUtil import MathUtil
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.util.ABHashtable import ABHashtable
+    this.xTotalDistance = Int32(0)
+    this.lastKeyDirection = staticGet_RIGHT(Canvas)
+    this.keyDirection = staticGet_RIGHT(Canvas)
+    nothing
+end
 
 
-def _BasePatrolAI_MAX_DISTANCE() -> object:
-    from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-    return SmallIntegerSingletonFactory.getInstance().getAt(2)
+function initBasePatrolAI(this::BasePatrolAI, hashtable, ownerLayerInterface, gameInput)
+        initBasicAI(this, ownerLayerInterface, gameInput)
+        initFieldsBasePatrolAI(this)
+        this.maxDistance = (AllBinary.get(hashtable, staticGet_MAX_DISTANCE(BasePatrolAI)))
+        this.currentDistance = AllBinary.intValue(this.maxDistance)
+        nothing
+end
 
-lazy_static(BasePatrolAI, "MAX_DISTANCE", _BasePatrolAI_MAX_DISTANCE)
+function newBasePatrolAI(hashtable, ownerLayerInterface, gameInput)
+    this = BasePatrolAI()
+    initBasePatrolAI(this, hashtable, ownerLayerInterface, gameInput)
+    this
+end
 
-def _BasePatrolAI_DIRECTION_ARRAY() -> object:
-    from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-    return SmallIntegerSingletonFactory.getInstance().getAt(3)
 
-lazy_static(BasePatrolAI, "DIRECTION_ARRAY", _BasePatrolAI_DIRECTION_ARRAY)
+function update(this::BasePatrolAI)
+        AllBinary.updateTotalDistance(this)
+        AllBinary.changeDirectionIfReachedPacingAreaMax(this)
+        nothing
+end
 
-def _BasePatrolAI_FIRING_DISTANCE() -> object:
-    from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-    return SmallIntegerSingletonFactory.getInstance().getAt(4)
 
-lazy_static(BasePatrolAI, "FIRING_DISTANCE", _BasePatrolAI_FIRING_DISTANCE)
+function updateTotalDistance(this::BasePatrolAI)
+        local velocityInterfaceCompositeInterface = (AllBinary.getOwnerLayerInterface(this))
+        local velocityProperties = AllBinary.getVelocityProperties(velocityInterfaceCompositeInterface)
+        this.xTotalDistance += AllBinary.getScaled(AllBinary.getVelocityXBasicDecimalP(velocityProperties))
+        nothing
+end
 
-def _BasePatrolAI_SPEED() -> object:
-    from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-    return SmallIntegerSingletonFactory.getInstance().getAt(5)
 
-lazy_static(BasePatrolAI, "SPEED", _BasePatrolAI_SPEED)
+function changeDirectionIfReachedPacingAreaMax(this::BasePatrolAI)
+        local mathUtil = AllBinary.getInstance(MathUtil)
+        local totalDistance::Int32 = AllBinary.abs(mathUtil, this.xTotalDistance)
+        if totalDistance > this.currentDistance
+            AllBinary.nextDirection(this)
+        end
+        nothing
+end
+
+
+function nextDirection(this::BasePatrolAI)
+        if this.lastKeyDirection == staticGet_LEFT(Canvas)
+            this.keyDirection = staticGet_RIGHT(Canvas)
+            this.lastKeyDirection = this.keyDirection
+            this.xTotalDistance = Int32(0)
+        elseif this.lastKeyDirection == staticGet_RIGHT(Canvas)
+            this.keyDirection = staticGet_LEFT(Canvas)
+            this.lastKeyDirection = this.keyDirection
+            this.xTotalDistance = Int32(0)
+        end
+        nothing
+end
+
+
+function disable(this::BasePatrolAI)
+        nothing
+        nothing
+end
 

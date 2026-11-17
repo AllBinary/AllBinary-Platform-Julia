@@ -1,88 +1,111 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.android.input.motion.event
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AnalogControllerConfigurationEventHandler <: JObject
+    list::Any
+    AnalogControllerConfigurationEventHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const AnalogControllerConfigurationEventHandler_instanceValue = Ref{Any}(nothing)
+const AnalogControllerConfigurationEventHandler_instanceSet = Ref(false)
+function staticGet_instance(::Type{AnalogControllerConfigurationEventHandler})
+    if !AnalogControllerConfigurationEventHandler_instanceSet[]
+        AnalogControllerConfigurationEventHandler_instanceSet[] = true
+        AnalogControllerConfigurationEventHandler_instanceValue[] = newAnalogControllerConfigurationEventHandler()
+    end
+    AnalogControllerConfigurationEventHandler_instanceValue[]
+end
+function staticSet_instance(::Type{AnalogControllerConfigurationEventHandler}, value)
+    AnalogControllerConfigurationEventHandler_instanceSet[] = true
+    AnalogControllerConfigurationEventHandler_instanceValue[] = value
+end
 
-
-class AnalogControllerConfigurationEventHandler(BasicEventHandler):
-    instance: AnalogControllerConfigurationEventHandler = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_: BasicArrayList = BasicArrayListD()
-    
-
-    @staticmethod
-    def getInstance() -> AnalogControllerConfigurationEventHandler:
-        return AnalogControllerConfigurationEventHandler.instance
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def addListener(self, analogControllerConfigurationEventListenerInterface: AnalogControllerConfigurationEventListenerInterface) -> None:
-        if not self.list_.contains(analogControllerConfigurationEventListenerInterface):
-            self.list_.add(analogControllerConfigurationEventListenerInterface)
-    
-
-    def removeAllListeners(self) -> None:
-        self.list_.clear()
-        super().removeAllListeners()
-    
-
-    def removeListener(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.list_.remove(eventListenerInterface)
-        super().removeListener(eventListenerInterface)
-    
-
-    # throws Exception
-    def fireEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        index = self.list_.size()
-        while (index := index - 1) >= 0:
-            try:
-                playerGameInput: AnalogControllerConfigurationEventListenerInterface = self.list_.objectArray[index]
-                playerGameInput.onAnalogControllerConfigurationEvent(eventObject)
-            except Exception as e:
-                self.logUtil.put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-        super().fireEvent(eventObject)
-    
-
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        analogControllerConfigurationEventListenerInterface: AnalogControllerConfigurationEventListenerInterface = (eventListenerInterface)
-        analogControllerConfigurationEventListenerInterface.onAnalogControllerConfigurationEvent(eventObject)
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function initFieldsAnalogControllerConfigurationEventHandler(this::AnalogControllerConfigurationEventHandler)
+    this.list = nothing
+    this.list = newBasicArrayListD()
+    nothing
+end
 
 
-def _AnalogControllerConfigurationEventHandler_instance() -> object:
-    return AnalogControllerConfigurationEventHandler()
+function getInstance(::Type{AnalogControllerConfigurationEventHandler})
+        return staticGet_instance(AnalogControllerConfigurationEventHandler)
+end
 
-lazy_static(AnalogControllerConfigurationEventHandler, "instance", _AnalogControllerConfigurationEventHandler_instance)
+
+function initAnalogControllerConfigurationEventHandler(this::AnalogControllerConfigurationEventHandler)
+        initBasicEventHandler(this)
+        initFieldsAnalogControllerConfigurationEventHandler(this)
+        nothing
+        nothing
+end
+
+function newAnalogControllerConfigurationEventHandler()
+    this = AnalogControllerConfigurationEventHandler()
+    initAnalogControllerConfigurationEventHandler(this)
+    this
+end
+
+
+function addListener(this::AnalogControllerConfigurationEventHandler, analogControllerConfigurationEventListenerInterface)
+        if !AllBinary.contains(this.list, analogControllerConfigurationEventListenerInterface)
+            AllBinary.add(this.list, analogControllerConfigurationEventListenerInterface)
+        end
+        nothing
+end
+
+
+function removeAllListeners(this::AnalogControllerConfigurationEventHandler)
+        AllBinary.clear(this.list)
+        AllBinary.removeAllListeners(this)
+        nothing
+end
+
+
+function removeListener(this::AnalogControllerConfigurationEventHandler, eventListenerInterface)
+        AllBinary.remove(this.list, eventListenerInterface)
+        AllBinary.removeListener(this, eventListenerInterface)
+        nothing
+end
+
+
+function fireEvent(this::AnalogControllerConfigurationEventHandler, eventObject)
+        let
+            local index::Int32 = AllBinary.size(this.list)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            try
+                local playerGameInput = (this.list.objectArray[index + 1])
+                AllBinary.onAnalogControllerConfigurationEvent(playerGameInput, (eventObject))
+            catch e
+                AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, AllBinary.getInstance(EventStrings).FIRE_EVENT, e)
+            end
+            finally
+            end
+            end
+        end
+        AllBinary.fireEvent(this, eventObject)
+        nothing
+end
+
+
+function process(this::AnalogControllerConfigurationEventHandler, eventObject, eventListenerInterface)
+        local analogControllerConfigurationEventListenerInterface = ((eventListenerInterface))
+        AllBinary.onAnalogControllerConfigurationEvent(analogControllerConfigurationEventListenerInterface, (eventObject))
+        nothing
+end
 

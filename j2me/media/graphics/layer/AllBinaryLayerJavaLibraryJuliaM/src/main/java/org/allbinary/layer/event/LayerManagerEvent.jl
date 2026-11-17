@@ -1,62 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer.event
 
-from __future__ import annotations
+# extends AllBinaryEventObject: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LayerManagerEvent <: JObject
+    layerInterface::Any
+    crud::Any
+    LayerManagerEvent() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
 
-
-class LayerManagerEvent(AllBinaryEventObject):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.layerInterface: AllBinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
-        self.crud: str = None
+function initFieldsLayerManagerEvent(this::LayerManagerEvent)
+    this.layerInterface = nothing
+    this.crud = nothing
+    this.layerInterface = staticGet_NULL_ALLBINARY_LAYER(AllBinaryLayer)
     
+    nothing
+end
 
-    def __init__(self, layerManager: LayerManager, crud: str) -> None:
-        from org.allbinary.layer.LayerManager import LayerManager
-        super().__init__(layerManager)
-        self._init_fields()
-        self.crud = crud
-    
 
-    def getLayerInterface(self) -> AllBinaryLayer:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return self.layerInterface
-    
+function initLayerManagerEvent(this::LayerManagerEvent, layerManager, crud)
+        initAllBinaryEventObject(this, layerManager)
+        initFieldsLayerManagerEvent(this)
+        this.crud = crud
+        nothing
+end
 
-    def setLayerInterface(self, layerInterface: AllBinaryLayer) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.layerInterface = layerInterface
-    
+function newLayerManagerEvent(layerManager, crud)
+    this = LayerManagerEvent()
+    initLayerManagerEvent(this, layerManager, crud)
+    this
+end
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append("LayerManagerEvent: \n")
-        stringBuffer.append("LayerInterface: ")
-        stringBuffer.append(str(self.getLayerInterface()))
-        stringBuffer.append("\nCRUD: ")
-        stringBuffer.append(self.crud)
-        return str(stringBuffer)
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.LayerManager import LayerManager
-# from org.allbinary.logic.string.StringMaker import StringMaker
+function getLayerInterface(this::LayerManagerEvent)
+        return this.layerInterface
+end
 
+
+function setLayerInterface(this::LayerManagerEvent, layerInterface)
+        this.layerInterface = layerInterface
+        nothing
+end
+
+
+function toString(this::LayerManagerEvent)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, "LayerManagerEvent: \n")
+        AllBinary.append(stringBuffer, "LayerInterface: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(AllBinary.getLayerInterface(this)))
+        AllBinary.append(stringBuffer, "\nCRUD: ")
+        AllBinary.append(stringBuffer, this.crud)
+        return AllBinary.toString(stringBuffer)
+end
 

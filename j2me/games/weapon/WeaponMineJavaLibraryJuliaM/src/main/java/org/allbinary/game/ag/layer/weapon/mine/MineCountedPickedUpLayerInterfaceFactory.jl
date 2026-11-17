@@ -1,87 +1,86 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.weapon.mine
 
-from __future__ import annotations
+# extends CountedPickedUpLayerInterfaceFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MineCountedPickedUpLayerInterfaceFactory <: JObject
+    weaponLayerCircularStaticPool::Any
+    weaponProperties::Any
+    smallIntegerSingletonFactory::Any
+    MineCountedPickedUpLayerInterfaceFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.layer.pickup.CountedPickedUpLayerInterfaceFactory import CountedPickedUpLayerInterfaceFactory
+const MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceValue = Ref{Any}(nothing)
+const MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceSet = Ref(false)
+function staticGet_pickedUpLayerInterfaceFactoryInterface(::Type{MineCountedPickedUpLayerInterfaceFactory})
+    if !MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceSet[]
+        MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceSet[] = true
+        MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceValue[] = staticGet_NULL_COUNTED_PICKUP_LAYER_FACTORY(CountedPickedUpLayerInterfaceFactory)
+    end
+    MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceValue[]
+end
+function staticSet_pickedUpLayerInterfaceFactoryInterface(::Type{MineCountedPickedUpLayerInterfaceFactory}, value)
+    MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceSet[] = true
+    MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterfaceValue[] = value
+end
 
-
-class MineCountedPickedUpLayerInterfaceFactory(CountedPickedUpLayerInterfaceFactory):
-    pickedUpLayerInterfaceFactoryInterface: PickedUpLayerInterfaceFactoryInterface = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        self.weaponLayerCircularStaticPool: WeaponLayerCircularPool = MineLayerCircularStaticPool.getInstance()
-        self.weaponProperties: WeaponProperties = WeaponProperties(-1, -1, 0, 8000, ((int(10) + 32768) % 65536 - 32768))
-        self.smallIntegerSingletonFactory: SmallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-    
-
-    # throws Exception
-    @staticmethod
-    def init() -> None:
-        MineCountedPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface = MineCountedPickedUpLayerInterfaceFactory()
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.game.ag.layer.weapon.mine.MineWeaponResources import MineWeaponResources
-        from org.allbinary.game.ag.layer.weapon.mine.MineWeaponResources import MineWeaponResources
-        from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.game.layer.pickup.IconLayerFactory import IconLayerFactory
-        from org.allbinary.game.layer.pickup.PickedUpLayerTypeFactory import PickedUpLayerTypeFactory
-        super().__init__(PickedUpLayerTypeFactory.getInstance().MINE, IconLayerFactory.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(MineWeaponResources.getInstance().DROP_ICON_RESOURCE).getInstance(0), 10, 10), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(MineWeaponResources.getInstance().DROP_RESOURCE).getInstance(0))
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> PickedUpLayerInterfaceFactoryInterface:
-        from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-        return MineCountedPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface
-    
-
-    def getTotal(self) -> int:
-        return 3
-    
-
-    # throws Exception
-    def getNextInstance(self, hashtable: ABHashtable[object, object], x: int, y: int, z: int) -> AllBinaryLayer:
-        from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.ABHashtable import ABHashtable
-        sourceLayerInterface: AllBinaryLayer = hashtable.get(self.smallIntegerSingletonFactory.getAt(0))
-        angle: int = hashtable.get(self.smallIntegerSingletonFactory.getAt(1))
-        scoreableInterface: ScoreableInterface = sourceLayerInterface
-        return self.weaponLayerCircularStaticPool.getInstanceWeaponLayer(sourceLayerInterface, x, y, z, int(int(angle)), 0, self.weaponProperties, scoreableInterface)
-# from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-# from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-# from org.allbinary.game.layer.pickup.IconLayerFactory import IconLayerFactory
-# from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-# from org.allbinary.game.layer.pickup.PickedUpLayerTypeFactory import PickedUpLayerTypeFactory
-# from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-# from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.util.ABHashtable import ABHashtable
-from org.allbinary.game.ag.layer.weapon.mine.MineLayerCircularStaticPool import MineLayerCircularStaticPool
+function initFieldsMineCountedPickedUpLayerInterfaceFactory(this::MineCountedPickedUpLayerInterfaceFactory)
+    this.weaponLayerCircularStaticPool = nothing
+    this.weaponProperties = nothing
+    this.smallIntegerSingletonFactory = nothing
+    this.weaponLayerCircularStaticPool = AllBinary.getInstance(MineLayerCircularStaticPool)
+    this.weaponProperties = newWeaponProperties(-Int64(1), -Int64(1), Int32(0), Int32(8000), ((Int32(10)) % Int16))
+    this.smallIntegerSingletonFactory = AllBinary.getInstance(SmallIntegerSingletonFactory)
+    nothing
+end
 
 
-def _MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterface() -> object:
-    from org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface import PickedUpLayerInterfaceFactoryInterface
-    return CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
+function init(::Type{MineCountedPickedUpLayerInterfaceFactory})
+        staticSet_pickedUpLayerInterfaceFactoryInterface(MineCountedPickedUpLayerInterfaceFactory, newMineCountedPickedUpLayerInterfaceFactory())
+        nothing
+end
 
-lazy_static(MineCountedPickedUpLayerInterfaceFactory, "pickedUpLayerInterfaceFactoryInterface", _MineCountedPickedUpLayerInterfaceFactory_pickedUpLayerInterfaceFactoryInterface)
+
+function initMineCountedPickedUpLayerInterfaceFactory(this::MineCountedPickedUpLayerInterfaceFactory)
+        initCountedPickedUpLayerInterfaceFactory(this, AllBinary.getInstance(PickedUpLayerTypeFactory).MINE, AllBinary.getInstance(IconLayerFactory, AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), AllBinary.getInstance(MineWeaponResources).DROP_ICON_RESOURCE), Int32(0)), Int32(10), Int32(10)), AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), AllBinary.getInstance(MineWeaponResources).DROP_RESOURCE), Int32(0)))
+        initFieldsMineCountedPickedUpLayerInterfaceFactory(this)
+        nothing
+end
+
+function newMineCountedPickedUpLayerInterfaceFactory()
+    this = MineCountedPickedUpLayerInterfaceFactory()
+    initMineCountedPickedUpLayerInterfaceFactory(this)
+    this
+end
+
+
+function getInstance(::Type{MineCountedPickedUpLayerInterfaceFactory})
+        return staticGet_pickedUpLayerInterfaceFactoryInterface(MineCountedPickedUpLayerInterfaceFactory)
+end
+
+
+function getTotal(this::MineCountedPickedUpLayerInterfaceFactory)
+        return Int32(3)
+end
+
+
+function getNextInstance(this::MineCountedPickedUpLayerInterfaceFactory, hashtable, x, y, z)
+        local sourceLayerInterface = (AllBinary.get(hashtable, (AllBinary.getAt(this.smallIntegerSingletonFactory, Int32(0)))))
+        local angle = (AllBinary.get(hashtable, (AllBinary.getAt(this.smallIntegerSingletonFactory, Int32(1)))))
+        local scoreableInterface = (sourceLayerInterface)
+        return AllBinary.getInstanceWeaponLayer(this.weaponLayerCircularStaticPool, sourceLayerInterface, x, y, z, ((AllBinary.intValue(angle)) % Int32), Int32(0), this.weaponProperties, scoreableInterface)
+end
 

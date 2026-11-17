@@ -1,105 +1,121 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageArrayAnimation <: JObject
+    imageArray::Any
+    totalFrames::Int32
+    circularIndexUtil::Any
+    anchor::Int32
+    ImageArrayAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
+
+function initFieldsImageArrayAnimation(this::ImageArrayAnimation)
+    this.imageArray = nothing
+    this.totalFrames = Int32(0)
+    this.circularIndexUtil = nothing
+    this.anchor = Int32(0)
+    this.imageArray = staticGet_NULL_IMAGE_ARRAY(NullImage)
+    this.totalFrames = Int32(0)
+    this.circularIndexUtil = staticGet_NULL_CIRCULAR_INDEX_UTIL(CircularIndexUtil)
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    nothing
+end
 
 
-class ImageArrayAnimation(IndexedAnimation):
+function initImageArrayAnimation(this::ImageArrayAnimation, imageArray, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        initFieldsImageArrayAnimation(this)
+        AllBinary.setImageArray(this, imageArray)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.NullImage import NullImage
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.imageArray: list[Image] = NullImage.NULL_IMAGE_ARRAY
-        self.totalFrames: int = 0
-        self.circularIndexUtil: CircularIndexUtil = CircularIndexUtil.NULL_CIRCULAR_INDEX_UTIL
-        self.anchor: int = Anchor.TOP_LEFT
-    
+function newImageArrayAnimation(imageArray, animationBehavior)
+    this = ImageArrayAnimation()
+    initImageArrayAnimation(this, imageArray, animationBehavior)
+    this
+end
 
-    def __init__(self, imageArray: list[Image], animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.setImageArray(imageArray)
-    
 
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        return self.getSize()
-    
+function getAnimationSize(this::ImageArrayAnimation)
+        return AllBinary.getSize(this)
+end
 
-    def nextFrame(self) -> None:
-        self.circularIndexUtil.next()
-    
 
-    def previousFrame(self) -> None:
-        self.circularIndexUtil.previous()
-    
+function nextFrame(this::ImageArrayAnimation)
+        AllBinary.next(this.circularIndexUtil)
+        nothing
+end
 
-    def setFrame(self, index: int) -> None:
-        self.circularIndexUtil.setIndex(index)
-    
 
-    def getFrame(self) -> int:
-        return self.circularIndexUtil.getIndex()
-    
+function previousFrame(this::ImageArrayAnimation)
+        AllBinary.previous(this.circularIndexUtil)
+        nothing
+end
 
-    def getSize(self) -> int:
-        return self.totalFrames
-    
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
+function setFrame(this::ImageArrayAnimation, index)
+        AllBinary.setIndex(this.circularIndexUtil, index)
+        nothing
+end
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
 
-    def getImage(self, index: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        return self.imageArray[index]
-    
+function getFrame(this::ImageArrayAnimation)
+        return AllBinary.getIndex(this.circularIndexUtil)
+end
 
-    def getImageArray(self) -> list[Image]:
-        from javax.microedition.lcdui.Image import Image
-        return self.imageArray
-    
 
-    def setImageArray(self, imageArray: list[Image]) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.imageArray = imageArray
-        self.totalFrames = len(imageArray)
-        self.circularIndexUtil = CircularIndexUtil.createInstance(self.totalFrames)
-    
+function getSize(this::ImageArrayAnimation)
+        return this.totalFrames
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        graphics.drawImage(self.imageArray[self.circularIndexUtil.getIndex()], x, y, self.anchor)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.NullImage import NullImage
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
 
+function setSequence(this::ImageArrayAnimation, sequence)
+        nothing
+        nothing
+end
+
+
+function getSequence(this::ImageArrayAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
+
+
+function getImage(this::ImageArrayAnimation, index)
+        return this.imageArray[index + 1]
+end
+
+
+function getImageArray(this::ImageArrayAnimation)
+        return this.imageArray
+end
+
+
+function setImageArray(this::ImageArrayAnimation, imageArray)
+        this.imageArray = imageArray
+        this.totalFrames = Int32(Base.length(imageArray))
+        this.circularIndexUtil = AllBinary.createInstance(CircularIndexUtil, this.totalFrames)
+        nothing
+end
+
+
+function paintXY(this::ImageArrayAnimation, graphics, x, y)
+        AllBinary.drawImage(graphics, this.imageArray[AllBinary.getIndex(this.circularIndexUtil) + 1], x, y, this.anchor)
+        nothing
+end
 

@@ -1,144 +1,167 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer
 
-from __future__ import annotations
+# extends AllBinaryLayerManager: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AllBinaryGameLayerManager <: JObject
+    backgroundBasicColor::Any
+    foregroundBasicColor::Any
+    gameInfo::Any
+    playerGameInputCompositeInterface::Any
+    AllBinaryGameLayerManager() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
+const AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGERValue = Ref{Any}(nothing)
+const AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGERSet = Ref(false)
+function staticGet_NULL_ALLBINARY_LAYER_MANAGER(::Type{AllBinaryGameLayerManager})
+    if !AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGERSet[]
+        AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGERSet[] = true
+        AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGERValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGERValue[]
+end
+function staticSet_NULL_ALLBINARY_LAYER_MANAGER(::Type{AllBinaryGameLayerManager}, value)
+    AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGERSet[] = true
+    AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGERValue[] = value
+end
+const AllBinaryGameLayerManager_IDValue = Ref{Any}(nothing)
+const AllBinaryGameLayerManager_IDSet = Ref(false)
+function staticGet_ID(::Type{AllBinaryGameLayerManager})
+    if !AllBinaryGameLayerManager_IDSet[]
+        AllBinaryGameLayerManager_IDSet[] = true
+        AllBinaryGameLayerManager_IDValue[] = AllBinary.getAt(AllBinary.getInstance(SmallIntegerSingletonFactory), Int32(22))
+    end
+    AllBinaryGameLayerManager_IDValue[]
+end
+function staticSet_ID(::Type{AllBinaryGameLayerManager}, value)
+    AllBinaryGameLayerManager_IDSet[] = true
+    AllBinaryGameLayerManager_IDValue[] = value
+end
 
-
-class AllBinaryGameLayerManager(AllBinaryLayerManager):
-    NULL_ALLBINARY_LAYER_MANAGER: object = None
-    ID: int = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        from org.allbinary.game.input.NullPlayerGameInputComposite import NullPlayerGameInputComposite
-        from org.allbinary.game.input.PlayerGameInputCompositeInterface import PlayerGameInputCompositeInterface
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.backgroundBasicColor: BasicColor = None
-        self.foregroundBasicColor: BasicColor = None
-        self.gameInfo: GameInfo = None
-        self.playerGameInputCompositeInterface: PlayerGameInputCompositeInterface = NullPlayerGameInputComposite.NULL_PLAYER_GAME_INPUT_COMPOSITE
+function initFieldsAllBinaryGameLayerManager(this::AllBinaryGameLayerManager)
+    this.backgroundBasicColor = nothing
+    this.foregroundBasicColor = nothing
+    this.gameInfo = nothing
+    this.playerGameInputCompositeInterface = nothing
     
-
-    @staticmethod
-    def getNullInstance() -> AllBinaryGameLayerManager:
-        from org.allbinary.game.GameInfo import GameInfo
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.logic.NullUtil import NullUtil
-        if AllBinaryGameLayerManager.NULL_ALLBINARY_LAYER_MANAGER == NullUtil.getInstance().NULL_OBJECT:
-            AllBinaryGameLayerManager.NULL_ALLBINARY_LAYER_MANAGER = AllBinaryGameLayerManager(BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE, GameInfo.NONE)
-        return AllBinaryGameLayerManager.NULL_ALLBINARY_LAYER_MANAGER
     
-
-    def __init__(self, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor, gameInfo: GameInfo) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        from org.allbinary.graphics.ItemColorFactory import ItemColorFactory
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.backgroundBasicColor = backgroundBasicColor
-        self.foregroundBasicColor = foregroundBasicColor
-        itemColorFactory: ItemColorFactory = ItemColorFactory.getInstance()
-        itemColorFactory.INVERT_PAINT = int(self.backgroundBasicColor)
-        itemColorFactory.PAINT = int(self.foregroundBasicColor)
-        self.gameInfo = gameInfo
     
-
-    def getLayerManager(self) -> AllBinaryLayerManager:
-        return self
-    
-
-    def init(self) -> None:
-        pass
-    
-
-    def getBackgroundBasicColor(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.backgroundBasicColor
-    
-
-    def setBackgroundBasicColor(self, backgroundBasicColor: BasicColor) -> None:
-        from org.allbinary.graphics.ItemColorFactory import ItemColorFactory
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.backgroundBasicColor = backgroundBasicColor
-        ItemColorFactory.getInstance().INVERT_PAINT = int(self.backgroundBasicColor)
-    
-
-    def getForegroundBasicColor(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.foregroundBasicColor
-    
-
-    def setForegroundBasicColor(self, foregroundBasicColor: BasicColor) -> None:
-        from org.allbinary.graphics.ItemColorFactory import ItemColorFactory
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.foregroundBasicColor = foregroundBasicColor
-        ItemColorFactory.getInstance().PAINT = int(self.foregroundBasicColor)
-    
-
-    def getGameInfo(self) -> GameInfo:
-        from org.allbinary.game.GameInfo import GameInfo
-        return self.gameInfo
-    
-
-    def setGameInfo(self, gameInfo: GameInfo) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        self.gameInfo = gameInfo
-    
-
-    def setLayerProcessorList(self, list_: BasicArrayList) -> None:
-        from org.allbinary.layer.LayerProcessor import LayerProcessor
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        layerProcessorInterfaceArray: list[LayerProcessor] = [None] * (list_.size())
-        size: int = len(layerProcessorInterfaceArray)
-        for index in range(0, size):
-            layerProcessorInterfaceArray[index] = list_.objectArray[index]
-        self.setLayerProcessorArray(layerProcessorInterfaceArray)
-    
-
-    def setPlayerGameInputCompositeInterface(self, playerGameInputCompositeInterface: PlayerGameInputCompositeInterface) -> None:
-        from org.allbinary.game.input.PlayerGameInputCompositeInterface import PlayerGameInputCompositeInterface
-        self.playerGameInputCompositeInterface = playerGameInputCompositeInterface
-    
-
-    def getPlayerGameInputCompositeInterface(self) -> PlayerGameInputCompositeInterface:
-        from org.allbinary.game.input.PlayerGameInputCompositeInterface import PlayerGameInputCompositeInterface
-        return self.playerGameInputCompositeInterface
-# from org.allbinary.game.GameInfo import GameInfo
-# from org.allbinary.game.input.NullPlayerGameInputComposite import NullPlayerGameInputComposite
-# from org.allbinary.game.input.PlayerGameInputCompositeInterface import PlayerGameInputCompositeInterface
-# from org.allbinary.graphics.ItemColorFactory import ItemColorFactory
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.layer.LayerProcessor import LayerProcessor
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.util.BasicArrayList import BasicArrayList
+    this.playerGameInputCompositeInterface = staticGet_NULL_PLAYER_GAME_INPUT_COMPOSITE(NullPlayerGameInputComposite)
+    nothing
+end
 
 
-def _AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGER() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getNullInstance(::Type{AllBinaryGameLayerManager})
+        if staticGet_NULL_ALLBINARY_LAYER_MANAGER(AllBinaryGameLayerManager) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_NULL_ALLBINARY_LAYER_MANAGER(AllBinaryGameLayerManager, newAllBinaryGameLayerManager(AllBinary.getInstance(BasicColorFactory).BLACK, AllBinary.getInstance(BasicColorFactory).WHITE, staticGet_NONE(GameInfo)))
+        end
+        return (staticGet_NULL_ALLBINARY_LAYER_MANAGER(AllBinaryGameLayerManager))
+end
 
-lazy_static(AllBinaryGameLayerManager, "NULL_ALLBINARY_LAYER_MANAGER", _AllBinaryGameLayerManager_NULL_ALLBINARY_LAYER_MANAGER)
 
-def _AllBinaryGameLayerManager_ID() -> object:
-    from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-    return SmallIntegerSingletonFactory.getInstance().getAt(22)
+function initAllBinaryGameLayerManager(this::AllBinaryGameLayerManager, backgroundBasicColor, foregroundBasicColor, gameInfo)
+        initAllBinaryLayerManager(this)
+        initFieldsAllBinaryGameLayerManager(this)
+        this.backgroundBasicColor = backgroundBasicColor
+        this.foregroundBasicColor = foregroundBasicColor
+        local itemColorFactory = AllBinary.getInstance(ItemColorFactory)
+        itemColorFactory.INVERT_PAINT = AllBinary.intValue(this.backgroundBasicColor)
+        itemColorFactory.PAINT = AllBinary.intValue(this.foregroundBasicColor)
+        this.gameInfo = gameInfo
+        nothing
+end
 
-lazy_static(AllBinaryGameLayerManager, "ID", _AllBinaryGameLayerManager_ID)
+function newAllBinaryGameLayerManager(backgroundBasicColor, foregroundBasicColor, gameInfo)
+    this = AllBinaryGameLayerManager()
+    initAllBinaryGameLayerManager(this, backgroundBasicColor, foregroundBasicColor, gameInfo)
+    this
+end
+
+
+function getLayerManager(this::AllBinaryGameLayerManager)
+        return this
+end
+
+
+function init(this::AllBinaryGameLayerManager)
+        nothing
+        nothing
+end
+
+
+function getBackgroundBasicColor(this::AllBinaryGameLayerManager)
+        return this.backgroundBasicColor
+end
+
+
+function setBackgroundBasicColor(this::AllBinaryGameLayerManager, backgroundBasicColor)
+        this.backgroundBasicColor = backgroundBasicColor
+        AllBinary.getInstance(ItemColorFactory).INVERT_PAINT = AllBinary.intValue(this.backgroundBasicColor)
+        nothing
+end
+
+
+function getForegroundBasicColor(this::AllBinaryGameLayerManager)
+        return this.foregroundBasicColor
+end
+
+
+function setForegroundBasicColor(this::AllBinaryGameLayerManager, foregroundBasicColor)
+        this.foregroundBasicColor = foregroundBasicColor
+        AllBinary.getInstance(ItemColorFactory).PAINT = AllBinary.intValue(this.foregroundBasicColor)
+        nothing
+end
+
+
+function getGameInfo(this::AllBinaryGameLayerManager)
+        return this.gameInfo
+end
+
+
+function setGameInfo(this::AllBinaryGameLayerManager, gameInfo)
+        this.gameInfo = gameInfo
+        nothing
+end
+
+
+function setLayerProcessorList(this::AllBinaryGameLayerManager, list)
+        local layerProcessorInterfaceArray = jNewArray(Any, AllBinary.size(list), nothing)
+        local size::Int32 = Int32(Base.length(layerProcessorInterfaceArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            layerProcessorInterfaceArray[index + 1] = (list.objectArray[index + 1])
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.setLayerProcessorArray(this, layerProcessorInterfaceArray)
+        nothing
+end
+
+
+function setPlayerGameInputCompositeInterface(this::AllBinaryGameLayerManager, playerGameInputCompositeInterface)
+        this.playerGameInputCompositeInterface = playerGameInputCompositeInterface
+        nothing
+end
+
+
+function getPlayerGameInputCompositeInterface(this::AllBinaryGameLayerManager)
+        return this.playerGameInputCompositeInterface
+end
 

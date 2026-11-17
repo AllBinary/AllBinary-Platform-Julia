@@ -1,69 +1,71 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.motion.action
 
-from __future__ import annotations
+# extends CompleteMotionGestureInputEventListener: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameKeyFromMotionGestureEventListener <: JObject
+    logUtil::Any
+    previousGameKeyEvent::Any
+    GameKeyFromMotionGestureEventListener() = new()
+end
 
-from org.allbinary.game.input.CompleteMotionGestureInputEventListener import CompleteMotionGestureInputEventListener
+
+function initFieldsGameKeyFromMotionGestureEventListener(this::GameKeyFromMotionGestureEventListener)
+    this.logUtil = nothing
+    this.previousGameKeyEvent = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.previousGameKeyEvent = staticGet_NONE(GameKeyEvent)
+    nothing
+end
+
+function initGameKeyFromMotionGestureEventListener(this::GameKeyFromMotionGestureEventListener)
+    initCompleteMotionGestureInputEventListener(this)
+    initFieldsGameKeyFromMotionGestureEventListener(this)
+end
+
+function newGameKeyFromMotionGestureEventListener()
+    this = GameKeyFromMotionGestureEventListener()
+    initGameKeyFromMotionGestureEventListener(this)
+    this
+end
 
 
-class GameKeyFromMotionGestureEventListener(CompleteMotionGestureInputEventListener):
+function onEvent(this::GameKeyFromMotionGestureEventListener, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.previousGameKeyEvent: GameKeyEvent = GameKeyEvent.NONE
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
-
-    def onCompleteMotionGestureInputEvent(self, completeMotionGestureInputEvent: CompleteMotionGestureInputEvent) -> None:
-        from org.allbinary.game.input.CompleteMotionGestureInputEvent import CompleteMotionGestureInputEvent
-        from org.allbinary.game.input.event.DownGameKeyEventHandler import DownGameKeyEventHandler
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.game.input.event.UpGameKeyEventHandler import UpGameKeyEventHandler
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            gameKeyCompleteMotionGestureInputEvent: GameKeyCompleteMotionGestureInputEvent = completeMotionGestureInputEvent
-            gameKeyEvent: GameKeyEvent = gameKeyCompleteMotionGestureInputEvent.getGameKeyEvent()
-            if gameKeyEvent != self.previousGameKeyEvent:
-                if self.previousGameKeyEvent != GameKeyEvent.NONE:
-                    UpGameKeyEventHandler.getInstance().fireEvent(self.previousGameKeyEvent)
-                self.previousGameKeyEvent = gameKeyEvent
-                if gameKeyEvent is not None and gameKeyEvent != GameKeyEvent.NONE:
-                    DownGameKeyEventHandler.getInstance().fireEvent(gameKeyEvent)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "onCompleteMotionGestureInputEvent", e)
-# from org.allbinary.game.input.CompleteMotionGestureInputEvent import CompleteMotionGestureInputEvent
-# from org.allbinary.game.input.event.DownGameKeyEventHandler import DownGameKeyEventHandler
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.game.input.event.UpGameKeyEventHandler import UpGameKeyEventHandler
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.string.CommonStrings import CommonStrings
-
+function onCompleteMotionGestureInputEvent(this::GameKeyFromMotionGestureEventListener, completeMotionGestureInputEvent)
+        try
+            local gameKeyCompleteMotionGestureInputEvent = (completeMotionGestureInputEvent)
+            local gameKeyEvent = AllBinary.getGameKeyEvent(gameKeyCompleteMotionGestureInputEvent)
+            if gameKeyEvent !== this.previousGameKeyEvent
+                if this.previousGameKeyEvent !== staticGet_NONE(GameKeyEvent)
+                    AllBinary.fireEvent(AllBinary.getInstance(UpGameKeyEventHandler), this.previousGameKeyEvent)
+                end
+                this.previousGameKeyEvent = gameKeyEvent
+                if gameKeyEvent !== nothing && gameKeyEvent !== staticGet_NONE(GameKeyEvent)
+                    AllBinary.fireEvent(AllBinary.getInstance(DownGameKeyEventHandler), gameKeyEvent)
+                end
+            end
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, "onCompleteMotionGestureInputEvent", e)
+        end
+        nothing
+end
 

@@ -1,64 +1,76 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ColorFillBasePaintable <: JObject
+    basicColor::Any
+    colorP::Int32
+    ColorFillBasePaintable() = new()
+end
 
-from org.allbinary.graphics.color.ColorCompositeInterface import ColorCompositeInterface
-from org.allbinary.graphics.paint.Paintable import Paintable
+
+function initFieldsColorFillBasePaintable(this::ColorFillBasePaintable)
+    this.basicColor = nothing
+    this.colorP = Int32(0)
+    this.basicColor = AllBinary.getInstance(BasicColorFactory).WHITE
+    this.colorP = Int32(0)
+    nothing
+end
 
 
-class ColorFillBasePaintable(Paintable, ColorCompositeInterface):
+function initColorFillBasePaintable(this::ColorFillBasePaintable, basicColor)
+        initPaintable(this)
+        initFieldsColorFillBasePaintable(this)
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        self.basicColor: BasicColor = BasicColorFactory.getInstance().WHITE
-        self.colorP: int = 0
-    
+function newColorFillBasePaintable(basicColor)
+    this = ColorFillBasePaintable()
+    initColorFillBasePaintable(this, basicColor)
+    this
+end
 
-    def __init__(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.setBasicColorP(basicColor)
-    
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.basicColor = basicColor
-        self.setColor(int(self.getBasicColorP()))
-    
+function setBasicColorP(this::ColorFillBasePaintable, basicColor)
+        this.basicColor = basicColor
+        AllBinary.setColor(this, AllBinary.intValue(AllBinary.getBasicColorP(this)))
+        nothing
+end
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return self.basicColor
-    
 
-    def getColor(self) -> int:
-        return self.colorP
-    
+function getBasicColorP(this::ColorFillBasePaintable)
+        return this.basicColor
+end
 
-    def setColor(self, color: int) -> None:
-        self.colorP = color
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
+function getColor(this::ColorFillBasePaintable)
+        return this.colorP
+end
 
+
+function setColor(this::ColorFillBasePaintable, color)
+        this.colorP = color
+        nothing
+end
+
+
+function paint(this::ColorFillBasePaintable, graphics)
+        nothing
+        nothing
+end
 

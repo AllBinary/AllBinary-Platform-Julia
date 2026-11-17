@@ -1,143 +1,179 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+mutable struct VectorExplosionGenerator <: JObject
+    RANDOM::Any
+    ROTATION::Any
+    vectorAnimationUtil::Any
+    randomRotationFactory::Any
+    VectorExplosionGenerator() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const VectorExplosionGenerator_instanceValue = Ref{Any}(nothing)
+const VectorExplosionGenerator_instanceSet = Ref(false)
+function staticGet_instance(::Type{VectorExplosionGenerator})
+    if !VectorExplosionGenerator_instanceSet[]
+        VectorExplosionGenerator_instanceSet[] = true
+        VectorExplosionGenerator_instanceValue[] = newVectorExplosionGenerator()
+    end
+    VectorExplosionGenerator_instanceValue[]
+end
+function staticSet_instance(::Type{VectorExplosionGenerator}, value)
+    VectorExplosionGenerator_instanceSet[] = true
+    VectorExplosionGenerator_instanceValue[] = value
+end
+
+function initFieldsVectorExplosionGenerator(this::VectorExplosionGenerator)
+    this.RANDOM = nothing
+    this.ROTATION = nothing
+    this.vectorAnimationUtil = nothing
+    this.randomRotationFactory = nothing
+    this.RANDOM = newVectorExplosionType()
+    this.ROTATION = newVectorExplosionType()
+    this.vectorAnimationUtil = AllBinary.getInstance(VectorAnimationUtil)
+    this.randomRotationFactory = AllBinary.getInstance(RandomRotationFactory)
+    nothing
+end
 
 
-class VectorExplosionGenerator:
-    instance: VectorExplosionGenerator = None
+function getInstance(::Type{VectorExplosionGenerator})
+        return staticGet_instance(VectorExplosionGenerator)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.pipeline.RandomRotationFactory import RandomRotationFactory
-        self.RANDOM: VectorExplosionType = VectorExplosionType()
-        self.ROTATION: VectorExplosionType = VectorExplosionType()
-        self.vectorAnimationUtil: VectorAnimationUtil = VectorAnimationUtil.getInstance()
-        self.randomRotationFactory: RandomRotationFactory = RandomRotationFactory.getInstance()
-    
 
-    @staticmethod
-    def getInstance() -> VectorExplosionGenerator:
-        return VectorExplosionGenerator.instance
-    
+function initVectorExplosionGenerator(this::VectorExplosionGenerator)
+        initFieldsVectorExplosionGenerator(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newVectorExplosionGenerator()
+    this = VectorExplosionGenerator()
+    initVectorExplosionGenerator(this)
+    this
+end
 
-    # throws Exception
-    def createList(self, list_: BasicArrayList, howMuch: int, type_: VectorExplosionType) -> BasicArrayList:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        point: GPoint = None
-        size: int = list_.size()
-        points: list[list[int]] = [[0] * (2) for _ in range(size)]
-        for index in range(0, size):
-            point = list_.objectArray[index]
-            points[index][0] = point.getX()
-            points[index][1] = point.getY()
-        return self.createListFromPoints(list_, points, howMuch, type_)
-    
 
-    # throws Exception
-    # Java overloaded method: Python keeps the last definition
-    def getInstance(self, points: list[list[int]], howMuch: int, type_: VectorExplosionType) -> list[list[list[int]]]:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        pointsBasicArrayList: BasicArrayList = self.getInstanceStartFrame(points, howMuch, type_, True)
-        tempBasicArrayList: BasicArrayList = pointsBasicArrayList.objectArray[0]
-        newPoints: list[list[list[int]]] = self.vectorAnimationUtil.toAnimationArrayFromListOfPointListWithPointsPerFrame(pointsBasicArrayList, tempBasicArrayList.size())
+function createList(this::VectorExplosionGenerator, list, howMuch, type_)
+        local point = nothing
+        local size::Int32 = AllBinary.size(list)
+        local points = jNewArrayOf(Vector{Int32}, size, () -> jNewArray(Int32, Int32(2), Int32(0)))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            point = (list.objectArray[index + 1])
+            points[index + 1][Int32(0) + 1] = AllBinary.getX(point)
+            points[index + 1][Int32(1) + 1] = AllBinary.getY(point)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        return AllBinary.createListFromPoints(this, list, points, howMuch, type_)
+end
+
+
+function getInstance(this::VectorExplosionGenerator, points, howMuch, type_)
+        local pointsBasicArrayList = AllBinary.getInstanceStartFrame(this, points, howMuch, type_, true)
+        local tempBasicArrayList = (pointsBasicArrayList.objectArray[Int32(0) + 1])
+        local newPoints = AllBinary.toAnimationArrayFromListOfPointListWithPointsPerFrame(this.vectorAnimationUtil, pointsBasicArrayList, AllBinary.size(tempBasicArrayList))
         return newPoints
-    
+end
 
-    # throws Exception
-    def getInstanceStartFrame(self, points: list[list[int]], howMuch: int, type_: VectorExplosionType, startFrame: bool) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListS import BasicArrayListS
-        try:
-            pointsBasicArrayList: BasicArrayList = BasicArrayListS(howMuch)
-            pointsBasicArrayList.add(self.createPointsBasicArrayList(points))
-            frameIndex: int = 0
-            tempBasicArrayList: BasicArrayList = None
-            pointBasicArrayList: BasicArrayList = None
-            while frameIndex < howMuch:
-                tempBasicArrayList = pointsBasicArrayList.objectArray[frameIndex]
-                pointBasicArrayList = self.createListFromPoints(tempBasicArrayList, points, howMuch, type_)
-                pointsBasicArrayList.add(pointBasicArrayList)
-                frameIndex += 1
-            if not startFrame:
-                pointsBasicArrayList.removeAt(0)
+
+function getInstanceStartFrame(this::VectorExplosionGenerator, points, howMuch, type_, startFrame)
+        try
+            local pointsBasicArrayList = newBasicArrayListS(howMuch)
+            AllBinary.add(pointsBasicArrayList, AllBinary.createPointsBasicArrayList(this, points))
+            local frameIndex::Int32 = Int32(0)
+            local tempBasicArrayList = nothing
+            local pointBasicArrayList = nothing
+            while frameIndex < howMuch
+                tempBasicArrayList = (pointsBasicArrayList.objectArray[frameIndex + 1])
+                pointBasicArrayList = AllBinary.createListFromPoints(this, tempBasicArrayList, points, howMuch, type_)
+                AllBinary.add(pointsBasicArrayList, pointBasicArrayList)
+                frameIndex += Int32(1)
+            end
+            if !startFrame
+                AllBinary.removeAt(pointsBasicArrayList, Int32(0))
+            end
             return pointsBasicArrayList
-        except Exception as e:
-            raise e
-    
+        catch e
+            throw(e)
+        end
+end
 
-    # throws Exception
-    def createListFromPoints(self, tempBasicArrayList: BasicArrayList, points: list[list[int]], howMuch: int, type_: VectorExplosionType) -> BasicArrayList:
-        from org.allbinary.graphics.pipeline.RandomTranslation import RandomTranslation
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        index: int = 0
-        pointBasicArrayList: BasicArrayList = BasicArrayListD()
-        sectionBasicArrayList: BasicArrayList = None
-        while index < len(points):
-            sectionBasicArrayList = BasicArrayListD()
-            while points[index][0] != 1000:
-                sectionBasicArrayList.add(tempBasicArrayList.objectArray[index])
-                index += 1
-                if index >= len(points):
+
+function createListFromPoints(this::VectorExplosionGenerator, tempBasicArrayList, points, howMuch, type_)
+        local index::Int32 = Int32(0)
+        local pointBasicArrayList = newBasicArrayListD()
+        local sectionBasicArrayList = nothing
+        while index < Int32(Base.length(points))
+            sectionBasicArrayList = newBasicArrayListD()
+            while points[index + 1][Int32(0) + 1] != Int32(1000)
+                AllBinary.add(sectionBasicArrayList, tempBasicArrayList.objectArray[index + 1])
+                index += Int32(1)
+                if index >= Int32(Base.length(points))
                     break
-            sectionBasicArrayList = RandomTranslation.getInstance(sectionBasicArrayList, howMuch)
-            if type_ == self.ROTATION:
-                sectionBasicArrayList = self.randomRotationFactory.getInstanceList(sectionBasicArrayList, howMuch)
-            size: int = sectionBasicArrayList.size()
-            for index2 in range(0, size):
-                pointBasicArrayList.add(sectionBasicArrayList.objectArray[index2])
-            if index >= len(points):
+                end
+            end
+            sectionBasicArrayList = AllBinary.getInstance(RandomTranslation, sectionBasicArrayList, howMuch)
+            if type_ === this.ROTATION
+                sectionBasicArrayList = AllBinary.getInstanceList(this.randomRotationFactory, sectionBasicArrayList, howMuch)
+            end
+            local size::Int32 = AllBinary.size(sectionBasicArrayList)
+            let
+                local index2::Int32 = Int32(0)
+                while index2 < size
+                try
+                AllBinary.add(pointBasicArrayList, sectionBasicArrayList.objectArray[index2 + 1])
+                finally
+                    index2 += Int32(1)
+                end
+                end
+            end
+            if index >= Int32(Base.length(points))
                 break
-            elif points[index][0] == 1000:
-                pointBasicArrayList.add(tempBasicArrayList.objectArray[index])
-                index += 1
+            elseif points[index + 1][Int32(0) + 1] == Int32(1000)
+                AllBinary.add(pointBasicArrayList, tempBasicArrayList.objectArray[index + 1])
+                index += Int32(1)
+            end
+        end
         return pointBasicArrayList
-    
+end
 
-    # throws Exception
-    def createPointsBasicArrayList(self, points: list[list[int]]) -> BasicArrayList:
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListS import BasicArrayListS
-        if len(points) == 0:
-            raise Exception("Not Points Provided")
-        firstPointBasicArrayList: BasicArrayList = BasicArrayListS(len(points))
-        pointFactory: PointFactory = PointFactory.getInstance()
-        for index in range(0, len(points)):
-            firstPointBasicArrayList.add(pointFactory.createXY(points[index][0], points[index][1]))
+
+function createPointsBasicArrayList(this::VectorExplosionGenerator, points)
+        if Int32(Base.length(points)) == Int32(0)
+            throw(jNewException("Exception", "Not Points Provided"))
+        end
+        local firstPointBasicArrayList = newBasicArrayListS(Int32(Base.length(points)))
+        local pointFactory = AllBinary.getInstance(PointFactory)
+        let
+            local index::Int32 = Int32(0)
+            while index < Int32(Base.length(points))
+            try
+            AllBinary.add(firstPointBasicArrayList, AllBinary.createXY(pointFactory, points[index + 1][Int32(0) + 1], points[index + 1][Int32(1) + 1]))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
         return firstPointBasicArrayList
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.graphics.pipeline.RandomRotationFactory import RandomRotationFactory
-# from org.allbinary.graphics.pipeline.RandomTranslation import RandomTranslation
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.util.BasicArrayListS import BasicArrayListS
-from org.allbinary.animation.VectorExplosionType import VectorExplosionType
-from org.allbinary.animation.VectorAnimationUtil import VectorAnimationUtil
-
-
-def _VectorExplosionGenerator_instance() -> object:
-    return VectorExplosionGenerator()
-
-lazy_static(VectorExplosionGenerator, "instance", _VectorExplosionGenerator_instance)
+end
 

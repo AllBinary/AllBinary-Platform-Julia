@@ -1,109 +1,122 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item.validation
 
-from __future__ import annotations
+# extends ValidatorBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NumberTextFieldItemValidator <: JObject
+    textFieldItem::Any
+    min::Int32
+    max::Int32
+    maxChars::Int32
+    NumberTextFieldItemValidator() = new()
+end
 
-from org.allbinary.logic.control.validate.ValidatorBase import ValidatorBase
 
-
-class NumberTextFieldItemValidator(ValidatorBase):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.form.item.ABTextFieldItem import ABTextFieldItem
-        self.textFieldItem: ABTextFieldItem = None
-        self.min: int = None
-        self.max: int = None
-        self.maxChars: int = None
+function initFieldsNumberTextFieldItemValidator(this::NumberTextFieldItemValidator)
+    this.textFieldItem = nothing
+    this.min = Int32(0)
+    this.max = Int32(0)
+    this.maxChars = Int32(0)
     
-
-    def __init__(self, textFieldItem: ABTextFieldItem, maxChars: int, min: int, max: int) -> None:
-        from org.allbinary.graphics.form.item.ABTextFieldItem import ABTextFieldItem
-        super().__init__()
-        self._init_fields()
-        self.textFieldItem = textFieldItem
-        self.min = min
-        self.max = max
-        self.maxChars = maxChars
     
-
-    def isNumberValid(self, value: int) -> bool:
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        return BooleanFactory.getInstance().TRUE
     
-
-    def toNumberVector(self, value: int) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        return BasicArrayListD()
     
+    nothing
+end
 
-    def isValid(self) -> bool:
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        result: bool = BooleanFactory.getInstance().TRUE
-        string: str = self.textFieldItem.getString()
-        textLength: int = len(string)
-        if textLength > 0 and textLength < self.maxChars:
-            try:
-                int(self.textFieldItem.getString())
-            except ValueError as e:
-                result = BooleanFactory.getInstance().FALSE
-        else:
-            if textLength < 1:
-                result = BooleanFactory.getInstance().FALSE
-            elif textLength > self.maxChars:
-                result = BooleanFactory.getInstance().FALSE
+
+function initNumberTextFieldItemValidator(this::NumberTextFieldItemValidator, textFieldItem, maxChars, min, max)
+        initValidatorBase(this)
+        initFieldsNumberTextFieldItemValidator(this)
+        this.textFieldItem = textFieldItem
+        this.min = min
+        this.max = max
+        this.maxChars = maxChars
+        nothing
+end
+
+function newNumberTextFieldItemValidator(textFieldItem, maxChars, min, max)
+    this = NumberTextFieldItemValidator()
+    initNumberTextFieldItemValidator(this, textFieldItem, maxChars, min, max)
+    this
+end
+
+
+function isNumberValid(this::NumberTextFieldItemValidator, value)
+        return AllBinary.getInstance(BooleanFactory).TRUE
+end
+
+
+function toNumberVector(this::NumberTextFieldItemValidator, value)
+        return newBasicArrayListD()
+end
+
+
+function isValid(this::NumberTextFieldItemValidator)
+        local result = AllBinary.getInstance(BooleanFactory).TRUE
+        local string = AllBinary.getString(this.textFieldItem)
+        local textLength::Int32 = jLength(string)
+        if textLength > Int32(0) && textLength < this.maxChars
+            try
+                Base.parse(Int32, AllBinary.getString(this.textFieldItem))
+            catch e
+                result = AllBinary.getInstance(BooleanFactory).FALSE
+            end
+        else
+            if textLength < Int32(1)
+                result = AllBinary.getInstance(BooleanFactory).FALSE
+            elseif textLength > this.maxChars
+                result = AllBinary.getInstance(BooleanFactory).FALSE
+            end
+        end
         return result
-    
+end
 
-    def toList(self) -> BasicArrayList:
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        list_: BasicArrayList = BasicArrayListD()
-        string: str = self.textFieldItem.getString()
-        textLength: int = len(string)
-        label: str = self.textFieldItem.getLabel()
-        name: str = label[0:len(label) - 2]
-        smallIntegerSingletonFactory: SmallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-        stringMaker: StringMaker = StringMaker()
-        if textLength > 0 and textLength < self.maxChars:
-            try:
-                number: int = smallIntegerSingletonFactory.createInstance(int(self.textFieldItem.getString()))
-                if int(number) > self.min:
-                    stringMaker.delete(0, stringMaker.length())
-                    list_.add(str(stringMaker.append(name).append(" is to small")))
-                elif int(number) > self.max:
-                    stringMaker.delete(0, stringMaker.length())
-                    list_.add(str(stringMaker.append(name).append(" is to large")))
-            except ValueError as e:
-                stringMaker.delete(0, stringMaker.length())
-                list_.add(str(stringMaker.append(name).append(" is not a number")))
-        else:
-            if textLength < 1:
-                stringMaker.delete(0, stringMaker.length())
-                list_.add(str(stringMaker.append(name).append(" is to short")))
-            elif textLength > self.maxChars:
-                stringMaker.delete(0, stringMaker.length())
-                list_.add(str(stringMaker.append(name).append(" is to long")))
-        return list_
-# from org.allbinary.graphics.form.item.ABTextFieldItem import ABTextFieldItem
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
 
+function toList(this::NumberTextFieldItemValidator)
+        local list = newBasicArrayListD()
+        local string = AllBinary.getString(this.textFieldItem)
+        local textLength::Int32 = jLength(string)
+        local label = AllBinary.getLabel(this.textFieldItem)
+        local name = jSubstring(label, Int32(0), jLength(label) - Int32(2))
+        local smallIntegerSingletonFactory = AllBinary.getInstance(SmallIntegerSingletonFactory)
+        local stringMaker = newStringMaker()
+        if textLength > Int32(0) && textLength < this.maxChars
+            try
+                local number = AllBinary.createInstance(smallIntegerSingletonFactory, Base.parse(Int32, AllBinary.getString(this.textFieldItem)))
+                if AllBinary.intValue(number) > this.min
+                    AllBinary.delete(stringMaker, Int32(0), AllBinary.length(stringMaker))
+                    AllBinary.add(list, AllBinary.toString(AllBinary.append(AllBinary.append(stringMaker, name), " is to small")))
+                elseif AllBinary.intValue(number) > this.max
+                    AllBinary.delete(stringMaker, Int32(0), AllBinary.length(stringMaker))
+                    AllBinary.add(list, AllBinary.toString(AllBinary.append(AllBinary.append(stringMaker, name), " is to large")))
+                end
+            catch e
+                AllBinary.delete(stringMaker, Int32(0), AllBinary.length(stringMaker))
+                AllBinary.add(list, AllBinary.toString(AllBinary.append(AllBinary.append(stringMaker, name), " is not a number")))
+            end
+        else
+            if textLength < Int32(1)
+                AllBinary.delete(stringMaker, Int32(0), AllBinary.length(stringMaker))
+                AllBinary.add(list, AllBinary.toString(AllBinary.append(AllBinary.append(stringMaker, name), " is to short")))
+            elseif textLength > this.maxChars
+                AllBinary.delete(stringMaker, Int32(0), AllBinary.length(stringMaker))
+                AllBinary.add(list, AllBinary.toString(AllBinary.append(AllBinary.append(stringMaker, name), " is to long")))
+            end
+        end
+        return list
+end
 

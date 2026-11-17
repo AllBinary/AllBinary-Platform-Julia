@@ -1,72 +1,83 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input
 
-from __future__ import annotations
-
-
-
 #TouchJ2ME
-class TouchJ2ME:
+mutable struct TouchJ2ME <: JObject
+    logUtil::Any
+    DEVICE_ID::Int32
+    motionRecognizer::Any
+    TouchJ2ME() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.input.motion.AllMotionRecognizer import AllMotionRecognizer
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.DEVICE_ID: int = 0
-        self.motionRecognizer: AllMotionRecognizer = AllMotionRecognizer()
-    
 
-    def __init__(self) -> None:
-        from org.allbinary.input.motion.gesture.observer.BasicMotionGesturesHandler import BasicMotionGesturesHandler
-        from org.allbinary.input.motion.gesture.observer.GameMotionGestureListener import GameMotionGestureListener
-        from org.allbinary.input.motion.gesture.observer.MotionGestureReceiveInterfaceFactory import MotionGestureReceiveInterfaceFactory
-        self._init_fields()
-        motionGesturesHandler: BasicMotionGesturesHandler = self.motionRecognizer.getMotionGestureRecognizer().getMotionGesturesHandler()
-        motionGesturesHandler.addListenerInterface(GameMotionGestureListener(MotionGestureReceiveInterfaceFactory.getInstance()))
-    
+function initFieldsTouchJ2ME(this::TouchJ2ME)
+    this.logUtil = nothing
+    this.DEVICE_ID = Int32(0)
+    this.motionRecognizer = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.DEVICE_ID = Int32(0)
+    this.motionRecognizer = newAllMotionRecognizer()
+    nothing
+end
 
-    def pointerDragged(self, x: int, y: int) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.motionRecognizer.processDraggedMotionEvent(x, y, self.DEVICE_ID, 0)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "pointerDragged", e)
-    
 
-    def pointerPressed(self, x: int, y: int) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.motionRecognizer.processStartMotionEvent(x, y, self.DEVICE_ID, 0)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "pointerPressed", e)
-    
+function initTouchJ2ME(this::TouchJ2ME)
+        initFieldsTouchJ2ME(this)
+        local motionGesturesHandler = AllBinary.getMotionGesturesHandler(AllBinary.getMotionGestureRecognizer(this.motionRecognizer))
+        AllBinary.addListenerInterface(motionGesturesHandler, newGameMotionGestureListener(AllBinary.getInstance(MotionGestureReceiveInterfaceFactory)))
+        nothing
+end
 
-    def pointerReleased(self, x: int, y: int) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.motionRecognizer.processEndMotionEvent(x, y, self.DEVICE_ID, 0)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "pointerReleased", e)
-# from org.allbinary.input.motion.AllMotionRecognizer import AllMotionRecognizer
-# from org.allbinary.input.motion.gesture.observer.BasicMotionGesturesHandler import BasicMotionGesturesHandler
-# from org.allbinary.input.motion.gesture.observer.GameMotionGestureListener import GameMotionGestureListener
-# from org.allbinary.input.motion.gesture.observer.MotionGestureReceiveInterfaceFactory import MotionGestureReceiveInterfaceFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function newTouchJ2ME()
+    this = TouchJ2ME()
+    initTouchJ2ME(this)
+    this
+end
 
+
+function pointerDragged(this::TouchJ2ME, x, y)
+        try
+            AllBinary.processDraggedMotionEvent(this.motionRecognizer, x, y, this.DEVICE_ID, Int32(0))
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, "pointerDragged", e)
+        end
+        nothing
+end
+
+
+function pointerPressed(this::TouchJ2ME, x, y)
+        try
+            AllBinary.processStartMotionEvent(this.motionRecognizer, x, y, this.DEVICE_ID, Int32(0))
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, "pointerPressed", e)
+        end
+        nothing
+end
+
+
+function pointerReleased(this::TouchJ2ME, x, y)
+        try
+            AllBinary.processEndMotionEvent(this.motionRecognizer, x, y, this.DEVICE_ID, Int32(0))
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, "pointerReleased", e)
+        end
+        nothing
+end
 

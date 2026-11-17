@@ -1,48 +1,68 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.physics.acceleration
 
-from __future__ import annotations
+mutable struct BasicAccelerationProperties <: JObject
+    forward::Int32
+    reverse::Int32
+    BasicAccelerationProperties() = new()
+end
 
 
+function initFieldsBasicAccelerationProperties(this::BasicAccelerationProperties)
+    this.forward = Int32(0)
+    this.reverse = Int32(0)
+    this.forward = Int32(0)
+    this.reverse = Int32(0)
+    nothing
+end
 
-class BasicAccelerationProperties:
 
-    def _init_fields(self) -> None:
-        self.forward: int = 0
-        self.reverse: int = 0
-    
+function initBasicAccelerationProperties(this::BasicAccelerationProperties, forward, reverse)
+        initFieldsBasicAccelerationProperties(this)
+        AllBinary.setForward(this, forward)
+        AllBinary.setReverse(this, reverse)
+        nothing
+end
 
-    def __init__(self, forward: int, reverse: int) -> None:
-        self._init_fields()
-        self.setForward(forward)
-        self.setReverse(reverse)
-    
+function newBasicAccelerationProperties(forward, reverse)
+    this = BasicAccelerationProperties()
+    initBasicAccelerationProperties(this, forward, reverse)
+    this
+end
 
-    def setReverse(self, reverse: int) -> None:
-        self.reverse = reverse
-    
 
-    def getReverse(self) -> int:
-        return self.reverse
-    
+function setReverse(this::BasicAccelerationProperties, reverse)
+        this.reverse = reverse
+        nothing
+end
 
-    def setForward(self, forward: int) -> None:
-        self.forward = forward
-    
 
-    def getForward(self) -> int:
-        return self.forward
+function getReverse(this::BasicAccelerationProperties)
+        return this.reverse
+end
 
+
+function setForward(this::BasicAccelerationProperties, forward)
+        this.forward = forward
+        nothing
+end
+
+
+function getForward(this::BasicAccelerationProperties)
+        return this.forward
+end
 

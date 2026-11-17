@@ -1,111 +1,129 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary
 
-from __future__ import annotations
-
-import gc
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #J2ME
-class TsUtil:
-    instance: TsUtil = None
-    _lock = threading.RLock()
-    
+mutable struct TsUtil <: JObject
+    TsUtil() = new()
+end
 
-    @staticmethod
-    def getInstance() -> TsUtil:
-        return TsUtil.instance
-    
+const TsUtil_instanceValue = Ref{Any}(nothing)
+const TsUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{TsUtil})
+    if !TsUtil_instanceSet[]
+        TsUtil_instanceSet[] = true
+        TsUtil_instanceValue[] = newTsUtil()
+    end
+    TsUtil_instanceValue[]
+end
+function staticSet_instance(::Type{TsUtil}, value)
+    TsUtil_instanceSet[] = true
+    TsUtil_instanceValue[] = value
+end
 
-    def hashCode(self, anyType: object) -> int:
-        return hash(anyType)
-    
+function initFieldsTsUtil(this::TsUtil)
+    nothing
+end
 
-    # throws InterruptedException
-    def waitFor(self, any: object, timeoutMillis: int) -> None:
-        anyType: object = any
-        anyType.wait(timeoutMillis)
-    
+function initTsUtil(this::TsUtil)
+    initFieldsTsUtil(this)
+end
 
-    # throws RecordStoreNotOpenException, InvalidRecordIDException, RecordStoreException
-    def getRecord(self, anyType: object, recordId: int) -> list[int]:
-        from javax.microedition.rms.InvalidRecordIDException import InvalidRecordIDException
-        from javax.microedition.rms.RecordStore import RecordStore
-        from javax.microedition.rms.RecordStoreException import RecordStoreException
-        from javax.microedition.rms.RecordStoreNotOpenException import RecordStoreNotOpenException
-        from org.allbinary.logic.NullUtil import NullUtil
-        recordStore: RecordStore = anyType
-        data: list[int] = None
-        with self._lock:  # synchronized (self)
-            data = [0] * (recordStore.getRecordSize(recordId))
-            recordStore.getRecord(recordId, data, 0)
-        return (NullUtil.getInstance().NULL_BYTE_ARRAY if len(data) < 1 else data)
-    
+function newTsUtil()
+    this = TsUtil()
+    initTsUtil(this)
+    this
+end
 
-    def compareTo(self, a: str, b: str) -> int:
-        return ((a > b) - (a < b))
-    
 
-    def equalIgnoreCase(self, a: str, b: str) -> bool:
-        return (a.lower() == str(b).lower())
-    
+function getInstance(::Type{TsUtil})
+        return staticGet_instance(TsUtil)
+end
 
-    def equalsNotstring(self, anyType: object, object2: object) -> bool:
-        return anyType.equals(object2)
-    
 
-    def toNumberFromChar(self, value: str) -> int:
-        return ord(value)
-    
+function hashCode(this::TsUtil, anyType)
+        return AllBinary.hashCode(anyType)
+end
 
-    def toNumber(self, value: int) -> int:
+
+function waitFor(this::TsUtil, any, timeoutMillis)
+        local anyType = (any)
+        AllBinary.wait(anyType, timeoutMillis)
+        nothing
+end
+
+
+function getRecord(this::TsUtil, anyType, recordId)
+        local recordStore = (anyType)
+        local data = nothing
+        begin
+            data = jNewArray(Int8, AllBinary.getRecordSize(recordStore, recordId), Int8(0))
+            AllBinary.getRecord(recordStore, recordId, data, Int32(0))
+        end
+        return (Int32(Base.length(data)) < Int32(1) ? AllBinary.getInstance(NullUtil).NULL_BYTE_ARRAY : data)
+end
+
+
+function compareTo(this::TsUtil, a, b)
+        return jCompareTo(a, b)
+end
+
+
+function equalIgnoreCase(this::TsUtil, a, b)
+        return jEqualsIgnoreCase(a, b)
+end
+
+
+function equalsNotstring(this::TsUtil, anyType, object2)
+        return AllBinary.equals(anyType, object2)
+end
+
+
+function toNumberFromChar(this::TsUtil, value)
+        return ((value) % Int32)
+end
+
+
+function toNumber(this::TsUtil, value)
         return value
-    
-
-    def getByteArray(self, string: str) -> list[int]:
-        return list(string.encode())
-    
-
-    def isItemListener(self, owner: Displayable) -> bool:
-        from javax.microedition.lcdui.Displayable import Displayable
-        from javax.microedition.lcdui.Form import Form
-        if isinstance(owner, Form):
-            return True
-        else:
-            return False
-    
-
-    def printAvailableMethods(self, anyType: object) -> None:
-        pass
-    
-
-    def gc(self) -> None:
-        gc.collect()
-# from javax.microedition.lcdui.Displayable import Displayable
-# from javax.microedition.lcdui.Form import Form
-# from javax.microedition.rms.InvalidRecordIDException import InvalidRecordIDException
-# from javax.microedition.rms.RecordStore import RecordStore
-# from javax.microedition.rms.RecordStoreException import RecordStoreException
-# from javax.microedition.rms.RecordStoreNotOpenException import RecordStoreNotOpenException
-# from org.allbinary.logic.NullUtil import NullUtil
+end
 
 
-def _TsUtil_instance() -> object:
-    return TsUtil()
+function getByteArray(this::TsUtil, string)
+        return jGetBytes(string)
+end
 
-lazy_static(TsUtil, "instance", _TsUtil_instance)
+
+function isItemListener(this::TsUtil, owner)
+        if Base.isa(owner, Form)
+            return true
+        else
+            return false
+        end
+end
+
+
+function printAvailableMethods(this::TsUtil, anyType)
+        nothing
+        nothing
+end
+
+
+function gc(this::TsUtil)
+        AllBinary.gc(System)
+        nothing
+end
 

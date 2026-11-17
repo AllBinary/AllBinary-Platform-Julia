@@ -1,63 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai.scroller
 
-from __future__ import annotations
+# extends BasePatrolAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct RandomPatrolAI <: JObject
+    changedDirection::Bool
+    RandomPatrolAI() = new()
+end
 
-from org.allbinary.game.ag.ai.scroller.BasePatrolAI import BasePatrolAI
+
+function initFieldsRandomPatrolAI(this::RandomPatrolAI)
+    this.changedDirection = false
+    this.changedDirection = true
+    nothing
+end
 
 
-class RandomPatrolAI(BasePatrolAI):
+function initRandomPatrolAI(this::RandomPatrolAI, hashtable, ownerLayerInterface, gameInput)
+        initBasePatrolAI(this, hashtable, ownerLayerInterface, gameInput)
+        initFieldsRandomPatrolAI(this)
+        AllBinary.updateRandomDistance(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.changedDirection: bool = True
-    
+function newRandomPatrolAI(hashtable, ownerLayerInterface, gameInput)
+    this = RandomPatrolAI()
+    initRandomPatrolAI(this, hashtable, ownerLayerInterface, gameInput)
+    this
+end
 
-    def __init__(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.ABHashtable import ABHashtable
-        super().__init__(hashtable, ownerLayerInterface, gameInput)
-        self._init_fields()
-        self.updateRandomDistance()
-    
 
-    def updateRandomDistance(self) -> None:
-        from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-        self.currentDistance = MyRandomFactory.getInstance().getAbsoluteNextInt(int(self.maxDistance))
-    
+function updateRandomDistance(this::RandomPatrolAI)
+        this.currentDistance = AllBinary.getAbsoluteNextInt(AllBinary.getInstance(MyRandomFactory), AllBinary.intValue(this.maxDistance))
+        nothing
+end
 
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        super().update()
-        super().processKeyAI(self.keyDirection)
-        if self.changedDirection:
-            super().processKeyAI(Canvas.KEY_NUM1)
-            self.updateRandomDistance()
-            self.changedDirection = False
-    
 
-    def nextDirection(self) -> None:
-        super().nextDirection()
-        self.changedDirection = True
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.util.ABHashtable import ABHashtable
+function processAI(this::RandomPatrolAI, allBinaryLayerManager)
+        AllBinary.update(this)
+        AllBinary.processKeyAI(this, this.keyDirection)
+        if this.changedDirection
+            AllBinary.processKeyAI(this, staticGet_KEY_NUM1(Canvas))
+            AllBinary.updateRandomDistance(this)
+            this.changedDirection = false
+        end
+        nothing
+end
 
+
+function nextDirection(this::RandomPatrolAI)
+        AllBinary.nextDirection(this)
+        this.changedDirection = true
+        nothing
+end
 

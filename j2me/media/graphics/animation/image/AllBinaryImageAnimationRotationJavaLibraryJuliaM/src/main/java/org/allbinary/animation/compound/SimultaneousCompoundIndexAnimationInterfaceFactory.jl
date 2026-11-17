@@ -1,67 +1,79 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.compound
 
-from __future__ import annotations
+mutable struct SimultaneousCompoundIndexAnimationInterfaceFactory <: JObject
+    basicAnimationInterfaceFactoryInterfaceArray::Any
+    animationBehaviorFactory::Any
+    SimultaneousCompoundIndexAnimationInterfaceFactory() = new()
+end
 
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
 
-
-class SimultaneousCompoundIndexAnimationInterfaceFactory(AnimationInterfaceFactoryInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        self.basicAnimationInterfaceFactoryInterfaceArray: list[AnimationInterfaceFactoryInterface] = None
-        self.animationBehaviorFactory: AnimationBehaviorFactory = None
+function initFieldsSimultaneousCompoundIndexAnimationInterfaceFactory(this::SimultaneousCompoundIndexAnimationInterfaceFactory)
+    this.basicAnimationInterfaceFactoryInterfaceArray = nothing
+    this.animationBehaviorFactory = nothing
     
-
-    def __init__(self, basicAnimationInterfaceFactoryInterfaceArray: list[AnimationInterfaceFactoryInterface], animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        self._init_fields()
-        self.basicAnimationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
-        self.animationBehaviorFactory = animationBehaviorFactory
     
+    nothing
+end
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        size: int = len(self.basicAnimationInterfaceFactoryInterfaceArray)
-        animationInterfaceArray: list[IndexedAnimation] = [None] * (size)
-        for index in range(0, size):
-            animationInterfaceArray[index] = self.basicAnimationInterfaceFactoryInterfaceArray[index].getInstance(instanceId)
-        return self.getOrCreate(animationInterfaceArray)
-    
 
-    def getOrCreate(self, animationInterfaceArray: list[IndexedAnimation]) -> Animation:
-        from org.allbinary.animation.compound.SimultaneousCompoundIndexAnimation import SimultaneousCompoundIndexAnimation
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        return SimultaneousCompoundIndexAnimation(animationInterfaceArray, self.animationBehaviorFactory.getOrCreateInstance())
-    
+function initSimultaneousCompoundIndexAnimationInterfaceFactory(this::SimultaneousCompoundIndexAnimationInterfaceFactory, basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+        initFieldsSimultaneousCompoundIndexAnimationInterfaceFactory(this)
+        this.basicAnimationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
+        this.animationBehaviorFactory = animationBehaviorFactory
+        nothing
+end
 
-    def getBasicAnimationInterfaceFactoryInterfaceArray(self) -> list[AnimationInterfaceFactoryInterface]:
-        return self.basicAnimationInterfaceFactoryInterfaceArray
-    
+function newSimultaneousCompoundIndexAnimationInterfaceFactory(basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+    this = SimultaneousCompoundIndexAnimationInterfaceFactory()
+    initSimultaneousCompoundIndexAnimationInterfaceFactory(this, basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
+    this
+end
 
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.media.ScaleProperties import ScaleProperties
 
+function getInstance(this::SimultaneousCompoundIndexAnimationInterfaceFactory, instanceId)
+        local size::Int32 = Int32(Base.length(this.basicAnimationInterfaceFactoryInterfaceArray))
+        local animationInterfaceArray = jNewArray(Any, size, nothing)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            animationInterfaceArray[index + 1] = (AllBinary.getInstance(this.basicAnimationInterfaceFactoryInterfaceArray[index + 1], instanceId))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        return AllBinary.getOrCreate(this, animationInterfaceArray)
+end
+
+
+function getOrCreate(this::SimultaneousCompoundIndexAnimationInterfaceFactory, animationInterfaceArray)
+        return newSimultaneousCompoundIndexAnimation(animationInterfaceArray, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+end
+
+
+function getBasicAnimationInterfaceFactoryInterfaceArray(this::SimultaneousCompoundIndexAnimationInterfaceFactory)
+        return this.basicAnimationInterfaceFactoryInterfaceArray
+end
+
+
+function setInitialScale(this::SimultaneousCompoundIndexAnimationInterfaceFactory, scaleProperties)
+        nothing
+        nothing
+end
 

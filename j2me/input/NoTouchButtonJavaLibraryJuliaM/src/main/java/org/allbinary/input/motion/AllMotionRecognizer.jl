@@ -1,60 +1,90 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion
 
-from __future__ import annotations
+mutable struct AllMotionRecognizer <: JObject
+    id::Int32
+    AllMotionRecognizer() = new()
+end
 
+const AllMotionRecognizer_indexValue = Ref{Any}(nothing)
+const AllMotionRecognizer_indexSet = Ref(false)
+function staticGet_index(::Type{AllMotionRecognizer})
+    if !AllMotionRecognizer_indexSet[]
+        AllMotionRecognizer_indexSet[] = true
+        AllMotionRecognizer_indexValue[] = Int32(0)
+    end
+    AllMotionRecognizer_indexValue[]
+end
+function staticSet_index(::Type{AllMotionRecognizer}, value)
+    AllMotionRecognizer_indexSet[] = true
+    AllMotionRecognizer_indexValue[] = value
+end
 
-
-class AllMotionRecognizer:
-    index: int = 0
-
-    def _init_fields(self) -> None:
-        self.id: int = None
+function initFieldsAllMotionRecognizer(this::AllMotionRecognizer)
+    this.id = Int32(0)
     
+    nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-        self.id = ((setattr(AllMotionRecognizer, "index", AllMotionRecognizer.index + 1) or AllMotionRecognizer.index) - 1)
-    
 
-    # throws Exception
-    def processStartMotionEvent(self, x: int, y: int, deviceId: int, modifiers: int) -> None:
-        pass
-    
+function initAllMotionRecognizer(this::AllMotionRecognizer)
+        initFieldsAllMotionRecognizer(this)
+        this.id = (let old = staticGet_index(AllMotionRecognizer); staticSet_index(AllMotionRecognizer, old + Int32(1)); old end)
+        nothing
+end
 
-    # throws Exception
-    def processEndMotionEvent(self, x: int, y: int, deviceId: int, modifiers: int) -> None:
-        pass
-    
+function newAllMotionRecognizer()
+    this = AllMotionRecognizer()
+    initAllMotionRecognizer(this)
+    this
+end
 
-    # throws Exception
-    def processDraggedMotionEvent(self, x: int, y: int, deviceId: int, modifiers: int) -> None:
-        pass
-    
 
-    # throws Exception
-    def processMovedMotionEvent(self, x: int, y: int, deviceId: int, modifiers: int) -> None:
-        pass
-    
+function processStartMotionEvent(this::AllMotionRecognizer, x, y, deviceId, modifiers)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def processScrolledMotionEvent(self, x: int, y: int, deviceId: int, modifiers: int) -> None:
-        pass
-    
 
-    def getId(self) -> int:
-        return self.id
+function processEndMotionEvent(this::AllMotionRecognizer, x, y, deviceId, modifiers)
+        nothing
+        nothing
+end
 
+
+function processDraggedMotionEvent(this::AllMotionRecognizer, x, y, deviceId, modifiers)
+        nothing
+        nothing
+end
+
+
+function processMovedMotionEvent(this::AllMotionRecognizer, x, y, deviceId, modifiers)
+        nothing
+        nothing
+end
+
+
+function processScrolledMotionEvent(this::AllMotionRecognizer, x, y, deviceId, modifiers)
+        nothing
+        nothing
+end
+
+
+function getId(this::AllMotionRecognizer)
+        return this.id
+end
 

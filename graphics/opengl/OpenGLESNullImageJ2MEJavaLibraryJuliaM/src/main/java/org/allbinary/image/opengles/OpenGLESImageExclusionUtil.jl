@@ -1,50 +1,62 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image.opengles
 
-from __future__ import annotations
+mutable struct OpenGLESImageExclusionUtil <: JObject
+    list::Any
+    OpenGLESImageExclusionUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const OpenGLESImageExclusionUtil_instanceValue = Ref{Any}(nothing)
+const OpenGLESImageExclusionUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{OpenGLESImageExclusionUtil})
+    if !OpenGLESImageExclusionUtil_instanceSet[]
+        OpenGLESImageExclusionUtil_instanceSet[] = true
+        OpenGLESImageExclusionUtil_instanceValue[] = newOpenGLESImageExclusionUtil()
+    end
+    OpenGLESImageExclusionUtil_instanceValue[]
+end
+function staticSet_instance(::Type{OpenGLESImageExclusionUtil}, value)
+    OpenGLESImageExclusionUtil_instanceSet[] = true
+    OpenGLESImageExclusionUtil_instanceValue[] = value
+end
+
+function initFieldsOpenGLESImageExclusionUtil(this::OpenGLESImageExclusionUtil)
+    this.list = nothing
+    this.list = newBasicArrayListD()
+    nothing
+end
+
+function initOpenGLESImageExclusionUtil(this::OpenGLESImageExclusionUtil)
+    initFieldsOpenGLESImageExclusionUtil(this)
+end
+
+function newOpenGLESImageExclusionUtil()
+    this = OpenGLESImageExclusionUtil()
+    initOpenGLESImageExclusionUtil(this)
+    this
+end
 
 
-class OpenGLESImageExclusionUtil:
-    instance: OpenGLESImageExclusionUtil = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_: BasicArrayList = BasicArrayListD()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> OpenGLESImageExclusionUtil:
-        return OpenGLESImageExclusionUtil.instance
-    
-
-    def isCustomScaling(self, image: Image) -> bool:
-        from javax.microedition.lcdui.Image import Image
-        return False
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function getInstance(::Type{OpenGLESImageExclusionUtil})
+        return staticGet_instance(OpenGLESImageExclusionUtil)
+end
 
 
-def _OpenGLESImageExclusionUtil_instance() -> object:
-    return OpenGLESImageExclusionUtil()
-
-lazy_static(OpenGLESImageExclusionUtil, "instance", _OpenGLESImageExclusionUtil_instance)
+function isCustomScaling(this::OpenGLESImageExclusionUtil, image)
+        return false
+end
 

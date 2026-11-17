@@ -1,32 +1,44 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.cache
 
-from __future__ import annotations
+mutable struct NoCacheableFactory <: JObject
+    NoCacheableFactory() = new()
+end
 
-from org.allbinary.logic.util.cache.CacheableInterfaceFactoryInterface import CacheableInterfaceFactoryInterface
+
+function initFieldsNoCacheableFactory(this::NoCacheableFactory)
+    nothing
+end
 
 
-class NoCacheableFactory(CacheableInterfaceFactoryInterface):
-    
+function initNoCacheableFactory(this::NoCacheableFactory)
+        initFieldsNoCacheableFactory(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        pass
-    
+function newNoCacheableFactory()
+    this = NoCacheableFactory()
+    initNoCacheableFactory(this)
+    this
+end
 
-    # throws Exception
-    def getInstance(self, key: object) -> CacheableInterface:
-        raise Exception("This Factory Does Not")
 
+function getInstance(this::NoCacheableFactory, key)
+        throw(jNewException("Exception", "This Factory Does Not"))
+end
 

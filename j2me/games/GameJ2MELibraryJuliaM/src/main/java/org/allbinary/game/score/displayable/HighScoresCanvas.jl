@@ -1,202 +1,210 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score.displayable
 
-from __future__ import annotations
+# extends GameCommandCanvas: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HighScoresCanvas <: JObject
+    paintable::Any
+    highScoreCommandsFactory::Any
+    waitPaintable::Any
+    highScoresPaintable::Any
+    highScoresFactoryInterface::Any
+    colorFillPaintable::Any
+    highScoresHelper::Any
+    gameInfo::Any
+    highScoresCanvasInputProcessor::Any
+    currentCommand::Any
+    hasPainted::Bool
+    HighScoresCanvas() = new()
+end
 
-from org.allbinary.game.displayable.canvas.GameCommandCanvas import GameCommandCanvas
-from org.allbinary.game.score.HighScoresResultsListener import HighScoresResultsListener
+const HighScoresCanvas_NAMEValue = Ref{Any}(nothing)
+const HighScoresCanvas_NAMESet = Ref(false)
+function staticGet_NAME(::Type{HighScoresCanvas})
+    if !HighScoresCanvas_NAMESet[]
+        HighScoresCanvas_NAMESet[] = true
+        HighScoresCanvas_NAMEValue[] = "HighScoresCanvas"
+    end
+    HighScoresCanvas_NAMEValue[]
+end
+function staticSet_NAME(::Type{HighScoresCanvas}, value)
+    HighScoresCanvas_NAMESet[] = true
+    HighScoresCanvas_NAMEValue[] = value
+end
 
-
-class HighScoresCanvas(GameCommandCanvas, HighScoresResultsListener):
-    NAME: str = "HighScoresCanvas"
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Command import Command
-        from org.allbinary.game.GameInfo import GameInfo
-        from org.allbinary.game.paint.ColorFillBasePaintable import ColorFillBasePaintable
-        from org.allbinary.game.score.HighScoreCommandsFactory import HighScoreCommandsFactory
-        from org.allbinary.game.score.HighScoresCanvasInputProcessor import HighScoresCanvasInputProcessor
-        from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-        from org.allbinary.game.score.HighScoresHelperBase import HighScoresHelperBase
-        from org.allbinary.game.score.HighScoresPaintable import HighScoresPaintable
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        from org.allbinary.graphics.paint.SimpleTextPaintable import SimpleTextPaintable
-        self.paintable: Paintable = NullPaintable.getInstance()
-        self.highScoreCommandsFactory: HighScoreCommandsFactory = HighScoreCommandsFactory.getInstance()
-        self.waitPaintable: SimpleTextPaintable = SimpleTextPaintable(self.commonStrings.PLEASE_WAIT_FOR_SERVER, BasicColorFactory.getInstance().WHITE)
-        self.highScoresPaintable: HighScoresPaintable = None
-        self.highScoresFactoryInterface: HighScoresFactoryInterface = None
-        self.colorFillPaintable: ColorFillBasePaintable = None
-        self.highScoresHelper: HighScoresHelperBase = HighScoresHelperBase()
-        self.gameInfo: GameInfo = None
-        self.highScoresCanvasInputProcessor: HighScoresCanvasInputProcessor = None
-        self.currentCommand: Command = self.highScoreCommandsFactory.HIGH_SCORE_COMMANDS[0]
-        self.hasPainted: bool = False
+function initFieldsHighScoresCanvas(this::HighScoresCanvas)
+    this.paintable = nothing
+    this.highScoreCommandsFactory = nothing
+    this.waitPaintable = nothing
+    this.highScoresPaintable = nothing
+    this.highScoresFactoryInterface = nothing
+    this.colorFillPaintable = nothing
+    this.highScoresHelper = nothing
+    this.gameInfo = nothing
+    this.highScoresCanvasInputProcessor = nothing
+    this.currentCommand = nothing
+    this.hasPainted = false
+    this.paintable = AllBinary.getInstance(NullPaintable)
+    this.highScoreCommandsFactory = AllBinary.getInstance(HighScoreCommandsFactory)
+    this.waitPaintable = newSimpleTextPaintable(this.commonStrings.PLEASE_WAIT_FOR_SERVER, AllBinary.getInstance(BasicColorFactory).WHITE)
     
-
-    def __init__(self, commandListener: CommandListener, allBinaryGameLayerManager: AllBinaryGameLayerManager, gameInfo: GameInfo, paintable: HighScoresPaintable, highScoresFactoryInterface: HighScoresFactoryInterface, highScoresCanvasInputProcessorFactoryInterface: HighScoresCanvasInputProcessorFactoryInterface) -> None:
-        from org.allbinary.game.score.displayable.HighScoreRunnable import HighScoreRunnable
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.GameInfo import GameInfo
-        from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-        from org.allbinary.game.paint.ColorFillPaintableFactory import ColorFillPaintableFactory
-        from org.allbinary.game.score.HighScoresCanvasInputProcessorFactoryInterface import HighScoresCanvasInputProcessorFactoryInterface
-        from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-        from org.allbinary.game.score.HighScoresPaintable import HighScoresPaintable
-        from org.allbinary.game.score.NoHighScoresFactory import NoHighScoresFactory
-        from org.allbinary.thread.SecondaryThreadPool import SecondaryThreadPool
-        super().__init__(commandListener, HighScoresCanvas.NAME, allBinaryGameLayerManager.getBackgroundBasicColor(), allBinaryGameLayerManager.getForegroundBasicColor())
-        self._init_fields()
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        self.highScoresPaintable = paintable
-        self.highScoresFactoryInterface = highScoresFactoryInterface
-        self.highScoresCanvasInputProcessor = highScoresCanvasInputProcessorFactoryInterface.getInstance(self)
-        self.gameInfo = gameInfo
-        self.waitPaintable.setBasicColorP(allBinaryGameLayerManager.getForegroundBasicColor())
-        self.getHighScoresPaintable().setBasicColorP(allBinaryGameLayerManager.getForegroundBasicColor())
-        self.colorFillPaintable = ColorFillPaintableFactory.getInstance().getInstance(allBinaryGameLayerManager.getBackgroundBasicColor(), False)
-        if len(self.highScoresHelper.getHighScoresArray()) == len(NoHighScoresFactory.getInstance().NO_HIGH_SCORES):
-            self.setPaintable(self.waitPaintable)
-        else:
-            self.logUtil.putF("Show HighScores that are already loaded", self, self.commonStrings.CONSTRUCTOR)
-            self.updateCommand(self.currentCommand)
-            self.setPaintable(self.getHighScoresPaintable())
-        SecondaryThreadPool.getInstance().runTask(HighScoreRunnable(self))
     
-
-    def initCommands(self, cmdListener: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        self.removeAllCommands()
-        self.addCommand(GameCommandsFactory.getInstance().CLOSE_AND_SHOW_GAME_CANVAS)
-        self.setCommandListener(cmdListener)
     
-
-    def open(self) -> None:
-        super().open()
-        self.highScoresCanvasInputProcessor.open()
+    this.highScoresHelper = newHighScoresHelperBase()
     
-
-    # throws Exception
-    def close(self) -> None:
-        super().close()
-        self.highScoresCanvasInputProcessor.close()
     
+    this.currentCommand = this.highScoreCommandsFactory.HIGH_SCORE_COMMANDS[Int32(0) + 1]
+    this.hasPainted = false
+    nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.colorFillPaintable.paint(graphics)
-        self.paintable.paint(graphics)
-        if self.waitPaintable != self.paintable:
-            self.highScoresCanvasInputProcessor.paint(graphics)
-        super().paint(graphics)
-        self.hasPainted = True
-    
 
-    def executeUpdate(self) -> None:
-        try:
-            self.highScoresFactoryInterface.fetchHighScores(self.getGameInfo(), self)
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.UPDATE, e)
-    
+function initHighScoresCanvas(this::HighScoresCanvas, commandListener, allBinaryGameLayerManager, gameInfo, paintable, highScoresFactoryInterface, highScoresCanvasInputProcessorFactoryInterface)
+        initGameCommandCanvas(this, commandListener, staticGet_NAME(HighScoresCanvas), AllBinary.getBackgroundBasicColor(allBinaryGameLayerManager), AllBinary.getForegroundBasicColor(allBinaryGameLayerManager))
+        initFieldsHighScoresCanvas(this)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        this.highScoresPaintable = paintable
+        this.highScoresFactoryInterface = highScoresFactoryInterface
+        this.highScoresCanvasInputProcessor = AllBinary.getInstance(highScoresCanvasInputProcessorFactoryInterface, this)
+        this.gameInfo = gameInfo
+        AllBinary.setBasicColorP(this.waitPaintable, AllBinary.getForegroundBasicColor(allBinaryGameLayerManager))
+        AllBinary.setBasicColorP(AllBinary.getHighScoresPaintable(this), AllBinary.getForegroundBasicColor(allBinaryGameLayerManager))
+        this.colorFillPaintable = AllBinary.getInstance(AllBinary.getInstance(ColorFillPaintableFactory), AllBinary.getBackgroundBasicColor(allBinaryGameLayerManager), false)
+        if Int32(Base.length(AllBinary.getHighScoresArray(this.highScoresHelper))) == Int32(Base.length(AllBinary.getInstance(NoHighScoresFactory).NO_HIGH_SCORES))
+            AllBinary.setPaintable(this, this.waitPaintable)
+        else
+            AllBinary.putF(this.logUtil, "Show HighScores that are already loaded", this, this.commonStrings.CONSTRUCTOR)
+            AllBinary.updateCommand(this, this.currentCommand)
+            AllBinary.setPaintable(this, AllBinary.getHighScoresPaintable(this))
+        end
+        AllBinary.runTask(AllBinary.getInstance(SecondaryThreadPool), newHighScoreRunnable(this))
+        nothing
+end
 
-    def getHighScoresPaintable(self) -> HighScoresPaintable:
-        from org.allbinary.game.score.HighScoresPaintable import HighScoresPaintable
-        return self.highScoresPaintable
-    
+function newHighScoresCanvas(commandListener, allBinaryGameLayerManager, gameInfo, paintable, highScoresFactoryInterface, highScoresCanvasInputProcessorFactoryInterface)
+    this = HighScoresCanvas()
+    initHighScoresCanvas(this, commandListener, allBinaryGameLayerManager, gameInfo, paintable, highScoresFactoryInterface, highScoresCanvasInputProcessorFactoryInterface)
+    this
+end
 
-    def setHighScoresArray(self, highScoresArray: list[HighScores]) -> None:
-        from org.allbinary.game.score.HighScores import HighScores
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        try:
-            if highScoresArray is not None:
-                self.logUtil.putF(str(StringMaker().append(self.commonStrings.START).appendint(len(highScoresArray))), self, "setHighScoresArray")
-            else:
-                self.logUtil.putF(self.commonStrings.START, self, "setHighScoresArray")
-            self.highScoresHelper.setHighScoresArray(highScoresArray)
-            self.updateCommand(self.currentCommand)
-            self.setPaintable(self.getHighScoresPaintable())
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.UPDATE, e)
-    
 
-    # throws Exception
-    def updateCommand(self, command: Command) -> None:
-        from javax.microedition.lcdui.Command import Command
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        from org.allbinary.game.score.HighScores import HighScores
-        from org.allbinary.game.score.NullHighScoresSingletonFactory import NullHighScoresSingletonFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.logUtil.putF(str(StringMaker().append(self.commonStrings.START).append(self.stringUtil.toString(command))), self, self.commonStrings.UPDATE)
-        gameCommandsFactory: GameCommandsFactory = GameCommandsFactory.getInstance()
-        if self.highScoreCommandsFactory.isHighScoreCommand(command):
-            index: int = self.highScoreCommandsFactory.getIndex(command)
-            nextIndex: int = index + 1
-            highScoresArray: list[HighScores] = self.highScoresHelper.getHighScoresArray()
-            if nextIndex >= len(highScoresArray):
-                nextIndex = 0
-            if len(highScoresArray) > 0:
-                self.getHighScoresPaintable().setHighScores(highScoresArray[index])
-            else:
-                self.getHighScoresPaintable().setHighScores(NullHighScoresSingletonFactory.getInstance())
-            if index != nextIndex:
-                self.removeAllCommands()
-                self.addCommand(gameCommandsFactory.CLOSE_AND_SHOW_GAME_CANVAS)
-                self.addCommand(self.highScoreCommandsFactory.HIGH_SCORE_COMMANDS[nextIndex])
-        self.currentCommand = command
-        self.close()
-        super().initMenu()
-        self.open()
-        self.repaintBehavior.onChangeRepaint(self)
-    
+function initCommands(this::HighScoresCanvas, cmdListener)
+        AllBinary.removeAllCommands(this)
+        AllBinary.addCommand(this, AllBinary.getInstance(GameCommandsFactory).CLOSE_AND_SHOW_GAME_CANVAS)
+        AllBinary.setCommandListener(this, cmdListener)
+        nothing
+end
 
-    def getGameInfo(self) -> GameInfo:
-        from org.allbinary.game.GameInfo import GameInfo
-        return self.gameInfo
-    
 
-    def setPaintable(self, paintable: Paintable) -> None:
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        self.paintable = paintable
-        self.repaintBehavior.onChangeRepaint(self)
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.GameInfo import GameInfo
-# from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-# from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-# from org.allbinary.game.paint.ColorFillBasePaintable import ColorFillBasePaintable
-# from org.allbinary.game.paint.ColorFillPaintableFactory import ColorFillPaintableFactory
-# from org.allbinary.game.score.HighScoreCommandsFactory import HighScoreCommandsFactory
-# from org.allbinary.game.score.HighScores import HighScores
-# from org.allbinary.game.score.HighScoresCanvasInputProcessor import HighScoresCanvasInputProcessor
-# from org.allbinary.game.score.HighScoresCanvasInputProcessorFactoryInterface import HighScoresCanvasInputProcessorFactoryInterface
-# from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-# from org.allbinary.game.score.HighScoresHelperBase import HighScoresHelperBase
-# from org.allbinary.game.score.HighScoresPaintable import HighScoresPaintable
-# from org.allbinary.game.score.NoHighScoresFactory import NoHighScoresFactory
-# from org.allbinary.game.score.NullHighScoresSingletonFactory import NullHighScoresSingletonFactory
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-# from org.allbinary.graphics.paint.Paintable import Paintable
-# from org.allbinary.graphics.paint.SimpleTextPaintable import SimpleTextPaintable
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.thread.SecondaryThreadPool import SecondaryThreadPool
+function open(this::HighScoresCanvas)
+        AllBinary.open(this)
+        AllBinary.open(this.highScoresCanvasInputProcessor)
+        nothing
+end
 
+
+function close(this::HighScoresCanvas)
+        AllBinary.close(this)
+        AllBinary.close(this.highScoresCanvasInputProcessor)
+        nothing
+end
+
+
+function paint(this::HighScoresCanvas, graphics)
+        AllBinary.paint(this.colorFillPaintable, graphics)
+        AllBinary.paint(this.paintable, graphics)
+        if this.waitPaintable !== this.paintable
+            AllBinary.paint(this.highScoresCanvasInputProcessor, graphics)
+        end
+        AllBinary.paint(this, graphics)
+        this.hasPainted = true
+        nothing
+end
+
+
+function executeUpdate(this::HighScoresCanvas)
+        try
+            AllBinary.fetchHighScores(this.highScoresFactoryInterface, AllBinary.getGameInfo(this), this)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.UPDATE, e)
+        end
+        nothing
+end
+
+
+function getHighScoresPaintable(this::HighScoresCanvas)
+        return this.highScoresPaintable
+end
+
+
+function setHighScoresArray(this::HighScoresCanvas, highScoresArray)
+        try
+            if highScoresArray !== nothing
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), this.commonStrings.START), Int32(Base.length(highScoresArray)))), this, "setHighScoresArray")
+            else
+                AllBinary.putF(this.logUtil, this.commonStrings.START, this, "setHighScoresArray")
+            end
+            AllBinary.setHighScoresArray(this.highScoresHelper, highScoresArray)
+            AllBinary.updateCommand(this, this.currentCommand)
+            AllBinary.setPaintable(this, AllBinary.getHighScoresPaintable(this))
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.UPDATE, e)
+        end
+        nothing
+end
+
+
+function updateCommand(this::HighScoresCanvas, command)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), this.commonStrings.START), AllBinary.toString(this.stringUtil, command))), this, this.commonStrings.UPDATE)
+        local gameCommandsFactory = AllBinary.getInstance(GameCommandsFactory)
+        if AllBinary.isHighScoreCommand(this.highScoreCommandsFactory, command)
+            local index::Int32 = AllBinary.getIndex(this.highScoreCommandsFactory, command)
+            local nextIndex::Int32 = index + Int32(1)
+            local highScoresArray = AllBinary.getHighScoresArray(this.highScoresHelper)
+            if nextIndex >= Int32(Base.length(highScoresArray))
+                nextIndex = Int32(0)
+            end
+            if Int32(Base.length(highScoresArray)) > Int32(0)
+                AllBinary.setHighScores(AllBinary.getHighScoresPaintable(this), highScoresArray[index + 1])
+            else
+                AllBinary.setHighScores(AllBinary.getHighScoresPaintable(this), AllBinary.getInstance(NullHighScoresSingletonFactory))
+            end
+            if index != nextIndex
+                AllBinary.removeAllCommands(this)
+                AllBinary.addCommand(this, gameCommandsFactory.CLOSE_AND_SHOW_GAME_CANVAS)
+                AllBinary.addCommand(this, this.highScoreCommandsFactory.HIGH_SCORE_COMMANDS[nextIndex + 1])
+            end
+        end
+        this.currentCommand = command
+        AllBinary.close(this)
+        AllBinary.initMenu(this)
+        AllBinary.open(this)
+        AllBinary.onChangeRepaint(this.repaintBehavior, this)
+        nothing
+end
+
+
+function getGameInfo(this::HighScoresCanvas)
+        return this.gameInfo
+end
+
+
+function setPaintable(this::HighScoresCanvas, paintable)
+        this.paintable = paintable
+        AllBinary.onChangeRepaint(this.repaintBehavior, this)
+        nothing
+end
 

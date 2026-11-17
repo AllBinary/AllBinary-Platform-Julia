@@ -1,41 +1,61 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.mapping.event
 
-from __future__ import annotations
+mutable struct NullInputMappingEventListener <: JObject
+    NullInputMappingEventListener() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.input.mapping.event.InputMappingEventListenerInterface import InputMappingEventListenerInterface
+const NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENERValue = Ref{Any}(nothing)
+const NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENERSet = Ref(false)
+function staticGet_NULL_INPUT_MAPPING_EVENT_LISTENER(::Type{NullInputMappingEventListener})
+    if !NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENERSet[]
+        NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENERSet[] = true
+        NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENERValue[] = newNullInputMappingEventListener()
+    end
+    NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENERValue[]
+end
+function staticSet_NULL_INPUT_MAPPING_EVENT_LISTENER(::Type{NullInputMappingEventListener}, value)
+    NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENERSet[] = true
+    NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENERValue[] = value
+end
+
+function initFieldsNullInputMappingEventListener(this::NullInputMappingEventListener)
+    nothing
+end
+
+function initNullInputMappingEventListener(this::NullInputMappingEventListener)
+    initFieldsNullInputMappingEventListener(this)
+end
+
+function newNullInputMappingEventListener()
+    this = NullInputMappingEventListener()
+    initNullInputMappingEventListener(this)
+    this
+end
 
 
-class NullInputMappingEventListener(InputMappingEventListenerInterface):
-    NULL_INPUT_MAPPING_EVENT_LISTENER: NullInputMappingEventListener = None
-    
-
-    # throws Exception
-    def onInputMappingEvent(self, inputMappingEvent: InputMappingEvent) -> None:
-        pass
-    
-
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        pass
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
+function onInputMappingEvent(this::NullInputMappingEventListener, inputMappingEvent)
+        nothing
+        nothing
+end
 
 
-def _NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENER() -> object:
-    return NullInputMappingEventListener()
-
-lazy_static(NullInputMappingEventListener, "NULL_INPUT_MAPPING_EVENT_LISTENER", _NullInputMappingEventListener_NULL_INPUT_MAPPING_EVENT_LISTENER)
+function onEvent(this::NullInputMappingEventListener, eventObject)
+        nothing
+        nothing
+end
 

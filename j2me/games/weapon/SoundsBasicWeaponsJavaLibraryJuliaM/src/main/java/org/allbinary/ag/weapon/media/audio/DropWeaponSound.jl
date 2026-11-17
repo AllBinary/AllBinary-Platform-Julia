@@ -1,42 +1,57 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.ag.weapon.media.audio
 
-from __future__ import annotations
+# extends CompositeSound: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct DropWeaponSound <: JObject
+    DropWeaponSound() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.media.audio.CompositeSound import CompositeSound
+const DropWeaponSound_soundInterfaceValue = Ref{Any}(nothing)
+const DropWeaponSound_soundInterfaceSet = Ref(false)
+function staticGet_soundInterface(::Type{DropWeaponSound})
+    if !DropWeaponSound_soundInterfaceSet[]
+        DropWeaponSound_soundInterfaceSet[] = true
+        DropWeaponSound_soundInterfaceValue[] = newDropWeaponSound()
+    end
+    DropWeaponSound_soundInterfaceValue[]
+end
+function staticSet_soundInterface(::Type{DropWeaponSound}, value)
+    DropWeaponSound_soundInterfaceSet[] = true
+    DropWeaponSound_soundInterfaceValue[] = value
+end
+
+function initFieldsDropWeaponSound(this::DropWeaponSound)
+    nothing
+end
 
 
-class DropWeaponSound(CompositeSound):
-    soundInterface: Sound = None
-    
+function initDropWeaponSound(this::DropWeaponSound)
+        initCompositeSound(this, "resource:/wav/mine.wav")
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__("resource:/wav/mine.wav")
-    
-
-    @staticmethod
-    def getInstance() -> Sound:
-        from org.allbinary.media.audio.Sound import Sound
-        return DropWeaponSound.soundInterface
-# from org.allbinary.media.audio.Sound import Sound
+function newDropWeaponSound()
+    this = DropWeaponSound()
+    initDropWeaponSound(this)
+    this
+end
 
 
-def _DropWeaponSound_soundInterface() -> object:
-    from org.allbinary.media.audio.Sound import Sound
-    return DropWeaponSound()
-
-lazy_static(DropWeaponSound, "soundInterface", _DropWeaponSound_soundInterface)
+function getInstance(::Type{DropWeaponSound})
+        return staticGet_soundInterface(DropWeaponSound)
+end
 

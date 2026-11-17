@@ -1,43 +1,57 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image.opengles
 
-from __future__ import annotations
+mutable struct OpenGLImageSpecificFactory <: JObject
+    updating::Bool
+    OpenGLImageSpecificFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const OpenGLImageSpecificFactory_instanceValue = Ref{Any}(nothing)
+const OpenGLImageSpecificFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{OpenGLImageSpecificFactory})
+    if !OpenGLImageSpecificFactory_instanceSet[]
+        OpenGLImageSpecificFactory_instanceSet[] = true
+        OpenGLImageSpecificFactory_instanceValue[] = newOpenGLImageSpecificFactory()
+    end
+    OpenGLImageSpecificFactory_instanceValue[]
+end
+function staticSet_instance(::Type{OpenGLImageSpecificFactory}, value)
+    OpenGLImageSpecificFactory_instanceSet[] = true
+    OpenGLImageSpecificFactory_instanceValue[] = value
+end
+
+function initFieldsOpenGLImageSpecificFactory(this::OpenGLImageSpecificFactory)
+    this.updating = false
+    this.updating = false
+    nothing
+end
+
+function initOpenGLImageSpecificFactory(this::OpenGLImageSpecificFactory)
+    initFieldsOpenGLImageSpecificFactory(this)
+end
+
+function newOpenGLImageSpecificFactory()
+    this = OpenGLImageSpecificFactory()
+    initOpenGLImageSpecificFactory(this)
+    this
+end
 
 
-class OpenGLImageSpecificFactory:
-    instance: OpenGLImageSpecificFactory = None
-
-    def _init_fields(self) -> None:
-        self.updating: bool = False
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> OpenGLImageSpecificFactory:
-        return OpenGLImageSpecificFactory.instance
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-
-
-def _OpenGLImageSpecificFactory_instance() -> object:
-    return OpenGLImageSpecificFactory()
-
-lazy_static(OpenGLImageSpecificFactory, "instance", _OpenGLImageSpecificFactory_instance)
+function getInstance(::Type{OpenGLImageSpecificFactory})
+        return staticGet_instance(OpenGLImageSpecificFactory)
+end
 

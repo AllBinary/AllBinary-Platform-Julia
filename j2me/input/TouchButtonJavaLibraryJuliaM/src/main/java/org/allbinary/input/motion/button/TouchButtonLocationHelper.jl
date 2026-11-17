@@ -1,92 +1,112 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+mutable struct TouchButtonLocationHelper <: JObject
+    totalColumns::Int32
+    totalRows::Int32
+    columnsRemainder::Int32
+    rowsRemainder::Int32
+    columnsRemainderHalf::Int32
+    rowsRemainderHalf::Int32
+    TouchButtonLocationHelper() = new()
+end
 
-import math
 
-
-class TouchButtonLocationHelper:
-
-    def _init_fields(self) -> None:
-        self.totalColumns: int = None
-        self.totalRows: int = None
-        self.columnsRemainder: int = None
-        self.rowsRemainder: int = None
-        self.columnsRemainderHalf: int = None
-        self.rowsRemainderHalf: int = None
+function initFieldsTouchButtonLocationHelper(this::TouchButtonLocationHelper)
+    this.totalColumns = Int32(0)
+    this.totalRows = Int32(0)
+    this.columnsRemainder = Int32(0)
+    this.rowsRemainder = Int32(0)
+    this.columnsRemainderHalf = Int32(0)
+    this.rowsRemainderHalf = Int32(0)
     
-
-    def __init__(self) -> None:
-        from org.allbinary.input.motion.button.CommonButtons import CommonButtons
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        self._init_fields()
-        buttonSize: int = CommonButtons.getInstance().STANDARD_BUTTON_SIZE
-        displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        self.totalColumns = int(math.floor(float(displayInfo.getLastWidth()) / float(buttonSize) + 0.5))
-        self.totalRows = int(math.floor(float(displayInfo.getLastHeight()) / float(buttonSize) + 0.5))
-        self.columnsRemainder = displayInfo.getLastWidth() % buttonSize
-        self.columnsRemainderHalf = (self.columnsRemainder >> 1)
-        self.rowsRemainder = displayInfo.getLastHeight() % buttonSize
-        self.rowsRemainderHalf = (self.rowsRemainder >> 1)
     
-
-    def getTotalColumns(self) -> int:
-        return self.totalColumns
     
-
-    def getTotalRows(self) -> int:
-        return self.totalRows
     
-
-    def getColumnsRemainder(self) -> int:
-        return self.columnsRemainder
     
-
-    def getRowsRemainder(self) -> int:
-        return self.rowsRemainder
     
+    nothing
+end
 
-    def getColumnsRemainderHalf(self) -> int:
-        return self.columnsRemainderHalf
-    
 
-    def getRowsRemainderHalf(self) -> int:
-        return self.rowsRemainderHalf
-    
+function initTouchButtonLocationHelper(this::TouchButtonLocationHelper)
+        initFieldsTouchButtonLocationHelper(this)
+        local buttonSize::Int32 = AllBinary.getInstance(CommonButtons).STANDARD_BUTTON_SIZE
+        local displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+        this.totalColumns = Base.round(Float32(AllBinary.getLastWidth(displayInfo)) ÷ Float32(buttonSize))
+        this.totalRows = Base.round(Float32(AllBinary.getLastHeight(displayInfo)) ÷ Float32(buttonSize))
+        this.columnsRemainder = AllBinary.getLastWidth(displayInfo) % buttonSize
+        this.columnsRemainderHalf = (this.columnsRemainder >> Int32(1))
+        this.rowsRemainder = AllBinary.getLastHeight(displayInfo) % buttonSize
+        this.rowsRemainderHalf = (this.rowsRemainder >> Int32(1))
+        nothing
+end
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append("totalColumns: ")
-        stringBuffer.appendint(self.totalColumns)
-        stringBuffer.append(" totalRows: ")
-        stringBuffer.appendint(self.totalRows)
-        stringBuffer.append(" columnsRemainder: ")
-        stringBuffer.appendint(self.columnsRemainder)
-        stringBuffer.append(" rowsRemainder: ")
-        stringBuffer.appendint(self.rowsRemainder)
-        stringBuffer.append(" columnsRemainderHalf: ")
-        stringBuffer.appendint(self.columnsRemainderHalf)
-        stringBuffer.append(" rowsRemainderHalf: ")
-        stringBuffer.appendint(self.rowsRemainderHalf)
-        return str(stringBuffer)
+function newTouchButtonLocationHelper()
+    this = TouchButtonLocationHelper()
+    initTouchButtonLocationHelper(this)
+    this
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.logic.string.StringMaker import StringMaker
 
+function getTotalColumns(this::TouchButtonLocationHelper)
+        return this.totalColumns
+end
+
+
+function getTotalRows(this::TouchButtonLocationHelper)
+        return this.totalRows
+end
+
+
+function getColumnsRemainder(this::TouchButtonLocationHelper)
+        return this.columnsRemainder
+end
+
+
+function getRowsRemainder(this::TouchButtonLocationHelper)
+        return this.rowsRemainder
+end
+
+
+function getColumnsRemainderHalf(this::TouchButtonLocationHelper)
+        return this.columnsRemainderHalf
+end
+
+
+function getRowsRemainderHalf(this::TouchButtonLocationHelper)
+        return this.rowsRemainderHalf
+end
+
+
+function toString(this::TouchButtonLocationHelper)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, "totalColumns: ")
+        AllBinary.appendint(stringBuffer, this.totalColumns)
+        AllBinary.append(stringBuffer, " totalRows: ")
+        AllBinary.appendint(stringBuffer, this.totalRows)
+        AllBinary.append(stringBuffer, " columnsRemainder: ")
+        AllBinary.appendint(stringBuffer, this.columnsRemainder)
+        AllBinary.append(stringBuffer, " rowsRemainder: ")
+        AllBinary.appendint(stringBuffer, this.rowsRemainder)
+        AllBinary.append(stringBuffer, " columnsRemainderHalf: ")
+        AllBinary.appendint(stringBuffer, this.columnsRemainderHalf)
+        AllBinary.append(stringBuffer, " rowsRemainderHalf: ")
+        AllBinary.appendint(stringBuffer, this.rowsRemainderHalf)
+        return AllBinary.toString(stringBuffer)
+end
 

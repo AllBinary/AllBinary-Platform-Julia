@@ -1,122 +1,215 @@
 # Generated Code Do Not Modify
 # package javax.microedition.khronos.opengles
 
-from __future__ import annotations
+# Java interface GL11Ext: Julia dispatches on the class so an interface is an abstract type
+abstract type GL11Ext <: JObject end
 
-from javax.microedition.khronos.opengles.GL import GL
-
-
-# Java interface
-class GL11Ext(GL):
-    GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OES: int = 35742
-    GL_MATRIX_INDEX_ARRAY_OES: int = 34884
-    GL_MATRIX_INDEX_ARRAY_POINTER_OES: int = 34889
-    GL_MATRIX_INDEX_ARRAY_SIZE_OES: int = 34886
-    GL_MATRIX_INDEX_ARRAY_STRIDE_OES: int = 34888
-    GL_MATRIX_INDEX_ARRAY_TYPE_OES: int = 34887
-    GL_MATRIX_PALETTE_OES: int = 34880
-    GL_MAX_PALETTE_MATRICES_OES: int = 34882
-    GL_MAX_VERTEX_UNITS_OES: int = 34468
-    GL_TEXTURE_CROP_RECT_OES: int = 35741
-    GL_WEIGHT_ARRAY_BUFFER_BINDING_OES: int = 34974
-    GL_WEIGHT_ARRAY_OES: int = 34477
-    GL_WEIGHT_ARRAY_POINTER_OES: int = 34476
-    GL_WEIGHT_ARRAY_SIZE_OES: int = 34475
-    GL_WEIGHT_ARRAY_STRIDE_OES: int = 34474
-    GL_WEIGHT_ARRAY_TYPE_OES: int = 34473
-    
-
-    def glTexParameterfv(self, target: int, pname: int, param: list[float], offset: int) -> None:
-        raise NotImplementedError()
-    
-
-    def glCurrentPaletteMatrixOES(self, matrixpaletteindex: int) -> None:
-        raise NotImplementedError()
-    
-
-    def glDrawTexfOES(self, x: float, y: float, z: float, width: float, height: float) -> None:
-        raise NotImplementedError()
-    
-
-    def glDrawTexfvOES(self, coords: list[float], offset: int) -> None:
-        raise NotImplementedError()
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def glDrawTexfvOES(self, coords: FloatBuffer) -> None:
-        raise NotImplementedError()
-    
-
-    def glDrawTexiOES(self, x: int, y: int, z: int, width: int, height: int) -> None:
-        raise NotImplementedError()
-    
-
-    def glDrawTexivOES(self, coords: list[int], offset: int) -> None:
-        raise NotImplementedError()
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def glDrawTexivOES(self, coords: IntBuffer) -> None:
-        raise NotImplementedError()
-    
-
-    def glDrawTexsOES(self, x: int, y: int, z: int, width: int, height: int) -> None:
-        raise NotImplementedError()
-    
-
-    def glDrawTexsvOES(self, coords: list[int], offset: int) -> None:
-        raise NotImplementedError()
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def glDrawTexsvOES(self, coords: ShortBuffer) -> None:
-        raise NotImplementedError()
-    
-
-    def glDrawTexxOES(self, x: int, y: int, z: int, width: int, height: int) -> None:
-        raise NotImplementedError()
-    
-
-    def glDrawTexxvOES(self, coords: list[int], offset: int) -> None:
-        raise NotImplementedError()
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def glDrawTexxvOES(self, coords: IntBuffer) -> None:
-        raise NotImplementedError()
-    
-
-    def glEnable(self, cap: int) -> None:
-        raise NotImplementedError()
-    
-
-    def glEnableClientState(self, array: int) -> None:
-        raise NotImplementedError()
-    
-
-    def glLoadPaletteFromModelViewMatrixOES(self) -> None:
-        raise NotImplementedError()
-    
-
-    def glMatrixIndexPointerOES(self, size: int, type_: int, stride: int, pointer: Buffer) -> None:
-        raise NotImplementedError()
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def glMatrixIndexPointerOES(self, size: int, type_: int, stride: int, offset: int) -> None:
-        raise NotImplementedError()
-    
-
-    def glWeightPointerOES(self, size: int, type_: int, stride: int, pointer: Buffer) -> None:
-        raise NotImplementedError()
-    
-
-    # Java overloaded method: Python keeps the last definition
-    def glWeightPointerOES(self, size: int, type_: int, stride: int, offset: int) -> None:
-        raise NotImplementedError()
-# from java.nio.Buffer import Buffer
-# from java.nio.FloatBuffer import FloatBuffer
-# from java.nio.IntBuffer import IntBuffer
-# from java.nio.ShortBuffer import ShortBuffer
-
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OESSet = Ref(false)
+function staticGet_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OESSet[]
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OESSet[] = true
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OESValue[] = Int32(35742)
+    end
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OESValue[]
+end
+function staticSet_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OESSet[] = true
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OESValue[] = value
+end
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_OESSet = Ref(false)
+function staticGet_GL_MATRIX_INDEX_ARRAY_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_MATRIX_INDEX_ARRAY_OESSet[]
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_OESSet[] = true
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_OESValue[] = Int32(34884)
+    end
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_OESValue[]
+end
+function staticSet_GL_MATRIX_INDEX_ARRAY_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_OESSet[] = true
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_OESValue[] = value
+end
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_POINTER_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_POINTER_OESSet = Ref(false)
+function staticGet_GL_MATRIX_INDEX_ARRAY_POINTER_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_MATRIX_INDEX_ARRAY_POINTER_OESSet[]
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_POINTER_OESSet[] = true
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_POINTER_OESValue[] = Int32(34889)
+    end
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_POINTER_OESValue[]
+end
+function staticSet_GL_MATRIX_INDEX_ARRAY_POINTER_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_POINTER_OESSet[] = true
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_POINTER_OESValue[] = value
+end
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_SIZE_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_SIZE_OESSet = Ref(false)
+function staticGet_GL_MATRIX_INDEX_ARRAY_SIZE_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_MATRIX_INDEX_ARRAY_SIZE_OESSet[]
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_SIZE_OESSet[] = true
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_SIZE_OESValue[] = Int32(34886)
+    end
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_SIZE_OESValue[]
+end
+function staticSet_GL_MATRIX_INDEX_ARRAY_SIZE_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_SIZE_OESSet[] = true
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_SIZE_OESValue[] = value
+end
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_STRIDE_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_STRIDE_OESSet = Ref(false)
+function staticGet_GL_MATRIX_INDEX_ARRAY_STRIDE_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_MATRIX_INDEX_ARRAY_STRIDE_OESSet[]
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_STRIDE_OESSet[] = true
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_STRIDE_OESValue[] = Int32(34888)
+    end
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_STRIDE_OESValue[]
+end
+function staticSet_GL_MATRIX_INDEX_ARRAY_STRIDE_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_STRIDE_OESSet[] = true
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_STRIDE_OESValue[] = value
+end
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_TYPE_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_MATRIX_INDEX_ARRAY_TYPE_OESSet = Ref(false)
+function staticGet_GL_MATRIX_INDEX_ARRAY_TYPE_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_MATRIX_INDEX_ARRAY_TYPE_OESSet[]
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_TYPE_OESSet[] = true
+        GL11Ext_GL_MATRIX_INDEX_ARRAY_TYPE_OESValue[] = Int32(34887)
+    end
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_TYPE_OESValue[]
+end
+function staticSet_GL_MATRIX_INDEX_ARRAY_TYPE_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_TYPE_OESSet[] = true
+    GL11Ext_GL_MATRIX_INDEX_ARRAY_TYPE_OESValue[] = value
+end
+const GL11Ext_GL_MATRIX_PALETTE_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_MATRIX_PALETTE_OESSet = Ref(false)
+function staticGet_GL_MATRIX_PALETTE_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_MATRIX_PALETTE_OESSet[]
+        GL11Ext_GL_MATRIX_PALETTE_OESSet[] = true
+        GL11Ext_GL_MATRIX_PALETTE_OESValue[] = Int32(34880)
+    end
+    GL11Ext_GL_MATRIX_PALETTE_OESValue[]
+end
+function staticSet_GL_MATRIX_PALETTE_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_MATRIX_PALETTE_OESSet[] = true
+    GL11Ext_GL_MATRIX_PALETTE_OESValue[] = value
+end
+const GL11Ext_GL_MAX_PALETTE_MATRICES_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_MAX_PALETTE_MATRICES_OESSet = Ref(false)
+function staticGet_GL_MAX_PALETTE_MATRICES_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_MAX_PALETTE_MATRICES_OESSet[]
+        GL11Ext_GL_MAX_PALETTE_MATRICES_OESSet[] = true
+        GL11Ext_GL_MAX_PALETTE_MATRICES_OESValue[] = Int32(34882)
+    end
+    GL11Ext_GL_MAX_PALETTE_MATRICES_OESValue[]
+end
+function staticSet_GL_MAX_PALETTE_MATRICES_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_MAX_PALETTE_MATRICES_OESSet[] = true
+    GL11Ext_GL_MAX_PALETTE_MATRICES_OESValue[] = value
+end
+const GL11Ext_GL_MAX_VERTEX_UNITS_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_MAX_VERTEX_UNITS_OESSet = Ref(false)
+function staticGet_GL_MAX_VERTEX_UNITS_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_MAX_VERTEX_UNITS_OESSet[]
+        GL11Ext_GL_MAX_VERTEX_UNITS_OESSet[] = true
+        GL11Ext_GL_MAX_VERTEX_UNITS_OESValue[] = Int32(34468)
+    end
+    GL11Ext_GL_MAX_VERTEX_UNITS_OESValue[]
+end
+function staticSet_GL_MAX_VERTEX_UNITS_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_MAX_VERTEX_UNITS_OESSet[] = true
+    GL11Ext_GL_MAX_VERTEX_UNITS_OESValue[] = value
+end
+const GL11Ext_GL_TEXTURE_CROP_RECT_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_TEXTURE_CROP_RECT_OESSet = Ref(false)
+function staticGet_GL_TEXTURE_CROP_RECT_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_TEXTURE_CROP_RECT_OESSet[]
+        GL11Ext_GL_TEXTURE_CROP_RECT_OESSet[] = true
+        GL11Ext_GL_TEXTURE_CROP_RECT_OESValue[] = Int32(35741)
+    end
+    GL11Ext_GL_TEXTURE_CROP_RECT_OESValue[]
+end
+function staticSet_GL_TEXTURE_CROP_RECT_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_TEXTURE_CROP_RECT_OESSet[] = true
+    GL11Ext_GL_TEXTURE_CROP_RECT_OESValue[] = value
+end
+const GL11Ext_GL_WEIGHT_ARRAY_BUFFER_BINDING_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_WEIGHT_ARRAY_BUFFER_BINDING_OESSet = Ref(false)
+function staticGet_GL_WEIGHT_ARRAY_BUFFER_BINDING_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_WEIGHT_ARRAY_BUFFER_BINDING_OESSet[]
+        GL11Ext_GL_WEIGHT_ARRAY_BUFFER_BINDING_OESSet[] = true
+        GL11Ext_GL_WEIGHT_ARRAY_BUFFER_BINDING_OESValue[] = Int32(34974)
+    end
+    GL11Ext_GL_WEIGHT_ARRAY_BUFFER_BINDING_OESValue[]
+end
+function staticSet_GL_WEIGHT_ARRAY_BUFFER_BINDING_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_WEIGHT_ARRAY_BUFFER_BINDING_OESSet[] = true
+    GL11Ext_GL_WEIGHT_ARRAY_BUFFER_BINDING_OESValue[] = value
+end
+const GL11Ext_GL_WEIGHT_ARRAY_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_WEIGHT_ARRAY_OESSet = Ref(false)
+function staticGet_GL_WEIGHT_ARRAY_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_WEIGHT_ARRAY_OESSet[]
+        GL11Ext_GL_WEIGHT_ARRAY_OESSet[] = true
+        GL11Ext_GL_WEIGHT_ARRAY_OESValue[] = Int32(34477)
+    end
+    GL11Ext_GL_WEIGHT_ARRAY_OESValue[]
+end
+function staticSet_GL_WEIGHT_ARRAY_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_WEIGHT_ARRAY_OESSet[] = true
+    GL11Ext_GL_WEIGHT_ARRAY_OESValue[] = value
+end
+const GL11Ext_GL_WEIGHT_ARRAY_POINTER_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_WEIGHT_ARRAY_POINTER_OESSet = Ref(false)
+function staticGet_GL_WEIGHT_ARRAY_POINTER_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_WEIGHT_ARRAY_POINTER_OESSet[]
+        GL11Ext_GL_WEIGHT_ARRAY_POINTER_OESSet[] = true
+        GL11Ext_GL_WEIGHT_ARRAY_POINTER_OESValue[] = Int32(34476)
+    end
+    GL11Ext_GL_WEIGHT_ARRAY_POINTER_OESValue[]
+end
+function staticSet_GL_WEIGHT_ARRAY_POINTER_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_WEIGHT_ARRAY_POINTER_OESSet[] = true
+    GL11Ext_GL_WEIGHT_ARRAY_POINTER_OESValue[] = value
+end
+const GL11Ext_GL_WEIGHT_ARRAY_SIZE_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_WEIGHT_ARRAY_SIZE_OESSet = Ref(false)
+function staticGet_GL_WEIGHT_ARRAY_SIZE_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_WEIGHT_ARRAY_SIZE_OESSet[]
+        GL11Ext_GL_WEIGHT_ARRAY_SIZE_OESSet[] = true
+        GL11Ext_GL_WEIGHT_ARRAY_SIZE_OESValue[] = Int32(34475)
+    end
+    GL11Ext_GL_WEIGHT_ARRAY_SIZE_OESValue[]
+end
+function staticSet_GL_WEIGHT_ARRAY_SIZE_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_WEIGHT_ARRAY_SIZE_OESSet[] = true
+    GL11Ext_GL_WEIGHT_ARRAY_SIZE_OESValue[] = value
+end
+const GL11Ext_GL_WEIGHT_ARRAY_STRIDE_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_WEIGHT_ARRAY_STRIDE_OESSet = Ref(false)
+function staticGet_GL_WEIGHT_ARRAY_STRIDE_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_WEIGHT_ARRAY_STRIDE_OESSet[]
+        GL11Ext_GL_WEIGHT_ARRAY_STRIDE_OESSet[] = true
+        GL11Ext_GL_WEIGHT_ARRAY_STRIDE_OESValue[] = Int32(34474)
+    end
+    GL11Ext_GL_WEIGHT_ARRAY_STRIDE_OESValue[]
+end
+function staticSet_GL_WEIGHT_ARRAY_STRIDE_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_WEIGHT_ARRAY_STRIDE_OESSet[] = true
+    GL11Ext_GL_WEIGHT_ARRAY_STRIDE_OESValue[] = value
+end
+const GL11Ext_GL_WEIGHT_ARRAY_TYPE_OESValue = Ref{Any}(nothing)
+const GL11Ext_GL_WEIGHT_ARRAY_TYPE_OESSet = Ref(false)
+function staticGet_GL_WEIGHT_ARRAY_TYPE_OES(::Type{GL11Ext})
+    if !GL11Ext_GL_WEIGHT_ARRAY_TYPE_OESSet[]
+        GL11Ext_GL_WEIGHT_ARRAY_TYPE_OESSet[] = true
+        GL11Ext_GL_WEIGHT_ARRAY_TYPE_OESValue[] = Int32(34473)
+    end
+    GL11Ext_GL_WEIGHT_ARRAY_TYPE_OESValue[]
+end
+function staticSet_GL_WEIGHT_ARRAY_TYPE_OES(::Type{GL11Ext}, value)
+    GL11Ext_GL_WEIGHT_ARRAY_TYPE_OESSet[] = true
+    GL11Ext_GL_WEIGHT_ARRAY_TYPE_OESValue[] = value
+end
 

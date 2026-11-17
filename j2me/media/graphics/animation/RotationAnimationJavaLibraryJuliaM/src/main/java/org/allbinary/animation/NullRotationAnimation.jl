@@ -1,40 +1,40 @@
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends RotationAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NullRotationAnimation <: JObject
+    NullRotationAnimation() = new()
+end
 
-from org.allbinary.animation.RotationAnimation import RotationAnimation
+
+function initFieldsNullRotationAnimation(this::NullRotationAnimation)
+    nothing
+end
 
 
-class NullRotationAnimation(RotationAnimation):
-    
+function createTotalAngle(::Type{NullRotationAnimation}, angleInfo, totalAngle, animationBehavior)
+        return newNullRotationAnimation(angleInfo, AllBinary.createInstance(CircularIndexUtil, totalAngle ÷ AllBinary.getAngleIncrement(AllBinary.getAngleIncrementInfo(angleInfo))), animationBehavior)
+end
 
-    @staticmethod
-    def createTotalAngle(angleInfo: AngleInfo, totalAngle: int, animationBehavior: AnimationBehavior) -> NullRotationAnimation:
-        from org.allbinary.math.AngleInfo import AngleInfo
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        return NullRotationAnimation(angleInfo, CircularIndexUtil.createInstance(totalAngle / angleInfo.getAngleIncrementInfo().getAngleIncrement()), animationBehavior)
-    
 
-    @staticmethod
-    def createQuarter(animationBehavior: AnimationBehavior) -> NullRotationAnimation:
-        from org.allbinary.math.AngleFactory import AngleFactory
-        from org.allbinary.math.AngleInfo import AngleInfo
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        return NullRotationAnimation(AngleInfo.getInstance(AngleFactory.getInstance().QUARTER_TOTAL_ANGLE), CircularIndexUtil.createInstance(4), animationBehavior)
-    
+function createQuarter(::Type{NullRotationAnimation}, animationBehavior)
+        return newNullRotationAnimation(AllBinary.getInstance(AngleInfo, AllBinary.getInstance(AngleFactory).QUARTER_TOTAL_ANGLE), AllBinary.createInstance(CircularIndexUtil, Int32(4)), animationBehavior)
+end
 
-    def __init__(self, angleInfo: AngleInfo, circularIndexUtil: CircularIndexUtil, animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.math.AngleInfo import AngleInfo
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        super().__init__(angleInfo, circularIndexUtil, animationBehavior)
-    
 
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        return 0
-# from org.allbinary.math.AngleFactory import AngleFactory
-# from org.allbinary.math.AngleInfo import AngleInfo
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
+function initNullRotationAnimation(this::NullRotationAnimation, angleInfo, circularIndexUtil, animationBehavior)
+        initRotationAnimation(this, angleInfo, circularIndexUtil, animationBehavior)
+        nothing
+end
 
+function newNullRotationAnimation(angleInfo, circularIndexUtil, animationBehavior)
+    this = NullRotationAnimation()
+    initNullRotationAnimation(this, angleInfo, circularIndexUtil, animationBehavior)
+    this
+end
+
+
+function getAnimationSize(this::NullRotationAnimation)
+        return Int32(0)
+end
 

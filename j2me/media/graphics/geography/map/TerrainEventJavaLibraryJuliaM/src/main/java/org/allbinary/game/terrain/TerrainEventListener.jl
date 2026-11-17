@@ -1,41 +1,43 @@
 # Generated Code Do Not Modify
 # package org.allbinary.game.terrain
 
-from __future__ import annotations
+mutable struct TerrainEventListener <: JObject
+    list::Any
+    TerrainEventListener() = new()
+end
 
-from org.allbinary.game.terrain.TerrainEventListenerInterface import TerrainEventListenerInterface
+
+function initFieldsTerrainEventListener(this::TerrainEventListener)
+    this.list = nothing
+    this.list = newBasicArrayListD()
+    nothing
+end
+
+function initTerrainEventListener(this::TerrainEventListener)
+    initFieldsTerrainEventListener(this)
+end
+
+function newTerrainEventListener()
+    this = TerrainEventListener()
+    initTerrainEventListener(this)
+    this
+end
 
 
-class TerrainEventListener(TerrainEventListenerInterface):
+function onEvent(this::TerrainEventListener, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_: BasicArrayList = BasicArrayListD()
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function onTerrainEvent(this::TerrainEventListener, terrainEvent)
+        AllBinary.clear(this.list)
+        AllBinary.add(this.list, terrainEvent)
+        nothing
+end
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-    
 
-    def onTerrainEvent(self, terrainEvent: TerrainEvent) -> None:
-        self.list_.clear()
-        self.list_.add(terrainEvent)
-    
-
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.list_
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-
+function getList(this::TerrainEventListener)
+        return this.list
+end
 

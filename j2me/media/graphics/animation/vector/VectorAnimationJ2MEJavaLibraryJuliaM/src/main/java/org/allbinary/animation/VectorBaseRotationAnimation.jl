@@ -1,122 +1,140 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends RotationAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct VectorBaseRotationAnimation <: JObject
+    currentPoints::Any
+    VectorBaseRotationAnimation() = new()
+end
 
-from org.allbinary.animation.RotationAnimation import RotationAnimation
-from org.allbinary.animation.VectorAnimationInterface import VectorAnimationInterface
+
+function initFieldsVectorBaseRotationAnimation(this::VectorBaseRotationAnimation)
+    this.currentPoints = nothing
+    this.currentPoints = AllBinary.getInstance(NullUtil).NULL_INT_ARRAY_ARRAY_ARRAY
+    nothing
+end
 
 
-class VectorBaseRotationAnimation(RotationAnimation, VectorAnimationInterface):
+function initVectorBaseRotationAnimation(this::VectorBaseRotationAnimation, angleInfo, currentPoints, basicColor, animationBehavior)
+        initRotationAnimation(this, angleInfo, AllBinary.createInstance(CircularIndexUtil, Int32(360) ÷ AllBinary.getAngleIncrement(AllBinary.getAngleIncrementInfo(angleInfo))), animationBehavior)
+        initFieldsVectorBaseRotationAnimation(this)
+        AllBinary.setPoints(this, currentPoints)
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.NullUtil import NullUtil
-        self.currentPoints: list[list[list[int]]] = NullUtil.getInstance().NULL_INT_ARRAY_ARRAY_ARRAY
-    
+function newVectorBaseRotationAnimation(angleInfo, currentPoints, basicColor, animationBehavior)
+    this = VectorBaseRotationAnimation()
+    initVectorBaseRotationAnimation(this, angleInfo, currentPoints, basicColor, animationBehavior)
+    this
+end
 
-    def __init__(self, angleInfo: AngleInfo, currentPoints: list[list[list[int]]], basicColor: BasicColor, animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.math.AngleInfo import AngleInfo
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        super().__init__(angleInfo, CircularIndexUtil.createInstance(360 / angleInfo.getAngleIncrementInfo().getAngleIncrement()), animationBehavior)
-        self._init_fields()
-        self.setPoints(currentPoints)
-        self.setBasicColorP(basicColor)
-    
 
-    # throws Exception
-    def getAnimationSize(self) -> int:
-        return self.getSize()
-    
+function getAnimationSize(this::VectorBaseRotationAnimation)
+        return AllBinary.getSize(this)
+end
 
-    def getFrame(self) -> int:
-        return self.circularIndexUtil.getIndex()
-    
 
-    def setFrame(self, index: int) -> None:
-        self.circularIndexUtil.setIndex(index)
-    
+function getFrame(this::VectorBaseRotationAnimation)
+        return AllBinary.getIndex(this.circularIndexUtil)
+end
 
-    def nextFrame(self) -> None:
-        self.circularIndexUtil.next()
-    
 
-    def previousFrame(self) -> None:
-        self.circularIndexUtil.previous()
-    
+function setFrame(this::VectorBaseRotationAnimation, index)
+        AllBinary.setIndex(this.circularIndexUtil, index)
+        nothing
+end
 
-    def getSize(self) -> int:
-        return len(self.currentPoints)
-    
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
+function nextFrame(this::VectorBaseRotationAnimation)
+        AllBinary.next(this.circularIndexUtil)
+        nothing
+end
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.basicSetColorUtil.setBasicColorP(graphics, self.basicColor)
-        try:
-            nextPointX: int = 0
-            nextPointY: int = 0
-            nextPoint: list[int] = None
-            point: list[int] = None
-            currentPointsFrame: list[list[int]] = self.currentPoints[self.circularIndexUtil.getIndex()]
-            size: int = len(currentPointsFrame)
-            index: int = size - 2
-            while (index := index - 1) >= 0:
-                nextPoint = currentPointsFrame[index]
-                point = currentPointsFrame[index + 1]
-                nextPointX = nextPoint[0]
-                nextPointY = nextPoint[1]
-                if nextPointX != 1000:
-                    graphics.drawLine(point[0] + x, point[1] + y, nextPointX + x, nextPointY + y)
-                else:
-                    index -= 1
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "paintVectors", e)
-    
+function previousFrame(this::VectorBaseRotationAnimation)
+        AllBinary.previous(this.circularIndexUtil)
+        nothing
+end
 
-    def getPoints(self, frame: int) -> list[list[int]]:
-        return self.currentPoints[frame]
-    
 
-    def setPoints(self, currentPoints: list[list[list[int]]]) -> None:
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.currentPoints = currentPoints
-        self.circularIndexUtil = CircularIndexUtil.createInstance(len(self.currentPoints))
-    
+function getSize(this::VectorBaseRotationAnimation)
+        return Int32(Base.length(this.currentPoints))
+end
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return super().getBasicColorP()
-    
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().setBasicColorP(basicColor)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-# from org.allbinary.math.AngleInfo import AngleInfo
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
+function setSequence(this::VectorBaseRotationAnimation, sequence)
+        nothing
+        nothing
+end
 
+
+function getSequence(this::VectorBaseRotationAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
+
+
+function paintXY(this::VectorBaseRotationAnimation, graphics, x, y)
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, this.basicColor)
+        try
+            local nextPointX::Int32 = Int32(0)
+            local nextPointY::Int32 = Int32(0)
+            local nextPoint = nothing
+            local point = nothing
+            local currentPointsFrame = this.currentPoints[AllBinary.getIndex(this.circularIndexUtil) + 1]
+            local size::Int32 = Int32(Base.length(currentPointsFrame))
+            local index::Int32 = size - Int32(2)
+            while (index -= Int32(1)) >= Int32(0)
+                nextPoint = currentPointsFrame[index + 1]
+                point = currentPointsFrame[index + Int32(1) + 1]
+                nextPointX = nextPoint[Int32(0) + 1]
+                nextPointY = nextPoint[Int32(1) + 1]
+                if nextPointX != Int32(1000)
+                    AllBinary.drawLine(graphics, point[Int32(0) + 1] + x, point[Int32(1) + 1] + y, nextPointX + x, nextPointY + y)
+                else
+                    index -= Int32(1)
+                end
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "paintVectors", e)
+        end
+        nothing
+end
+
+
+function getPoints(this::VectorBaseRotationAnimation, frame)
+        return this.currentPoints[frame + 1]
+end
+
+
+function setPoints(this::VectorBaseRotationAnimation, currentPoints)
+        this.currentPoints = currentPoints
+        this.circularIndexUtil = AllBinary.createInstance(CircularIndexUtil, Int32(Base.length(this.currentPoints)))
+        nothing
+end
+
+
+function getBasicColorP(this::VectorBaseRotationAnimation)
+        return AllBinary.getBasicColorP(this)
+end
+
+
+function setBasicColorP(this::VectorBaseRotationAnimation, basicColor)
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 

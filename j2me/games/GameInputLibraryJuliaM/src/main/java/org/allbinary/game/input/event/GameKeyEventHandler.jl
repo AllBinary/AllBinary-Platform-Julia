@@ -1,88 +1,104 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.event
 
-from __future__ import annotations
+mutable struct GameKeyEventHandler <: JObject
+    logUtil::Any
+    commonStrings::Any
+    pressGameKeyEventHandler::Any
+    upGameKeyEventHandler::Any
+    downGameKeyEventHandler::Any
+    GameKeyEventHandler() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameKeyEventHandler_instanceValue = Ref{Any}(nothing)
+const GameKeyEventHandler_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameKeyEventHandler})
+    if !GameKeyEventHandler_instanceSet[]
+        GameKeyEventHandler_instanceSet[] = true
+        GameKeyEventHandler_instanceValue[] = newGameKeyEventHandler()
+    end
+    GameKeyEventHandler_instanceValue[]
+end
+function staticSet_instance(::Type{GameKeyEventHandler}, value)
+    GameKeyEventHandler_instanceSet[] = true
+    GameKeyEventHandler_instanceValue[] = value
+end
 
+function initFieldsGameKeyEventHandler(this::GameKeyEventHandler)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.pressGameKeyEventHandler = nothing
+    this.upGameKeyEventHandler = nothing
+    this.downGameKeyEventHandler = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.pressGameKeyEventHandler = AllBinary.getInstance(PressGameKeyEventHandler)
+    this.upGameKeyEventHandler = AllBinary.getInstance(UpGameKeyEventHandler)
+    this.downGameKeyEventHandler = AllBinary.getInstance(DownGameKeyEventHandler)
+    nothing
+end
 
-class GameKeyEventHandler:
-    instance: GameKeyEventHandler = None
-    _lock = threading.RLock()
+function initGameKeyEventHandler(this::GameKeyEventHandler)
+    initFieldsGameKeyEventHandler(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.pressGameKeyEventHandler: PressGameKeyEventHandler = PressGameKeyEventHandler.getInstance()
-        self.upGameKeyEventHandler: UpGameKeyEventHandler = UpGameKeyEventHandler.getInstance()
-        self.downGameKeyEventHandler: DownGameKeyEventHandler = DownGameKeyEventHandler.getInstance()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GameKeyEventHandler:
-        return GameKeyEventHandler.instance
-    
-
-    def removeAllListeners(self) -> None:
-        with self._lock:
-            return self._removeAllListeners_unlocked()
-
-    def _removeAllListeners_unlocked(self) -> None:
-        self.pressGameKeyEventHandler.removeAllListeners()
-        self.upGameKeyEventHandler.removeAllListeners()
-        self.downGameKeyEventHandler.removeAllListeners()
-    
-
-    def addListenerForPlayer(self, eventListenerInterface: EventListenerInterface, playerInputId: int) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.logUtil.putF(str(eventListenerInterface), self, self.commonStrings.ADD_LISTENER)
-        self.pressGameKeyEventHandler.addListenerSingleThreaded(eventListenerInterface)
-        self.upGameKeyEventHandler.getInstanceForPlayer(playerInputId).addListenerSingleThreaded(eventListenerInterface)
-        self.downGameKeyEventHandler.getInstanceForPlayer(playerInputId).addListenerSingleThreaded(eventListenerInterface)
-    
-
-    def addListener(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.logUtil.putF(str(eventListenerInterface), self, self.commonStrings.ADD_LISTENER)
-        self.pressGameKeyEventHandler.addListenerSingleThreaded(eventListenerInterface)
-        self.upGameKeyEventHandler.addListenerSingleThreaded(eventListenerInterface)
-        self.downGameKeyEventHandler.addListenerSingleThreaded(eventListenerInterface)
-    
-
-    def removeListener(self, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        self.logUtil.putF(str(eventListenerInterface), self, self.commonStrings.REMOVE_LISTENER)
-        self.pressGameKeyEventHandler.removeListenerSingleThreaded(eventListenerInterface)
-        self.upGameKeyEventHandler.removeListenerSingleThreaded(eventListenerInterface)
-        self.downGameKeyEventHandler.removeListenerSingleThreaded(eventListenerInterface)
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.game.input.event.PressGameKeyEventHandler import PressGameKeyEventHandler
-from org.allbinary.game.input.event.UpGameKeyEventHandler import UpGameKeyEventHandler
-from org.allbinary.game.input.event.DownGameKeyEventHandler import DownGameKeyEventHandler
+function newGameKeyEventHandler()
+    this = GameKeyEventHandler()
+    initGameKeyEventHandler(this)
+    this
+end
 
 
-def _GameKeyEventHandler_instance() -> object:
-    return GameKeyEventHandler()
+function getInstance(::Type{GameKeyEventHandler})
+        return staticGet_instance(GameKeyEventHandler)
+end
 
-lazy_static(GameKeyEventHandler, "instance", _GameKeyEventHandler_instance)
+
+function removeAllListeners(this::GameKeyEventHandler)
+        AllBinary.removeAllListeners(this.pressGameKeyEventHandler)
+        AllBinary.removeAllListeners(this.upGameKeyEventHandler)
+        AllBinary.removeAllListeners(this.downGameKeyEventHandler)
+        nothing
+end
+
+
+function addListenerForPlayer(this::GameKeyEventHandler, eventListenerInterface, playerInputId)
+        AllBinary.putF(this.logUtil, AllBinary.toString(eventListenerInterface), this, this.commonStrings.ADD_LISTENER)
+        AllBinary.addListenerSingleThreaded(this.pressGameKeyEventHandler, eventListenerInterface)
+        AllBinary.addListenerSingleThreaded(AllBinary.getInstanceForPlayer(this.upGameKeyEventHandler, playerInputId), eventListenerInterface)
+        AllBinary.addListenerSingleThreaded(AllBinary.getInstanceForPlayer(this.downGameKeyEventHandler, playerInputId), eventListenerInterface)
+        nothing
+end
+
+
+function addListener(this::GameKeyEventHandler, eventListenerInterface)
+        AllBinary.putF(this.logUtil, AllBinary.toString(eventListenerInterface), this, this.commonStrings.ADD_LISTENER)
+        AllBinary.addListenerSingleThreaded(this.pressGameKeyEventHandler, eventListenerInterface)
+        AllBinary.addListenerSingleThreaded(this.upGameKeyEventHandler, eventListenerInterface)
+        AllBinary.addListenerSingleThreaded(this.downGameKeyEventHandler, eventListenerInterface)
+        nothing
+end
+
+
+function removeListener(this::GameKeyEventHandler, eventListenerInterface)
+        AllBinary.putF(this.logUtil, AllBinary.toString(eventListenerInterface), this, this.commonStrings.REMOVE_LISTENER)
+        AllBinary.removeListenerSingleThreaded(this.pressGameKeyEventHandler, eventListenerInterface)
+        AllBinary.removeListenerSingleThreaded(this.upGameKeyEventHandler, eventListenerInterface)
+        AllBinary.removeListenerSingleThreaded(this.downGameKeyEventHandler, eventListenerInterface)
+        nothing
+end
 

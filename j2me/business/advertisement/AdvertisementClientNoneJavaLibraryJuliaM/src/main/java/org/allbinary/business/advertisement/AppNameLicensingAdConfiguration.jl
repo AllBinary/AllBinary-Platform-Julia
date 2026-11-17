@@ -1,17 +1,25 @@
 # Generated Code Do Not Modify
 # package org.allbinary.business.advertisement
 
-from __future__ import annotations
+# extends AdConfiguration: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AppNameLicensingAdConfiguration <: JObject
+    AppNameLicensingAdConfiguration() = new()
+end
 
-from org.allbinary.business.advertisement.AdConfiguration import AdConfiguration
+
+function initFieldsAppNameLicensingAdConfiguration(this::AppNameLicensingAdConfiguration)
+    nothing
+end
 
 
-class AppNameLicensingAdConfiguration(AdConfiguration):
-    
+function initAppNameLicensingAdConfiguration(this::AppNameLicensingAdConfiguration)
+        initAdConfiguration(this, Any[AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(StringUtil).EMPTY_STRING])
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        super().__init__([StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING])
-# from org.allbinary.logic.string.StringUtil import StringUtil
-
+function newAppNameLicensingAdConfiguration()
+    this = AppNameLicensingAdConfiguration()
+    initAppNameLicensingAdConfiguration(this)
+    this
+end
 

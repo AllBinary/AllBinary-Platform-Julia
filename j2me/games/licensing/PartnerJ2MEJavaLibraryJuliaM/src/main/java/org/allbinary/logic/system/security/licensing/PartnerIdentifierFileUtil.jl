@@ -1,70 +1,81 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.system.security.licensing
 
-from __future__ import annotations
+mutable struct PartnerIdentifierFileUtil <: JObject
+    logUtil::Any
+    FILE_NAME::Any
+    PartnerIdentifierFileUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const PartnerIdentifierFileUtil_instanceValue = Ref{Any}(nothing)
+const PartnerIdentifierFileUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{PartnerIdentifierFileUtil})
+    if !PartnerIdentifierFileUtil_instanceSet[]
+        PartnerIdentifierFileUtil_instanceSet[] = true
+        PartnerIdentifierFileUtil_instanceValue[] = newPartnerIdentifierFileUtil()
+    end
+    PartnerIdentifierFileUtil_instanceValue[]
+end
+function staticSet_instance(::Type{PartnerIdentifierFileUtil}, value)
+    PartnerIdentifierFileUtil_instanceSet[] = true
+    PartnerIdentifierFileUtil_instanceValue[] = value
+end
+
+function initFieldsPartnerIdentifierFileUtil(this::PartnerIdentifierFileUtil)
+    this.logUtil = nothing
+    this.FILE_NAME = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.FILE_NAME = "partner.txt"
+    nothing
+end
+
+function initPartnerIdentifierFileUtil(this::PartnerIdentifierFileUtil)
+    initFieldsPartnerIdentifierFileUtil(this)
+end
+
+function newPartnerIdentifierFileUtil()
+    this = PartnerIdentifierFileUtil()
+    initPartnerIdentifierFileUtil(this)
+    this
+end
 
 
-class PartnerIdentifierFileUtil:
-    instance: PartnerIdentifierFileUtil = None
+function getInstance(::Type{PartnerIdentifierFileUtil})
+        return staticGet_instance(PartnerIdentifierFileUtil)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.FILE_NAME: str = "partner.txt"
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> PartnerIdentifierFileUtil:
-        return PartnerIdentifierFileUtil.instance
-    
-
-    def get(self) -> str:
-        from java.io.InputStream import InputStream
-        from org.allbinary.data.resource.ResourceUtil import ResourceUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            resourceUtil: ResourceUtil = ResourceUtil.getInstance()
-            inputStream: InputStream = resourceUtil.getResourceAsStream(self.FILE_NAME)
-            inputStreamReader: InputStreamReader = InputStreamReader(inputStream)
-            chars: list[str] = ['\0'] * (30)
-            size: int = inputStreamReader.read(chars)
-            partnerString: str = StringUtil.getInstance().EMPTY_STRING
-            if size > 0:
-                partnerString = "".join(chars[0:0 + size])
-            inputStreamReader.close()
+function get(this::PartnerIdentifierFileUtil)
+        try
+            local resourceUtil = AllBinary.getInstance(ResourceUtil)
+            local inputStream = AllBinary.getResourceAsStream(resourceUtil, this.FILE_NAME)
+            local inputStreamReader = newInputStreamReader(inputStream)
+            local chars = jNewArray(UInt16, Int32(30), UInt16(0))
+            local size::Int32 = AllBinary.read(inputStreamReader, chars)
+            local partnerString = AllBinary.getInstance(StringUtil).EMPTY_STRING
+            if size > Int32(0)
+                partnerString = jFromChars(chars, Int32(0), size)
+            end
+            AllBinary.close(inputStreamReader)
             return partnerString
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.GET, e)
-            return StringUtil.getInstance().NULL_STRING
-# from java.io.InputStream import InputStream
-# from java.io.InputStreamReader import InputStreamReader
-# from org.allbinary.data.resource.ResourceUtil import ResourceUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-
-
-def _PartnerIdentifierFileUtil_instance() -> object:
-    return PartnerIdentifierFileUtil()
-
-lazy_static(PartnerIdentifierFileUtil, "instance", _PartnerIdentifierFileUtil_instance)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.GET, e)
+            return AllBinary.getInstance(StringUtil).NULL_STRING
+        end
+end
 

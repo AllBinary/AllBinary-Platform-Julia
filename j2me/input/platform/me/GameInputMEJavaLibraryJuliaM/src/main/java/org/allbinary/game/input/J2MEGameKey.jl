@@ -1,53 +1,59 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends Input: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct J2MEGameKey <: JObject
+    J2MEGameKey() = new()
+end
 
-from org.allbinary.game.input.Input import Input
+
+function initFieldsJ2MEGameKey(this::J2MEGameKey)
+    nothing
+end
 
 
-class J2MEGameKey(Input):
-    
+function initJ2MEGameKey(this::J2MEGameKey, key, keyName)
+        initInput(this, key, keyName)
+        local id::Int32 = AllBinary.getId(this)
+        if id >= Int32(0)
+            local inputFactory = AllBinary.getInstance(InputFactory)
+            AllBinary.add(inputFactory, id, this)
+        end
+        nothing
+end
 
-    def __init__(self, key: int, keyName: str) -> None:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        super().__init__(key, keyName)
-        id: int = self.getId()
-        if id >= 0:
-            inputFactory: InputFactory = InputFactory.getInstance()
-            inputFactory.add(id, self)
-    
+function newJ2MEGameKey(key, keyName)
+    this = J2MEGameKey()
+    initJ2MEGameKey(this, key, keyName)
+    this
+end
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        return str(StringMaker().append("J2MEGameKey: ").append(str(super())))
 
-    def __str__(self) -> str:
-        return self.toString()
-    
+function toString(this::J2MEGameKey)
+        return AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "J2MEGameKey: "), AllBinary.toString(this)))
+end
 
-    @staticmethod
-    def getString(keyCode: int) -> str:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        input: Input = InputFactory.getInstance().getInstanceById(keyCode)
-        if input is not None:
-            return input.getName()
-        else:
-            return StringUtil.getInstance().EMPTY_STRING
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function getString(::Type{J2MEGameKey}, keyCode)
+        local input = AllBinary.getInstanceById(AllBinary.getInstance(InputFactory), keyCode)
+        if input !== nothing
+            return AllBinary.getName(input)
+        else
+            return AllBinary.getInstance(StringUtil).EMPTY_STRING
+        end
+end
 

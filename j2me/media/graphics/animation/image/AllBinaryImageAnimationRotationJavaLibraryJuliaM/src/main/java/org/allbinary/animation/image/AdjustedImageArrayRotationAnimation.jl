@@ -1,85 +1,94 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
-
-from org.allbinary.animation.image.ImageArrayRotationAnimation import ImageArrayRotationAnimation
-
-
 #TWB - Adjustments should be done in the resource creation and not at the animation level
-class AdjustedImageArrayRotationAnimation(ImageArrayRotationAnimation):
+# extends ImageArrayRotationAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AdjustedImageArrayRotationAnimation <: JObject
+    dx::Int32
+    dy::Int32
+    AdjustedImageArrayRotationAnimation() = new()
+end
 
-    def _init_fields(self) -> None:
-        self.dx: int = 0
-        self.dy: int = 0
-    
 
-    # throws Exception
-    @staticmethod
-    def createAdjustedImageArrayRotationAnimationInfo(anyType: object, animationBehavior: AnimationBehavior) -> AdjustedImageArrayRotationAnimation:
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        imageRotationAnimationInfo: ImageArrayRotationAnimationInfo = anyType
-        return AdjustedImageArrayRotationAnimation(imageRotationAnimationInfo.getImageArray(), imageRotationAnimationInfo.getAngleInfoP(), imageRotationAnimationInfo.getTotalAngle(), imageRotationAnimationInfo.getDx(), imageRotationAnimationInfo.getDy(), animationBehavior)
-    
+function initFieldsAdjustedImageArrayRotationAnimation(this::AdjustedImageArrayRotationAnimation)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    nothing
+end
 
-    # throws Exception
-    @staticmethod
-    def createAnimation(imageArray: list[Image], angleInfo: AngleInfo, totalAngle: int, animationBehavior: AnimationBehavior) -> AdjustedImageArrayRotationAnimation:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.math.AngleInfo import AngleInfo
-        return AdjustedImageArrayRotationAnimation(imageArray, angleInfo, totalAngle, -(imageArray[0].getWidth() >> 2), -(imageArray[0].getHeight() >> 2), animationBehavior)
-    
 
-    def __init__(self, imageArray: list[Image], angleInfo: AngleInfo, totalAngle: int, dx: int, dy: int, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.math.AngleInfo import AngleInfo
-        super().__init__(imageArray, angleInfo, totalAngle, animationBehavior)
-        self._init_fields()
-        self.init(dx, dy)
-    
+function createAdjustedImageArrayRotationAnimationInfo(::Type{AdjustedImageArrayRotationAnimation}, anyType, animationBehavior)
+        local imageRotationAnimationInfo = (anyType)
+        return newAdjustedImageArrayRotationAnimation(AllBinary.getImageArray(imageRotationAnimationInfo), AllBinary.getAngleInfoP(imageRotationAnimationInfo), AllBinary.getTotalAngle(imageRotationAnimationInfo), AllBinary.getDx(imageRotationAnimationInfo), AllBinary.getDy(imageRotationAnimationInfo), animationBehavior)
+end
 
-    # throws Exception
-    def init(self, dx: int, dy: int) -> None:
-        self.setDx(dx)
-        self.setDy(dy)
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        super().paintXY(graphics, x + self.dx, y + self.dy)
-    
+function createAnimation(::Type{AdjustedImageArrayRotationAnimation}, imageArray, angleInfo, totalAngle, animationBehavior)
+        return newAdjustedImageArrayRotationAnimation(imageArray, angleInfo, totalAngle, -(AllBinary.getWidth(imageArray[Int32(0) + 1]) >> Int32(2)), -(AllBinary.getHeight(imageArray[Int32(0) + 1]) >> Int32(2)), animationBehavior)
+end
 
-    def setDx(self, dx: int) -> None:
-        self.dx = dx
-    
 
-    def getDx(self) -> int:
-        return self.dx
-    
+function initAdjustedImageArrayRotationAnimation(this::AdjustedImageArrayRotationAnimation, imageArray, angleInfo, totalAngle, dx, dy, animationBehavior)
+        initImageArrayRotationAnimation(this, imageArray, angleInfo, totalAngle, animationBehavior)
+        initFieldsAdjustedImageArrayRotationAnimation(this)
+        AllBinary.init(this, dx, dy)
+        nothing
+end
 
-    def setDy(self, dy: int) -> None:
-        self.dy = dy
-    
+function newAdjustedImageArrayRotationAnimation(imageArray, angleInfo, totalAngle, dx, dy, animationBehavior)
+    this = AdjustedImageArrayRotationAnimation()
+    initAdjustedImageArrayRotationAnimation(this, imageArray, angleInfo, totalAngle, dx, dy, animationBehavior)
+    this
+end
 
-    def getDy(self) -> int:
-        return self.dy
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.math.AngleInfo import AngleInfo
 
+function init(this::AdjustedImageArrayRotationAnimation, dx, dy)
+        AllBinary.setDx(this, dx)
+        AllBinary.setDy(this, dy)
+        nothing
+end
+
+
+function paintXY(this::AdjustedImageArrayRotationAnimation, graphics, x, y)
+        AllBinary.paintXY(this, graphics, x + this.dx, y + this.dy)
+        nothing
+end
+
+
+function setDx(this::AdjustedImageArrayRotationAnimation, dx)
+        this.dx = dx
+        nothing
+end
+
+
+function getDx(this::AdjustedImageArrayRotationAnimation)
+        return this.dx
+end
+
+
+function setDy(this::AdjustedImageArrayRotationAnimation, dy)
+        this.dy = dy
+        nothing
+end
+
+
+function getDy(this::AdjustedImageArrayRotationAnimation)
+        return this.dy
+end
 

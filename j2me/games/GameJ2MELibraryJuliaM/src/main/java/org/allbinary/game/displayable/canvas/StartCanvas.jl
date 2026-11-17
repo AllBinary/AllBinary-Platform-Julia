@@ -1,779 +1,781 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends RunnableCanvas: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct StartCanvas <: JObject
+    basicColorFactory::Any
+    features::Any
+    openGLFeatureFactory::Any
+    myCommandsFactory::Any
+    gameAdStateFactory::Any
+    gameStateFactory::Any
+    gameInputStrings::Any
+    formUtil::Any
+    basicGameDemoPaintable::Any
+    specialAnimationInterface::Any
+    paintedSpecialAnimationInterface::Any
+    fullScreenUtil::Any
+    highScoresHelper::Any
+    realHighScoresPaintable::Any
+    highScoresPaintable::Any
+    state::Int32
+    timeDelayHelper::Any
+    highScoresFactoryInterface::Any
+    menuInputProcessor::Any
+    menuForm::Any
+    gameInitializationInterfaceFactoryInterface::Any
+    initialized::Bool
+    defaultPaintableInterface::Any
+    paintableInterface::Any
+    overlayPaintable::Any
+    tempWait::Int32
+    inputToGameKeyMapping::Any
+    gameRunnable::Any
+    progressPaintable::Any
+    isSingleKeyRepeatableProcessing::Bool
+    NONE::Any
+    gameKeyEventFactory::Any
+    SET_STATE::Any
+    baseGameStatistics::Any
+    StartCanvas() = new()
+end
 
-import threading
-from org.allbinary.canvas.RunnableCanvas import RunnableCanvas
-from org.allbinary.graphics.displayable.event.DisplayChangeEventListener import DisplayChangeEventListener
-from org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface import GameCanvasRunnableInterface
-from org.allbinary.game.displayable.canvas.MenuListener import MenuListener
+const StartCanvas_idValue = Ref{Any}(nothing)
+const StartCanvas_idSet = Ref(false)
+function staticGet_id(::Type{StartCanvas})
+    if !StartCanvas_idSet[]
+        StartCanvas_idSet[] = true
+        StartCanvas_idValue[] = Int32(0)
+    end
+    StartCanvas_idValue[]
+end
+function staticSet_id(::Type{StartCanvas}, value)
+    StartCanvas_idSet[] = true
+    StartCanvas_idValue[] = value
+end
+const StartCanvas_BOT_GAME_STATSValue = Ref{Any}(nothing)
+const StartCanvas_BOT_GAME_STATSSet = Ref(false)
+function staticGet_BOT_GAME_STATS(::Type{StartCanvas})
+    if !StartCanvas_BOT_GAME_STATSSet[]
+        StartCanvas_BOT_GAME_STATSSet[] = true
+        StartCanvas_BOT_GAME_STATSValue[] = "Bot Game Statistics: "
+    end
+    StartCanvas_BOT_GAME_STATSValue[]
+end
+function staticSet_BOT_GAME_STATS(::Type{StartCanvas}, value)
+    StartCanvas_BOT_GAME_STATSSet[] = true
+    StartCanvas_BOT_GAME_STATSValue[] = value
+end
 
-
-class StartCanvas(RunnableCanvas, GameCanvasRunnableInterface, MenuListener, DisplayChangeEventListener):
-    id: int = 0
-    BOT_GAME_STATS: str = "Bot Game Statistics: "
-    _lock = threading.RLock()
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.special.SpecialAnimation import SpecialAnimation
-        from org.allbinary.business.advertisement.GameAdStateFactory import GameAdStateFactory
-        from org.allbinary.canvas.BaseGameStatistics import BaseGameStatistics
-        from org.allbinary.canvas.FullScreenUtil import FullScreenUtil
-        from org.allbinary.canvas.GameStatisticsFactory import GameStatisticsFactory
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.InputFeatureFactory import InputFeatureFactory
-        from org.allbinary.game.init.BasicBuildGameInitializerFactory import BasicBuildGameInitializerFactory
-        from org.allbinary.game.input.GameInputStrings import GameInputStrings
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-        from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-        from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-        from org.allbinary.game.score.HighScoresHelper import HighScoresHelper
-        from org.allbinary.game.score.HighScoresPaintable import HighScoresPaintable
-        from org.allbinary.game.state.GameStateFactory import GameStateFactory
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.displayable.command.MyCommandsFactory import MyCommandsFactory
-        from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        from org.allbinary.graphics.paint.InitUpdatePaintable import InitUpdatePaintable
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-        from org.allbinary.graphics.paint.StatePaintable import StatePaintable
-        from org.allbinary.graphics.paint.StatePaintableFactory import StatePaintableFactory
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.basicColorFactory: BasicColorFactory = BasicColorFactory.getInstance()
-        self.features: Features = Features.getInstance()
-        self.openGLFeatureFactory: OpenGLFeatureFactory = OpenGLFeatureFactory.getInstance()
-        self.myCommandsFactory: MyCommandsFactory = MyCommandsFactory.getInstance()
-        self.gameAdStateFactory: GameAdStateFactory = GameAdStateFactory.getInstance()
-        self.gameStateFactory: GameStateFactory = GameStateFactory.getInstance()
-        self.gameInputStrings: GameInputStrings = GameInputStrings.getInstance()
-        self.formUtil: FormUtil = FormUtil.getInstance()
-        self.basicGameDemoPaintable: StatePaintable = StatePaintableFactory.getInstance()
-        self.specialAnimationInterface: SpecialAnimation = SpecialAnimation.getInstance()
-        self.paintedSpecialAnimationInterface: Animation = SpecialAnimation.getInstance()
-        self.fullScreenUtil: FullScreenUtil = FullScreenUtil.getInstance()
-        self.highScoresHelper: HighScoresHelper = HighScoresHelper()
-        self.realHighScoresPaintable: HighScoresPaintable = HighScoresPaintable()
-        self.highScoresPaintable: Paintable = NullPaintable.getInstance()
-        self.state: int = 0
-        self.timeDelayHelper: TimeDelayHelper = TimeDelayHelper(6000)
-        self.highScoresFactoryInterface: HighScoresFactoryInterface = None
-        self.menuInputProcessor: BasicMenuInputProcessor = NoMenuInputProcessor.getInstance()
-        self.menuForm: ScrollSelectionForm = ScrollSelectionForm.getNullScrollSelectionForm()
-        self.gameInitializationInterfaceFactoryInterface: BasicBuildGameInitializerFactory = None
-        self.initialized: bool = False
-        self.defaultPaintableInterface: Paintable = NullPaintable.getInstance()
-        self.paintableInterface: PaintableInterface = NullPaintable.getInstance()
-        self.overlayPaintable: InitUpdatePaintable = None
-        self.tempWait: int = NullWaitGameRunnable.getInstance().WAIT
-        self.inputToGameKeyMapping: InputToGameKeyMapping = PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping()
-        self.gameRunnable: GameRunnable = NullWaitGameRunnable.getInstance()
-        self.progressPaintable: PaintableInterface = ProgressCanvasFactory.getLazyInstance()
-        self.isSingleKeyRepeatableProcessing: bool = self.features.isFeature(InputFeatureFactory.getInstance().SINGLE_KEY_REPEAT_PRESS)
-        self.NONE: GameKey = GameKeyFactory.getInstance().NONE
-        self.gameKeyEventFactory: GameKeyEventFactory = GameKeyEventFactory.getInstance()
-        self.SET_STATE: str = "setState"
-        self.baseGameStatistics: BaseGameStatistics = GameStatisticsFactory.getInstance()
+function initFieldsStartCanvas(this::StartCanvas)
+    this.basicColorFactory = nothing
+    this.features = nothing
+    this.openGLFeatureFactory = nothing
+    this.myCommandsFactory = nothing
+    this.gameAdStateFactory = nothing
+    this.gameStateFactory = nothing
+    this.gameInputStrings = nothing
+    this.formUtil = nothing
+    this.basicGameDemoPaintable = nothing
+    this.specialAnimationInterface = nothing
+    this.paintedSpecialAnimationInterface = nothing
+    this.fullScreenUtil = nothing
+    this.highScoresHelper = nothing
+    this.realHighScoresPaintable = nothing
+    this.highScoresPaintable = nothing
+    this.state = Int32(0)
+    this.timeDelayHelper = nothing
+    this.highScoresFactoryInterface = nothing
+    this.menuInputProcessor = nothing
+    this.menuForm = nothing
+    this.gameInitializationInterfaceFactoryInterface = nothing
+    this.initialized = false
+    this.defaultPaintableInterface = nothing
+    this.paintableInterface = nothing
+    this.overlayPaintable = nothing
+    this.tempWait = Int32(0)
+    this.inputToGameKeyMapping = nothing
+    this.gameRunnable = nothing
+    this.progressPaintable = nothing
+    this.isSingleKeyRepeatableProcessing = false
+    this.NONE = nothing
+    this.gameKeyEventFactory = nothing
+    this.SET_STATE = nothing
+    this.baseGameStatistics = nothing
+    this.basicColorFactory = AllBinary.getInstance(BasicColorFactory)
+    this.features = AllBinary.getInstance(Features)
+    this.openGLFeatureFactory = AllBinary.getInstance(OpenGLFeatureFactory)
+    this.myCommandsFactory = AllBinary.getInstance(MyCommandsFactory)
+    this.gameAdStateFactory = AllBinary.getInstance(GameAdStateFactory)
+    this.gameStateFactory = AllBinary.getInstance(GameStateFactory)
+    this.gameInputStrings = AllBinary.getInstance(GameInputStrings)
+    this.formUtil = AllBinary.getInstance(FormUtil)
+    this.basicGameDemoPaintable = AllBinary.getInstance(StatePaintableFactory)
+    this.specialAnimationInterface = AllBinary.getInstance(SpecialAnimation)
+    this.paintedSpecialAnimationInterface = AllBinary.getInstance(SpecialAnimation)
+    this.fullScreenUtil = AllBinary.getInstance(FullScreenUtil)
+    this.highScoresHelper = newHighScoresHelper()
+    this.realHighScoresPaintable = newHighScoresPaintable()
+    this.highScoresPaintable = AllBinary.getInstance(NullPaintable)
+    this.state = Int32(0)
+    this.timeDelayHelper = newTimeDelayHelper(Int32(6000))
     
-
-    def __init__(self, abeClientInformation: AbeClientInformationInterface, commandListener: CommandListener, highScoresFactoryInterface: HighScoresFactoryInterface, paintable: Paintable, overlayPaintable: InitUpdatePaintable, gameInitializationInterfaceFactoryInterface: BasicBuildGameInitializerFactory, isContinue: bool) -> None:
-        from org.allbinary.game.displayable.canvas.NullWaitGameRunnable import NullWaitGameRunnable
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        from org.allbinary.game.configuration.event.ChangedGameFeatureListener import ChangedGameFeatureListener
-        from org.allbinary.game.configuration.feature.GameFeatureFactory import GameFeatureFactory
-        from org.allbinary.game.init.BasicBuildGameInitializerFactory import BasicBuildGameInitializerFactory
-        from org.allbinary.game.init.GameInitializationUtil import GameInitializationUtil
-        from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-        from org.allbinary.graphics.ResizableListenerHandler import ResizableListenerHandler
-        from org.allbinary.graphics.displayable.event.DisplayChangeEventHandler import DisplayChangeEventHandler
-        from org.allbinary.graphics.opengles.CurrentDisplayableFactory import CurrentDisplayableFactory
-        from org.allbinary.graphics.paint.InitUpdatePaintable import InitUpdatePaintable
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        super().__init__(commandListener, CurrentDisplayableFactory.getInstance().DEFAULT_CHILD_NAME_LIST, True)
-        self._init_fields()
-        self.setWait(NullWaitGameRunnable.getInstance().WAIT)
-        self.gameInitializationInterfaceFactoryInterface = gameInitializationInterfaceFactoryInterface
-        GameInitializationUtil.getInstance().initDemo(abeClientInformation, self, gameInitializationInterfaceFactoryInterface)
-        ResizableListenerHandler.getInstance().fireEvent(False)
-        self.overlayPaintable = overlayPaintable
-        self.highScoresFactoryInterface = highScoresFactoryInterface
-        self.setDefaultPaintableInterface(paintable)
-        self.setPaintableInterface(self.getDefaultPaintableInterface())
-        if isContinue:
-            self.addCommand(GameCommandsFactory.getInstance().CONTINUE_COMMAND)
-        if ChangedGameFeatureListener.getInstance().isChangedFeature(GameFeatureFactory.getInstance().SOUND):
-            self.mediaInit()
-        DisplayChangeEventHandler.getInstance().addListenerInterface(self)
+    this.menuInputProcessor = AllBinary.getInstance(NoMenuInputProcessor)
+    this.menuForm = AllBinary.getNullScrollSelectionForm(ScrollSelectionForm)
     
-
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventStrings import EventStrings
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
+    this.initialized = false
+    this.defaultPaintableInterface = AllBinary.getInstance(NullPaintable)
+    this.paintableInterface = AllBinary.getInstance(NullPaintable)
     
+    this.tempWait = AllBinary.getInstance(NullWaitGameRunnable).WAIT
+    this.inputToGameKeyMapping = AllBinary.getInputMapping(AllBinary.getPersistentInputMappingInstance(AllBinary.getInstance(PlatformInputMappingFactory)))
+    this.gameRunnable = AllBinary.getInstance(NullWaitGameRunnable)
+    this.progressPaintable = AllBinary.getLazyInstance(ProgressCanvasFactory)
+    this.isSingleKeyRepeatableProcessing = AllBinary.isFeature(this.features, AllBinary.getInstance(InputFeatureFactory).SINGLE_KEY_REPEAT_PRESS)
+    this.NONE = AllBinary.getInstance(GameKeyFactory).NONE
+    this.gameKeyEventFactory = AllBinary.getInstance(GameKeyEventFactory)
+    this.SET_STATE = "setState"
+    this.baseGameStatistics = AllBinary.getInstance(GameStatisticsFactory)
+    nothing
+end
 
-    def onDisplayChangeEvent(self, displayChangeEvent: DisplayChangeEvent) -> None:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
-        from org.allbinary.graphics.form.FormType import FormType
-        from org.allbinary.graphics.form.FormTypeFactory import FormTypeFactory
-        from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-        try:
-            scrollSelectionForm: ScrollSelectionForm = self.getMenuForm()
-            if scrollSelectionForm is not None:
-                formType: FormType = FormTypeFactory.getInstance().getFormType()
-                rectangle: Rectangle = self.formUtil.createFormRectangle()
-                scrollSelectionForm.init(rectangle, formType)
-            self.overlayPaintable.init()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.canvasStrings.ON_DISPLAY_CHANGE_EVENT, e)
-    
 
-    def getCustomCommands(self) -> list[object]:
-        from org.allbinary.game.displayable.canvas.GameInputMappingCanvas import GameInputMappingCanvas
-        from org.allbinary.game.displayable.canvas.GameInputMappingCanvas import GameInputMappingCanvas
-        from org.allbinary.game.displayable.canvas.GameInputMappingCanvas import GameInputMappingCanvas
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-        from org.allbinary.game.layer.SWTUtil import SWTUtil
-        from org.allbinary.game.score.HighScoreCommands import HighScoreCommands
-        from org.allbinary.logic.system.os.OperatingSystemFactory import OperatingSystemFactory
-        from org.allbinary.logic.system.security.licensing.InApplicationPurchaseFactory import InApplicationPurchaseFactory
-        from org.allbinary.logic.system.security.licensing.LockableFeature import LockableFeature
-        from org.allbinary.logic.system.security.licensing.LockableFeatureFactory import LockableFeatureFactory
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        gameCommandsFactory: GameCommandsFactory = GameCommandsFactory.getInstance()
-        if J2MEUtil.isHTML():
-            commandArray: list[object] = [gameCommandsFactory.START_COMMAND, HighScoreCommands.getInstance().DISPLAY, GameInputMappingCanvas.DISPLAY, gameCommandsFactory.DISPLAY_ABOUT]
+function initStartCanvas(this::StartCanvas, abeClientInformation, commandListener, highScoresFactoryInterface, paintable, overlayPaintable, gameInitializationInterfaceFactoryInterface, isContinue)
+        initRunnableCanvas(this, commandListener, AllBinary.getInstance(CurrentDisplayableFactory).DEFAULT_CHILD_NAME_LIST, true)
+        initFieldsStartCanvas(this)
+        AllBinary.setWait(this, AllBinary.getInstance(NullWaitGameRunnable).WAIT)
+        this.gameInitializationInterfaceFactoryInterface = gameInitializationInterfaceFactoryInterface
+        AllBinary.initDemo(AllBinary.getInstance(GameInitializationUtil), abeClientInformation, this, gameInitializationInterfaceFactoryInterface)
+        AllBinary.fireEvent(AllBinary.getInstance(ResizableListenerHandler), false)
+        this.overlayPaintable = overlayPaintable
+        this.highScoresFactoryInterface = highScoresFactoryInterface
+        AllBinary.setDefaultPaintableInterface(this, paintable)
+        AllBinary.setPaintableInterface(this, AllBinary.getDefaultPaintableInterface(this))
+        if isContinue
+            AllBinary.addCommand(this, AllBinary.getInstance(GameCommandsFactory).CONTINUE_COMMAND)
+        end
+        if AllBinary.isChangedFeature(AllBinary.getInstance(ChangedGameFeatureListener), AllBinary.getInstance(GameFeatureFactory).SOUND)
+            AllBinary.mediaInit(this)
+        end
+        AllBinary.addListenerInterface(AllBinary.getInstance(DisplayChangeEventHandler), this)
+        nothing
+end
+
+function newStartCanvas(abeClientInformation, commandListener, highScoresFactoryInterface, paintable, overlayPaintable, gameInitializationInterfaceFactoryInterface, isContinue)
+    this = StartCanvas()
+    initStartCanvas(this, abeClientInformation, commandListener, highScoresFactoryInterface, paintable, overlayPaintable, gameInitializationInterfaceFactoryInterface, isContinue)
+    this
+end
+
+
+function onEvent(this::StartCanvas, eventObject)
+        AllBinary.log(ForcedLogUtil, AllBinary.getInstance(EventStrings).PERFORMANCE_MESSAGE, this)
+        nothing
+end
+
+
+function onDisplayChangeEvent(this::StartCanvas, displayChangeEvent)
+        try
+            local scrollSelectionForm = AllBinary.getMenuForm(this)
+            if scrollSelectionForm !== nothing
+                local formType = AllBinary.getFormType(AllBinary.getInstance(FormTypeFactory))
+                local rectangle = AllBinary.createFormRectangle(this.formUtil)
+                AllBinary.init(scrollSelectionForm, rectangle, formType)
+            end
+            AllBinary.init(this.overlayPaintable)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.canvasStrings.ON_DISPLAY_CHANGE_EVENT, e)
+        end
+        nothing
+end
+
+
+function getCustomCommands(this::StartCanvas)
+        local gameCommandsFactory = AllBinary.getInstance(GameCommandsFactory)
+        if AllBinary.isHTML(J2MEUtil)
+            commandArray = Any[gameCommandsFactory.START_COMMAND, AllBinary.getInstance(HighScoreCommands).DISPLAY, staticGet_DISPLAY(GameInputMappingCanvas), gameCommandsFactory.DISPLAY_ABOUT]
             return commandArray
-        else:
-            commandList: BasicArrayList = BasicArrayListD()
-            commandList.add(gameCommandsFactory.START_COMMAND)
-            inApplicationPurchaseFactory: InApplicationPurchaseFactory = InApplicationPurchaseFactory.getInstance()
-            if inApplicationPurchaseFactory.isEnabled():
-                list_: BasicArrayList = LockableFeatureFactory.getInstance().getList()
-                if list_.size() > 0 and not inApplicationPurchaseFactory.isPurchased(list_.get(0)):
-                    commandList.add(gameCommandsFactory.BUY_COMMAND)
-            commandList.add(HighScoreCommands.getInstance().DISPLAY)
-            try:
-                isOverScan: bool = OperatingSystemFactory.getInstance().getOperatingSystemInstance().isOverScan()
-                if SWTUtil.isSWT:
-                    commandList.add(GameInputMappingCanvas.DISPLAY)
-                elif not isOverScan:
-                    commandList.add(gameCommandsFactory.DISPLAY_OPTIONS)
-                    commandList.add(gameCommandsFactory.DISPLAY_LOAD_FORM)
-                    commandList.add(GameInputMappingCanvas.DISPLAY)
-            except Exception as e:
-                pass
-            commandList.add(gameCommandsFactory.DISPLAY_ABOUT)
-            commandArray: list[object] = commandList.toArray()
+        else
+            local commandList = newBasicArrayListD()
+            AllBinary.add(commandList, gameCommandsFactory.START_COMMAND)
+            local inApplicationPurchaseFactory = AllBinary.getInstance(InApplicationPurchaseFactory)
+            if AllBinary.isEnabled(inApplicationPurchaseFactory)
+                local list = AllBinary.getList(AllBinary.getInstance(LockableFeatureFactory))
+                if AllBinary.size(list) > Int32(0) && !AllBinary.isPurchased(inApplicationPurchaseFactory, (AllBinary.get(list, Int32(0))))
+                    AllBinary.add(commandList, gameCommandsFactory.BUY_COMMAND)
+                end
+            end
+            AllBinary.add(commandList, AllBinary.getInstance(HighScoreCommands).DISPLAY)
+            try
+                local isOverScan::Bool = AllBinary.isOverScan(AllBinary.getOperatingSystemInstance(AllBinary.getInstance(OperatingSystemFactory)))
+                if staticGet_isSWT(SWTUtil)
+                    AllBinary.add(commandList, staticGet_DISPLAY(GameInputMappingCanvas))
+                elseif !isOverScan
+                    AllBinary.add(commandList, gameCommandsFactory.DISPLAY_OPTIONS)
+                    AllBinary.add(commandList, gameCommandsFactory.DISPLAY_LOAD_FORM)
+                    AllBinary.add(commandList, staticGet_DISPLAY(GameInputMappingCanvas))
+                end
+            catch e
+                nothing
+            end
+            AllBinary.add(commandList, gameCommandsFactory.DISPLAY_ABOUT)
+            local commandArray = AllBinary.toArray(commandList)
             return commandArray
-    
-
-    def initCommands(self, cmdListener: CommandListener) -> None:
-        from javax.microedition.lcdui.Command import Command
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.canvas.CustomGameMenuUtil import CustomGameMenuUtil
-        self.removeAllCommands()
-        commandArray: list[object] = self.getCustomCommands()
-        size: int = len(commandArray)
-        for index in range(0, size):
-            self.addCommand(commandArray[index])
-        CustomGameMenuUtil.add(self)
-        self.setCommandListener(cmdListener)
-    
-
-    # throws Exception
-    def initPostPaint(self) -> None:
-        pass
-    
-
-    # throws Exception
-    def mediaInit(self) -> None:
-        from org.allbinary.media.audio.AllBinaryMediaManager import AllBinaryMediaManager
-        from org.allbinary.media.audio.EarlySoundsFactory import EarlySoundsFactory
-        AllBinaryMediaManager.init(EarlySoundsFactory.getInstance())
-    
-
-    def itemStateChanged(self, item: Item) -> None:
-        from javax.microedition.lcdui.Item import Item
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        ForcedLogUtil.log(self.commonStrings.NOT_IMPLEMENTED, self)
-    
-
-    # throws Exception
-    def initMenu(self) -> None:
-        self.close()
-        self.open()
-    
-
-    def open(self) -> None:
-        from org.allbinary.game.input.event.GameKeyEventHandler import GameKeyEventHandler
-        from org.allbinary.input.motion.gesture.observer.BasicMotionGesturesHandler import BasicMotionGesturesHandler
-        BasicMotionGesturesHandler.getInstance().addListenerInterface(self.getMenuInputProcessor())
-        GameKeyEventHandler.getInstance().addListener(self.getMenuInputProcessor())
-    
-
-    def close(self) -> None:
-        from org.allbinary.game.input.event.GameKeyEventHandler import GameKeyEventHandler
-        from org.allbinary.input.motion.gesture.observer.BasicMotionGesturesHandler import BasicMotionGesturesHandler
-        BasicMotionGesturesHandler.getInstance().removeListener(self.getMenuInputProcessor())
-        GameKeyEventHandler.getInstance().removeListener(self.getMenuInputProcessor())
-    
-
-    def getSourceId(self) -> int:
-        return StartCanvas.id
-    
-
-    def keyPressed(self, keyCode: int) -> None:
-        self.keyPressedByDevice(keyCode, 0)
-    
-
-    def keyReleased(self, keyCode: int) -> None:
-        self.keyReleasedByDevice(keyCode, 0)
-    
-
-    def keyRepeated(self, keyCode: int) -> None:
-        self.keyRepeatedByDevice(keyCode, 0)
-    
-
-    def keyPressedByDevice(self, keyCode: int, deviceId: int) -> None:
-        self.addGameKeyEvent(keyCode, False)
-    
-
-    def keyReleasedByDevice(self, keyCode: int, deviceId: int) -> None:
-        self.removeGameKeyEvent(keyCode, False)
-    
-
-    def keyRepeatedByDevice(self, keyCode: int, deviceId: int) -> None:
-        if self.isSingleKeyRepeatableProcessing:
-            self.addGameKeyEvent(keyCode, True)
-    
-
-    def addGameKeyEvent(self, keyCode: int, repeated: bool) -> None:
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.event.DownGameKeyEventHandler import DownGameKeyEventHandler
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        try:
-            gameKey: GameKey = self.inputToGameKeyMapping.getInstanceForCanvas(self, keyCode)
-            if gameKey != self.NONE:
-                gameKeyEvent: GameKeyEvent = self.gameKeyEventFactory.getInstanceForInput(self, gameKey)
-                DownGameKeyEventHandler.getInstance().fireEvent(gameKeyEvent)
-            else:
-                self.logUtil.putF(str(StringMaker().append(self.gameInputStrings.NO_KEY).appendint(keyCode)), self, self.gameInputStrings.ADD_KEY_EVENT)
-        except Exception as e:
-            self.logUtil.put("Key Event Error", self, self.gameInputStrings.ADD_KEY_EVENT, e)
-    
-
-    def removeGameKeyEvent(self, keyCode: int, repeated: bool) -> None:
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.game.input.event.UpGameKeyEventHandler import UpGameKeyEventHandler
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        try:
-            gameKey: GameKey = self.inputToGameKeyMapping.getInstanceForCanvas(self, keyCode)
-            if gameKey != self.NONE:
-                gameKeyEvent: GameKeyEvent = self.gameKeyEventFactory.getInstanceForInput(self, gameKey)
-                UpGameKeyEventHandler.getInstance().fireEvent(gameKeyEvent)
-            else:
-                self.logUtil.putF(str(StringMaker().append(self.gameInputStrings.NO_KEY).appendint(keyCode)), self, self.gameInputStrings.REMOVE_KEY_EVENT)
-        except Exception as e:
-            self.logUtil.put("Key Event Error", self, self.gameInputStrings.REMOVE_KEY_EVENT, e)
-    
-
-    def pause(self) -> None:
-        with self._lock:
-            return self._pause_unlocked()
-
-    def _pause_unlocked(self) -> None:
-        self.close()
-        self.setPaused(True)
-    
-
-    def unPause(self) -> None:
-        with self._lock:
-            return self._unPause_unlocked()
-
-    def _unPause_unlocked(self) -> None:
-        self.open()
-        self.setPaused(False)
-    
-
-    def isPausable(self) -> bool:
-        from org.allbinary.game.displayable.canvas.NullWaitGameRunnable import NullWaitGameRunnable
-        from org.allbinary.graphics.opengles.CurrentDisplayableFactory import CurrentDisplayableFactory
-        if CurrentDisplayableFactory.getInstance().getUsedRunnable() == NullWaitGameRunnable.getInstance():
-            return True
-        else:
-            return False
-    
-
-    def isGameOver(self) -> bool:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.logUtil.putF(str(StringMaker().append(self.commonStrings.NOT_IMPLEMENTED).append(" since not a game")), self, "isGameOver")
-        return False
-    
-
-    # throws Exception
-    def setLoadStateHashtable(self, hashtable: ABHashtable[object, object]) -> None:
-        from org.allbinary.util.ABHashtable import ABHashtable
-        self.logUtil.putF("Trying to continue a demo lol - only continue a game canvas not the demo", self, "setLoadStateHashtable")
-    
-
-    # throws Exception
-    def getLoadStateHashtable(self) -> ABHashtable[object, object]:
-        from org.allbinary.util.ABHashtable import ABHashtable
-        self.logUtil.putF("Trying to continue a demo lol - only continue a game canvas not the demo", self, "getLoadStateHashtable")
-        return self.stdUtil.NULL_TABLE
-    
-
-    # throws Exception
-    def getCurrentStateHashtable(self) -> ABHashtable[object, object]:
-        from org.allbinary.util.ABHashtable import ABHashtable
-        self.logUtil.putF("Trying to save the AI lol", self, "getCurrentStateHashtable")
-        return self.stdUtil.NULL_TABLE
-    
-
-    def setHighScoreSubmitted(self, isNotUsed: bool) -> None:
-        pass
-    
-
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.paintableInterface.paint(graphics)
-        self.paintedSpecialAnimationInterface.paintXY(graphics, 0, 0)
-        self.highScoresPaintable.paint(graphics)
-        self.getBasicGameDemoPaintable().paint(graphics)
-        self.overlayPaintable.paint(graphics)
-        self.progressPaintable.paint(graphics)
-    
-
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.paintableInterface.paintThreed(graphics)
-        self.paintedSpecialAnimationInterface.paintThreedXYZ(graphics, 0, 0, 0)
-    
-
-    def processGameOver(self) -> None:
-        with self._lock:
-            return self._processGameOver_unlocked()
-
-    def _processGameOver_unlocked(self) -> None:
-        self.logUtil.putF("Not Implemented since not a game", self, "setGameOver")
-    
-
-    def demoStateChange(self) -> None:
-        from org.allbinary.game.score.HighScores import HighScores
-        from org.allbinary.game.score.NullHighScoresSingletonFactory import NullHighScoresSingletonFactory
-        newState: int = self.state + 1
-        if newState > 2:
-            newState = 0
-        elif newState == 2:
-            if not self.highScoresHelper.isAnyHighScores():
-                newState = 0
-            else:
-                highScores: HighScores = self.highScoresHelper.getNextHighScores()
-                if highScores == NullHighScoresSingletonFactory.getInstance():
-                    newState = 0
-                else:
-                    self.getRealHighScoresPaintable().setHighScores(highScores)
-        self.setState(newState)
-        self.updateDemoState()
-    
-
-    def updateDemoState(self) -> None:
-        from org.allbinary.animation.special.SpecialAnimation import SpecialAnimation
-        from org.allbinary.game.GameAdState import GameAdState
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        PreLogUtil.put(str(SmallIntegerSingletonFactory.getInstance().createInstance(self.state)), self, self.SET_STATE)
-        self.getBasicGameDemoPaintable().setState(self.state)
-        if self.state == 0:
-            self.highScoresPaintable = NullPaintable.getInstance()
-            self.paintedSpecialAnimationInterface = self.getSpecialAnimationInterface()
-            self.getSpecialAnimationInterface().reset()
-        elif self.state == 1:
-            self.paintedSpecialAnimationInterface = SpecialAnimation.getInstance()
-        elif self.state == 2:
-            self.highScoresPaintable = self.getRealHighScoresPaintable()
-        gameAdState: GameAdState = self.gameAdStateFactory.getCurrentInstance()
-        gameAdState.processPageAdState()
-    
-
-    # throws Exception
-    def getNextRandom(self) -> int:
-        raise Exception(self.commonStrings.NOT_IMPLEMENTED)
-    
-
-    # throws Exception
-    def createGameLayerManager(self, randomValue: int) -> AllBinaryGameLayerManager:
-        from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-        raise Exception(self.commonStrings.NOT_IMPLEMENTED)
-    
-
-    # throws Exception
-    def createRunnable(self, randomLevel: int) -> GameCanvasRunnableInterface:
-        raise Exception(self.commonStrings.NOT_IMPLEMENTED)
-    
-
-    # throws Exception
-    def createCanvas(self) -> None:
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        self.highScoresPaintable = NullPaintable.getInstance()
-        randomLevel: int = self.getNextRandom()
-    
-
-    # throws Exception
-    def start(self) -> None:
-        pass
-    
-
-    def preDemoProcess(self) -> None:
-        self.overlayPaintable.update()
-    
-
-    # throws Exception
-    def process(self) -> None:
-        from org.allbinary.animation.IndexedAnimationBehavior import IndexedAnimationBehavior
-        from org.allbinary.game.midlet.DemoGameMidlet import DemoGameMidlet
-        self.getMenuInputProcessor().processInputList()
-        self.preDemoProcess()
-        if self.state == 0:
-            indexedAnimationBehavior: IndexedAnimationBehavior = self.getSpecialAnimationInterface().getAnimationBehavior()
-            if indexedAnimationBehavior.loopIndex < 1:
-                self.timeDelayHelper.setStartTimeTNT()
-            demoGameMidlet: DemoGameMidlet = self.getCustomCommandListener()
-    
-
-    # throws Exception
-    def startDemoGame(self) -> None:
-        pass
-    
-
-    # throws Exception
-    def processGame(self) -> None:
-        self.gameRunnable.run()
-        self.specialAnimationInterface.nextFrame()
-        self.process()
-    
-
-    def run(self) -> None:
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.game.configuration.feature.MainFeatureFactory import MainFeatureFactory
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        from org.allbinary.graphics.opengles.OpenGLThreadUtil import OpenGLThreadUtil
-        self.logUtil.putF(self.commonStrings.START_RUNNABLE, self, self.commonStrings.RUN)
-        try:
-            progressCanvas: ProgressCanvas = ProgressCanvasFactory.getInstance()
-            progressCanvas.addNormalPortion(50, "Demo Thread")
-            self.setCurrentThread()
-            self.setRunning(True)
-            if self.features.isFeature(MainFeatureFactory.getInstance().LOAD_ONDEMAND):
-                progressCanvas.end()
-            else:
-                progressCanvas.addNormalPortion(50, "Demo Thread Running")
-            self.fullScreenUtil.initOnRun(self, self.getCustomCommandListener())
-            self.initMenu()
-            self.initPostPaint()
-            self.updateDemoState()
-            if self.features.isDefault(self.openGLFeatureFactory.OPENGL_AS_GAME_THREAD):
-                OpenGLThreadUtil.getInstance().onResume()
-            if self.features.isDefault(self.openGLFeatureFactory.OPENGL_AS_GAME_THREAD) or J2MEUtil.isHTML():
-                pass
-            else:
-                while self.isRunning():
-                    self.loopTimeHelper.setStartTimeTNT()
-                    self.processGame()
-                    self.processLoopSleep()
-                self.end()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.RUN, e)
-        self.logUtil.putF(self.commonStrings.END_RUNNABLE, self, self.commonStrings.RUN)
-    
-
-    def setRunning(self, running: bool) -> None:
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.graphics.opengles.CurrentDisplayableFactory import CurrentDisplayableFactory
-        super().setRunning(running)
-        try:
-            if (self.features.isDefault(self.openGLFeatureFactory.OPENGL) or J2MEUtil.isHTML()) and not running:
-                currentDisplayableFactory: CurrentDisplayableFactory = CurrentDisplayableFactory.getInstance()
-                currentDisplayableFactory.clearRunnable()
-                self.end()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.SET_RUNNING, e)
-    
-
-    # throws Exception
-    def end(self) -> None:
-        from org.allbinary.game.configuration.feature.MainFeatureFactory import MainFeatureFactory
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        from org.allbinary.graphics.displayable.event.DisplayChangeEventHandler import DisplayChangeEventHandler
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        progressCanvas: ProgressCanvas = ProgressCanvasFactory.getInstance()
-        self.baseGameStatistics.add(str(StringMaker().append(StartCanvas.BOT_GAME_STATS).append(str(self.baseGameStatistics)).append(CommonSeps.getInstance().NEW_LINE)))
-        self.baseGameStatistics.init()
-        if self.features.isFeature(MainFeatureFactory.getInstance().LOAD_ONDEMAND):
-            progressCanvas.start()
-        self.logUtil.putF("Demo End", self, self.commonStrings.RUN)
-        self.close()
-        DisplayChangeEventHandler.getInstance().removeListener(self)
-    
-
-    def setGameState(self, gameState: GameState) -> None:
-        from org.allbinary.game.state.GameState import GameState
-        pass
-    
-
-    def getGameState(self) -> GameState:
-        from org.allbinary.game.state.GameState import GameState
-        return self.gameStateFactory.PLAYING_GAME_STATE
-    
-
-    def getState(self) -> int:
-        return self.state
-    
-
-    def setState(self, state: int) -> None:
-        self.state = state
-    
-
-    def isHighScoreSubmitted(self) -> bool:
-        self.logUtil.putF("Wow the AI got a high score!", self, "isHighScoreSubmitted")
-        return False
-    
-
-    def getRealHighScoresPaintable(self) -> HighScoresPaintable:
-        from org.allbinary.game.score.HighScoresPaintable import HighScoresPaintable
-        return self.realHighScoresPaintable
-    
-
-    def setSpecialAnimationInterface(self, specialAnimationInterface: SpecialAnimation) -> None:
-        from org.allbinary.animation.special.SpecialAnimation import SpecialAnimation
-        specialAnimationInterface.setFrame(0)
-        self.specialAnimationInterface = specialAnimationInterface
-    
-
-    def getSpecialAnimationInterface(self) -> SpecialAnimation:
-        from org.allbinary.animation.special.SpecialAnimation import SpecialAnimation
-        return self.specialAnimationInterface
-    
-
-    def setPaintableInterface(self, paintableInterface: PaintableInterface) -> None:
-        from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-        self.paintableInterface = paintableInterface
-    
-
-    def getPaintableInterface(self) -> PaintableInterface:
-        from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-        return self.paintableInterface
-    
-
-    def setDefaultPaintableInterface(self, defaultPaintableInterface: Paintable) -> None:
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        self.defaultPaintableInterface = defaultPaintableInterface
-    
-
-    def getDefaultPaintableInterface(self) -> Paintable:
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        return self.defaultPaintableInterface
-    
-
-    def getHighScoresFactoryInterface(self) -> HighScoresFactoryInterface:
-        from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-        return self.highScoresFactoryInterface
-    
-
-    def setMenuInputProcessor(self, menuInputProcessor: BasicMenuInputProcessor) -> None:
-        self.menuInputProcessor = menuInputProcessor
-    
-
-    def getMenuInputProcessor(self) -> BasicMenuInputProcessor:
-        return self.menuInputProcessor
-    
-
-    def getMenuForm(self) -> ScrollSelectionForm:
-        from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-        return self.menuForm
-    
-
-    def setMenuForm(self, menuForm: ScrollSelectionForm) -> None:
-        from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-        self.menuForm = menuForm
-    
-
-    def isInitialized(self) -> bool:
-        return self.initialized
-    
-
-    def getOverlayPaintable(self) -> Paintable:
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        return self.overlayPaintable
-    
-
-    def setBasicGameDemoPaintable(self, basicGameDemoPaintable: StatePaintable) -> None:
-        from org.allbinary.graphics.paint.StatePaintable import StatePaintable
-        self.basicGameDemoPaintable = basicGameDemoPaintable
-    
-
-    def getBasicGameDemoPaintable(self) -> StatePaintable:
-        from org.allbinary.graphics.paint.StatePaintable import StatePaintable
-        return self.basicGameDemoPaintable
-    
-
-    def setTempWait(self, tempWait: int) -> None:
-        self.tempWait = tempWait
-    
-
-    def getTempWait(self) -> int:
-        return self.tempWait
-    
-
-    def isSingleThread(self) -> bool:
-        from org.allbinary.game.layer.SWTUtil import SWTUtil
-        from org.allbinary.graphics.opengles.OpenGLFeatureUtil import OpenGLFeatureUtil
-        return OpenGLFeatureUtil.getInstance().isAnyThreed() or SWTUtil.isSWT
-    
-
-    def isRunningInAnotherThread(self) -> bool:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        features: Features = Features.getInstance()
-        openGLFeatureFactory: OpenGLFeatureFactory = OpenGLFeatureFactory.getInstance()
-        if features.isDefault(openGLFeatureFactory.OPENGL_AS_GAME_THREAD):
-            return True
-        else:
-            return self.isRunning()
-    
-
-    def getGameInitializationInterfaceFactoryInterface(self) -> BasicBuildGameInitializerFactory:
-        from org.allbinary.game.init.BasicBuildGameInitializerFactory import BasicBuildGameInitializerFactory
-        return self.gameInitializationInterfaceFactoryInterface
-    
-
-    def getTitle(self) -> str:
-        return super().getTitle()
-    
-
-    def isPaused(self) -> bool:
-        return super().isPaused()
-    
-
-    def getType(self) -> int:
-        return super().getType()
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Item import Item
-# from org.allbinary.J2MEUtil import J2MEUtil
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.IndexedAnimationBehavior import IndexedAnimationBehavior
-# from org.allbinary.animation.special.SpecialAnimation import SpecialAnimation
-# from org.allbinary.business.advertisement.GameAdStateFactory import GameAdStateFactory
-# from org.allbinary.canvas.BaseGameStatistics import BaseGameStatistics
-# from org.allbinary.canvas.CustomGameMenuUtil import CustomGameMenuUtil
-# from org.allbinary.canvas.FullScreenUtil import FullScreenUtil
-# from org.allbinary.canvas.GameStatisticsFactory import GameStatisticsFactory
-# from org.allbinary.game.GameAdState import GameAdState
-# from org.allbinary.game.commands.GameCommandsFactory import GameCommandsFactory
-# from org.allbinary.game.configuration.event.ChangedGameFeatureListener import ChangedGameFeatureListener
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.configuration.feature.GameFeatureFactory import GameFeatureFactory
-# from org.allbinary.game.configuration.feature.InputFeatureFactory import InputFeatureFactory
-# from org.allbinary.game.configuration.feature.MainFeatureFactory import MainFeatureFactory
-# from org.allbinary.game.init.BasicBuildGameInitializerFactory import BasicBuildGameInitializerFactory
-# from org.allbinary.game.init.GameInitializationUtil import GameInitializationUtil
-# from org.allbinary.game.input.GameInputStrings import GameInputStrings
-# from org.allbinary.game.input.GameKey import GameKey
-# from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-# from org.allbinary.game.input.PlatformInputMappingFactory import PlatformInputMappingFactory
-# from org.allbinary.game.input.event.DownGameKeyEventHandler import DownGameKeyEventHandler
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-# from org.allbinary.game.input.event.GameKeyEventHandler import GameKeyEventHandler
-# from org.allbinary.game.input.event.UpGameKeyEventHandler import UpGameKeyEventHandler
-# from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-# from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-# from org.allbinary.game.layer.SWTUtil import SWTUtil
-# from org.allbinary.game.midlet.DemoGameMidlet import DemoGameMidlet
-# from org.allbinary.game.score.HighScoreCommands import HighScoreCommands
-# from org.allbinary.game.score.HighScores import HighScores
-# from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-# from org.allbinary.game.score.HighScoresHelper import HighScoresHelper
-# from org.allbinary.game.score.HighScoresPaintable import HighScoresPaintable
-# from org.allbinary.game.score.NullHighScoresSingletonFactory import NullHighScoresSingletonFactory
-# from org.allbinary.game.state.GameState import GameState
-# from org.allbinary.game.state.GameStateFactory import GameStateFactory
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.graphics.ResizableListenerHandler import ResizableListenerHandler
-# from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-# from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.displayable.command.MyCommandsFactory import MyCommandsFactory
-# from org.allbinary.graphics.displayable.event.DisplayChangeEvent import DisplayChangeEvent
-# from org.allbinary.graphics.displayable.event.DisplayChangeEventHandler import DisplayChangeEventHandler
-# from org.allbinary.graphics.form.FormType import FormType
-# from org.allbinary.graphics.form.FormTypeFactory import FormTypeFactory
-# from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-# from org.allbinary.graphics.opengles.CurrentDisplayableFactory import CurrentDisplayableFactory
-# from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-# from org.allbinary.graphics.opengles.OpenGLFeatureUtil import OpenGLFeatureUtil
-# from org.allbinary.graphics.opengles.OpenGLThreadUtil import OpenGLThreadUtil
-# from org.allbinary.graphics.paint.InitUpdatePaintable import InitUpdatePaintable
-# from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-# from org.allbinary.graphics.paint.Paintable import Paintable
-# from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-# from org.allbinary.graphics.paint.StatePaintable import StatePaintable
-# from org.allbinary.graphics.paint.StatePaintableFactory import StatePaintableFactory
-# from org.allbinary.input.motion.gesture.observer.BasicMotionGesturesHandler import BasicMotionGesturesHandler
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.system.os.OperatingSystemFactory import OperatingSystemFactory
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-# from org.allbinary.logic.system.security.licensing.InApplicationPurchaseFactory import InApplicationPurchaseFactory
-# from org.allbinary.logic.system.security.licensing.LockableFeature import LockableFeature
-# from org.allbinary.logic.system.security.licensing.LockableFeatureFactory import LockableFeatureFactory
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventStrings import EventStrings
-# from org.allbinary.media.audio.AllBinaryMediaManager import AllBinaryMediaManager
-# from org.allbinary.media.audio.EarlySoundsFactory import EarlySoundsFactory
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-from org.allbinary.game.displayable.canvas.FormUtil import FormUtil
-from org.allbinary.game.displayable.canvas.NoMenuInputProcessor import NoMenuInputProcessor
-from org.allbinary.game.displayable.canvas.NullWaitGameRunnable import NullWaitGameRunnable
+        end
+end
 
+
+function initCommands(this::StartCanvas, cmdListener)
+        AllBinary.removeAllCommands(this)
+        local commandArray = AllBinary.getCustomCommands(this)
+        local size::Int32 = Int32(Base.length(commandArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            AllBinary.addCommand(this, (commandArray[index + 1]))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.add(CustomGameMenuUtil, this)
+        AllBinary.setCommandListener(this, cmdListener)
+        nothing
+end
+
+
+function initPostPaint(this::StartCanvas)
+        nothing
+        nothing
+end
+
+
+function mediaInit(this::StartCanvas)
+        AllBinary.init(AllBinaryMediaManager, AllBinary.getInstance(EarlySoundsFactory))
+        nothing
+end
+
+
+function itemStateChanged(this::StartCanvas, item)
+        AllBinary.log(ForcedLogUtil, this.commonStrings.NOT_IMPLEMENTED, this)
+        nothing
+end
+
+
+function initMenu(this::StartCanvas)
+        AllBinary.close(this)
+        AllBinary.open(this)
+        nothing
+end
+
+
+function open(this::StartCanvas)
+        AllBinary.addListenerInterface(AllBinary.getInstance(BasicMotionGesturesHandler), AllBinary.getMenuInputProcessor(this))
+        AllBinary.addListener(AllBinary.getInstance(GameKeyEventHandler), AllBinary.getMenuInputProcessor(this))
+        nothing
+end
+
+
+function close(this::StartCanvas)
+        AllBinary.removeListener(AllBinary.getInstance(BasicMotionGesturesHandler), AllBinary.getMenuInputProcessor(this))
+        AllBinary.removeListener(AllBinary.getInstance(GameKeyEventHandler), AllBinary.getMenuInputProcessor(this))
+        nothing
+end
+
+
+function getSourceId(this::StartCanvas)
+        return staticGet_id(StartCanvas)
+end
+
+
+function keyPressed(this::StartCanvas, keyCode)
+        AllBinary.keyPressedByDevice(this, keyCode, Int32(0))
+        nothing
+end
+
+
+function keyReleased(this::StartCanvas, keyCode)
+        AllBinary.keyReleasedByDevice(this, keyCode, Int32(0))
+        nothing
+end
+
+
+function keyRepeated(this::StartCanvas, keyCode)
+        AllBinary.keyRepeatedByDevice(this, keyCode, Int32(0))
+        nothing
+end
+
+
+function keyPressedByDevice(this::StartCanvas, keyCode, deviceId)
+        AllBinary.addGameKeyEvent(this, keyCode, false)
+        nothing
+end
+
+
+function keyReleasedByDevice(this::StartCanvas, keyCode, deviceId)
+        AllBinary.removeGameKeyEvent(this, keyCode, false)
+        nothing
+end
+
+
+function keyRepeatedByDevice(this::StartCanvas, keyCode, deviceId)
+        if this.isSingleKeyRepeatableProcessing
+            AllBinary.addGameKeyEvent(this, keyCode, true)
+        end
+        nothing
+end
+
+
+function addGameKeyEvent(this::StartCanvas, keyCode, repeated)
+        try
+            local gameKey = AllBinary.getInstanceForCanvas(this.inputToGameKeyMapping, this, keyCode)
+            if gameKey !== this.NONE
+                local gameKeyEvent = AllBinary.getInstanceForInput(this.gameKeyEventFactory, this, gameKey)
+                AllBinary.fireEvent(AllBinary.getInstance(DownGameKeyEventHandler), gameKeyEvent)
+            else
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), this.gameInputStrings.NO_KEY), keyCode)), this, this.gameInputStrings.ADD_KEY_EVENT)
+            end
+        catch e
+            AllBinary.put(this.logUtil, "Key Event Error", this, this.gameInputStrings.ADD_KEY_EVENT, e)
+        end
+        nothing
+end
+
+
+function removeGameKeyEvent(this::StartCanvas, keyCode, repeated)
+        try
+            local gameKey = AllBinary.getInstanceForCanvas(this.inputToGameKeyMapping, this, keyCode)
+            if gameKey !== this.NONE
+                local gameKeyEvent = AllBinary.getInstanceForInput(this.gameKeyEventFactory, this, gameKey)
+                AllBinary.fireEvent(AllBinary.getInstance(UpGameKeyEventHandler), gameKeyEvent)
+            else
+                AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(newStringMaker(), this.gameInputStrings.NO_KEY), keyCode)), this, this.gameInputStrings.REMOVE_KEY_EVENT)
+            end
+        catch e
+            AllBinary.put(this.logUtil, "Key Event Error", this, this.gameInputStrings.REMOVE_KEY_EVENT, e)
+        end
+        nothing
+end
+
+
+function pause(this::StartCanvas)
+        AllBinary.close(this)
+        AllBinary.setPaused(this, true)
+        nothing
+end
+
+
+function unPause(this::StartCanvas)
+        AllBinary.open(this)
+        AllBinary.setPaused(this, false)
+        nothing
+end
+
+
+function isPausable(this::StartCanvas)
+        if AllBinary.getUsedRunnable(AllBinary.getInstance(CurrentDisplayableFactory)) == AllBinary.getInstance(NullWaitGameRunnable)
+            return true
+        else
+            return false
+        end
+end
+
+
+function isGameOver(this::StartCanvas)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), this.commonStrings.NOT_IMPLEMENTED), " since not a game")), this, "isGameOver")
+        return false
+end
+
+
+function setLoadStateHashtable(this::StartCanvas, hashtable)
+        AllBinary.putF(this.logUtil, "Trying to continue a demo lol - only continue a game canvas not the demo", this, "setLoadStateHashtable")
+        nothing
+end
+
+
+function getLoadStateHashtable(this::StartCanvas)
+        AllBinary.putF(this.logUtil, "Trying to continue a demo lol - only continue a game canvas not the demo", this, "getLoadStateHashtable")
+        return this.stdUtil.NULL_TABLE
+end
+
+
+function getCurrentStateHashtable(this::StartCanvas)
+        AllBinary.putF(this.logUtil, "Trying to save the AI lol", this, "getCurrentStateHashtable")
+        return this.stdUtil.NULL_TABLE
+end
+
+
+function setHighScoreSubmitted(this::StartCanvas, isNotUsed)
+        nothing
+        nothing
+end
+
+
+function paint(this::StartCanvas, graphics)
+        AllBinary.paint(this.paintableInterface, graphics)
+        AllBinary.paintXY(this.paintedSpecialAnimationInterface, graphics, Int32(0), Int32(0))
+        AllBinary.paint(this.highScoresPaintable, graphics)
+        AllBinary.paint(AllBinary.getBasicGameDemoPaintable(this), graphics)
+        AllBinary.paint(this.overlayPaintable, graphics)
+        AllBinary.paint(this.progressPaintable, graphics)
+        nothing
+end
+
+
+function paintThreed(this::StartCanvas, graphics)
+        AllBinary.paintThreed(this.paintableInterface, graphics)
+        AllBinary.paintThreedXYZ(this.paintedSpecialAnimationInterface, graphics, Int32(0), Int32(0), Int32(0))
+        nothing
+end
+
+
+function processGameOver(this::StartCanvas)
+        AllBinary.putF(this.logUtil, "Not Implemented since not a game", this, "setGameOver")
+        nothing
+end
+
+
+function demoStateChange(this::StartCanvas)
+        local newState::Int32 = this.state + Int32(1)
+        if newState > Int32(2)
+            newState = Int32(0)
+        elseif newState == Int32(2)
+            if !AllBinary.isAnyHighScores(this.highScoresHelper)
+                newState = Int32(0)
+            else
+                local highScores = AllBinary.getNextHighScores(this.highScoresHelper)
+                if highScores === AllBinary.getInstance(NullHighScoresSingletonFactory)
+                    newState = Int32(0)
+                else
+                    AllBinary.setHighScores(AllBinary.getRealHighScoresPaintable(this), highScores)
+                end
+            end
+        end
+        AllBinary.setState(this, newState)
+        AllBinary.updateDemoState(this)
+        nothing
+end
+
+
+function updateDemoState(this::StartCanvas)
+        AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.createInstance(AllBinary.getInstance(SmallIntegerSingletonFactory), this.state)), this, this.SET_STATE)
+        AllBinary.setState(AllBinary.getBasicGameDemoPaintable(this), this.state)
+        if this.state == Int32(0)
+            this.highScoresPaintable = AllBinary.getInstance(NullPaintable)
+            this.paintedSpecialAnimationInterface = AllBinary.getSpecialAnimationInterface(this)
+            AllBinary.reset(AllBinary.getSpecialAnimationInterface(this))
+        elseif this.state == Int32(1)
+            this.paintedSpecialAnimationInterface = AllBinary.getInstance(SpecialAnimation)
+        elseif this.state == Int32(2)
+            this.highScoresPaintable = AllBinary.getRealHighScoresPaintable(this)
+        end
+        local gameAdState = AllBinary.getCurrentInstance(this.gameAdStateFactory)
+        AllBinary.processPageAdState(gameAdState)
+        nothing
+end
+
+
+function getNextRandom(this::StartCanvas)
+        throw(jNewException("Exception", this.commonStrings.NOT_IMPLEMENTED))
+end
+
+
+function createGameLayerManager(this::StartCanvas, randomValue)
+        throw(jNewException("Exception", this.commonStrings.NOT_IMPLEMENTED))
+end
+
+
+function createRunnable(this::StartCanvas, randomLevel)
+        throw(jNewException("Exception", this.commonStrings.NOT_IMPLEMENTED))
+end
+
+
+function createCanvas(this::StartCanvas)
+        this.highScoresPaintable = AllBinary.getInstance(NullPaintable)
+        local randomLevel::Int32 = AllBinary.getNextRandom(this)
+        nothing
+end
+
+
+function start(this::StartCanvas)
+        nothing
+        nothing
+end
+
+
+function preDemoProcess(this::StartCanvas)
+        AllBinary.update(this.overlayPaintable)
+        nothing
+end
+
+
+function process(this::StartCanvas)
+        AllBinary.processInputList(AllBinary.getMenuInputProcessor(this))
+        AllBinary.preDemoProcess(this)
+        if this.state == Int32(0)
+            local indexedAnimationBehavior = (AllBinary.getAnimationBehavior(AllBinary.getSpecialAnimationInterface(this)))
+            if indexedAnimationBehavior.loopIndex < Int32(1)
+                AllBinary.setStartTimeTNT(this.timeDelayHelper)
+            end
+            local demoGameMidlet = (AllBinary.getCustomCommandListener(this))
+        end
+        nothing
+end
+
+
+function startDemoGame(this::StartCanvas)
+        nothing
+        nothing
+end
+
+
+function processGame(this::StartCanvas)
+        AllBinary.run(this.gameRunnable)
+        AllBinary.nextFrame(this.specialAnimationInterface)
+        AllBinary.process(this)
+        nothing
+end
+
+
+function run(this::StartCanvas)
+        AllBinary.putF(this.logUtil, this.commonStrings.START_RUNNABLE, this, this.commonStrings.RUN)
+        try
+            local progressCanvas = AllBinary.getInstance(ProgressCanvasFactory)
+            AllBinary.addNormalPortion(progressCanvas, Int32(50), "Demo Thread")
+            AllBinary.setCurrentThread(this)
+            AllBinary.setRunning(this, true)
+            if AllBinary.isFeature(this.features, AllBinary.getInstance(MainFeatureFactory).LOAD_ONDEMAND)
+                AllBinary.end_(progressCanvas)
+            else
+                AllBinary.addNormalPortion(progressCanvas, Int32(50), "Demo Thread Running")
+            end
+            AllBinary.initOnRun(this.fullScreenUtil, this, AllBinary.getCustomCommandListener(this))
+            AllBinary.initMenu(this)
+            AllBinary.initPostPaint(this)
+            AllBinary.updateDemoState(this)
+            if AllBinary.isDefault(this.features, this.openGLFeatureFactory.OPENGL_AS_GAME_THREAD)
+                AllBinary.onResume(AllBinary.getInstance(OpenGLThreadUtil))
+            end
+            if AllBinary.isDefault(this.features, this.openGLFeatureFactory.OPENGL_AS_GAME_THREAD) || AllBinary.isHTML(J2MEUtil)
+                nothing
+            else
+                while AllBinary.isRunning(this)
+                    AllBinary.setStartTimeTNT(this.loopTimeHelper)
+                    AllBinary.processGame(this)
+                    AllBinary.processLoopSleep(this)
+                end
+                AllBinary.end_(this)
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.RUN, e)
+        end
+        AllBinary.putF(this.logUtil, this.commonStrings.END_RUNNABLE, this, this.commonStrings.RUN)
+        nothing
+end
+
+
+function setRunning(this::StartCanvas, running)
+        AllBinary.setRunning(this, running)
+        try
+            if (AllBinary.isDefault(this.features, this.openGLFeatureFactory.OPENGL) || AllBinary.isHTML(J2MEUtil)) && !running
+                local currentDisplayableFactory = AllBinary.getInstance(CurrentDisplayableFactory)
+                AllBinary.clearRunnable(currentDisplayableFactory)
+                AllBinary.end_(this)
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.SET_RUNNING, e)
+        end
+        nothing
+end
+
+
+function end_(this::StartCanvas)
+        local progressCanvas = AllBinary.getInstance(ProgressCanvasFactory)
+        AllBinary.add(this.baseGameStatistics, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), staticGet_BOT_GAME_STATS(StartCanvas)), AllBinary.toString(this.baseGameStatistics)), AllBinary.getInstance(CommonSeps).NEW_LINE)))
+        AllBinary.init(this.baseGameStatistics)
+        if AllBinary.isFeature(this.features, AllBinary.getInstance(MainFeatureFactory).LOAD_ONDEMAND)
+            AllBinary.start(progressCanvas)
+        end
+        AllBinary.putF(this.logUtil, "Demo End", this, this.commonStrings.RUN)
+        AllBinary.close(this)
+        AllBinary.removeListener(AllBinary.getInstance(DisplayChangeEventHandler), this)
+        nothing
+end
+
+
+function setGameState(this::StartCanvas, gameState)
+        nothing
+        nothing
+end
+
+
+function getGameState(this::StartCanvas)
+        return this.gameStateFactory.PLAYING_GAME_STATE
+end
+
+
+function getState(this::StartCanvas)
+        return this.state
+end
+
+
+function setState(this::StartCanvas, state)
+        this.state = state
+        nothing
+end
+
+
+function isHighScoreSubmitted(this::StartCanvas)
+        AllBinary.putF(this.logUtil, "Wow the AI got a high score!", this, "isHighScoreSubmitted")
+        return false
+end
+
+
+function getRealHighScoresPaintable(this::StartCanvas)
+        return this.realHighScoresPaintable
+end
+
+
+function setSpecialAnimationInterface(this::StartCanvas, specialAnimationInterface)
+        AllBinary.setFrame(specialAnimationInterface, Int32(0))
+        this.specialAnimationInterface = specialAnimationInterface
+        nothing
+end
+
+
+function getSpecialAnimationInterface(this::StartCanvas)
+        return this.specialAnimationInterface
+end
+
+
+function setPaintableInterface(this::StartCanvas, paintableInterface)
+        this.paintableInterface = paintableInterface
+        nothing
+end
+
+
+function getPaintableInterface(this::StartCanvas)
+        return this.paintableInterface
+end
+
+
+function setDefaultPaintableInterface(this::StartCanvas, defaultPaintableInterface)
+        this.defaultPaintableInterface = defaultPaintableInterface
+        nothing
+end
+
+
+function getDefaultPaintableInterface(this::StartCanvas)
+        return this.defaultPaintableInterface
+end
+
+
+function getHighScoresFactoryInterface(this::StartCanvas)
+        return this.highScoresFactoryInterface
+end
+
+
+function setMenuInputProcessor(this::StartCanvas, menuInputProcessor)
+        this.menuInputProcessor = menuInputProcessor
+        nothing
+end
+
+
+function getMenuInputProcessor(this::StartCanvas)
+        return this.menuInputProcessor
+end
+
+
+function getMenuForm(this::StartCanvas)
+        return this.menuForm
+end
+
+
+function setMenuForm(this::StartCanvas, menuForm)
+        this.menuForm = menuForm
+        nothing
+end
+
+
+function isInitialized(this::StartCanvas)
+        return this.initialized
+end
+
+
+function getOverlayPaintable(this::StartCanvas)
+        return this.overlayPaintable
+end
+
+
+function setBasicGameDemoPaintable(this::StartCanvas, basicGameDemoPaintable)
+        this.basicGameDemoPaintable = basicGameDemoPaintable
+        nothing
+end
+
+
+function getBasicGameDemoPaintable(this::StartCanvas)
+        return this.basicGameDemoPaintable
+end
+
+
+function setTempWait(this::StartCanvas, tempWait)
+        this.tempWait = tempWait
+        nothing
+end
+
+
+function getTempWait(this::StartCanvas)
+        return this.tempWait
+end
+
+
+function isSingleThread(this::StartCanvas)
+        return AllBinary.isAnyThreed(AllBinary.getInstance(OpenGLFeatureUtil)) || staticGet_isSWT(SWTUtil)
+end
+
+
+function isRunningInAnotherThread(this::StartCanvas)
+        local features = AllBinary.getInstance(Features)
+        local openGLFeatureFactory = AllBinary.getInstance(OpenGLFeatureFactory)
+        if AllBinary.isDefault(features, openGLFeatureFactory.OPENGL_AS_GAME_THREAD)
+            return true
+        else
+            return AllBinary.isRunning(this)
+        end
+end
+
+
+function getGameInitializationInterfaceFactoryInterface(this::StartCanvas)
+        return this.gameInitializationInterfaceFactoryInterface
+end
+
+
+function getTitle(this::StartCanvas)
+        return AllBinary.getTitle(this)
+end
+
+
+function isPaused(this::StartCanvas)
+        return AllBinary.isPaused(this)
+end
+
+
+function getType(this::StartCanvas)
+        return AllBinary.getType(this)
+end
 

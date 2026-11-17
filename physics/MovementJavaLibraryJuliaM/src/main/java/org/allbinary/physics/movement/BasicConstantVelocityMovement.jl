@@ -1,101 +1,108 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.physics.movement
 
-from __future__ import annotations
+# extends Movement: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicConstantVelocityMovement <: JObject
+    velocityProperties::Any
+    speedBasicDecimal::Any
+    axisMathVectorUtil::Any
+    BasicConstantVelocityMovement() = new()
+end
 
-from org.allbinary.game.physics.velocity.VelocityInterfaceCompositeInterface import VelocityInterfaceCompositeInterface
-from org.allbinary.physics.movement.Movement import Movement
 
-
-class BasicConstantVelocityMovement(Movement, VelocityInterfaceCompositeInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        from org.allbinary.logic.math.vector.AxisMathVectorUtil import AxisMathVectorUtil
-        self.velocityProperties: BasicVelocityProperties = None
-        self.speedBasicDecimal: BasicDecimal = BasicDecimal.ZERO_BIGDECIMAL
-        self.axisMathVectorUtil: AxisMathVectorUtil = AxisMathVectorUtil.getInstance()
+function initFieldsBasicConstantVelocityMovement(this::BasicConstantVelocityMovement)
+    this.velocityProperties = nothing
+    this.speedBasicDecimal = nothing
+    this.axisMathVectorUtil = nothing
     
+    this.speedBasicDecimal = staticGet_ZERO_BIGDECIMAL(BasicDecimal)
+    this.axisMathVectorUtil = AllBinary.getInstance(AxisMathVectorUtil)
+    nothing
+end
 
-    def __init__(self, basicDecimal: BasicDecimal, velocityProperties: BasicVelocityProperties) -> None:
-        from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        super().__init__()
-        self._init_fields()
-        self.setSpeedBasicDecimal(basicDecimal)
-        self.velocityProperties = velocityProperties
-    
 
-    def init(self, speedBasicDecimal: BasicDecimal, angle: int, otherAngle: int) -> None:
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        from org.allbinary.math.AngleFactory import AngleFactory
-        self.speedBasicDecimal = speedBasicDecimal
-        angleFactory: AngleFactory = AngleFactory.getInstance()
-        self.velocityProperties.setVelocityWithBigDecimal(speedBasicDecimal, angleFactory.getAt(angle), angleFactory.getAt(otherAngle))
-    
+function initBasicConstantVelocityMovement(this::BasicConstantVelocityMovement, basicDecimal, velocityProperties)
+        initMovement(this)
+        initFieldsBasicConstantVelocityMovement(this)
+        AllBinary.setSpeedBasicDecimal(this, basicDecimal)
+        this.velocityProperties = velocityProperties
+        nothing
+end
 
-    def moveOutsideRadius(self, layer: AllBinaryLayer, radius: int, angle: int, otherAngle: int) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        scaleFactorValue: int = self.speedBasicDecimal.getScaledFactorValue()
-        xVector: int = int((self.axisMathVectorUtil.calculateX(radius, angle) / scaleFactorValue))
-        yVector: int = int((self.axisMathVectorUtil.calculateY(radius, angle) / scaleFactorValue))
-        zVector: int = int((self.axisMathVectorUtil.calculateZ(radius, otherAngle) / scaleFactorValue))
-        layer.moveDXYZ(xVector, yVector, zVector)
-    
+function newBasicConstantVelocityMovement(basicDecimal, velocityProperties)
+    this = BasicConstantVelocityMovement()
+    initBasicConstantVelocityMovement(this, basicDecimal, velocityProperties)
+    this
+end
 
-    # throws Exception
-    def process(self, layer: AllBinaryGameLayer) -> None:
-        from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
-        layer.moveDXYZ(self.velocityProperties.getVelocityXBasicDecimalP().getScaled(), self.velocityProperties.getVelocityYBasicDecimalP().getScaled(), self.velocityProperties.getVelocityZBasicDecimalP().getScaled())
-    
 
-    def toString(self) -> str:
-        return str(self.velocityProperties)
+function init(this::BasicConstantVelocityMovement, speedBasicDecimal, angle, otherAngle)
+        this.speedBasicDecimal = speedBasicDecimal
+        local angleFactory = AllBinary.getInstance(AngleFactory)
+        AllBinary.setVelocityWithBigDecimal(this.velocityProperties, speedBasicDecimal, AllBinary.getAt(angleFactory, angle), AllBinary.getAt(angleFactory, otherAngle))
+        nothing
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-    
 
-    def stop(self) -> None:
-        self.velocityProperties.zero()
-    
+function moveOutsideRadius(this::BasicConstantVelocityMovement, layer, radius, angle, otherAngle)
+        local scaleFactorValue::Int32 = AllBinary.getScaledFactorValue(this.speedBasicDecimal)
+        local xVector::Int32 = (((AllBinary.calculateX(this.axisMathVectorUtil, radius, angle) ÷ scaleFactorValue)) % Int32)
+        local yVector::Int32 = (((AllBinary.calculateY(this.axisMathVectorUtil, radius, angle) ÷ scaleFactorValue)) % Int32)
+        local zVector::Int32 = (((AllBinary.calculateZ(this.axisMathVectorUtil, radius, otherAngle) ÷ scaleFactorValue)) % Int32)
+        AllBinary.moveDXYZ(layer, xVector, yVector, zVector)
+        nothing
+end
 
-    def getVelocityProperties(self) -> BasicVelocityProperties:
-        from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-        return self.velocityProperties
-    
 
-    def setVelocityProperties(self, velocityProperties: BasicVelocityProperties) -> None:
-        from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-        self.velocityProperties = velocityProperties
-    
+function process(this::BasicConstantVelocityMovement, layer)
+        AllBinary.moveDXYZ(layer, AllBinary.getScaled(AllBinary.getVelocityXBasicDecimalP(this.velocityProperties)), AllBinary.getScaled(AllBinary.getVelocityYBasicDecimalP(this.velocityProperties)), AllBinary.getScaled(AllBinary.getVelocityZBasicDecimalP(this.velocityProperties)))
+        nothing
+end
 
-    def setSpeedBasicDecimal(self, speedBasicDecimal: BasicDecimal) -> None:
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        self.speedBasicDecimal = speedBasicDecimal
-    
 
-    def getSpeedBasicDecimal(self) -> BasicDecimal:
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        return self.speedBasicDecimal
-# from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
-# from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-# from org.allbinary.logic.math.vector.AxisMathVectorUtil import AxisMathVectorUtil
-# from org.allbinary.math.AngleFactory import AngleFactory
+function toString(this::BasicConstantVelocityMovement)
+        return AllBinary.toString(this.velocityProperties)
+end
 
+
+function stop(this::BasicConstantVelocityMovement)
+        AllBinary.zero(this.velocityProperties)
+        nothing
+end
+
+
+function getVelocityProperties(this::BasicConstantVelocityMovement)
+        return this.velocityProperties
+end
+
+
+function setVelocityProperties(this::BasicConstantVelocityMovement, velocityProperties)
+        this.velocityProperties = velocityProperties
+        nothing
+end
+
+
+function setSpeedBasicDecimal(this::BasicConstantVelocityMovement, speedBasicDecimal)
+        this.speedBasicDecimal = speedBasicDecimal
+        nothing
+end
+
+
+function getSpeedBasicDecimal(this::BasicConstantVelocityMovement)
+        return this.speedBasicDecimal
+end
 

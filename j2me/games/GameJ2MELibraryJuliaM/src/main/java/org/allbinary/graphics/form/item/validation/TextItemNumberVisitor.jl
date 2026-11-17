@@ -1,58 +1,65 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item.validation
 
-from __future__ import annotations
+# extends Visitor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TextItemNumberVisitor <: JObject
+    logUtil::Any
+    TextItemNumberVisitor() = new()
+end
 
-from org.allbinary.logic.util.visitor.Visitor import Visitor
+
+function initFieldsTextItemNumberVisitor(this::TextItemNumberVisitor)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
 
 
-class TextItemNumberVisitor(Visitor):
+function initTextItemNumberVisitor(this::TextItemNumberVisitor)
+        initVisitor(this)
+        initFieldsTextItemNumberVisitor(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-    
+function newTextItemNumberVisitor()
+    this = TextItemNumberVisitor()
+    initTextItemNumberVisitor(this)
+    this
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
 
-    def visit(self, anyType: object) -> object:
-        from org.allbinary.game.input.TextNotificationUtil import TextNotificationUtil
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        value: str = anyType
-        if len(value) < 2:
-            stringValidationUtil: StringValidationUtil = StringValidationUtil.getInstance()
-            if stringValidationUtil.isNumber(value):
-                return BooleanFactory.getInstance().TRUE
-            else:
-                try:
-                    TextNotificationUtil.getInstance().fireError("Numbers Only")
-                except Exception as e:
-                    commonStrings: CommonStrings = CommonStrings.getInstance()
-                    self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.VISIT, e)
-                return BooleanFactory.getInstance().FALSE
-        else:
-            return BooleanFactory.getInstance().FALSE
-# from org.allbinary.game.input.TextNotificationUtil import TextNotificationUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-# from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-
+function visit(this::TextItemNumberVisitor, anyType)
+        local value = (anyType)
+        if jLength(value) < Int32(2)
+            local stringValidationUtil = AllBinary.getInstance(StringValidationUtil)
+            if AllBinary.isNumber(stringValidationUtil, value)
+                return AllBinary.getInstance(BooleanFactory).TRUE
+            else
+                try
+                    AllBinary.fireError(AllBinary.getInstance(TextNotificationUtil), "Numbers Only")
+                catch e
+                    local commonStrings = AllBinary.getInstance(CommonStrings)
+                    AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.VISIT, e)
+                end
+                return AllBinary.getInstance(BooleanFactory).FALSE
+            end
+        else
+            return AllBinary.getInstance(BooleanFactory).FALSE
+        end
+end
 

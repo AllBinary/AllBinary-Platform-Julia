@@ -1,104 +1,126 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.data.resource
 
-from __future__ import annotations
-
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #J2SE - J2ME
-class ResourceUtil:
-    classLoader: object = None
-    instance: ResourceUtil = None
+mutable struct ResourceUtil <: JObject
+    logUtil::Any
+    ResourceUtil() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-    
+const ResourceUtil_classLoaderValue = Ref{Any}(nothing)
+const ResourceUtil_classLoaderSet = Ref(false)
+function staticGet_classLoader(::Type{ResourceUtil})
+    if !ResourceUtil_classLoaderSet[]
+        ResourceUtil_classLoaderSet[] = true
+        ResourceUtil_classLoaderValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    ResourceUtil_classLoaderValue[]
+end
+function staticSet_classLoader(::Type{ResourceUtil}, value)
+    ResourceUtil_classLoaderSet[] = true
+    ResourceUtil_classLoaderValue[] = value
+end
+const ResourceUtil_instanceValue = Ref{Any}(nothing)
+const ResourceUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{ResourceUtil})
+    if !ResourceUtil_instanceSet[]
+        ResourceUtil_instanceSet[] = true
+        ResourceUtil_instanceValue[] = newResourceUtil()
+    end
+    ResourceUtil_instanceValue[]
+end
+function staticSet_instance(::Type{ResourceUtil}, value)
+    ResourceUtil_instanceSet[] = true
+    ResourceUtil_instanceValue[] = value
+end
 
-    @staticmethod
-    def getInstance() -> ResourceUtil:
-        return ResourceUtil.instance
-    
+function initFieldsResourceUtil(this::ResourceUtil)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def setLoadingPaths(self, path: str, ext: str) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil.putF(CommonStrings.getInstance().NOT_IMPLEMENTED, self, "setLoadingPaths")
-    
+function getInstance(::Type{ResourceUtil})
+        return staticGet_instance(ResourceUtil)
+end
 
-    def setClassLoader(self, classLoader: ClassLoader) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.logUtil.putF(str(StringMaker().append("Resource Loader: ").append(type(classLoader).__module__ + "." + type(classLoader).__qualname__)), self, "setClassLoader")
-        ResourceUtil.classLoader = classLoader
-    
 
-    # throws Exception
-    def getResourceAsStream(self, resource: str) -> InputStream:
-        from java.io.InputStream import InputStream
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        inputStream: InputStream = self.getResourceAsStreamAtStart(resource, 2)
-        if inputStream is None:
-            inputStream = self.getResourceAsStreamAtStart(resource, 1)
-            if inputStream is None:
-                raise Exception(str(StringMaker().append("Unable to obtain: ").append(resource)))
+function initResourceUtil(this::ResourceUtil)
+        initFieldsResourceUtil(this)
+        nothing
+        nothing
+end
+
+function newResourceUtil()
+    this = ResourceUtil()
+    initResourceUtil(this)
+    this
+end
+
+
+function setLoadingPaths(this::ResourceUtil, path, ext)
+        AllBinary.putF(this.logUtil, AllBinary.getInstance(CommonStrings).NOT_IMPLEMENTED, this, "setLoadingPaths")
+        nothing
+end
+
+
+function setClassLoader(this::ResourceUtil, classLoader)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Resource Loader: "), jClassName(classLoader))), this, "setClassLoader")
+        staticSet_classLoader(ResourceUtil, classLoader)
+        nothing
+end
+
+
+function getResourceAsStream(this::ResourceUtil, resource)
+        local inputStream = AllBinary.getResourceAsStreamAtStart(this, resource, Int32(2))
+        if inputStream === nothing
+            inputStream = AllBinary.getResourceAsStreamAtStart(this, resource, Int32(1))
+            if inputStream === nothing
+                throw(jNewException("Exception", AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Unable to obtain: "), resource))))
+            end
+        end
         return inputStream
-    
+end
 
-    # throws Exception
-    def getResourceAsStreamAtStart(self, resource: str, startIndex: int) -> InputStream:
-        from java.io.InputStream import InputStream
-        from org.allbinary.string.CommonSeps import CommonSeps
-        commonSeps: CommonSeps = CommonSeps.getInstance()
-        index: int = resource.find(commonSeps.COLON)
-        resourcePath: str = resource[index + startIndex:]
-        inputStream: InputStream = type(resource).getResourceAsStream(resourcePath)
-        if inputStream is not None:
+
+function getResourceAsStreamAtStart(this::ResourceUtil, resource, startIndex)
+        local commonSeps = AllBinary.getInstance(CommonSeps)
+        local index::Int32 = jIndexOf(resource, commonSeps.COLON)
+        local resourcePath = jSubstring(resource, index + startIndex)
+        local inputStream = AllBinary.getResourceAsStream(jClassName(resource), resourcePath)
+        if inputStream !== nothing
             return inputStream
-        classLoader: ClassLoader = ResourceUtil.classLoader
-        inputStream = classLoader.getResourceAsStream(resourcePath)
-        if inputStream is not None:
+        end
+        local classLoader = (staticGet_classLoader(ResourceUtil))
+        inputStream = AllBinary.getResourceAsStream(classLoader, resourcePath)
+        if inputStream !== nothing
             return inputStream
-        inputStream = threading.current_thread().getContextClassLoader().getResourceAsStream(resourcePath)
-        if inputStream is not None:
+        end
+        inputStream = AllBinary.getResourceAsStream(AllBinary.getContextClassLoader(AllBinary.currentThread(Thread)), resourcePath)
+        if inputStream !== nothing
             return inputStream
+        end
         return inputStream
-    
-
-    def addResource(self, resource: str, value: int) -> None:
-        pass
-# from java.io.InputStream import InputStream
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.string.CommonStrings import CommonStrings
+end
 
 
-def _ResourceUtil_classLoader() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
-
-lazy_static(ResourceUtil, "classLoader", _ResourceUtil_classLoader)
-
-def _ResourceUtil_instance() -> object:
-    return ResourceUtil()
-
-lazy_static(ResourceUtil, "instance", _ResourceUtil_instance)
+function addResource(this::ResourceUtil, resource, value)
+        nothing
+        nothing
+end
 

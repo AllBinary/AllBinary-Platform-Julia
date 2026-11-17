@@ -1,19 +1,7 @@
 # Generated Code Do Not Modify
 # package org.apache.xmlrpc
 
-from __future__ import annotations
-
-
-
-# Java interface
-class XmlRpcHandler:
-    
-
-    # throws Exception
-    def execute(self, method: str, params: BasicArrayList) -> object:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        raise NotImplementedError()
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+# Java interface XmlRpcHandler: Julia dispatches on the class so an interface is an abstract type
+abstract type XmlRpcHandler <: JObject end
 
 

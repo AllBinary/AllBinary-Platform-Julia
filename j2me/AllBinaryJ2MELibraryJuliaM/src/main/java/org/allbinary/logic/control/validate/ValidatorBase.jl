@@ -1,67 +1,77 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.control.validate
 
-from __future__ import annotations
+mutable struct ValidatorBase <: JObject
+    ValidatorBase() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.control.validate.ValidatorBaseInterface import ValidatorBaseInterface
+const ValidatorBase_instanceValue = Ref{Any}(nothing)
+const ValidatorBase_instanceSet = Ref(false)
+function staticGet_instance(::Type{ValidatorBase})
+    if !ValidatorBase_instanceSet[]
+        ValidatorBase_instanceSet[] = true
+        ValidatorBase_instanceValue[] = newValidatorBase()
+    end
+    ValidatorBase_instanceValue[]
+end
+function staticSet_instance(::Type{ValidatorBase}, value)
+    ValidatorBase_instanceSet[] = true
+    ValidatorBase_instanceValue[] = value
+end
 
-
-class ValidatorBase(ValidatorBaseInterface):
-    instance: ValidatorBase = None
-    
-
-    @staticmethod
-    def getInstance() -> ValidatorBase:
-        return ValidatorBase.instance
-    
-
-    def __init__(self) -> None:
-        pass
-    
-
-    def isValid(self) -> bool:
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        return BooleanFactory.getInstance().TRUE
-    
-
-    def validationInfo(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
-
-    def toHashtable(self) -> ABHashtable[object, object]:
-        from org.allbinary.logic.StdUtil import StdUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        return StdUtil.getInstance().NULL_TABLE
-    
-
-    def toList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        return BasicArrayListUtil.getInstance().getImmutableInstance()
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-# from org.allbinary.util.ABHashtable import ABHashtable
+function initFieldsValidatorBase(this::ValidatorBase)
+    nothing
+end
 
 
-def _ValidatorBase_instance() -> object:
-    return ValidatorBase()
+function getInstance(::Type{ValidatorBase})
+        return staticGet_instance(ValidatorBase)
+end
 
-lazy_static(ValidatorBase, "instance", _ValidatorBase_instance)
+
+function initValidatorBase(this::ValidatorBase)
+        initFieldsValidatorBase(this)
+        nothing
+        nothing
+end
+
+function newValidatorBase()
+    this = ValidatorBase()
+    initValidatorBase(this)
+    this
+end
+
+
+function isValid(this::ValidatorBase)
+        return AllBinary.getInstance(BooleanFactory).TRUE
+end
+
+
+function validationInfo(this::ValidatorBase)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
+
+
+function toHashtable(this::ValidatorBase)
+        return AllBinary.getInstance(StdUtil).NULL_TABLE
+end
+
+
+function toList(this::ValidatorBase)
+        return AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil))
+end
 

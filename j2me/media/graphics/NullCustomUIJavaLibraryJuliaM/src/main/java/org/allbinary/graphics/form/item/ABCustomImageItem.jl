@@ -1,30 +1,34 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
+# extends ABCustomItem: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ABCustomImageItem <: JObject
+    yOffset::Int32
+    ABCustomImageItem() = new()
+end
 
-from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
+
+function initFieldsABCustomImageItem(this::ABCustomImageItem)
+    this.yOffset = Int32(0)
+    this.yOffset = Int32(0)
+    nothing
+end
 
 
-class ABCustomImageItem(ABCustomItem):
+function initABCustomImageItem(this::ABCustomImageItem, label, image, layout, altText, basicColor, yOffset)
+        initABCustomItem(this, label, basicColor, basicColor)
+        initFieldsABCustomImageItem(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.yOffset: int = 0
-    
+function newABCustomImageItem(label, image, layout, altText, basicColor, yOffset)
+    this = ABCustomImageItem()
+    initABCustomImageItem(this, label, image, layout, altText, basicColor, yOffset)
+    this
+end
 
-    def __init__(self, label: str, image: Image, layout: int, altText: str, basicColor: BasicColor, yOffset: int) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(label, basicColor, basicColor)
-        self._init_fields()
-    
 
-    def getImage(self) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.NullImage import NullImage
-        return NullImage.NULL_IMAGE
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.NullImage import NullImage
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-
+function getImage(this::ABCustomImageItem)
+        return staticGet_NULL_IMAGE(NullImage)
+end
 

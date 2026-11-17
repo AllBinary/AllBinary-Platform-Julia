@@ -1,47 +1,58 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+mutable struct AnimationInterfaceFactoryInterfaceComposite <: JObject
+    animationInterfaceFactoryInterfaceArray::Any
+    AnimationInterfaceFactoryInterfaceComposite() = new()
+end
 
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
 
-
-class AnimationInterfaceFactoryInterfaceComposite(AnimationInterfaceFactoryInterface):
-
-    def _init_fields(self) -> None:
-        self.animationInterfaceFactoryInterfaceArray: list[AnimationInterfaceFactoryInterface] = None
+function initFieldsAnimationInterfaceFactoryInterfaceComposite(this::AnimationInterfaceFactoryInterfaceComposite)
+    this.animationInterfaceFactoryInterfaceArray = nothing
     
+    nothing
+end
 
-    def __init__(self, basicAnimationInterfaceFactoryInterfaceArray: list[AnimationInterfaceFactoryInterface]) -> None:
-        self._init_fields()
-        self.animationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
-    
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        return NullAnimationFactory.getFactoryInstance().getInstance(0)
-    
+function initAnimationInterfaceFactoryInterfaceComposite(this::AnimationInterfaceFactoryInterfaceComposite, basicAnimationInterfaceFactoryInterfaceArray)
+        initFieldsAnimationInterfaceFactoryInterfaceComposite(this)
+        this.animationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
+        nothing
+end
 
-    def getAnimationInterfaceFactoryInterfaceArray(self) -> list[AnimationInterfaceFactoryInterface]:
-        return self.animationInterfaceFactoryInterfaceArray
-    
+function newAnimationInterfaceFactoryInterfaceComposite(basicAnimationInterfaceFactoryInterfaceArray)
+    this = AnimationInterfaceFactoryInterfaceComposite()
+    initAnimationInterfaceFactoryInterfaceComposite(this, basicAnimationInterfaceFactoryInterfaceArray)
+    this
+end
 
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from org.allbinary.media.ScaleProperties import ScaleProperties
 
+function getInstance(this::AnimationInterfaceFactoryInterfaceComposite, instanceId)
+        return AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0))
+end
+
+
+function getAnimationInterfaceFactoryInterfaceArray(this::AnimationInterfaceFactoryInterfaceComposite)
+        return this.animationInterfaceFactoryInterfaceArray
+end
+
+
+function setInitialScale(this::AnimationInterfaceFactoryInterfaceComposite, scaleProperties)
+        nothing
+        nothing
+end
 

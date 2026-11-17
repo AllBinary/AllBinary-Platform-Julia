@@ -1,56 +1,75 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.globals
 
-from __future__ import annotations
+mutable struct URLGLOBALS <: JObject
+    URLGLOBALS() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const URLGLOBALS_urlGlobalsInterfaceValue = Ref{Any}(nothing)
+const URLGLOBALS_urlGlobalsInterfaceSet = Ref(false)
+function staticGet_urlGlobalsInterface(::Type{URLGLOBALS})
+    if !URLGLOBALS_urlGlobalsInterfaceSet[]
+        URLGLOBALS_urlGlobalsInterfaceSet[] = true
+        URLGLOBALS_urlGlobalsInterfaceValue[] = staticGet_NULL_APP_URL_GLOBALS(AppUrlGlobals)
+    end
+    URLGLOBALS_urlGlobalsInterfaceValue[]
+end
+function staticSet_urlGlobalsInterface(::Type{URLGLOBALS}, value)
+    URLGLOBALS_urlGlobalsInterfaceSet[] = true
+    URLGLOBALS_urlGlobalsInterfaceValue[] = value
+end
 
+function initFieldsURLGLOBALS(this::URLGLOBALS)
+    nothing
+end
 
-class URLGLOBALS:
-    urlGlobalsInterface: UrlGlobalsInterface = None
-    
+function initURLGLOBALS(this::URLGLOBALS)
+    initFieldsURLGLOBALS(this)
+end
 
-    @staticmethod
-    def init(urlGlobalsInterface: UrlGlobalsInterface) -> None:
-        self.URLGLOBALS.urlGlobalsInterface = urlGlobalsInterface
-    
-
-    @staticmethod
-    def isTestingMode() -> bool:
-        return self.URLGLOBALS.urlGlobalsInterface.isTestingMode()
-    
-
-    @staticmethod
-    def getWebappPath() -> str:
-        return self.URLGLOBALS.urlGlobalsInterface.getWebappPath()
-    
-
-    @staticmethod
-    def getTestHtmlPath() -> str:
-        return self.URLGLOBALS.urlGlobalsInterface.getTestHtmlPath()
-    
-
-    # throws Exception
-    @staticmethod
-    def getMainPath() -> str:
-        return self.URLGLOBALS.urlGlobalsInterface.getMainPath()
+function newURLGLOBALS()
+    this = URLGLOBALS()
+    initURLGLOBALS(this)
+    this
+end
 
 
-def _URLGLOBALS_urlGlobalsInterface() -> object:
-    from org.allbinary.globals.AppUrlGlobals import AppUrlGlobals
-    return AppUrlGlobals.NULL_APP_URL_GLOBALS
+function init(::Type{URLGLOBALS}, urlGlobalsInterface)
+        staticSet_urlGlobalsInterface(URLGLOBALS, urlGlobalsInterface)
+        nothing
+end
 
-lazy_static(URLGLOBALS, "urlGlobalsInterface", _URLGLOBALS_urlGlobalsInterface)
+
+function isTestingMode(::Type{URLGLOBALS})
+        return AllBinary.isTestingMode(staticGet_urlGlobalsInterface(URLGLOBALS))
+end
+
+
+function getWebappPath(::Type{URLGLOBALS})
+        return AllBinary.getWebappPath(staticGet_urlGlobalsInterface(URLGLOBALS))
+end
+
+
+function getTestHtmlPath(::Type{URLGLOBALS})
+        return AllBinary.getTestHtmlPath(staticGet_urlGlobalsInterface(URLGLOBALS))
+end
+
+
+function getMainPath(::Type{URLGLOBALS})
+        return AllBinary.getMainPath(staticGet_urlGlobalsInterface(URLGLOBALS))
+end
 

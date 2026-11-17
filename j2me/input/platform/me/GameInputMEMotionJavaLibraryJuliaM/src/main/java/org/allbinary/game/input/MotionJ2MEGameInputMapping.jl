@@ -1,33 +1,43 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends J2MEGameInputMapping: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MotionJ2MEGameInputMapping <: JObject
+    MotionJ2MEGameInputMapping() = new()
+end
 
-from org.allbinary.game.input.J2MEGameInputMapping import J2MEGameInputMapping
+
+function initFieldsMotionJ2MEGameInputMapping(this::MotionJ2MEGameInputMapping)
+    nothing
+end
+
+function initMotionJ2MEGameInputMapping(this::MotionJ2MEGameInputMapping)
+    initJ2MEGameInputMapping(this)
+    initFieldsMotionJ2MEGameInputMapping(this)
+end
+
+function newMotionJ2MEGameInputMapping()
+    this = MotionJ2MEGameInputMapping()
+    initMotionJ2MEGameInputMapping(this)
+    this
+end
 
 
-class MotionJ2MEGameInputMapping(J2MEGameInputMapping):
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    def getDefault(self) -> InputToGameKeyMapping:
-        from org.allbinary.game.input.MotionJ2MEDefaultGameInputMapping import MotionJ2MEDefaultGameInputMapping
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        return MotionJ2MEDefaultGameInputMapping().getInputMapping()
-# from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-
+function getDefault(this::MotionJ2MEGameInputMapping)
+        return AllBinary.getInputMapping(newMotionJ2MEDefaultGameInputMapping())
+end
 

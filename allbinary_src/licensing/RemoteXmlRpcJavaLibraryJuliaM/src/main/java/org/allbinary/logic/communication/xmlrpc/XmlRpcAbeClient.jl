@@ -1,161 +1,220 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.communication.xmlrpc
 
-from __future__ import annotations
+mutable struct XmlRpcAbeClient <: JObject
+    logUtil::Any
+    commonStrings::Any
+    remoteMethod::Any
+    clientInfo::Any
+    client::Any
+    server::Int32
+    start::Int32
+    maxServers::Int32
+    isDone::Bool
+    START_SERVER::Any
+    TRYING::Any
+    SEP::Any
+    CLIENT_INFO::Any
+    RESULT::Any
+    INVALID::Any
+    EXCEPTION_IN_CLIENT::Any
+    SERVER_REPORTED_ERROR::Any
+    UNKNOWN_ERROR::Any
+    TRYING_OTHER_SERVERS::Any
+    HOST_NOT_RESOLVED_MSG::Any
+    HOST_NOT_RESOLVED::Any
+    myRandomFactory::Any
+    XmlRpcAbeClient() = new()
+end
 
+const XmlRpcAbeClient_isOnlineValue = Ref{Any}(nothing)
+const XmlRpcAbeClient_isOnlineSet = Ref(false)
+function staticGet_isOnline(::Type{XmlRpcAbeClient})
+    if !XmlRpcAbeClient_isOnlineSet[]
+        XmlRpcAbeClient_isOnlineSet[] = true
+        XmlRpcAbeClient_isOnlineValue[] = true
+    end
+    XmlRpcAbeClient_isOnlineValue[]
+end
+function staticSet_isOnline(::Type{XmlRpcAbeClient}, value)
+    XmlRpcAbeClient_isOnlineSet[] = true
+    XmlRpcAbeClient_isOnlineValue[] = value
+end
 
-
-class XmlRpcAbeClient:
-    isOnline: bool = True
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        from org.allbinary.string.CommonLabels import CommonLabels
-        from org.allbinary.string.CommonSeps import CommonSeps
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.apache.xmlrpc.NullXmlRpcHandler import NullXmlRpcHandler
-        from org.apache.xmlrpc.XmlRpcHandler import XmlRpcHandler
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.remoteMethod: str = None
-        self.clientInfo: AbeClientInformationInterface = None
-        self.client: XmlRpcHandler = NullXmlRpcHandler.NULL_XML_RPC_HANDLER
-        self.server: int = None
-        self.start: int = 0
-        self.maxServers: int = 0
-        self.isDone: bool = None
-        self.START_SERVER: str = "Start With Server #"
-        self.TRYING: str = "Trying Server #"
-        self.SEP: str = CommonLabels.getInstance().COLON_SEP
-        self.CLIENT_INFO: str = "Client Info: \n"
-        self.RESULT: str = CommonLabels.getInstance().RESULT_ + CommonSeps.getInstance().NEW_LINE
-        self.INVALID: str = "License data is Invalid Trying Other Servers"
-        self.EXCEPTION_IN_CLIENT: str = "Exception in client"
-        self.SERVER_REPORTED_ERROR: str = "Server reported error"
-        self.UNKNOWN_ERROR: str = "Unknown License Retrieval Failure"
-        self.TRYING_OTHER_SERVERS: str = "IOException Trying Other Servers"
-        self.HOST_NOT_RESOLVED_MSG: str = "Not Trying Again Since Host Unresolved"
-        self.HOST_NOT_RESOLVED: str = "Host is unresolved"
-        self.myRandomFactory: MyRandomFactory = MyRandomFactory.getInstance()
+function initFieldsXmlRpcAbeClient(this::XmlRpcAbeClient)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.remoteMethod = nothing
+    this.clientInfo = nothing
+    this.client = nothing
+    this.server = Int32(0)
+    this.start = Int32(0)
+    this.maxServers = Int32(0)
+    this.isDone = false
+    this.START_SERVER = nothing
+    this.TRYING = nothing
+    this.SEP = nothing
+    this.CLIENT_INFO = nothing
+    this.RESULT = nothing
+    this.INVALID = nothing
+    this.EXCEPTION_IN_CLIENT = nothing
+    this.SERVER_REPORTED_ERROR = nothing
+    this.UNKNOWN_ERROR = nothing
+    this.TRYING_OTHER_SERVERS = nothing
+    this.HOST_NOT_RESOLVED_MSG = nothing
+    this.HOST_NOT_RESOLVED = nothing
+    this.myRandomFactory = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
-
-    def __init__(self, clientInfo: AbeClientInformationInterface, remoteMethod: str) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        self._init_fields()
-        self.remoteMethod = remoteMethod
-        self.clientInfo = clientInfo
-        if clientInfo.getNumberOfLicenseServers() > 1:
-            self.maxServers = clientInfo.getNumberOfLicenseServers() - 2
-            self.start = self.myRandomFactory.getAbsoluteNextInt(self.maxServers) + 1
-        elif clientInfo.getNumberOfLicenseServers() == 1:
-            self.maxServers = 0
-            self.start = 0
-        self.isDone = False
-        self.server = self.start
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(self.START_SERVER)
-        stringBuffer.appendint(self.getServer())
-        stringBuffer.append(self.SEP)
-        stringBuffer.append(clientInfo.getLicenseServer(self.getServer()))
-        self.logUtil.putF(str(stringBuffer), self, self.commonStrings.CONSTRUCTOR)
     
-
-    # throws Exception
-    def get(self, anyType: object) -> object:
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        ForcedLogUtil.log(self.commonStrings.NOT_IMPLEMENTED, self)
-        return NullUtil.getInstance().NULL_OBJECT
+    this.client = staticGet_NULL_XML_RPC_HANDLER(NullXmlRpcHandler)
     
-
-    # throws Exception
-    def tryAnother(self, anyType: object) -> object:
-        if self.getServer() < self.getMaxServers():
-            self.setServer(self.getServer() + 1)
-        else:
-            self.setServer(0)
-        if self.getServer() != self.getStart() and not self.isIsDone():
-            return self.get(anyType)
-        else:
-            self.setIsDone(True)
-        raise Exception("Tried All Servers But Still Failed")
+    this.start = Int32(0)
+    this.maxServers = Int32(0)
     
+    this.START_SERVER = "Start With Server #"
+    this.TRYING = "Trying Server #"
+    this.SEP = AllBinary.getInstance(CommonLabels).COLON_SEP
+    this.CLIENT_INFO = "Client Info: \n"
+    this.RESULT = AllBinary.getInstance(CommonLabels).RESULT_ + AllBinary.getInstance(CommonSeps).NEW_LINE
+    this.INVALID = "License data is Invalid Trying Other Servers"
+    this.EXCEPTION_IN_CLIENT = "Exception in client"
+    this.SERVER_REPORTED_ERROR = "Server reported error"
+    this.UNKNOWN_ERROR = "Unknown License Retrieval Failure"
+    this.TRYING_OTHER_SERVERS = "IOException Trying Other Servers"
+    this.HOST_NOT_RESOLVED_MSG = "Not Trying Again Since Host Unresolved"
+    this.HOST_NOT_RESOLVED = "Host is unresolved"
+    this.myRandomFactory = AllBinary.getInstance(MyRandomFactory)
+    nothing
+end
 
-    def getClientInfo(self) -> AbeClientInformationInterface:
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        return self.clientInfo
-    
 
-    def getClient(self) -> XmlRpcHandler:
-        from org.apache.xmlrpc.XmlRpcHandler import XmlRpcHandler
-        return self.client
-    
+function initXmlRpcAbeClient(this::XmlRpcAbeClient, clientInfo, remoteMethod)
+        initFieldsXmlRpcAbeClient(this)
+        this.remoteMethod = remoteMethod
+        this.clientInfo = clientInfo
+        if AllBinary.getNumberOfLicenseServers(clientInfo) > Int32(1)
+            this.maxServers = AllBinary.getNumberOfLicenseServers(clientInfo) - Int32(2)
+            this.start = AllBinary.getAbsoluteNextInt(this.myRandomFactory, this.maxServers) + Int32(1)
+        elseif AllBinary.getNumberOfLicenseServers(clientInfo) == Int32(1)
+            this.maxServers = Int32(0)
+            this.start = Int32(0)
+        end
+        this.isDone = false
+        this.server = this.start
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, this.START_SERVER)
+        AllBinary.appendint(stringBuffer, AllBinary.getServer(this))
+        AllBinary.append(stringBuffer, this.SEP)
+        AllBinary.append(stringBuffer, AllBinary.getLicenseServer(clientInfo, AllBinary.getServer(this)))
+        AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, this.commonStrings.CONSTRUCTOR)
+        nothing
+end
 
-    def setClient(self, client: XmlRpcClient) -> None:
-        from org.apache.xmlrpc.XmlRpcClient import XmlRpcClient
-        self.client = client
-    
+function newXmlRpcAbeClient(clientInfo, remoteMethod)
+    this = XmlRpcAbeClient()
+    initXmlRpcAbeClient(this, clientInfo, remoteMethod)
+    this
+end
 
-    def getServer(self) -> int:
-        return self.server
-    
 
-    def setServer(self, server: int) -> None:
-        self.server = server
-    
+function get(this::XmlRpcAbeClient, anyType)
+        AllBinary.log(ForcedLogUtil, this.commonStrings.NOT_IMPLEMENTED, this)
+        return AllBinary.getInstance(NullUtil).NULL_OBJECT
+end
 
-    def getStart(self) -> int:
-        return self.start
-    
 
-    def setStart(self, start: int) -> None:
-        self.start = start
-    
+function tryAnother(this::XmlRpcAbeClient, anyType)
+        if AllBinary.getServer(this) < AllBinary.getMaxServers(this)
+            AllBinary.setServer(this, AllBinary.getServer(this) + Int32(1))
+        else
+            AllBinary.setServer(this, Int32(0))
+        end
+        if AllBinary.getServer(this) != AllBinary.getStart(this) && !AllBinary.isIsDone(this)
+            return AllBinary.get(this, anyType)
+        else
+            AllBinary.setIsDone(this, true)
+        end
+        throw(jNewException("Exception", "Tried All Servers But Still Failed"))
+end
 
-    def getMaxServers(self) -> int:
-        return self.maxServers
-    
 
-    def setMaxServers(self, maxServers: int) -> None:
-        self.maxServers = maxServers
-    
+function getClientInfo(this::XmlRpcAbeClient)
+        return this.clientInfo
+end
 
-    def isIsDone(self) -> bool:
-        return self.isDone
-    
 
-    def setIsDone(self, isDone: bool) -> None:
-        self.isDone = isDone
-    
+function getClient(this::XmlRpcAbeClient)
+        return this.client
+end
 
-    def getRemoteMethod(self) -> str:
-        return self.remoteMethod
-# from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.apache.xmlrpc.NullXmlRpcHandler import NullXmlRpcHandler
-# from org.apache.xmlrpc.XmlRpcClient import XmlRpcClient
-# from org.apache.xmlrpc.XmlRpcHandler import XmlRpcHandler
 
+function setClient(this::XmlRpcAbeClient, client)
+        this.client = client
+        nothing
+end
+
+
+function getServer(this::XmlRpcAbeClient)
+        return this.server
+end
+
+
+function setServer(this::XmlRpcAbeClient, server)
+        this.server = server
+        nothing
+end
+
+
+function getStart(this::XmlRpcAbeClient)
+        return this.start
+end
+
+
+function setStart(this::XmlRpcAbeClient, start)
+        this.start = start
+        nothing
+end
+
+
+function getMaxServers(this::XmlRpcAbeClient)
+        return this.maxServers
+end
+
+
+function setMaxServers(this::XmlRpcAbeClient, maxServers)
+        this.maxServers = maxServers
+        nothing
+end
+
+
+function isIsDone(this::XmlRpcAbeClient)
+        return this.isDone
+end
+
+
+function setIsDone(this::XmlRpcAbeClient, isDone)
+        this.isDone = isDone
+        nothing
+end
+
+
+function getRemoteMethod(this::XmlRpcAbeClient)
+        return this.remoteMethod
+end
 

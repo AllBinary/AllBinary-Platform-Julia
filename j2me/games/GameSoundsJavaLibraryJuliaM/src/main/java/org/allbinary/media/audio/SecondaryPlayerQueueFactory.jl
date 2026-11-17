@@ -1,35 +1,54 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
+mutable struct SecondaryPlayerQueueFactory <: JObject
+    SecondaryPlayerQueueFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const SecondaryPlayerQueueFactory_SINGLETONValue = Ref{Any}(nothing)
+const SecondaryPlayerQueueFactory_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{SecondaryPlayerQueueFactory})
+    if !SecondaryPlayerQueueFactory_SINGLETONSet[]
+        SecondaryPlayerQueueFactory_SINGLETONSet[] = true
+        SecondaryPlayerQueueFactory_SINGLETONValue[] = newPlayerQueue(Int32(4))
+    end
+    SecondaryPlayerQueueFactory_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{SecondaryPlayerQueueFactory}, value)
+    SecondaryPlayerQueueFactory_SINGLETONSet[] = true
+    SecondaryPlayerQueueFactory_SINGLETONValue[] = value
+end
+
+function initFieldsSecondaryPlayerQueueFactory(this::SecondaryPlayerQueueFactory)
+    nothing
+end
+
+function initSecondaryPlayerQueueFactory(this::SecondaryPlayerQueueFactory)
+    initFieldsSecondaryPlayerQueueFactory(this)
+end
+
+function newSecondaryPlayerQueueFactory()
+    this = SecondaryPlayerQueueFactory()
+    initSecondaryPlayerQueueFactory(this)
+    this
+end
 
 
-class SecondaryPlayerQueueFactory:
-    SINGLETON: PlayerQueue = None
-    
-
-    @staticmethod
-    def getInstance() -> PlayerQueue:
-        return SecondaryPlayerQueueFactory.SINGLETON
-
-
-def _SecondaryPlayerQueueFactory_SINGLETON() -> object:
-    from org.allbinary.media.audio.PlayerQueue import PlayerQueue
-    return PlayerQueue(4)
-
-lazy_static(SecondaryPlayerQueueFactory, "SINGLETON", _SecondaryPlayerQueueFactory_SINGLETON)
+function getInstance(::Type{SecondaryPlayerQueueFactory})
+        return staticGet_SINGLETON(SecondaryPlayerQueueFactory)
+end
 

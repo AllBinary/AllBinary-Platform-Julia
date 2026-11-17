@@ -1,58 +1,70 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends GameRunnable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameFrameRunnable <: JObject
+    logUtil::Any
+    gameTickDisplayInfoSingleton::Any
+    allBinaryGameCanvas::Any
+    gameTickTimeDelayHelper::Any
+    GameFrameRunnable() = new()
+end
 
-from org.allbinary.game.displayable.canvas.GameRunnable import GameRunnable
 
-
-class GameFrameRunnable(GameRunnable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.displayable.GameTickDisplayInfoSingleton import GameTickDisplayInfoSingleton
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.gameTickDisplayInfoSingleton: GameTickDisplayInfoSingleton = GameTickDisplayInfoSingleton.getInstance()
-        self.allBinaryGameCanvas: AllBinaryGameCanvas = None
-        self.gameTickTimeDelayHelper: GameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
+function initFieldsGameFrameRunnable(this::GameFrameRunnable)
+    this.logUtil = nothing
+    this.gameTickDisplayInfoSingleton = nothing
+    this.allBinaryGameCanvas = nothing
+    this.gameTickTimeDelayHelper = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.gameTickDisplayInfoSingleton = AllBinary.getInstance(GameTickDisplayInfoSingleton)
     
+    this.gameTickTimeDelayHelper = AllBinary.getInstance(GameTickTimeDelayHelperFactory)
+    nothing
+end
 
-    def __init__(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        super().__init__()
-        self._init_fields()
-        self.allBinaryGameCanvas = allBinaryGameCanvas
-    
 
-    def run(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            allBinaryGameCanvas: AllBinaryGameCanvas = self.allBinaryGameCanvas
-            allBinaryGameCanvas.getLoopTimeHelperP().setStartTime(self.gameTickTimeDelayHelper.setStartTime())
-            self.gameTickDisplayInfoSingleton.update()
-            allBinaryGameCanvas.processGame()
-            if not allBinaryGameCanvas.isRunning() or allBinaryGameCanvas.isPaused():
-                allBinaryGameCanvas.notifyDonePainting()
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.RUN, e)
-# from org.allbinary.graphics.displayable.GameTickDisplayInfoSingleton import GameTickDisplayInfoSingleton
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
+function initGameFrameRunnable(this::GameFrameRunnable, allBinaryGameCanvas)
+        initGameRunnable(this)
+        initFieldsGameFrameRunnable(this)
+        this.allBinaryGameCanvas = allBinaryGameCanvas
+        nothing
+end
 
+function newGameFrameRunnable(allBinaryGameCanvas)
+    this = GameFrameRunnable()
+    initGameFrameRunnable(this, allBinaryGameCanvas)
+    this
+end
+
+
+function run(this::GameFrameRunnable)
+        try
+            local allBinaryGameCanvas = this.allBinaryGameCanvas
+            AllBinary.setStartTime(AllBinary.getLoopTimeHelperP(allBinaryGameCanvas), AllBinary.setStartTime(this.gameTickTimeDelayHelper))
+            AllBinary.update(this.gameTickDisplayInfoSingleton)
+            AllBinary.processGame(allBinaryGameCanvas)
+            if !AllBinary.isRunning(allBinaryGameCanvas) || AllBinary.isPaused(allBinaryGameCanvas)
+                AllBinary.notifyDonePainting(allBinaryGameCanvas)
+            end
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.RUN, e)
+        end
+        nothing
+end
 

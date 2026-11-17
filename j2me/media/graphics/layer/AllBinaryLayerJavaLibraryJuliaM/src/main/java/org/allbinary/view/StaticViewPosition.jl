@@ -1,39 +1,54 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.view
 
-from __future__ import annotations
+# extends ViewPosition: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct StaticViewPosition <: JObject
+    StaticViewPosition() = new()
+end
 
-from org.allbinary.view.ViewPosition import ViewPosition
+
+function initFieldsStaticViewPosition(this::StaticViewPosition)
+    nothing
+end
 
 
-class StaticViewPosition(ViewPosition):
-    
+function initStaticViewPosition(this::StaticViewPosition, x, y, z)
+        initViewPosition(this, x, y, z)
+        nothing
+end
 
-    def __init__(self, x: int, y: int, z: int) -> None:
-        super().__init__(x, y, z)
-    
+function newStaticViewPosition(x, y, z)
+    this = StaticViewPosition()
+    initStaticViewPosition(this, x, y, z)
+    this
+end
 
-    def getX(self) -> int:
-        return self.getRawX()
-    
 
-    def getY(self) -> int:
-        return self.getRawY()
-    
+function getX(this::StaticViewPosition)
+        return AllBinary.getRawX(this)
+end
 
-    def getZ(self) -> int:
-        return self.getRawZ()
 
+function getY(this::StaticViewPosition)
+        return AllBinary.getRawY(this)
+end
+
+
+function getZ(this::StaticViewPosition)
+        return AllBinary.getRawZ(this)
+end
 

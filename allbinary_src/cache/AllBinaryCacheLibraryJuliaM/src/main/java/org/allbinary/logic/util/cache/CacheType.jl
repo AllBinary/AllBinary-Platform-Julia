@@ -1,54 +1,66 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2007 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2007 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.cache
 
-from __future__ import annotations
+mutable struct CacheType <: JObject
+    vendor::Any
+    type_::Any
+    CacheType() = new()
+end
 
 
-
-class CacheType:
-
-    def _init_fields(self) -> None:
-        self.vendor: str = None
-        self.type_: str = None
+function initFieldsCacheType(this::CacheType)
+    this.vendor = nothing
+    this.type_ = nothing
     
-
-    def __init__(self, vendor: str, type_: str) -> None:
-        self._init_fields()
-        self.vendor = vendor
-        self.type_ = type_
     
+    nothing
+end
 
-    def getVendor(self) -> str:
-        return self.vendor
-    
 
-    def getType(self) -> str:
-        return self.type_
-    
+function initCacheType(this::CacheType, vendor, type_)
+        initFieldsCacheType(this)
+        this.vendor = vendor
+        this.type_ = type_
+        nothing
+end
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append("CacheType: Vendor: ")
-        stringBuffer.append(self.getVendor())
-        stringBuffer.append(" Type: ")
-        stringBuffer.append(self.getType())
-        return str(stringBuffer)
+function newCacheType(vendor, type_)
+    this = CacheType()
+    initCacheType(this, vendor, type_)
+    this
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.string.StringMaker import StringMaker
 
+function getVendor(this::CacheType)
+        return this.vendor
+end
+
+
+function getType(this::CacheType)
+        return this.type_
+end
+
+
+function toString(this::CacheType)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, "CacheType: Vendor: ")
+        AllBinary.append(stringBuffer, AllBinary.getVendor(this))
+        AllBinary.append(stringBuffer, " Type: ")
+        AllBinary.append(stringBuffer, AllBinary.getType(this))
+        return AllBinary.toString(stringBuffer)
+end
 

@@ -1,42 +1,56 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends ProcessPaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameCanvasPaintHelper <: JObject
+    gameCanvas::Any
+    GameCanvasPaintHelper() = new()
+end
 
-from org.allbinary.graphics.paint.ProcessPaintable import ProcessPaintable
 
-
-class GameCanvasPaintHelper(ProcessPaintable):
-
-    def _init_fields(self) -> None:
-        self.gameCanvas: AllBinaryGameCanvas = None
+function initFieldsGameCanvasPaintHelper(this::GameCanvasPaintHelper)
+    this.gameCanvas = nothing
     
+    nothing
+end
 
-    def __init__(self, gameCanvas: AllBinaryGameCanvas) -> None:
-        super().__init__()
-        self._init_fields()
-        self.gameCanvas = gameCanvas
-    
 
-    def process(self) -> None:
-        pass
-    
+function initGameCanvasPaintHelper(this::GameCanvasPaintHelper, gameCanvas)
+        initProcessPaintable(this)
+        initFieldsGameCanvasPaintHelper(this)
+        this.gameCanvas = gameCanvas
+        nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.gameCanvas.draw(graphics)
-# from javax.microedition.lcdui.Graphics import Graphics
+function newGameCanvasPaintHelper(gameCanvas)
+    this = GameCanvasPaintHelper()
+    initGameCanvasPaintHelper(this, gameCanvas)
+    this
+end
 
+
+function process(this::GameCanvasPaintHelper)
+        nothing
+        nothing
+end
+
+
+function paint(this::GameCanvasPaintHelper, graphics)
+        AllBinary.draw(this.gameCanvas, graphics)
+        nothing
+end
 

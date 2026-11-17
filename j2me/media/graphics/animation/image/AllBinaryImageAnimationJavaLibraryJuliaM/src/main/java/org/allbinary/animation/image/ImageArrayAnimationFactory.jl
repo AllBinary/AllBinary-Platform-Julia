@@ -1,64 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+mutable struct ImageArrayAnimationFactory <: JObject
+    dx::Int32
+    dy::Int32
+    imageArray::Any
+    animationBehaviorFactory::Any
+    ImageArrayAnimationFactory() = new()
+end
 
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
 
-
-class ImageArrayAnimationFactory(AnimationInterfaceFactoryInterface):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        self.dx: int = 0
-        self.dy: int = 0
-        self.imageArray: list[Image] = None
-        self.animationBehaviorFactory: AnimationBehaviorFactory = None
+function initFieldsImageArrayAnimationFactory(this::ImageArrayAnimationFactory)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.imageArray = nothing
+    this.animationBehaviorFactory = nothing
+    this.dx = Int32(0)
+    this.dy = Int32(0)
     
-
-    def __init__(self, imageArray: list[Image], dx: int, dy: int, animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        self._init_fields()
-        self.imageArray = imageArray
-        self.animationBehaviorFactory = animationBehaviorFactory
-        self.dx = dx
-        self.dy = dy
     
+    nothing
+end
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.image.ImageArrayAnimation import ImageArrayAnimation
-        from org.allbinary.animation.image.AdjustedImageArrayAnimation import AdjustedImageArrayAnimation
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        if self.dx != 0 or self.dy != 0:
-            return AdjustedImageArrayAnimation(self.imageArray, self.dx, self.dy, self.animationBehaviorFactory.getOrCreateInstance())
-        else:
-            return ImageArrayAnimation(self.imageArray, AnimationBehavior.getInstance())
-    
 
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.media.ScaleProperties import ScaleProperties
+function initImageArrayAnimationFactory(this::ImageArrayAnimationFactory, imageArray, dx, dy, animationBehaviorFactory)
+        initFieldsImageArrayAnimationFactory(this)
+        this.imageArray = imageArray
+        this.animationBehaviorFactory = animationBehaviorFactory
+        this.dx = dx
+        this.dy = dy
+        nothing
+end
 
+function newImageArrayAnimationFactory(imageArray, dx, dy, animationBehaviorFactory)
+    this = ImageArrayAnimationFactory()
+    initImageArrayAnimationFactory(this, imageArray, dx, dy, animationBehaviorFactory)
+    this
+end
+
+
+function getInstance(this::ImageArrayAnimationFactory, instanceId)
+        if this.dx != Int32(0) || this.dy != Int32(0)
+            return newAdjustedImageArrayAnimation(this.imageArray, this.dx, this.dy, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        else
+            return newImageArrayAnimation(this.imageArray, AllBinary.getInstance(AnimationBehavior))
+        end
+end
+
+
+function setInitialScale(this::ImageArrayAnimationFactory, scaleProperties)
+        nothing
+        nothing
+end
 

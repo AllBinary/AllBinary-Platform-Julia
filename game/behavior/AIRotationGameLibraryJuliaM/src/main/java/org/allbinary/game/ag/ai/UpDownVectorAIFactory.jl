@@ -1,37 +1,41 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai
 
-from __future__ import annotations
+mutable struct UpDownVectorAIFactory <: JObject
+    UpDownVectorAIFactory() = new()
+end
 
-from org.allbinary.game.ai.ArtificialIntelligenceInterfaceFactoryInterface import ArtificialIntelligenceInterfaceFactoryInterface
+
+function initFieldsUpDownVectorAIFactory(this::UpDownVectorAIFactory)
+    nothing
+end
+
+function initUpDownVectorAIFactory(this::UpDownVectorAIFactory)
+    initFieldsUpDownVectorAIFactory(this)
+end
+
+function newUpDownVectorAIFactory()
+    this = UpDownVectorAIFactory()
+    initUpDownVectorAIFactory(this)
+    this
+end
 
 
-class UpDownVectorAIFactory(ArtificialIntelligenceInterfaceFactoryInterface):
-    
-
-    # throws Exception
-    def getInstance(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> ArtificialIntelligenceInterface:
-        from org.allbinary.game.ag.ai.UpDownVectorAI import UpDownVectorAI
-        from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.ABHashtable import ABHashtable
-        return UpDownVectorAI(ownerLayerInterface, gameInput)
-# from org.allbinary.ai.ArtificialIntelligenceInterface import ArtificialIntelligenceInterface
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.util.ABHashtable import ABHashtable
-
+function getInstance(this::UpDownVectorAIFactory, hashtable, ownerLayerInterface, gameInput)
+        return newUpDownVectorAI(ownerLayerInterface, gameInput)
+end
 

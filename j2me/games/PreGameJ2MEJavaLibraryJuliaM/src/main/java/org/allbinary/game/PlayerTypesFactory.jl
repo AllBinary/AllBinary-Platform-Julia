@@ -1,43 +1,63 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game
 
-from __future__ import annotations
+mutable struct PlayerTypesFactory <: JObject
+    PLAYER_TYPE_ONE::Any
+    PLAYER_TYPE_TWO::Any
+    PLAYER_TYPE_THREE::Any
+    PlayerTypesFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const PlayerTypesFactory_SINGLETONValue = Ref{Any}(nothing)
+const PlayerTypesFactory_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{PlayerTypesFactory})
+    if !PlayerTypesFactory_SINGLETONSet[]
+        PlayerTypesFactory_SINGLETONSet[] = true
+        PlayerTypesFactory_SINGLETONValue[] = newPlayerTypesFactory()
+    end
+    PlayerTypesFactory_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{PlayerTypesFactory}, value)
+    PlayerTypesFactory_SINGLETONSet[] = true
+    PlayerTypesFactory_SINGLETONValue[] = value
+end
+
+function initFieldsPlayerTypesFactory(this::PlayerTypesFactory)
+    this.PLAYER_TYPE_ONE = nothing
+    this.PLAYER_TYPE_TWO = nothing
+    this.PLAYER_TYPE_THREE = nothing
+    this.PLAYER_TYPE_ONE = newPlayerType("Player Type One", Int32(0))
+    this.PLAYER_TYPE_TWO = newPlayerType("Player Type Two", Int32(1))
+    this.PLAYER_TYPE_THREE = newPlayerType("Player Type Three", Int32(2))
+    nothing
+end
+
+function initPlayerTypesFactory(this::PlayerTypesFactory)
+    initFieldsPlayerTypesFactory(this)
+end
+
+function newPlayerTypesFactory()
+    this = PlayerTypesFactory()
+    initPlayerTypesFactory(this)
+    this
+end
 
 
-class PlayerTypesFactory:
-    SINGLETON: PlayerTypesFactory = None
-
-    def _init_fields(self) -> None:
-        self.PLAYER_TYPE_ONE: PlayerType = PlayerType("Player Type One", 0)
-        self.PLAYER_TYPE_TWO: PlayerType = PlayerType("Player Type Two", 1)
-        self.PLAYER_TYPE_THREE: PlayerType = PlayerType("Player Type Three", 2)
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> PlayerTypesFactory:
-        return PlayerTypesFactory.SINGLETON
-from org.allbinary.game.PlayerType import PlayerType
-
-
-def _PlayerTypesFactory_SINGLETON() -> object:
-    return PlayerTypesFactory()
-
-lazy_static(PlayerTypesFactory, "SINGLETON", _PlayerTypesFactory_SINGLETON)
+function getInstance(::Type{PlayerTypesFactory})
+        return staticGet_SINGLETON(PlayerTypesFactory)
+end
 

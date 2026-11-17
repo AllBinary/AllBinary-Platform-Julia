@@ -1,49 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.displayable.event
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct DisplayChangeEventHandler <: JObject
+    DisplayChangeEventHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const DisplayChangeEventHandler_SINGLETONValue = Ref{Any}(nothing)
+const DisplayChangeEventHandler_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{DisplayChangeEventHandler})
+    if !DisplayChangeEventHandler_SINGLETONSet[]
+        DisplayChangeEventHandler_SINGLETONSet[] = true
+        DisplayChangeEventHandler_SINGLETONValue[] = newDisplayChangeEventHandler()
+    end
+    DisplayChangeEventHandler_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{DisplayChangeEventHandler}, value)
+    DisplayChangeEventHandler_SINGLETONSet[] = true
+    DisplayChangeEventHandler_SINGLETONValue[] = value
+end
 
-
-class DisplayChangeEventHandler(BasicEventHandler):
-    SINGLETON: DisplayChangeEventHandler = None
-    
-
-    @staticmethod
-    def getInstance() -> DisplayChangeEventHandler:
-        return DisplayChangeEventHandler.SINGLETON
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        displayChangeEventListener: DisplayChangeEventListener = (eventListenerInterface)
-        displayChangeEventListener.onDisplayChangeEvent(eventObject)
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
+function initFieldsDisplayChangeEventHandler(this::DisplayChangeEventHandler)
+    nothing
+end
 
 
-def _DisplayChangeEventHandler_SINGLETON() -> object:
-    return DisplayChangeEventHandler()
+function getInstance(::Type{DisplayChangeEventHandler})
+        return staticGet_SINGLETON(DisplayChangeEventHandler)
+end
 
-lazy_static(DisplayChangeEventHandler, "SINGLETON", _DisplayChangeEventHandler_SINGLETON)
+
+function initDisplayChangeEventHandler(this::DisplayChangeEventHandler)
+        initBasicEventHandler(this)
+        initFieldsDisplayChangeEventHandler(this)
+        nothing
+        nothing
+end
+
+function newDisplayChangeEventHandler()
+    this = DisplayChangeEventHandler()
+    initDisplayChangeEventHandler(this)
+    this
+end
+
+
+function process(this::DisplayChangeEventHandler, eventObject, eventListenerInterface)
+        local displayChangeEventListener = ((eventListenerInterface))
+        AllBinary.onDisplayChangeEvent(displayChangeEventListener, (eventObject))
+        nothing
+end
 

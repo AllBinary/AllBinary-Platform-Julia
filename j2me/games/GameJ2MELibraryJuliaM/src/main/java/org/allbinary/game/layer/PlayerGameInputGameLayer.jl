@@ -1,72 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer
 
-from __future__ import annotations
+# extends AllBinaryGameLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct PlayerGameInputGameLayer <: JObject
+    playerGameInput::Any
+    PlayerGameInputGameLayer() = new()
+end
 
-from org.allbinary.game.input.PlayerGameInputCompositeInterface import PlayerGameInputCompositeInterface
-from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
 
-
-class PlayerGameInputGameLayer(AllBinaryGameLayer, PlayerGameInputCompositeInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.PlayerGameInput import PlayerGameInput
-        self.playerGameInput: PlayerGameInput = None
+function initFieldsPlayerGameInputGameLayer(this::PlayerGameInputGameLayer)
+    this.playerGameInput = nothing
     
+    nothing
+end
 
-    def __init__(self, playerInputId: int) -> None:
-        from org.allbinary.game.input.PlayerGameInput import PlayerGameInput
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        from org.allbinary.view.StaticViewPosition import StaticViewPosition
-        super().__init__(StringUtil.getInstance().EMPTY_STRING, Rectangle(PointFactory.getInstance().ZERO_ZERO, 0, 0), StaticViewPosition(0, 0, 0))
-        self._init_fields()
-        self.playerGameInput = PlayerGameInput(self.getGameKeyEventList(), BasicArrayListD(), playerInputId)
-        canvasStrings: CanvasStrings = CanvasStrings.getInstance()
-        self.logUtil.putF("Danger Danger Danger: Should Not Be Called Except For Testing Input", self, canvasStrings.PAINT)
-    
 
-    def getPlayerGameInput(self) -> PlayerGameInput:
-        from org.allbinary.game.input.PlayerGameInput import PlayerGameInput
-        return self.playerGameInput
-    
+function initPlayerGameInputGameLayer(this::PlayerGameInputGameLayer, playerInputId)
+        initAllBinaryGameLayer(this, AllBinary.getInstance(StringUtil).EMPTY_STRING, newRectangle(AllBinary.getInstance(PointFactory).ZERO_ZERO, Int32(0), Int32(0)), newStaticViewPosition(Int32(0), Int32(0), Int32(0)))
+        initFieldsPlayerGameInputGameLayer(this)
+        this.playerGameInput = newPlayerGameInput(AllBinary.getGameKeyEventList(this), newBasicArrayListD(), playerInputId)
+        local canvasStrings = AllBinary.getInstance(CanvasStrings)
+        AllBinary.putF(this.logUtil, "Danger Danger Danger: Should Not Be Called Except For Testing Input", this, canvasStrings.PAINT)
+        nothing
+end
 
-    def initInputProcessors(self) -> None:
-        pass
-    
+function newPlayerGameInputGameLayer(playerInputId)
+    this = PlayerGameInputGameLayer()
+    initPlayerGameInputGameLayer(this, playerInputId)
+    this
+end
 
-    # throws Exception
-    def processInput(self, myManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.input.PlayerGameInput import PlayerGameInput
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.view.StaticViewPosition import StaticViewPosition
+function getPlayerGameInput(this::PlayerGameInputGameLayer)
+        return this.playerGameInput
+end
 
+
+function initInputProcessors(this::PlayerGameInputGameLayer)
+        nothing
+        nothing
+end
+
+
+function processInput(this::PlayerGameInputGameLayer, myManager)
+        nothing
+        nothing
+end
+
+
+function paint(this::PlayerGameInputGameLayer, graphics)
+        nothing
+        nothing
+end
 

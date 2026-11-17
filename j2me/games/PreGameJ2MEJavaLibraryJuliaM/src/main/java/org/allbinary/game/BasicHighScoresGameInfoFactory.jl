@@ -1,45 +1,60 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game
 
-from __future__ import annotations
+mutable struct BasicHighScoresGameInfoFactory <: JObject
+    MULTI_PLAYER_SERVER::Any
+    SINGLE_PLAYER_SERVER::Any
+    BasicHighScoresGameInfoFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BasicHighScoresGameInfoFactory_SINGLETONValue = Ref{Any}(nothing)
+const BasicHighScoresGameInfoFactory_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{BasicHighScoresGameInfoFactory})
+    if !BasicHighScoresGameInfoFactory_SINGLETONSet[]
+        BasicHighScoresGameInfoFactory_SINGLETONSet[] = true
+        BasicHighScoresGameInfoFactory_SINGLETONValue[] = newBasicHighScoresGameInfoFactory()
+    end
+    BasicHighScoresGameInfoFactory_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{BasicHighScoresGameInfoFactory}, value)
+    BasicHighScoresGameInfoFactory_SINGLETONSet[] = true
+    BasicHighScoresGameInfoFactory_SINGLETONValue[] = value
+end
+
+function initFieldsBasicHighScoresGameInfoFactory(this::BasicHighScoresGameInfoFactory)
+    this.MULTI_PLAYER_SERVER = nothing
+    this.SINGLE_PLAYER_SERVER = nothing
+    this.MULTI_PLAYER_SERVER = newGameInfo(AllBinary.getInstance(GameTypeFactory).MULTI_PLAYER, staticGet_SERVER(GameMode), AllBinary.getInstance(PlayerTypesFactory).PLAYER_TYPE_ONE, Int32(0), Int32(0))
+    this.SINGLE_PLAYER_SERVER = newGameInfo(AllBinary.getInstance(GameTypeFactory).SINGLE_PLAYER, staticGet_SERVER(GameMode), AllBinary.getInstance(PlayerTypesFactory).PLAYER_TYPE_ONE, Int32(0), Int32(0))
+    nothing
+end
+
+function initBasicHighScoresGameInfoFactory(this::BasicHighScoresGameInfoFactory)
+    initFieldsBasicHighScoresGameInfoFactory(this)
+end
+
+function newBasicHighScoresGameInfoFactory()
+    this = BasicHighScoresGameInfoFactory()
+    initBasicHighScoresGameInfoFactory(this)
+    this
+end
 
 
-class BasicHighScoresGameInfoFactory:
-    SINGLETON: BasicHighScoresGameInfoFactory = None
-
-    def _init_fields(self) -> None:
-        self.MULTI_PLAYER_SERVER: GameInfo = GameInfo(GameTypeFactory.getInstance().MULTI_PLAYER, GameMode.SERVER, PlayerTypesFactory.getInstance().PLAYER_TYPE_ONE, 0, 0)
-        self.SINGLE_PLAYER_SERVER: GameInfo = GameInfo(GameTypeFactory.getInstance().SINGLE_PLAYER, GameMode.SERVER, PlayerTypesFactory.getInstance().PLAYER_TYPE_ONE, 0, 0)
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> BasicHighScoresGameInfoFactory:
-        return BasicHighScoresGameInfoFactory.SINGLETON
-from org.allbinary.game.GameInfo import GameInfo
-from org.allbinary.game.GameTypeFactory import GameTypeFactory
-from org.allbinary.game.GameMode import GameMode
-from org.allbinary.game.PlayerTypesFactory import PlayerTypesFactory
-
-
-def _BasicHighScoresGameInfoFactory_SINGLETON() -> object:
-    return BasicHighScoresGameInfoFactory()
-
-lazy_static(BasicHighScoresGameInfoFactory, "SINGLETON", _BasicHighScoresGameInfoFactory_SINGLETON)
+function getInstance(::Type{BasicHighScoresGameInfoFactory})
+        return staticGet_SINGLETON(BasicHighScoresGameInfoFactory)
+end
 

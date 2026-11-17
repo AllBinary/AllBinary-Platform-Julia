@@ -1,54 +1,79 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+mutable struct HighScoreCommandsBaseFactory <: JObject
+    logUtil::Any
+    HIGH_SCORE_COMMANDS::Any
+    HighScoreCommandsBaseFactory() = new()
+end
 
 
-
-class HighScoreCommandsBaseFactory:
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Command import Command
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.HIGH_SCORE_COMMANDS: list[Command] = None
+function initFieldsHighScoreCommandsBaseFactory(this::HighScoreCommandsBaseFactory)
+    this.logUtil = nothing
+    this.HIGH_SCORE_COMMANDS = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    nothing
+end
 
-    def __init__(self, HIGH_SCORE_COMMANDS: list[Command]) -> None:
-        from javax.microedition.lcdui.Command import Command
-        self._init_fields()
-        self.HIGH_SCORE_COMMANDS = HIGH_SCORE_COMMANDS
-    
 
-    def isHighScoreCommand(self, command: Command) -> bool:
-        from javax.microedition.lcdui.Command import Command
-        for index in range(len(self.HIGH_SCORE_COMMANDS) - 1, 0 - 1, -1):
-            if command == self.HIGH_SCORE_COMMANDS[index]:
-                return True
-        return False
-    
+function initHighScoreCommandsBaseFactory(this::HighScoreCommandsBaseFactory, HIGH_SCORE_COMMANDS)
+        initFieldsHighScoreCommandsBaseFactory(this)
+        this.HIGH_SCORE_COMMANDS = HIGH_SCORE_COMMANDS
+        nothing
+end
 
-    # throws Exception
-    def getIndex(self, command: Command) -> int:
-        from javax.microedition.lcdui.Command import Command
-        for index in range(len(self.HIGH_SCORE_COMMANDS) - 1, 0 - 1, -1):
-            if command == self.HIGH_SCORE_COMMANDS[index]:
+function newHighScoreCommandsBaseFactory(HIGH_SCORE_COMMANDS)
+    this = HighScoreCommandsBaseFactory()
+    initHighScoreCommandsBaseFactory(this, HIGH_SCORE_COMMANDS)
+    this
+end
+
+
+function isHighScoreCommand(this::HighScoreCommandsBaseFactory, command)
+        let
+            local index::Int32 = Int32(Base.length(this.HIGH_SCORE_COMMANDS)) - Int32(1)
+            while index >= Int32(0)
+            try
+            if command === this.HIGH_SCORE_COMMANDS[index + 1]
+                return true
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        return false
+end
+
+
+function getIndex(this::HighScoreCommandsBaseFactory, command)
+        let
+            local index::Int32 = Int32(Base.length(this.HIGH_SCORE_COMMANDS)) - Int32(1)
+            while index >= Int32(0)
+            try
+            if command === this.HIGH_SCORE_COMMANDS[index + 1]
                 return index
-        raise Exception("No Such Command")
-# from javax.microedition.lcdui.Command import Command
-# from org.allbinary.J2MEUtil import J2MEUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        throw(jNewException("Exception", "No Such Command"))
+end
 

@@ -1,23 +1,33 @@
 # Generated Code Do Not Modify
 # package org.allbinary.game.collision
 
-from __future__ import annotations
+# extends CollisionProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CollisionThreedProcessor <: JObject
+    CollisionThreedProcessor() = new()
+end
 
-from org.allbinary.game.collision.CollisionProcessor import CollisionProcessor
+
+function initFieldsCollisionThreedProcessor(this::CollisionThreedProcessor)
+    nothing
+end
+
+function initCollisionThreedProcessor(this::CollisionThreedProcessor)
+    initCollisionProcessor(this)
+    initFieldsCollisionThreedProcessor(this)
+end
+
+function newCollisionThreedProcessor()
+    this = CollisionThreedProcessor()
+    initCollisionThreedProcessor(this)
+    this
+end
 
 
-class CollisionThreedProcessor(CollisionProcessor):
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    def isCollision(self, myLayer: AllBinaryLayer, myLayer2: AllBinaryLayer) -> bool:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        if myLayer2.getXP() >= myLayer.getX2() or myLayer2.getYP() >= myLayer.getY2() or myLayer2.getX2() <= myLayer.getXP() or myLayer2.getY2() <= myLayer.getYP() or myLayer2.getZP() < myLayer.getZ2() or myLayer2.getZ2() > myLayer.getZP():
-            return False
-        else:
-            return True
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-
+function isCollision(this::CollisionThreedProcessor, myLayer, myLayer2)
+        if AllBinary.getXP(myLayer2) >= AllBinary.getX2(myLayer) || AllBinary.getYP(myLayer2) >= AllBinary.getY2(myLayer) || AllBinary.getX2(myLayer2) <= AllBinary.getXP(myLayer) || AllBinary.getY2(myLayer2) <= AllBinary.getYP(myLayer) || AllBinary.getZP(myLayer2) < AllBinary.getZ2(myLayer) || AllBinary.getZ2(myLayer2) > AllBinary.getZP(myLayer)
+            return false
+        else
+            return true
+        end
+end
 

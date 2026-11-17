@@ -1,94 +1,81 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score.remote
 
-from __future__ import annotations
+# extends XmlRpcAbeClient: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct XmlRpcRemoteHighScoresClient <: JObject
+    logUtil::Any
+    page::Any
+    XmlRpcRemoteHighScoresClient() = new()
+end
 
-from org.allbinary.logic.communication.xmlrpc.XmlRpcAbeClient import XmlRpcAbeClient
 
-
-class XmlRpcRemoteHighScoresClient(XmlRpcAbeClient):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.page: str = None
+function initFieldsXmlRpcRemoteHighScoresClient(this::XmlRpcRemoteHighScoresClient)
+    this.logUtil = nothing
+    this.page = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    nothing
+end
 
-    def __init__(self, clientInfo: AbeClientInformationInterface, page: str, remoteMethod: str) -> None:
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        super().__init__(clientInfo, remoteMethod)
-        self._init_fields()
-        self.page = page
-        self.setServer(0)
-    
 
-    # throws Exception
-    def get(self, anyType: object, cryptInterface: CryptInterface) -> object:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        from org.allbinary.init.crypt.jcehelper.CryptInterface import CryptInterface
-        from org.allbinary.logic.java.exception.ExceptionUtil import ExceptionUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.util.ABHashtable import ABHashtable
-        from org.apache.xmlrpc.XmlRpcClient import XmlRpcClient
-        from org.apache.xmlrpc.XmlRpcException import XmlRpcException
-        try:
-            param: BasicArrayList = BasicArrayListD()
-            serverUrl: str = self.getClientInfo().getLicenseServer(self.getServer())
-            index: int = serverUrl.rfind('/')
-            serverUrl = serverUrl[0:index + 1] + self.page
-            stringBuffer: StringMaker = StringMaker()
-            stringBuffer.append(self.TRYING)
-            stringBuffer.appendint(int(self.getServer()))
-            stringBuffer.append(SEP)
-            stringBuffer.append(serverUrl)
-            self.logUtil.putF(str(stringBuffer), self, self.commonStrings.GET)
-            xmlRpcClient: XmlRpcClient = XmlRpcClient(serverUrl)
-            self.setClient(xmlRpcClient)
-            xmlRpcClient.setBasicAuthentication(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
-            hashtable: ABHashtable[object, object] = anyType
-            self.logUtil.putF(str(self.CLIENT_INFO) + str(hashtable), self, self.commonStrings.GET)
-            param.add(hashtable)
-            result: object = xmlRpcClient.executeWithCrypt(self.getRemoteMethod(), param, cryptInterface)
-            self.logUtil.putF(str(self.RESULT) + str(result), self, self.commonStrings.GET)
-            self.isOnline = True
+function initXmlRpcRemoteHighScoresClient(this::XmlRpcRemoteHighScoresClient, clientInfo, page, remoteMethod)
+        initXmlRpcAbeClient(this, clientInfo, remoteMethod)
+        initFieldsXmlRpcRemoteHighScoresClient(this)
+        this.page = page
+        AllBinary.setServer(this, Int32(0))
+        nothing
+end
+
+function newXmlRpcRemoteHighScoresClient(clientInfo, page, remoteMethod)
+    this = XmlRpcRemoteHighScoresClient()
+    initXmlRpcRemoteHighScoresClient(this, clientInfo, page, remoteMethod)
+    this
+end
+
+
+function get(this::XmlRpcRemoteHighScoresClient, anyType, cryptInterface)
+        try
+            local param = newBasicArrayListD()
+            local serverUrl = AllBinary.getLicenseServer(AllBinary.getClientInfo(this), AllBinary.getServer(this))
+            local index::Int32 = jLastIndexOf(serverUrl, UInt16('/'))
+            serverUrl = jstr(jSubstring(serverUrl, Int32(0), index + Int32(1))) * jstr(this.page)
+            local stringBuffer = newStringMaker()
+            AllBinary.append(stringBuffer, staticGet_TRYING(XmlRpcAbeClient))
+            AllBinary.appendint(stringBuffer, ((AllBinary.getServer(this)) % Int32))
+            AllBinary.append(stringBuffer, SEP)
+            AllBinary.append(stringBuffer, serverUrl)
+            AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, this.commonStrings.GET)
+            local xmlRpcClient = newXmlRpcClient(serverUrl)
+            AllBinary.setClient(this, xmlRpcClient)
+            AllBinary.setBasicAuthentication(xmlRpcClient, AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(StringUtil).EMPTY_STRING)
+            local hashtable = (anyType)
+            AllBinary.putF(this.logUtil, jstr(staticGet_CLIENT_INFO(XmlRpcAbeClient)) * jstr(AllBinary.toString(hashtable)), this, this.commonStrings.GET)
+            AllBinary.add(param, hashtable)
+            local result = AllBinary.executeWithCrypt(xmlRpcClient, AllBinary.getRemoteMethod(this), param, cryptInterface)
+            AllBinary.putF(this.logUtil, jstr(staticGet_RESULT(XmlRpcAbeClient)) * jstr(AllBinary.toString(result)), this, this.commonStrings.GET)
+            this.isOnline = true
             return result
-        except OSError as e:
-            self.logUtil.put(self.TRYING_OTHER_SERVERS + ExceptionUtil.getInstance().getStackTrace(e), self, self.commonStrings.GET, e)
-            if not str(e).startsWith(self.HOST_NOT_RESOLVED):
-                return self.tryAnother(anyType)
-            else:
-                raise Exception(self.HOST_NOT_RESOLVED_MSG)
-        except XmlRpcException as e:
-            self.logUtil.put(self.SERVER_REPORTED_ERROR, self, self.commonStrings.GET, e)
-            return self.tryAnother(anyType)
-        except Exception as e:
-            self.logUtil.put(self.UNKNOWN_ERROR, self, self.commonStrings.GET, e)
-            return self.tryAnother(anyType)
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from java.io.IOException import IOException
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.init.crypt.jcehelper.CryptInterface import CryptInterface
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.java.exception.ExceptionUtil import ExceptionUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.apache.xmlrpc.XmlRpcClient import XmlRpcClient
-# from org.apache.xmlrpc.XmlRpcException import XmlRpcException
-
+        catch e
+            AllBinary.put(this.logUtil, staticGet_TRYING_OTHER_SERVERS(XmlRpcAbeClient) + AllBinary.getStackTrace(AllBinary.getInstance(ExceptionUtil), e), this, this.commonStrings.GET, e)
+            if !AllBinary.startsWith(AllBinary.getMessage(e), staticGet_HOST_NOT_RESOLVED(XmlRpcAbeClient))
+                return AllBinary.tryAnother(this, anyType)
+            else
+                throw(jNewException("Exception", staticGet_HOST_NOT_RESOLVED_MSG(XmlRpcAbeClient)))
+            end
+        end
+end
 

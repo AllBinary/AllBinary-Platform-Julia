@@ -1,80 +1,120 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TouchButtonsMappingPaintable <: JObject
+    logUtil::Any
+    foregroundColor::Int32
+    paintableTable::Any
+    touchButtonLocationHelper::Any
+    TouchButtonsMappingPaintable() = new()
+end
 
-from org.allbinary.graphics.paint.Paintable import Paintable
 
-
-class TouchButtonsMappingPaintable(Paintable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.foregroundColor: int = None
-        self.paintableTable: list[list[Paintable]] = [[None] * (0) for _ in range(0)]
-        self.touchButtonLocationHelper: TouchButtonLocationHelper = TouchButtonLocationHelper()
+function initFieldsTouchButtonsMappingPaintable(this::TouchButtonsMappingPaintable)
+    this.logUtil = nothing
+    this.foregroundColor = Int32(0)
+    this.paintableTable = nothing
+    this.touchButtonLocationHelper = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    this.paintableTable = jNewArrayOf(Vector{Any}, Int32(0), () -> jNewArray(Any, Int32(0), nothing))
+    this.touchButtonLocationHelper = newTouchButtonLocationHelper()
+    nothing
+end
 
-    def __init__(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.foregroundColor = int(basicColor)
-        self.init()
-    
 
-    def init(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.paintableTable = self.createPaintableTable()
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "updateRectangle", e)
-    
+function initTouchButtonsMappingPaintable(this::TouchButtonsMappingPaintable, basicColor)
+        initPaintable(this)
+        initFieldsTouchButtonsMappingPaintable(this)
+        this.foregroundColor = AllBinary.intValue(basicColor)
+        AllBinary.init(this)
+        nothing
+end
 
-    # throws Exception
-    def createPaintableTable(self) -> list[list[Paintable]]:
-        from org.allbinary.input.motion.button.CommonButtons import CommonButtons
-        from org.allbinary.input.motion.button.TouchButton import TouchButton
-        from org.allbinary.input.motion.button.BasicTouchInputFactory import BasicTouchInputFactory
-        from org.allbinary.input.motion.button.TouchButtonBlankResource import TouchButtonBlankResource
-        from org.allbinary.graphics.CellPositionFactory import CellPositionFactory
-        totalColumns: int = self.touchButtonLocationHelper.getTotalColumns()
-        totalRows: int = self.touchButtonLocationHelper.getTotalRows()
-        paintableTable: list[list[Paintable]] = [[None] * (totalRows) for _ in range(totalColumns)]
-        cellPositionFactory: CellPositionFactory = CellPositionFactory.getInstance()
-        commonButtons: CommonButtons = CommonButtons.getInstance()
-        for index in range(totalColumns - 1, 0 - 1, -1):
-            for rowIndex in range(totalRows - 1, 0 - 1, -1):
-                self.paintableTable[index][rowIndex] = TouchButton.createButton(BasicTouchInputFactory.getInstance().NONE, TouchButtonBlankResource.getInstance(), commonButtons.NORMAL_BUTTON, cellPositionFactory.getInstanceColRow(index, rowIndex), self.touchButtonLocationHelper.getColumnsRemainderHalf(), self.touchButtonLocationHelper.getRowsRemainderHalf())
+function newTouchButtonsMappingPaintable(basicColor)
+    this = TouchButtonsMappingPaintable()
+    initTouchButtonsMappingPaintable(this, basicColor)
+    this
+end
+
+
+function init(this::TouchButtonsMappingPaintable)
+        try
+            this.paintableTable = AllBinary.createPaintableTable(this)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, "updateRectangle", e)
+        end
+        nothing
+end
+
+
+function createPaintableTable(this::TouchButtonsMappingPaintable)
+        local totalColumns::Int32 = AllBinary.getTotalColumns(this.touchButtonLocationHelper)
+        local totalRows::Int32 = AllBinary.getTotalRows(this.touchButtonLocationHelper)
+        local paintableTable = jNewArrayOf(Vector{Any}, totalColumns, () -> jNewArray(Any, totalRows, nothing))
+        local cellPositionFactory = AllBinary.getInstance(CellPositionFactory)
+        local commonButtons = AllBinary.getInstance(CommonButtons)
+        let
+            local index::Int32 = totalColumns - Int32(1)
+            while index >= Int32(0)
+            try
+            let
+                local rowIndex::Int32 = totalRows - Int32(1)
+                while rowIndex >= Int32(0)
+                try
+                this.paintableTable[index + 1][rowIndex + 1] = AllBinary.createButton(TouchButton, AllBinary.getInstance(BasicTouchInputFactory).NONE, AllBinary.getInstance(TouchButtonBlankResource), commonButtons.NORMAL_BUTTON, AllBinary.getInstanceColRow(cellPositionFactory, index, rowIndex), AllBinary.getColumnsRemainderHalf(this.touchButtonLocationHelper), AllBinary.getRowsRemainderHalf(this.touchButtonLocationHelper))
+                finally
+                    rowIndex -= Int32(1)
+                end
+                end
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
         return paintableTable
-    
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        totalColumns: int = self.touchButtonLocationHelper.getTotalColumns()
-        totalRows: int = self.touchButtonLocationHelper.getTotalRows()
-        for index in range(totalColumns - 1, 0 - 1, -1):
-            for rowIndex in range(totalRows - 1, 0 - 1, -1):
-                self.paintableTable[index][rowIndex].paint(graphics)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.CellPositionFactory import CellPositionFactory
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-from org.allbinary.input.motion.button.TouchButtonLocationHelper import TouchButtonLocationHelper
 
+function paint(this::TouchButtonsMappingPaintable, graphics)
+        local totalColumns::Int32 = AllBinary.getTotalColumns(this.touchButtonLocationHelper)
+        local totalRows::Int32 = AllBinary.getTotalRows(this.touchButtonLocationHelper)
+        let
+            local index::Int32 = totalColumns - Int32(1)
+            while index >= Int32(0)
+            try
+            let
+                local rowIndex::Int32 = totalRows - Int32(1)
+                while rowIndex >= Int32(0)
+                try
+                AllBinary.paint(this.paintableTable[index + 1][rowIndex + 1], graphics)
+                finally
+                    rowIndex -= Int32(1)
+                end
+                end
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

@@ -1,90 +1,104 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+mutable struct HighScore <: JObject
+    id::Int32
+    name::Any
+    gameInfo::Any
+    score::Int64
+    scoreString::Any
+    HighScore() = new()
+end
 
 
-
-class HighScore:
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        self.id: int = None
-        self.name: str = None
-        self.gameInfo: GameInfo = None
-        self.score: int = None
-        self.scoreString: str = None
+function initFieldsHighScore(this::HighScore)
+    this.id = Int32(0)
+    this.name = nothing
+    this.gameInfo = nothing
+    this.score = Int64(0)
+    this.scoreString = nothing
     
-
-    def __init__(self, id: int, name: str, gameInfo: GameInfo, score: int) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        self._init_fields()
-        self.id = id
-        self.name = name
-        self.gameInfo = gameInfo
-        self.score = score
-        self.scoreString = str(self.score)
     
-
-    def getId(self) -> int:
-        return self.id
     
-
-    def getName(self) -> str:
-        return self.name
     
-
-    def getScore(self) -> int:
-        return self.score
     
+    nothing
+end
 
-    # throws Exception
-    def getAsBytes(self) -> list[int]:
-        from java.io.DataOutputStream import DataOutputStream
-        byteArrayOutputStream: ByteArrayOutputStream = ByteArrayOutputStream()
-        outputStream: DataOutputStream = DataOutputStream(byteArrayOutputStream)
-        outputStream.writeUTF(self.getName())
-        outputStream.writeLong(self.getScore())
-        return byteArrayOutputStream.toByteArray()
-    
 
-    def getGameInfo(self) -> GameInfo:
-        from org.allbinary.game.GameInfo import GameInfo
-        return self.gameInfo
-    
+function initHighScore(this::HighScore, id, name, gameInfo, score)
+        initFieldsHighScore(this)
+        this.id = id
+        this.name = name
+        this.gameInfo = gameInfo
+        this.score = score
+        this.scoreString = jstr(this.score)
+        nothing
+end
 
-    def getScoreString(self) -> str:
-        return self.scoreString
-    
+function newHighScore(id, name, gameInfo, score)
+    this = HighScore()
+    initHighScore(this, id, name, gameInfo, score)
+    this
+end
 
-    def setName(self, name: str) -> None:
-        self.name = name
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        commonSeps: CommonSeps = CommonSeps.getInstance()
-        return str(StringMaker().append(self.name).append(commonSeps.COLON).appendlong(self.score).append(commonSeps.FORWARD_SLASH).append(self.scoreString))
+function getId(this::HighScore)
+        return this.id
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from java.io.ByteArrayOutputStream import ByteArrayOutputStream
-# from java.io.DataOutputStream import DataOutputStream
-# from org.allbinary.game.GameInfo import GameInfo
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
 
+function getName(this::HighScore)
+        return this.name
+end
+
+
+function getScore(this::HighScore)
+        return this.score
+end
+
+
+function getAsBytes(this::HighScore)
+        local byteArrayOutputStream = newByteArrayOutputStream()
+        local outputStream = newDataOutputStream(byteArrayOutputStream)
+        AllBinary.writeUTF(outputStream, AllBinary.getName(this))
+        AllBinary.writeLong(outputStream, AllBinary.getScore(this))
+        return AllBinary.toByteArray(byteArrayOutputStream)
+end
+
+
+function getGameInfo(this::HighScore)
+        return this.gameInfo
+end
+
+
+function getScoreString(this::HighScore)
+        return this.scoreString
+end
+
+
+function setName(this::HighScore, name)
+        this.name = name
+        nothing
+end
+
+
+function toString(this::HighScore)
+        local commonSeps = AllBinary.getInstance(CommonSeps)
+        return AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.appendlong(AllBinary.append(AllBinary.append(newStringMaker(), this.name), commonSeps.COLON), this.score), commonSeps.FORWARD_SLASH), this.scoreString))
+end
 

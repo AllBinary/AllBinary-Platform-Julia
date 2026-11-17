@@ -1,36 +1,55 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+mutable struct NullCloseable <: JObject
+    NullCloseable() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from java.io.Closeable import Closeable
+const NullCloseable_NULL_CLOSEABLEValue = Ref{Any}(nothing)
+const NullCloseable_NULL_CLOSEABLESet = Ref(false)
+function staticGet_NULL_CLOSEABLE(::Type{NullCloseable})
+    if !NullCloseable_NULL_CLOSEABLESet[]
+        NullCloseable_NULL_CLOSEABLESet[] = true
+        NullCloseable_NULL_CLOSEABLEValue[] = newNullCloseable()
+    end
+    NullCloseable_NULL_CLOSEABLEValue[]
+end
+function staticSet_NULL_CLOSEABLE(::Type{NullCloseable}, value)
+    NullCloseable_NULL_CLOSEABLESet[] = true
+    NullCloseable_NULL_CLOSEABLEValue[] = value
+end
+
+function initFieldsNullCloseable(this::NullCloseable)
+    nothing
+end
+
+function initNullCloseable(this::NullCloseable)
+    initFieldsNullCloseable(this)
+end
+
+function newNullCloseable()
+    this = NullCloseable()
+    initNullCloseable(this)
+    this
+end
 
 
-class NullCloseable(Closeable):
-    NULL_CLOSEABLE: NullCloseable = None
-    
-
-    # throws IOException
-    def close(self) -> None:
-        pass
-# from java.io.IOException import IOException
-
-
-def _NullCloseable_NULL_CLOSEABLE() -> object:
-    return NullCloseable()
-
-lazy_static(NullCloseable, "NULL_CLOSEABLE", _NullCloseable_NULL_CLOSEABLE)
+function close(this::NullCloseable)
+        nothing
+        nothing
+end
 

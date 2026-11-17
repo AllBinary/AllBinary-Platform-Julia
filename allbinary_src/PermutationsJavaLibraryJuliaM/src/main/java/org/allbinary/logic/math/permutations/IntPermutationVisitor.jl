@@ -1,50 +1,66 @@
 # Generated Code Do Not Modify
 # package org.allbinary.logic.math.permutations
 
-from __future__ import annotations
+# extends Visitor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct IntPermutationVisitor <: JObject
+    data::Any
+    stringBuilder::Any
+    IntPermutationVisitor() = new()
+end
 
-from org.allbinary.logic.util.visitor.Visitor import Visitor
 
-
-class IntPermutationVisitor(Visitor):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.data: list[int] = None
-        self.stringBuilder: StringMaker = StringMaker()
+function initFieldsIntPermutationVisitor(this::IntPermutationVisitor)
+    this.data = nothing
+    this.stringBuilder = nothing
     
+    this.stringBuilder = newStringMaker()
+    nothing
+end
 
-    def __init__(self, data: list[int]) -> None:
-        super().__init__()
-        self._init_fields()
-        self.data = data
-    
 
-    def visit(self, anyType: object) -> object:
-        from org.allbinary.logic.NullUtil import NullUtil
-        self.stringBuilder.delete(0, self.stringBuilder.length())
-        self.print_(self.data, self.stringBuilder)
-        return NullUtil.getInstance().NULL_OBJECT
-    
+function initIntPermutationVisitor(this::IntPermutationVisitor, data)
+        initVisitor(this)
+        initFieldsIntPermutationVisitor(this)
+        this.data = data
+        nothing
+end
 
-    def print_(self, data: list[int]) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuilder: StringMaker = StringMaker()
-        self.print_(data, stringBuilder)
-    
+function newIntPermutationVisitor(data)
+    this = IntPermutationVisitor()
+    initIntPermutationVisitor(this, data)
+    this
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def print_(self, data: list[int], stringBuilder: StringMaker) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        commonSeps: CommonSeps = CommonSeps.getInstance()
-        size: int = len(data)
-        for i in range(0, size):
-            stringBuilder.appendint(data[i])
-            stringBuilder.append(commonSeps.SPACE)
-        print(str(stringBuilder))
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
 
+function visit(this::IntPermutationVisitor, anyType)
+        AllBinary.delete(this.stringBuilder, Int32(0), AllBinary.length(this.stringBuilder))
+        AllBinary.print(this, this.data, this.stringBuilder)
+        return AllBinary.getInstance(NullUtil).NULL_OBJECT
+end
+
+
+function print(this::IntPermutationVisitor, data)
+        local stringBuilder = newStringMaker()
+        AllBinary.print(this, data, stringBuilder)
+        nothing
+end
+
+
+function print(this::IntPermutationVisitor, data, stringBuilder)
+        local commonSeps = AllBinary.getInstance(CommonSeps)
+        local size::Int32 = Int32(Base.length(data))
+        let
+            local i::Int32 = Int32(0)
+            while i < size
+            try
+            AllBinary.appendint(stringBuilder, data[i + 1])
+            AllBinary.append(stringBuilder, commonSeps.SPACE)
+            finally
+                i += Int32(1)
+            end
+            end
+        end
+        Base.println(jstr(AllBinary.toString(stringBuilder)))
+        nothing
+end
 

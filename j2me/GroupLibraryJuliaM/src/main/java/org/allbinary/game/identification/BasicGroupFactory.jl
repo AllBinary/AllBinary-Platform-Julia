@@ -1,55 +1,87 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.identification
 
-from __future__ import annotations
+mutable struct BasicGroupFactory <: JObject
+    NAME::Any
+    NO_SUCH_GROUP::Any
+    GOOD::Any
+    ENEMY::Any
+    ENEMY_ON_LEVEL::Any
+    NONE::Any
+    GOOD_ARRAY::Any
+    ENEMY_ARRAY::Any
+    ENEMY_ON_LEVEL_ARRAY::Any
+    NONE_ARRAY::Any
+    BasicGroupFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const BasicGroupFactory_instanceValue = Ref{Any}(nothing)
+const BasicGroupFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{BasicGroupFactory})
+    if !BasicGroupFactory_instanceSet[]
+        BasicGroupFactory_instanceSet[] = true
+        BasicGroupFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    BasicGroupFactory_instanceValue[]
+end
+function staticSet_instance(::Type{BasicGroupFactory}, value)
+    BasicGroupFactory_instanceSet[] = true
+    BasicGroupFactory_instanceValue[] = value
+end
+
+function initFieldsBasicGroupFactory(this::BasicGroupFactory)
+    this.NAME = nothing
+    this.NO_SUCH_GROUP = nothing
+    this.GOOD = nothing
+    this.ENEMY = nothing
+    this.ENEMY_ON_LEVEL = nothing
+    this.NONE = nothing
+    this.GOOD_ARRAY = nothing
+    this.ENEMY_ARRAY = nothing
+    this.ENEMY_ON_LEVEL_ARRAY = nothing
+    this.NONE_ARRAY = nothing
+    this.NAME = "GROUP_NAME"
+    this.NO_SUCH_GROUP = "No Such Group: "
+    this.GOOD = newGroup("Good Guys", ((Int32(0)) % Int16))
+    this.ENEMY = newGroup("Bad Guys", ((Int32(1)) % Int16))
+    this.ENEMY_ON_LEVEL = newGroup("Bad Guys on Level", ((Int32(2)) % Int16))
+    this.NONE = newGroup("Not On A Team", ((Int32(3)) % Int16))
+    this.GOOD_ARRAY = Any[this.GOOD]
+    this.ENEMY_ARRAY = Any[this.ENEMY]
+    this.ENEMY_ON_LEVEL_ARRAY = Any[this.ENEMY, this.ENEMY_ON_LEVEL]
+    this.NONE_ARRAY = Any[this.NONE]
+    nothing
+end
+
+function initBasicGroupFactory(this::BasicGroupFactory)
+    initFieldsBasicGroupFactory(this)
+end
+
+function newBasicGroupFactory()
+    this = BasicGroupFactory()
+    initBasicGroupFactory(this)
+    this
+end
 
 
-class BasicGroupFactory:
-    instance: object = None
-
-    def _init_fields(self) -> None:
-        self.NAME: str = "GROUP_NAME"
-        self.NO_SUCH_GROUP: str = "No Such Group: "
-        self.GOOD: Group = Group("Good Guys", ((int(0) + 32768) % 65536 - 32768))
-        self.ENEMY: Group = Group("Bad Guys", ((int(1) + 32768) % 65536 - 32768))
-        self.ENEMY_ON_LEVEL: Group = Group("Bad Guys on Level", ((int(2) + 32768) % 65536 - 32768))
-        self.NONE: Group = Group("Not On A Team", ((int(3) + 32768) % 65536 - 32768))
-        self.GOOD_ARRAY: list[Group] = [self.GOOD]
-        self.ENEMY_ARRAY: list[Group] = [self.ENEMY]
-        self.ENEMY_ON_LEVEL_ARRAY: list[Group] = [self.ENEMY, self.ENEMY_ON_LEVEL]
-        self.NONE_ARRAY: list[Group] = [self.NONE]
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> BasicGroupFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if BasicGroupFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            BasicGroupFactory.instance = BasicGroupFactory()
-        return BasicGroupFactory.instance
-# from org.allbinary.logic.NullUtil import NullUtil
-from org.allbinary.game.identification.Group import Group
-
-
-def _BasicGroupFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
-
-lazy_static(BasicGroupFactory, "instance", _BasicGroupFactory_instance)
+function getInstance(::Type{BasicGroupFactory})
+        if staticGet_instance(BasicGroupFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(BasicGroupFactory, newBasicGroupFactory())
+        end
+        return (staticGet_instance(BasicGroupFactory))
+end
 

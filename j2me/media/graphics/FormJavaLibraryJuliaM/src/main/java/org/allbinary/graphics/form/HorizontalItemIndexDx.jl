@@ -1,39 +1,49 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends ItemIndexDx: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HorizontalItemIndexDx <: JObject
+    scrollCurrentSelectionForm::Any
+    HorizontalItemIndexDx() = new()
+end
 
-from org.allbinary.graphics.form.ItemIndexDx import ItemIndexDx
 
-
-class HorizontalItemIndexDx(ItemIndexDx):
-
-    def _init_fields(self) -> None:
-        self.scrollCurrentSelectionForm: ScrollCurrentSelectionForm = None
+function initFieldsHorizontalItemIndexDx(this::HorizontalItemIndexDx)
+    this.scrollCurrentSelectionForm = nothing
     
+    nothing
+end
 
-    def __init__(self, scrollCurrentSelectionForm: ScrollCurrentSelectionForm) -> None:
-        super().__init__()
-        self._init_fields()
-        self.scrollCurrentSelectionForm = scrollCurrentSelectionForm
-    
 
-    # throws Exception
-    def getDx(self, index: int, item: ABCustomItem, dx: int, dy: int) -> int:
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return self.scrollCurrentSelectionForm.getXHorizontalForm(index, item, dx, dy)
-# from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
+function initHorizontalItemIndexDx(this::HorizontalItemIndexDx, scrollCurrentSelectionForm)
+        initItemIndexDx(this)
+        initFieldsHorizontalItemIndexDx(this)
+        this.scrollCurrentSelectionForm = scrollCurrentSelectionForm
+        nothing
+end
 
+function newHorizontalItemIndexDx(scrollCurrentSelectionForm)
+    this = HorizontalItemIndexDx()
+    initHorizontalItemIndexDx(this, scrollCurrentSelectionForm)
+    this
+end
+
+
+function getDx(this::HorizontalItemIndexDx, index, item, dx, dy)
+        return AllBinary.getXHorizontalForm(this.scrollCurrentSelectionForm, index, item, dx, dy)
+end
 

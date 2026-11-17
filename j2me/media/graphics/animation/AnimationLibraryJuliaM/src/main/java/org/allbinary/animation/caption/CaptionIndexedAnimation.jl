@@ -1,124 +1,149 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.caption
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CaptionIndexedAnimation <: JObject
+    animationInterface::Any
+    movieIndexedAnimationInterface::Any
+    captionDx::Int32
+    captionDy::Int32
+    dx::Int32
+    dy::Int32
+    time::Int32
+    END_EVENT::Any
+    timeDelayHelper::Any
+    player::Any
+    CaptionIndexedAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
 
-
-class CaptionIndexedAnimation(IndexedAnimation):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.media.Player import Player
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.animationInterface: Animation = None
-        self.movieIndexedAnimationInterface: IndexedAnimation = None
-        self.captionDx: int = None
-        self.captionDy: int = None
-        self.dx: int = None
-        self.dy: int = None
-        self.time: int = None
-        self.END_EVENT: AllBinaryEventObject = None
-        self.timeDelayHelper: TimeDelayHelper = None
-        self.player: Player = None
+function initFieldsCaptionIndexedAnimation(this::CaptionIndexedAnimation)
+    this.animationInterface = nothing
+    this.movieIndexedAnimationInterface = nothing
+    this.captionDx = Int32(0)
+    this.captionDy = Int32(0)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.time = Int32(0)
+    this.END_EVENT = nothing
+    this.timeDelayHelper = nothing
+    this.player = nothing
     
-
-    def __init__(self, animationInterface: Animation, movieIndexedAnimationInterface: IndexedAnimation, player: Player, captionDx: int, captionDy: int, dx: int, dy: int, time: int, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.media.Player import Player
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.animationInterface = animationInterface
-        self.movieIndexedAnimationInterface = movieIndexedAnimationInterface
-        self.captionDx = captionDx
-        self.captionDy = captionDy
-        self.dx = dx
-        self.dy = dy
-        self.time = time
-        self.END_EVENT = AllBinaryEventObject(self)
-        timePerFrame: int = int(self.time / self.getSize())
-        self.timeDelayHelper = TimeDelayHelper(timePerFrame)
-        self.player = player
-        self.player.start()
     
-
-    # throws Exception
-    def nextFrame(self) -> None:
-        from org.allbinary.animation.AnimationEventHandler import AnimationEventHandler
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        if self.timeDelayHelper.isTime(GameTickTimeDelayHelperFactory.getInstance().startTime):
-            self.movieIndexedAnimationInterface.nextFrame()
-        if self.isLastFrame():
-            AnimationEventHandler.getInstance().fireEvent(self.END_EVENT)
     
-
-    def isLastFrame(self) -> bool:
-        if self.movieIndexedAnimationInterface.getFrame() == self.getSize() - 1:
-            return True
-        else:
-            return False
     
-
-    def previousFrame(self) -> None:
-        self.movieIndexedAnimationInterface.previousFrame()
     
-
-    def setFrame(self, index: int) -> None:
-        self.movieIndexedAnimationInterface.setFrame(index)
     
-
-    def getFrame(self) -> int:
-        return self.movieIndexedAnimationInterface.getFrame()
     
-
-    def getSize(self) -> int:
-        return self.movieIndexedAnimationInterface.getSize()
     
-
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
     
-
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
     
+    nothing
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animationInterface.paintXY(graphics, x + self.captionDx, y + self.captionDy)
-        self.movieIndexedAnimationInterface.paintXY(graphics, x + self.captionDx + self.dx, y + self.captionDy + self.dy)
-    
 
-    def paintThreedXYZ(self, graphics: Graphics, x: int, y: int, z: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animationInterface.paintThreedXYZ(graphics, x + self.captionDx, y + self.captionDy, z)
-        self.movieIndexedAnimationInterface.paintThreedXYZ(graphics, x + self.captionDx + self.dx, y + self.captionDy + self.dy, z)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.media.Player import Player
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.animation.AnimationEventHandler import AnimationEventHandler
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
+function initCaptionIndexedAnimation(this::CaptionIndexedAnimation, animationInterface, movieIndexedAnimationInterface, player, captionDx, captionDy, dx, dy, time, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        initFieldsCaptionIndexedAnimation(this)
+        this.animationInterface = animationInterface
+        this.movieIndexedAnimationInterface = movieIndexedAnimationInterface
+        this.captionDx = captionDx
+        this.captionDy = captionDy
+        this.dx = dx
+        this.dy = dy
+        this.time = time
+        this.END_EVENT = newAllBinaryEventObject(this)
+        local timePerFrame::Int32 = this.time ÷ AllBinary.getSize(this)
+        this.timeDelayHelper = newTimeDelayHelper(timePerFrame)
+        this.player = player
+        AllBinary.start(this.player)
+        nothing
+end
 
+function newCaptionIndexedAnimation(animationInterface, movieIndexedAnimationInterface, player, captionDx, captionDy, dx, dy, time, animationBehavior)
+    this = CaptionIndexedAnimation()
+    initCaptionIndexedAnimation(this, animationInterface, movieIndexedAnimationInterface, player, captionDx, captionDy, dx, dy, time, animationBehavior)
+    this
+end
+
+
+function nextFrame(this::CaptionIndexedAnimation)
+        if AllBinary.isTime(this.timeDelayHelper, AllBinary.getInstance(GameTickTimeDelayHelperFactory).startTime)
+            AllBinary.nextFrame(this.movieIndexedAnimationInterface)
+        end
+        if AllBinary.isLastFrame(this)
+            AllBinary.fireEvent(AllBinary.getInstance(AnimationEventHandler), this.END_EVENT)
+        end
+        nothing
+end
+
+
+function isLastFrame(this::CaptionIndexedAnimation)
+        if AllBinary.getFrame(this.movieIndexedAnimationInterface) == AllBinary.getSize(this) - Int32(1)
+            return true
+        else
+            return false
+        end
+end
+
+
+function previousFrame(this::CaptionIndexedAnimation)
+        AllBinary.previousFrame(this.movieIndexedAnimationInterface)
+        nothing
+end
+
+
+function setFrame(this::CaptionIndexedAnimation, index)
+        AllBinary.setFrame(this.movieIndexedAnimationInterface, index)
+        nothing
+end
+
+
+function getFrame(this::CaptionIndexedAnimation)
+        return AllBinary.getFrame(this.movieIndexedAnimationInterface)
+end
+
+
+function getSize(this::CaptionIndexedAnimation)
+        return AllBinary.getSize(this.movieIndexedAnimationInterface)
+end
+
+
+function setSequence(this::CaptionIndexedAnimation, sequence)
+        nothing
+        nothing
+end
+
+
+function getSequence(this::CaptionIndexedAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
+
+
+function paintXY(this::CaptionIndexedAnimation, graphics, x, y)
+        AllBinary.paintXY(this.animationInterface, graphics, x + this.captionDx, y + this.captionDy)
+        AllBinary.paintXY(this.movieIndexedAnimationInterface, graphics, x + this.captionDx + this.dx, y + this.captionDy + this.dy)
+        nothing
+end
+
+
+function paintThreedXYZ(this::CaptionIndexedAnimation, graphics, x, y, z)
+        AllBinary.paintThreedXYZ(this.animationInterface, graphics, x + this.captionDx, y + this.captionDy, z)
+        AllBinary.paintThreedXYZ(this.movieIndexedAnimationInterface, graphics, x + this.captionDx + this.dx, y + this.captionDy + this.dy, z)
+        nothing
+end
 

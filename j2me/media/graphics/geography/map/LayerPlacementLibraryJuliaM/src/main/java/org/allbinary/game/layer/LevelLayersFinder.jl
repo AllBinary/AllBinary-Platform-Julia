@@ -1,70 +1,76 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer
 
-from __future__ import annotations
+mutable struct LevelLayersFinder <: JObject
+    enumerationUtil::Any
+    LevelLayersFinder() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const LevelLayersFinder_instanceValue = Ref{Any}(nothing)
+const LevelLayersFinder_instanceSet = Ref(false)
+function staticGet_instance(::Type{LevelLayersFinder})
+    if !LevelLayersFinder_instanceSet[]
+        LevelLayersFinder_instanceSet[] = true
+        LevelLayersFinder_instanceValue[] = newLevelLayersFinder()
+    end
+    LevelLayersFinder_instanceValue[]
+end
+function staticSet_instance(::Type{LevelLayersFinder}, value)
+    LevelLayersFinder_instanceSet[] = true
+    LevelLayersFinder_instanceValue[] = value
+end
 
+function initFieldsLevelLayersFinder(this::LevelLayersFinder)
+    this.enumerationUtil = nothing
+    this.enumerationUtil = AllBinary.getInstance(EnumerationUtil)
+    nothing
+end
 
-class LevelLayersFinder:
-    instance: LevelLayersFinder = None
+function initLevelLayersFinder(this::LevelLayersFinder)
+    initFieldsLevelLayersFinder(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.util.EnumerationUtil import EnumerationUtil
-        self.enumerationUtil: EnumerationUtil = EnumerationUtil.getInstance()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> LevelLayersFinder:
-        return LevelLayersFinder.instance
-    
-
-    def get(self, hashtable: ABHashtable[object, object]) -> BasicArrayList:
-        from java.util.Enumeration import Enumeration
-        from org.allbinary.layer.Layer import Layer
-        from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-        from org.allbinary.util.ABHashtable import ABHashtable
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        smallIntegerSingletonFactory: SmallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-        list_: BasicArrayList = BasicArrayListD()
-        enumeration: Enumeration = hashtable.keys()
-        layerHashtableCanBeNull: ABHashtable[object, object] = None
-        integerCanBeNull: int = None
-        cachedIntegerCanBeNull: int = None
-        while self.enumerationUtil.hasMoreElements(enumeration):
-            layerHashtableCanBeNull = hashtable.get(self.enumerationUtil.nextElement(enumeration))
-            integerCanBeNull = layerHashtableCanBeNull.get(Layer.ID)
-            cachedIntegerCanBeNull = smallIntegerSingletonFactory.getAt(int(integerCanBeNull))
-            if not list_.contains(cachedIntegerCanBeNull):
-                list_.add(cachedIntegerCanBeNull)
-        return list_
-# from java.util.Enumeration import Enumeration
-# from org.allbinary.layer.Layer import Layer
-# from org.allbinary.logic.math.SmallIntegerSingletonFactory import SmallIntegerSingletonFactory
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.util.EnumerationUtil import EnumerationUtil
+function newLevelLayersFinder()
+    this = LevelLayersFinder()
+    initLevelLayersFinder(this)
+    this
+end
 
 
-def _LevelLayersFinder_instance() -> object:
-    return LevelLayersFinder()
+function getInstance(::Type{LevelLayersFinder})
+        return staticGet_instance(LevelLayersFinder)
+end
 
-lazy_static(LevelLayersFinder, "instance", _LevelLayersFinder_instance)
+
+function get(this::LevelLayersFinder, hashtable)
+        local smallIntegerSingletonFactory = AllBinary.getInstance(SmallIntegerSingletonFactory)
+        local list = newBasicArrayListD()
+        local enumeration = AllBinary.keys(hashtable)
+        local layerHashtableCanBeNull = nothing
+        local integerCanBeNull = nothing
+        local cachedIntegerCanBeNull = nothing
+        while AllBinary.hasMoreElements(this.enumerationUtil, enumeration)
+            layerHashtableCanBeNull = (AllBinary.get(hashtable, (AllBinary.nextElement(this.enumerationUtil, enumeration))))
+            integerCanBeNull = (AllBinary.get(layerHashtableCanBeNull, (staticGet_ID(Layer))))
+            cachedIntegerCanBeNull = AllBinary.getAt(smallIntegerSingletonFactory, AllBinary.intValue(integerCanBeNull))
+            if !AllBinary.contains(list, cachedIntegerCanBeNull)
+                AllBinary.add(list, cachedIntegerCanBeNull)
+            end
+        end
+        return list
+end
 

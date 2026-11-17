@@ -1,46 +1,63 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.canvas
 
-from __future__ import annotations
+mutable struct GameGlobalsFactory <: JObject
+    newCanvas::Bool
+    newDisplaybleTime::Int64
+    point::Any
+    GameGlobalsFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameGlobalsFactory_instanceValue = Ref{Any}(nothing)
+const GameGlobalsFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameGlobalsFactory})
+    if !GameGlobalsFactory_instanceSet[]
+        GameGlobalsFactory_instanceSet[] = true
+        GameGlobalsFactory_instanceValue[] = newGameGlobalsFactory()
+    end
+    GameGlobalsFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GameGlobalsFactory}, value)
+    GameGlobalsFactory_instanceSet[] = true
+    GameGlobalsFactory_instanceValue[] = value
+end
+
+function initFieldsGameGlobalsFactory(this::GameGlobalsFactory)
+    this.newCanvas = false
+    this.newDisplaybleTime = Int64(0)
+    this.point = nothing
+    this.newCanvas = true
+    this.newDisplaybleTime = ((staticGet_MIN_VALUE(Integer)) % Int64)
+    this.point = AllBinary.getInstance(PointFactory).ZERO_ZERO
+    nothing
+end
+
+function initGameGlobalsFactory(this::GameGlobalsFactory)
+    initFieldsGameGlobalsFactory(this)
+end
+
+function newGameGlobalsFactory()
+    this = GameGlobalsFactory()
+    initGameGlobalsFactory(this)
+    this
+end
 
 
-class GameGlobalsFactory:
-    instance: GameGlobalsFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.GPoint import GPoint
-        from org.allbinary.graphics.PointFactory import PointFactory
-        self.newCanvas: bool = True
-        self.newDisplaybleTime: int = int(-2147483648)
-        self.point: GPoint = PointFactory.getInstance().ZERO_ZERO
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GameGlobalsFactory:
-        return GameGlobalsFactory.instance
-# from org.allbinary.graphics.GPoint import GPoint
-# from org.allbinary.graphics.PointFactory import PointFactory
-
-
-def _GameGlobalsFactory_instance() -> object:
-    return GameGlobalsFactory()
-
-lazy_static(GameGlobalsFactory, "instance", _GameGlobalsFactory_instance)
+function getInstance(::Type{GameGlobalsFactory})
+        return staticGet_instance(GameGlobalsFactory)
+end
 

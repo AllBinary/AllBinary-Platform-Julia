@@ -1,172 +1,178 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2011 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2011 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.resource
 
-from __future__ import annotations
+mutable struct BaseResourceAnimationInterfaceFactoryInterfaceFactory <: JObject
+    logUtil::Any
+    commonStrings::Any
+    hashtable::Any
+    rectangleHashtable::Any
+    rectangleArrayOfArraysHashtable::Any
+    name::Any
+    initialized::Bool
+    BaseResourceAnimationInterfaceFactoryInterfaceFactory() = new()
+end
 
-from org.allbinary.animation.resource.FeatureResourceAnimationInterfaceFactoryInterface import FeatureResourceAnimationInterfaceFactoryInterface
 
-
-class BaseResourceAnimationInterfaceFactoryInterfaceFactory(FeatureResourceAnimationInterfaceFactoryInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.ABHashtable import ABHashtable
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.hashtable: ABHashtable[object, object] = None
-        self.rectangleHashtable: ABHashtable[object, object] = None
-        self.rectangleArrayOfArraysHashtable: ABHashtable[object, object] = None
-        self.name: str = None
-        self.initialized: bool = False
+function initFieldsBaseResourceAnimationInterfaceFactoryInterfaceFactory(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.hashtable = nothing
+    this.rectangleHashtable = nothing
+    this.rectangleArrayOfArraysHashtable = nothing
+    this.name = nothing
+    this.initialized = false
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
-
-    def __init__(self, name: str, hashtable: ABHashtable[object, object], rectangleHashtable: ABHashtable[object, object], rectangleArrayHashtable: ABHashtable[object, object]) -> None:
-        from org.allbinary.util.ABHashtable import ABHashtable
-        self._init_fields()
-        self.hashtable = hashtable
-        self.rectangleHashtable = rectangleHashtable
-        self.rectangleArrayOfArraysHashtable = rectangleArrayHashtable
-        self.name = name
     
-
-    def getName(self) -> str:
-        return self.name
     
-
-    # throws Exception
-    def init(self, level: int) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonStrings import CommonStrings
-        commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.logUtil.putF(str(StringMaker().append("Available List of Animations: ").append(str(self.hashtable))), self, commonStrings.INIT)
-        self.setInitialized(True)
     
+    this.initialized = false
+    nothing
+end
 
-    # throws Exception
-    def initImageCache(self, imageCache: ImageCache, level: int) -> None:
-        from org.allbinary.image.ImageCache import ImageCache
-        pass
-    
 
-    # throws Exception
-    def add(self, resource: str, animationInterfaceFactoryInterface: BasicAnimationInterfaceFactoryInterface) -> None:
-        from org.allbinary.animation.BasicAnimationInterfaceFactoryInterface import BasicAnimationInterfaceFactoryInterface
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        if self.hashtable.containsKey(resource):
-            raise Exception(str(StringMaker().append("Resource Already Created: ").append(resource)))
-        self.hashtable.put(resource, animationInterfaceFactoryInterface)
-    
+function initBaseResourceAnimationInterfaceFactoryInterfaceFactory(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, name, hashtable, rectangleHashtable, rectangleArrayHashtable)
+        initFieldsBaseResourceAnimationInterfaceFactoryInterfaceFactory(this)
+        this.hashtable = hashtable
+        this.rectangleHashtable = rectangleHashtable
+        this.rectangleArrayOfArraysHashtable = rectangleArrayHashtable
+        this.name = name
+        nothing
+end
 
-    # throws Exception
-    def getBasicAnimationInterfaceFactoryInstance(self, resource: str) -> BasicAnimationInterfaceFactoryInterface:
-        from org.allbinary.animation.BasicAnimationInterfaceFactoryInterface import BasicAnimationInterfaceFactoryInterface
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        basicAnimationInterfaceFactoryInterfaceCanBeNull: object = self.hashtable.get(resource)
-        if basicAnimationInterfaceFactoryInterfaceCanBeNull is None:
-            return NullAnimationFactory.NULL_NOT_FOR_USE_ANIMATION_FACTORY
-        return basicAnimationInterfaceFactoryInterfaceCanBeNull
-    
+function newBaseResourceAnimationInterfaceFactoryInterfaceFactory(name, hashtable, rectangleHashtable, rectangleArrayHashtable)
+    this = BaseResourceAnimationInterfaceFactoryInterfaceFactory()
+    initBaseResourceAnimationInterfaceFactoryInterfaceFactory(this, name, hashtable, rectangleHashtable, rectangleArrayHashtable)
+    this
+end
 
-    # throws Exception
-    def getRectangle(self, resource: str) -> Rectangle:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.graphics.RectangleFactory import RectangleFactory
-        rectangleCanBeNull: object = self.rectangleHashtable.get(resource)
-        if rectangleCanBeNull is None:
-            return RectangleFactory.SINGLETON
-        return rectangleCanBeNull
-    
 
-    # throws Exception
-    def addRectangle(self, resource: str, rectangle: Rectangle) -> None:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        self.rectangleHashtable.put(resource, rectangle)
-    
+function getName(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory)
+        return this.name
+end
 
-    # throws Exception
-    def getRectangleArrayOfArrays(self, resource: str) -> list[list[Rectangle]]:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.graphics.RectangleFactory import RectangleFactory
-        valueCanBeNull: object = self.rectangleArrayOfArraysHashtable.get(resource)
-        if valueCanBeNull is not None:
-            rectangleArrayOfArrays: list[list[Rectangle]] = valueCanBeNull
+
+function init(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, level)
+        local commonStrings = AllBinary.getInstance(CommonStrings)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Available List of Animations: "), AllBinary.toString(this.hashtable))), this, commonStrings.INIT)
+        AllBinary.setInitialized(this, true)
+        nothing
+end
+
+
+function initImageCache(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, imageCache, level)
+        nothing
+        nothing
+end
+
+
+function add(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, resource, animationInterfaceFactoryInterface)
+        if AllBinary.containsKey(this.hashtable, (resource))
+            throw(jNewException("Exception", AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Resource Already Created: "), resource))))
+        end
+        AllBinary.put(this.hashtable, resource, animationInterfaceFactoryInterface)
+        nothing
+end
+
+
+function getBasicAnimationInterfaceFactoryInstance(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, resource)
+        local basicAnimationInterfaceFactoryInterfaceCanBeNull = AllBinary.get(this.hashtable, resource)
+        if basicAnimationInterfaceFactoryInterfaceCanBeNull === nothing
+            return staticGet_NULL_NOT_FOR_USE_ANIMATION_FACTORY(NullAnimationFactory)
+        end
+        return (basicAnimationInterfaceFactoryInterfaceCanBeNull)
+end
+
+
+function getRectangle(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, resource)
+        local rectangleCanBeNull = AllBinary.get(this.rectangleHashtable, resource)
+        if rectangleCanBeNull === nothing
+            return staticGet_SINGLETON(RectangleFactory)
+        end
+        return (rectangleCanBeNull)
+end
+
+
+function addRectangle(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, resource, rectangle)
+        AllBinary.put(this.rectangleHashtable, resource, rectangle)
+        nothing
+end
+
+
+function getRectangleArrayOfArrays(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, resource)
+        local valueCanBeNull = AllBinary.get(this.rectangleArrayOfArraysHashtable, resource)
+        if valueCanBeNull !== nothing
+            local rectangleArrayOfArrays = (valueCanBeNull)
             return rectangleArrayOfArrays
-        else:
-            return RectangleFactory.ARRAY_OF_ARRAYS
-    
+        else
+            return staticGet_ARRAY_OF_ARRAYS(RectangleFactory)
+        end
+end
 
-    # throws Exception
-    def addRectangleArrayOfArrays(self, resource: str, rectangleArrayOfArrays: list[list[Rectangle]]) -> None:
-        from org.allbinary.graphics.Rectangle import Rectangle
-        self.rectangleArrayOfArraysHashtable.put(resource, rectangleArrayOfArrays)
-    
 
-    def isFeature(self) -> bool:
-        return False
-    
+function addRectangleArrayOfArrays(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, resource, rectangleArrayOfArrays)
+        AllBinary.put(this.rectangleArrayOfArraysHashtable, resource, rectangleArrayOfArrays)
+        nothing
+end
 
-    def isLoadingLevel(self, level: int) -> bool:
-        from org.allbinary.game.resource.ResourceLoadingLevelFactory import ResourceLoadingLevelFactory
-        resourceLoadingLevelFactory: ResourceLoadingLevelFactory = ResourceLoadingLevelFactory.getInstance()
-        if level == resourceLoadingLevelFactory.LOAD_ALL.getLevel():
-            return True
-        else:
-            return False
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        return str(StringMaker().append(type(self).__module__ + "." + type(self).__qualname__).append(CommonSeps.getInstance().SEMICOLON).append(CommonSeps.getInstance().SPACE).append(self.name))
+function isFeature(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory)
+        return false
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-    
 
-    def getHashtable(self) -> ABHashtable[object, object]:
-        from org.allbinary.util.ABHashtable import ABHashtable
-        return self.hashtable
-    
+function isLoadingLevel(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, level)
+        local resourceLoadingLevelFactory = AllBinary.getInstance(ResourceLoadingLevelFactory)
+        if level == AllBinary.getLevel(resourceLoadingLevelFactory.LOAD_ALL)
+            return true
+        else
+            return false
+        end
+end
 
-    def getRectangleHashtable(self) -> ABHashtable[object, object]:
-        from org.allbinary.util.ABHashtable import ABHashtable
-        return self.rectangleHashtable
-    
 
-    def getRectangleArrayOfArraysHashtable(self) -> ABHashtable[object, object]:
-        from org.allbinary.util.ABHashtable import ABHashtable
-        return self.rectangleArrayOfArraysHashtable
-    
+function toString(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory)
+        return AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), jClassName(this)), AllBinary.getInstance(CommonSeps).SEMICOLON), AllBinary.getInstance(CommonSeps).SPACE), this.name))
+end
 
-    def setInitialized(self, initialized: bool) -> None:
-        self.initialized = initialized
-    
 
-    def isInitialized(self) -> bool:
-        return self.initialized
-# from org.allbinary.animation.BasicAnimationInterfaceFactoryInterface import BasicAnimationInterfaceFactoryInterface
-# from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-# from org.allbinary.game.resource.ResourceLoadingLevelFactory import ResourceLoadingLevelFactory
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.graphics.RectangleFactory import RectangleFactory
-# from org.allbinary.image.ImageCache import ImageCache
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.ABHashtable import ABHashtable
+function getHashtable(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory)
+        return this.hashtable
+end
 
+
+function getRectangleHashtable(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory)
+        return this.rectangleHashtable
+end
+
+
+function getRectangleArrayOfArraysHashtable(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory)
+        return this.rectangleArrayOfArraysHashtable
+end
+
+
+function setInitialized(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory, initialized)
+        this.initialized = initialized
+        nothing
+end
+
+
+function isInitialized(this::BaseResourceAnimationInterfaceFactoryInterfaceFactory)
+        return this.initialized
+end
 

@@ -1,50 +1,58 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends Input: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct PCGameKey <: JObject
+    PCGameKey() = new()
+end
 
-from org.allbinary.game.input.Input import Input
+
+function initFieldsPCGameKey(this::PCGameKey)
+    nothing
+end
 
 
-class PCGameKey(Input):
-    
+function initPCGameKey(this::PCGameKey, keyCode, name)
+        initInput(this, keyCode, name)
+        local id::Int32 = AllBinary.getId(this)
+        if id >= Int32(0)
+            AllBinary.add(AllBinary.getInstance(InputFactory), id, this)
+        end
+        nothing
+end
 
-    def __init__(self, keyCode: int, name: str) -> None:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        super().__init__(keyCode, name)
-        id: int = self.getId()
-        if id >= 0:
-            InputFactory.getInstance().add(id, self)
-    
+function newPCGameKey(keyCode, name)
+    this = PCGameKey()
+    initPCGameKey(this, keyCode, name)
+    this
+end
 
-    def toString(self) -> str:
-        return "PCGameKey: " + str(super())
 
-    def __str__(self) -> str:
-        return self.toString()
-    
+function toString(this::PCGameKey)
+        return jstr("PCGameKey: ") * jstr(AllBinary.toString(this))
+end
 
-    @staticmethod
-    def getString(keyCode: int) -> str:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        input: Input = InputFactory.getInstance().getInstanceById(keyCode)
-        if input is not None:
-            return input.getName()
-        else:
-            return StringUtil.getInstance().EMPTY_STRING
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function getString(::Type{PCGameKey}, keyCode)
+        local input = AllBinary.getInstanceById(AllBinary.getInstance(InputFactory), keyCode)
+        if input !== nothing
+            return AllBinary.getName(input)
+        else
+            return AllBinary.getInstance(StringUtil).EMPTY_STRING
+        end
+end
 

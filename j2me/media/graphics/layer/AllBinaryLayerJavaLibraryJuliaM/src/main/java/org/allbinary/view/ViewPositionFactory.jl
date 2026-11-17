@@ -1,28 +1,41 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.view
 
-from __future__ import annotations
+mutable struct ViewPositionFactory <: JObject
+    ViewPositionFactory() = new()
+end
 
-from org.allbinary.view.ViewPositionFactoryInterface import ViewPositionFactoryInterface
+
+function initFieldsViewPositionFactory(this::ViewPositionFactory)
+    nothing
+end
+
+function initViewPositionFactory(this::ViewPositionFactory)
+    initFieldsViewPositionFactory(this)
+end
+
+function newViewPositionFactory()
+    this = ViewPositionFactory()
+    initViewPositionFactory(this)
+    this
+end
 
 
-class ViewPositionFactory(ViewPositionFactoryInterface):
-    
-
-    def getInstance(self) -> ViewPositionBase:
-        from org.allbinary.view.ViewPosition import ViewPosition
-        return ViewPosition.getInstanceD()
-
+function getInstance(this::ViewPositionFactory)
+        return AllBinary.getInstanceD(ViewPosition)
+end
 

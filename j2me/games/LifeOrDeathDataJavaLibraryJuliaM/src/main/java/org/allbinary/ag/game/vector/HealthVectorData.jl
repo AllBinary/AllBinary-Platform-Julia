@@ -1,23 +1,49 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.ag.game.vector
 
-from __future__ import annotations
+mutable struct HealthVectorData <: JObject
+    HealthVectorData() = new()
+end
 
+const HealthVectorData_pointsValue = Ref{Any}(nothing)
+const HealthVectorData_pointsSet = Ref(false)
+function staticGet_points(::Type{HealthVectorData})
+    if !HealthVectorData_pointsSet[]
+        HealthVectorData_pointsSet[] = true
+        HealthVectorData_pointsValue[] = Vector{Vector{Int32}}[Vector{Int32}[Int32[Int32(2), Int32(1)], Int32[Int32(3), Int32(2)], Int32[Int32(3), Int32(2)], Int32[Int32(4), Int32(1)], Int32[Int32(4), Int32(1)], Int32[Int32(5), Int32(1)], Int32[Int32(5), Int32(1)], Int32[Int32(6), Int32(2)], Int32[Int32(6), Int32(2)], Int32[Int32(6), Int32(3)], Int32[Int32(6), Int32(3)], Int32[Int32(3), Int32(6)], Int32[Int32(3), Int32(6)], Int32[Int32(0), Int32(3)], Int32[Int32(0), Int32(3)], Int32[Int32(0), Int32(2)], Int32[Int32(0), Int32(2)], Int32[Int32(1), Int32(1)], Int32[Int32(1), Int32(1)], Int32[Int32(2), Int32(1)], Int32[Int32(1000), Int32(1000)]]]
+    end
+    HealthVectorData_pointsValue[]
+end
+function staticSet_points(::Type{HealthVectorData}, value)
+    HealthVectorData_pointsSet[] = true
+    HealthVectorData_pointsValue[] = value
+end
 
+function initFieldsHealthVectorData(this::HealthVectorData)
+    nothing
+end
 
-class HealthVectorData:
-    points: list[list[list[int]]] = [[[2, 1], [3, 2], [3, 2], [4, 1], [4, 1], [5, 1], [5, 1], [6, 2], [6, 2], [6, 3], [6, 3], [3, 6], [3, 6], [0, 3], [0, 3], [0, 2], [0, 2], [1, 1], [1, 1], [2, 1], [1000, 1000]]]
+function initHealthVectorData(this::HealthVectorData)
+    initFieldsHealthVectorData(this)
+end
 
+function newHealthVectorData()
+    this = HealthVectorData()
+    initHealthVectorData(this)
+    this
+end
 

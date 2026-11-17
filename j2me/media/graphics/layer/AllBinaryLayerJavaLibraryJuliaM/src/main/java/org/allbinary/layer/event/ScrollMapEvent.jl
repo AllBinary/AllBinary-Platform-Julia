@@ -1,53 +1,75 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer.event
 
-from __future__ import annotations
+# extends AllBinaryEventObject: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ScrollMapEvent <: JObject
+    dx::Int32
+    dy::Int32
+    ScrollMapEvent() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
+
+function initFieldsScrollMapEvent(this::ScrollMapEvent)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    nothing
+end
 
 
-class ScrollMapEvent(AllBinaryEventObject):
+function initScrollMapEvent(this::ScrollMapEvent, anyType)
+        initAllBinaryEventObject(this, anyType)
+        initFieldsScrollMapEvent(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.dx: int = 0
-        self.dy: int = 0
-    
+function newScrollMapEvent(anyType)
+    this = ScrollMapEvent()
+    initScrollMapEvent(this, anyType)
+    this
+end
 
-    def __init__(self, anyType: object) -> None:
-        super().__init__(anyType)
-        self._init_fields()
-    
 
-    def setDx(self, dx: int) -> None:
-        self.dx = dx
-    
+function setDx(this::ScrollMapEvent, dx)
+        this.dx = dx
+        nothing
+end
 
-    def getDx(self) -> int:
-        return self.dx
-    
 
-    def setDy(self, dy: int) -> None:
-        self.dy = dy
-    
+function getDx(this::ScrollMapEvent)
+        return this.dx
+end
 
-    def getDy(self) -> int:
-        return self.dy
-    
 
-    def setDxDy(self, dx: int, dy: int) -> None:
-        self.dx = dx
-        self.dy = dy
+function setDy(this::ScrollMapEvent, dy)
+        this.dy = dy
+        nothing
+end
 
+
+function getDy(this::ScrollMapEvent)
+        return this.dy
+end
+
+
+function setDxDy(this::ScrollMapEvent, dx, dy)
+        this.dx = dx
+        this.dy = dy
+        nothing
+end
 

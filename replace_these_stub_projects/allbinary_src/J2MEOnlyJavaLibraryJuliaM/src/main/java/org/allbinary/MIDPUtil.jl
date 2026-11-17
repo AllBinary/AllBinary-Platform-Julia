@@ -1,75 +1,80 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2026 AllBinary
-#
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-#
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-#
-# Created By: Travis Berthelot
-# 
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2026 AllBinary
+ 
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+ 
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ 
+  Created By: Travis Berthelot
+  
+=#
 # Generated Code Do Not Modify
 # package org.allbinary
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #like microemu-playn, so the languages without overloading can be generated. J2ME uses the MIDP overloads.
-class MIDPUtil:
-    instance: MIDPUtil = None
-    
+mutable struct MIDPUtil <: JObject
+    MIDPUtil() = new()
+end
 
-    @staticmethod
-    def getInstance() -> MIDPUtil:
-        return MIDPUtil.instance
-    
+const MIDPUtil_instanceValue = Ref{Any}(nothing)
+const MIDPUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{MIDPUtil})
+    if !MIDPUtil_instanceSet[]
+        MIDPUtil_instanceSet[] = true
+        MIDPUtil_instanceValue[] = newMIDPUtil()
+    end
+    MIDPUtil_instanceValue[]
+end
+function staticSet_instance(::Type{MIDPUtil}, value)
+    MIDPUtil_instanceSet[] = true
+    MIDPUtil_instanceValue[] = value
+end
 
-    def createImageWH(self, width: int, height: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        return Image.createImage(width, height)
-    
+function initFieldsMIDPUtil(this::MIDPUtil)
+    nothing
+end
 
-    def createImageFromByteArray(self, imageData: list[int], imageOffset: int, imageLength: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        return Image.createImage(imageData, imageOffset, imageLength)
-    
+function initMIDPUtil(this::MIDPUtil)
+    initFieldsMIDPUtil(this)
+end
 
-    # throws IOException
-    def createImageFromInputStream(self, inputStream: InputStream) -> Image:
-        from java.io.InputStream import InputStream
-        from javax.microedition.lcdui.Image import Image
-        return Image.createImage(inputStream)
-    
-
-    # throws IOException, MediaException
-    def createPlayerFromInputStream(self, inputStream: InputStream, type_: str) -> Player:
-        from java.io.InputStream import InputStream
-        from javax.microedition.media.Manager import Manager
-        from javax.microedition.media.MediaException import MediaException
-        from javax.microedition.media.Player import Player
-        return Manager.createPlayer(inputStream, type_)
-    
-
-    def appendItem(self, form: Form, item: Item) -> int:
-        from javax.microedition.lcdui.Form import Form
-        from javax.microedition.lcdui.Item import Item
-        return form.append(item)
-# from java.io.IOException import IOException
-# from java.io.InputStream import InputStream
-# from javax.microedition.lcdui.Form import Form
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.Item import Item
-# from javax.microedition.media.Manager import Manager
-# from javax.microedition.media.MediaException import MediaException
-# from javax.microedition.media.Player import Player
+function newMIDPUtil()
+    this = MIDPUtil()
+    initMIDPUtil(this)
+    this
+end
 
 
-def _MIDPUtil_instance() -> object:
-    return MIDPUtil()
+function getInstance(::Type{MIDPUtil})
+        return staticGet_instance(MIDPUtil)
+end
 
-lazy_static(MIDPUtil, "instance", _MIDPUtil_instance)
+
+function createImageWH(this::MIDPUtil, width, height)
+        return AllBinary.createImage(Image, width, height)
+end
+
+
+function createImageFromByteArray(this::MIDPUtil, imageData, imageOffset, imageLength)
+        return AllBinary.createImage(Image, imageData, imageOffset, imageLength)
+end
+
+
+function createImageFromInputStream(this::MIDPUtil, inputStream)
+        return AllBinary.createImage(Image, inputStream)
+end
+
+
+function createPlayerFromInputStream(this::MIDPUtil, inputStream, type_)
+        return AllBinary.createPlayer(Manager, inputStream, type_)
+end
+
+
+function appendItem(this::MIDPUtil, form, item)
+        return AllBinary.append(form, item)
+end
 

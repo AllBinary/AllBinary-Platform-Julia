@@ -1,59 +1,80 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+mutable struct EndGameInfo <: JObject
+    NORMAL_GAME_OVER::Any
+    NORMAL_GAME_OVER_WIN::Any
+    gameOverStr::Any
+    winStr::Any
+    EndGameInfo() = new()
+end
 
 
+function initFieldsEndGameInfo(this::EndGameInfo)
+    this.NORMAL_GAME_OVER = nothing
+    this.NORMAL_GAME_OVER_WIN = nothing
+    this.gameOverStr = nothing
+    this.winStr = nothing
+    this.NORMAL_GAME_OVER = "Game Over"
+    this.NORMAL_GAME_OVER_WIN = "You Won"
+    this.gameOverStr = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    this.winStr = this.gameOverStr
+    nothing
+end
 
-class EndGameInfo:
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.NORMAL_GAME_OVER: str = "Game Over"
-        self.NORMAL_GAME_OVER_WIN: str = "You Won"
-        self.gameOverStr: str = StringUtil.getInstance().EMPTY_STRING
-        self.winStr: str = self.gameOverStr
-    
+function initEndGameInfo(this::EndGameInfo)
+        initFieldsEndGameInfo(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newEndGameInfo()
+    this = EndGameInfo()
+    initEndGameInfo(this)
+    this
+end
 
-    def update(self, gameInfo: GameInfo, myCanvas: MyCanvas) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-        self.setGameOverStr(self.NORMAL_GAME_OVER)
-        self.setWinStr(self.NORMAL_GAME_OVER_WIN)
-    
 
-    def getGameOverStr(self) -> str:
-        return self.gameOverStr
-    
+function update(this::EndGameInfo, gameInfo, myCanvas)
+        AllBinary.setGameOverStr(this, this.NORMAL_GAME_OVER)
+        AllBinary.setWinStr(this, this.NORMAL_GAME_OVER_WIN)
+        nothing
+end
 
-    def setGameOverStr(self, gameOverStr: str) -> None:
-        self.gameOverStr = gameOverStr
-    
 
-    def getWinStr(self) -> str:
-        return self.winStr
-    
+function getGameOverStr(this::EndGameInfo)
+        return this.gameOverStr
+end
 
-    def setWinStr(self, winStr: str) -> None:
-        self.winStr = winStr
-# from org.allbinary.game.GameInfo import GameInfo
-# from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function setGameOverStr(this::EndGameInfo, gameOverStr)
+        this.gameOverStr = gameOverStr
+        nothing
+end
+
+
+function getWinStr(this::EndGameInfo)
+        return this.winStr
+end
+
+
+function setWinStr(this::EndGameInfo, winStr)
+        this.winStr = winStr
+        nothing
+end
 

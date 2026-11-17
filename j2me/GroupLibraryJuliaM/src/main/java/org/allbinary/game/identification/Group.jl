@@ -1,65 +1,77 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.identification
 
-from __future__ import annotations
+mutable struct Group <: JObject
+    name::Any
+    teamId::Int16
+    string::Any
+    Group() = new()
+end
 
-from org.allbinary.game.identification.GroupInterface import GroupInterface
 
-
-class Group(GroupInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.name: str = StringUtil.getInstance().EMPTY_STRING
-        self.teamId: int = None
-        self.string: str = StringUtil.getInstance().EMPTY_STRING
+function initFieldsGroup(this::Group)
+    this.name = nothing
+    this.teamId = Int16(0)
+    this.string = nothing
+    this.name = AllBinary.getInstance(StringUtil).EMPTY_STRING
     
+    this.string = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    nothing
+end
 
-    def __init__(self, teamName: str, teamId: int) -> None:
-        self._init_fields()
-        self.teamId = teamId
-        self.setName(teamName)
-    
 
-    def getGroupName(self) -> str:
-        return self.name
-    
+function initGroup(this::Group, teamName, teamId)
+        initFieldsGroup(this)
+        this.teamId = teamId
+        AllBinary.setName(this, teamName)
+        nothing
+end
 
-    def setName(self, name: str) -> None:
-        from org.allbinary.game.identification.GroupCommonFactory import GroupCommonFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        self.name = name
-        groupCommonFactory: GroupCommonFactory = GroupCommonFactory.getInstance()
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(groupCommonFactory.GROUP_NAME_LABEL)
-        stringBuffer.append(self.name)
-        stringBuffer.append(groupCommonFactory.ID_LABEL)
-        stringBuffer.appendshort(self.teamId)
-        self.string = str(stringBuffer)
-    
+function newGroup(teamName, teamId)
+    this = Group()
+    initGroup(this, teamName, teamId)
+    this
+end
 
-    def getGroupId(self) -> int:
-        return self.teamId
-    
 
-    def toString(self) -> str:
-        return self.string
+function getGroupName(this::Group)
+        return this.name
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function setName(this::Group, name)
+        this.name = name
+        local groupCommonFactory = AllBinary.getInstance(GroupCommonFactory)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, groupCommonFactory.GROUP_NAME_LABEL)
+        AllBinary.append(stringBuffer, this.name)
+        AllBinary.append(stringBuffer, groupCommonFactory.ID_LABEL)
+        AllBinary.appendshort(stringBuffer, this.teamId)
+        this.string = AllBinary.toString(stringBuffer)
+        nothing
+end
+
+
+function getGroupId(this::Group)
+        return this.teamId
+end
+
+
+function toString(this::Group)
+        return this.string
+end
 

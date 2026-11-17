@@ -1,47 +1,55 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image.sprite
 
-from __future__ import annotations
+# extends AllBinarySpriteRotationAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AllBinaryAdjustedSpriteRotationAnimation <: JObject
+    dx::Int32
+    dy::Int32
+    AllBinaryAdjustedSpriteRotationAnimation() = new()
+end
 
-from org.allbinary.animation.image.sprite.AllBinarySpriteRotationAnimation import AllBinarySpriteRotationAnimation
 
-
-class AllBinaryAdjustedSpriteRotationAnimation(AllBinarySpriteRotationAnimation):
-
-    def _init_fields(self) -> None:
-        self.dx: int = None
-        self.dy: int = None
+function initFieldsAllBinaryAdjustedSpriteRotationAnimation(this::AllBinaryAdjustedSpriteRotationAnimation)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
     
-
-    def __init__(self, sprite: Sprite, image: Image, dx: int, dy: int, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.game.Sprite import Sprite
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        super().__init__(sprite, image, animationBehavior)
-        self._init_fields()
-        self.dx = dx
-        self.dy = dy
     
+    nothing
+end
 
-    def paintXY(self, g: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.sprite.setPosition(x + self.dx, y + self.dy)
-        self.paint(g)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.game.Sprite import Sprite
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
 
+function initAllBinaryAdjustedSpriteRotationAnimation(this::AllBinaryAdjustedSpriteRotationAnimation, sprite, image, dx, dy, animationBehavior)
+        initAllBinarySpriteRotationAnimation(this, sprite, image, animationBehavior)
+        initFieldsAllBinaryAdjustedSpriteRotationAnimation(this)
+        this.dx = dx
+        this.dy = dy
+        nothing
+end
+
+function newAllBinaryAdjustedSpriteRotationAnimation(sprite, image, dx, dy, animationBehavior)
+    this = AllBinaryAdjustedSpriteRotationAnimation()
+    initAllBinaryAdjustedSpriteRotationAnimation(this, sprite, image, dx, dy, animationBehavior)
+    this
+end
+
+
+function paintXY(this::AllBinaryAdjustedSpriteRotationAnimation, g, x, y)
+        AllBinary.setPosition(this.sprite, x + this.dx, y + this.dy)
+        AllBinary.paint(this, g)
+        nothing
+end
 

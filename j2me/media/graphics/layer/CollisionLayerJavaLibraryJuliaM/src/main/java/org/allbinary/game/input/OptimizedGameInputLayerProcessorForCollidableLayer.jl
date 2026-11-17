@@ -1,48 +1,55 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+# extends LayerProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct OptimizedGameInputLayerProcessorForCollidableLayer <: JObject
+    OptimizedGameInputLayerProcessorForCollidableLayer() = new()
+end
 
-from org.allbinary.layer.LayerProcessor import LayerProcessor
+
+function initFieldsOptimizedGameInputLayerProcessorForCollidableLayer(this::OptimizedGameInputLayerProcessorForCollidableLayer)
+    nothing
+end
 
 
-class OptimizedGameInputLayerProcessorForCollidableLayer(LayerProcessor):
-    
+function initOptimizedGameInputLayerProcessorForCollidableLayer(this::OptimizedGameInputLayerProcessorForCollidableLayer)
+        initLayerProcessor(this, newOptimizedGameInputLayerManager())
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.game.input.OptimizedGameInputLayerManager import OptimizedGameInputLayerManager
-        super().__init__(OptimizedGameInputLayerManager())
-    
+function newOptimizedGameInputLayerProcessorForCollidableLayer()
+    this = OptimizedGameInputLayerProcessorForCollidableLayer()
+    initOptimizedGameInputLayerProcessorForCollidableLayer(this)
+    this
+end
 
-    # throws Exception
-    def processAt(self, allBinaryLayerManager: AllBinaryLayerManager, layerInterface: AllBinaryLayer, index: int) -> None:
-        from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        gameInputInterface: AllBinaryGameLayer = layerInterface
-        gameInputInterface.processInput(allBinaryLayerManager)
-    
 
-    def isProcessorLayer(self, layerInterface: AllBinaryLayer) -> bool:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        if layerInterface.implmentsGameInputInterface():
-            return True
-        else:
-            return False
-# from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
+function processAt(this::OptimizedGameInputLayerProcessorForCollidableLayer, allBinaryLayerManager, layerInterface, index)
+        local gameInputInterface = (layerInterface)
+        AllBinary.processInput(gameInputInterface, allBinaryLayerManager)
+        nothing
+end
 
+
+function isProcessorLayer(this::OptimizedGameInputLayerProcessorForCollidableLayer, layerInterface)
+        if AllBinary.implmentsGameInputInterface(layerInterface)
+            return true
+        else
+            return false
+        end
+end
 

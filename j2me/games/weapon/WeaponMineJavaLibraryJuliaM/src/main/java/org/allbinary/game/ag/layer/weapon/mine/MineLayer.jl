@@ -1,74 +1,85 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.weapon.mine
 
-from __future__ import annotations
+# extends SimpleWeaponLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MineLayer <: JObject
+    viewPositionEventHandler::Any
+    MineLayer() = new()
+end
 
-from org.allbinary.game.layer.weapon.SimpleWeaponLayer import SimpleWeaponLayer
+const MineLayer_NAMEValue = Ref{Any}(nothing)
+const MineLayer_NAMESet = Ref(false)
+function staticGet_NAME(::Type{MineLayer})
+    if !MineLayer_NAMESet[]
+        MineLayer_NAMESet[] = true
+        MineLayer_NAMEValue[] = "MineLayer"
+    end
+    MineLayer_NAMEValue[]
+end
+function staticSet_NAME(::Type{MineLayer}, value)
+    MineLayer_NAMESet[] = true
+    MineLayer_NAMEValue[] = value
+end
+
+function initFieldsMineLayer(this::MineLayer)
+    this.viewPositionEventHandler = nothing
+    this.viewPositionEventHandler = AllBinary.getInstance(ViewPositionEventHandler)
+    nothing
+end
 
 
-class MineLayer(SimpleWeaponLayer):
-    NAME: str = "MineLayer"
+function initMineLayer(this::MineLayer, viewPosition)
+        initSimpleWeaponLayer(this, staticGet_NAME(MineLayer), staticGet_REMOTE_INFO(RemoteInfo), -Int32(1), AllBinary.getMovmentInstance(AllBinary.getInstance(NoMovementFactory)), AllBinary.getInstance(AllBinary.get(AllBinary.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory), AllBinary.getInstance(MineWeaponResources).RESOURCE), Int32(0)), AllBinary.createDestroyed(SimpleWeaponLayer), newRectangle(AllBinary.getInstance(PointFactory).ZERO_ZERO, Int32(10), Int32(10)), viewPosition)
+        initFieldsMineLayer(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.view.event.ViewPositionEventHandler import ViewPositionEventHandler
-        self.viewPositionEventHandler: ViewPositionEventHandler = ViewPositionEventHandler.getInstance()
-    
+function newMineLayer(viewPosition)
+    this = MineLayer()
+    initMineLayer(this, viewPosition)
+    this
+end
 
-    def __init__(self, viewPosition: ViewPositionBase) -> None:
-        from org.allbinary.game.ag.layer.weapon.mine.MineWeaponResources import MineWeaponResources
-        from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-        from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.physics.movement.NoMovementFactory import NoMovementFactory
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        super().__init__(MineLayer.NAME, RemoteInfo.REMOTE_INFO, -1, NoMovementFactory.getInstance().getMovmentInstance(), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(MineWeaponResources.getInstance().RESOURCE).getInstance(0), SimpleWeaponLayer.createDestroyed(), Rectangle(PointFactory.getInstance().ZERO_ZERO, 10, 10), viewPosition)
-        self._init_fields()
-    
 
-    def initXYZ(self, x: int, y: int, z: int) -> None:
-        from org.allbinary.ag.weapon.media.audio.DropWeaponSound import DropWeaponSound
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.media.audio.SecondaryPlayerQueueFactory import SecondaryPlayerQueueFactory
-        self.setPosition(x + 5, y + 5, z)
-        self.viewPositionEventHandler.addListener(self)
-        SecondaryPlayerQueueFactory.getInstance().add(DropWeaponSound.getInstance())
-    
+function initXYZ(this::MineLayer, x, y, z)
+        AllBinary.setPosition(this, x + Int32(5), y + Int32(5), z)
+        AllBinary.addListener(this.viewPositionEventHandler, (this))
+        AllBinary.add(AllBinary.getInstance(SecondaryPlayerQueueFactory), AllBinary.getInstance(DropWeaponSound))
+        nothing
+end
 
-    def damage(self, damage: int, damageType: int) -> None:
-        self.totalDamage = self.getInitDamage() + 1
-    
 
-    def getDamage(self, damageType: int) -> int:
-        super().getDamage(damageType)
-        return self.getInitDamage()
-    
+function damage(this::MineLayer, damage, damageType)
+        this.totalDamage = AllBinary.getInitDamage(this) + Int32(1)
+        nothing
+end
 
-    def setDestroyed(self, destroyed: bool) -> None:
-        super().setDestroyed(destroyed)
-        if self.isDestroyed():
-            self.viewPositionEventHandler.removeListener(self)
-# from org.allbinary.ag.weapon.media.audio.DropWeaponSound import DropWeaponSound
-# from org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory import FeaturedAnimationInterfaceFactoryInterfaceFactory
-# from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.media.audio.SecondaryPlayerQueueFactory import SecondaryPlayerQueueFactory
-# from org.allbinary.physics.movement.NoMovementFactory import NoMovementFactory
-# from org.allbinary.view.ViewPositionBase import ViewPositionBase
-# from org.allbinary.view.event.ViewPositionEventHandler import ViewPositionEventHandler
 
+function getDamage(this::MineLayer, damageType)
+        AllBinary.getDamage(this, damageType)
+        return AllBinary.getInitDamage(this)
+end
+
+
+function setDestroyed(this::MineLayer, destroyed)
+        AllBinary.setDestroyed(this, destroyed)
+        if AllBinary.isDestroyed(this)
+            AllBinary.removeListener(this.viewPositionEventHandler, this)
+        end
+        nothing
+end
 

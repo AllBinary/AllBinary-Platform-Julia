@@ -1,13 +1,7 @@
 # Generated Code Do Not Modify
 # package javax.microedition.khronos.opengles
 
-from __future__ import annotations
-
-from javax.microedition.khronos.opengles.GL import GL
-
-
-# Java interface
-class GL10(GL):
-    pass
+# Java interface GL10: Julia dispatches on the class so an interface is an abstract type
+abstract type GL10 <: JObject end
 
 

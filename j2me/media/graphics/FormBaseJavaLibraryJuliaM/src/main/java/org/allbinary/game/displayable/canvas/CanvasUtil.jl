@@ -1,46 +1,56 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+mutable struct CanvasUtil <: JObject
+    CanvasUtil() = new()
+end
 
 
+function initFieldsCanvasUtil(this::CanvasUtil)
+    nothing
+end
 
-class CanvasUtil:
-    
 
-    def __init__(self) -> None:
-        pass
-    
+function initCanvasUtil(this::CanvasUtil)
+        initFieldsCanvasUtil(this)
+        nothing
+        nothing
+end
 
-    @staticmethod
-    def getKeyName(key: int) -> str:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.string.CommonPhoneStrings import CommonPhoneStrings
-        commonPhoneStrings: CommonPhoneStrings = CommonPhoneStrings.getInstance()
-        if key == Canvas.UP:
+function newCanvasUtil()
+    this = CanvasUtil()
+    initCanvasUtil(this)
+    this
+end
+
+
+function getKeyName(::Type{CanvasUtil}, key)
+        local commonPhoneStrings = AllBinary.getInstance(CommonPhoneStrings)
+        if key == staticGet_UP(Canvas)
             return commonPhoneStrings.UP
-        elif key == Canvas.DOWN:
+        elseif key == staticGet_DOWN(Canvas)
             return commonPhoneStrings.DOWN
-        elif key == Canvas.RIGHT:
+        elseif key == staticGet_RIGHT(Canvas)
             return commonPhoneStrings.RIGHT
-        elif key == Canvas.LEFT:
+        elseif key == staticGet_LEFT(Canvas)
             return commonPhoneStrings.LEFT
-        elif key == Canvas.FIRE:
+        elseif key == staticGet_FIRE(Canvas)
             return commonPhoneStrings.FIRE
+        end
         return "UNKNOWN KEY"
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.string.CommonPhoneStrings import CommonPhoneStrings
-
+end
 

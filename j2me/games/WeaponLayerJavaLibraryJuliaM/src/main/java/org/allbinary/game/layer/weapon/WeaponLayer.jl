@@ -1,279 +1,303 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.weapon
 
-from __future__ import annotations
+# extends MultiPlayerGameLayer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct WeaponLayer <: JObject
+    animationInterface::Any
+    initAnimationInterface::Any
+    destroyedAnimationInterface::Any
+    sourceLayerInterface::Any
+    totalDamage::Int32
+    initDamage::Int32
+    destroyed::Bool
+    scoreableInterface::Any
+    movement::Any
+    weaponProperties::Any
+    multiPlayerType::Int32
+    collidableWeaponBehavior::Any
+    WeaponLayer() = new()
+end
 
-from org.allbinary.game.multiplayer.layer.MultiPlayerGameLayer import MultiPlayerGameLayer
-from org.allbinary.game.tick.TickableInterface import TickableInterface
 
-
-class WeaponLayer(MultiPlayerGameLayer, TickableInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.game.score.NoScoreable import NoScoreable
-        from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.physics.movement.Movement import Movement
-        self.animationInterface: Animation = NullAnimationFactory.getFactoryInstance().getInstance(0)
-        self.initAnimationInterface: Animation = None
-        self.destroyedAnimationInterface: Animation = None
-        self.sourceLayerInterface: AllBinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
-        self.totalDamage: int = 0
-        self.initDamage: int = 0
-        self.destroyed: bool = True
-        self.scoreableInterface: ScoreableInterface = NoScoreable.getInstance()
-        self.movement: Movement = None
-        self.weaponProperties: WeaponProperties = WeaponProperties.NULL_WEAPON_PROPERTIES
-        self.multiPlayerType: int = None
-        self.collidableWeaponBehavior: CollidableWeaponBehavior = CollidableWeaponBehavior.getNullInstance()
+function initFieldsWeaponLayer(this::WeaponLayer)
+    this.animationInterface = nothing
+    this.initAnimationInterface = nothing
+    this.destroyedAnimationInterface = nothing
+    this.sourceLayerInterface = nothing
+    this.totalDamage = Int32(0)
+    this.initDamage = Int32(0)
+    this.destroyed = false
+    this.scoreableInterface = nothing
+    this.movement = nothing
+    this.weaponProperties = nothing
+    this.multiPlayerType = Int32(0)
+    this.collidableWeaponBehavior = nothing
+    this.animationInterface = AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0))
     
-
-    def __init__(self, name: str, remoteInfo: RemoteInfo, multiPlayerType: int, movement: Movement, animationInterface: Animation, destroyedAnimationInterface: Animation, rectangle: Rectangle, viewPosition: ViewPositionBase) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.game.identification.BasicGroupFactory import BasicGroupFactory
-        from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.physics.movement.Movement import Movement
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        super().__init__(remoteInfo, BasicGroupFactory.getInstance().NONE_ARRAY, name, rectangle, viewPosition)
-        self._init_fields()
-        self.initAnimationInterface = animationInterface
-        self.setAnimationInterface(animationInterface)
-        self.destroyedAnimationInterface = destroyedAnimationInterface
-        self.movement = movement
-        self.multiPlayerType = multiPlayerType
     
-
-    def setCollidableInferface(self, collidableInferface: CollidableBaseBehavior) -> None:
-        from org.allbinary.game.collision.CollidableBaseBehavior import CollidableBaseBehavior
-        super().setCollidableInferface(collidableInferface)
-        self.collidableWeaponBehavior = self.getCollidableInferface()
+    this.sourceLayerInterface = staticGet_NULL_ALLBINARY_LAYER(AllBinaryLayer)
+    this.totalDamage = Int32(0)
+    this.initDamage = Int32(0)
+    this.destroyed = true
+    this.scoreableInterface = AllBinary.getInstance(NoScoreable)
     
-
-    # throws Exception
-    def initXYZ(self, x: int, y: int, z: int) -> None:
-        self.x = x
-        self.y = y
-        self.z = z
+    this.weaponProperties = staticGet_NULL_WEAPON_PROPERTIES(WeaponProperties)
     
+    this.collidableWeaponBehavior = AllBinary.getNullInstance(CollidableWeaponBehavior)
+    nothing
+end
 
-    # throws Exception
-    def init(self, sourceLayerInterface: AllBinaryLayer, angle: int, otherAngle: int, weaponProperties: WeaponProperties, scoreable: ScoreableInterface) -> None:
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.setWeaponPropertiesP(weaponProperties)
-        self.setReadyForExplosion(False)
-        self.setAnimationInterface(self.getInitAnimationInterfaceP())
-        self.setOwnerLayerInterface(sourceLayerInterface)
-        self.collidableWeaponBehavior.init(sourceLayerInterface)
-        self.setGroupInterfaces()
-        if scoreable is not None:
-            self.scoreableInterface = scoreable
-        self.totalDamage = 0
-        self.initDamage = weaponProperties.getDamage()
-        self.setDestroyed(False)
-        self.movement.init(weaponProperties.getSpeed(), angle, otherAngle)
-    
 
-    def setGroupInterfaces(self) -> None:
-        from org.allbinary.game.identification.BasicGroupFactory import BasicGroupFactory
-        basicGroupFactory: BasicGroupFactory = BasicGroupFactory.getInstance()
-        if self.sourceLayerInterface.getGroupInterface()[0] == basicGroupFactory.ENEMY:
-            self.setGroupInterface(basicGroupFactory.ENEMY_ARRAY)
-        else:
-            self.setGroupInterface(self.sourceLayerInterface.getGroupInterface())
-    
+function initWeaponLayer(this::WeaponLayer, name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
+        initMultiPlayerGameLayer(this, remoteInfo, AllBinary.getInstance(BasicGroupFactory).NONE_ARRAY, name, rectangle, viewPosition)
+        initFieldsWeaponLayer(this)
+        this.initAnimationInterface = animationInterface
+        AllBinary.setAnimationInterface(this, animationInterface)
+        this.destroyedAnimationInterface = destroyedAnimationInterface
+        this.movement = movement
+        this.multiPlayerType = multiPlayerType
+        nothing
+end
 
-    # throws Exception
-    def processTick(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        if self.isExhausted() and not self.isDestroyed():
-            if self.isReadyForExplosion():
-                indexedAnimationInterface: IndexedAnimation = self.getAnimationInterface()
-                currentFrame: int = indexedAnimationInterface.getFrame()
-                if currentFrame < indexedAnimationInterface.getAnimationSize() - 1:
-                    indexedAnimationInterface.nextFrame()
-                else:
-                    self.setDestroyed(True)
-            else:
-                collidableWeaponBehavior: CollidableWeaponBehavior = self.getCollidableInferface()
-                if collidableWeaponBehavior.isCollided():
-                    self.setAnimationInterface(self.destroyedAnimationInterface)
-                    self.getMovement().stop()
-                    self.setReadyForExplosion(True)
-                else:
-                    self.setDestroyed(True)
-        self.movement.process(self)
-        self.totalDamage += self.weaponProperties.getDissipation()
-    
+function newWeaponLayer(name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
+    this = WeaponLayer()
+    initWeaponLayer(this, name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
+    this
+end
 
-    def isDestroyed(self) -> bool:
-        return self.destroyed
-    
 
-    def damage(self, damage: int, damageType: int) -> None:
-        self.totalDamage += damage * damage
-    
+function setCollidableInferface(this::WeaponLayer, collidableInferface)
+        AllBinary.setCollidableInferface(this, collidableInferface)
+        this.collidableWeaponBehavior = (AllBinary.getCollidableInferface(this))
+        nothing
+end
 
-    def givePoints(self, total: int) -> None:
-        from org.allbinary.game.configuration.GameConfigurationUtil import GameConfigurationUtil
-        self.scoreableInterface.addPoints(GameConfigurationUtil.getInstance().getCompetitionValue() * total)
-    
 
-    def isExhausted(self) -> bool:
-        if self.totalDamage > self.getInitDamage() or self.totalDamage < 0:
-            return True
-        else:
-            return False
-    
+function initXYZ(this::WeaponLayer, x, y, z)
+        this.x = x
+        this.y = y
+        this.z = z
+        nothing
+end
 
-    def getDamage(self, damageType: int) -> int:
-        if not self.isExhausted():
-            total: int = self.getInitDamage() - self.totalDamage
-            self.givePoints(total)
+
+function init(this::WeaponLayer, sourceLayerInterface, angle, otherAngle, weaponProperties, scoreable)
+        AllBinary.setWeaponPropertiesP(this, weaponProperties)
+        AllBinary.setReadyForExplosion(this, false)
+        AllBinary.setAnimationInterface(this, AllBinary.getInitAnimationInterfaceP(this))
+        AllBinary.setOwnerLayerInterface(this, sourceLayerInterface)
+        AllBinary.init(this.collidableWeaponBehavior, sourceLayerInterface)
+        AllBinary.setGroupInterfaces(this)
+        if scoreable !== nothing
+            this.scoreableInterface = scoreable
+        end
+        this.totalDamage = Int32(0)
+        this.initDamage = AllBinary.getDamage(weaponProperties)
+        AllBinary.setDestroyed(this, false)
+        AllBinary.init(this.movement, AllBinary.getSpeed(weaponProperties), angle, otherAngle)
+        nothing
+end
+
+
+function setGroupInterfaces(this::WeaponLayer)
+        local basicGroupFactory = AllBinary.getInstance(BasicGroupFactory)
+        if AllBinary.getGroupInterface(this.sourceLayerInterface)[Int32(0) + 1] == basicGroupFactory.ENEMY
+            AllBinary.setGroupInterface(this, basicGroupFactory.ENEMY_ARRAY)
+        else
+            AllBinary.setGroupInterface(this, AllBinary.getGroupInterface(this.sourceLayerInterface))
+        end
+        nothing
+end
+
+
+function processTick(this::WeaponLayer, allBinaryLayerManager)
+        if AllBinary.isExhausted(this) && !AllBinary.isDestroyed(this)
+            if AllBinary.isReadyForExplosion(this)
+                local indexedAnimationInterface = (AllBinary.getAnimationInterface(this))
+                local currentFrame::Int32 = AllBinary.getFrame(indexedAnimationInterface)
+                if currentFrame < AllBinary.getAnimationSize(indexedAnimationInterface) - Int32(1)
+                    AllBinary.nextFrame(indexedAnimationInterface)
+                else
+                    AllBinary.setDestroyed(this, true)
+                end
+            else
+                local collidableWeaponBehavior = (AllBinary.getCollidableInferface(this))
+                if AllBinary.isCollided(collidableWeaponBehavior)
+                    AllBinary.setAnimationInterface(this, this.destroyedAnimationInterface)
+                    AllBinary.stop(AllBinary.getMovement(this))
+                    AllBinary.setReadyForExplosion(this, true)
+                else
+                    AllBinary.setDestroyed(this, true)
+                end
+            end
+        end
+        AllBinary.process(this.movement, this)
+        this.totalDamage += AllBinary.getDissipation(this.weaponProperties)
+        nothing
+end
+
+
+function isDestroyed(this::WeaponLayer)
+        return this.destroyed
+end
+
+
+function damage(this::WeaponLayer, damage, damageType)
+        this.totalDamage += damage * damage
+        nothing
+end
+
+
+function givePoints(this::WeaponLayer, total)
+        AllBinary.addPoints(this.scoreableInterface, AllBinary.getCompetitionValue(AllBinary.getInstance(GameConfigurationUtil)) * total)
+        nothing
+end
+
+
+function isExhausted(this::WeaponLayer)
+        if this.totalDamage > AllBinary.getInitDamage(this) || this.totalDamage < Int32(0)
+            return true
+        else
+            return false
+        end
+end
+
+
+function getDamage(this::WeaponLayer, damageType)
+        if !AllBinary.isExhausted(this)
+            local total::Int32 = AllBinary.getInitDamage(this) - this.totalDamage
+            AllBinary.givePoints(this, total)
             return total
-        return 0
-    
+        end
+        return Int32(0)
+end
 
-    def setDestroyed(self, destroyed: bool) -> None:
-        from org.allbinary.game.combat.destroy.DestroyedLayerProcessor import DestroyedLayerProcessor
-        from org.allbinary.game.score.NoScoreable import NoScoreable
-        self.destroyed = destroyed
-        if self.isDestroyed():
-            self.scoreableInterface = NoScoreable.getInstance()
-            DestroyedLayerProcessor.getInstance().add(self)
-    
 
-    def getInitDamage(self) -> int:
-        return self.initDamage
-    
+function setDestroyed(this::WeaponLayer, destroyed)
+        this.destroyed = destroyed
+        if AllBinary.isDestroyed(this)
+            this.scoreableInterface = AllBinary.getInstance(NoScoreable)
+            AllBinary.add(AllBinary.getInstance(DestroyedLayerProcessor), this)
+        end
+        nothing
+end
 
-    def setAnimationInterface(self, animationInterface: Animation) -> None:
-        from org.allbinary.animation.Animation import Animation
-        self.animationInterface = animationInterface
-    
 
-    def getAnimationInterface(self) -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        return self.animationInterface
-    
+function getInitDamage(this::WeaponLayer)
+        return this.initDamage
+end
 
-    def getInitAnimationInterfaceP(self) -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        return self.initAnimationInterface
-    
 
-    def setInitAnimationInterfaceP(self, initAnimationInterface: Animation) -> None:
-        from org.allbinary.animation.Animation import Animation
-        self.initAnimationInterface = initAnimationInterface
-    
+function setAnimationInterface(this::WeaponLayer, animationInterface)
+        this.animationInterface = animationInterface
+        nothing
+end
 
-    def getDestroyedAnimationInterface(self) -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        return self.destroyedAnimationInterface
-    
 
-    def getOwnerLayerInterface(self) -> AllBinaryLayer:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return self.sourceLayerInterface
-    
+function getAnimationInterface(this::WeaponLayer)
+        return this.animationInterface
+end
 
-    def setOwnerLayerInterface(self, sourceLayerInterface: AllBinaryLayer) -> None:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.sourceLayerInterface = sourceLayerInterface
-    
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        viewPosition: ViewPositionBase = self.getViewPosition()
-        self.animationInterface.paintXY(graphics, viewPosition.getX() - self.getHalfWidth(), viewPosition.getY() - self.getHalfHeight())
-    
+function getInitAnimationInterfaceP(this::WeaponLayer)
+        return this.initAnimationInterface
+end
 
-    def paintThreed(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        viewPosition: ViewPositionBase = self.getViewPosition()
-        self.animationInterface.paintThreedXYZ(graphics, viewPosition.getX() - self.getHalfWidth(), viewPosition.getY() - self.getHalfHeight(), viewPosition.getZ() - self.getHalfDepth())
-    
 
-    def getMovement(self) -> Movement:
-        from org.allbinary.physics.movement.Movement import Movement
-        return self.movement
-    
+function setInitAnimationInterfaceP(this::WeaponLayer, initAnimationInterface)
+        this.initAnimationInterface = initAnimationInterface
+        nothing
+end
 
-    def setMovement(self, movement: Movement) -> None:
-        from org.allbinary.physics.movement.Movement import Movement
-        self.movement = movement
-    
 
-    def getType(self) -> int:
-        return WeaponLayer.getStaticType()
-    
+function getDestroyedAnimationInterface(this::WeaponLayer)
+        return this.destroyedAnimationInterface
+end
 
-    @staticmethod
-    def getStaticType() -> int:
-        return 0
-    
 
-    def getMultiPlayerType(self) -> int:
-        return self.multiPlayerType
-    
+function getOwnerLayerInterface(this::WeaponLayer)
+        return this.sourceLayerInterface
+end
 
-    def setWeaponPropertiesP(self, weaponProperties: WeaponProperties) -> None:
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        self.weaponProperties = weaponProperties
-    
 
-    def getWeaponPropertiesP(self) -> WeaponProperties:
-        from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-        return self.weaponProperties
-    
+function setOwnerLayerInterface(this::WeaponLayer, sourceLayerInterface)
+        this.sourceLayerInterface = sourceLayerInterface
+        nothing
+end
 
-    def implmentsTickableInterface(self) -> bool:
-        return True
-    
 
-    # throws Exception
-    def set(self, gl: GL) -> None:
-        from javax.microedition.khronos.opengles.GL import GL
-        self.initAnimationInterface.set(gl)
-# from javax.microedition.khronos.opengles.GL import GL
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-# from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-# from org.allbinary.game.collision.CollidableBaseBehavior import CollidableBaseBehavior
-# from org.allbinary.game.combat.destroy.DestroyedLayerProcessor import DestroyedLayerProcessor
-# from org.allbinary.game.combat.weapon.WeaponProperties import WeaponProperties
-# from org.allbinary.game.configuration.GameConfigurationUtil import GameConfigurationUtil
-# from org.allbinary.game.identification.BasicGroupFactory import BasicGroupFactory
-# from org.allbinary.game.multiplayer.layer.RemoteInfo import RemoteInfo
-# from org.allbinary.game.score.NoScoreable import NoScoreable
-# from org.allbinary.game.score.ScoreableInterface import ScoreableInterface
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-# from org.allbinary.physics.movement.Movement import Movement
-# from org.allbinary.view.ViewPosition import ViewPosition
-# from org.allbinary.view.ViewPositionBase import ViewPositionBase
-from org.allbinary.game.layer.weapon.CollidableWeaponBehavior import CollidableWeaponBehavior
+function paint(this::WeaponLayer, graphics)
+        local viewPosition = AllBinary.getViewPosition(this)
+        AllBinary.paintXY(this.animationInterface, graphics, AllBinary.getX(viewPosition) - AllBinary.getHalfWidth(this), AllBinary.getY(viewPosition) - AllBinary.getHalfHeight(this))
+        nothing
+end
 
+
+function paintThreed(this::WeaponLayer, graphics)
+        local viewPosition = AllBinary.getViewPosition(this)
+        AllBinary.paintThreedXYZ(this.animationInterface, graphics, AllBinary.getX(viewPosition) - AllBinary.getHalfWidth(this), AllBinary.getY(viewPosition) - AllBinary.getHalfHeight(this), AllBinary.getZ(viewPosition) - AllBinary.getHalfDepth(this))
+        nothing
+end
+
+
+function getMovement(this::WeaponLayer)
+        return this.movement
+end
+
+
+function setMovement(this::WeaponLayer, movement)
+        this.movement = movement
+        nothing
+end
+
+
+function getType(this::WeaponLayer)
+        return AllBinary.getStaticType(WeaponLayer)
+end
+
+
+function getStaticType(::Type{WeaponLayer})
+        return Int32(0)
+end
+
+
+function getMultiPlayerType(this::WeaponLayer)
+        return this.multiPlayerType
+end
+
+
+function setWeaponPropertiesP(this::WeaponLayer, weaponProperties)
+        this.weaponProperties = weaponProperties
+        nothing
+end
+
+
+function getWeaponPropertiesP(this::WeaponLayer)
+        return this.weaponProperties
+end
+
+
+function implmentsTickableInterface(this::WeaponLayer)
+        return true
+end
+
+
+function set(this::WeaponLayer, gl)
+        AllBinary.set(this.initAnimationInterface, gl)
+        nothing
+end
 

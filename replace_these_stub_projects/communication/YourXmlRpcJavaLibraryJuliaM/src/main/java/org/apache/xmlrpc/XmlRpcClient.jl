@@ -1,49 +1,49 @@
 # Generated Code Do Not Modify
 # package org.apache.xmlrpc
 
-from __future__ import annotations
+mutable struct XmlRpcClient <: JObject
+    url::Any
+    XmlRpcClient() = new()
+end
 
-from org.apache.xmlrpc.XmlRpcHandler import XmlRpcHandler
 
-
-class XmlRpcClient(XmlRpcHandler):
-
-    def _init_fields(self) -> None:
-        self.url: URL = None
+function initFieldsXmlRpcClient(this::XmlRpcClient)
+    this.url = nothing
     
+    nothing
+end
 
-    def __init__(self, url: str) -> None:
-        self._init_fields()
-        self.url = URL(url)
-    
 
-    def getURL(self) -> URL:
-        return self.url
-    
+function initXmlRpcClient(this::XmlRpcClient, url)
+        initFieldsXmlRpcClient(this)
+        this.url = newURL(url)
+        nothing
+end
 
-    def setBasicAuthentication(self, user: str, password: str) -> None:
-        pass
-    
+function newXmlRpcClient(url)
+    this = XmlRpcClient()
+    initXmlRpcClient(this, url)
+    this
+end
 
-    # throws XmlRpcException, IOException
-    def execute(self, method: str, params: BasicArrayList) -> object:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.logic.NullUtil import NullUtil
-        return NullUtil.getInstance().NULL_OBJECT
-    
 
-    # throws XmlRpcException, IOException
-    def executeWithCrypt(self, method: str, params: BasicArrayList, cryptInterface: CryptInterface) -> object:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.init.crypt.jcehelper.CryptInterface import CryptInterface
-        from org.allbinary.logic.NullUtil import NullUtil
-        return NullUtil.getInstance().NULL_OBJECT
-# from java.io.IOException import IOException
-# from java.net.MalformedURLException import MalformedURLException
-# from java.net.URL import URL
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.init.crypt.jcehelper.CryptInterface import CryptInterface
-# from org.allbinary.logic.NullUtil import NullUtil
+function getURL(this::XmlRpcClient)
+        return this.url
+end
 
+
+function setBasicAuthentication(this::XmlRpcClient, user, password)
+        nothing
+        nothing
+end
+
+
+function execute(this::XmlRpcClient, method, params)
+        return AllBinary.getInstance(NullUtil).NULL_OBJECT
+end
+
+
+function executeWithCrypt(this::XmlRpcClient, method, params, cryptInterface)
+        return AllBinary.getInstance(NullUtil).NULL_OBJECT
+end
 

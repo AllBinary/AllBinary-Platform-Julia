@@ -1,138 +1,150 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io.file
 
-from __future__ import annotations
+mutable struct SimpleFileUtil <: JObject
+    logUtil::Any
+    NULL_WRITER::Any
+    NULL_READER::Any
+    commonStrings::Any
+    nullUtil::Any
+    streamUtil::Any
+    SimpleFileUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const SimpleFileUtil_instanceValue = Ref{Any}(nothing)
+const SimpleFileUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{SimpleFileUtil})
+    if !SimpleFileUtil_instanceSet[]
+        SimpleFileUtil_instanceSet[] = true
+        SimpleFileUtil_instanceValue[] = newSimpleFileUtil()
+    end
+    SimpleFileUtil_instanceValue[]
+end
+function staticSet_instance(::Type{SimpleFileUtil}, value)
+    SimpleFileUtil_instanceSet[] = true
+    SimpleFileUtil_instanceValue[] = value
+end
+
+function initFieldsSimpleFileUtil(this::SimpleFileUtil)
+    this.logUtil = nothing
+    this.NULL_WRITER = nothing
+    this.NULL_READER = nothing
+    this.commonStrings = nothing
+    this.nullUtil = nothing
+    this.streamUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.NULL_WRITER = AllBinary.nullWriter(SimpleFileUtil)
+    this.NULL_READER = AllBinary.nullReader(SimpleFileUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.nullUtil = AllBinary.getInstance(NullUtil)
+    this.streamUtil = AllBinary.getInstance(StreamUtil)
+    nothing
+end
+
+function initSimpleFileUtil(this::SimpleFileUtil)
+    initFieldsSimpleFileUtil(this)
+end
+
+function newSimpleFileUtil()
+    this = SimpleFileUtil()
+    initSimpleFileUtil(this)
+    this
+end
 
 
-class SimpleFileUtil:
-    instance: SimpleFileUtil = None
+function getInstance(::Type{SimpleFileUtil})
+        return staticGet_instance(SimpleFileUtil)
+end
 
-    def _init_fields(self) -> None:
-        from java.io.Reader import Reader
-        from java.io.Writer import Writer
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.io.StreamUtil import StreamUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.NULL_WRITER: Writer = SimpleFileUtil.nullWriter()
-        self.NULL_READER: Reader = SimpleFileUtil.nullReader()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.nullUtil: NullUtil = NullUtil.getInstance()
-        self.streamUtil: StreamUtil = StreamUtil.getInstance()
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function nullOutputStream(::Type{SimpleFileUtil})
+        return staticGet_NULL_OUTPUT_STREAM(NullOutputStream)
+end
 
-    @staticmethod
-    def getInstance() -> SimpleFileUtil:
-        return SimpleFileUtil.instance
-    
 
-    @staticmethod
-    def nullOutputStream() -> OutputStream:
-        from java.io.OutputStream import OutputStream
-        from org.allbinary.logic.io.NullOutputStream import NullOutputStream
-        return NullOutputStream.NULL_OUTPUT_STREAM
-    
+function nullWriter(::Type{SimpleFileUtil})
+        return staticGet_NULL_WRITER(NullWriter)
+end
 
-    @staticmethod
-    def nullWriter() -> Writer:
-        from java.io.Writer import Writer
-        from org.allbinary.logic.io.NullWriter import NullWriter
-        return NullWriter.NULL_WRITER
-    
 
-    @staticmethod
-    def nullReader() -> Reader:
-        from java.io.Reader import Reader
-        from org.allbinary.logic.io.NullReader import NullReader
-        return NullReader.NULL_READER
-    
+function nullReader(::Type{SimpleFileUtil})
+        return staticGet_NULL_READER(NullReader)
+end
 
-    def loadFileAsList(self, inputStream: InputStream, max: int, byteArray1: list[int]) -> BasicArrayList:
-        from java.io.InputStream import InputStream
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.loadFileAsListReturnLine(inputStream, max, byteArray1, 0)
-    
 
-    def loadFileAsListReturnLine(self, inputStream: InputStream, max: int, byteArray1: list[int], includeReturnLine: int) -> BasicArrayList:
-        from java.io.InputStream import InputStream
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        stringList: BasicArrayList = BasicArrayListD()
-        if inputStream is None:
+function loadFileAsList(this::SimpleFileUtil, inputStream, max, byteArray1)
+        return AllBinary.loadFileAsListReturnLine(this, inputStream, max, byteArray1, Int32(0))
+end
+
+
+function loadFileAsListReturnLine(this::SimpleFileUtil, inputStream, max, byteArray1, includeReturnLine)
+        local stringList = newBasicArrayListD()
+        if inputStream === nothing
             return stringList
-        byteArray: list[int] = self.nullUtil.NULL_BYTE_ARRAY
-        try:
-            outputStream2: ByteArrayOutputStream = ByteArrayOutputStream(max)
-            byteArray = self.streamUtil.getByteArray(inputStream, outputStream2, byteArray1)
-            self.streamUtil.close(inputStream)
-        except Exception as e:
-            self.streamUtil.close(inputStream)
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.ADD, e)
-        if byteArray is None:
+        end
+        local byteArray = this.nullUtil.NULL_BYTE_ARRAY
+        try
+            local outputStream2 = newByteArrayOutputStream(max)
+            byteArray = AllBinary.getByteArray(this.streamUtil, inputStream, outputStream2, byteArray1)
+            AllBinary.close(this.streamUtil, inputStream)
+        catch e
+            AllBinary.close(this.streamUtil, inputStream)
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.ADD, e)
+        end
+        if byteArray === nothing
             return stringList
-        size: int = len(byteArray)
-        index: int = 0
-        startIndex: int = 0
-        returnLine: int = 0
-        while index < size:
+        end
+        local size::Int32 = Int32(Base.length(byteArray))
+        local index::Int32 = Int32(0)
+        local startIndex::Int32 = Int32(0)
+        local returnLine::Int32 = Int32(0)
+        while index < size
             startIndex = index
-            while index < size - 1 and byteArray[index] != ord('\n'):
-                index += 1
-            if includeReturnLine == 0:
-                if index > 0 and byteArray[index - 1] == ord('\r'):
-                    returnLine = 1
-                else:
-                    returnLine = 0
-            s: str = bytes(byteArray, startIndex, (index + includeReturnLine - returnLine - startIndex)).decode()
-            stringList.add(s)
-            index += 1
+            while index < size - Int32(1) && byteArray[index + 1] != ((UInt16('\n')) % Int8)
+                index += Int32(1)
+            end
+            if includeReturnLine == Int32(0)
+                if index > Int32(0) && byteArray[index - Int32(1) + 1] == ((UInt16('\r')) % Int8)
+                    returnLine = Int32(1)
+                else
+                    returnLine = Int32(0)
+                end
+            end
+            local s = jFromChars(byteArray, startIndex, (index + includeReturnLine - returnLine - startIndex))
+            AllBinary.add(stringList, s)
+            index += Int32(1)
+        end
         return stringList
-    
-
-    def createStringFromArrayOfStrings(self, stringArray: list[str]) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringMaker: StringMaker = StringMaker()
-        size: int = len(stringArray)
-        for index in range(0, size):
-            stringMaker.append(stringArray[index])
-        return str(stringMaker)
-# from java.io.ByteArrayOutputStream import ByteArrayOutputStream
-# from java.io.InputStream import InputStream
-# from java.io.OutputStream import OutputStream
-# from java.io.Reader import Reader
-# from java.io.Writer import Writer
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.io.NullOutputStream import NullOutputStream
-# from org.allbinary.logic.io.NullReader import NullReader
-# from org.allbinary.logic.io.NullWriter import NullWriter
-# from org.allbinary.logic.io.StreamUtil import StreamUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+end
 
 
-def _SimpleFileUtil_instance() -> object:
-    return SimpleFileUtil()
-
-lazy_static(SimpleFileUtil, "instance", _SimpleFileUtil_instance)
+function createStringFromArrayOfStrings(this::SimpleFileUtil, stringArray)
+        local stringMaker = newStringMaker()
+        local size::Int32 = Int32(Base.length(stringArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            AllBinary.append(stringMaker, stringArray[index + 1])
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        return AllBinary.toString(stringMaker)
+end
 

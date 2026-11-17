@@ -1,26 +1,42 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.midlet
 
-from __future__ import annotations
+mutable struct DemoSetup <: JObject
+    DemoSetup() = new()
+end
 
 
+function initFieldsDemoSetup(this::DemoSetup)
+    nothing
+end
 
-class DemoSetup:
-    
+function initDemoSetup(this::DemoSetup)
+    initFieldsDemoSetup(this)
+end
 
-    def init(self, gameMidlet: GameMidlet) -> None:
-        pass
+function newDemoSetup()
+    this = DemoSetup()
+    initDemoSetup(this)
+    this
+end
 
+
+function init(this::DemoSetup, gameMidlet)
+        nothing
+        nothing
+end
 

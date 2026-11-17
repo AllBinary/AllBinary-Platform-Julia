@@ -1,150 +1,180 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
-
-import threading
-from javax.microedition.media.Controllable import Controllable
-from javax.microedition.media.Player import Player
-
-
 #BasicPlayer
-class PlayerComposite(Controllable, Player):
-    _lock = threading.RLock()
+mutable struct PlayerComposite <: JObject
+    logUtil::Any
+    commonStrings::Any
+    player::Any
+    timeElapsedHelper::Any
+    gameTickTimeDelayHelper::Any
+    PlayerComposite() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.player: Player = None
-        self.timeElapsedHelper: TimeDelayHelper = TimeDelayHelper(0)
-        self.gameTickTimeDelayHelper: GameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
+
+function initFieldsPlayerComposite(this::PlayerComposite)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.player = nothing
+    this.timeElapsedHelper = nothing
+    this.gameTickTimeDelayHelper = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
+    this.timeElapsedHelper = newTimeDelayHelper(Int32(0))
+    this.gameTickTimeDelayHelper = AllBinary.getInstance(GameTickTimeDelayHelperFactory)
+    nothing
+end
 
-    def __init__(self, player: Player, repeatTime: int) -> None:
-        self._init_fields()
-        self.player = player
-        self.timeElapsedHelper.delay = repeatTime
-    
 
-    def addPlayerListener(self, playerListener: PlayerListener) -> None:
-        with self._lock:
-            return self._addPlayerListener_unlocked(playerListener)
+function initPlayerComposite(this::PlayerComposite, player, repeatTime)
+        initFieldsPlayerComposite(this)
+        this.player = player
+        this.timeElapsedHelper.delay = repeatTime
+        nothing
+end
 
-    def _addPlayerListener_unlocked(self, playerListener: PlayerListener) -> None:
-        from javax.microedition.media.PlayerListener import PlayerListener
-        self.player.addPlayerListener(playerListener)
-    
+function newPlayerComposite(player, repeatTime)
+    this = PlayerComposite()
+    initPlayerComposite(this, player, repeatTime)
+    this
+end
 
-    def removePlayerListener(self, playerListener: PlayerListener) -> None:
-        from javax.microedition.media.PlayerListener import PlayerListener
-        self.player.removePlayerListener(playerListener)
-    
 
-    def close(self) -> None:
-        self.player.close()
-    
+function addPlayerListener(this::PlayerComposite, playerListener)
+        AllBinary.addPlayerListener(this.player, playerListener)
+        nothing
+end
 
-    def deallocate(self) -> None:
-        self.player.deallocate()
-    
 
-    def getContentType(self) -> str:
-        return self.player.getContentType()
-    
+function removePlayerListener(this::PlayerComposite, playerListener)
+        AllBinary.removePlayerListener(this.player, playerListener)
+        nothing
+end
 
-    def getDuration(self) -> int:
-        return self.player.getDuration()
-    
 
-    def getMediaTime(self) -> int:
-        return self.player.getMediaTime()
-    
+function close(this::PlayerComposite)
+        AllBinary.close(this.player)
+        nothing
+end
 
-    def prefetch(self) -> None:
-        try:
-            self.player.prefetch()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "prefetch", e)
-    
 
-    def realize(self) -> None:
-        try:
-            self.player.realize()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "realize", e)
-    
+function deallocate(this::PlayerComposite)
+        AllBinary.deallocate(this.player)
+        nothing
+end
 
-    def getState(self) -> int:
-        return self.player.getState()
-    
 
-    def setLoopCount(self, count: int) -> None:
-        self.player.setLoopCount(count)
-    
+function getContentType(this::PlayerComposite)
+        return AllBinary.getContentType(this.player)
+end
 
-    def setMediaTime(self, now: int) -> int:
-        try:
-            return self.player.setMediaTime(now)
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "setMediaTime", e)
-            return -1
-    
 
-    def start(self) -> None:
-        try:
-            if self.timeElapsedHelper.isTime(self.gameTickTimeDelayHelper.startTime):
-                self.player.start()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.START_METHOD_NAME, e)
-    
+function getDuration(this::PlayerComposite)
+        return AllBinary.getDuration(this.player)
+end
 
-    def stop(self) -> None:
-        try:
-            self.player.stop()
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, "stop", e)
-    
 
-    def getControl(self, controlType: str) -> Control:
-        from javax.microedition.media.Control import Control
-        return self.player.getControl(controlType)
-    
+function getMediaTime(this::PlayerComposite)
+        return AllBinary.getMediaTime(this.player)
+end
 
-    def getControls(self) -> list[Control]:
-        from javax.microedition.media.Control import Control
-        raise RuntimeError()
-    
 
-    def setVolume(self, leftVolume: int, rightVolume: int) -> None:
-        controllable2: Controllable2 = (self.player)
-        controllable2.setVolume(leftVolume, rightVolume)
-    
+function prefetch(this::PlayerComposite)
+        try
+            AllBinary.prefetch(this.player)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "prefetch", e)
+        end
+        nothing
+end
 
-    def getPlayerP(self) -> Player:
-        return self.player
-# from javax.microedition.media.Control import Control
-# from javax.microedition.media.PlayerListener import PlayerListener
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
 
+function realize(this::PlayerComposite)
+        try
+            AllBinary.realize(this.player)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "realize", e)
+        end
+        nothing
+end
+
+
+function getState(this::PlayerComposite)
+        return AllBinary.getState(this.player)
+end
+
+
+function setLoopCount(this::PlayerComposite, count)
+        AllBinary.setLoopCount(this.player, count)
+        nothing
+end
+
+
+function setMediaTime(this::PlayerComposite, now)
+        try
+            return AllBinary.setMediaTime(this.player, now)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "setMediaTime", e)
+            return ((-Int32(1)) % Int64)
+        end
+end
+
+
+function start(this::PlayerComposite)
+        try
+            if AllBinary.isTime(this.timeElapsedHelper, this.gameTickTimeDelayHelper.startTime)
+                AllBinary.start(this.player)
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.START_METHOD_NAME, e)
+        end
+        nothing
+end
+
+
+function stop(this::PlayerComposite)
+        try
+            AllBinary.stop(this.player)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, "stop", e)
+        end
+        nothing
+end
+
+
+function getControl(this::PlayerComposite, controlType)
+        return AllBinary.getControl(this.player, controlType)
+end
+
+
+function getControls(this::PlayerComposite)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function setVolume(this::PlayerComposite, leftVolume, rightVolume)
+        local controllable2 = ((this.player))
+        AllBinary.setVolume(controllable2, leftVolume, rightVolume)
+        nothing
+end
+
+
+function getPlayerP(this::PlayerComposite)
+        return this.player
+end
 

@@ -1,45 +1,57 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image
 
-from __future__ import annotations
+mutable struct PaintableToImageUtil <: JObject
+    PaintableToImageUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const PaintableToImageUtil_instanceValue = Ref{Any}(nothing)
+const PaintableToImageUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{PaintableToImageUtil})
+    if !PaintableToImageUtil_instanceSet[]
+        PaintableToImageUtil_instanceSet[] = true
+        PaintableToImageUtil_instanceValue[] = newPaintableToImageUtil()
+    end
+    PaintableToImageUtil_instanceValue[]
+end
+function staticSet_instance(::Type{PaintableToImageUtil}, value)
+    PaintableToImageUtil_instanceSet[] = true
+    PaintableToImageUtil_instanceValue[] = value
+end
+
+function initFieldsPaintableToImageUtil(this::PaintableToImageUtil)
+    nothing
+end
+
+function initPaintableToImageUtil(this::PaintableToImageUtil)
+    initFieldsPaintableToImageUtil(this)
+end
+
+function newPaintableToImageUtil()
+    this = PaintableToImageUtil()
+    initPaintableToImageUtil(this)
+    this
+end
 
 
-class PaintableToImageUtil:
-    instance: PaintableToImageUtil = None
-    
-
-    # throws Exception
-    @staticmethod
-    def getImage(paintableInterface: PaintableInterface, width: int, height: int) -> Image:
-        from org.allbinary.image.GameFeatureImageCacheFactory import GameFeatureImageCacheFactory
-        from javax.microedition.lcdui.Graphics import Graphics
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-        image: Image = GameFeatureImageCacheFactory.getInstance().get(type(PaintableToImageUtil.instance).__module__ + "." + type(PaintableToImageUtil.instance).__qualname__, width, height)
-        graphics: Graphics = image.getGraphics()
-        paintableInterface.paint(graphics)
+function getImage(::Type{PaintableToImageUtil}, paintableInterface, width, height)
+        local image = AllBinary.get(AllBinary.getInstance(GameFeatureImageCacheFactory), jClassName(staticGet_instance(PaintableToImageUtil)), width, height)
+        local graphics = AllBinary.getGraphics(image)
+        AllBinary.paint(paintableInterface, graphics)
         return image
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-
-
-def _PaintableToImageUtil_instance() -> object:
-    return PaintableToImageUtil()
-
-lazy_static(PaintableToImageUtil, "instance", _PaintableToImageUtil_instance)
+end
 

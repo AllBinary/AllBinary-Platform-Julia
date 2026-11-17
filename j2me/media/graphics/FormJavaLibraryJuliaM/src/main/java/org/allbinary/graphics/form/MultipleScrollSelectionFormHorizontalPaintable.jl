@@ -1,41 +1,49 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends ItemIndexPaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MultipleScrollSelectionFormHorizontalPaintable <: JObject
+    multipleScrollSelectionForm::Any
+    MultipleScrollSelectionFormHorizontalPaintable() = new()
+end
 
-from org.allbinary.graphics.form.ItemIndexPaintable import ItemIndexPaintable
 
-
-class MultipleScrollSelectionFormHorizontalPaintable(ItemIndexPaintable):
-
-    def _init_fields(self) -> None:
-        self.multipleScrollSelectionForm: MultipleScrollSelectionHorizontalForm = None
+function initFieldsMultipleScrollSelectionFormHorizontalPaintable(this::MultipleScrollSelectionFormHorizontalPaintable)
+    this.multipleScrollSelectionForm = nothing
     
+    nothing
+end
 
-    def __init__(self, multipleScrollSelectionForm: MultipleScrollSelectionHorizontalForm) -> None:
-        super().__init__()
-        self._init_fields()
-        self.multipleScrollSelectionForm = multipleScrollSelectionForm
-    
 
-    # throws Exception
-    def paint(self, graphics: Graphics, index: int, item: ABCustomItem, dx: int, dy: int) -> int:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return self.multipleScrollSelectionForm.paintHorizontal(graphics, index, item, dx, dy)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
+function initMultipleScrollSelectionFormHorizontalPaintable(this::MultipleScrollSelectionFormHorizontalPaintable, multipleScrollSelectionForm)
+        initItemIndexPaintable(this)
+        initFieldsMultipleScrollSelectionFormHorizontalPaintable(this)
+        this.multipleScrollSelectionForm = multipleScrollSelectionForm
+        nothing
+end
 
+function newMultipleScrollSelectionFormHorizontalPaintable(multipleScrollSelectionForm)
+    this = MultipleScrollSelectionFormHorizontalPaintable()
+    initMultipleScrollSelectionFormHorizontalPaintable(this, multipleScrollSelectionForm)
+    this
+end
+
+
+function paint(this::MultipleScrollSelectionFormHorizontalPaintable, graphics, index, item, dx, dy)
+        return AllBinary.paintHorizontal(this.multipleScrollSelectionForm, graphics, index, item, dx, dy)
+end
 

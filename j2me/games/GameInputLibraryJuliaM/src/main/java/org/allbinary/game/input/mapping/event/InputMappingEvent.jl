@@ -1,43 +1,54 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.mapping.event
 
-from __future__ import annotations
+# extends AllBinaryEventObject: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct InputMappingEvent <: JObject
+    inputToGameKeyMapping::Any
+    InputMappingEvent() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
+
+function initFieldsInputMappingEvent(this::InputMappingEvent)
+    this.inputToGameKeyMapping = nothing
+    this.inputToGameKeyMapping = AllBinary.getNullInstance(InputToGameKeyMapping)
+    nothing
+end
 
 
-class InputMappingEvent(AllBinaryEventObject):
+function initInputMappingEvent(this::InputMappingEvent, anyType)
+        initAllBinaryEventObject(this, anyType)
+        initFieldsInputMappingEvent(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        self.inputToGameKeyMapping: InputToGameKeyMapping = InputToGameKeyMapping.getNullInstance()
-    
+function newInputMappingEvent(anyType)
+    this = InputMappingEvent()
+    initInputMappingEvent(this, anyType)
+    this
+end
 
-    def __init__(self, anyType: object) -> None:
-        super().__init__(anyType)
-        self._init_fields()
-    
 
-    def setInputToGameKeyMapping(self, inputToGameKeyMapping: InputToGameKeyMapping) -> None:
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        self.inputToGameKeyMapping = inputToGameKeyMapping
-    
+function setInputToGameKeyMapping(this::InputMappingEvent, inputToGameKeyMapping)
+        this.inputToGameKeyMapping = inputToGameKeyMapping
+        nothing
+end
 
-    def getInputToGameKeyMapping(self) -> InputToGameKeyMapping:
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        return self.inputToGameKeyMapping
-# from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
 
+function getInputToGameKeyMapping(this::InputMappingEvent)
+        return this.inputToGameKeyMapping
+end
 

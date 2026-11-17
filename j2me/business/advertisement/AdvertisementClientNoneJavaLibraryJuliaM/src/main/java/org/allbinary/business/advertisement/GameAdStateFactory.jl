@@ -1,50 +1,62 @@
 # Generated Code Do Not Modify
 # package org.allbinary.business.advertisement
 
-from __future__ import annotations
+mutable struct GameAdStateFactory <: JObject
+    gameAdStateArray::Any
+    gameAdState::Any
+    GameAdStateFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.business.advertisement.GameAdStateFactoryInterface import GameAdStateFactoryInterface
+const GameAdStateFactory_instanceValue = Ref{Any}(nothing)
+const GameAdStateFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameAdStateFactory})
+    if !GameAdStateFactory_instanceSet[]
+        GameAdStateFactory_instanceSet[] = true
+        GameAdStateFactory_instanceValue[] = newGameAdStateFactory()
+    end
+    GameAdStateFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GameAdStateFactory}, value)
+    GameAdStateFactory_instanceSet[] = true
+    GameAdStateFactory_instanceValue[] = value
+end
 
+function initFieldsGameAdStateFactory(this::GameAdStateFactory)
+    this.gameAdStateArray = nothing
+    this.gameAdState = nothing
+    this.gameAdStateArray = Any[newGameAdState(newAppNameLicensingAdConfiguration())]
+    this.gameAdState = this.gameAdStateArray[Int32(0) + 1]
+    nothing
+end
 
-class GameAdStateFactory(GameAdStateFactoryInterface):
-    instance: GameAdStateFactory = None
+function initGameAdStateFactory(this::GameAdStateFactory)
+    initFieldsGameAdStateFactory(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.GameAdState import GameAdState
-        self.gameAdStateArray: list[GameAdState] = [GameAdState(AppNameLicensingAdConfiguration())]
-        self.gameAdState: GameAdState = self.gameAdStateArray[0]
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GameAdStateFactory:
-        return GameAdStateFactory.instance
-    
-
-    def getCurrentInstance(self) -> GameAdState:
-        from org.allbinary.game.GameAdState import GameAdState
-        return self.gameAdState
-    
-
-    # throws Exception
-    def getInstanceForApp(self, softwareInformation: SoftwareInformation) -> GameAdStateBase:
-        from org.allbinary.logic.system.SoftwareInformation import SoftwareInformation
-        self.gameAdState = self.gameAdStateArray[0]
-        return self.gameAdStateArray[0]
-    
-
-    def isEnabled(self) -> bool:
-        return False
-# from org.allbinary.game.GameAdState import GameAdState
-# from org.allbinary.logic.system.SoftwareInformation import SoftwareInformation
-from org.allbinary.business.advertisement.AppNameLicensingAdConfiguration import AppNameLicensingAdConfiguration
+function newGameAdStateFactory()
+    this = GameAdStateFactory()
+    initGameAdStateFactory(this)
+    this
+end
 
 
-def _GameAdStateFactory_instance() -> object:
-    return GameAdStateFactory()
+function getInstance(::Type{GameAdStateFactory})
+        return staticGet_instance(GameAdStateFactory)
+end
 
-lazy_static(GameAdStateFactory, "instance", _GameAdStateFactory_instance)
+
+function getCurrentInstance(this::GameAdStateFactory)
+        return this.gameAdState
+end
+
+
+function getInstanceForApp(this::GameAdStateFactory, softwareInformation)
+        this.gameAdState = this.gameAdStateArray[Int32(0) + 1]
+        return this.gameAdStateArray[Int32(0) + 1]
+end
+
+
+function isEnabled(this::GameAdStateFactory)
+        return false
+end
 

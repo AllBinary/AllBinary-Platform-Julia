@@ -1,33 +1,39 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer.relationship
 
-from __future__ import annotations
+# extends RelativeLayerRelationship: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MiddleRelativeLayerRelationship <: JObject
+    MiddleRelativeLayerRelationship() = new()
+end
 
-from org.allbinary.layer.relationship.RelativeLayerRelationship import RelativeLayerRelationship
+
+function initFieldsMiddleRelativeLayerRelationship(this::MiddleRelativeLayerRelationship)
+    nothing
+end
 
 
-class MiddleRelativeLayerRelationship(RelativeLayerRelationship):
-    
+function initMiddleRelativeLayerRelationship(this::MiddleRelativeLayerRelationship, layer)
+        initRelativeLayerRelationship(this, layer, AllBinary.createXY(AllBinary.getInstance(PointFactory), AllBinary.getHalfWidth(layer), AllBinary.getHalfHeight(layer)), AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil)))
+        nothing
+end
 
-    def __init__(self, layer: AllBinaryLayer) -> None:
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        super().__init__(layer, PointFactory.getInstance().createXY(layer.getHalfWidth(), layer.getHalfHeight()), BasicArrayListUtil.getInstance().getImmutableInstance())
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-
+function newMiddleRelativeLayerRelationship(layer)
+    this = MiddleRelativeLayerRelationship()
+    initMiddleRelativeLayerRelationship(this, layer)
+    this
+end
 

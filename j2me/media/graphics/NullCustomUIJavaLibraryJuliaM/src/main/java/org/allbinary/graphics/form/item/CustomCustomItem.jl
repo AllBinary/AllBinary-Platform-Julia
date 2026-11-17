@@ -1,33 +1,38 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
+# extends ABCustomItem: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CustomCustomItem <: JObject
+    updateMyFontProcessor::Any
+    myFontProcessor::Any
+    CustomCustomItem() = new()
+end
 
-from org.allbinary.graphics.font.UpdateMyFontInterface import UpdateMyFontInterface
-from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
+
+function initFieldsCustomCustomItem(this::CustomCustomItem)
+    this.updateMyFontProcessor = nothing
+    this.myFontProcessor = nothing
+    this.updateMyFontProcessor = newUpdateMyFontProcessor(this)
+    this.myFontProcessor = this.updateMyFontProcessor
+    nothing
+end
 
 
-class CustomCustomItem(ABCustomItem, UpdateMyFontInterface):
+function initCustomCustomItem(this::CustomCustomItem, label, backgroundBasicColor, foregroundBasicColor)
+        initABCustomItem(this, label, backgroundBasicColor, foregroundBasicColor)
+        initFieldsCustomCustomItem(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-        from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-        self.updateMyFontProcessor: MyFontProcessor = UpdateMyFontProcessor(self)
-        self.myFontProcessor: MyFontProcessor = self.updateMyFontProcessor
-    
+function newCustomCustomItem(label, backgroundBasicColor, foregroundBasicColor)
+    this = CustomCustomItem()
+    initCustomCustomItem(this, label, backgroundBasicColor, foregroundBasicColor)
+    this
+end
 
-    def __init__(self, label: str, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(label, backgroundBasicColor, foregroundBasicColor)
-        self._init_fields()
-    
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.font.MyFontProcessor import MyFontProcessor
-# from org.allbinary.graphics.font.UpdateMyFontProcessor import UpdateMyFontProcessor
-
+function updateMeasurement(this::CustomCustomItem, graphics)
+        nothing
+        nothing
+end
 

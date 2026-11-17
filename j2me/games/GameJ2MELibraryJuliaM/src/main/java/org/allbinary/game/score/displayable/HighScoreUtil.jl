@@ -1,121 +1,134 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score.displayable
 
-from __future__ import annotations
+mutable struct HighScoreUtil <: JObject
+    logUtil::Any
+    commonStrings::Any
+    highScoresFactoryInterface::Any
+    highScoresArray::Any
+    highScore::Any
+    abeClientInformation::Any
+    gameInfo::Any
+    highScoresHelper::Any
+    firstTime::Bool
+    HighScoreUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.score.HighScoresResultsListener import HighScoresResultsListener
+const HighScoreUtil_SUBMIT_TEXTBOX_COMMANDValue = Ref{Any}(nothing)
+const HighScoreUtil_SUBMIT_TEXTBOX_COMMANDSet = Ref(false)
+function staticGet_SUBMIT_TEXTBOX_COMMAND(::Type{HighScoreUtil})
+    if !HighScoreUtil_SUBMIT_TEXTBOX_COMMANDSet[]
+        HighScoreUtil_SUBMIT_TEXTBOX_COMMANDSet[] = true
+        HighScoreUtil_SUBMIT_TEXTBOX_COMMANDValue[] = newCommand("Submit", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SCREEN(Command), Int32(1))
+    end
+    HighScoreUtil_SUBMIT_TEXTBOX_COMMANDValue[]
+end
+function staticSet_SUBMIT_TEXTBOX_COMMAND(::Type{HighScoreUtil}, value)
+    HighScoreUtil_SUBMIT_TEXTBOX_COMMANDSet[] = true
+    HighScoreUtil_SUBMIT_TEXTBOX_COMMANDValue[] = value
+end
 
-
-class HighScoreUtil(HighScoresResultsListener):
-    SUBMIT_TEXTBOX_COMMAND: Command = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.GameInfo import GameInfo
-        from org.allbinary.game.score.HighScore import HighScore
-        from org.allbinary.game.score.HighScores import HighScores
-        from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-        from org.allbinary.game.score.HighScoresHelperBaseInterface import HighScoresHelperBaseInterface
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.highScoresFactoryInterface: HighScoresFactoryInterface = None
-        self.highScoresArray: list[HighScores] = None
-        self.highScore: HighScore = None
-        self.abeClientInformation: AbeClientInformationInterface = None
-        self.gameInfo: GameInfo = None
-        self.highScoresHelper: HighScoresHelperBaseInterface = None
-        self.firstTime: bool = True
+function initFieldsHighScoreUtil(this::HighScoreUtil)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.highScoresFactoryInterface = nothing
+    this.highScoresArray = nothing
+    this.highScore = nothing
+    this.abeClientInformation = nothing
+    this.gameInfo = nothing
+    this.highScoresHelper = nothing
+    this.firstTime = false
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
-
-    def __init__(self, highScoresFactoryInterface: HighScoresFactoryInterface, highScoresHelper: HighScoresHelperBaseInterface, abeClientInformation: AbeClientInformationInterface, gameInfo: GameInfo, cmdListener: CommandListener, name: str, highScore: HighScore) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.GameInfo import GameInfo
-        from org.allbinary.game.score.HighScore import HighScore
-        from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-        from org.allbinary.game.score.HighScoresHelperBaseInterface import HighScoresHelperBaseInterface
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        self._init_fields()
-        self.highScoresFactoryInterface = highScoresFactoryInterface
-        self.highScoresHelper = highScoresHelper
-        self.highScoresArray = self.highScoresHelper.getHighScoresArray()
-        self.highScore = highScore
-        self.abeClientInformation = abeClientInformation
-        self.gameInfo = gameInfo
     
-
-    def setHighScoresArray(self, highScoresArray: list[HighScores]) -> None:
-        from org.allbinary.game.score.HighScores import HighScores
-        self.highScoresArray = highScoresArray
-        self.firstTime = False
-        self.saveHighScore()
     
-
-    def update(self, name: str) -> None:
-        from org.allbinary.game.score.HighScoreNamePersistanceSingleton import HighScoreNamePersistanceSingleton
-        HighScoreNamePersistanceSingleton.getInstance().save(self.abeClientInformation, self.gameInfo, name)
-        self.highScore.setName(name)
     
+    
+    
+    this.firstTime = true
+    nothing
+end
 
-    def saveHighScore(self) -> None:
-        from org.allbinary.game.score.HighScores import HighScores
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.logUtil.putF(str(StringMaker().append(self.commonStrings.START).append(StringUtil.getInstance().toString(self.highScore))), self, "saveHighScore")
-        size: int = len(self.highScoresArray)
-        if self.firstTime and size == 0:
-            self.logUtil.putF("Games canvas did not give us any HighScores", self, "saveHighScore")
-            self.highScoresFactoryInterface.fetchHighScores(self.gameInfo, self)
+
+function initHighScoreUtil(this::HighScoreUtil, highScoresFactoryInterface, highScoresHelper, abeClientInformation, gameInfo, cmdListener, name, highScore)
+        initFieldsHighScoreUtil(this)
+        this.highScoresFactoryInterface = highScoresFactoryInterface
+        this.highScoresHelper = highScoresHelper
+        this.highScoresArray = AllBinary.getHighScoresArray(this.highScoresHelper)
+        this.highScore = highScore
+        this.abeClientInformation = abeClientInformation
+        this.gameInfo = gameInfo
+        nothing
+end
+
+function newHighScoreUtil(highScoresFactoryInterface, highScoresHelper, abeClientInformation, gameInfo, cmdListener, name, highScore)
+    this = HighScoreUtil()
+    initHighScoreUtil(this, highScoresFactoryInterface, highScoresHelper, abeClientInformation, gameInfo, cmdListener, name, highScore)
+    this
+end
+
+
+function setHighScoresArray(this::HighScoreUtil, highScoresArray)
+        this.highScoresArray = highScoresArray
+        this.firstTime = false
+        AllBinary.saveHighScore(this)
+        nothing
+end
+
+
+function update(this::HighScoreUtil, name)
+        AllBinary.save(AllBinary.getInstance(HighScoreNamePersistanceSingleton), this.abeClientInformation, this.gameInfo, name)
+        AllBinary.setName(this.highScore, name)
+        nothing
+end
+
+
+function saveHighScore(this::HighScoreUtil)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), this.commonStrings.START), AllBinary.toString(AllBinary.getInstance(StringUtil), this.highScore))), this, "saveHighScore")
+        local size::Int32 = Int32(Base.length(this.highScoresArray))
+        if this.firstTime && size == Int32(0)
+            AllBinary.putF(this.logUtil, "Games canvas did not give us any HighScores", this, "saveHighScore")
+            AllBinary.fetchHighScores(this.highScoresFactoryInterface, this.gameInfo, this)
             return
-        highScores: HighScores = None
-        highScoresAsString: str = None
-        for index in range(0, size):
-            highScores = self.highScoresArray[index]
-            highScores.addHighScore(self.highScore)
-            highScoresAsString = str(highScores)
-            self.logUtil.putF(str(StringMaker().append("Added/Adding Score: ").append(highScoresAsString)), self, "saveHighScore")
-        self.highScoresHelper.setHighScoresArray(self.highScoresArray)
-    
-
-    def submit(self, myCanvas: MyCanvas) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-        commandListener: CommandListener = myCanvas.getCustomCommandListener()
-        commandListener.commandAction(HighScoreUtil.SUBMIT_TEXTBOX_COMMAND, myCanvas)
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from org.allbinary.game.GameInfo import GameInfo
-# from org.allbinary.game.score.HighScore import HighScore
-# from org.allbinary.game.score.HighScoreNamePersistanceSingleton import HighScoreNamePersistanceSingleton
-# from org.allbinary.game.score.HighScores import HighScores
-# from org.allbinary.game.score.HighScoresFactoryInterface import HighScoresFactoryInterface
-# from org.allbinary.game.score.HighScoresHelperBaseInterface import HighScoresHelperBaseInterface
-# from org.allbinary.graphics.displayable.MyCanvas import MyCanvas
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-# from org.allbinary.string.CommonStrings import CommonStrings
+        end
+        local highScores = nothing
+        local highScoresAsString = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            highScores = this.highScoresArray[index + 1]
+            AllBinary.addHighScore(highScores, this.highScore)
+            highScoresAsString = AllBinary.toString(highScores)
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), "Added/Adding Score: "), highScoresAsString)), this, "saveHighScore")
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.setHighScoresArray(this.highScoresHelper, this.highScoresArray)
+        nothing
+end
 
 
-def _HighScoreUtil_SUBMIT_TEXTBOX_COMMAND() -> object:
-    from javax.microedition.lcdui.Command import Command
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return Command("Submit", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-
-lazy_static(HighScoreUtil, "SUBMIT_TEXTBOX_COMMAND", _HighScoreUtil_SUBMIT_TEXTBOX_COMMAND)
+function submit(this::HighScoreUtil, myCanvas)
+        local commandListener = AllBinary.getCustomCommandListener(myCanvas)
+        AllBinary.commandAction(commandListener, staticGet_SUBMIT_TEXTBOX_COMMAND(HighScoreUtil), myCanvas)
+        nothing
+end
 

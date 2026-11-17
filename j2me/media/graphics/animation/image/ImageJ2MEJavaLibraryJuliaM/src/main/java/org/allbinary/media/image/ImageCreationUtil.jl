@@ -1,56 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.image
 
-from __future__ import annotations
+mutable struct ImageCreationUtil <: JObject
+    ImageCreationUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ImageCreationUtil_instanceValue = Ref{Any}(nothing)
+const ImageCreationUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{ImageCreationUtil})
+    if !ImageCreationUtil_instanceSet[]
+        ImageCreationUtil_instanceSet[] = true
+        ImageCreationUtil_instanceValue[] = newImageCreationUtil()
+    end
+    ImageCreationUtil_instanceValue[]
+end
+function staticSet_instance(::Type{ImageCreationUtil}, value)
+    ImageCreationUtil_instanceSet[] = true
+    ImageCreationUtil_instanceValue[] = value
+end
+
+function initFieldsImageCreationUtil(this::ImageCreationUtil)
+    nothing
+end
 
 
-class ImageCreationUtil:
-    instance: ImageCreationUtil = None
-    
+function getInstance(::Type{ImageCreationUtil})
+        return staticGet_instance(ImageCreationUtil)
+end
 
-    @staticmethod
-    def getInstance() -> ImageCreationUtil:
-        return ImageCreationUtil.instance
-    
 
-    def __init__(self) -> None:
-        pass
-    
+function initImageCreationUtil(this::ImageCreationUtil)
+        initFieldsImageCreationUtil(this)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def createImageWH(self, width: int, height: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.image.GameFeatureImageCacheFactory import GameFeatureImageCacheFactory
-        image: Image = GameFeatureImageCacheFactory.getInstance().get(type(self).__module__ + "." + type(self).__qualname__, width, height)
+function newImageCreationUtil()
+    this = ImageCreationUtil()
+    initImageCreationUtil(this)
+    this
+end
+
+
+function createImageWH(this::ImageCreationUtil, width, height)
+        local image = AllBinary.get(AllBinary.getInstance(GameFeatureImageCacheFactory), jClassName(this), width, height)
         return image
-    
+end
 
-    # throws Exception
-    def createImage(self, width: int, height: int, maxScaleX: float, maxScaleY: float) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.image.GameFeatureImageCacheFactory import GameFeatureImageCacheFactory
-        image: Image = GameFeatureImageCacheFactory.getInstance().get(type(self).__module__ + "." + type(self).__qualname__, int((float(width) * maxScaleX)) + 1, int((float(height) * maxScaleY)) + 1)
+
+function createImage(this::ImageCreationUtil, width, height, maxScaleX, maxScaleY)
+        local image = AllBinary.get(AllBinary.getInstance(GameFeatureImageCacheFactory), jClassName(this), (jToInt32((Float32(width) * maxScaleX)) % Int32) + Int32(1), (jToInt32((Float32(height) * maxScaleY)) % Int32) + Int32(1))
         return image
-# from javax.microedition.lcdui.Image import Image
-# from org.allbinary.image.GameFeatureImageCacheFactory import GameFeatureImageCacheFactory
-
-
-def _ImageCreationUtil_instance() -> object:
-    return ImageCreationUtil()
-
-lazy_static(ImageCreationUtil, "instance", _ImageCreationUtil_instance)
+end
 

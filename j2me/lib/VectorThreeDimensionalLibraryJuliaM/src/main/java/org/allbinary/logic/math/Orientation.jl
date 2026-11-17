@@ -1,72 +1,96 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.math
 
-from __future__ import annotations
+mutable struct Orientation <: JObject
+    yaw::Any
+    pitch::Any
+    roll::Any
+    Orientation() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const Orientation_NONEValue = Ref{Any}(nothing)
+const Orientation_NONESet = Ref(false)
+function staticGet_NONE(::Type{Orientation})
+    if !Orientation_NONESet[]
+        Orientation_NONESet[] = true
+        Orientation_NONEValue[] = newOrientation(Int32(0), Int32(0), Int32(0))
+    end
+    Orientation_NONEValue[]
+end
+function staticSet_NONE(::Type{Orientation}, value)
+    Orientation_NONESet[] = true
+    Orientation_NONEValue[] = value
+end
+const Orientation_SINGLETONValue = Ref{Any}(nothing)
+const Orientation_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{Orientation})
+    if !Orientation_SINGLETONSet[]
+        Orientation_SINGLETONSet[] = true
+        Orientation_SINGLETONValue[] = newOrientation(Int32(0), Int32(0), Int32(0))
+    end
+    Orientation_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{Orientation}, value)
+    Orientation_SINGLETONSet[] = true
+    Orientation_SINGLETONValue[] = value
+end
 
-
-class Orientation:
-    NONE: Orientation = None
-    SINGLETON: Orientation = None
-
-    def _init_fields(self) -> None:
-        self.yaw: BasicDecimal = BasicDecimal(0)
-        self.pitch: BasicDecimal = BasicDecimal(0)
-        self.roll: BasicDecimal = BasicDecimal(0)
-    
-
-    @staticmethod
-    def getInstance(yaw: int, pitch: int, roll: int) -> Orientation:
-        Orientation.SINGLETON.yaw.setint(yaw)
-        Orientation.SINGLETON.pitch.setint(pitch)
-        Orientation.SINGLETON.roll.setint(roll)
-        return Orientation.SINGLETON
-    
-
-    def __init__(self, yaw: int, pitch: int, roll: int) -> None:
-        self._init_fields()
-        self.yaw.setint(yaw)
-        self.pitch.setint(pitch)
-        self.roll.setint(roll)
-    
-
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append("Y: ")
-        stringBuffer.append(str(self.yaw))
-        stringBuffer.append(" P: ")
-        stringBuffer.append(str(self.pitch))
-        stringBuffer.append(" R: ")
-        stringBuffer.append(str(self.roll))
-        return str(stringBuffer)
-
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.string.StringMaker import StringMaker
-from org.allbinary.logic.math.BasicDecimal import BasicDecimal
+function initFieldsOrientation(this::Orientation)
+    this.yaw = nothing
+    this.pitch = nothing
+    this.roll = nothing
+    this.yaw = newBasicDecimal(Int32(0))
+    this.pitch = newBasicDecimal(Int32(0))
+    this.roll = newBasicDecimal(Int32(0))
+    nothing
+end
 
 
-def _Orientation_NONE() -> object:
-    return Orientation(0, 0, 0)
+function getInstance(::Type{Orientation}, yaw, pitch, roll)
+        AllBinary.setint(staticGet_SINGLETON(Orientation).yaw, yaw)
+        AllBinary.setint(staticGet_SINGLETON(Orientation).pitch, pitch)
+        AllBinary.setint(staticGet_SINGLETON(Orientation).roll, roll)
+        return staticGet_SINGLETON(Orientation)
+end
 
-lazy_static(Orientation, "NONE", _Orientation_NONE)
 
-def _Orientation_SINGLETON() -> object:
-    return Orientation(0, 0, 0)
+function initOrientation(this::Orientation, yaw, pitch, roll)
+        initFieldsOrientation(this)
+        AllBinary.setint(this.yaw, yaw)
+        AllBinary.setint(this.pitch, pitch)
+        AllBinary.setint(this.roll, roll)
+        nothing
+end
 
-lazy_static(Orientation, "SINGLETON", _Orientation_SINGLETON)
+function newOrientation(yaw, pitch, roll)
+    this = Orientation()
+    initOrientation(this, yaw, pitch, roll)
+    this
+end
+
+
+function toString(this::Orientation)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, "Y: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(this.yaw))
+        AllBinary.append(stringBuffer, " P: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(this.pitch))
+        AllBinary.append(stringBuffer, " R: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(this.roll))
+        return AllBinary.toString(stringBuffer)
+end
 

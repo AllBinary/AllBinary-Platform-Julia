@@ -1,87 +1,75 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends BaseImageAnimationFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct VectorToImageArrayRotationAnimationFactory <: JObject
+    imageArray::Any
+    angleIncrement::Int32
+    VectorToImageArrayRotationAnimationFactory() = new()
+end
 
-from org.allbinary.animation.image.BaseImageAnimationFactory import BaseImageAnimationFactory
+
+function initFieldsVectorToImageArrayRotationAnimationFactory(this::VectorToImageArrayRotationAnimationFactory)
+    this.imageArray = nothing
+    this.angleIncrement = Int32(0)
+    this.imageArray = staticGet_NULL_IMAGE_ARRAY(NullImage)
+    this.angleIncrement = Int32(0)
+    nothing
+end
 
 
-class VectorToImageArrayRotationAnimationFactory(BaseImageAnimationFactory):
+function initVectorToImageArrayRotationAnimationFactory(this::VectorToImageArrayRotationAnimationFactory, vectorInfo, basicColor, animationBehaviorFactory)
+        initBaseImageAnimationFactory(this, AllBinary.getInstanceTranslate(AllBinary.getInstance(AnimationFrameToImageUtil), AllBinary.getWidth(vectorInfo), AllBinary.getHeight(vectorInfo), AllBinary.createVectorAnimation(VectorAnimation, AllBinary.getPoints(vectorInfo), basicColor, AllBinary.getOrCreateInstance(animationBehaviorFactory))), AllBinary.getArrayInstance(PrimitiveIntUtil), Int32(0), Int32(0), Int32(0), Int32(0), animationBehaviorFactory)
+        initFieldsVectorToImageArrayRotationAnimationFactory(this)
+        AllBinary.init(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.NullImage import NullImage
-        self.imageArray: list[Image] = NullImage.NULL_IMAGE_ARRAY
-        self.angleIncrement: int = 0
-    
+function newVectorToImageArrayRotationAnimationFactory(vectorInfo, basicColor, animationBehaviorFactory)
+    this = VectorToImageArrayRotationAnimationFactory()
+    initVectorToImageArrayRotationAnimationFactory(this, vectorInfo, basicColor, animationBehaviorFactory)
+    this
+end
 
-    def __init__(self, vectorInfo: VectorInfo, basicColor: BasicColor, animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.animation.VectorAnimation import VectorAnimation
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.image.AnimationFrameToImageUtil import AnimationFrameToImageUtil
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        from org.allbinary.vector.VectorInfo import VectorInfo
-        super().__init__(AnimationFrameToImageUtil.getInstance().getInstanceTranslate(vectorInfo.getWidth(), vectorInfo.getHeight(), VectorAnimation.createVectorAnimation(vectorInfo.getPoints(), basicColor, animationBehaviorFactory.getOrCreateInstance())), PrimitiveIntUtil.getArrayInstance(), 0, 0, 0, 0, animationBehaviorFactory)
-        self._init_fields()
-        self.init()
-    
 
-    # throws Exception
-    def init(self) -> None:
-        from org.allbinary.game.configuration.GameConfigurationCentral import GameConfigurationCentral
-        from org.allbinary.math.AngleFactory import AngleFactory
-        from org.allbinary.media.image.ImageToRotationImageArrayUtil import ImageToRotationImageArrayUtil
-        angleFactory: AngleFactory = AngleFactory.getInstance()
-        self.angleIncrement = angleFactory.TOTAL_ANGLE / GameConfigurationCentral.getInstance().getGameControlFidelity()
-        self.imageArray = ImageToRotationImageArrayUtil.getInstance().generate(self.getImage(), self.getAngleIncrement(), int(angleFactory.TOTAL_ANGLE))
-    
+function init(this::VectorToImageArrayRotationAnimationFactory)
+        local angleFactory = AllBinary.getInstance(AngleFactory)
+        this.angleIncrement = angleFactory.TOTAL_ANGLE / AllBinary.getGameControlFidelity(AllBinary.getInstance(GameConfigurationCentral))
+        this.imageArray = AllBinary.generate(AllBinary.getInstance(ImageToRotationImageArrayUtil), AllBinary.getImage(this), AllBinary.getAngleIncrement(this), ((angleFactory.TOTAL_ANGLE) % Int32))
+        nothing
+end
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.image.AdjustedImageArrayRotationAnimation import AdjustedImageArrayRotationAnimation
-        from org.allbinary.animation.image.AdjustedImageArrayRotationAnimation import AdjustedImageArrayRotationAnimation
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.math.AngleFactory import AngleFactory
-        from org.allbinary.math.AngleInfo import AngleInfo
-        if self.animationFactoryInitializationVisitor.dx != 0 or self.animationFactoryInitializationVisitor.dy != 0:
-            return AdjustedImageArrayRotationAnimation(self.imageArray, AngleInfo.getInstance(((int(self.getAngleIncrement()) + 32768) % 65536 - 32768)), int(AngleFactory.getInstance().TOTAL_ANGLE), self.animationFactoryInitializationVisitor.dx, self.animationFactoryInitializationVisitor.dy, self.animationBehaviorFactory.getOrCreateInstance())
-        else:
-            return AdjustedImageArrayRotationAnimation.createAnimation(self.imageArray, AngleInfo.getInstance(((int(self.angleIncrement) + 32768) % 65536 - 32768)), int(AngleFactory.getInstance().TOTAL_ANGLE), self.animationBehaviorFactory.getOrCreateInstance())
-    
 
-    def getAngleIncrement(self) -> int:
-        return self.angleIncrement
-    
+function getInstance(this::VectorToImageArrayRotationAnimationFactory, instanceId)
+        if this.animationFactoryInitializationVisitor.dx != Int32(0) || this.animationFactoryInitializationVisitor.dy != Int32(0)
+            return newAdjustedImageArrayRotationAnimation(this.imageArray, AllBinary.getInstance(AngleInfo, ((AllBinary.getAngleIncrement(this)) % Int16)), ((AllBinary.getInstance(AngleFactory).TOTAL_ANGLE) % Int32), this.animationFactoryInitializationVisitor.dx, this.animationFactoryInitializationVisitor.dy, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        else
+            return AllBinary.createAnimation(AdjustedImageArrayRotationAnimation, this.imageArray, AllBinary.getInstance(AngleInfo, ((this.angleIncrement) % Int16)), ((AllBinary.getInstance(AngleFactory).TOTAL_ANGLE) % Int32), AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        end
+end
 
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.NullImage import NullImage
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.animation.VectorAnimation import VectorAnimation
-# from org.allbinary.game.configuration.GameConfigurationCentral import GameConfigurationCentral
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.image.AnimationFrameToImageUtil import AnimationFrameToImageUtil
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-# from org.allbinary.math.AngleFactory import AngleFactory
-# from org.allbinary.math.AngleInfo import AngleInfo
-# from org.allbinary.media.ScaleProperties import ScaleProperties
-# from org.allbinary.media.image.ImageToRotationImageArrayUtil import ImageToRotationImageArrayUtil
-# from org.allbinary.vector.VectorInfo import VectorInfo
 
+function getAngleIncrement(this::VectorToImageArrayRotationAnimationFactory)
+        return this.angleIncrement
+end
+
+
+function setInitialScale(this::VectorToImageArrayRotationAnimationFactory, scaleProperties)
+        nothing
+        nothing
+end
 

@@ -1,62 +1,70 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.tracking
 
-from __future__ import annotations
+mutable struct TrackingEventCircularStaticPool <: JObject
+    EVENT_POOL::Any
+    TrackingEventCircularStaticPool() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
+const TrackingEventCircularStaticPool_instanceValue = Ref{Any}(nothing)
+const TrackingEventCircularStaticPool_instanceSet = Ref(false)
+function staticGet_instance(::Type{TrackingEventCircularStaticPool})
+    if !TrackingEventCircularStaticPool_instanceSet[]
+        TrackingEventCircularStaticPool_instanceSet[] = true
+        TrackingEventCircularStaticPool_instanceValue[] = newTrackingEventCircularStaticPool()
+    end
+    TrackingEventCircularStaticPool_instanceValue[]
+end
+function staticSet_instance(::Type{TrackingEventCircularStaticPool}, value)
+    TrackingEventCircularStaticPool_instanceSet[] = true
+    TrackingEventCircularStaticPool_instanceValue[] = value
+end
+
+function initFieldsTrackingEventCircularStaticPool(this::TrackingEventCircularStaticPool)
+    this.EVENT_POOL = nothing
+    this.EVENT_POOL = newAllBinaryEventCircularPool(Int32(20))
+    nothing
+end
+
+function initTrackingEventCircularStaticPool(this::TrackingEventCircularStaticPool)
+    initFieldsTrackingEventCircularStaticPool(this)
+end
+
+function newTrackingEventCircularStaticPool()
+    this = TrackingEventCircularStaticPool()
+    initTrackingEventCircularStaticPool(this)
+    this
+end
 
 
-class TrackingEventCircularStaticPool:
-    instance: TrackingEventCircularStaticPool = None
-    _lock = threading.RLock()
+function getInstance(::Type{TrackingEventCircularStaticPool})
+        return staticGet_instance(TrackingEventCircularStaticPool)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventCircularPool import AllBinaryEventCircularPool
-        self.EVENT_POOL: AllBinaryEventCircularPool = AllBinaryEventCircularPool(20)
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function init(this::TrackingEventCircularStaticPool)
+        AllBinary.initAllBinaryEventCircularPool(this.EVENT_POOL, newTrackingEventFactory())
+        nothing
+end
 
-    @staticmethod
-    def getInstance() -> TrackingEventCircularStaticPool:
-        return TrackingEventCircularStaticPool.instance
-    
 
-    def init(self) -> None:
-        from org.allbinary.game.tracking.TrackingEventFactory import TrackingEventFactory
-        self.EVENT_POOL.initAllBinaryEventCircularPool(TrackingEventFactory())
-    
-
-    # throws Exception
-    def getNextInstance(self, layerInterface: AllBinaryLayer) -> TrackingEvent:
-        with self._lock:
-            return self._getNextInstance_unlocked(layerInterface)
-
-    def _getNextInstance_unlocked(self, layerInterface: AllBinaryLayer) -> TrackingEvent:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        trackingEvent: TrackingEvent = self.EVENT_POOL.getNextInstance()
-        trackingEvent.setLayerInterfaceForCircularStaticPool(layerInterface)
+function getNextInstance(this::TrackingEventCircularStaticPool, layerInterface)
+        local trackingEvent = (AllBinary.getNextInstance(this.EVENT_POOL))
+        AllBinary.setLayerInterfaceForCircularStaticPool(trackingEvent, layerInterface)
         return trackingEvent
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.logic.util.event.AllBinaryEventCircularPool import AllBinaryEventCircularPool
-
-
-def _TrackingEventCircularStaticPool_instance() -> object:
-    return TrackingEventCircularStaticPool()
-
-lazy_static(TrackingEventCircularStaticPool, "instance", _TrackingEventCircularStaticPool_instance)
+end
 

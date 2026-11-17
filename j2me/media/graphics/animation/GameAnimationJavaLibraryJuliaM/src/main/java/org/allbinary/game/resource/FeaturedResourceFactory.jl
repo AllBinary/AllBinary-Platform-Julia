@@ -1,110 +1,135 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.resource
 
-from __future__ import annotations
+mutable struct FeaturedResourceFactory <: JObject
+    logUtil::Any
+    list::Any
+    commonStrings::Any
+    ANIMATION_FEATURES::Any
+    IMAGE_LABEL::Any
+    IMAGE_GRAPHICS_ARRAY::Any
+    IMAGE_GRAPHICS_ROTATION::Any
+    SPRITE_QUARTER::Any
+    SPRITE_FULL::Any
+    IS_LOADING_LEVEL_LABEL::Any
+    IS_FEATURE::Any
+    GAME_FEATURE_CONTROLLED::Any
+    FeaturedResourceFactory() = new()
+end
 
 
+function initFieldsFeaturedResourceFactory(this::FeaturedResourceFactory)
+    this.logUtil = nothing
+    this.list = nothing
+    this.commonStrings = nothing
+    this.ANIMATION_FEATURES = nothing
+    this.IMAGE_LABEL = nothing
+    this.IMAGE_GRAPHICS_ARRAY = nothing
+    this.IMAGE_GRAPHICS_ROTATION = nothing
+    this.SPRITE_QUARTER = nothing
+    this.SPRITE_FULL = nothing
+    this.IS_LOADING_LEVEL_LABEL = nothing
+    this.IS_FEATURE = nothing
+    this.GAME_FEATURE_CONTROLLED = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.list = newBasicArrayListD()
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.ANIMATION_FEATURES = "Animation Features: Vector: "
+    this.IMAGE_LABEL = " Image: "
+    this.IMAGE_GRAPHICS_ARRAY = "Image Array: "
+    this.IMAGE_GRAPHICS_ROTATION = "Image Rotate: "
+    this.SPRITE_QUARTER = " Sprite Quarter: "
+    this.SPRITE_FULL = " Sprite Full: "
+    this.IS_LOADING_LEVEL_LABEL = " isLoadingLevel "
+    this.IS_FEATURE = " isFeature: "
+    this.GAME_FEATURE_CONTROLLED = "GameFeatureControlledInterface: "
+    nothing
+end
 
-class FeaturedResourceFactory:
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.list_: BasicArrayList = BasicArrayListD()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.ANIMATION_FEATURES: str = "Animation Features: Vector: "
-        self.IMAGE_LABEL: str = " Image: "
-        self.IMAGE_GRAPHICS_ARRAY: str = "Image Array: "
-        self.IMAGE_GRAPHICS_ROTATION: str = "Image Rotate: "
-        self.SPRITE_QUARTER: str = " Sprite Quarter: "
-        self.SPRITE_FULL: str = " Sprite Full: "
-        self.IS_LOADING_LEVEL_LABEL: str = " isLoadingLevel "
-        self.IS_FEATURE: str = " isFeature: "
-        self.GAME_FEATURE_CONTROLLED: str = "GameFeatureControlledInterface: "
-    
+function initFeaturedResourceFactory(this::FeaturedResourceFactory)
+        initFieldsFeaturedResourceFactory(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newFeaturedResourceFactory()
+    this = FeaturedResourceFactory()
+    initFeaturedResourceFactory(this)
+    this
+end
 
-    # throws Exception
-    def init(self, level: int) -> None:
-        from org.allbinary.game.resource.ResourceLoadingLevelFactory import ResourceLoadingLevelFactory
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.GameFeatureControlledInterface import GameFeatureControlledInterface
-        from org.allbinary.game.configuration.feature.GraphicsFeatureFactory import GraphicsFeatureFactory
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        size: int = self.list_.size()
-        for index in range(0, size):
-            featureInterface: GameFeatureControlledInterface = self.list_.objectArray[index]
-            isLoadingLevel: bool = featureInterface.isLoadingLevel(level)
-            isFeature: bool = featureInterface.isFeature()
-            self.logUtil.putF(str(StringMaker().append(self.GAME_FEATURE_CONTROLLED).append(str(featureInterface)).append(self.IS_LOADING_LEVEL_LABEL).append(ResourceLoadingLevelFactory.getInstance().getLevelString(level)).append(CommonSeps.getInstance().COLON_SEP).appendboolean(isLoadingLevel).append(self.IS_FEATURE).appendboolean(isFeature)), self, self.commonStrings.INIT)
-            if isLoadingLevel and isFeature:
-                featureInterface.init(level)
-        features: Features = Features.getInstance()
-        graphicsFeatureFactory: GraphicsFeatureFactory = GraphicsFeatureFactory.getInstance()
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(self.ANIMATION_FEATURES)
-        stringBuffer.appendboolean(features.isFeature(graphicsFeatureFactory.VECTOR_GRAPHICS))
-        stringBuffer.append(self.IMAGE_LABEL)
-        stringBuffer.appendboolean(features.isFeature(graphicsFeatureFactory.IMAGE_GRAPHICS))
-        self.logUtil.putF(str(stringBuffer), self, self.commonStrings.INIT)
-        if features.isFeature(graphicsFeatureFactory.IMAGE_GRAPHICS):
-            stringBuffer.delete(0, stringBuffer.length())
-            stringBuffer.append(self.IMAGE_GRAPHICS_ARRAY)
-            stringBuffer.appendboolean(features.isFeature(graphicsFeatureFactory.IMAGE_TO_ARRAY_GRAPHICS))
-            stringBuffer.append(self.IMAGE_GRAPHICS_ROTATION)
-            stringBuffer.appendboolean(features.isFeature(graphicsFeatureFactory.IMAGE_TO_ARRAY_GRAPHICS))
-            stringBuffer.append(self.SPRITE_QUARTER)
-            stringBuffer.appendboolean(features.isFeature(graphicsFeatureFactory.SPRITE_QUARTER_ROTATION_GRAPHICS))
-            stringBuffer.append(self.SPRITE_FULL)
-            stringBuffer.appendboolean(features.isFeature(graphicsFeatureFactory.SPRITE_FULL_GRAPHICS))
-            self.logUtil.putF(str(stringBuffer), self, self.commonStrings.INIT)
-    
 
-    def clear(self) -> None:
-        self.list_.clear()
-    
+function init(this::FeaturedResourceFactory, level)
+        local size::Int32 = AllBinary.size(this.list)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            local featureInterface = (this.list.objectArray[index + 1])
+            local isLoadingLevel::Bool = AllBinary.isLoadingLevel(featureInterface, level)
+            local isFeature::Bool = AllBinary.isFeature(featureInterface)
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendboolean(AllBinary.append(AllBinary.appendboolean(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), this.GAME_FEATURE_CONTROLLED), AllBinary.toString(featureInterface)), this.IS_LOADING_LEVEL_LABEL), AllBinary.getLevelString(AllBinary.getInstance(ResourceLoadingLevelFactory), level)), AllBinary.getInstance(CommonSeps).COLON_SEP), isLoadingLevel), this.IS_FEATURE), isFeature)), this, this.commonStrings.INIT)
+            if isLoadingLevel && isFeature
+                AllBinary.init(featureInterface, level)
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        local features = AllBinary.getInstance(Features)
+        local graphicsFeatureFactory = AllBinary.getInstance(GraphicsFeatureFactory)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, this.ANIMATION_FEATURES)
+        AllBinary.appendboolean(stringBuffer, AllBinary.isFeature(features, graphicsFeatureFactory.VECTOR_GRAPHICS))
+        AllBinary.append(stringBuffer, this.IMAGE_LABEL)
+        AllBinary.appendboolean(stringBuffer, AllBinary.isFeature(features, graphicsFeatureFactory.IMAGE_GRAPHICS))
+        AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, this.commonStrings.INIT)
+        if AllBinary.isFeature(features, graphicsFeatureFactory.IMAGE_GRAPHICS)
+            AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+            AllBinary.append(stringBuffer, this.IMAGE_GRAPHICS_ARRAY)
+            AllBinary.appendboolean(stringBuffer, AllBinary.isFeature(features, graphicsFeatureFactory.IMAGE_TO_ARRAY_GRAPHICS))
+            AllBinary.append(stringBuffer, this.IMAGE_GRAPHICS_ROTATION)
+            AllBinary.appendboolean(stringBuffer, AllBinary.isFeature(features, graphicsFeatureFactory.IMAGE_TO_ARRAY_GRAPHICS))
+            AllBinary.append(stringBuffer, this.SPRITE_QUARTER)
+            AllBinary.appendboolean(stringBuffer, AllBinary.isFeature(features, graphicsFeatureFactory.SPRITE_QUARTER_ROTATION_GRAPHICS))
+            AllBinary.append(stringBuffer, this.SPRITE_FULL)
+            AllBinary.appendboolean(stringBuffer, AllBinary.isFeature(features, graphicsFeatureFactory.SPRITE_FULL_GRAPHICS))
+            AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, this.commonStrings.INIT)
+        end
+        nothing
+end
 
-    def add(self, featureInterface: GameFeatureControlledInterface) -> None:
-        from org.allbinary.game.configuration.feature.GameFeatureControlledInterface import GameFeatureControlledInterface
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonLabels import CommonLabels
-        self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().START_LABEL).append(StringUtil.getInstance().toString(featureInterface))), self, self.commonStrings.ADD)
-        self.list_.add(featureInterface)
-    
 
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.list_
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.game.configuration.feature.GameFeatureControlledInterface import GameFeatureControlledInterface
-# from org.allbinary.game.configuration.feature.GraphicsFeatureFactory import GraphicsFeatureFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function clear(this::FeaturedResourceFactory)
+        AllBinary.clear(this.list)
+        nothing
+end
 
+
+function add(this::FeaturedResourceFactory, featureInterface)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).START_LABEL), AllBinary.toString(AllBinary.getInstance(StringUtil), featureInterface))), this, this.commonStrings.ADD)
+        AllBinary.add(this.list, featureInterface)
+        nothing
+end
+
+
+function getList(this::FeaturedResourceFactory)
+        return this.list
+end
 

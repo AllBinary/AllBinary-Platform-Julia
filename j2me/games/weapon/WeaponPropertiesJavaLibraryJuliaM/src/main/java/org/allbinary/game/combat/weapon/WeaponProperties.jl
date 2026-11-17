@@ -1,129 +1,199 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.combat.weapon
 
-from __future__ import annotations
+# extends SimpleWeaponProperties: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct WeaponProperties <: JObject
+    reloadTime::Int64
+    targetingTime::Int64
+    speed::Any
+    MAX::Int64
+    ZERO::Int16
+    WeaponProperties() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.combat.weapon.SimpleWeaponProperties import SimpleWeaponProperties
+const WeaponProperties_NULL_WEAPON_PROPERTIESValue = Ref{Any}(nothing)
+const WeaponProperties_NULL_WEAPON_PROPERTIESSet = Ref(false)
+function staticGet_NULL_WEAPON_PROPERTIES(::Type{WeaponProperties})
+    if !WeaponProperties_NULL_WEAPON_PROPERTIESSet[]
+        WeaponProperties_NULL_WEAPON_PROPERTIESSet[] = true
+        WeaponProperties_NULL_WEAPON_PROPERTIESValue[] = newWeaponProperties(Int64(0), Int64(0), Int64(0), Int32(0), ((Int32(0)) % Int16))
+    end
+    WeaponProperties_NULL_WEAPON_PROPERTIESValue[]
+end
+function staticSet_NULL_WEAPON_PROPERTIES(::Type{WeaponProperties}, value)
+    WeaponProperties_NULL_WEAPON_PROPERTIESSet[] = true
+    WeaponProperties_NULL_WEAPON_PROPERTIESValue[] = value
+end
+const WeaponProperties_messageSentValue = Ref{Any}(nothing)
+const WeaponProperties_messageSentSet = Ref(false)
+function staticGet_messageSent(::Type{WeaponProperties})
+    if !WeaponProperties_messageSentSet[]
+        WeaponProperties_messageSentSet[] = true
+        WeaponProperties_messageSentValue[] = false
+    end
+    WeaponProperties_messageSentValue[]
+end
+function staticSet_messageSent(::Type{WeaponProperties}, value)
+    WeaponProperties_messageSentSet[] = true
+    WeaponProperties_messageSentValue[] = value
+end
+const WeaponProperties_DAMAGEValue = Ref{Any}(nothing)
+const WeaponProperties_DAMAGESet = Ref(false)
+function staticGet_DAMAGE(::Type{WeaponProperties})
+    if !WeaponProperties_DAMAGESet[]
+        WeaponProperties_DAMAGESet[] = true
+        WeaponProperties_DAMAGEValue[] = "Damage: "
+    end
+    WeaponProperties_DAMAGEValue[]
+end
+function staticSet_DAMAGE(::Type{WeaponProperties}, value)
+    WeaponProperties_DAMAGESet[] = true
+    WeaponProperties_DAMAGEValue[] = value
+end
+const WeaponProperties_RANGEValue = Ref{Any}(nothing)
+const WeaponProperties_RANGESet = Ref(false)
+function staticGet_RANGE(::Type{WeaponProperties})
+    if !WeaponProperties_RANGESet[]
+        WeaponProperties_RANGESet[] = true
+        WeaponProperties_RANGEValue[] = "Range: "
+    end
+    WeaponProperties_RANGEValue[]
+end
+function staticSet_RANGE(::Type{WeaponProperties}, value)
+    WeaponProperties_RANGESet[] = true
+    WeaponProperties_RANGEValue[] = value
+end
+const WeaponProperties_RELOADValue = Ref{Any}(nothing)
+const WeaponProperties_RELOADSet = Ref(false)
+function staticGet_RELOAD(::Type{WeaponProperties})
+    if !WeaponProperties_RELOADSet[]
+        WeaponProperties_RELOADSet[] = true
+        WeaponProperties_RELOADValue[] = "Reload: "
+    end
+    WeaponProperties_RELOADValue[]
+end
+function staticSet_RELOAD(::Type{WeaponProperties}, value)
+    WeaponProperties_RELOADSet[] = true
+    WeaponProperties_RELOADValue[] = value
+end
+
+function initFieldsWeaponProperties(this::WeaponProperties)
+    this.reloadTime = Int64(0)
+    this.targetingTime = Int64(0)
+    this.speed = nothing
+    this.MAX = Int64(0)
+    this.ZERO = Int16(0)
+    this.reloadTime = Int64(0)
+    this.targetingTime = Int64(0)
+    this.speed = staticGet_ZERO_BIGDECIMAL(BasicDecimal)
+    this.MAX = Int64(10240)
+    this.ZERO = Int32(0)
+    nothing
+end
 
 
-class WeaponProperties(SimpleWeaponProperties):
-    NULL_WEAPON_PROPERTIES: WeaponProperties = None
-    messageSent: bool = False
-    DAMAGE: str = "Damage: "
-    RANGE: str = "Range: "
-    RELOAD: str = "Reload: "
+function initWeaponProperties(this::WeaponProperties, reloadTime, targetingTime, speed, damage, dissipation)
+        initSimpleWeaponProperties(this)
+        initFieldsWeaponProperties(this)
+        if speed < this.MAX && speed != Int64(0) && (let old = staticGet_messageSent(WeaponProperties); staticSet_messageSent(WeaponProperties, old + 1); old end)
+            local MESSAGE = "Danger Danger Danger: Speed probably to slow if using 1 degree calculations as velocity for a single axis could be below 1024: "
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.appendlong(AllBinary.append(newStringMaker(), MESSAGE), speed)), this, commonStrings.CONSTRUCTOR)
+            staticSet_messageSent(WeaponProperties, true)
+        end
+        AllBinary.setReloadTime(this, reloadTime)
+        AllBinary.setTargetingTime(this, targetingTime)
+        AllBinary.setDamage(this, damage)
+        AllBinary.setDissipation(this, dissipation)
+        AllBinary.setSpeed(this, newBasicDecimal(speed))
+        if dissipation != this.ZERO
+            local unscaledDamage::Int64 = AllBinary.getUnscaled(this.speed) * damage
+            local scaledDissipation::Int32 = dissipation * AllBinary.getScaledFactorValue(this.speed)
+            local value::Int64 = (unscaledDamage ÷ ((scaledDissipation) % Int64))
+            AllBinary.setRange(this, (((value * Int64(9))) % Int32) ÷ Int32(10))
+        end
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        self.reloadTime: int = 0
-        self.targetingTime: int = 0
-        self.speed: BasicDecimal = BasicDecimal.ZERO_BIGDECIMAL
-        self.MAX: int = 10240
-        self.ZERO: int = 0
-    
+function newWeaponProperties(reloadTime, targetingTime, speed, damage, dissipation)
+    this = WeaponProperties()
+    initWeaponProperties(this, reloadTime, targetingTime, speed, damage, dissipation)
+    this
+end
 
-    def __init__(self, reloadTime: int, targetingTime: int, speed: int, damage: int, dissipation: int) -> None:
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonStrings import CommonStrings
-        super().__init__()
-        self._init_fields()
-        if speed < self.MAX and speed != 0 and not WeaponProperties.messageSent:
-            MESSAGE: str = "Danger Danger Danger: Speed probably to slow if using 1 degree calculations as velocity for a single axis could be below 1024: "
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            PreLogUtil.put(str(StringMaker().append(MESSAGE).appendlong(speed)), self, commonStrings.CONSTRUCTOR)
-            WeaponProperties.messageSent = True
-        self.setReloadTime(reloadTime)
-        self.setTargetingTime(targetingTime)
-        self.setDamage(damage)
-        self.setDissipation(dissipation)
-        self.setSpeed(BasicDecimal(speed))
-        if dissipation != self.ZERO:
-            unscaledDamage: int = self.speed.getUnscaled() * damage
-            scaledDissipation: int = dissipation * self.speed.getScaledFactorValue()
-            value: int = (int(unscaledDamage / scaledDissipation))
-            self.setRange(int((value * 9) / 10))
-    
 
-    def setReloadTime(self, reloadTime: int) -> None:
-        self.reloadTime = reloadTime
-    
+function setReloadTime(this::WeaponProperties, reloadTime)
+        this.reloadTime = reloadTime
+        nothing
+end
 
-    def getReloadTime(self) -> int:
-        return self.reloadTime
-    
 
-    def setTargetingTime(self, targetingTime: int) -> None:
-        self.targetingTime = targetingTime
-    
+function getReloadTime(this::WeaponProperties)
+        return this.reloadTime
+end
 
-    def getTargetingTime(self) -> int:
-        return self.targetingTime
-    
 
-    def getSpeed(self) -> BasicDecimal:
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        return self.speed
-    
+function setTargetingTime(this::WeaponProperties, targetingTime)
+        this.targetingTime = targetingTime
+        nothing
+end
 
-    def setSpeed(self, speed: BasicDecimal) -> None:
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        self.speed = speed
-    
 
-    def getDamageI(self, range: int) -> int:
-        return self.getDamage() - ((self.getDissipation() * range) / self.speed.getScaled())
-    
+function getTargetingTime(this::WeaponProperties)
+        return this.targetingTime
+end
 
-    def toStringArray(self) -> list[str]:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        index: int = 0
-        stringArray: list[str] = [None] * (3)
-        stringBuffer: StringMaker = StringMaker()
-        stringArray[((index := index + 1) - 1)] = str(stringBuffer.append(WeaponProperties.DAMAGE).appendint(int(self.getDamage())))
-        stringBuffer.delete(0, stringBuffer.length())
-        stringArray[((index := index + 1) - 1)] = str(stringBuffer.append(WeaponProperties.RANGE).appendint(int(self.getRange())))
-        stringBuffer.delete(0, stringBuffer.length())
-        stringArray[((index := index + 1) - 1)] = str(stringBuffer.append(WeaponProperties.RELOAD).appendlong(self.getReloadTime()))
+
+function getSpeed(this::WeaponProperties)
+        return this.speed
+end
+
+
+function setSpeed(this::WeaponProperties, speed)
+        this.speed = speed
+        nothing
+end
+
+
+function getDamageI(this::WeaponProperties, range)
+        return AllBinary.getDamage(this) - ((AllBinary.getDissipation(this) * range) / AllBinary.getScaled(this.speed))
+end
+
+
+function toStringArray(this::WeaponProperties)
+        local index::Int32 = Int32(0)
+        local stringArray = jNewArray(Any, Int32(3), nothing)
+        local stringBuffer = newStringMaker()
+        stringArray[(let old = index; index += Int32(1); old end) + 1] = AllBinary.toString(AllBinary.appendint(AllBinary.append(stringBuffer, staticGet_DAMAGE(WeaponProperties)), ((AllBinary.getDamage(this)) % Int32)))
+        AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+        stringArray[(let old = index; index += Int32(1); old end) + 1] = AllBinary.toString(AllBinary.appendint(AllBinary.append(stringBuffer, staticGet_RANGE(WeaponProperties)), ((AllBinary.getRange(this)) % Int32)))
+        AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+        stringArray[(let old = index; index += Int32(1); old end) + 1] = AllBinary.toString(AllBinary.appendlong(AllBinary.append(stringBuffer, staticGet_RELOAD(WeaponProperties)), AllBinary.getReloadTime(this)))
         return stringArray
-    
-
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append(WeaponProperties.DAMAGE).appendint(int(self.getDamage()))
-        stringBuffer.append(CommonSeps.getInstance().SPACE)
-        stringBuffer.append(WeaponProperties.RANGE).appendint(int(self.getRange()))
-        stringBuffer.append(CommonSeps.getInstance().SPACE)
-        stringBuffer.append(WeaponProperties.RELOAD).appendlong(self.getReloadTime())
-        return str(stringBuffer)
-
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.string.CommonStrings import CommonStrings
+end
 
 
-def _WeaponProperties_NULL_WEAPON_PROPERTIES() -> object:
-    return WeaponProperties(0, 0, 0, 0, ((int(0) + 32768) % 65536 - 32768))
-
-lazy_static(WeaponProperties, "NULL_WEAPON_PROPERTIES", _WeaponProperties_NULL_WEAPON_PROPERTIES)
+function toString(this::WeaponProperties)
+        local stringBuffer = newStringMaker()
+        AllBinary.appendint(AllBinary.append(stringBuffer, staticGet_DAMAGE(WeaponProperties)), ((AllBinary.getDamage(this)) % Int32))
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+        AllBinary.appendint(AllBinary.append(stringBuffer, staticGet_RANGE(WeaponProperties)), ((AllBinary.getRange(this)) % Int32))
+        AllBinary.append(stringBuffer, AllBinary.getInstance(CommonSeps).SPACE)
+        AllBinary.appendlong(AllBinary.append(stringBuffer, staticGet_RELOAD(WeaponProperties)), AllBinary.getReloadTime(this))
+        return AllBinary.toString(stringBuffer)
+end
 

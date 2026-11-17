@@ -1,43 +1,56 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.globals
 
-from __future__ import annotations
+mutable struct UrlGlobalsInterface <: JObject
+    UrlGlobalsInterface() = new()
+end
 
 
+function initFieldsUrlGlobalsInterface(this::UrlGlobalsInterface)
+    nothing
+end
 
-class UrlGlobalsInterface:
-    
+function initUrlGlobalsInterface(this::UrlGlobalsInterface)
+    initFieldsUrlGlobalsInterface(this)
+end
 
-    # throws Exception
-    def getMainPath(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
+function newUrlGlobalsInterface()
+    this = UrlGlobalsInterface()
+    initUrlGlobalsInterface(this)
+    this
+end
 
-    def getTestHtmlPath(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
 
-    def getWebappPath(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
+function getMainPath(this::UrlGlobalsInterface)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
 
-    def isTestingMode(self) -> bool:
-        return False
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function getTestHtmlPath(this::UrlGlobalsInterface)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
+
+
+function getWebappPath(this::UrlGlobalsInterface)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
+
+
+function isTestingMode(this::UrlGlobalsInterface)
+        return false
+end
 

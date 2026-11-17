@@ -1,70 +1,79 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint
 
-from __future__ import annotations
+# extends BasicGameDemoPaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameScrollMenuPaintable <: JObject
+    GameScrollMenuPaintable() = new()
+end
 
-from org.allbinary.graphics.color.ColorChangeListener import ColorChangeListener
-from org.allbinary.game.paint.BasicGameDemoPaintable import BasicGameDemoPaintable
+
+function initFieldsGameScrollMenuPaintable(this::GameScrollMenuPaintable)
+    nothing
+end
 
 
-class GameScrollMenuPaintable(BasicGameDemoPaintable, ColorChangeListener):
-    
+function initGameScrollMenuPaintable(this::GameScrollMenuPaintable, mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface, basicColor)
+        initBasicGameDemoPaintable(this, mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface)
+        AllBinary.setColor(this, basicColor)
+        AllBinary.addListenerInterface(AllBinary.getInstance(ColorChangeEventHandler), this)
+        nothing
+end
 
-    def __init__(self, mainDemoStatePaintable: Paintable, ownershipPaintable: Paintable, helpPaintableInterface: Paintable, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.ColorChangeEventHandler import ColorChangeEventHandler
-        from org.allbinary.graphics.paint.Paintable import Paintable
-        super().__init__(mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface)
-        self.setColor(basicColor)
-        ColorChangeEventHandler.getInstance().addListenerInterface(self)
-    
+function newGameScrollMenuPaintable(mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface, basicColor)
+    this = GameScrollMenuPaintable()
+    initGameScrollMenuPaintable(this, mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface, basicColor)
+    this
+end
 
-    def setState(self, state: int) -> None:
-        self.setCurrentStatePaintable(self.getMainDemoStatePaintable())
-    
 
-    def onEvent(self, eventObject: AllBinaryEventObject) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        pass
-    
+function setState(this::GameScrollMenuPaintable, state)
+        AllBinary.setCurrentStatePaintable(this, AllBinary.getMainDemoStatePaintable(this))
+        nothing
+end
 
-    def setColor(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.form.FormPaintable import FormPaintable
-        from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-        from org.allbinary.graphics.form.item.ABStringComponent import ABStringComponent
-        from org.allbinary.graphics.form.item.ABTextItem import ABTextItem
-        mainGameDemoStatePaintable: MainGameDemoStatePaintable = self.getMainDemoStatePaintable()
-        formPaintable: FormPaintable = mainGameDemoStatePaintable.getMenuPaintableInterface()
-        scrollSelectionForm: ScrollSelectionForm = formPaintable.getForm()
-        mainGameDemoStatePaintable.getOwnershipPaintableInterface().setBasicColorP(basicColor)
-        scrollSelectionForm.setButtonBasicColor(basicColor)
-        item: ABTextItem = None
-        stringComponent: ABStringComponent = None
-        for index in range(scrollSelectionForm.size() - 1, 0 - 1, -1):
-            item = scrollSelectionForm.get(index)
-            stringComponent = item.getLabelStringComponent()
-            if stringComponent is not None:
-                stringComponent.setForegroundBasicColor(basicColor)
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.ColorChangeEventHandler import ColorChangeEventHandler
-# from org.allbinary.graphics.form.FormPaintable import FormPaintable
-# from org.allbinary.graphics.form.ScrollSelectionForm import ScrollSelectionForm
-# from org.allbinary.graphics.form.item.ABStringComponent import ABStringComponent
-# from org.allbinary.graphics.form.item.ABTextItem import ABTextItem
-# from org.allbinary.graphics.paint.Paintable import Paintable
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
 
+function onEvent(this::GameScrollMenuPaintable, eventObject)
+        nothing
+        nothing
+end
+
+
+function setColor(this::GameScrollMenuPaintable, basicColor)
+        local mainGameDemoStatePaintable = (AllBinary.getMainDemoStatePaintable(this))
+        local formPaintable = (AllBinary.getMenuPaintableInterface(mainGameDemoStatePaintable))
+        local scrollSelectionForm = (AllBinary.getForm(formPaintable))
+        AllBinary.setBasicColorP(AllBinary.getOwnershipPaintableInterface(mainGameDemoStatePaintable), basicColor)
+        AllBinary.setButtonBasicColor(scrollSelectionForm, basicColor)
+        local item = nothing
+        local stringComponent = nothing
+        let
+            local index::Int32 = AllBinary.size(scrollSelectionForm) - Int32(1)
+            while index >= Int32(0)
+            try
+            item = (AllBinary.get(scrollSelectionForm, index))
+            stringComponent = AllBinary.getLabelStringComponent(item)
+            if stringComponent !== nothing
+                AllBinary.setForegroundBasicColor(stringComponent, basicColor)
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

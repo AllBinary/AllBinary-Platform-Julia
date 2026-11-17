@@ -1,44 +1,63 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image.opengles
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #OpenGLNoneOtherJavaLibrary
-class OpenGLImageCacheFactory:
-    IMAGE_CACHE: ImageCache = None
-    
+mutable struct OpenGLImageCacheFactory <: JObject
+    OpenGLImageCacheFactory() = new()
+end
 
-    @staticmethod
-    def getInstance() -> ImageCache:
-        from org.allbinary.image.ImageCache import ImageCache
-        return OpenGLImageCacheFactory.IMAGE_CACHE
-    
+const OpenGLImageCacheFactory_IMAGE_CACHEValue = Ref{Any}(nothing)
+const OpenGLImageCacheFactory_IMAGE_CACHESet = Ref(false)
+function staticGet_IMAGE_CACHE(::Type{OpenGLImageCacheFactory})
+    if !OpenGLImageCacheFactory_IMAGE_CACHESet[]
+        OpenGLImageCacheFactory_IMAGE_CACHESet[] = true
+        OpenGLImageCacheFactory_IMAGE_CACHEValue[] = staticGet_NULL_IMAGE_CACHE(ImageCache)
+    end
+    OpenGLImageCacheFactory_IMAGE_CACHEValue[]
+end
+function staticSet_IMAGE_CACHE(::Type{OpenGLImageCacheFactory}, value)
+    OpenGLImageCacheFactory_IMAGE_CACHESet[] = true
+    OpenGLImageCacheFactory_IMAGE_CACHEValue[] = value
+end
 
-    @staticmethod
-    def init() -> None:
-        if OpenGLImageCacheFactory.IMAGE_CACHE is None:
-            pass
-# from org.allbinary.image.ImageCache import ImageCache
+function initFieldsOpenGLImageCacheFactory(this::OpenGLImageCacheFactory)
+    nothing
+end
+
+function initOpenGLImageCacheFactory(this::OpenGLImageCacheFactory)
+    initFieldsOpenGLImageCacheFactory(this)
+end
+
+function newOpenGLImageCacheFactory()
+    this = OpenGLImageCacheFactory()
+    initOpenGLImageCacheFactory(this)
+    this
+end
 
 
-def _OpenGLImageCacheFactory_IMAGE_CACHE() -> object:
-    from org.allbinary.image.ImageCache import ImageCache
-    return ImageCache.NULL_IMAGE_CACHE
+function getInstance(::Type{OpenGLImageCacheFactory})
+        return staticGet_IMAGE_CACHE(OpenGLImageCacheFactory)
+end
 
-lazy_static(OpenGLImageCacheFactory, "IMAGE_CACHE", _OpenGLImageCacheFactory_IMAGE_CACHE)
+
+function init(::Type{OpenGLImageCacheFactory})
+        if staticGet_IMAGE_CACHE(OpenGLImageCacheFactory) === nothing
+            nothing
+        end
+        nothing
+end
 

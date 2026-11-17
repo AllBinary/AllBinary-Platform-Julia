@@ -1,49 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.tracking
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TrackingEventHandler <: JObject
+    TrackingEventHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const TrackingEventHandler_instanceValue = Ref{Any}(nothing)
+const TrackingEventHandler_instanceSet = Ref(false)
+function staticGet_instance(::Type{TrackingEventHandler})
+    if !TrackingEventHandler_instanceSet[]
+        TrackingEventHandler_instanceSet[] = true
+        TrackingEventHandler_instanceValue[] = newTrackingEventHandler()
+    end
+    TrackingEventHandler_instanceValue[]
+end
+function staticSet_instance(::Type{TrackingEventHandler}, value)
+    TrackingEventHandler_instanceSet[] = true
+    TrackingEventHandler_instanceValue[] = value
+end
 
-
-class TrackingEventHandler(BasicEventHandler):
-    instance: TrackingEventHandler = None
-    
-
-    @staticmethod
-    def getInstance() -> TrackingEventHandler:
-        return TrackingEventHandler.instance
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        trackingEventListenerInterface: TrackingEventListenerInterface = eventListenerInterface
-        trackingEventListenerInterface.onMovement(eventObject)
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
+function initFieldsTrackingEventHandler(this::TrackingEventHandler)
+    nothing
+end
 
 
-def _TrackingEventHandler_instance() -> object:
-    return TrackingEventHandler()
+function getInstance(::Type{TrackingEventHandler})
+        return staticGet_instance(TrackingEventHandler)
+end
 
-lazy_static(TrackingEventHandler, "instance", _TrackingEventHandler_instance)
+
+function initTrackingEventHandler(this::TrackingEventHandler)
+        initBasicEventHandler(this)
+        initFieldsTrackingEventHandler(this)
+        nothing
+        nothing
+end
+
+function newTrackingEventHandler()
+    this = TrackingEventHandler()
+    initTrackingEventHandler(this)
+    this
+end
+
+
+function process(this::TrackingEventHandler, eventObject, eventListenerInterface)
+        local trackingEventListenerInterface = (eventListenerInterface)
+        AllBinary.onMovement(trackingEventListenerInterface, (eventObject))
+        nothing
+end
 

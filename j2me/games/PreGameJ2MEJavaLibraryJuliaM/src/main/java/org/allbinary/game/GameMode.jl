@@ -1,67 +1,97 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game
 
-from __future__ import annotations
+mutable struct GameMode <: JObject
+    name::Any
+    GameMode() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameMode_NONEValue = Ref{Any}(nothing)
+const GameMode_NONESet = Ref(false)
+function staticGet_NONE(::Type{GameMode})
+    if !GameMode_NONESet[]
+        GameMode_NONESet[] = true
+        GameMode_NONEValue[] = newGameMode(AllBinary.getInstance(StringUtil).NULL_STRING)
+    end
+    GameMode_NONEValue[]
+end
+function staticSet_NONE(::Type{GameMode}, value)
+    GameMode_NONESet[] = true
+    GameMode_NONEValue[] = value
+end
+const GameMode_SERVERValue = Ref{Any}(nothing)
+const GameMode_SERVERSet = Ref(false)
+function staticGet_SERVER(::Type{GameMode})
+    if !GameMode_SERVERSet[]
+        GameMode_SERVERSet[] = true
+        GameMode_SERVERValue[] = newGameMode("Server")
+    end
+    GameMode_SERVERValue[]
+end
+function staticSet_SERVER(::Type{GameMode}, value)
+    GameMode_SERVERSet[] = true
+    GameMode_SERVERValue[] = value
+end
+const GameMode_CLIENTValue = Ref{Any}(nothing)
+const GameMode_CLIENTSet = Ref(false)
+function staticGet_CLIENT(::Type{GameMode})
+    if !GameMode_CLIENTSet[]
+        GameMode_CLIENTSet[] = true
+        GameMode_CLIENTValue[] = newGameMode("Client")
+    end
+    GameMode_CLIENTValue[]
+end
+function staticSet_CLIENT(::Type{GameMode}, value)
+    GameMode_CLIENTSet[] = true
+    GameMode_CLIENTValue[] = value
+end
+
+function initFieldsGameMode(this::GameMode)
+    this.name = nothing
+    this.name = AllBinary.getInstance(StringUtil).EMPTY_STRING
+    nothing
+end
 
 
-class GameMode:
-    NONE: GameMode = None
-    SERVER: GameMode = None
-    CLIENT: GameMode = None
+function initGameMode(this::GameMode, name)
+        initFieldsGameMode(this)
+        AllBinary.setName(this, name)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.name: str = StringUtil.getInstance().EMPTY_STRING
-    
-
-    def __init__(self, name: str) -> None:
-        self._init_fields()
-        self.setName(name)
-    
-
-    def setName(self, name: str) -> None:
-        self.name = name
-    
-
-    def getName(self) -> str:
-        return self.name
-    
-
-    def toString(self) -> str:
-        return self.getName()
-
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.logic.string.StringUtil import StringUtil
+function newGameMode(name)
+    this = GameMode()
+    initGameMode(this, name)
+    this
+end
 
 
-def _GameMode_NONE() -> object:
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return GameMode(StringUtil.getInstance().NULL_STRING)
+function setName(this::GameMode, name)
+        this.name = name
+        nothing
+end
 
-lazy_static(GameMode, "NONE", _GameMode_NONE)
 
-def _GameMode_SERVER() -> object:
-    return GameMode("Server")
+function getName(this::GameMode)
+        return this.name
+end
 
-lazy_static(GameMode, "SERVER", _GameMode_SERVER)
 
-def _GameMode_CLIENT() -> object:
-    return GameMode("Client")
-
-lazy_static(GameMode, "CLIENT", _GameMode_CLIENT)
+function toString(this::GameMode)
+        return AllBinary.getName(this)
+end
 

@@ -1,34 +1,54 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics
 
-from __future__ import annotations
+mutable struct ScreenCapture <: JObject
+    ScreenCapture() = new()
+end
 
 
+function initFieldsScreenCapture(this::ScreenCapture)
+    nothing
+end
 
-class ScreenCapture:
-    
+function initScreenCapture(this::ScreenCapture)
+    initFieldsScreenCapture(this)
+end
 
-    def saveFrame(self) -> None:
-        pass
-    
+function newScreenCapture()
+    this = ScreenCapture()
+    initScreenCapture(this)
+    this
+end
 
-    def startRecording(self) -> None:
-        pass
-    
 
-    def endRecording(self) -> None:
-        pass
+function saveFrame(this::ScreenCapture)
+        nothing
+        nothing
+end
 
+
+function startRecording(this::ScreenCapture)
+        nothing
+        nothing
+end
+
+
+function endRecording(this::ScreenCapture)
+        nothing
+        nothing
+end
 

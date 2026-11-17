@@ -1,97 +1,120 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image.opengles
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.image.opengles.OpenGLSurfaceChangedInterface import OpenGLSurfaceChangedInterface
-
-
 #OpenGLESNullImageJ2MEJavaLibrary
-class OpenGLESImage(OpenGLSurfaceChangedInterface):
-    NULL_OPENGL_IMAGE: OpenGLESImage = None
-    texture2dList: BasicArrayList = None
-    TYPE: int = 4
+mutable struct OpenGLESImage <: JObject
+    commonStrings::Any
+    textureFactory::Any
+    openGLBitmap::Any
+    openGLESImageProperties::Any
+    OpenGLESImage() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.platform.graphics.PlatformBitmapBase import PlatformBitmapBase
-        from org.allbinary.platform.opengles.PlatformTextureBaseFactory import PlatformTextureBaseFactory
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.textureFactory: PlatformTextureBaseFactory = None
-        self.openGLBitmap: PlatformBitmapBase = None
-        self.openGLESImageProperties: OpenGLESImageProperties = OpenGLESImageProperties()
+const OpenGLESImage_NULL_OPENGL_IMAGEValue = Ref{Any}(nothing)
+const OpenGLESImage_NULL_OPENGL_IMAGESet = Ref(false)
+function staticGet_NULL_OPENGL_IMAGE(::Type{OpenGLESImage})
+    if !OpenGLESImage_NULL_OPENGL_IMAGESet[]
+        OpenGLESImage_NULL_OPENGL_IMAGESet[] = true
+        OpenGLESImage_NULL_OPENGL_IMAGEValue[] = newOpenGLESImage(staticGet_NULL_IMAGE(NullImage), staticGet_NULL_PLATFORM_BITMAP_BASE_FACTORY(PlatformBitmapBaseFactory), staticGet_NULL_PLATFORM_TEXTURE_BASE_FACTORY(PlatformTextureBaseFactory))
+    end
+    OpenGLESImage_NULL_OPENGL_IMAGEValue[]
+end
+function staticSet_NULL_OPENGL_IMAGE(::Type{OpenGLESImage}, value)
+    OpenGLESImage_NULL_OPENGL_IMAGESet[] = true
+    OpenGLESImage_NULL_OPENGL_IMAGEValue[] = value
+end
+const OpenGLESImage_texture2dListValue = Ref{Any}(nothing)
+const OpenGLESImage_texture2dListSet = Ref(false)
+function staticGet_texture2dList(::Type{OpenGLESImage})
+    if !OpenGLESImage_texture2dListSet[]
+        OpenGLESImage_texture2dListSet[] = true
+        OpenGLESImage_texture2dListValue[] = newBasicArrayListD()
+    end
+    OpenGLESImage_texture2dListValue[]
+end
+function staticSet_texture2dList(::Type{OpenGLESImage}, value)
+    OpenGLESImage_texture2dListSet[] = true
+    OpenGLESImage_texture2dListValue[] = value
+end
+const OpenGLESImage_TYPEValue = Ref{Any}(nothing)
+const OpenGLESImage_TYPESet = Ref(false)
+function staticGet_TYPE(::Type{OpenGLESImage})
+    if !OpenGLESImage_TYPESet[]
+        OpenGLESImage_TYPESet[] = true
+        OpenGLESImage_TYPEValue[] = Int32(4)
+    end
+    OpenGLESImage_TYPEValue[]
+end
+function staticSet_TYPE(::Type{OpenGLESImage}, value)
+    OpenGLESImage_TYPESet[] = true
+    OpenGLESImage_TYPEValue[] = value
+end
+
+function initFieldsOpenGLESImage(this::OpenGLESImage)
+    this.commonStrings = nothing
+    this.textureFactory = nothing
+    this.openGLBitmap = nothing
+    this.openGLESImageProperties = nothing
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
-
-    def __init__(self, image: Image, bitmapFactory: PlatformBitmapBaseFactory, textureFactory: PlatformTextureBaseFactory) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.platform.graphics.PlatformBitmapBaseFactory import PlatformBitmapBaseFactory
-        from org.allbinary.platform.opengles.PlatformTextureBaseFactory import PlatformTextureBaseFactory
-        self._init_fields()
-        self.openGLBitmap = bitmapFactory.createBitmap(image)
-        self.textureFactory = textureFactory
     
-
-    # throws Exception
-    def set(self, gl: GL) -> None:
-        from javax.microedition.khronos.opengles.GL import GL
-        raise Exception(self.commonStrings.NOT_IMPLEMENTED)
-    
-
-    def initTexture(self, gl: GL10) -> bool:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        return False
-    
-
-    def drawRegion(self, gl: GL10, viewHeight: int, x_src: float, y_src: float, width: float, height: float, x: int, y: int, z: int) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
-
-    def draw(self, gl: GL10, x: int, y: int, z: int) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
-
-    def getType(self) -> int:
-        return OpenGLESImage.TYPE
-# from javax.microedition.khronos.opengles.GL import GL
-# from javax.microedition.khronos.opengles.GL10 import GL10
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.NullImage import NullImage
-# from org.allbinary.platform.graphics.PlatformBitmapBase import PlatformBitmapBase
-# from org.allbinary.platform.graphics.PlatformBitmapBaseFactory import PlatformBitmapBaseFactory
-# from org.allbinary.platform.opengles.PlatformTextureBaseFactory import PlatformTextureBaseFactory
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-from org.allbinary.image.opengles.OpenGLESImageProperties import OpenGLESImageProperties
+    this.openGLESImageProperties = newOpenGLESImageProperties()
+    nothing
+end
 
 
-def _OpenGLESImage_NULL_OPENGL_IMAGE() -> object:
-    from javax.microedition.lcdui.NullImage import NullImage
-    from org.allbinary.platform.graphics.PlatformBitmapBaseFactory import PlatformBitmapBaseFactory
-    from org.allbinary.platform.opengles.PlatformTextureBaseFactory import PlatformTextureBaseFactory
-    return OpenGLESImage(NullImage.NULL_IMAGE, PlatformBitmapBaseFactory.NULL_PLATFORM_BITMAP_BASE_FACTORY, PlatformTextureBaseFactory.NULL_PLATFORM_TEXTURE_BASE_FACTORY)
+function initOpenGLESImage(this::OpenGLESImage, image, bitmapFactory, textureFactory)
+        initFieldsOpenGLESImage(this)
+        this.openGLBitmap = AllBinary.createBitmap(bitmapFactory, image)
+        this.textureFactory = textureFactory
+        nothing
+end
 
-lazy_static(OpenGLESImage, "NULL_OPENGL_IMAGE", _OpenGLESImage_NULL_OPENGL_IMAGE)
+function newOpenGLESImage(image, bitmapFactory, textureFactory)
+    this = OpenGLESImage()
+    initOpenGLESImage(this, image, bitmapFactory, textureFactory)
+    this
+end
 
-def _OpenGLESImage_texture2dList() -> object:
-    from org.allbinary.util.BasicArrayList import BasicArrayList
-    from org.allbinary.util.BasicArrayListD import BasicArrayListD
-    return BasicArrayListD()
 
-lazy_static(OpenGLESImage, "texture2dList", _OpenGLESImage_texture2dList)
+function set(this::OpenGLESImage, gl)
+        throw(jNewException("Exception", this.commonStrings.NOT_IMPLEMENTED))
+        nothing
+end
+
+
+function initTexture(this::OpenGLESImage, gl)
+        return false
+end
+
+
+function drawRegion(this::OpenGLESImage, gl, viewHeight, x_src, y_src, width, height, x, y, z)
+        nothing
+        nothing
+end
+
+
+function draw(this::OpenGLESImage, gl, x, y, z)
+        nothing
+        nothing
+end
+
+
+function getType(this::OpenGLESImage)
+        return staticGet_TYPE(OpenGLESImage)
+end
 

@@ -1,124 +1,119 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.audio
 
-from __future__ import annotations
-
-import threading
-
-
 #NotDeviceSpecificNoMediaMIDP1Library
-class AllBinaryMediaManager:
-    THIS: str = "AllBinaryMediaManagerNoMediaMIDP1"
-    _lock = threading.RLock()
-    
+mutable struct AllBinaryMediaManager <: JObject
+    AllBinaryMediaManager() = new()
+end
 
-    def __init__(self) -> None:
-        pass
-    
+const AllBinaryMediaManager_THISValue = Ref{Any}(nothing)
+const AllBinaryMediaManager_THISSet = Ref(false)
+function staticGet_THIS(::Type{AllBinaryMediaManager})
+    if !AllBinaryMediaManager_THISSet[]
+        AllBinaryMediaManager_THISSet[] = true
+        AllBinaryMediaManager_THISValue[] = "AllBinaryMediaManagerNoMediaMIDP1"
+    end
+    AllBinaryMediaManager_THISValue[]
+end
+function staticSet_THIS(::Type{AllBinaryMediaManager}, value)
+    AllBinaryMediaManager_THISSet[] = true
+    AllBinaryMediaManager_THISValue[] = value
+end
 
-    @staticmethod
-    def isMuted() -> bool:
-        return False
-    
+function initFieldsAllBinaryMediaManager(this::AllBinaryMediaManager)
+    nothing
+end
 
-    @staticmethod
-    def setMuted(aMuted: bool) -> None:
-        pass
-    
 
-    @staticmethod
-    def update() -> bool:
-        return True
-    
+function initAllBinaryMediaManager(this::AllBinaryMediaManager)
+        initFieldsAllBinaryMediaManager(this)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    @staticmethod
-    def init(soundsFactoryInterface: SoundsFactoryInterface) -> None:
-        from org.allbinary.media.audio.Sounds import Sounds
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        logUtil: LogUtil = LogUtil.getInstance()
-        commonString: CommonStrings = CommonStrings.getInstance()
-        logUtil.putF(commonString.START, AllBinaryMediaManager.THIS, commonString.INIT)
-        ProgressCanvasFactory.getInstance().addNormalPortion(50, "Media Manager")
-        Sounds(soundsFactoryInterface).init()
-    
+function newAllBinaryMediaManager()
+    this = AllBinaryMediaManager()
+    initAllBinaryMediaManager(this)
+    this
+end
 
-    # throws Exception
-    @staticmethod
-    def shutdown(soundsFactoryInterface: SoundsFactoryInterface) -> None:
-        from org.allbinary.media.audio.Sounds import Sounds
-        from org.allbinary.media.audio.Sounds import Sounds
-        from org.allbinary.TsUtil import TsUtil
-        Sounds(soundsFactoryInterface).stopAll()
-        Sounds(soundsFactoryInterface).closeAll()
-        TsUtil.getInstance().gc()
-    
 
-    @staticmethod
-    def createPlayerFromInputStream(stream: InputStream, type_: str) -> Player:
-        from org.allbinary.media.audio.NoPlayer import NoPlayer
-        from java.io.InputStream import InputStream
-        from javax.microedition.media.Player import Player
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        logUtil: LogUtil = LogUtil.getInstance()
-        commonString: CommonStrings = CommonStrings.getInstance()
-        logUtil.putF(commonString.START, AllBinaryMediaManager.THIS, "creatPlayer(InputStream)")
-        return NoPlayer.NO_PLAYER
-    
+function isMuted(::Type{AllBinaryMediaManager})
+        return false
+end
 
-    @staticmethod
-    def createPlayer(locator: str) -> Player:
-        from org.allbinary.media.audio.NoPlayer import NoPlayer
-        from javax.microedition.media.Player import Player
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        logUtil: LogUtil = LogUtil.getInstance()
-        commonString: CommonStrings = CommonStrings.getInstance()
-        logUtil.putF(commonString.START, AllBinaryMediaManager.THIS, "creatPlayer(locator)")
-        return NoPlayer.NO_PLAYER
-    
 
-    @staticmethod
-    def playTone(frequency: int, time: int, volume: int) -> None:
-        with AllBinaryMediaManager._lock:
-            return AllBinaryMediaManager._playTone_unlocked(frequency, time, volume)
+function setMuted(::Type{AllBinaryMediaManager}, aMuted)
+        nothing
+        nothing
+end
 
-    @staticmethod
-    def _playTone_unlocked(frequency: int, time: int, volume: int) -> None:
-        pass
-    
 
-    @staticmethod
-    def getSupportedContentTypes(protocol: str) -> list[str]:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().getArrayInstance()
-    
+function update(::Type{AllBinaryMediaManager})
+        return true
+end
 
-    @staticmethod
-    def getSupportedProtocols(content_type: str) -> list[str]:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().getArrayInstance()
-# from java.io.InputStream import InputStream
-# from javax.microedition.media.Player import Player
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory import ProgressCanvasFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
 
+function init(::Type{AllBinaryMediaManager}, soundsFactoryInterface)
+        local logUtil = AllBinary.getInstance(LogUtil)
+        local commonString = AllBinary.getInstance(CommonStrings)
+        AllBinary.putF(logUtil, commonString.START, staticGet_THIS(AllBinaryMediaManager), commonString.INIT)
+        AllBinary.addNormalPortion(AllBinary.getInstance(ProgressCanvasFactory), Int32(50), "Media Manager")
+        AllBinary.init(newSounds(soundsFactoryInterface))
+        nothing
+end
+
+
+function shutdown(::Type{AllBinaryMediaManager}, soundsFactoryInterface)
+        AllBinary.stopAll(newSounds(soundsFactoryInterface))
+        AllBinary.closeAll(newSounds(soundsFactoryInterface))
+        AllBinary.gc(AllBinary.getInstance(TsUtil))
+        nothing
+end
+
+
+function createPlayerFromInputStream(::Type{AllBinaryMediaManager}, stream, type_)
+        local logUtil = AllBinary.getInstance(LogUtil)
+        local commonString = AllBinary.getInstance(CommonStrings)
+        AllBinary.putF(logUtil, commonString.START, staticGet_THIS(AllBinaryMediaManager), "creatPlayer(InputStream)")
+        return (staticGet_NO_PLAYER(NoPlayer))
+end
+
+
+function createPlayer(::Type{AllBinaryMediaManager}, locator)
+        local logUtil = AllBinary.getInstance(LogUtil)
+        local commonString = AllBinary.getInstance(CommonStrings)
+        AllBinary.putF(logUtil, commonString.START, staticGet_THIS(AllBinaryMediaManager), "creatPlayer(locator)")
+        return (staticGet_NO_PLAYER(NoPlayer))
+end
+
+
+function playTone(::Type{AllBinaryMediaManager}, frequency, time, volume)
+        nothing
+        nothing
+end
+
+
+function getSupportedContentTypes(::Type{AllBinaryMediaManager}, protocol)
+        return AllBinary.getArrayInstance(AllBinary.getInstance(StringUtil))
+end
+
+
+function getSupportedProtocols(::Type{AllBinaryMediaManager}, content_type)
+        return AllBinary.getArrayInstance(AllBinary.getInstance(StringUtil))
+end
 

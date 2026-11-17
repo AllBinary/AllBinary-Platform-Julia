@@ -1,74 +1,98 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+mutable struct NullAnimationFactory <: JObject
+    NULL_ANIMATION::Any
+    EMPTY_ARRAY::Any
+    NullAnimationFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
-from org.allbinary.animation.ProceduralAnimationInterfaceFactoryInterface import ProceduralAnimationInterfaceFactoryInterface
+const NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORYValue = Ref{Any}(nothing)
+const NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORYSet = Ref(false)
+function staticGet_NULL_NOT_FOR_USE_ANIMATION_FACTORY(::Type{NullAnimationFactory})
+    if !NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORYSet[]
+        NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORYSet[] = true
+        NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORYValue[] = newNullAnimationFactory()
+    end
+    NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORYValue[]
+end
+function staticSet_NULL_NOT_FOR_USE_ANIMATION_FACTORY(::Type{NullAnimationFactory}, value)
+    NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORYSet[] = true
+    NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORYValue[] = value
+end
+const NullAnimationFactory_NULL_ANIMATION_FACTORYValue = Ref{Any}(nothing)
+const NullAnimationFactory_NULL_ANIMATION_FACTORYSet = Ref(false)
+function staticGet_NULL_ANIMATION_FACTORY(::Type{NullAnimationFactory})
+    if !NullAnimationFactory_NULL_ANIMATION_FACTORYSet[]
+        NullAnimationFactory_NULL_ANIMATION_FACTORYSet[] = true
+        NullAnimationFactory_NULL_ANIMATION_FACTORYValue[] = newNullAnimationFactory()
+    end
+    NullAnimationFactory_NULL_ANIMATION_FACTORYValue[]
+end
+function staticSet_NULL_ANIMATION_FACTORY(::Type{NullAnimationFactory}, value)
+    NullAnimationFactory_NULL_ANIMATION_FACTORYSet[] = true
+    NullAnimationFactory_NULL_ANIMATION_FACTORYValue[] = value
+end
+
+function initFieldsNullAnimationFactory(this::NullAnimationFactory)
+    this.NULL_ANIMATION = nothing
+    this.EMPTY_ARRAY = nothing
+    this.NULL_ANIMATION = newAnimation() #= Java anonymous class body: implement it as a named type
+        
+
+function paintXY(this::NullAnimationFactory, graphics, x, y)
+            nothing
+        nothing
+end =#
+    this.EMPTY_ARRAY = jNewArray(Any, Int32(0), nothing)
+    nothing
+end
 
 
-class NullAnimationFactory(AnimationInterfaceFactoryInterface, ProceduralAnimationInterfaceFactoryInterface):
-    NULL_NOT_FOR_USE_ANIMATION_FACTORY: NullAnimationFactory = None
-    NULL_ANIMATION_FACTORY: NullAnimationFactory = None
+function initNullAnimationFactory(this::NullAnimationFactory)
+        initFieldsNullAnimationFactory(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.NULL_ANIMATION: Animation = (Animation()  # Java anonymous class body:
-#         
-# 
-#         def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-#             from javax.microedition.lcdui.Graphics import Graphics
-#             pass
-)
-        self.EMPTY_ARRAY: list[Animation] = [None] * (0)
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getFactoryInstance() -> NullAnimationFactory:
-        return NullAnimationFactory.NULL_ANIMATION_FACTORY
-    
-
-    def getInstance(self, instanceId: int) -> Animation:
-        return self.NULL_ANIMATION
-    
-
-    # throws Exception
-    def getInstanceAnimation(self, animationInterface: Animation) -> Animation:
-        return self.NULL_ANIMATION
-    
-
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.media.ScaleProperties import ScaleProperties
-from org.allbinary.animation.Animation import Animation
+function newNullAnimationFactory()
+    this = NullAnimationFactory()
+    initNullAnimationFactory(this)
+    this
+end
 
 
-def _NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORY() -> object:
-    return NullAnimationFactory()
+function getFactoryInstance(::Type{NullAnimationFactory})
+        return staticGet_NULL_ANIMATION_FACTORY(NullAnimationFactory)
+end
 
-lazy_static(NullAnimationFactory, "NULL_NOT_FOR_USE_ANIMATION_FACTORY", _NullAnimationFactory_NULL_NOT_FOR_USE_ANIMATION_FACTORY)
 
-def _NullAnimationFactory_NULL_ANIMATION_FACTORY() -> object:
-    return NullAnimationFactory()
+function getInstance(this::NullAnimationFactory, instanceId)
+        return this.NULL_ANIMATION
+end
 
-lazy_static(NullAnimationFactory, "NULL_ANIMATION_FACTORY", _NullAnimationFactory_NULL_ANIMATION_FACTORY)
+
+function getInstanceAnimation(this::NullAnimationFactory, animationInterface)
+        return this.NULL_ANIMATION
+end
+
+
+function setInitialScale(this::NullAnimationFactory, scaleProperties)
+        nothing
+        nothing
+end
 

@@ -1,158 +1,163 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration.feature
 
-from __future__ import annotations
+mutable struct Features <: JObject
+    logUtil::Any
+    commonStrings::Any
+    list::Any
+    defaultList::Any
+    Features() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const Features_SINGLETONValue = Ref{Any}(nothing)
+const Features_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{Features})
+    if !Features_SINGLETONSet[]
+        Features_SINGLETONSet[] = true
+        Features_SINGLETONValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    Features_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{Features}, value)
+    Features_SINGLETONSet[] = true
+    Features_SINGLETONValue[] = value
+end
 
-
-class Features:
-    SINGLETON: object = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.list_: BasicArrayList = None
-        self.defaultList: BasicArrayList = None
+function initFieldsFeatures(this::Features)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.list = nothing
+    this.defaultList = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
     
-
-    @staticmethod
-    def getInstance() -> Features:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if Features.SINGLETON == NullUtil.getInstance().NULL_OBJECT:
-            Features.SINGLETON = Features()
-        return Features.SINGLETON
     
-
-    def __init__(self) -> None:
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self._init_fields()
-        self.list_ = BasicArrayListD()
-        self.defaultList = BasicArrayListD()
-        self.init()
-    
-
-    # throws Exception
-    def addDefault(self, gameFeature: Feature) -> None:
-        self.add(gameFeature)
-        if not self.defaultList.contains(gameFeature):
-            self.defaultList.add(gameFeature)
-    
-
-    # throws Exception
-    def add(self, gameFeature: Feature) -> None:
-        from org.allbinary.game.configuration.event.GameFeatureEvent import GameFeatureEvent
-        from org.allbinary.game.configuration.event.GameFeatureEventHandler import GameFeatureEventHandler
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        if not self.list_.contains(gameFeature):
-            self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().START_LABEL).append(str(gameFeature))), self, self.commonStrings.ADD)
-            self.list_.add(gameFeature)
-            GameFeatureEventHandler.getInstance().fireEvent(GameFeatureEvent(gameFeature, str(gameFeature)))
-    
-
-    # throws Exception
-    def removeDefault(self, gameFeature: Feature) -> None:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().START_LABEL).append(str(gameFeature))), self, "removeDefault")
-        self.remove(gameFeature)
-        self.defaultList.remove(gameFeature)
-    
-
-    # throws Exception
-    def remove(self, gameFeature: Feature) -> None:
-        from org.allbinary.game.configuration.event.GameFeatureEvent import GameFeatureEvent
-        from org.allbinary.game.configuration.event.GameFeatureEventHandler import GameFeatureEventHandler
-        if self.list_.contains(gameFeature):
-            self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.REMOVE)
-            self.list_.remove(gameFeature)
-            GameFeatureEventHandler.getInstance().fireEvent(GameFeatureEvent(gameFeature, str(gameFeature)))
-    
-
-    def init(self) -> None:
-        from org.allbinary.game.configuration.feature.GameFeatureFactory import GameFeatureFactory
-        from org.allbinary.game.configuration.feature.InputFeatureFactory import InputFeatureFactory
-        from org.allbinary.game.configuration.feature.SensorFeatureFactory import SensorFeatureFactory
-        from org.allbinary.game.configuration.feature.TouchFeatureFactory import TouchFeatureFactory
-        from org.allbinary.game.configuration.feature.MainFeatureFactory import MainFeatureFactory
-        from org.allbinary.game.configuration.feature.MainFeatureFactory import MainFeatureFactory
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.system.os.GenericOperatingSystem import GenericOperatingSystem
-        from org.allbinary.logic.system.os.OperatingSystemFactory import OperatingSystemFactory
-        try:
-            gameFeatureFactory: GameFeatureFactory = GameFeatureFactory.getInstance()
-            inputFeatureFactory: InputFeatureFactory = InputFeatureFactory.getInstance()
-            sensorFeatureFactory: SensorFeatureFactory = SensorFeatureFactory.getInstance()
-            touchFeatureFactory: TouchFeatureFactory = TouchFeatureFactory.getInstance()
-            self.addDefault(gameFeatureFactory.ARTIFICIAL_INTELLEGENCE_PROCESSOR)
-            self.addDefault(gameFeatureFactory.COLLIDABLE_INTERFACE_LAYER_PROCESSOR)
-            self.addDefault(gameFeatureFactory.GAME_INPUT_LAYER_PROCESSOR)
-            self.addDefault(gameFeatureFactory.TICKABLE_LAYER_PROCESSOR)
-            self.addDefault(inputFeatureFactory.MULTI_KEY_PRESS)
-            self.addDefault(inputFeatureFactory.REMOVE_DUPLICATE_KEY_PRESSES)
-            self.addDefault(gameFeatureFactory.SCREEN_SHAKE)
-            self.addDefault(gameFeatureFactory.POST_IMAGE_LOADING_MODIFICATION)
-            operatingSystemInterface: GenericOperatingSystem = OperatingSystemFactory.getInstance().getOperatingSystemInstance()
-            if operatingSystemInterface.isOverScan():
-                self.addDefault(sensorFeatureFactory.NO_ORIENTATION)
-                self.addDefault(touchFeatureFactory.HIDE_SCREEN_BUTTONS)
-            else:
-                self.addDefault(sensorFeatureFactory.ORIENTATION_SENSORS)
-                self.addDefault(touchFeatureFactory.AUTO_HIDE_SHOW_SCREEN_BUTTONS)
-            self.addDefault(touchFeatureFactory.TOUCH_ENABLED)
-            self.addDefault(MainFeatureFactory.getInstance().FULL_SCREEN)
-            self.addDefault(MainFeatureFactory.getInstance().LOAD_ONDEMAND)
-        except Exception as e:
-            PreLogUtil.putOE(self.commonStrings.EXCEPTION, self, self.commonStrings.INIT, e)
-    
-
-    def isDefault(self, gameFeature: Feature) -> bool:
-        return self.defaultList.contains(gameFeature)
-    
-
-    def isFeature(self, gameFeature: Feature) -> bool:
-        return self.list_.contains(gameFeature)
-    
-
-    # throws Exception
-    def toggle(self, gameFeature: Feature) -> None:
-        if self.isFeature(gameFeature):
-            self.remove(gameFeature)
-        else:
-            self.add(gameFeature)
-# from org.allbinary.game.configuration.event.GameFeatureEvent import GameFeatureEvent
-# from org.allbinary.game.configuration.event.GameFeatureEventHandler import GameFeatureEventHandler
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.system.os.GenericOperatingSystem import GenericOperatingSystem
-# from org.allbinary.logic.system.os.OperatingSystemFactory import OperatingSystemFactory
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+    nothing
+end
 
 
-def _Features_SINGLETON() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{Features})
+        if staticGet_SINGLETON(Features) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_SINGLETON(Features, newFeatures())
+        end
+        return (staticGet_SINGLETON(Features))
+end
 
-lazy_static(Features, "SINGLETON", _Features_SINGLETON)
+
+function initFeatures(this::Features)
+        initFieldsFeatures(this)
+        this.list = newBasicArrayListD()
+        this.defaultList = newBasicArrayListD()
+        AllBinary.init(this)
+        nothing
+end
+
+function newFeatures()
+    this = Features()
+    initFeatures(this)
+    this
+end
+
+
+function addDefault(this::Features, gameFeature)
+        AllBinary.add(this, gameFeature)
+        if !AllBinary.contains(this.defaultList, gameFeature)
+            AllBinary.add(this.defaultList, gameFeature)
+        end
+        nothing
+end
+
+
+function add(this::Features, gameFeature)
+        if !AllBinary.contains(this.list, gameFeature)
+            AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).START_LABEL), AllBinary.toString(gameFeature))), this, this.commonStrings.ADD)
+            AllBinary.add(this.list, gameFeature)
+            AllBinary.fireEvent(AllBinary.getInstance(GameFeatureEventHandler), newGameFeatureEvent(gameFeature, AllBinary.toString(gameFeature)))
+        end
+        nothing
+end
+
+
+function removeDefault(this::Features, gameFeature)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).START_LABEL), AllBinary.toString(gameFeature))), this, "removeDefault")
+        AllBinary.remove(this, gameFeature)
+        AllBinary.remove(this.defaultList, gameFeature)
+        nothing
+end
+
+
+function remove(this::Features, gameFeature)
+        if AllBinary.contains(this.list, gameFeature)
+            AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.REMOVE)
+            AllBinary.remove(this.list, gameFeature)
+            AllBinary.fireEvent(AllBinary.getInstance(GameFeatureEventHandler), newGameFeatureEvent(gameFeature, AllBinary.toString(gameFeature)))
+        end
+        nothing
+end
+
+
+function init(this::Features)
+        try
+            local gameFeatureFactory = AllBinary.getInstance(GameFeatureFactory)
+            local inputFeatureFactory = AllBinary.getInstance(InputFeatureFactory)
+            local sensorFeatureFactory = AllBinary.getInstance(SensorFeatureFactory)
+            local touchFeatureFactory = AllBinary.getInstance(TouchFeatureFactory)
+            AllBinary.addDefault(this, gameFeatureFactory.ARTIFICIAL_INTELLEGENCE_PROCESSOR)
+            AllBinary.addDefault(this, gameFeatureFactory.COLLIDABLE_INTERFACE_LAYER_PROCESSOR)
+            AllBinary.addDefault(this, gameFeatureFactory.GAME_INPUT_LAYER_PROCESSOR)
+            AllBinary.addDefault(this, gameFeatureFactory.TICKABLE_LAYER_PROCESSOR)
+            AllBinary.addDefault(this, inputFeatureFactory.MULTI_KEY_PRESS)
+            AllBinary.addDefault(this, inputFeatureFactory.REMOVE_DUPLICATE_KEY_PRESSES)
+            AllBinary.addDefault(this, gameFeatureFactory.SCREEN_SHAKE)
+            AllBinary.addDefault(this, gameFeatureFactory.POST_IMAGE_LOADING_MODIFICATION)
+            local operatingSystemInterface = AllBinary.getOperatingSystemInstance(AllBinary.getInstance(OperatingSystemFactory))
+            if AllBinary.isOverScan(operatingSystemInterface)
+                AllBinary.addDefault(this, sensorFeatureFactory.NO_ORIENTATION)
+                AllBinary.addDefault(this, touchFeatureFactory.HIDE_SCREEN_BUTTONS)
+            else
+                AllBinary.addDefault(this, sensorFeatureFactory.ORIENTATION_SENSORS)
+                AllBinary.addDefault(this, touchFeatureFactory.AUTO_HIDE_SHOW_SCREEN_BUTTONS)
+            end
+            AllBinary.addDefault(this, touchFeatureFactory.TOUCH_ENABLED)
+            AllBinary.addDefault(this, AllBinary.getInstance(MainFeatureFactory).FULL_SCREEN)
+            AllBinary.addDefault(this, AllBinary.getInstance(MainFeatureFactory).LOAD_ONDEMAND)
+        catch e
+            AllBinary.putOE(PreLogUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.INIT, e)
+        end
+        nothing
+end
+
+
+function isDefault(this::Features, gameFeature)
+        return AllBinary.contains(this.defaultList, gameFeature)
+end
+
+
+function isFeature(this::Features, gameFeature)
+        return AllBinary.contains(this.list, gameFeature)
+end
+
+
+function toggle(this::Features, gameFeature)
+        if AllBinary.isFeature(this, gameFeature)
+            AllBinary.remove(this, gameFeature)
+        else
+            AllBinary.add(this, gameFeature)
+        end
+        nothing
+end
 

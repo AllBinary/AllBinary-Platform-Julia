@@ -1,33 +1,43 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.util.cache
 
-from __future__ import annotations
+# extends BasicArrayListD: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicArrayListCacheable <: JObject
+    BasicArrayListCacheable() = new()
+end
 
-from org.allbinary.util.BasicArrayListD import BasicArrayListD
-from org.allbinary.logic.util.cache.CacheableInterface import CacheableInterface
+
+function initFieldsBasicArrayListCacheable(this::BasicArrayListCacheable)
+    nothing
+end
+
+function initBasicArrayListCacheable(this::BasicArrayListCacheable)
+    initBasicArrayListD(this)
+    initFieldsBasicArrayListCacheable(this)
+end
+
+function newBasicArrayListCacheable()
+    this = BasicArrayListCacheable()
+    initBasicArrayListCacheable(this)
+    this
+end
 
 
-class BasicArrayListCacheable(BasicArrayListD, CacheableInterface):
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    def getKey(self) -> object:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-# from org.allbinary.logic.string.StringUtil import StringUtil
-
+function getKey(this::BasicArrayListCacheable)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
 

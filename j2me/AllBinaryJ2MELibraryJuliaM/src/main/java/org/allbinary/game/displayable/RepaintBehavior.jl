@@ -1,70 +1,79 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable
 
-from __future__ import annotations
+mutable struct RepaintBehavior <: JObject
+    logUtil::Any
+    NAME::Any
+    RepaintBehavior() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
+const RepaintBehavior_instanceValue = Ref{Any}(nothing)
+const RepaintBehavior_instanceSet = Ref(false)
+function staticGet_instance(::Type{RepaintBehavior})
+    if !RepaintBehavior_instanceSet[]
+        RepaintBehavior_instanceSet[] = true
+        RepaintBehavior_instanceValue[] = newRepaintBehavior()
+    end
+    RepaintBehavior_instanceValue[]
+end
+function staticSet_instance(::Type{RepaintBehavior}, value)
+    RepaintBehavior_instanceSet[] = true
+    RepaintBehavior_instanceValue[] = value
+end
 
+function initFieldsRepaintBehavior(this::RepaintBehavior)
+    this.logUtil = nothing
+    this.NAME = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.NAME = "RepaintBehavior"
+    nothing
+end
 
-class RepaintBehavior:
-    instance: RepaintBehavior = None
+function initRepaintBehavior(this::RepaintBehavior)
+    initFieldsRepaintBehavior(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.NAME: str = "RepaintBehavior"
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> RepaintBehavior:
-        return RepaintBehavior.instance
-    
-
-    def repaint(self, canvas: Canvas) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        pass
-    
-
-    def onChangeRepaint(self, canvas: Canvas) -> None:
-        from org.allbinary.game.displayable.RepaintRunnable import RepaintRunnable
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        features: Features = Features.getInstance()
-        openGLFeatureFactory: OpenGLFeatureFactory = OpenGLFeatureFactory.getInstance()
-        if features.isFeature(openGLFeatureFactory.OPENGL):
-            DisplayInfoSingleton.getInstance().process()
-        else:
-            thread: threading.Thread = threading.Thread(target=RepaintRunnable(canvas).run, name=self.NAME)
-            thread.start()
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.thread.NullRunnable import NullRunnable
+function newRepaintBehavior()
+    this = RepaintBehavior()
+    initRepaintBehavior(this)
+    this
+end
 
 
-def _RepaintBehavior_instance() -> object:
-    return RepaintBehavior()
+function getInstance(::Type{RepaintBehavior})
+        return staticGet_instance(RepaintBehavior)
+end
 
-lazy_static(RepaintBehavior, "instance", _RepaintBehavior_instance)
+
+function repaint(this::RepaintBehavior, canvas)
+        nothing
+        nothing
+end
+
+
+function onChangeRepaint(this::RepaintBehavior, canvas)
+        local features = AllBinary.getInstance(Features)
+        local openGLFeatureFactory = AllBinary.getInstance(OpenGLFeatureFactory)
+        if AllBinary.isFeature(features, openGLFeatureFactory.OPENGL)
+            AllBinary.process(AllBinary.getInstance(DisplayInfoSingleton))
+        else
+            local thread = newThread(newRepaintRunnable(canvas), this.NAME)
+            AllBinary.start(thread)
+        end
+        nothing
+end
 

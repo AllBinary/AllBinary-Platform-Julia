@@ -57,20 +57,20 @@ end
 
 
 function runTask(this::MusicThreadPool, task)
-        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendlong(AllBinary.append(newStringMaker(), AllBinary.toString(AllBinary.getInstance(StringUtil), task)), ((jCurrentTimeMillis()) % Int64))), this, this.threadPoolStrings.ADD_TASK)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendlong(AllBinary.append(newStringMaker(), AllBinary.toString(AllBinary.getInstance(StringUtil), task)), jCurrentTimeMillis())), this, this.threadPoolStrings.ADD_TASK)
         AllBinary.runTask(this, task)
         nothing
 end
 
 
 function startTask(this::MusicThreadPool, task)
-        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendlong(AllBinary.append(AllBinary.append(newStringMaker(), this.threadPoolStrings.START_TASK), AllBinary.toString(AllBinary.getInstance(StringUtil), task)), ((jCurrentTimeMillis()) % Int64))), this, this.commonStrings.RUN)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendlong(AllBinary.append(AllBinary.append(newStringMaker(), this.threadPoolStrings.START_TASK), AllBinary.toString(AllBinary.getInstance(StringUtil), task)), jCurrentTimeMillis())), this, this.commonStrings.RUN)
         nothing
 end
 
 
 function completedTask(this::MusicThreadPool, task)
-        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendlong(AllBinary.append(AllBinary.append(newStringMaker(), this.threadPoolStrings.COMPLETE_TASK), AllBinary.toString(AllBinary.getInstance(StringUtil), task)), ((jCurrentTimeMillis()) % Int64))), this, this.commonStrings.RUN)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.appendlong(AllBinary.append(AllBinary.append(newStringMaker(), this.threadPoolStrings.COMPLETE_TASK), AllBinary.toString(AllBinary.getInstance(StringUtil), task)), jCurrentTimeMillis())), this, this.commonStrings.RUN)
         nothing
 end
 

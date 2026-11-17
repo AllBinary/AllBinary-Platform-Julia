@@ -1,78 +1,84 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai.scroller
 
-from __future__ import annotations
+# extends PacePatrolAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TerrainPatrolAI <: JObject
+    terrainEventListener::Any
+    DOWN::Any
+    CLIFF::Any
+    TerrainPatrolAI() = new()
+end
 
-from org.allbinary.game.ag.ai.scroller.PacePatrolAI import PacePatrolAI
+
+function initFieldsTerrainPatrolAI(this::TerrainPatrolAI)
+    this.terrainEventListener = nothing
+    this.DOWN = nothing
+    this.CLIFF = nothing
+    this.terrainEventListener = newTerrainEventListener()
+    this.DOWN = AllBinary.getInstance(AngleFactory).DOWN
+    this.CLIFF = newBasicTerrainInfo(this.DOWN)
+    nothing
+end
 
 
-class TerrainPatrolAI(PacePatrolAI):
+function initTerrainPatrolAI(this::TerrainPatrolAI, hashtable, ownerLayerInterface, gameInput)
+        initPacePatrolAI(this, hashtable, ownerLayerInterface, gameInput)
+        initFieldsTerrainPatrolAI(this)
+        AllBinary.addListener(AllBinary.getInstance(TerrainEventHandler, ownerLayerInterface), this.terrainEventListener)
+        AllBinary.onTerrainEvent(this.terrainEventListener, AllBinary.getNext(AllBinary.getInstance(TerrainEventCircularStaticPool), this.CLIFF))
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.terrain.BasicTerrainInfo import BasicTerrainInfo
-        from org.allbinary.game.terrain.TerrainEventListener import TerrainEventListener
-        from org.allbinary.math.Angle import Angle
-        from org.allbinary.math.AngleFactory import AngleFactory
-        self.terrainEventListener: TerrainEventListener = TerrainEventListener()
-        self.DOWN: Angle = AngleFactory.getInstance().DOWN
-        self.CLIFF: BasicTerrainInfo = BasicTerrainInfo(self.DOWN)
-    
+function newTerrainPatrolAI(hashtable, ownerLayerInterface, gameInput)
+    this = TerrainPatrolAI()
+    initTerrainPatrolAI(this, hashtable, ownerLayerInterface, gameInput)
+    this
+end
 
-    def __init__(self, hashtable: ABHashtable[object, object], ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.game.terrain.TerrainEventCircularStaticPool import TerrainEventCircularStaticPool
-        from org.allbinary.game.terrain.TerrainEventHandler import TerrainEventHandler
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.ABHashtable import ABHashtable
-        super().__init__(hashtable, ownerLayerInterface, gameInput)
-        self._init_fields()
-        TerrainEventHandler.getInstance(ownerLayerInterface).addListener(self.terrainEventListener)
-        self.terrainEventListener.onTerrainEvent(TerrainEventCircularStaticPool.getInstance().getNext(self.CLIFF))
-    
 
-    def update(self) -> None:
-        super().update()
-        self.changeDirectionIfCliffReached()
-    
+function update(this::TerrainPatrolAI)
+        AllBinary.update(this)
+        AllBinary.changeDirectionIfCliffReached(this)
+        nothing
+end
 
-    def changeDirectionIfCliffReached(self) -> None:
-        from org.allbinary.game.terrain.BasicTerrainInfo import BasicTerrainInfo
-        from org.allbinary.game.terrain.TerrainEvent import TerrainEvent
-        from org.allbinary.math.Angle import Angle
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        list_: BasicArrayList = self.terrainEventListener.getList()
-        size: int = list_.size()
-        for index in range(0, size):
-            terrainEvent: TerrainEvent = list_.removeAt(index)
-            basicTerrainInfo: BasicTerrainInfo = terrainEvent.getBasicTerrainInfo()
-            angle: Angle = basicTerrainInfo.getAngle()
-            if angle == self.DOWN:
-                self.nextDirection()
-                if not self.isFollowLimitedByTerrain:
-                    self.logUtil.putF("Following Limited", self, "onTerrainEvent")
-                    self.isFollowLimitedByTerrain = True
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.game.terrain.BasicTerrainInfo import BasicTerrainInfo
-# from org.allbinary.game.terrain.TerrainEvent import TerrainEvent
-# from org.allbinary.game.terrain.TerrainEventCircularStaticPool import TerrainEventCircularStaticPool
-# from org.allbinary.game.terrain.TerrainEventHandler import TerrainEventHandler
-# from org.allbinary.game.terrain.TerrainEventListener import TerrainEventListener
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.math.Angle import Angle
-# from org.allbinary.math.AngleFactory import AngleFactory
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
 
+function changeDirectionIfCliffReached(this::TerrainPatrolAI)
+        local list = AllBinary.getList(this.terrainEventListener)
+        local size::Int32 = AllBinary.size(list)
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            local terrainEvent = (AllBinary.removeAt(list, index))
+            local basicTerrainInfo = AllBinary.getBasicTerrainInfo(terrainEvent)
+            local angle = AllBinary.getAngle(basicTerrainInfo)
+            if angle === this.DOWN
+                AllBinary.nextDirection(this)
+                if !this.isFollowLimitedByTerrain
+                    AllBinary.putF(this.logUtil, "Following Limited", this, "onTerrainEvent")
+                    this.isFollowLimitedByTerrain = true
+                end
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 

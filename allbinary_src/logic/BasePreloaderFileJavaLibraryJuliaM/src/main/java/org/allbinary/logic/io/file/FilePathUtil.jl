@@ -1,43 +1,52 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io.file
 
-from __future__ import annotations
-
-
-
 #Used to correct user input for paths
-class FilePathUtil:
-    
+mutable struct FilePathUtil <: JObject
+    FilePathUtil() = new()
+end
 
-    def __init__(self) -> None:
-        pass
-    
 
-    @staticmethod
-    def adjust(path: str) -> str:
-        from org.allbinary.logic.io.file.FilePathData import FilePathData
-        from org.allbinary.logic.io.path.AbPathData import AbPathData
-        from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-        abPathData: AbPathData = AbPathData.getInstance()
-        stringValidationUtil: StringValidationUtil = StringValidationUtil.getInstance()
-        filePathData: FilePathData = FilePathData.getInstance()
-        if stringValidationUtil.isEmpty(path):
+function initFieldsFilePathUtil(this::FilePathUtil)
+    nothing
+end
+
+
+function initFilePathUtil(this::FilePathUtil)
+        initFieldsFilePathUtil(this)
+        nothing
+        nothing
+end
+
+function newFilePathUtil()
+    this = FilePathUtil()
+    initFilePathUtil(this)
+    this
+end
+
+
+function adjust(::Type{FilePathUtil}, path)
+        local abPathData = AllBinary.getInstance(AbPathData)
+        local stringValidationUtil = AllBinary.getInstance(StringValidationUtil)
+        local filePathData = AllBinary.getInstance(FilePathData)
+        if AllBinary.isEmpty(stringValidationUtil, path)
             return filePathData.PATH_START
-        path = path.replace(abPathData.SEPARATORCHAR, filePathData.SEPARATORCHAR)
+        end
+        path = jReplace(path, abPathData.SEPARATORCHAR, filePathData.SEPARATORCHAR)
         return path
-# from org.allbinary.logic.io.path.AbPathData import AbPathData
-# from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-
+end
 

@@ -1,62 +1,80 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+# extends HighScoresHelperBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HighScoresHelper2 <: JObject
+    circularIndexUtil::Any
+    selectedHighScores::Any
+    HighScoresHelper2() = new()
+end
 
-from org.allbinary.game.score.HighScoresHelperBase import HighScoresHelperBase
+
+function initFieldsHighScoresHelper2(this::HighScoresHelper2)
+    this.circularIndexUtil = nothing
+    this.selectedHighScores = nothing
+    this.circularIndexUtil = AllBinary.createInstanceAt(CircularIndexUtil, Int32(0), Int32(0))
+    this.selectedHighScores = AllBinary.getInstance(NullHighScoresSingletonFactory)
+    nothing
+end
+
+function initHighScoresHelper2(this::HighScoresHelper2)
+    initHighScoresHelperBase(this)
+    initFieldsHighScoresHelper2(this)
+end
+
+function newHighScoresHelper2()
+    this = HighScoresHelper2()
+    initHighScoresHelper2(this)
+    this
+end
 
 
-class HighScoresHelper2(HighScoresHelperBase):
+function setSelectedHighScores(this::HighScoresHelper2, selectedHighScores)
+        this.selectedHighScores = selectedHighScores
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.circularIndexUtil: CircularIndexUtil = CircularIndexUtil.createInstanceAt(0, 0)
-        self.selectedHighScores: HighScores = NullHighScoresSingletonFactory.getInstance()
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
+function getSelectedHighScores(this::HighScoresHelper2)
+        return this.selectedHighScores
+end
 
-    def setSelectedHighScores(self, selectedHighScores: HighScores) -> None:
-        self.selectedHighScores = selectedHighScores
-    
 
-    def getSelectedHighScores(self) -> HighScores:
-        return self.selectedHighScores
-    
+function setHighScoresArray(this::HighScoresHelper2, highScoresArrayP)
+        AllBinary.setHighScoresArray(this, highScoresArrayP)
+        AllBinary.setSize(this.circularIndexUtil, Int32(Base.length(this.highScoresArrayP)))
+        AllBinary.selectHighScores(this)
+        nothing
+end
 
-    def setHighScoresArray(self, highScoresArrayP: list[HighScores]) -> None:
-        super().setHighScoresArray(highScoresArrayP)
-        self.circularIndexUtil.setSize(len(self.highScoresArrayP))
-        self.selectHighScores()
-    
 
-    def selectHighScores(self) -> None:
-        from org.allbinary.game.score.NullHighScoresSingletonFactory import NullHighScoresSingletonFactory
-        if len(self.highScoresArrayP) == 0:
-            self.setSelectedHighScores(NullHighScoresSingletonFactory.getInstance())
+function selectHighScores(this::HighScoresHelper2)
+        if Int32(Base.length(this.highScoresArrayP)) == Int32(0)
+            AllBinary.setSelectedHighScores(this, AllBinary.getInstance(NullHighScoresSingletonFactory))
             return
-        self.circularIndexUtil.next()
-        highScores: HighScores = self.highScoresArrayP[self.circularIndexUtil.getIndex()]
-        index: int = 0
-        while highScores.getTotal() < 1 and index < len(self.highScoresArrayP):
-            highScores = self.highScoresArrayP[self.circularIndexUtil.next()]
-            index += 1
-        self.setSelectedHighScores(highScores)
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-from org.allbinary.game.score.NullHighScoresSingletonFactory import NullHighScoresSingletonFactory
-
+        end
+        AllBinary.next(this.circularIndexUtil)
+        local highScores = this.highScoresArrayP[AllBinary.getIndex(this.circularIndexUtil) + 1]
+        local index::Int32 = Int32(0)
+        while AllBinary.getTotal(highScores) < Int32(1) && index < Int32(Base.length(this.highScoresArrayP))
+            highScores = this.highScoresArrayP[AllBinary.next(this.circularIndexUtil) + 1]
+            index += Int32(1)
+        end
+        AllBinary.setSelectedHighScores(this, highScores)
+        nothing
+end
 

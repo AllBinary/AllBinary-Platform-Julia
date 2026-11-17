@@ -1,52 +1,84 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration.feature
 
-from __future__ import annotations
+mutable struct GraphicsFeatureFactory <: JObject
+    NONE::Any
+    TRANSPARENT_IMAGE_CREATION::Any
+    IMAGE_GRAPHICS::Any
+    IMAGE_ROTATION_ON_THE_FLY::Any
+    IMAGE_TO_ARRAY_GRAPHICS::Any
+    SPRITE_QUARTER_ROTATION_GRAPHICS::Any
+    SPRITE_FULL_GRAPHICS::Any
+    VECTOR_GRAPHICS::Any
+    VECTOR_TO_IMAGE_GRAPHICS::Any
+    GraphicsFeatureFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GraphicsFeatureFactory_instanceValue = Ref{Any}(nothing)
+const GraphicsFeatureFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GraphicsFeatureFactory})
+    if !GraphicsFeatureFactory_instanceSet[]
+        GraphicsFeatureFactory_instanceSet[] = true
+        GraphicsFeatureFactory_instanceValue[] = newGraphicsFeatureFactory()
+    end
+    GraphicsFeatureFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GraphicsFeatureFactory}, value)
+    GraphicsFeatureFactory_instanceSet[] = true
+    GraphicsFeatureFactory_instanceValue[] = value
+end
+
+function initFieldsGraphicsFeatureFactory(this::GraphicsFeatureFactory)
+    this.NONE = nothing
+    this.TRANSPARENT_IMAGE_CREATION = nothing
+    this.IMAGE_GRAPHICS = nothing
+    this.IMAGE_ROTATION_ON_THE_FLY = nothing
+    this.IMAGE_TO_ARRAY_GRAPHICS = nothing
+    this.SPRITE_QUARTER_ROTATION_GRAPHICS = nothing
+    this.SPRITE_FULL_GRAPHICS = nothing
+    this.VECTOR_GRAPHICS = nothing
+    this.VECTOR_TO_IMAGE_GRAPHICS = nothing
+    this.NONE = newGraphicsFeature(AllBinary.getInstance(StringUtil).NULL_STRING)
+    this.TRANSPARENT_IMAGE_CREATION = newGraphicsFeature("Transparent Image Creation")
+    this.IMAGE_GRAPHICS = newGraphicsFeature("Image Graphics")
+    this.IMAGE_ROTATION_ON_THE_FLY = newGraphicsFeature("Image Rotated On The Fly")
+    this.IMAGE_TO_ARRAY_GRAPHICS = newGraphicsFeature("Image To Array Graphics")
+    this.SPRITE_QUARTER_ROTATION_GRAPHICS = newGraphicsFeature("Sprite Quarter Rotation Graphics")
+    this.SPRITE_FULL_GRAPHICS = newGraphicsFeature("Sprite Full Rotation Graphics")
+    this.VECTOR_GRAPHICS = newGraphicsFeature("BasicArrayList Graphics")
+    this.VECTOR_TO_IMAGE_GRAPHICS = newGraphicsFeature("BasicArrayList To Image Graphics")
+    nothing
+end
 
 
-class GraphicsFeatureFactory:
-    instance: GraphicsFeatureFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.NONE: GraphicsFeature = GraphicsFeature(StringUtil.getInstance().NULL_STRING)
-        self.TRANSPARENT_IMAGE_CREATION: GraphicsFeature = GraphicsFeature("Transparent Image Creation")
-        self.IMAGE_GRAPHICS: GraphicsFeature = GraphicsFeature("Image Graphics")
-        self.IMAGE_ROTATION_ON_THE_FLY: GraphicsFeature = GraphicsFeature("Image Rotated On The Fly")
-        self.IMAGE_TO_ARRAY_GRAPHICS: GraphicsFeature = GraphicsFeature("Image To Array Graphics")
-        self.SPRITE_QUARTER_ROTATION_GRAPHICS: GraphicsFeature = GraphicsFeature("Sprite Quarter Rotation Graphics")
-        self.SPRITE_FULL_GRAPHICS: GraphicsFeature = GraphicsFeature("Sprite Full Rotation Graphics")
-        self.VECTOR_GRAPHICS: GraphicsFeature = GraphicsFeature("BasicArrayList Graphics")
-        self.VECTOR_TO_IMAGE_GRAPHICS: GraphicsFeature = GraphicsFeature("BasicArrayList To Image Graphics")
-    
-
-    @staticmethod
-    def getInstance() -> GraphicsFeatureFactory:
-        return GraphicsFeatureFactory.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-# from org.allbinary.logic.string.StringUtil import StringUtil
-from org.allbinary.game.configuration.feature.GraphicsFeature import GraphicsFeature
+function getInstance(::Type{GraphicsFeatureFactory})
+        return staticGet_instance(GraphicsFeatureFactory)
+end
 
 
-def _GraphicsFeatureFactory_instance() -> object:
-    return GraphicsFeatureFactory()
+function initGraphicsFeatureFactory(this::GraphicsFeatureFactory)
+        initFieldsGraphicsFeatureFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(GraphicsFeatureFactory, "instance", _GraphicsFeatureFactory_instance)
+function newGraphicsFeatureFactory()
+    this = GraphicsFeatureFactory()
+    initGraphicsFeatureFactory(this)
+    this
+end
 

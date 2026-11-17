@@ -1,45 +1,49 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends AdjustedImageArrayRotationAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ImageArrayRotationAnimationCacheable <: JObject
+    ImageArrayRotationAnimationCacheable() = new()
+end
 
-from org.allbinary.logic.util.cache.CacheableInterface import CacheableInterface
-from org.allbinary.animation.image.AdjustedImageArrayRotationAnimation import AdjustedImageArrayRotationAnimation
+
+function initFieldsImageArrayRotationAnimationCacheable(this::ImageArrayRotationAnimationCacheable)
+    nothing
+end
 
 
-class ImageArrayRotationAnimationCacheable(AdjustedImageArrayRotationAnimation, CacheableInterface):
-    
+function initImageArrayRotationAnimationCacheable(this::ImageArrayRotationAnimationCacheable, anyType, animationBehavior)
+        initAdjustedImageArrayRotationAnimation(this, AllBinary.getImageArray(((anyType))), AllBinary.getAngleInfoP(((anyType))), AllBinary.getTotalAngle(((anyType))), AllBinary.getDx(((anyType))), AllBinary.getDy(((anyType))), animationBehavior)
+        nothing
+end
 
-    def __init__(self, anyType: object, animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        super().__init__((anyType).getImageArray(), (anyType).getAngleInfoP(), (anyType).getTotalAngle(), (anyType).getDx(), (anyType).getDy(), animationBehavior)
-    
+function newImageArrayRotationAnimationCacheable(anyType, animationBehavior)
+    this = ImageArrayRotationAnimationCacheable()
+    initImageArrayRotationAnimationCacheable(this, anyType, animationBehavior)
+    this
+end
 
-    def getKey(self) -> object:
-        from org.allbinary.logic.NullUtil import NullUtil
-        return NullUtil.getInstance().NULL_OBJECT
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
+function getKey(this::ImageArrayRotationAnimationCacheable)
+        return AllBinary.getInstance(NullUtil).NULL_OBJECT
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
 
+function toString(this::ImageArrayRotationAnimationCacheable)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
 

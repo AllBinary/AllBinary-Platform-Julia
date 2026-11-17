@@ -1,54 +1,71 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.image
 
-from __future__ import annotations
+mutable struct PreResourceImageUtil <: JObject
+    PreResourceImageUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const PreResourceImageUtil_instanceValue = Ref{Any}(nothing)
+const PreResourceImageUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{PreResourceImageUtil})
+    if !PreResourceImageUtil_instanceSet[]
+        PreResourceImageUtil_instanceSet[] = true
+        PreResourceImageUtil_instanceValue[] = newPreResourceImageUtil()
+    end
+    PreResourceImageUtil_instanceValue[]
+end
+function staticSet_instance(::Type{PreResourceImageUtil}, value)
+    PreResourceImageUtil_instanceSet[] = true
+    PreResourceImageUtil_instanceValue[] = value
+end
+
+function initFieldsPreResourceImageUtil(this::PreResourceImageUtil)
+    nothing
+end
+
+function initPreResourceImageUtil(this::PreResourceImageUtil)
+    initFieldsPreResourceImageUtil(this)
+end
+
+function newPreResourceImageUtil()
+    this = PreResourceImageUtil()
+    initPreResourceImageUtil(this)
+    this
+end
 
 
-class PreResourceImageUtil:
-    instance: PreResourceImageUtil = None
-    
+function getInstance(::Type{PreResourceImageUtil})
+        return staticGet_instance(PreResourceImageUtil)
+end
 
-    @staticmethod
-    def getInstance() -> PreResourceImageUtil:
-        return PreResourceImageUtil.instance
-    
 
-    def encapsulate(self, image: Image) -> Image:
-        from javax.microedition.lcdui.Image import Image
+function encapsulate(this::PreResourceImageUtil, image)
         return image
-    
-
-    def updateGL(self, gl: GL, image: Image) -> None:
-        from javax.microedition.khronos.opengles.GL import GL
-        from javax.microedition.lcdui.Image import Image
-        pass
-    
-
-    def update(self, graphics: Graphics, image: Image) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from javax.microedition.lcdui.Image import Image
-        pass
-# from javax.microedition.khronos.opengles.GL import GL
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
+end
 
 
-def _PreResourceImageUtil_instance() -> object:
-    return PreResourceImageUtil()
+function updateGL(this::PreResourceImageUtil, gl, image)
+        nothing
+        nothing
+end
 
-lazy_static(PreResourceImageUtil, "instance", _PreResourceImageUtil_instance)
+
+function update(this::PreResourceImageUtil, graphics, image)
+        nothing
+        nothing
+end
 

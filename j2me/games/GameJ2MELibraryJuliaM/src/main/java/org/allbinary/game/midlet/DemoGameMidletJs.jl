@@ -1,30 +1,21 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2026 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2026 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.midlet
 
-from __future__ import annotations
-
-
-
-# Java interface
-class DemoGameMidletJs:
-    
-
-    # throws Exception
-    def createDemoGameCanvasRunnableInterface(self) -> GameCanvasRunnableInterface:
-        from org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface import GameCanvasRunnableInterface
-        raise NotImplementedError()
-# from org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface import GameCanvasRunnableInterface
+# Java interface DemoGameMidletJs: Julia dispatches on the class so an interface is an abstract type
+abstract type DemoGameMidletJs <: JObject end
 
 

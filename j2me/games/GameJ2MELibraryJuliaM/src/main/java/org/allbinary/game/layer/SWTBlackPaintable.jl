@@ -1,43 +1,50 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SWTBlackPaintable <: JObject
+    basicSetColorUtil::Any
+    BLACK::Any
+    SWTBlackPaintable() = new()
+end
 
-from org.allbinary.graphics.paint.Paintable import Paintable
+
+function initFieldsSWTBlackPaintable(this::SWTBlackPaintable)
+    this.basicSetColorUtil = nothing
+    this.BLACK = nothing
+    this.basicSetColorUtil = AllBinary.getInstance(BasicColorSetUtil)
+    this.BLACK = AllBinary.getInstance(BasicColorFactory).BLACK
+    nothing
+end
+
+function initSWTBlackPaintable(this::SWTBlackPaintable)
+    initPaintable(this)
+    initFieldsSWTBlackPaintable(this)
+end
+
+function newSWTBlackPaintable()
+    this = SWTBlackPaintable()
+    initSWTBlackPaintable(this)
+    this
+end
 
 
-class SWTBlackPaintable(Paintable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-        self.basicSetColorUtil: BasicColorSetUtil = BasicColorSetUtil.getInstance()
-        self.BLACK: BasicColor = BasicColorFactory.getInstance().BLACK
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.basicSetColorUtil.setBasicColorP(graphics, self.BLACK)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.color.BasicColorSetUtil import BasicColorSetUtil
-
+function paint(this::SWTBlackPaintable, graphics)
+        AllBinary.setBasicColorP(this.basicSetColorUtil, graphics, this.BLACK)
+        nothing
+end
 

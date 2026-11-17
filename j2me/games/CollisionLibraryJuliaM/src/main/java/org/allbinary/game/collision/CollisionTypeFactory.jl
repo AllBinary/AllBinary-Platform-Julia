@@ -1,44 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.collision
 
-from __future__ import annotations
+mutable struct CollisionTypeFactory <: JObject
+    NONE::Any
+    DAMAGE::Any
+    PICKUP::Any
+    COLLISION::Any
+    CollisionTypeFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const CollisionTypeFactory_SINGLETONValue = Ref{Any}(nothing)
+const CollisionTypeFactory_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{CollisionTypeFactory})
+    if !CollisionTypeFactory_SINGLETONSet[]
+        CollisionTypeFactory_SINGLETONSet[] = true
+        CollisionTypeFactory_SINGLETONValue[] = newCollisionTypeFactory()
+    end
+    CollisionTypeFactory_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{CollisionTypeFactory}, value)
+    CollisionTypeFactory_SINGLETONSet[] = true
+    CollisionTypeFactory_SINGLETONValue[] = value
+end
+
+function initFieldsCollisionTypeFactory(this::CollisionTypeFactory)
+    this.NONE = nothing
+    this.DAMAGE = nothing
+    this.PICKUP = nothing
+    this.COLLISION = nothing
+    this.NONE = newCollisionType("None")
+    this.DAMAGE = newCollisionType("Damage")
+    this.PICKUP = newCollisionType("Pickup")
+    this.COLLISION = newCollisionType("Collision")
+    nothing
+end
+
+function initCollisionTypeFactory(this::CollisionTypeFactory)
+    initFieldsCollisionTypeFactory(this)
+end
+
+function newCollisionTypeFactory()
+    this = CollisionTypeFactory()
+    initCollisionTypeFactory(this)
+    this
+end
 
 
-class CollisionTypeFactory:
-    SINGLETON: CollisionTypeFactory = None
-
-    def _init_fields(self) -> None:
-        self.NONE: CollisionType = CollisionType("None")
-        self.DAMAGE: CollisionType = CollisionType("Damage")
-        self.PICKUP: CollisionType = CollisionType("Pickup")
-        self.COLLISION: CollisionType = CollisionType("Collision")
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> CollisionTypeFactory:
-        return CollisionTypeFactory.SINGLETON
-from org.allbinary.game.collision.CollisionType import CollisionType
-
-
-def _CollisionTypeFactory_SINGLETON() -> object:
-    return CollisionTypeFactory()
-
-lazy_static(CollisionTypeFactory, "SINGLETON", _CollisionTypeFactory_SINGLETON)
+function getInstance(::Type{CollisionTypeFactory})
+        return staticGet_SINGLETON(CollisionTypeFactory)
+end
 

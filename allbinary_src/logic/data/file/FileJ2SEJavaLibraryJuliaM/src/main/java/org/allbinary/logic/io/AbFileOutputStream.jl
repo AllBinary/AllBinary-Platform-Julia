@@ -1,56 +1,59 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+# extends FileOutputStream: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AbFileOutputStream <: JObject
+    AbFileOutputStream() = new()
+end
 
-from java.io.FileOutputStream import FileOutputStream
+
+function initFieldsAbFileOutputStream(this::AbFileOutputStream)
+    nothing
+end
 
 
-class AbFileOutputStream(FileOutputStream):
-    
+function createFromAbFile(::Type{AbFileOutputStream}, file)
+        return newAbFileOutputStream(AllBinary.getPath(file), false)
+end
 
-    # throws FileNotFoundException
-    @staticmethod
-    def createFromAbFile(file: AbFile) -> AbFileOutputStream:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        return AbFileOutputStream(file.getPath(), False)
-    
 
-    # throws FileNotFoundException
-    @staticmethod
-    def createFromAbFileAppend(file: AbFile, append: bool) -> AbFileOutputStream:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        return AbFileOutputStream(file.getPath(), append)
-    
+function createFromAbFileAppend(::Type{AbFileOutputStream}, file, append)
+        return newAbFileOutputStream(AllBinary.getPath(file), append)
+end
 
-    # throws FileNotFoundException
-    @staticmethod
-    def createFromFilePath(name: str) -> AbFileOutputStream:
-        return AbFileOutputStream(name, False)
-    
 
-    # throws FileNotFoundException
-    @staticmethod
-    def createFromFilePathAppend(name: str, append: bool) -> AbFileOutputStream:
-        return AbFileOutputStream(name, append)
-    
+function createFromFilePath(::Type{AbFileOutputStream}, name)
+        return newAbFileOutputStream(name, false)
+end
 
-    def __init__(self, name: str, append: bool) -> None:
-        super().__init__(name, append)
-# from java.io.FileNotFoundException import FileNotFoundException
-# from org.allbinary.logic.io.file.AbFile import AbFile
-# from org.allbinary.logic.io.file.AbFileNativeUtil import AbFileNativeUtil
 
+function createFromFilePathAppend(::Type{AbFileOutputStream}, name, append)
+        return newAbFileOutputStream(name, append)
+end
+
+
+function initAbFileOutputStream(this::AbFileOutputStream, name, append)
+        initFileOutputStream(this, name, append)
+        nothing
+end
+
+function newAbFileOutputStream(name, append)
+    this = AbFileOutputStream()
+    initAbFileOutputStream(this, name, append)
+    this
+end
 

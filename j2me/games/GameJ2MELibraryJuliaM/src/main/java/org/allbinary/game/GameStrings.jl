@@ -1,49 +1,84 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game
 
-from __future__ import annotations
+mutable struct GameStrings <: JObject
+    PROCESS_TICK::Any
+    ON_GAME_INITIALIZED::Any
+    UPDATESURFACE::Any
+    ON_SET_DISPLAYABLE::Any
+    UNPAUSE::Any
+    TOGGLE_MENU::Any
+    SET_GAME_OVER::Any
+    GAME_STATE::Any
+    SET_GAME_STATE::Any
+    STOP_GAME_CANVAS_RUNNABLE_INTERFACE::Any
+    GameStrings() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameStrings_instanceValue = Ref{Any}(nothing)
+const GameStrings_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameStrings})
+    if !GameStrings_instanceSet[]
+        GameStrings_instanceSet[] = true
+        GameStrings_instanceValue[] = newGameStrings()
+    end
+    GameStrings_instanceValue[]
+end
+function staticSet_instance(::Type{GameStrings}, value)
+    GameStrings_instanceSet[] = true
+    GameStrings_instanceValue[] = value
+end
+
+function initFieldsGameStrings(this::GameStrings)
+    this.PROCESS_TICK = nothing
+    this.ON_GAME_INITIALIZED = nothing
+    this.UPDATESURFACE = nothing
+    this.ON_SET_DISPLAYABLE = nothing
+    this.UNPAUSE = nothing
+    this.TOGGLE_MENU = nothing
+    this.SET_GAME_OVER = nothing
+    this.GAME_STATE = nothing
+    this.SET_GAME_STATE = nothing
+    this.STOP_GAME_CANVAS_RUNNABLE_INTERFACE = nothing
+    this.PROCESS_TICK = "processTick"
+    this.ON_GAME_INITIALIZED = "onGameInitialized"
+    this.UPDATESURFACE = "updateSurface"
+    this.ON_SET_DISPLAYABLE = "onSetDisplayable"
+    this.UNPAUSE = "unPause"
+    this.TOGGLE_MENU = "toggleMenu"
+    this.SET_GAME_OVER = "setGameOver"
+    this.GAME_STATE = "Game State: "
+    this.SET_GAME_STATE = "setGameState"
+    this.STOP_GAME_CANVAS_RUNNABLE_INTERFACE = "stopGameCanvasRunnableInterface"
+    nothing
+end
+
+function initGameStrings(this::GameStrings)
+    initFieldsGameStrings(this)
+end
+
+function newGameStrings()
+    this = GameStrings()
+    initGameStrings(this)
+    this
+end
 
 
-class GameStrings:
-    instance: GameStrings = None
-
-    def _init_fields(self) -> None:
-        self.PROCESS_TICK: str = "processTick"
-        self.ON_GAME_INITIALIZED: str = "onGameInitialized"
-        self.UPDATESURFACE: str = "updateSurface"
-        self.ON_SET_DISPLAYABLE: str = "onSetDisplayable"
-        self.UNPAUSE: str = "unPause"
-        self.TOGGLE_MENU: str = "toggleMenu"
-        self.SET_GAME_OVER: str = "setGameOver"
-        self.GAME_STATE: str = "Game State: "
-        self.SET_GAME_STATE: str = "setGameState"
-        self.STOP_GAME_CANVAS_RUNNABLE_INTERFACE: str = "stopGameCanvasRunnableInterface"
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GameStrings:
-        return GameStrings.instance
-
-
-def _GameStrings_instance() -> object:
-    return GameStrings()
-
-lazy_static(GameStrings, "instance", _GameStrings_instance)
+function getInstance(::Type{GameStrings})
+        return staticGet_instance(GameStrings)
+end
 

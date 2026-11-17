@@ -1,97 +1,137 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+mutable struct J2MEKeyFactory <: JObject
+    gameKeyFactory::Any
+    J2MEKeyFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const J2MEKeyFactory_instanceValue = Ref{Any}(nothing)
+const J2MEKeyFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{J2MEKeyFactory})
+    if !J2MEKeyFactory_instanceSet[]
+        J2MEKeyFactory_instanceSet[] = true
+        J2MEKeyFactory_instanceValue[] = newJ2MEKeyFactory()
+    end
+    J2MEKeyFactory_instanceValue[]
+end
+function staticSet_instance(::Type{J2MEKeyFactory}, value)
+    J2MEKeyFactory_instanceSet[] = true
+    J2MEKeyFactory_instanceValue[] = value
+end
 
-
-class J2MEKeyFactory:
-    instance: J2MEKeyFactory = None
-
-    def _init_fields(self) -> None:
-        self.gameKeyFactory: GameKeyFactory = GameKeyFactory.getInstance()
-    
-
-    @staticmethod
-    def getInstance() -> J2MEKeyFactory:
-        return J2MEKeyFactory.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def init(self) -> None:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        gameKeyArray: list[GameKey] = [self.gameKeyFactory.DOWN, self.gameKeyFactory.FIRE, self.gameKeyFactory.GAME_A, self.gameKeyFactory.GAME_B, self.gameKeyFactory.GAME_C, self.gameKeyFactory.GAME_D, self.gameKeyFactory.KEY_NUM0, self.gameKeyFactory.KEY_NUM1, self.gameKeyFactory.KEY_NUM2, self.gameKeyFactory.KEY_NUM3, self.gameKeyFactory.KEY_NUM4, self.gameKeyFactory.KEY_NUM5, self.gameKeyFactory.KEY_NUM6, self.gameKeyFactory.KEY_NUM7, self.gameKeyFactory.KEY_NUM8, self.gameKeyFactory.KEY_NUM9, self.gameKeyFactory.KEY_POUND, self.gameKeyFactory.KEY_STAR, self.gameKeyFactory.LEFT, self.gameKeyFactory.LEVEL_DOWN, self.gameKeyFactory.LEVEL_UP, self.gameKeyFactory.NONE, self.gameKeyFactory.RIGHT, self.gameKeyFactory.UP]
-        inputFactory: InputFactory = InputFactory.getInstance()
-        index = len(gameKeyArray)
-        while (index := index - 1) >= 0:
-            inputFactory.add(gameKeyArray[index].getId(), gameKeyArray[index])
-    
-
-    def isSubmission(self, input: Input) -> bool:
-        if input == self.gameKeyFactory.FIRE:
-            return True
-        return False
-    
-
-    def isDelete(self, input: Input) -> bool:
-        if input == self.gameKeyFactory.GAME_D:
-            return True
-        return False
-    
-
-    def isBackSpace(self, input: Input) -> bool:
-        return False
-    
-
-    def isUp(self, input: Input) -> bool:
-        if input == self.gameKeyFactory.UP:
-            return True
-        return False
-    
-
-    def isDown(self, input: Input) -> bool:
-        if input == self.gameKeyFactory.DOWN:
-            return True
-        return False
-    
-
-    def isLeft(self, input: Input) -> bool:
-        if input == self.gameKeyFactory.LEFT:
-            return True
-        return False
-    
-
-    def isRight(self, input: Input) -> bool:
-        if input == self.gameKeyFactory.RIGHT:
-            return True
-        return False
-    
-
-    def isEnter(self, input: Input) -> bool:
-        if input == self.gameKeyFactory.FIRE:
-            return True
-        return False
-from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
+function initFieldsJ2MEKeyFactory(this::J2MEKeyFactory)
+    this.gameKeyFactory = nothing
+    this.gameKeyFactory = AllBinary.getInstance(GameKeyFactory)
+    nothing
+end
 
 
-def _J2MEKeyFactory_instance() -> object:
-    return J2MEKeyFactory()
+function getInstance(::Type{J2MEKeyFactory})
+        return staticGet_instance(J2MEKeyFactory)
+end
 
-lazy_static(J2MEKeyFactory, "instance", _J2MEKeyFactory_instance)
+
+function initJ2MEKeyFactory(this::J2MEKeyFactory)
+        initFieldsJ2MEKeyFactory(this)
+        nothing
+        nothing
+end
+
+function newJ2MEKeyFactory()
+    this = J2MEKeyFactory()
+    initJ2MEKeyFactory(this)
+    this
+end
+
+
+function init(this::J2MEKeyFactory)
+        local gameKeyArray = Any[this.gameKeyFactory.DOWN, this.gameKeyFactory.FIRE, this.gameKeyFactory.GAME_A, this.gameKeyFactory.GAME_B, this.gameKeyFactory.GAME_C, this.gameKeyFactory.GAME_D, this.gameKeyFactory.KEY_NUM0, this.gameKeyFactory.KEY_NUM1, this.gameKeyFactory.KEY_NUM2, this.gameKeyFactory.KEY_NUM3, this.gameKeyFactory.KEY_NUM4, this.gameKeyFactory.KEY_NUM5, this.gameKeyFactory.KEY_NUM6, this.gameKeyFactory.KEY_NUM7, this.gameKeyFactory.KEY_NUM8, this.gameKeyFactory.KEY_NUM9, this.gameKeyFactory.KEY_POUND, this.gameKeyFactory.KEY_STAR, this.gameKeyFactory.LEFT, this.gameKeyFactory.LEVEL_DOWN, this.gameKeyFactory.LEVEL_UP, this.gameKeyFactory.NONE, this.gameKeyFactory.RIGHT, this.gameKeyFactory.UP]
+        local inputFactory = AllBinary.getInstance(InputFactory)
+        let
+            local index::Int32 = Int32(Base.length(gameKeyArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.add(inputFactory, AllBinary.getId(gameKeyArray[index + 1]), gameKeyArray[index + 1])
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function isSubmission(this::J2MEKeyFactory, input)
+        if input === this.gameKeyFactory.FIRE
+            return true
+        end
+        return false
+end
+
+
+function isDelete(this::J2MEKeyFactory, input)
+        if input === this.gameKeyFactory.GAME_D
+            return true
+        end
+        return false
+end
+
+
+function isBackSpace(this::J2MEKeyFactory, input)
+        return false
+end
+
+
+function isUp(this::J2MEKeyFactory, input)
+        if input === this.gameKeyFactory.UP
+            return true
+        end
+        return false
+end
+
+
+function isDown(this::J2MEKeyFactory, input)
+        if input === this.gameKeyFactory.DOWN
+            return true
+        end
+        return false
+end
+
+
+function isLeft(this::J2MEKeyFactory, input)
+        if input === this.gameKeyFactory.LEFT
+            return true
+        end
+        return false
+end
+
+
+function isRight(this::J2MEKeyFactory, input)
+        if input === this.gameKeyFactory.RIGHT
+            return true
+        end
+        return false
+end
+
+
+function isEnter(this::J2MEKeyFactory, input)
+        if input === this.gameKeyFactory.FIRE
+            return true
+        end
+        return false
+end
 

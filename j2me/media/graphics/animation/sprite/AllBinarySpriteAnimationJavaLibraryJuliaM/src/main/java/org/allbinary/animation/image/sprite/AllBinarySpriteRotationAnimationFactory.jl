@@ -1,134 +1,112 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image.sprite
 
-from __future__ import annotations
+# extends BaseImageAnimationFactory: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AllBinarySpriteRotationAnimationFactory <: JObject
+    animationFactorySpriteScaleUtil::Any
+    AllBinarySpriteRotationAnimationFactory() = new()
+end
 
-from org.allbinary.animation.ProceduralAnimationInterfaceFactoryInterface import ProceduralAnimationInterfaceFactoryInterface
-from org.allbinary.animation.image.BaseImageAnimationFactory import BaseImageAnimationFactory
+
+function initFieldsAllBinarySpriteRotationAnimationFactory(this::AllBinarySpriteRotationAnimationFactory)
+    this.animationFactorySpriteScaleUtil = nothing
+    this.animationFactorySpriteScaleUtil = AllBinary.getInstance(AnimationFactorySpriteScaleUtil)
+    nothing
+end
 
 
-class AllBinarySpriteRotationAnimationFactory(BaseImageAnimationFactory, ProceduralAnimationInterfaceFactoryInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.image.sprite.AnimationFactorySpriteScaleUtil import AnimationFactorySpriteScaleUtil
-        self.animationFactorySpriteScaleUtil: AnimationFactorySpriteScaleUtil = AnimationFactorySpriteScaleUtil.getInstance()
-    
-
-    # throws Exception
-    @staticmethod
-    def createWHDY(image: Image, dx: int, dy: int, animationBehaviorFactory: AnimationBehaviorFactory) -> AllBinarySpriteRotationAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        spriteRotationAnimationFactory: AllBinarySpriteRotationAnimationFactory = AllBinarySpriteRotationAnimationFactory(image, PrimitiveIntUtil.getArrayInstance(), (image.getHeight() >> 2), (image.getHeight() >> 2), 0, 0, animationBehaviorFactory)
-        spriteRotationAnimationFactory.initWH(dx, dy)
+function createWHDY(::Type{AllBinarySpriteRotationAnimationFactory}, image, dx, dy, animationBehaviorFactory)
+        local spriteRotationAnimationFactory = newAllBinarySpriteRotationAnimationFactory(image, AllBinary.getArrayInstance(PrimitiveIntUtil), (AllBinary.getHeight(image) >> Int32(2)), (AllBinary.getHeight(image) >> Int32(2)), Int32(0), Int32(0), animationBehaviorFactory)
+        AllBinary.initWH(spriteRotationAnimationFactory, dx, dy)
         return spriteRotationAnimationFactory
-    
+end
 
-    # throws Exception
-    @staticmethod
-    def createWH(image: Image, animationBehaviorFactory: AnimationBehaviorFactory) -> AllBinarySpriteRotationAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        return AllBinarySpriteRotationAnimationFactory.createWHDY(image, 0, 0, animationBehaviorFactory)
-    
 
-    # throws Exception
-    @staticmethod
-    def createDXY(image: Image, dx: int, dy: int, animationBehaviorFactory: AnimationBehaviorFactory) -> AllBinarySpriteRotationAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        spriteRotationAnimationFactory: AllBinarySpriteRotationAnimationFactory = AllBinarySpriteRotationAnimationFactory(image, PrimitiveIntUtil.getArrayInstance(), image.getHeight(), image.getHeight(), 0, 0, animationBehaviorFactory)
-        spriteRotationAnimationFactory.init(dx, dy)
+function createWH(::Type{AllBinarySpriteRotationAnimationFactory}, image, animationBehaviorFactory)
+        return AllBinary.createWHDY(AllBinarySpriteRotationAnimationFactory, image, Int32(0), Int32(0), animationBehaviorFactory)
+end
+
+
+function createDXY(::Type{AllBinarySpriteRotationAnimationFactory}, image, dx, dy, animationBehaviorFactory)
+        local spriteRotationAnimationFactory = newAllBinarySpriteRotationAnimationFactory(image, AllBinary.getArrayInstance(PrimitiveIntUtil), AllBinary.getHeight(image), AllBinary.getHeight(image), Int32(0), Int32(0), animationBehaviorFactory)
+        AllBinary.init(spriteRotationAnimationFactory, dx, dy)
         return spriteRotationAnimationFactory
-    
+end
 
-    # throws Exception
-    @staticmethod
-    def createDXYQ(image: Image, dx: int, dy: int, animationBehaviorFactory: AnimationBehaviorFactory) -> AllBinarySpriteRotationAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        spriteRotationAnimationFactory: AllBinarySpriteRotationAnimationFactory = AllBinarySpriteRotationAnimationFactory(image, PrimitiveIntUtil.getArrayInstance(), (image.getHeight() >> 2), (image.getHeight() >> 2), 0, 0, animationBehaviorFactory)
-        spriteRotationAnimationFactory.init(dx, dy)
+
+function createDXYQ(::Type{AllBinarySpriteRotationAnimationFactory}, image, dx, dy, animationBehaviorFactory)
+        local spriteRotationAnimationFactory = newAllBinarySpriteRotationAnimationFactory(image, AllBinary.getArrayInstance(PrimitiveIntUtil), (AllBinary.getHeight(image) >> Int32(2)), (AllBinary.getHeight(image) >> Int32(2)), Int32(0), Int32(0), animationBehaviorFactory)
+        AllBinary.init(spriteRotationAnimationFactory, dx, dy)
         return spriteRotationAnimationFactory
-    
+end
 
-    # throws Exception
-    @staticmethod
-    def createQ(image: Image, animationBehaviorFactory: AnimationBehaviorFactory) -> AllBinarySpriteRotationAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return AllBinarySpriteRotationAnimationFactory(image, PrimitiveIntUtil.getArrayInstance(), (image.getHeight() >> 2), (image.getHeight() >> 2), 0, 0, animationBehaviorFactory)
-    
 
-    # throws Exception
-    @staticmethod
-    def createWHF(image: Image, animationBehaviorFactory: AnimationBehaviorFactory) -> AllBinarySpriteRotationAnimationFactory:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return AllBinarySpriteRotationAnimationFactory(image, PrimitiveIntUtil.getArrayInstance(), image.getHeight(), image.getHeight(), 0, 0, animationBehaviorFactory)
-    
+function createQ(::Type{AllBinarySpriteRotationAnimationFactory}, image, animationBehaviorFactory)
+        return newAllBinarySpriteRotationAnimationFactory(image, AllBinary.getArrayInstance(PrimitiveIntUtil), (AllBinary.getHeight(image) >> Int32(2)), (AllBinary.getHeight(image) >> Int32(2)), Int32(0), Int32(0), animationBehaviorFactory)
+end
 
-    def __init__(self, image: Image, sequenceArray: list[int], width: int, height: int, dx: int, dy: int, animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        super().__init__(image, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
-        self._init_fields()
-        if animationBehaviorFactory == AnimationBehaviorFactory.getInstance():
-            ForcedLogUtil.log("Using default AnimationBehaviorFactory with IndexedAnimationFactory", self)
-    
 
-    def init(self, dx: int, dy: int) -> None:
-        self.animationFactoryInitializationVisitor.dx = dx
-        self.animationFactoryInitializationVisitor.dy = dy
-    
+function createWHF(::Type{AllBinarySpriteRotationAnimationFactory}, image, animationBehaviorFactory)
+        return newAllBinarySpriteRotationAnimationFactory(image, AllBinary.getArrayInstance(PrimitiveIntUtil), AllBinary.getHeight(image), AllBinary.getHeight(image), Int32(0), Int32(0), animationBehaviorFactory)
+end
 
-    def initWH(self, dx: int, dy: int) -> None:
-        self.init(dx, dy)
-        self.animationFactoryInitializationVisitor.dx += -self.animationFactoryInitializationVisitor.width / 5
-        self.animationFactoryInitializationVisitor.dy += -self.animationFactoryInitializationVisitor.height / 5
-    
 
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.image.sprite.AllBinarySpriteRotationAnimation import AllBinarySpriteRotationAnimation
-        from org.allbinary.animation.image.sprite.AllBinaryAdjustedSpriteRotationAnimation import AllBinaryAdjustedSpriteRotationAnimation
-        from javax.microedition.lcdui.game.Sprite import Sprite
-        from org.allbinary.animation.Animation import Animation
-        sprite: Sprite = self.animationFactorySpriteScaleUtil.createImage(self.getImage(), self.animationFactoryInitializationVisitor.width, self.animationFactoryInitializationVisitor.height, self.scaleProperties.scaleWidth, self.scaleProperties.scaleHeight)
-        if self.animationFactoryInitializationVisitor.dx != 0 or self.animationFactoryInitializationVisitor.dy != 0:
-            return AllBinaryAdjustedSpriteRotationAnimation(sprite, self.getImage(), self.animationFactoryInitializationVisitor.dx, self.animationFactoryInitializationVisitor.dy, self.animationBehaviorFactory.getOrCreateInstance())
-        else:
-            return AllBinarySpriteRotationAnimation(sprite, self.getImage(), self.animationBehaviorFactory.getOrCreateInstance())
-    
+function initAllBinarySpriteRotationAnimationFactory(this::AllBinarySpriteRotationAnimationFactory, image, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
+        initBaseImageAnimationFactory(this, image, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
+        initFieldsAllBinarySpriteRotationAnimationFactory(this)
+        if animationBehaviorFactory === AllBinary.getInstance(AnimationBehaviorFactory)
+            AllBinary.log(ForcedLogUtil, "Using default AnimationBehaviorFactory with IndexedAnimationFactory", this)
+        end
+        nothing
+end
 
-    # throws Exception
-    def getInstanceAnimation(self, animationInterface: Animation) -> Animation:
-        from org.allbinary.animation.Animation import Animation
-        return self.getInstance(0)
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.game.Sprite import Sprite
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.image.sprite.AnimationFactorySpriteScaleUtil import AnimationFactorySpriteScaleUtil
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
+function newAllBinarySpriteRotationAnimationFactory(image, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
+    this = AllBinarySpriteRotationAnimationFactory()
+    initAllBinarySpriteRotationAnimationFactory(this, image, sequenceArray, width, height, dx, dy, animationBehaviorFactory)
+    this
+end
 
+
+function init(this::AllBinarySpriteRotationAnimationFactory, dx, dy)
+        this.animationFactoryInitializationVisitor.dx = dx
+        this.animationFactoryInitializationVisitor.dy = dy
+        nothing
+end
+
+
+function initWH(this::AllBinarySpriteRotationAnimationFactory, dx, dy)
+        AllBinary.init(this, dx, dy)
+        this.animationFactoryInitializationVisitor.dx += -this.animationFactoryInitializationVisitor.width ÷ Int32(5)
+        this.animationFactoryInitializationVisitor.dy += -this.animationFactoryInitializationVisitor.height ÷ Int32(5)
+        nothing
+end
+
+
+function getInstance(this::AllBinarySpriteRotationAnimationFactory, instanceId)
+        local sprite = AllBinary.createImage(this.animationFactorySpriteScaleUtil, AllBinary.getImage(this), this.animationFactoryInitializationVisitor.width, this.animationFactoryInitializationVisitor.height, this.scaleProperties.scaleWidth, this.scaleProperties.scaleHeight)
+        if this.animationFactoryInitializationVisitor.dx != Int32(0) || this.animationFactoryInitializationVisitor.dy != Int32(0)
+            return newAllBinaryAdjustedSpriteRotationAnimation(sprite, AllBinary.getImage(this), this.animationFactoryInitializationVisitor.dx, this.animationFactoryInitializationVisitor.dy, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        else
+            return newAllBinarySpriteRotationAnimation(sprite, AllBinary.getImage(this), AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        end
+end
+
+
+function getInstanceAnimation(this::AllBinarySpriteRotationAnimationFactory, animationInterface)
+        return AllBinary.getInstance(this, Int32(0))
+end
 

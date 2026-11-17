@@ -1,41 +1,57 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles.shader
 
-from __future__ import annotations
+# extends OpenGLProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ShaderOpenGLProcessor <: JObject
+    ShaderOpenGLProcessor() = new()
+end
 
-from org.allbinary.graphics.opengles.OpenGLProcessor import OpenGLProcessor
+
+function initFieldsShaderOpenGLProcessor(this::ShaderOpenGLProcessor)
+    nothing
+end
 
 
-class ShaderOpenGLProcessor(OpenGLProcessor):
-    
+function initShaderOpenGLProcessor(this::ShaderOpenGLProcessor)
+        initOpenGLProcessor(this)
+        initFieldsShaderOpenGLProcessor(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
+function newShaderOpenGLProcessor()
+    this = ShaderOpenGLProcessor()
+    initShaderOpenGLProcessor(this)
+    this
+end
 
-    def process0(self, gl: GL10) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
 
-    def process1(self, gl: GL10) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
+function process0(this::ShaderOpenGLProcessor, gl)
+        nothing
+        nothing
+end
 
-    def process(self, gl: GL10) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
 
-    def process2(self, gl: GL10) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-    
+function process1(this::ShaderOpenGLProcessor, gl)
+        nothing
+        nothing
+end
 
-    def process3(self, gl: GL10) -> None:
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-# from javax.microedition.khronos.opengles.GL10 import GL10
 
+function process(this::ShaderOpenGLProcessor, gl)
+        nothing
+        nothing
+end
+
+
+function process2(this::ShaderOpenGLProcessor, gl)
+        nothing
+        nothing
+end
+
+
+function process3(this::ShaderOpenGLProcessor, gl)
+        nothing
+        nothing
+end
 

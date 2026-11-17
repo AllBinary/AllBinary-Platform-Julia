@@ -1,34 +1,45 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-#
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-#
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-#
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+ 
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+ 
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ 
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends NullIndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NullIndexedAnimationInner <: JObject
+    NullIndexedAnimationInner() = new()
+end
 
-from org.allbinary.animation.NullIndexedAnimation import NullIndexedAnimation
+
+function initFieldsNullIndexedAnimationInner(this::NullIndexedAnimationInner)
+    nothing
+end
 
 
-class NullIndexedAnimationInner(NullIndexedAnimation):
-    
+function initNullIndexedAnimationInner(this::NullIndexedAnimationInner)
+        initNullIndexedAnimation(this, newIndexedAnimationBehavior(Int32(1), Int32(250)))
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.animation.IndexedAnimationBehavior import IndexedAnimationBehavior
-        super().__init__(IndexedAnimationBehavior(1, 250))
-    
+function newNullIndexedAnimationInner()
+    this = NullIndexedAnimationInner()
+    initNullIndexedAnimationInner(this)
+    this
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Graphics import Graphics
 
+function paintXY(this::NullIndexedAnimationInner, graphics, x, y)
+        nothing
+        nothing
+end
 

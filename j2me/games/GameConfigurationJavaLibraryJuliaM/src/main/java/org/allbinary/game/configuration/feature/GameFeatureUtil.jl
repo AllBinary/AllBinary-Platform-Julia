@@ -1,198 +1,242 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration.feature
 
-from __future__ import annotations
+mutable struct GameFeatureUtil <: JObject
+    logUtil::Any
+    tsUtil::Any
+    enumerationUtil::Any
+    ON_GAME_FEATURE_CHANGE::Any
+    GAME_FEATURE_CHANGED::Any
+    GameFeatureUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameFeatureUtil_instanceValue = Ref{Any}(nothing)
+const GameFeatureUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameFeatureUtil})
+    if !GameFeatureUtil_instanceSet[]
+        GameFeatureUtil_instanceSet[] = true
+        GameFeatureUtil_instanceValue[] = newGameFeatureUtil()
+    end
+    GameFeatureUtil_instanceValue[]
+end
+function staticSet_instance(::Type{GameFeatureUtil}, value)
+    GameFeatureUtil_instanceSet[] = true
+    GameFeatureUtil_instanceValue[] = value
+end
 
+function initFieldsGameFeatureUtil(this::GameFeatureUtil)
+    this.logUtil = nothing
+    this.tsUtil = nothing
+    this.enumerationUtil = nothing
+    this.ON_GAME_FEATURE_CHANGE = nothing
+    this.GAME_FEATURE_CHANGED = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.tsUtil = AllBinary.getInstance(TsUtil)
+    this.enumerationUtil = AllBinary.getInstance(EnumerationUtil)
+    this.ON_GAME_FEATURE_CHANGE = "onGameFeatureChange"
+    this.GAME_FEATURE_CHANGED = "Game Feature Changed: "
+    nothing
+end
 
-class GameFeatureUtil:
-    instance: GameFeatureUtil = None
+function initGameFeatureUtil(this::GameFeatureUtil)
+    initFieldsGameFeatureUtil(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.EnumerationUtil import EnumerationUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.tsUtil: TsUtil = TsUtil.getInstance()
-        self.enumerationUtil: EnumerationUtil = EnumerationUtil.getInstance()
-        self.ON_GAME_FEATURE_CHANGE: str = "onGameFeatureChange"
-        self.GAME_FEATURE_CHANGED: str = "Game Feature Changed: "
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GameFeatureUtil:
-        return GameFeatureUtil.instance
-    
-
-    # throws Exception
-    def setDefault(self, choiceGroup: ChoiceGroup) -> None:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.Feature import Feature
-        from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        METHOD_NAME: str = "setDefault"
-        SELECTED_ARRAY_RETURN: str = "selectedArray_return["
-        SELECTED_SEP: str = "] = "
-        selectedArray_return: list[bool] = [False] * (choiceGroup.size())
-        total: int = choiceGroup.getSelectedFlags(selectedArray_return)
-        stringBuffer.append("Multiple Total Choices: ")
-        stringBuffer.appendint(total)
-        self.logUtil.putF(str(stringBuffer), self, METHOD_NAME)
-        features: Features = Features.getInstance()
-        for index in range(0, len(selectedArray_return)):
-            isSelected: bool = selectedArray_return[index]
-            stringBuffer.delete(0, stringBuffer.length())
-            stringBuffer.append(SELECTED_ARRAY_RETURN)
-            stringBuffer.appendint(index)
-            stringBuffer.append(SELECTED_SEP)
-            stringBuffer.appendboolean(isSelected)
-            self.logUtil.putF(str(stringBuffer), self, METHOD_NAME)
-            selectedChoiceLabel: str = choiceGroup.getString(index)
-            gameFeature: Feature = Feature.getInstance(selectedChoiceLabel)
-            if features.isDefault(gameFeature):
-                features.add(gameFeature)
-                choiceGroup.setSelectedIndex(index, True)
-            else:
-                features.remove(gameFeature)
-                choiceGroup.setSelectedIndex(index, False)
-    
-
-    # throws Exception
-    def updateMultiple(self, choiceGroup: ChoiceGroup) -> None:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.game.configuration.feature.Feature import Feature
-        from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        METHOD_NAME: str = "updateMultiple"
-        SELECTED_ARRAY_RETURN: str = "selectedArray_return["
-        SELECTED_SEP: str = "] = "
-        selectedArray_return: list[bool] = [False] * (choiceGroup.size())
-        total: int = choiceGroup.getSelectedFlags(selectedArray_return)
-        stringBuffer.append("Multiple Total Choices: ")
-        stringBuffer.appendint(total)
-        self.logUtil.putF(str(stringBuffer), self, METHOD_NAME)
-        features: Features = Features.getInstance()
-        for index in range(0, len(selectedArray_return)):
-            isSelected: bool = selectedArray_return[index]
-            stringBuffer.delete(0, stringBuffer.length())
-            stringBuffer.append(SELECTED_ARRAY_RETURN)
-            stringBuffer.appendint(index)
-            stringBuffer.append(SELECTED_SEP)
-            stringBuffer.appendboolean(isSelected)
-            self.logUtil.putF(str(stringBuffer), self, METHOD_NAME)
-            selectedChoiceLabel: str = choiceGroup.getString(index)
-            gameFeature: Feature = Feature.getInstance(selectedChoiceLabel)
-            if not isSelected and features.isFeature(gameFeature):
-                features.remove(gameFeature)
-            elif isSelected and not features.isFeature(gameFeature):
-                features.add(gameFeature)
-    
-
-    # throws Exception
-    def updateExclusiveForChoiceGroup(self, choiceGroup: ChoiceGroup) -> None:
-        from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        METHOD_NAME: str = "updateExclusive"
-        SELECTED_ARRAY_RETURN: str = "selectedArray_return["
-        SELECTED_SEP: str = "] = "
-        selectedArray_return: list[bool] = [False] * (choiceGroup.size())
-        total: int = choiceGroup.getSelectedFlags(selectedArray_return)
-        stringBuffer.append("Exclusive Total Choices: 1==")
-        stringBuffer.appendint(total)
-        self.logUtil.putF(str(stringBuffer), self, METHOD_NAME)
-        for index in range(0, len(selectedArray_return)):
-            isSelected: bool = selectedArray_return[index]
-            stringBuffer.delete(0, stringBuffer.length())
-            stringBuffer.append(SELECTED_ARRAY_RETURN)
-            stringBuffer.appendint(index)
-            stringBuffer.append(SELECTED_SEP)
-            stringBuffer.appendboolean(isSelected)
-            self.logUtil.putF(str(stringBuffer), self, METHOD_NAME)
-            if isSelected:
-                selectedChoiceLabel: str = choiceGroup.getString(index)
-                self.updateExclusive(selectedChoiceLabel)
-    
-
-    def isExclusive(self, itemLabel: str) -> bool:
-        from org.allbinary.game.configuration.feature.GameFeatureChoiceGroups import GameFeatureChoiceGroups
-        from java.util.Enumeration import Enumeration
-        enumeration: Enumeration = GameFeatureChoiceGroups.getExclusiveInstance().get().keys()
-        name: str = None
-        while self.enumerationUtil.hasMoreElements(enumeration):
-            name = self.enumerationUtil.nextElement(enumeration)
-            if ((itemLabel > name) - (itemLabel < name)) == 0:
-                return True
-        return False
-    
-
-    # throws Exception
-    def updateExclusive(self, selectedChoiceLabel: str) -> None:
-        from org.allbinary.game.configuration.feature.Feature import Feature
-        from org.allbinary.game.configuration.feature.GameFeatureChoiceGroups import GameFeatureChoiceGroups
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonLabels import CommonLabels
-        from org.allbinary.util.ABHashtable import ABHashtable
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.HashtableUtil import HashtableUtil
-        self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().ITEM_LABEL).append(selectedChoiceLabel)), self, "updateExclusive")
-        gameFeature: Feature = Feature.getInstance(selectedChoiceLabel)
-        hashtable: ABHashtable[object, object] = GameFeatureChoiceGroups.getExclusiveInstance().get()
-        objectArray: list[object] = HashtableUtil.getInstance().getKeysAsArray(hashtable)
-        basicArrayList: BasicArrayList = None
-        anyType: object = None
-        size: int = len(objectArray)
-        for index in range(0, size):
-            anyType = objectArray[index]
-            basicArrayList = hashtable.get(anyType)
-            self.updateExclusiveList(gameFeature, basicArrayList)
-    
-
-    # throws Exception
-    def updateExclusiveList(self, gameFeature: Feature, list_: BasicArrayList) -> None:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        if list_.contains(gameFeature):
-            features: Features = Features.getInstance()
-            addIndex: int = list_.indexOf(gameFeature)
-            size: int = list_.size()
-            for index in range(0, size):
-                if addIndex != index:
-                    features.remove(list_.objectArray[index])
-                else:
-                    features.add(list_.objectArray[index])
-# from java.util.Enumeration import Enumeration
-# from javax.microedition.lcdui.ChoiceGroup import ChoiceGroup
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.util.ABHashtable import ABHashtable
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.EnumerationUtil import EnumerationUtil
-# from org.allbinary.util.HashtableUtil import HashtableUtil
+function newGameFeatureUtil()
+    this = GameFeatureUtil()
+    initGameFeatureUtil(this)
+    this
+end
 
 
-def _GameFeatureUtil_instance() -> object:
-    return GameFeatureUtil()
+function getInstance(::Type{GameFeatureUtil})
+        return staticGet_instance(GameFeatureUtil)
+end
 
-lazy_static(GameFeatureUtil, "instance", _GameFeatureUtil_instance)
+
+function setDefault(this::GameFeatureUtil, choiceGroup)
+        local stringBuffer = newStringMaker()
+        local METHOD_NAME = "setDefault"
+        local SELECTED_ARRAY_RETURN = "selectedArray_return["
+        local SELECTED_SEP = "] = "
+        local selectedArray_return = jNewArray(Bool, AllBinary.size(choiceGroup), false)
+        local total::Int32 = AllBinary.getSelectedFlags(choiceGroup, selectedArray_return)
+        AllBinary.append(stringBuffer, "Multiple Total Choices: ")
+        AllBinary.appendint(stringBuffer, total)
+        AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, METHOD_NAME)
+        local features = AllBinary.getInstance(Features)
+        let
+            local index::Int32 = Int32(0)
+            while index < Int32(Base.length(selectedArray_return))
+            try
+            local isSelected::Bool = selectedArray_return[index + 1]
+            AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+            AllBinary.append(stringBuffer, SELECTED_ARRAY_RETURN)
+            AllBinary.appendint(stringBuffer, index)
+            AllBinary.append(stringBuffer, SELECTED_SEP)
+            AllBinary.appendboolean(stringBuffer, isSelected)
+            AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, METHOD_NAME)
+            local selectedChoiceLabel = AllBinary.getString(choiceGroup, index)
+            local gameFeature = AllBinary.getInstance(Feature, selectedChoiceLabel)
+            if AllBinary.isDefault(features, gameFeature)
+                AllBinary.add(features, gameFeature)
+                AllBinary.setSelectedIndex(choiceGroup, index, true)
+            else
+                AllBinary.remove(features, gameFeature)
+                AllBinary.setSelectedIndex(choiceGroup, index, false)
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function updateMultiple(this::GameFeatureUtil, choiceGroup)
+        local stringBuffer = newStringMaker()
+        local METHOD_NAME = "updateMultiple"
+        local SELECTED_ARRAY_RETURN = "selectedArray_return["
+        local SELECTED_SEP = "] = "
+        local selectedArray_return = jNewArray(Bool, AllBinary.size(choiceGroup), false)
+        local total::Int32 = AllBinary.getSelectedFlags(choiceGroup, selectedArray_return)
+        AllBinary.append(stringBuffer, "Multiple Total Choices: ")
+        AllBinary.appendint(stringBuffer, total)
+        AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, METHOD_NAME)
+        local features = AllBinary.getInstance(Features)
+        let
+            local index::Int32 = Int32(0)
+            while index < Int32(Base.length(selectedArray_return))
+            try
+            local isSelected::Bool = selectedArray_return[index + 1]
+            AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+            AllBinary.append(stringBuffer, SELECTED_ARRAY_RETURN)
+            AllBinary.appendint(stringBuffer, index)
+            AllBinary.append(stringBuffer, SELECTED_SEP)
+            AllBinary.appendboolean(stringBuffer, isSelected)
+            AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, METHOD_NAME)
+            local selectedChoiceLabel = AllBinary.getString(choiceGroup, index)
+            local gameFeature = AllBinary.getInstance(Feature, selectedChoiceLabel)
+            if !isSelected && AllBinary.isFeature(features, gameFeature)
+                AllBinary.remove(features, gameFeature)
+            elseif isSelected && !AllBinary.isFeature(features, gameFeature)
+                AllBinary.add(features, gameFeature)
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function updateExclusiveForChoiceGroup(this::GameFeatureUtil, choiceGroup)
+        local stringBuffer = newStringMaker()
+        local METHOD_NAME = "updateExclusive"
+        local SELECTED_ARRAY_RETURN = "selectedArray_return["
+        local SELECTED_SEP = "] = "
+        local selectedArray_return = jNewArray(Bool, AllBinary.size(choiceGroup), false)
+        local total::Int32 = AllBinary.getSelectedFlags(choiceGroup, selectedArray_return)
+        AllBinary.append(stringBuffer, "Exclusive Total Choices: 1==")
+        AllBinary.appendint(stringBuffer, total)
+        AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, METHOD_NAME)
+        let
+            local index::Int32 = Int32(0)
+            while index < Int32(Base.length(selectedArray_return))
+            try
+            local isSelected::Bool = selectedArray_return[index + 1]
+            AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+            AllBinary.append(stringBuffer, SELECTED_ARRAY_RETURN)
+            AllBinary.appendint(stringBuffer, index)
+            AllBinary.append(stringBuffer, SELECTED_SEP)
+            AllBinary.appendboolean(stringBuffer, isSelected)
+            AllBinary.putF(this.logUtil, AllBinary.toString(stringBuffer), this, METHOD_NAME)
+            if isSelected
+                local selectedChoiceLabel = AllBinary.getString(choiceGroup, index)
+                AllBinary.updateExclusive(this, selectedChoiceLabel)
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function isExclusive(this::GameFeatureUtil, itemLabel)
+        local enumeration = AllBinary.keys(AllBinary.get(AllBinary.getExclusiveInstance(GameFeatureChoiceGroups)))
+        local name = nothing
+        while AllBinary.hasMoreElements(this.enumerationUtil, enumeration)
+            name = (AllBinary.nextElement(this.enumerationUtil, enumeration))
+            if AllBinary.compareTo(this.tsUtil, itemLabel, name) == Int32(0)
+                return true
+            end
+        end
+        return false
+end
+
+
+function updateExclusive(this::GameFeatureUtil, selectedChoiceLabel)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).ITEM_LABEL), selectedChoiceLabel)), this, "updateExclusive")
+        local gameFeature = AllBinary.getInstance(Feature, selectedChoiceLabel)
+        local hashtable = AllBinary.get(AllBinary.getExclusiveInstance(GameFeatureChoiceGroups))
+        local objectArray = AllBinary.getKeysAsArray(AllBinary.getInstance(HashtableUtil), hashtable)
+        local basicArrayList = nothing
+        local anyType = nothing
+        local size::Int32 = Int32(Base.length(objectArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            anyType = (objectArray[index + 1])
+            basicArrayList = (AllBinary.get(hashtable, anyType))
+            AllBinary.updateExclusiveList(this, gameFeature, basicArrayList)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function updateExclusiveList(this::GameFeatureUtil, gameFeature, list)
+        if AllBinary.contains(list, gameFeature)
+            local features = AllBinary.getInstance(Features)
+            local addIndex::Int32 = AllBinary.indexOf(list, gameFeature)
+            local size::Int32 = AllBinary.size(list)
+            let
+                local index::Int32 = Int32(0)
+                while index < size
+                try
+                if addIndex != index
+                    AllBinary.remove(features, (list.objectArray[index + 1]))
+                else
+                    AllBinary.add(features, (list.objectArray[index + 1]))
+                end
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+        end
+        nothing
+end
 

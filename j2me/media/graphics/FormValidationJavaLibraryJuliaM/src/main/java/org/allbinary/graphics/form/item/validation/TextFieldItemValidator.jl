@@ -1,80 +1,93 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item.validation
 
-from __future__ import annotations
+# extends ValidatorBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TextFieldItemValidator <: JObject
+    textFieldItem::Any
+    min::Int32
+    max::Int32
+    allowOnEmpty::Bool
+    TextFieldItemValidator() = new()
+end
 
-from org.allbinary.logic.control.validate.ValidatorBase import ValidatorBase
 
-
-class TextFieldItemValidator(ValidatorBase):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.form.item.ABTextFieldItem import ABTextFieldItem
-        self.textFieldItem: ABTextFieldItem = None
-        self.min: int = None
-        self.max: int = None
-        self.allowOnEmpty: bool = None
+function initFieldsTextFieldItemValidator(this::TextFieldItemValidator)
+    this.textFieldItem = nothing
+    this.min = Int32(0)
+    this.max = Int32(0)
+    this.allowOnEmpty = false
     
-
-    def __init__(self, textFieldItem: ABTextFieldItem, min: int, max: int, allowOnEmpty: bool) -> None:
-        from org.allbinary.graphics.form.item.ABTextFieldItem import ABTextFieldItem
-        super().__init__()
-        self._init_fields()
-        self.textFieldItem = textFieldItem
-        self.min = min
-        self.max = max
-        self.allowOnEmpty = allowOnEmpty
     
+    
+    
+    nothing
+end
 
-    def isValid(self) -> bool:
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        booleanFactory: BooleanFactory = BooleanFactory.getInstance()
-        result: bool = booleanFactory.TRUE
-        string: str = self.textFieldItem.getString()
-        textLength: int = len(string)
-        if (textLength == 0 and self.allowOnEmpty) or textLength > self.min and textLength < self.max:
-            pass
-        else:
-            if textLength < self.min:
+
+function initTextFieldItemValidator(this::TextFieldItemValidator, textFieldItem, min, max, allowOnEmpty)
+        initValidatorBase(this)
+        initFieldsTextFieldItemValidator(this)
+        this.textFieldItem = textFieldItem
+        this.min = min
+        this.max = max
+        this.allowOnEmpty = allowOnEmpty
+        nothing
+end
+
+function newTextFieldItemValidator(textFieldItem, min, max, allowOnEmpty)
+    this = TextFieldItemValidator()
+    initTextFieldItemValidator(this, textFieldItem, min, max, allowOnEmpty)
+    this
+end
+
+
+function isValid(this::TextFieldItemValidator)
+        local booleanFactory = AllBinary.getInstance(BooleanFactory)
+        local result = booleanFactory.TRUE
+        local string = AllBinary.getString(this.textFieldItem)
+        local textLength::Int32 = jLength(string)
+        if (textLength == Int32(0) && this.allowOnEmpty) || textLength > this.min && textLength < this.max
+            nothing
+        else
+            if textLength < this.min
                 result = booleanFactory.FALSE
-            elif textLength > self.max:
+            elseif textLength > this.max
                 result = booleanFactory.FALSE
+            end
+        end
         return result
-    
+end
 
-    def toList(self) -> BasicArrayList:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        list_: BasicArrayList = BasicArrayListD()
-        string: str = self.textFieldItem.getString()
-        textLength: int = len(string)
-        if textLength > self.min and textLength < self.max:
-            pass
-        else:
-            label: str = self.textFieldItem.getLabel()
-            name: str = label[0:len(label) - 2]
-            if textLength < self.min:
-                list_.add(str(StringMaker().append(name).append(" is to short")))
-            elif textLength > self.max:
-                list_.add(str(StringMaker().append(name).append(" is to long")))
-        return list_
-# from org.allbinary.graphics.form.item.ABTextFieldItem import ABTextFieldItem
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
 
+function toList(this::TextFieldItemValidator)
+        local list = newBasicArrayListD()
+        local string = AllBinary.getString(this.textFieldItem)
+        local textLength::Int32 = jLength(string)
+        if textLength > this.min && textLength < this.max
+            nothing
+        else
+            local label = AllBinary.getLabel(this.textFieldItem)
+            local name = jSubstring(label, Int32(0), jLength(label) - Int32(2))
+            if textLength < this.min
+                AllBinary.add(list, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), name), " is to short")))
+            elseif textLength > this.max
+                AllBinary.add(list, AllBinary.toString(AllBinary.append(AllBinary.append(newStringMaker(), name), " is to long")))
+            end
+        end
+        return list
+end
 

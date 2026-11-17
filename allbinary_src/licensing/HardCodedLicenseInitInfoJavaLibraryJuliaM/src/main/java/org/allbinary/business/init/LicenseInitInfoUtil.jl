@@ -1,85 +1,94 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.business.init
 
-from __future__ import annotations
+mutable struct LicenseInitInfoUtil <: JObject
+    INITFILENAME::Any
+    ABOUT::Any
+    PRIVACY_POLICY::Any
+    OFFICIAL_ALLBINARY_SERVICES_SERVER::Any
+    LicenseInitInfoUtil() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
+const LicenseInitInfoUtil_instanceValue = Ref{Any}(nothing)
+const LicenseInitInfoUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{LicenseInitInfoUtil})
+    if !LicenseInitInfoUtil_instanceSet[]
+        LicenseInitInfoUtil_instanceSet[] = true
+        LicenseInitInfoUtil_instanceValue[] = newLicenseInitInfoUtil()
+    end
+    LicenseInitInfoUtil_instanceValue[]
+end
+function staticSet_instance(::Type{LicenseInitInfoUtil}, value)
+    LicenseInitInfoUtil_instanceSet[] = true
+    LicenseInitInfoUtil_instanceValue[] = value
+end
+
+function initFieldsLicenseInitInfoUtil(this::LicenseInitInfoUtil)
+    this.INITFILENAME = nothing
+    this.ABOUT = nothing
+    this.PRIVACY_POLICY = nothing
+    this.OFFICIAL_ALLBINARY_SERVICES_SERVER = nothing
+    this.INITFILENAME = "licenseinitdata.dat"
+    this.ABOUT = "about"
+    this.PRIVACY_POLICY = "privacy_policy"
+    this.OFFICIAL_ALLBINARY_SERVICES_SERVER = "https://services.allbinary.com/LicServ/serverssl.php"
+    nothing
+end
 
 
-class LicenseInitInfoUtil:
-    instance: LicenseInitInfoUtil = None
-    _lock = threading.RLock()
+function getInstance(::Type{LicenseInitInfoUtil})
+        return staticGet_instance(LicenseInitInfoUtil)
+end
 
-    def _init_fields(self) -> None:
-        self.INITFILENAME: str = "licenseinitdata.dat"
-        self.ABOUT: str = "about"
-        self.PRIVACY_POLICY: str = "privacy_policy"
-        self.OFFICIAL_ALLBINARY_SERVICES_SERVER: str = "https://services.allbinary.com/LicServ/serverssl.php"
-    
 
-    @staticmethod
-    def getInstance() -> LicenseInitInfoUtil:
-        return LicenseInitInfoUtil.instance
-    
+function setFilePath(this::LicenseInitInfoUtil, filePath)
+        nothing
+        nothing
+end
 
-    def setFilePath(self, filePath: str) -> None:
-        with self._lock:
-            return self._setFilePath_unlocked(filePath)
 
-    def _setFilePath_unlocked(self, filePath: str) -> None:
-        pass
-    
+function initLicenseInitInfoUtil(this::LicenseInitInfoUtil)
+        initFieldsLicenseInitInfoUtil(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newLicenseInitInfoUtil()
+    this = LicenseInitInfoUtil()
+    initLicenseInitInfoUtil(this)
+    this
+end
 
-    # throws Exception
-    def write(self, initData: LicenseInitInfo) -> None:
-        with self._lock:
-            return self._write_unlocked(initData)
 
-    def _write_unlocked(self, initData: LicenseInitInfo) -> None:
-        pass
-    
+function write(this::LicenseInitInfoUtil, initData)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def read(self) -> LicenseInitInfo:
-        with self._lock:
-            return self._read_unlocked()
 
-    def _read_unlocked(self) -> LicenseInitInfo:
-        return self.readAgain(0)
-    
+function read(this::LicenseInitInfoUtil)
+        return AllBinary.readAgain(this, Int32(0))
+end
 
-    # throws Exception
-    def readAgain(self, initializeCounter: int) -> LicenseInitInfo:
-        with self._lock:
-            return self._readAgain_unlocked(initializeCounter)
 
-    def _readAgain_unlocked(self, initializeCounter: int) -> LicenseInitInfo:
-        from org.allbinary.business.init.LicenseInitInfo import LicenseInitInfo
-        licenseInitInfo: LicenseInitInfo = LicenseInitInfo()
-        licenseInitInfo.clearServers()
-        licenseInitInfo.addServer(self.OFFICIAL_ALLBINARY_SERVICES_SERVER)
+function readAgain(this::LicenseInitInfoUtil, initializeCounter)
+        local licenseInitInfo = newLicenseInitInfo()
+        AllBinary.clearServers(licenseInitInfo)
+        AllBinary.addServer(licenseInitInfo, this.OFFICIAL_ALLBINARY_SERVICES_SERVER)
         return licenseInitInfo
-
-
-def _LicenseInitInfoUtil_instance() -> object:
-    return LicenseInitInfoUtil()
-
-lazy_static(LicenseInitInfoUtil, "instance", _LicenseInitInfoUtil_instance)
+end
 

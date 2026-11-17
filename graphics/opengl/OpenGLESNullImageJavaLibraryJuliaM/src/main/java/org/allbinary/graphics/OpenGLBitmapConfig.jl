@@ -1,30 +1,42 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2026 AllBinary 
-# 
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-# 
-# Created By: Travis Berthelot 
-#  
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2026 AllBinary 
+  
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+  
+  Created By: Travis Berthelot 
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics
 
-from __future__ import annotations
+mutable struct OpenGLBitmapConfig <: JObject
+    bitmapConfig::Any
+    OpenGLBitmapConfig() = new()
+end
 
 
-
-class OpenGLBitmapConfig:
-
-    def _init_fields(self) -> None:
-        self.bitmapConfig: object = None
+function initFieldsOpenGLBitmapConfig(this::OpenGLBitmapConfig)
+    this.bitmapConfig = nothing
     
+    nothing
+end
 
-    def __init__(self, bitmapConfig: object) -> None:
-        self._init_fields()
-        self.bitmapConfig = bitmapConfig
 
+function initOpenGLBitmapConfig(this::OpenGLBitmapConfig, bitmapConfig)
+        initFieldsOpenGLBitmapConfig(this)
+        this.bitmapConfig = bitmapConfig
+        nothing
+end
+
+function newOpenGLBitmapConfig(bitmapConfig)
+    this = OpenGLBitmapConfig()
+    initOpenGLBitmapConfig(this, bitmapConfig)
+    this
+end
 

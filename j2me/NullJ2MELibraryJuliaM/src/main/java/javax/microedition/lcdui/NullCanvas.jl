@@ -1,105 +1,156 @@
 # Generated Code Do Not Modify
 # package javax.microedition.lcdui
 
-from __future__ import annotations
+# extends Canvas: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NullCanvas <: JObject
+    NullCanvas() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from javax.microedition.lcdui.Canvas import Canvas
+const NullCanvas_NULL_CANVASValue = Ref{Any}(nothing)
+const NullCanvas_NULL_CANVASSet = Ref(false)
+function staticGet_NULL_CANVAS(::Type{NullCanvas})
+    if !NullCanvas_NULL_CANVASSet[]
+        NullCanvas_NULL_CANVASSet[] = true
+        NullCanvas_NULL_CANVASValue[] = newNullCanvas()
+    end
+    NullCanvas_NULL_CANVASValue[]
+end
+function staticSet_NULL_CANVAS(::Type{NullCanvas}, value)
+    NullCanvas_NULL_CANVASSet[] = true
+    NullCanvas_NULL_CANVASValue[] = value
+end
 
-
-class NullCanvas(Canvas):
-    NULL_CANVAS: NullCanvas = None
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    def setFullScreenMode(self, mode: bool) -> None:
-        pass
-    
-
-    def sizeChanged(self, w: int, h: int) -> None:
-        pass
-    
-
-    def getCommandStack(self) -> Stack[object]:
-        from java.util.Stack import Stack
-        raise RuntimeError()
-    
-
-    def isCommand(self, command: Command) -> bool:
-        raise RuntimeError()
-    
-
-    def addCommand(self, command: Command) -> None:
-        pass
-    
-
-    def removeCommand(self, command: Command) -> None:
-        pass
-    
-
-    def removeAllCommands(self) -> None:
-        pass
-    
-
-    def setCommandListener(self, l: CommandListener) -> None:
-        pass
-    
-
-    def getCustomCommandListener(self) -> CommandListener:
-        raise RuntimeError()
-    
-
-    def isPaused(self) -> bool:
-        raise RuntimeError()
-    
-
-    def removePauseCommand(self) -> None:
-        pass
-    
-
-    def pause(self) -> None:
-        pass
-    
-
-    def unPause(self) -> None:
-        pass
-    
-
-    # throws Exception
-    def process(self) -> None:
-        pass
-    
-
-    def paint(self, graphics: Graphics) -> None:
-        pass
-    
-
-    def destroy(self) -> None:
-        pass
-    
-
-    def setPaused(self, isPaused: bool) -> None:
-        raise RuntimeError()
-    
-
-    def pointerDragged(self, x: int, y: int) -> None:
-        pass
-    
-
-    def pointerPressed(self, x: int, y: int) -> None:
-        pass
-    
-
-    def pointerReleased(self, x: int, y: int) -> None:
-        pass
-# from java.util.Stack import Stack
+function initFieldsNullCanvas(this::NullCanvas)
+    nothing
+end
 
 
-def _NullCanvas_NULL_CANVAS() -> object:
-    return NullCanvas()
+function initNullCanvas(this::NullCanvas)
+        initCanvas(this)
+        initFieldsNullCanvas(this)
+        nothing
+        nothing
+end
 
-lazy_static(NullCanvas, "NULL_CANVAS", _NullCanvas_NULL_CANVAS)
+function newNullCanvas()
+    this = NullCanvas()
+    initNullCanvas(this)
+    this
+end
+
+
+function setFullScreenMode(this::NullCanvas, mode)
+        nothing
+        nothing
+end
+
+
+function sizeChanged(this::NullCanvas, w, h)
+        nothing
+        nothing
+end
+
+
+function getCommandStack(this::NullCanvas)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function isCommand(this::NullCanvas, command)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function addCommand(this::NullCanvas, command)
+        nothing
+        nothing
+end
+
+
+function removeCommand(this::NullCanvas, command)
+        nothing
+        nothing
+end
+
+
+function removeAllCommands(this::NullCanvas)
+        nothing
+        nothing
+end
+
+
+function setCommandListener(this::NullCanvas, l)
+        nothing
+        nothing
+end
+
+
+function getCustomCommandListener(this::NullCanvas)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function isPaused(this::NullCanvas)
+        throw(jNewException("RuntimeException", ""))
+end
+
+
+function removePauseCommand(this::NullCanvas)
+        nothing
+        nothing
+end
+
+
+function pause(this::NullCanvas)
+        nothing
+        nothing
+end
+
+
+function unPause(this::NullCanvas)
+        nothing
+        nothing
+end
+
+
+function process(this::NullCanvas)
+        nothing
+        nothing
+end
+
+
+function paint(this::NullCanvas, graphics)
+        nothing
+        nothing
+end
+
+
+function destroy(this::NullCanvas)
+        nothing
+        nothing
+end
+
+
+function setPaused(this::NullCanvas, isPaused)
+        throw(jNewException("RuntimeException", ""))
+        nothing
+end
+
+
+function pointerDragged(this::NullCanvas, x, y)
+        nothing
+        nothing
+end
+
+
+function pointerPressed(this::NullCanvas, x, y)
+        nothing
+        nothing
+end
+
+
+function pointerReleased(this::NullCanvas, x, y)
+        nothing
+        nothing
+end
 

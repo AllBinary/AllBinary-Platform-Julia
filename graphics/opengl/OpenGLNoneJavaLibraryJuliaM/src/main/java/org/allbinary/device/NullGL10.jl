@@ -1,421 +1,611 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.device
 
-from __future__ import annotations
+mutable struct NullGL10 <: JObject
+    NullGL10() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from javax.microedition.khronos.opengles.GL10 import GL10
+const NullGL10_NULL_GL10Value = Ref{Any}(nothing)
+const NullGL10_NULL_GL10Set = Ref(false)
+function staticGet_NULL_GL10(::Type{NullGL10})
+    if !NullGL10_NULL_GL10Set[]
+        NullGL10_NULL_GL10Set[] = true
+        NullGL10_NULL_GL10Value[] = newNullGL10()
+    end
+    NullGL10_NULL_GL10Value[]
+end
+function staticSet_NULL_GL10(::Type{NullGL10}, value)
+    NullGL10_NULL_GL10Set[] = true
+    NullGL10_NULL_GL10Value[] = value
+end
 
+function initFieldsNullGL10(this::NullGL10)
+    nothing
+end
 
-class NullGL10(GL10):
-    NULL_GL10: NullGL10 = None
-    
+function initNullGL10(this::NullGL10)
+    initFieldsNullGL10(this)
+end
 
-    def glActiveTexture(self, texture: int) -> None:
-        return
-    
+function newNullGL10()
+    this = NullGL10()
+    initNullGL10(this)
+    this
+end
 
-    def glAlphaFunc(self, func: int, ref: float) -> None:
-        return
-    
 
-    def glBindTexture(self, target: int, texture: int) -> None:
+function glActiveTexture(this::NullGL10, texture)
         return
-    
+        nothing
+end
+
 
-    def glBlendFunc(self, sfactor: int, dfactor: int) -> None:
+function glAlphaFunc(this::NullGL10, func, ref)
         return
-    
+        nothing
+end
 
-    def glClear(self, mask: int) -> None:
+
+function glBindTexture(this::NullGL10, target, texture)
         return
-    
+        nothing
+end
 
-    def glClearColor(self, red: float, green: float, blue: float, alpha: float) -> None:
+
+function glBlendFunc(this::NullGL10, sfactor, dfactor)
         return
-    
+        nothing
+end
+
 
-    def glClearDepthf(self, depth: float) -> None:
+function glClear(this::NullGL10, mask)
         return
-    
+        nothing
+end
 
-    def glClearStencil(self, s: int) -> None:
+
+function glClearColor(this::NullGL10, red, green, blue, alpha)
         return
-    
+        nothing
+end
 
-    def glClientActiveTexture(self, texture: int) -> None:
+
+function glClearDepthf(this::NullGL10, depth)
         return
-    
+        nothing
+end
+
 
-    def glColor4f(self, red: float, green: float, blue: float, alpha: float) -> None:
+function glClearStencil(this::NullGL10, s)
         return
-    
+        nothing
+end
 
-    def glColorMask(self, red: bool, green: bool, blue: bool, alpha: bool) -> None:
+
+function glClientActiveTexture(this::NullGL10, texture)
         return
-    
+        nothing
+end
 
-    def glColorPointer(self, size: int, type_: int, stride: int, pointer: Buffer) -> None:
+
+function glColor4f(this::NullGL10, red, green, blue, alpha)
         return
-    
+        nothing
+end
+
 
-    def glCompressedTexImage2D(self, target: int, level: int, internalformat: int, width: int, height: int, border: int, imageSize: int, data: Buffer) -> None:
+function glColorMask(this::NullGL10, red, green, blue, alpha)
         return
-    
+        nothing
+end
 
-    def glCompressedTexSubImage2D(self, target: int, level: int, xoffset: int, yoffset: int, width: int, height: int, format: int, imageSize: int, data: Buffer) -> None:
+
+function glColorPointer(this::NullGL10, size, type_, stride, pointer)
         return
-    
+        nothing
+end
 
-    def glCopyTexImage2D(self, target: int, level: int, internalformat: int, x: int, y: int, width: int, height: int, border: int) -> None:
+
+function glCompressedTexImage2D(this::NullGL10, target, level, internalformat, width, height, border, imageSize, data)
         return
-    
+        nothing
+end
+
 
-    def glCopyTexSubImage2D(self, target: int, level: int, xoffset: int, yoffset: int, x: int, y: int, width: int, height: int) -> None:
+function glCompressedTexSubImage2D(this::NullGL10, target, level, xoffset, yoffset, width, height, format, imageSize, data)
         return
-    
+        nothing
+end
 
-    def glCullFace(self, mode: int) -> None:
+
+function glCopyTexImage2D(this::NullGL10, target, level, internalformat, x, y, width, height, border)
         return
-    
+        nothing
+end
 
-    def glDeleteTextures(self, n: int, textures: list[int], offset: int) -> None:
+
+function glCopyTexSubImage2D(this::NullGL10, target, level, xoffset, yoffset, x, y, width, height)
         return
-    
+        nothing
+end
+
 
-    # Java overloaded method: Python keeps the last definition
-    def glDeleteTextures(self, n: int, textures: IntBuffer) -> None:
+function glCullFace(this::NullGL10, mode)
         return
-    
+        nothing
+end
 
-    def glDepthFunc(self, func: int) -> None:
+
+function glDeleteTextures(this::NullGL10, n, textures, offset)
         return
-    
+        nothing
+end
 
-    def glDepthMask(self, flag: bool) -> None:
+
+function glDeleteTextures(this::NullGL10, n, textures)
         return
-    
+        nothing
+end
+
 
-    def glDepthRangef(self, zNear: float, zFar: float) -> None:
+function glDepthFunc(this::NullGL10, func)
         return
-    
+        nothing
+end
 
-    def glDisable(self, cap: int) -> None:
+
+function glDepthMask(this::NullGL10, flag)
         return
-    
+        nothing
+end
 
-    def glDisableClientState(self, array: int) -> None:
+
+function glDepthRangef(this::NullGL10, zNear, zFar)
         return
-    
+        nothing
+end
+
 
-    def glDrawArrays(self, mode: int, first: int, count: int) -> None:
+function glDisable(this::NullGL10, cap)
         return
-    
+        nothing
+end
 
-    def glDrawElements(self, mode: int, count: int, type_: int, indices: Buffer) -> None:
+
+function glDisableClientState(this::NullGL10, array)
         return
-    
+        nothing
+end
 
-    def glEnable(self, cap: int) -> None:
+
+function glDrawArrays(this::NullGL10, mode, first, count)
         return
-    
+        nothing
+end
+
 
-    def glEnableClientState(self, array: int) -> None:
+function glDrawElements(this::NullGL10, mode, count, type_, indices)
         return
-    
+        nothing
+end
 
-    def glFinish(self) -> None:
+
+function glEnable(this::NullGL10, cap)
         return
-    
+        nothing
+end
 
-    def glFlush(self) -> None:
+
+function glEnableClientState(this::NullGL10, array)
         return
-    
+        nothing
+end
+
 
-    def glFogf(self, pname: int, param: float) -> None:
+function glFinish(this::NullGL10)
         return
-    
+        nothing
+end
 
-    def glFogfv(self, pname: int, params: list[float], offset: int) -> None:
+
+function glFlush(this::NullGL10)
         return
-    
+        nothing
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def glFogfv(self, pname: int, params: FloatBuffer) -> None:
+
+function glFogf(this::NullGL10, pname, param)
         return
-    
+        nothing
+end
+
 
-    def glFrontFace(self, mode: int) -> None:
+function glFogfv(this::NullGL10, pname, params, offset)
         return
-    
+        nothing
+end
 
-    def glFrustumf(self, left: float, right: float, bottom: float, top: float, zNear: float, zFar: float) -> None:
+
+function glFogfv(this::NullGL10, pname, params)
         return
-    
+        nothing
+end
 
-    def glGenTextures(self, n: int, textures: list[int], offset: int) -> None:
+
+function glFrontFace(this::NullGL10, mode)
         return
-    
+        nothing
+end
+
 
-    # Java overloaded method: Python keeps the last definition
-    def glGenTextures(self, n: int, textures: IntBuffer) -> None:
+function glFrustumf(this::NullGL10, left, right, bottom, top, zNear, zFar)
         return
-    
+        nothing
+end
 
-    def glGetError(self) -> int:
-        return 0
-    
 
-    def glGetIntegerv(self, pname: int, params: list[int], offset: int) -> None:
+function glGenTextures(this::NullGL10, n, textures, offset)
         return
-    
+        nothing
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def glGetIntegerv(self, pname: int, params: IntBuffer) -> None:
+
+function glGenTextures(this::NullGL10, n, textures)
         return
-    
+        nothing
+end
+
+
+function glGetError(this::NullGL10)
+        return Int32(0)
+end
 
-    def glGetString(self, name: int) -> str:
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        return StringUtil.getInstance().EMPTY_STRING
-    
 
-    def glHint(self, target: int, mode: int) -> None:
+function glGetIntegerv(this::NullGL10, pname, params, offset)
         return
-    
+        nothing
+end
 
-    def glLightModelf(self, pname: int, param: float) -> None:
+
+function glGetIntegerv(this::NullGL10, pname, params)
         return
-    
+        nothing
+end
+
+
+function glGetString(this::NullGL10, name)
+        return AllBinary.getInstance(StringUtil).EMPTY_STRING
+end
 
-    def glLightModelfv(self, pname: int, params: list[float], offset: int) -> None:
+
+function glHint(this::NullGL10, target, mode)
         return
-    
+        nothing
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def glLightModelfv(self, pname: int, params: FloatBuffer) -> None:
+
+function glLightModelf(this::NullGL10, pname, param)
         return
-    
+        nothing
+end
+
 
-    def glLightf(self, light: int, pname: int, param: float) -> None:
+function glLightModelfv(this::NullGL10, pname, params, offset)
         return
-    
+        nothing
+end
 
-    def glLightfv(self, light: int, pname: int, params: list[float], offset: int) -> None:
+
+function glLightModelfv(this::NullGL10, pname, params)
         return
-    
+        nothing
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def glLightfv(self, light: int, pname: int, params: FloatBuffer) -> None:
+
+function glLightf(this::NullGL10, light, pname, param)
         return
-    
+        nothing
+end
+
 
-    def glLineWidth(self, width: float) -> None:
+function glLightfv(this::NullGL10, light, pname, params, offset)
         return
-    
+        nothing
+end
 
-    def glLoadIdentity(self) -> None:
+
+function glLightfv(this::NullGL10, light, pname, params)
         return
-    
+        nothing
+end
 
-    def glLoadMatrixf(self, m: list[float], offset: int) -> None:
+
+function glLineWidth(this::NullGL10, width)
         return
-    
+        nothing
+end
+
 
-    # Java overloaded method: Python keeps the last definition
-    def glLoadMatrixf(self, m: FloatBuffer) -> None:
+function glLoadIdentity(this::NullGL10)
         return
-    
+        nothing
+end
 
-    def glLogicOp(self, opcode: int) -> None:
+
+function glLoadMatrixf(this::NullGL10, m, offset)
         return
-    
+        nothing
+end
 
-    def glMaterialf(self, face: int, pname: int, param: float) -> None:
+
+function glLoadMatrixf(this::NullGL10, m)
         return
-    
+        nothing
+end
+
 
-    def glMaterialfv(self, face: int, pname: int, params: list[float], offset: int) -> None:
+function glLogicOp(this::NullGL10, opcode)
         return
-    
+        nothing
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def glMaterialfv(self, face: int, pname: int, params: FloatBuffer) -> None:
+
+function glMaterialf(this::NullGL10, face, pname, param)
         return
-    
+        nothing
+end
 
-    def glMatrixMode(self, mode: int) -> None:
+
+function glMaterialfv(this::NullGL10, face, pname, params, offset)
         return
-    
+        nothing
+end
+
 
-    def glMultMatrixf(self, m: list[float], offset: int) -> None:
+function glMaterialfv(this::NullGL10, face, pname, params)
         return
-    
+        nothing
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def glMultMatrixf(self, m: FloatBuffer) -> None:
+
+function glMatrixMode(this::NullGL10, mode)
         return
-    
+        nothing
+end
 
-    def glMultiTexCoord4f(self, target: int, s: float, t: float, r: float, q: float) -> None:
+
+function glMultMatrixf(this::NullGL10, m, offset)
         return
-    
+        nothing
+end
+
 
-    def glNormal3f(self, nx: float, ny: float, nz: float) -> None:
+function glMultMatrixf(this::NullGL10, m)
         return
-    
+        nothing
+end
 
-    def glNormalPointer(self, type_: int, stride: int, pointer: Buffer) -> None:
+
+function glMultiTexCoord4f(this::NullGL10, target, s, t, r, q)
         return
-    
+        nothing
+end
 
-    def glOrthof(self, left: float, right: float, bottom: float, top: float, zNear: float, zFar: float) -> None:
+
+function glNormal3f(this::NullGL10, nx, ny, nz)
         return
-    
+        nothing
+end
+
 
-    def glPixelStorei(self, pname: int, param: int) -> None:
+function glNormalPointer(this::NullGL10, type_, stride, pointer)
         return
-    
+        nothing
+end
 
-    def glPointSize(self, size: float) -> None:
+
+function glOrthof(this::NullGL10, left, right, bottom, top, zNear, zFar)
         return
-    
+        nothing
+end
 
-    def glPolygonOffset(self, factor: float, units: float) -> None:
+
+function glPixelStorei(this::NullGL10, pname, param)
         return
-    
+        nothing
+end
+
 
-    def glPopMatrix(self) -> None:
+function glPointSize(this::NullGL10, size)
         return
-    
+        nothing
+end
 
-    def glPushMatrix(self) -> None:
+
+function glPolygonOffset(this::NullGL10, factor, units)
         return
-    
+        nothing
+end
 
-    def glReadPixels(self, x: int, y: int, width: int, height: int, format: int, type_: int, pixels: Buffer) -> None:
+
+function glPopMatrix(this::NullGL10)
         return
-    
+        nothing
+end
+
 
-    def glRotatef(self, angle: float, x: float, y: float, z: float) -> None:
+function glPushMatrix(this::NullGL10)
         return
-    
+        nothing
+end
 
-    def glRotatex(self, angle: int, x: int, y: int, z: int) -> None:
+
+function glReadPixels(this::NullGL10, x, y, width, height, format, type_, pixels)
         return
-    
+        nothing
+end
 
-    def glSampleCoverage(self, value: float, invert: bool) -> None:
+
+function glRotatef(this::NullGL10, angle, x, y, z)
         return
-    
+        nothing
+end
+
 
-    def glScalef(self, x: float, y: float, z: float) -> None:
+function glRotatex(this::NullGL10, angle, x, y, z)
         return
-    
+        nothing
+end
 
-    def glScalex(self, x: int, y: int, z: int) -> None:
+
+function glSampleCoverage(this::NullGL10, value, invert)
         return
-    
+        nothing
+end
 
-    def glScissor(self, x: int, y: int, width: int, height: int) -> None:
+
+function glScalef(this::NullGL10, x, y, z)
         return
-    
+        nothing
+end
+
 
-    def glShadeModel(self, mode: int) -> None:
+function glScalex(this::NullGL10, x, y, z)
         return
-    
+        nothing
+end
 
-    def glStencilFunc(self, func: int, ref: int, mask: int) -> None:
+
+function glScissor(this::NullGL10, x, y, width, height)
         return
-    
+        nothing
+end
 
-    def glStencilMask(self, mask: int) -> None:
+
+function glShadeModel(this::NullGL10, mode)
         return
-    
+        nothing
+end
+
 
-    def glStencilOp(self, fail: int, zfail: int, zpass: int) -> None:
+function glStencilFunc(this::NullGL10, func, ref, mask)
         return
-    
+        nothing
+end
 
-    def glTexCoordPointer(self, size: int, type_: int, stride: int, pointer: Buffer) -> None:
+
+function glStencilMask(this::NullGL10, mask)
         return
-    
+        nothing
+end
 
-    def glTexEnvf(self, target: int, pname: int, param: float) -> None:
+
+function glStencilOp(this::NullGL10, fail, zfail, zpass)
         return
-    
+        nothing
+end
+
 
-    def glTexEnvfv(self, target: int, pname: int, params: list[float], offset: int) -> None:
+function glTexCoordPointer(this::NullGL10, size, type_, stride, pointer)
         return
-    
+        nothing
+end
 
-    # Java overloaded method: Python keeps the last definition
-    def glTexEnvfv(self, target: int, pname: int, params: FloatBuffer) -> None:
+
+function glTexEnvf(this::NullGL10, target, pname, param)
         return
-    
+        nothing
+end
 
-    def glTexImage2D(self, target: int, level: int, internalformat: int, width: int, height: int, border: int, format: int, type_: int, pixels: Buffer) -> None:
+
+function glTexEnvfv(this::NullGL10, target, pname, params, offset)
         return
-    
+        nothing
+end
+
 
-    def glTexParameterf(self, target: int, pname: int, param: float) -> None:
+function glTexEnvfv(this::NullGL10, target, pname, params)
         return
-    
+        nothing
+end
 
-    def glTexParameteri(self, target: int, pname: int, param: int) -> None:
+
+function glTexImage2D(this::NullGL10, target, level, internalformat, width, height, border, format, type_, pixels)
         return
-    
+        nothing
+end
 
-    def glTexSubImage2D(self, target: int, level: int, xoffset: int, yoffset: int, width: int, height: int, format: int, type_: int, pixels: Buffer) -> None:
+
+function glTexParameterf(this::NullGL10, target, pname, param)
         return
-    
+        nothing
+end
+
 
-    def glTranslatef(self, x: float, y: float, z: float) -> None:
+function glTexParameteri(this::NullGL10, target, pname, param)
         return
-    
+        nothing
+end
 
-    def glVertexPointer(self, size: int, type_: int, stride: int, pointer: Buffer) -> None:
+
+function glTexSubImage2D(this::NullGL10, target, level, xoffset, yoffset, width, height, format, type_, pixels)
         return
-    
+        nothing
+end
 
-    def glViewport(self, x: int, y: int, width: int, height: int) -> None:
+
+function glTranslatef(this::NullGL10, x, y, z)
         return
-    
+        nothing
+end
+
 
-    def glBegin(self, i: int) -> None:
+function glVertexPointer(this::NullGL10, size, type_, stride, pointer)
         return
-    
+        nothing
+end
 
-    def glEnd(self) -> None:
+
+function glViewport(this::NullGL10, x, y, width, height)
         return
-    
+        nothing
+end
 
-    def glVertex3f(self, f: float, f2: float, f3: float) -> None:
+
+function glBegin(this::NullGL10, i)
         return
-    
+        nothing
+end
+
 
-    def glPolygonMode(self, i: int, i1: int) -> None:
+function glEnd(this::NullGL10)
         return
-# from java.nio.Buffer import Buffer
-# from java.nio.FloatBuffer import FloatBuffer
-# from java.nio.IntBuffer import IntBuffer
-# from org.allbinary.logic.string.StringUtil import StringUtil
+        nothing
+end
 
 
-def _NullGL10_NULL_GL10() -> object:
-    return NullGL10()
+function glVertex3f(this::NullGL10, f, f2, f3)
+        return
+        nothing
+end
 
-lazy_static(NullGL10, "NULL_GL10", _NullGL10_NULL_GL10)
+
+function glPolygonMode(this::NullGL10, i, i1)
+        return
+        nothing
+end
 

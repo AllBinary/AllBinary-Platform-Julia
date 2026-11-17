@@ -1,38 +1,53 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer
 
-from __future__ import annotations
+mutable struct LayerPlacementType <: JObject
+    type_::Int32
+    LayerPlacementType() = new()
+end
 
 
-
-class LayerPlacementType:
-
-    def _init_fields(self) -> None:
-        self.type_: int = None
+function initFieldsLayerPlacementType(this::LayerPlacementType)
+    this.type_ = Int32(0)
     
+    nothing
+end
 
-    def __init__(self, type_: int) -> None:
-        self._init_fields()
-        self.type_ = type_
-    
 
-    def getType(self) -> int:
-        return self.type_
-    
+function initLayerPlacementType(this::LayerPlacementType, type_)
+        initFieldsLayerPlacementType(this)
+        this.type_ = type_
+        nothing
+end
 
-    def setType(self, type_: int) -> None:
-        self.type_ = type_
+function newLayerPlacementType(type_)
+    this = LayerPlacementType()
+    initLayerPlacementType(this, type_)
+    this
+end
 
+
+function getType(this::LayerPlacementType)
+        return this.type_
+end
+
+
+function setType(this::LayerPlacementType, type_)
+        this.type_ = type_
+        nothing
+end
 

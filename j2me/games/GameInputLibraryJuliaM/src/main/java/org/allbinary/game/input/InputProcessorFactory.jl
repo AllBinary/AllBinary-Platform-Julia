@@ -1,45 +1,62 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+mutable struct InputProcessorFactory <: JObject
+    inputProcessor::Any
+    InputProcessorFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const InputProcessorFactory_instanceValue = Ref{Any}(nothing)
+const InputProcessorFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{InputProcessorFactory})
+    if !InputProcessorFactory_instanceSet[]
+        InputProcessorFactory_instanceSet[] = true
+        InputProcessorFactory_instanceValue[] = newInputProcessorFactory()
+    end
+    InputProcessorFactory_instanceValue[]
+end
+function staticSet_instance(::Type{InputProcessorFactory}, value)
+    InputProcessorFactory_instanceSet[] = true
+    InputProcessorFactory_instanceValue[] = value
+end
+
+function initFieldsInputProcessorFactory(this::InputProcessorFactory)
+    this.inputProcessor = nothing
+    this.inputProcessor = newInputProcessor()
+    nothing
+end
+
+function initInputProcessorFactory(this::InputProcessorFactory)
+    initFieldsInputProcessorFactory(this)
+end
+
+function newInputProcessorFactory()
+    this = InputProcessorFactory()
+    initInputProcessorFactory(this)
+    this
+end
 
 
-class InputProcessorFactory:
-    instance: InputProcessorFactory = None
-
-    def _init_fields(self) -> None:
-        self.inputProcessor: InputProcessor = InputProcessor()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> InputProcessorFactory:
-        return InputProcessorFactory.instance
-    
-
-    def getInputProcessor(self) -> InputProcessor:
-        return self.inputProcessor
-from org.allbinary.game.input.InputProcessor import InputProcessor
+function getInstance(::Type{InputProcessorFactory})
+        return staticGet_instance(InputProcessorFactory)
+end
 
 
-def _InputProcessorFactory_instance() -> object:
-    return InputProcessorFactory()
-
-lazy_static(InputProcessorFactory, "instance", _InputProcessorFactory_instance)
+function getInputProcessor(this::InputProcessorFactory)
+        return this.inputProcessor
+end
 

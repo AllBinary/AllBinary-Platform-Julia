@@ -1,54 +1,62 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai
 
-from __future__ import annotations
+# extends BasicAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ScrollOverAllowOutsideAtEndAI <: JObject
+    ScrollOverAllowOutsideAtEndAI() = new()
+end
 
-from org.allbinary.game.ai.BasicAI import BasicAI
+
+function initFieldsScrollOverAllowOutsideAtEndAI(this::ScrollOverAllowOutsideAtEndAI)
+    nothing
+end
 
 
-class ScrollOverAllowOutsideAtEndAI(BasicAI):
-    
+function initScrollOverAllowOutsideAtEndAI(this::ScrollOverAllowOutsideAtEndAI, ownerLayerInterface, gameInput)
+        initBasicAI(this, ownerLayerInterface, gameInput)
+        nothing
+end
 
-    def __init__(self, ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(ownerLayerInterface, gameInput)
-    
+function newScrollOverAllowOutsideAtEndAI(ownerLayerInterface, gameInput)
+    this = ScrollOverAllowOutsideAtEndAI()
+    initScrollOverAllowOutsideAtEndAI(this, ownerLayerInterface, gameInput)
+    this
+end
 
-    # throws Exception
-    def processAI(self, allBinaryLayerManager: AllBinaryLayerManager) -> None:
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        ownerLayerInterface: AllBinaryLayer = self.getOwnerLayerInterface()
-        x: int = ownerLayerInterface.getXP()
-        y: int = ownerLayerInterface.getYP()
-        width: int = ownerLayerInterface.getWidth()
-        height: int = ownerLayerInterface.getHeight()
-        displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        if x > displayInfo.getLastWidth():
-            ownerLayerInterface.setPosition(-width, y, ownerLayerInterface.getZP())
-        if y > displayInfo.getLastHeight():
-            ownerLayerInterface.setPosition(x, -height, ownerLayerInterface.getZP())
-        if x < -width:
-            ownerLayerInterface.setPosition(displayInfo.getLastWidth() + width, y, ownerLayerInterface.getZP())
-        if y < -height:
-            ownerLayerInterface.setPosition(x, displayInfo.getLastHeight() + height, ownerLayerInterface.getZP())
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
 
+function processAI(this::ScrollOverAllowOutsideAtEndAI, allBinaryLayerManager)
+        local ownerLayerInterface = AllBinary.getOwnerLayerInterface(this)
+        local x::Int32 = AllBinary.getXP(ownerLayerInterface)
+        local y::Int32 = AllBinary.getYP(ownerLayerInterface)
+        local width::Int32 = AllBinary.getWidth(ownerLayerInterface)
+        local height::Int32 = AllBinary.getHeight(ownerLayerInterface)
+        local displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+        if x > AllBinary.getLastWidth(displayInfo)
+            AllBinary.setPosition(ownerLayerInterface, -width, y, AllBinary.getZP(ownerLayerInterface))
+        end
+        if y > AllBinary.getLastHeight(displayInfo)
+            AllBinary.setPosition(ownerLayerInterface, x, -height, AllBinary.getZP(ownerLayerInterface))
+        end
+        if x < -width
+            AllBinary.setPosition(ownerLayerInterface, AllBinary.getLastWidth(displayInfo) + width, y, AllBinary.getZP(ownerLayerInterface))
+        end
+        if y < -height
+            AllBinary.setPosition(ownerLayerInterface, x, AllBinary.getLastHeight(displayInfo) + height, AllBinary.getZP(ownerLayerInterface))
+        end
+        nothing
+end
 

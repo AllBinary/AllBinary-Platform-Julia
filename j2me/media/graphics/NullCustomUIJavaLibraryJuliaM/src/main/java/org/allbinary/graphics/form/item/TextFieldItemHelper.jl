@@ -1,11 +1,22 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
+mutable struct TextFieldItemHelper <: JObject
+    TextFieldItemHelper() = new()
+end
 
 
+function initFieldsTextFieldItemHelper(this::TextFieldItemHelper)
+    nothing
+end
 
-class TextFieldItemHelper:
-    pass
+function initTextFieldItemHelper(this::TextFieldItemHelper)
+    initFieldsTextFieldItemHelper(this)
+end
 
+function newTextFieldItemHelper()
+    this = TextFieldItemHelper()
+    initTextFieldItemHelper(this)
+    this
+end
 

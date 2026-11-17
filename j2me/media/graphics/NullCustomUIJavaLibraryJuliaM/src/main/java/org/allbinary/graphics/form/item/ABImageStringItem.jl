@@ -1,11 +1,22 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
+mutable struct ABImageStringItem <: JObject
+    ABImageStringItem() = new()
+end
 
 
+function initFieldsABImageStringItem(this::ABImageStringItem)
+    nothing
+end
 
-class ABImageStringItem:
-    pass
+function initABImageStringItem(this::ABImageStringItem)
+    initFieldsABImageStringItem(this)
+end
 
+function newABImageStringItem()
+    this = ABImageStringItem()
+    initABImageStringItem(this)
+    this
+end
 

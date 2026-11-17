@@ -1,86 +1,97 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.motion.action
 
-from __future__ import annotations
+# extends CompleteMotionGestureInputEvent: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameKeyCompleteMotionGestureInputEvent <: JObject
+    gameKeyEventFactory::Any
+    SOURCE_ID::Int32
+    gameKey::Any
+    gameKeyEvent::Any
+    inputToGameKeyMapping::Any
+    GameKeyCompleteMotionGestureInputEvent() = new()
+end
 
-from org.allbinary.game.input.CompleteMotionGestureInputEvent import CompleteMotionGestureInputEvent
-from org.allbinary.game.input.GameKeyEventSourceInterface import GameKeyEventSourceInterface
 
-
-class GameKeyCompleteMotionGestureInputEvent(CompleteMotionGestureInputEvent, GameKeyEventSourceInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        self.gameKeyEventFactory: GameKeyEventFactory = GameKeyEventFactory.getInstance()
-        self.SOURCE_ID: int = self.gameKeyEventFactory.MOTION_GESTURE_SOURCE_ID
-        self.gameKey: GameKey = GameKey.NULL_GAME_KEY
-        self.gameKeyEvent: GameKeyEvent = GameKeyEvent.NONE
-        self.inputToGameKeyMapping: InputToGameKeyMapping = None
+function initFieldsGameKeyCompleteMotionGestureInputEvent(this::GameKeyCompleteMotionGestureInputEvent)
+    this.gameKeyEventFactory = nothing
+    this.SOURCE_ID = Int32(0)
+    this.gameKey = nothing
+    this.gameKeyEvent = nothing
+    this.inputToGameKeyMapping = nothing
+    this.gameKeyEventFactory = AllBinary.getInstance(GameKeyEventFactory)
+    this.SOURCE_ID = this.gameKeyEventFactory.MOTION_GESTURE_SOURCE_ID
+    this.gameKey = staticGet_NULL_GAME_KEY(GameKey)
+    this.gameKeyEvent = staticGet_NONE(GameKeyEvent)
     
+    nothing
+end
 
-    def __init__(self, name: str, motionGestureInput: MotionGestureInput, inputToGameKeyMapping: InputToGameKeyMapping) -> None:
-        from org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEventFactory import GameKeyCompleteMotionGestureInputEventFactory
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        super().__init__(name, motionGestureInput)
-        self._init_fields()
-        self.inputToGameKeyMapping = inputToGameKeyMapping
-        GameKeyCompleteMotionGestureInputEventFactory.getInstance().add(self)
-        self.update()
-    
 
-    def getSourceId(self) -> int:
-        return self.SOURCE_ID
-    
+function initGameKeyCompleteMotionGestureInputEvent(this::GameKeyCompleteMotionGestureInputEvent, name, motionGestureInput, inputToGameKeyMapping)
+        initCompleteMotionGestureInputEvent(this, name, motionGestureInput)
+        initFieldsGameKeyCompleteMotionGestureInputEvent(this)
+        this.inputToGameKeyMapping = inputToGameKeyMapping
+        AllBinary.add(AllBinary.getInstance(GameKeyCompleteMotionGestureInputEventFactory), this)
+        AllBinary.update(this)
+        nothing
+end
 
-    def update(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.setGameKey(self.inputToGameKeyMapping.getInstance(self.getMotionGestureInput().getId()))
-            self.setGameKeyEvent(self.gameKeyEventFactory.getInstanceForInput(self, self.getGameKey()))
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.UPDATE, e)
-    
+function newGameKeyCompleteMotionGestureInputEvent(name, motionGestureInput, inputToGameKeyMapping)
+    this = GameKeyCompleteMotionGestureInputEvent()
+    initGameKeyCompleteMotionGestureInputEvent(this, name, motionGestureInput, inputToGameKeyMapping)
+    this
+end
 
-    def setGameKeyEvent(self, gameKeyEvent: GameKeyEvent) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        self.gameKeyEvent = gameKeyEvent
-    
 
-    def getGameKeyEvent(self) -> GameKeyEvent:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        return self.gameKeyEvent
-    
+function getSourceId(this::GameKeyCompleteMotionGestureInputEvent)
+        return this.SOURCE_ID
+end
 
-    def setGameKey(self, gameKey: GameKey) -> None:
-        from org.allbinary.game.input.GameKey import GameKey
-        self.gameKey = gameKey
-    
 
-    def getGameKey(self) -> GameKey:
-        from org.allbinary.game.input.GameKey import GameKey
-        return self.gameKey
-# from org.allbinary.game.input.GameKey import GameKey
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-# from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-# from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-# from org.allbinary.string.CommonStrings import CommonStrings
+function update(this::GameKeyCompleteMotionGestureInputEvent)
+        try
+            AllBinary.setGameKey(this, AllBinary.getInstance(this.inputToGameKeyMapping, AllBinary.getId(AllBinary.getMotionGestureInput(this))))
+            AllBinary.setGameKeyEvent(this, AllBinary.getInstanceForInput(this.gameKeyEventFactory, this, AllBinary.getGameKey(this)))
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.UPDATE, e)
+        end
+        nothing
+end
 
+
+function setGameKeyEvent(this::GameKeyCompleteMotionGestureInputEvent, gameKeyEvent)
+        this.gameKeyEvent = gameKeyEvent
+        nothing
+end
+
+
+function getGameKeyEvent(this::GameKeyCompleteMotionGestureInputEvent)
+        return this.gameKeyEvent
+end
+
+
+function setGameKey(this::GameKeyCompleteMotionGestureInputEvent, gameKey)
+        this.gameKey = gameKey
+        nothing
+end
+
+
+function getGameKey(this::GameKeyCompleteMotionGestureInputEvent)
+        return this.gameKey
+end
 

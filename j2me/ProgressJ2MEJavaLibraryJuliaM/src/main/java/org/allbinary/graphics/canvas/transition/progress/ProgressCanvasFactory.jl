@@ -1,53 +1,62 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.canvas.transition.progress
 
-from __future__ import annotations
+mutable struct ProgressCanvasFactory <: JObject
+    ProgressCanvasFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ProgressCanvasFactory_PROGRESS_FORM_SCREENValue = Ref{Any}(nothing)
+const ProgressCanvasFactory_PROGRESS_FORM_SCREENSet = Ref(false)
+function staticGet_PROGRESS_FORM_SCREEN(::Type{ProgressCanvasFactory})
+    if !ProgressCanvasFactory_PROGRESS_FORM_SCREENSet[]
+        ProgressCanvasFactory_PROGRESS_FORM_SCREENSet[] = true
+        ProgressCanvasFactory_PROGRESS_FORM_SCREENValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    ProgressCanvasFactory_PROGRESS_FORM_SCREENValue[]
+end
+function staticSet_PROGRESS_FORM_SCREEN(::Type{ProgressCanvasFactory}, value)
+    ProgressCanvasFactory_PROGRESS_FORM_SCREENSet[] = true
+    ProgressCanvasFactory_PROGRESS_FORM_SCREENValue[] = value
+end
+
+function initFieldsProgressCanvasFactory(this::ProgressCanvasFactory)
+    nothing
+end
+
+function initProgressCanvasFactory(this::ProgressCanvasFactory)
+    initFieldsProgressCanvasFactory(this)
+end
+
+function newProgressCanvasFactory()
+    this = ProgressCanvasFactory()
+    initProgressCanvasFactory(this)
+    this
+end
 
 
-class ProgressCanvasFactory:
-    PROGRESS_FORM_SCREEN: object = None
-    
-
-    @staticmethod
-    def getInstance() -> ProgressCanvas:
-        from org.allbinary.graphics.canvas.transition.progress.ProgressCanvas import ProgressCanvas
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        if ProgressCanvasFactory.PROGRESS_FORM_SCREEN == NullUtil.getInstance().NULL_OBJECT:
-            ProgressCanvasFactory.PROGRESS_FORM_SCREEN = ProgressCanvas(StringUtil.getInstance().EMPTY_STRING, BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
-        return ProgressCanvasFactory.PROGRESS_FORM_SCREEN
-    
-
-    @staticmethod
-    def getLazyInstance() -> PaintableInterface:
-        from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-        from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-        return NullPaintable.getInstance()
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.graphics.paint.NullPaintable import NullPaintable
-# from org.allbinary.graphics.paint.PaintableInterface import PaintableInterface
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
+function getInstance(::Type{ProgressCanvasFactory})
+        if staticGet_PROGRESS_FORM_SCREEN(ProgressCanvasFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_PROGRESS_FORM_SCREEN(ProgressCanvasFactory, newProgressCanvas(AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(BasicColorFactory).BLACK, AllBinary.getInstance(BasicColorFactory).WHITE))
+        end
+        return (staticGet_PROGRESS_FORM_SCREEN(ProgressCanvasFactory))
+end
 
 
-def _ProgressCanvasFactory_PROGRESS_FORM_SCREEN() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
-
-lazy_static(ProgressCanvasFactory, "PROGRESS_FORM_SCREEN", _ProgressCanvasFactory_PROGRESS_FORM_SCREEN)
+function getLazyInstance(::Type{ProgressCanvasFactory})
+        return AllBinary.getInstance(NullPaintable)
+end
 

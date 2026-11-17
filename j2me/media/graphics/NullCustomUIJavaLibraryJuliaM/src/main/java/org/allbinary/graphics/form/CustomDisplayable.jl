@@ -1,14 +1,28 @@
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+mutable struct CustomDisplayable <: JObject
+    CustomDisplayable() = new()
+end
 
 
+function initFieldsCustomDisplayable(this::CustomDisplayable)
+    nothing
+end
 
-class CustomDisplayable:
-    
+function initCustomDisplayable(this::CustomDisplayable)
+    initFieldsCustomDisplayable(this)
+end
 
-    def setTitle(self, title: str) -> None:
-        pass
+function newCustomDisplayable()
+    this = CustomDisplayable()
+    initCustomDisplayable(this)
+    this
+end
 
+
+function setTitle(this::CustomDisplayable, title)
+        nothing
+        nothing
+end
 

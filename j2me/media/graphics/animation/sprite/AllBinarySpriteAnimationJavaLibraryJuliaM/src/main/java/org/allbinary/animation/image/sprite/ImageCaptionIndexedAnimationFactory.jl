@@ -1,106 +1,113 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image.sprite
 
-from __future__ import annotations
+mutable struct ImageCaptionIndexedAnimationFactory <: JObject
+    animationFactoryImageScaleUtil::Any
+    animationFactorySpriteScaleUtil::Any
+    captionImage::Any
+    spriteMovieImage::Any
+    frameWidth::Int32
+    frameHeight::Int32
+    captionDx::Int32
+    captionDy::Int32
+    dx::Int32
+    dy::Int32
+    time::Int32
+    soundInterface::Any
+    scaleProperties::Any
+    animationBehaviorFactory::Any
+    ImageCaptionIndexedAnimationFactory() = new()
+end
 
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
 
-
-class ImageCaptionIndexedAnimationFactory(AnimationInterfaceFactoryInterface):
-
-    def _init_fields(self) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.image.AnimationFactoryImageScaleUtil import AnimationFactoryImageScaleUtil
-        from org.allbinary.image.sprite.AnimationFactorySpriteScaleUtil import AnimationFactorySpriteScaleUtil
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        from org.allbinary.media.audio.Sound import Sound
-        self.animationFactoryImageScaleUtil: AnimationFactoryImageScaleUtil = AnimationFactoryImageScaleUtil.getInstance()
-        self.animationFactorySpriteScaleUtil: AnimationFactorySpriteScaleUtil = AnimationFactorySpriteScaleUtil.getInstance()
-        self.captionImage: Image = None
-        self.spriteMovieImage: Image = None
-        self.frameWidth: int = None
-        self.frameHeight: int = None
-        self.captionDx: int = None
-        self.captionDy: int = None
-        self.dx: int = None
-        self.dy: int = None
-        self.time: int = None
-        self.soundInterface: Sound = None
-        self.scaleProperties: ScaleProperties = ScaleProperties.instance
-        self.animationBehaviorFactory: AnimationBehaviorFactory = None
+function initFieldsImageCaptionIndexedAnimationFactory(this::ImageCaptionIndexedAnimationFactory)
+    this.animationFactoryImageScaleUtil = nothing
+    this.animationFactorySpriteScaleUtil = nothing
+    this.captionImage = nothing
+    this.spriteMovieImage = nothing
+    this.frameWidth = Int32(0)
+    this.frameHeight = Int32(0)
+    this.captionDx = Int32(0)
+    this.captionDy = Int32(0)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.time = Int32(0)
+    this.soundInterface = nothing
+    this.scaleProperties = nothing
+    this.animationBehaviorFactory = nothing
+    this.animationFactoryImageScaleUtil = AllBinary.getInstance(AnimationFactoryImageScaleUtil)
+    this.animationFactorySpriteScaleUtil = AllBinary.getInstance(AnimationFactorySpriteScaleUtil)
     
-
-    def __init__(self, captionImage: Image, spriteMovieImage: Image, soundInterface: Sound, frameWidth: int, frameHeight: int, captionDx: int, captionDy: int, dx: int, dy: int, time: int, animationBehaviorFactory: AnimationBehaviorFactory) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        from org.allbinary.media.audio.Sound import Sound
-        self._init_fields()
-        if animationBehaviorFactory == AnimationBehaviorFactory.getInstance():
-            ForcedLogUtil.log("Using default AnimationBehaviorFactory with IndexedAnimationFactory", self)
-        self.captionImage = captionImage
-        self.spriteMovieImage = spriteMovieImage
-        self.frameWidth = frameWidth
-        self.frameHeight = frameHeight
-        self.captionDx = captionDx
-        self.captionDy = captionDy
-        self.dx = dx
-        self.dy = dy
-        self.time = time
-        self.soundInterface = soundInterface
-        self.animationBehaviorFactory = animationBehaviorFactory
     
-
-    # throws Exception
-    def getInstance(self, instanceId: int) -> Animation:
-        from org.allbinary.animation.image.sprite.SpriteIndexedAnimation import SpriteIndexedAnimation
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.game.Sprite import Sprite
-        from javax.microedition.media.Player import Player
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        from org.allbinary.animation.caption.CaptionIndexedAnimation import CaptionIndexedAnimation
-        from org.allbinary.animation.image.ImageAnimation import ImageAnimation
-        from org.allbinary.graphics.color.BasicColorUtil import BasicColorUtil
-        scaledImage: Image = self.animationFactoryImageScaleUtil.createImage(self.captionImage, self.captionImage.getWidth(), self.captionImage.getHeight(), self.scaleProperties.scaleWidth, self.scaleProperties.scaleHeight)
-        animationInterface: Animation = ImageAnimation(scaledImage, self.animationBehaviorFactory.getOrCreateInstance())
-        sprite: Sprite = self.animationFactorySpriteScaleUtil.createImage(self.spriteMovieImage, self.frameWidth, self.frameHeight, self.scaleProperties.scaleWidth, self.scaleProperties.scaleHeight)
-        movieIndexedAnimationInterface: IndexedAnimation = SpriteIndexedAnimation(sprite, self.spriteMovieImage, BasicColorUtil.getInstance().ZERO_ARRAY, self.animationBehaviorFactory.getOrCreateInstance())
-        player: Player = self.soundInterface.getPlayerP()
-        if player is None:
-            raise Exception("Sound Was not Initialized")
-        return CaptionIndexedAnimation(animationInterface, movieIndexedAnimationInterface, player, self.captionDx, self.captionDy, self.dx, self.dy, self.time, self.animationBehaviorFactory.getOrCreateInstance())
     
+    
+    
+    
+    
+    
+    
+    
+    this.scaleProperties = staticGet_instance(ScaleProperties)
+    
+    nothing
+end
 
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        self.scaleProperties = scaleProperties
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.game.Sprite import Sprite
-# from javax.microedition.media.Player import Player
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehaviorFactory import AnimationBehaviorFactory
-# from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-# from org.allbinary.animation.caption.CaptionIndexedAnimation import CaptionIndexedAnimation
-# from org.allbinary.animation.image.ImageAnimation import ImageAnimation
-# from org.allbinary.graphics.color.BasicColorUtil import BasicColorUtil
-# from org.allbinary.image.AnimationFactoryImageScaleUtil import AnimationFactoryImageScaleUtil
-# from org.allbinary.image.sprite.AnimationFactorySpriteScaleUtil import AnimationFactorySpriteScaleUtil
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-# from org.allbinary.media.ScaleProperties import ScaleProperties
-# from org.allbinary.media.audio.Sound import Sound
 
+function initImageCaptionIndexedAnimationFactory(this::ImageCaptionIndexedAnimationFactory, captionImage, spriteMovieImage, soundInterface, frameWidth, frameHeight, captionDx, captionDy, dx, dy, time, animationBehaviorFactory)
+        initFieldsImageCaptionIndexedAnimationFactory(this)
+        if animationBehaviorFactory === AllBinary.getInstance(AnimationBehaviorFactory)
+            AllBinary.log(ForcedLogUtil, "Using default AnimationBehaviorFactory with IndexedAnimationFactory", this)
+        end
+        this.captionImage = captionImage
+        this.spriteMovieImage = spriteMovieImage
+        this.frameWidth = frameWidth
+        this.frameHeight = frameHeight
+        this.captionDx = captionDx
+        this.captionDy = captionDy
+        this.dx = dx
+        this.dy = dy
+        this.time = time
+        this.soundInterface = soundInterface
+        this.animationBehaviorFactory = animationBehaviorFactory
+        nothing
+end
+
+function newImageCaptionIndexedAnimationFactory(captionImage, spriteMovieImage, soundInterface, frameWidth, frameHeight, captionDx, captionDy, dx, dy, time, animationBehaviorFactory)
+    this = ImageCaptionIndexedAnimationFactory()
+    initImageCaptionIndexedAnimationFactory(this, captionImage, spriteMovieImage, soundInterface, frameWidth, frameHeight, captionDx, captionDy, dx, dy, time, animationBehaviorFactory)
+    this
+end
+
+
+function getInstance(this::ImageCaptionIndexedAnimationFactory, instanceId)
+        local scaledImage = AllBinary.createImage(this.animationFactoryImageScaleUtil, this.captionImage, AllBinary.getWidth(this.captionImage), AllBinary.getHeight(this.captionImage), this.scaleProperties.scaleWidth, this.scaleProperties.scaleHeight)
+        local animationInterface = newImageAnimation(scaledImage, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        local sprite = AllBinary.createImage(this.animationFactorySpriteScaleUtil, this.spriteMovieImage, this.frameWidth, this.frameHeight, this.scaleProperties.scaleWidth, this.scaleProperties.scaleHeight)
+        local movieIndexedAnimationInterface = newSpriteIndexedAnimation(sprite, this.spriteMovieImage, AllBinary.getInstance(BasicColorUtil).ZERO_ARRAY, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+        local player = AllBinary.getPlayerP(this.soundInterface)
+        if player === nothing
+            throw(jNewException("Exception", "Sound Was not Initialized"))
+        end
+        return newCaptionIndexedAnimation(animationInterface, movieIndexedAnimationInterface, player, this.captionDx, this.captionDy, this.dx, this.dy, this.time, AllBinary.getOrCreateInstance(this.animationBehaviorFactory))
+end
+
+
+function setInitialScale(this::ImageCaptionIndexedAnimationFactory, scaleProperties)
+        this.scaleProperties = scaleProperties
+        nothing
+end
 

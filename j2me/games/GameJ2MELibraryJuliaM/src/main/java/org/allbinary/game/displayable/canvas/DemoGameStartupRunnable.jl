@@ -1,55 +1,81 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends ABRunnable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct DemoGameStartupRunnable <: JObject
+    logUtil::Any
+    demoCanvas::Any
+    DemoGameStartupRunnable() = new()
+end
 
-from org.allbinary.thread.ABRunnable import ABRunnable
+const DemoGameStartupRunnable_TYPEValue = Ref{Any}(nothing)
+const DemoGameStartupRunnable_TYPESet = Ref(false)
+function staticGet_TYPE(::Type{DemoGameStartupRunnable})
+    if !DemoGameStartupRunnable_TYPESet[]
+        DemoGameStartupRunnable_TYPESet[] = true
+        DemoGameStartupRunnable_TYPEValue[] = Int32(4)
+    end
+    DemoGameStartupRunnable_TYPEValue[]
+end
+function staticSet_TYPE(::Type{DemoGameStartupRunnable}, value)
+    DemoGameStartupRunnable_TYPESet[] = true
+    DemoGameStartupRunnable_TYPEValue[] = value
+end
 
-
-class DemoGameStartupRunnable(ABRunnable):
-    TYPE: int = 4
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.demoCanvas: DemoCanvas = None
+function initFieldsDemoGameStartupRunnable(this::DemoGameStartupRunnable)
+    this.logUtil = nothing
+    this.demoCanvas = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    nothing
+end
 
-    def __init__(self, demoCanvas: DemoCanvas) -> None:
-        super().__init__()
-        self._init_fields()
-        self.demoCanvas = demoCanvas
-    
 
-    def run(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.setRunning(True)
-            self.demoCanvas.stopGameDemo()
-            self.demoCanvas.create()
-            self.demoCanvas.start()
-            self.setRunning(False)
-        except Exception as e:
-            self.setRunning(False)
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.RUN, e)
-    
+function initDemoGameStartupRunnable(this::DemoGameStartupRunnable, demoCanvas)
+        initABRunnable(this)
+        initFieldsDemoGameStartupRunnable(this)
+        this.demoCanvas = demoCanvas
+        nothing
+end
 
-    def getType(self) -> int:
-        return DemoGameStartupRunnable.TYPE
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function newDemoGameStartupRunnable(demoCanvas)
+    this = DemoGameStartupRunnable()
+    initDemoGameStartupRunnable(this, demoCanvas)
+    this
+end
 
+
+function run(this::DemoGameStartupRunnable)
+        try
+            AllBinary.setRunning(this, true)
+            AllBinary.stopGameDemo(this.demoCanvas)
+            AllBinary.create(this.demoCanvas)
+            AllBinary.start(this.demoCanvas)
+            AllBinary.setRunning(this, false)
+        catch e
+            AllBinary.setRunning(this, false)
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.RUN, e)
+        end
+        nothing
+end
+
+
+function getType(this::DemoGameStartupRunnable)
+        return staticGet_TYPE(DemoGameStartupRunnable)
+end
 

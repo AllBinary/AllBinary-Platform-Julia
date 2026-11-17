@@ -1,68 +1,98 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.vector
 
-from __future__ import annotations
+mutable struct VectorInfo <: JObject
+    width::Int32
+    height::Int32
+    points::Any
+    totalFrames::Int32
+    VectorInfo() = new()
+end
 
 
-
-class VectorInfo:
-
-    def _init_fields(self) -> None:
-        self.width: int = None
-        self.height: int = None
-        self.points: list[list[int]] = None
-        self.totalFrames: int = None
+function initFieldsVectorInfo(this::VectorInfo)
+    this.width = Int32(0)
+    this.height = Int32(0)
+    this.points = nothing
+    this.totalFrames = Int32(0)
     
-
-    def __init__(self, width: int, height: int, points: list[list[int]], totalFrames: int) -> None:
-        self._init_fields()
-        self.width = width
-        self.height = height
-        self.points = points
-        self.totalFrames = totalFrames
     
-
-    def getWidth(self) -> int:
-        return self.width
     
-
-    def setWidth(self, width: int) -> None:
-        self.width = width
     
+    nothing
+end
 
-    def getHeight(self) -> int:
-        return self.height
-    
 
-    def setHeight(self, height: int) -> None:
-        self.height = height
-    
+function initVectorInfo(this::VectorInfo, width, height, points, totalFrames)
+        initFieldsVectorInfo(this)
+        this.width = width
+        this.height = height
+        this.points = points
+        this.totalFrames = totalFrames
+        nothing
+end
 
-    def getPoints(self) -> list[list[int]]:
-        return self.points
-    
+function newVectorInfo(width, height, points, totalFrames)
+    this = VectorInfo()
+    initVectorInfo(this, width, height, points, totalFrames)
+    this
+end
 
-    def setPoints(self, points: list[list[int]]) -> None:
-        self.points = points
-    
 
-    def getTotalFrames(self) -> int:
-        return self.totalFrames
-    
+function getWidth(this::VectorInfo)
+        return this.width
+end
 
-    def setTotalFrames(self, totalFrames: int) -> None:
-        self.totalFrames = totalFrames
 
+function setWidth(this::VectorInfo, width)
+        this.width = width
+        nothing
+end
+
+
+function getHeight(this::VectorInfo)
+        return this.height
+end
+
+
+function setHeight(this::VectorInfo, height)
+        this.height = height
+        nothing
+end
+
+
+function getPoints(this::VectorInfo)
+        return this.points
+end
+
+
+function setPoints(this::VectorInfo, points)
+        this.points = points
+        nothing
+end
+
+
+function getTotalFrames(this::VectorInfo)
+        return this.totalFrames
+end
+
+
+function setTotalFrames(this::VectorInfo, totalFrames)
+        this.totalFrames = totalFrames
+        nothing
+end
 

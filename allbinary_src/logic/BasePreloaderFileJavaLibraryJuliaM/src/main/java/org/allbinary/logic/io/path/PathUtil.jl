@@ -1,139 +1,171 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io.path
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #Used to correct user input for paths
-class PathUtil:
-    instance: PathUtil = None
+mutable struct PathUtil <: JObject
+    abPathData::Any
+    filePathData::Any
+    PathUtil() = new()
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.io.file.FilePathData import FilePathData
-        self.abPathData: AbPathData = AbPathData.getInstance()
-        self.filePathData: FilePathData = FilePathData.getInstance()
-    
+const PathUtil_instanceValue = Ref{Any}(nothing)
+const PathUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{PathUtil})
+    if !PathUtil_instanceSet[]
+        PathUtil_instanceSet[] = true
+        PathUtil_instanceValue[] = newPathUtil()
+    end
+    PathUtil_instanceValue[]
+end
+function staticSet_instance(::Type{PathUtil}, value)
+    PathUtil_instanceSet[] = true
+    PathUtil_instanceValue[] = value
+end
 
-    @staticmethod
-    def getInstance() -> PathUtil:
-        return PathUtil.instance
-    
+function initFieldsPathUtil(this::PathUtil)
+    this.abPathData = nothing
+    this.filePathData = nothing
+    this.abPathData = AllBinary.getInstance(AbPathData)
+    this.filePathData = AllBinary.getInstance(FilePathData)
+    nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def getExtensionWithAbFilePath(self, abFilePath: AbFilePath) -> str:
-        return self.abPathData.getExtension(str(abFilePath))
-    
+function getInstance(::Type{PathUtil})
+        return staticGet_instance(PathUtil)
+end
 
-    def getExtensionWithAbPath(self, abPath: AbPath) -> str:
-        return self.abPathData.getExtension(str(abPath))
-    
 
-    # throws Exception
-    def getWithoutExtensionWithAbFilePath(self, abFilePath: AbFilePath) -> str:
-        return self.getWithoutExtension(str(abFilePath))
-    
+function initPathUtil(this::PathUtil)
+        initFieldsPathUtil(this)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def getWithoutExtensionWithAbPath(self, abPath: AbPath) -> str:
-        return self.getWithoutExtension(str(abPath))
-    
+function newPathUtil()
+    this = PathUtil()
+    initPathUtil(this)
+    this
+end
 
-    # throws Exception
-    def getWithoutExtension(self, filePath: str) -> str:
-        indexOfFileExtensionDelmiter: int = self.abPathData.getExtensionIndex(filePath)
-        pathWithoutExtension: str = filePath
-        if indexOfFileExtensionDelmiter >= 0:
-            pathWithoutExtension = filePath[0:indexOfFileExtensionDelmiter]
+
+function getExtensionWithAbFilePath(this::PathUtil, abFilePath)
+        return AllBinary.getExtension(this.abPathData, AllBinary.toString(abFilePath))
+end
+
+
+function getExtensionWithAbPath(this::PathUtil, abPath)
+        return AllBinary.getExtension(this.abPathData, AllBinary.toString(abPath))
+end
+
+
+function getWithoutExtensionWithAbFilePath(this::PathUtil, abFilePath)
+        return AllBinary.getWithoutExtension(this, AllBinary.toString(abFilePath))
+end
+
+
+function getWithoutExtensionWithAbPath(this::PathUtil, abPath)
+        return AllBinary.getWithoutExtension(this, AllBinary.toString(abPath))
+end
+
+
+function getWithoutExtension(this::PathUtil, filePath)
+        local indexOfFileExtensionDelmiter::Int32 = AllBinary.getExtensionIndex(this.abPathData, filePath)
+        local pathWithoutExtension = filePath
+        if indexOfFileExtensionDelmiter >= Int32(0)
+            pathWithoutExtension = jSubstring(filePath, Int32(0), indexOfFileExtensionDelmiter)
+        end
         return pathWithoutExtension
-    
+end
 
-    def isValid(self, path: str) -> bool:
-        if self.isValidStart(path):
-            if self.isValidEnd(path):
-                return True
-        return False
-    
 
-    def isValidStart(self, path: str) -> bool:
-        if path[0] == self.abPathData.SEPARATORCHAR or path[0] == '.':
-            return True
-        else:
-            return False
-    
+function isValid(this::PathUtil, path)
+        if AllBinary.isValidStart(this, path)
+            if AllBinary.isValidEnd(this, path)
+                return true
+            end
+        end
+        return false
+end
 
-    def isValidEnd(self, path: str) -> bool:
-        from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-        stringValidationUtil: StringValidationUtil = StringValidationUtil.getInstance()
-        if stringValidationUtil.isEmpty(path):
-            return False
-        if path[len(path) - 1] == self.abPathData.SEPARATORCHAR:
-            return True
-        else:
-            return False
-    
 
-    def adjustStart(self, path: str) -> str:
-        if not self.isValidStart(path):
-            path = str(self.abPathData.SEPARATOR) + path
+function isValidStart(this::PathUtil, path)
+        if jCharAt(path, Int32(0)) == this.abPathData.SEPARATORCHAR || jCharAt(path, Int32(0)) == UInt16('.')
+            return true
+        else
+            return false
+        end
+end
+
+
+function isValidEnd(this::PathUtil, path)
+        local stringValidationUtil = AllBinary.getInstance(StringValidationUtil)
+        if AllBinary.isEmpty(stringValidationUtil, path)
+            return false
+        end
+        if jCharAt(path, jLength(path) - Int32(1)) == this.abPathData.SEPARATORCHAR
+            return true
+        else
+            return false
+        end
+end
+
+
+function adjustStart(this::PathUtil, path)
+        if !AllBinary.isValidStart(this, path)
+            path = jstr(this.abPathData.SEPARATOR) * jstr(path)
+        end
         return path
-    
+end
 
-    def adjustEnd(self, path: str) -> str:
-        if not self.isValidEnd(path):
-            path = path + str(self.abPathData.SEPARATOR)
+
+function adjustEnd(this::PathUtil, path)
+        if !AllBinary.isValidEnd(this, path)
+            path = jstr(path) * jstr(this.abPathData.SEPARATOR)
+        end
         return path
-    
+end
 
-    def adjust(self, path: str) -> str:
-        from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-        stringValidationUtil: StringValidationUtil = StringValidationUtil.getInstance()
-        if stringValidationUtil.isEmpty(path):
-            return self.abPathData.SEPARATOR
-        if path.find("\\") >= 0:
-            path = path.replace('\\', self.abPathData.SEPARATORCHAR)
+
+function adjust(this::PathUtil, path)
+        local stringValidationUtil = AllBinary.getInstance(StringValidationUtil)
+        if AllBinary.isEmpty(stringValidationUtil, path)
+            return this.abPathData.SEPARATOR
+        end
+        if jIndexOf(path, "\\") >= Int32(0)
+            path = jReplace(path, UInt16('\\'), this.abPathData.SEPARATORCHAR)
+        end
         return path
-    
-
-    # throws Exception
-    def removeNameFromPath(self, path: str) -> AbPath:
-        from org.allbinary.logic.io.path.AbPath import AbPath
-        from org.allbinary.logic.io.path.AbPath import AbPath
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        endIndex: int = path.rfind(self.abPathData.SEPARATOR)
-        if endIndex < 0:
-            endIndex = path.rfind(self.filePathData.SEPARATORCHAR)
-        if endIndex < 0:
-            return AbPath.createAbPath()
-        if len(path) == endIndex + 1:
-            return self.removeNameFromPath(path[0:endIndex - 1])
-        else:
-            pathWithoutName: str = path[0:endIndex]
-            return AbPath(pathWithoutName, StringUtil.getInstance().EMPTY_STRING)
-# from org.allbinary.logic.io.file.FilePathData import FilePathData
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.string.StringValidationUtil import StringValidationUtil
-from org.allbinary.logic.io.path.AbPathData import AbPathData
+end
 
 
-def _PathUtil_instance() -> object:
-    return PathUtil()
-
-lazy_static(PathUtil, "instance", _PathUtil_instance)
+function removeNameFromPath(this::PathUtil, path)
+        local endIndex::Int32 = jLastIndexOf(path, this.abPathData.SEPARATOR)
+        if endIndex < Int32(0)
+            endIndex = jLastIndexOf(path, this.filePathData.SEPARATORCHAR)
+        end
+        if endIndex < Int32(0)
+            return AllBinary.createAbPath(AbPath)
+        end
+        if jLength(path) == endIndex + Int32(1)
+            return AllBinary.removeNameFromPath(this, jSubstring(path, Int32(0), endIndex - Int32(1)))
+        else
+            local pathWithoutName = jSubstring(path, Int32(0), endIndex)
+            return newAbPath(pathWithoutName, AllBinary.getInstance(StringUtil).EMPTY_STRING)
+        end
+end
 

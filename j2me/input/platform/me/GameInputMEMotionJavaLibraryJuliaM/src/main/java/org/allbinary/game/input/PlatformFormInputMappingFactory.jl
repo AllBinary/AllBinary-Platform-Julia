@@ -1,71 +1,83 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input
 
-from __future__ import annotations
+mutable struct PlatformFormInputMappingFactory <: JObject
+    logUtil::Any
+    inputToGameKeyMapping::Any
+    PlatformFormInputMappingFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const PlatformFormInputMappingFactory_instanceValue = Ref{Any}(nothing)
+const PlatformFormInputMappingFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{PlatformFormInputMappingFactory})
+    if !PlatformFormInputMappingFactory_instanceSet[]
+        PlatformFormInputMappingFactory_instanceSet[] = true
+        PlatformFormInputMappingFactory_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    PlatformFormInputMappingFactory_instanceValue[]
+end
+function staticSet_instance(::Type{PlatformFormInputMappingFactory}, value)
+    PlatformFormInputMappingFactory_instanceSet[] = true
+    PlatformFormInputMappingFactory_instanceValue[] = value
+end
 
+function initFieldsPlatformFormInputMappingFactory(this::PlatformFormInputMappingFactory)
+    this.logUtil = nothing
+    this.inputToGameKeyMapping = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.inputToGameKeyMapping = AllBinary.getNullInstance(InputToGameKeyMapping)
+    nothing
+end
 
-class PlatformFormInputMappingFactory:
-    instance: object = None
+function initPlatformFormInputMappingFactory(this::PlatformFormInputMappingFactory)
+    initFieldsPlatformFormInputMappingFactory(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.inputToGameKeyMapping: InputToGameKeyMapping = InputToGameKeyMapping.getNullInstance()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> PlatformFormInputMappingFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if PlatformFormInputMappingFactory.instance == NullUtil.getInstance().NULL_OBJECT:
-            PlatformFormInputMappingFactory.instance = PlatformFormInputMappingFactory()
-        return PlatformFormInputMappingFactory.instance
-    
-
-    def getOrCreate(self) -> InputToGameKeyMapping:
-        from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            if self.inputToGameKeyMapping == InputToGameKeyMapping.getNullInstance():
-                inputToGameKeyMapping: InputToGameKeyMapping = InputToGameKeyMapping()
-                gameKeyFactory: GameKeyFactory = GameKeyFactory.getInstance()
-                inputToGameKeyMapping.add(gameKeyFactory.UP, gameKeyFactory.UP)
-                inputToGameKeyMapping.add(gameKeyFactory.DOWN, gameKeyFactory.DOWN)
-                inputToGameKeyMapping.add(gameKeyFactory.LEFT, gameKeyFactory.LEFT)
-                inputToGameKeyMapping.add(gameKeyFactory.RIGHT, gameKeyFactory.RIGHT)
-                inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM1, gameKeyFactory.GAME_A)
-                self.inputToGameKeyMapping = inputToGameKeyMapping
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.GET_INSTANCE, e)
-        return self.inputToGameKeyMapping
-# from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function newPlatformFormInputMappingFactory()
+    this = PlatformFormInputMappingFactory()
+    initPlatformFormInputMappingFactory(this)
+    this
+end
 
 
-def _PlatformFormInputMappingFactory_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{PlatformFormInputMappingFactory})
+        if staticGet_instance(PlatformFormInputMappingFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(PlatformFormInputMappingFactory, newPlatformFormInputMappingFactory())
+        end
+        return (staticGet_instance(PlatformFormInputMappingFactory))
+end
 
-lazy_static(PlatformFormInputMappingFactory, "instance", _PlatformFormInputMappingFactory_instance)
+
+function getOrCreate(this::PlatformFormInputMappingFactory)
+        try
+            if this.inputToGameKeyMapping === AllBinary.getNullInstance(InputToGameKeyMapping)
+                local inputToGameKeyMapping = newInputToGameKeyMapping()
+                local gameKeyFactory = AllBinary.getInstance(GameKeyFactory)
+                AllBinary.add(inputToGameKeyMapping, gameKeyFactory.UP, gameKeyFactory.UP)
+                AllBinary.add(inputToGameKeyMapping, gameKeyFactory.DOWN, gameKeyFactory.DOWN)
+                AllBinary.add(inputToGameKeyMapping, gameKeyFactory.LEFT, gameKeyFactory.LEFT)
+                AllBinary.add(inputToGameKeyMapping, gameKeyFactory.RIGHT, gameKeyFactory.RIGHT)
+                AllBinary.add(inputToGameKeyMapping, gameKeyFactory.KEY_NUM1, gameKeyFactory.GAME_A)
+                this.inputToGameKeyMapping = inputToGameKeyMapping
+            end
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.GET_INSTANCE, e)
+        end
+        return this.inputToGameKeyMapping
+end
 

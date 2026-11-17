@@ -1,46 +1,59 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AnimationEventHandler <: JObject
+    AnimationEventHandler() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const AnimationEventHandler_eventHandlerValue = Ref{Any}(nothing)
+const AnimationEventHandler_eventHandlerSet = Ref(false)
+function staticGet_eventHandler(::Type{AnimationEventHandler})
+    if !AnimationEventHandler_eventHandlerSet[]
+        AnimationEventHandler_eventHandlerSet[] = true
+        AnimationEventHandler_eventHandlerValue[] = newAnimationEventHandler()
+    end
+    AnimationEventHandler_eventHandlerValue[]
+end
+function staticSet_eventHandler(::Type{AnimationEventHandler}, value)
+    AnimationEventHandler_eventHandlerSet[] = true
+    AnimationEventHandler_eventHandlerValue[] = value
+end
 
-
-class AnimationEventHandler(BasicEventHandler):
-    eventHandler: AnimationEventHandler = None
-    _lock = threading.RLock()
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    @staticmethod
-    def getInstance() -> AnimationEventHandler:
-        with AnimationEventHandler._lock:
-            return AnimationEventHandler._getInstance_unlocked()
-
-    @staticmethod
-    def _getInstance_unlocked() -> AnimationEventHandler:
-        return AnimationEventHandler.eventHandler
+function initFieldsAnimationEventHandler(this::AnimationEventHandler)
+    nothing
+end
 
 
-def _AnimationEventHandler_eventHandler() -> object:
-    return AnimationEventHandler()
+function initAnimationEventHandler(this::AnimationEventHandler)
+        initBasicEventHandler(this)
+        initFieldsAnimationEventHandler(this)
+        nothing
+        nothing
+end
 
-lazy_static(AnimationEventHandler, "eventHandler", _AnimationEventHandler_eventHandler)
+function newAnimationEventHandler()
+    this = AnimationEventHandler()
+    initAnimationEventHandler(this)
+    this
+end
+
+
+function getInstance(::Type{AnimationEventHandler})
+        return staticGet_eventHandler(AnimationEventHandler)
+end
 

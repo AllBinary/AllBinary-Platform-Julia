@@ -1,50 +1,65 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.resources
 
-from __future__ import annotations
+mutable struct KeyValueFactory <: JObject
+    MAP::Any
+    KeyValueFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const KeyValueFactory_instanceValue = Ref{Any}(nothing)
+const KeyValueFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{KeyValueFactory})
+    if !KeyValueFactory_instanceSet[]
+        KeyValueFactory_instanceSet[] = true
+        KeyValueFactory_instanceValue[] = newKeyValueFactory()
+    end
+    KeyValueFactory_instanceValue[]
+end
+function staticSet_instance(::Type{KeyValueFactory}, value)
+    KeyValueFactory_instanceSet[] = true
+    KeyValueFactory_instanceValue[] = value
+end
+
+function initFieldsKeyValueFactory(this::KeyValueFactory)
+    this.MAP = nothing
+    this.MAP = AllBinary.createHashtable(AllBinary.getInstance(StdUtil))
+    nothing
+end
+
+function initKeyValueFactory(this::KeyValueFactory)
+    initFieldsKeyValueFactory(this)
+end
+
+function newKeyValueFactory()
+    this = KeyValueFactory()
+    initKeyValueFactory(this)
+    this
+end
 
 
-class KeyValueFactory:
-    instance: KeyValueFactory = None
+function getInstance(::Type{KeyValueFactory})
+        return staticGet_instance(KeyValueFactory)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.StdUtil import StdUtil
-        from org.allbinary.util.ABHashtable import ABHashtable
-        self.MAP: ABHashtable[object, object] = StdUtil.getInstance().createHashtable()
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> KeyValueFactory:
-        return KeyValueFactory.instance
-    
-
-    def get(self, key: str) -> str:
-        if not self.MAP.containsKey(key):
+function get(this::KeyValueFactory, key)
+        if !AllBinary.containsKey(this.MAP, (key))
             return key
-        return self.MAP.get(key)
-# from org.allbinary.logic.StdUtil import StdUtil
-# from org.allbinary.util.ABHashtable import ABHashtable
-
-
-def _KeyValueFactory_instance() -> object:
-    return KeyValueFactory()
-
-lazy_static(KeyValueFactory, "instance", _KeyValueFactory_instance)
+        end
+        return (AllBinary.get(this.MAP, (key)))
+end
 

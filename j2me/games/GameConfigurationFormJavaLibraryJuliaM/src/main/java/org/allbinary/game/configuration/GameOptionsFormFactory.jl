@@ -1,61 +1,71 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration
 
-from __future__ import annotations
+mutable struct GameOptionsFormFactory <: JObject
+    logUtil::Any
+    GameOptionsFormFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameOptionsFormFactory_instanceValue = Ref{Any}(nothing)
+const GameOptionsFormFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameOptionsFormFactory})
+    if !GameOptionsFormFactory_instanceSet[]
+        GameOptionsFormFactory_instanceSet[] = true
+        GameOptionsFormFactory_instanceValue[] = newGameOptionsFormFactory()
+    end
+    GameOptionsFormFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GameOptionsFormFactory}, value)
+    GameOptionsFormFactory_instanceSet[] = true
+    GameOptionsFormFactory_instanceValue[] = value
+end
 
-
-class GameOptionsFormFactory:
-    instance: GameOptionsFormFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GameOptionsFormFactory:
-        return GameOptionsFormFactory.instance
-    
-
-    def init(self, commandListener: CommandListener, title: str, backgrounBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> CommandForm:
-        from org.allbinary.game.configuration.GameOptionsForm import GameOptionsForm
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.displayable.screen.CommandForm import CommandForm
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            return GameOptionsForm(commandListener, title, backgrounBasicColor, foregroundBasicColor)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.INIT, e)
-            return CommandForm.getNullCommandForm()
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.displayable.screen.CommandForm import CommandForm
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function initFieldsGameOptionsFormFactory(this::GameOptionsFormFactory)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
 
 
-def _GameOptionsFormFactory_instance() -> object:
-    return GameOptionsFormFactory()
+function initGameOptionsFormFactory(this::GameOptionsFormFactory)
+        initFieldsGameOptionsFormFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(GameOptionsFormFactory, "instance", _GameOptionsFormFactory_instance)
+function newGameOptionsFormFactory()
+    this = GameOptionsFormFactory()
+    initGameOptionsFormFactory(this)
+    this
+end
+
+
+function getInstance(::Type{GameOptionsFormFactory})
+        return staticGet_instance(GameOptionsFormFactory)
+end
+
+
+function init(this::GameOptionsFormFactory, commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        try
+            return newGameOptionsForm(commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.INIT, e)
+            return AllBinary.getNullCommandForm(CommandForm)
+        end
+end
 

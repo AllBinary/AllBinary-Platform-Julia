@@ -1,30 +1,41 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+mutable struct HighScoresCanvasChangeLevelInputProcessorFactory <: JObject
+    HighScoresCanvasChangeLevelInputProcessorFactory() = new()
+end
 
-from org.allbinary.game.score.HighScoresCanvasInputProcessorFactoryInterface import HighScoresCanvasInputProcessorFactoryInterface
+
+function initFieldsHighScoresCanvasChangeLevelInputProcessorFactory(this::HighScoresCanvasChangeLevelInputProcessorFactory)
+    nothing
+end
+
+function initHighScoresCanvasChangeLevelInputProcessorFactory(this::HighScoresCanvasChangeLevelInputProcessorFactory)
+    initFieldsHighScoresCanvasChangeLevelInputProcessorFactory(this)
+end
+
+function newHighScoresCanvasChangeLevelInputProcessorFactory()
+    this = HighScoresCanvasChangeLevelInputProcessorFactory()
+    initHighScoresCanvasChangeLevelInputProcessorFactory(this)
+    this
+end
 
 
-class HighScoresCanvasChangeLevelInputProcessorFactory(HighScoresCanvasInputProcessorFactoryInterface):
-    
-
-    def getInstance(self, highScoresCanvas: HighScoresCanvas) -> HighScoresCanvasInputProcessor:
-        from org.allbinary.game.score.HighScoresCanvasLevelChangeInputProcessor import HighScoresCanvasLevelChangeInputProcessor
-        from org.allbinary.game.score.displayable.HighScoresCanvas import HighScoresCanvas
-        return HighScoresCanvasLevelChangeInputProcessor(highScoresCanvas)
-# from org.allbinary.game.score.displayable.HighScoresCanvas import HighScoresCanvas
-
+function getInstance(this::HighScoresCanvasChangeLevelInputProcessorFactory, highScoresCanvas)
+        return newHighScoresCanvasLevelChangeInputProcessor(highScoresCanvas)
+end
 

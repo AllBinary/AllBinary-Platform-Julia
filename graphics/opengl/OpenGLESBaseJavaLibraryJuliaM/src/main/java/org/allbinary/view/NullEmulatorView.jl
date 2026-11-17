@@ -1,46 +1,67 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.view
 
-from __future__ import annotations
+mutable struct NullEmulatorView <: JObject
+    NullEmulatorView() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.view.EmulatorViewInterface import EmulatorViewInterface
+const NullEmulatorView_NULL_EMULATOR_VIEWValue = Ref{Any}(nothing)
+const NullEmulatorView_NULL_EMULATOR_VIEWSet = Ref(false)
+function staticGet_NULL_EMULATOR_VIEW(::Type{NullEmulatorView})
+    if !NullEmulatorView_NULL_EMULATOR_VIEWSet[]
+        NullEmulatorView_NULL_EMULATOR_VIEWSet[] = true
+        NullEmulatorView_NULL_EMULATOR_VIEWValue[] = newNullEmulatorView()
+    end
+    NullEmulatorView_NULL_EMULATOR_VIEWValue[]
+end
+function staticSet_NULL_EMULATOR_VIEW(::Type{NullEmulatorView}, value)
+    NullEmulatorView_NULL_EMULATOR_VIEWSet[] = true
+    NullEmulatorView_NULL_EMULATOR_VIEWValue[] = value
+end
+
+function initFieldsNullEmulatorView(this::NullEmulatorView)
+    nothing
+end
+
+function initNullEmulatorView(this::NullEmulatorView)
+    initFieldsNullEmulatorView(this)
+end
+
+function newNullEmulatorView()
+    this = NullEmulatorView()
+    initNullEmulatorView(this)
+    this
+end
 
 
-class NullEmulatorView(EmulatorViewInterface):
-    NULL_EMULATOR_VIEW: NullEmulatorView = None
-    
-
-    def setMidlet(self, midlet: MIDlet) -> None:
-        from javax.microedition.midlet.MIDlet import MIDlet
-        pass
-    
-
-    def onEmulatorInitComplete(self, midletActivity: object) -> None:
-        pass
-    
-
-    def onSetDisplayable(self, displayable: Displayable) -> None:
-        from javax.microedition.lcdui.Displayable import Displayable
-        pass
-# from javax.microedition.lcdui.Displayable import Displayable
-# from javax.microedition.midlet.MIDlet import MIDlet
+function setMidlet(this::NullEmulatorView, midlet)
+        nothing
+        nothing
+end
 
 
-def _NullEmulatorView_NULL_EMULATOR_VIEW() -> object:
-    return NullEmulatorView()
+function onEmulatorInitComplete(this::NullEmulatorView, midletActivity)
+        nothing
+        nothing
+end
 
-lazy_static(NullEmulatorView, "NULL_EMULATOR_VIEW", _NullEmulatorView_NULL_EMULATOR_VIEW)
+
+function onSetDisplayable(this::NullEmulatorView, displayable)
+        nothing
+        nothing
+end
 

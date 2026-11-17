@@ -1,44 +1,62 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.emulator.swt
 
-from __future__ import annotations
+# extends SWTProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SWTRunnableProcessor <: JObject
+    SWTRunnableProcessor() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.emulator.swt.SWTProcessor import SWTProcessor
+const SWTRunnableProcessor_instanceRValue = Ref{Any}(nothing)
+const SWTRunnableProcessor_instanceRSet = Ref(false)
+function staticGet_instanceR(::Type{SWTRunnableProcessor})
+    if !SWTRunnableProcessor_instanceRSet[]
+        SWTRunnableProcessor_instanceRSet[] = true
+        SWTRunnableProcessor_instanceRValue[] = newSWTRunnableProcessor()
+    end
+    SWTRunnableProcessor_instanceRValue[]
+end
+function staticSet_instanceR(::Type{SWTRunnableProcessor}, value)
+    SWTRunnableProcessor_instanceRSet[] = true
+    SWTRunnableProcessor_instanceRValue[] = value
+end
+
+function initFieldsSWTRunnableProcessor(this::SWTRunnableProcessor)
+    nothing
+end
+
+function initSWTRunnableProcessor(this::SWTRunnableProcessor)
+    initSWTProcessor(this)
+    initFieldsSWTRunnableProcessor(this)
+end
+
+function newSWTRunnableProcessor()
+    this = SWTRunnableProcessor()
+    initSWTRunnableProcessor(this)
+    this
+end
 
 
-class SWTRunnableProcessor(SWTProcessor):
-    instanceR: SWTRunnableProcessor = None
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    @staticmethod
-    def getInstance() -> SWTRunnableProcessor:
-        return SWTRunnableProcessor.instanceR
-    
-
-    def process(self, display: Display) -> None:
-        from org.eclipse.swt.widgets.Display import Display
-        pass
-# from org.eclipse.swt.widgets.Display import Display
+function getInstance(::Type{SWTRunnableProcessor})
+        return staticGet_instanceR(SWTRunnableProcessor)
+end
 
 
-def _SWTRunnableProcessor_instanceR() -> object:
-    return SWTRunnableProcessor()
-
-lazy_static(SWTRunnableProcessor, "instanceR", _SWTRunnableProcessor_instanceR)
+function process(this::SWTRunnableProcessor, display)
+        nothing
+        nothing
+end
 

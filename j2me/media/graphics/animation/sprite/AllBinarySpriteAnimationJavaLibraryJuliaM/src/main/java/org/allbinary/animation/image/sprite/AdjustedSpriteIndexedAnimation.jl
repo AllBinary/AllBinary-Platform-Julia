@@ -1,63 +1,70 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image.sprite
 
-from __future__ import annotations
+# extends SpriteIndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AdjustedSpriteIndexedAnimation <: JObject
+    dx::Int32
+    dy::Int32
+    AdjustedSpriteIndexedAnimation() = new()
+end
 
-from org.allbinary.animation.image.sprite.SpriteIndexedAnimation import SpriteIndexedAnimation
 
-
-class AdjustedSpriteIndexedAnimation(SpriteIndexedAnimation):
-
-    def _init_fields(self) -> None:
-        self.dx: int = None
-        self.dy: int = None
+function initFieldsAdjustedSpriteIndexedAnimation(this::AdjustedSpriteIndexedAnimation)
+    this.dx = Int32(0)
+    this.dy = Int32(0)
     
-
-    def __init__(self, sprite: Sprite, image: Image, basicColorArray: list[BasicColor], dx: int, dy: int, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.game.Sprite import Sprite
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(sprite, image, basicColorArray, animationBehavior)
-        self._init_fields()
-        self.dx = dx
-        self.dy = dy
     
+    nothing
+end
 
-    def paintFrame(self, graphics: Graphics, frame: int, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.setFrame(frame)
-        self.sprite.setPosition(x + self.dx, y + self.dy)
-        super().paint(graphics)
-    
 
-    def paintXY(self, g: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.sprite.setPosition(x + self.dx, y + self.dy)
-        super().paint(g)
-    
+function initAdjustedSpriteIndexedAnimation(this::AdjustedSpriteIndexedAnimation, sprite, image, basicColorArray, dx, dy, animationBehavior)
+        initSpriteIndexedAnimation(this, sprite, image, basicColorArray, animationBehavior)
+        initFieldsAdjustedSpriteIndexedAnimation(this)
+        this.dx = dx
+        this.dy = dy
+        nothing
+end
 
-    def paint(self, g: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.sprite.setPosition(self.dx, self.dy)
-        super().paint(g)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.game.Sprite import Sprite
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorUtil import BasicColorUtil
+function newAdjustedSpriteIndexedAnimation(sprite, image, basicColorArray, dx, dy, animationBehavior)
+    this = AdjustedSpriteIndexedAnimation()
+    initAdjustedSpriteIndexedAnimation(this, sprite, image, basicColorArray, dx, dy, animationBehavior)
+    this
+end
 
+
+function paintFrame(this::AdjustedSpriteIndexedAnimation, graphics, frame, x, y)
+        AllBinary.setFrame(this, frame)
+        AllBinary.setPosition(this.sprite, x + this.dx, y + this.dy)
+        AllBinary.paint(this, graphics)
+        nothing
+end
+
+
+function paintXY(this::AdjustedSpriteIndexedAnimation, g, x, y)
+        AllBinary.setPosition(this.sprite, x + this.dx, y + this.dy)
+        AllBinary.paint(this, g)
+        nothing
+end
+
+
+function paint(this::AdjustedSpriteIndexedAnimation, g)
+        AllBinary.setPosition(this.sprite, this.dx, this.dy)
+        AllBinary.paint(this, g)
+        nothing
+end
 

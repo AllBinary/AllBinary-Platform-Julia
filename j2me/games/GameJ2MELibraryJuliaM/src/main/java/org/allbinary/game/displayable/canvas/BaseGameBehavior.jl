@@ -1,112 +1,131 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends DemoGameBehavior: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BaseGameBehavior <: JObject
+    BaseGameBehavior() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.displayable.canvas.DemoGameBehavior import DemoGameBehavior
+const BaseGameBehavior_instanceCValue = Ref{Any}(nothing)
+const BaseGameBehavior_instanceCSet = Ref(false)
+function staticGet_instanceC(::Type{BaseGameBehavior})
+    if !BaseGameBehavior_instanceCSet[]
+        BaseGameBehavior_instanceCSet[] = true
+        BaseGameBehavior_instanceCValue[] = newBaseGameBehavior()
+    end
+    BaseGameBehavior_instanceCValue[]
+end
+function staticSet_instanceC(::Type{BaseGameBehavior}, value)
+    BaseGameBehavior_instanceCSet[] = true
+    BaseGameBehavior_instanceCValue[] = value
+end
 
+function initFieldsBaseGameBehavior(this::BaseGameBehavior)
+    nothing
+end
 
-class BaseGameBehavior(DemoGameBehavior):
-    instanceC: BaseGameBehavior = None
+function initBaseGameBehavior(this::BaseGameBehavior)
+    initDemoGameBehavior(this)
+    initFieldsBaseGameBehavior(this)
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    @staticmethod
-    def getInstance() -> DemoGameBehavior:
-        return BaseGameBehavior.instanceC
-    
-
-    # throws Exception
-    def init(self) -> None:
-        from org.allbinary.business.advertisement.GameAdStateFactory import GameAdStateFactory
-        from org.allbinary.game.GameAdState import GameAdState
-        gameAdState: GameAdState = GameAdStateFactory.getInstance().getCurrentInstance()
-        gameAdState.playingAdState()
-    
-
-    def pause(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.graphics.opengles.CurrentDisplayableFactory import CurrentDisplayableFactory
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        features: Features = Features.getInstance()
-        if features.isDefault(OpenGLFeatureFactory.getInstance().OPENGL_AS_GAME_THREAD):
-            currentDisplayableFactory: CurrentDisplayableFactory = CurrentDisplayableFactory.getInstance()
-            currentDisplayableFactory.setRunnable(allBinaryGameCanvas.gamePauseRunnable)
-    
-
-    def unPause(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        from org.allbinary.game.configuration.feature.Features import Features
-        from org.allbinary.graphics.opengles.CurrentDisplayableFactory import CurrentDisplayableFactory
-        from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-        if Features.getInstance().isDefault(OpenGLFeatureFactory.getInstance().OPENGL_AS_GAME_THREAD):
-            currentDisplayableFactory: CurrentDisplayableFactory = CurrentDisplayableFactory.getInstance()
-            currentDisplayableFactory.setRunnable(allBinaryGameCanvas.gameRunnable)
-            currentDisplayableFactory.setDisplayable(allBinaryGameCanvas)
-    
-
-    # throws Exception
-    def updateTouch(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.updateTouch2()
-    
-
-    # throws Exception
-    def updateScreenButtonPaintable(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.updateScreenButtonPaintable2()
-    
-
-    # throws Exception
-    def setGameState(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.updateGameState()
-    
-
-    def removeAllGameKeyInputListeners(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.removeAllGameKeyInputListeners2()
-    
-
-    # throws Exception
-    def updateEndGameProcessor(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.updateEndGameProcessor2()
-    
-
-    # throws Exception
-    def buildGame(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.buildGame2()
-    
-
-    # throws Exception
-    def run(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        allBinaryGameCanvas.run2()
-    
-
-    # throws Exception
-    def setHighScore(self, abeClientInformation: AbeClientInformationInterface, allBinaryGameCanvas: AllBinaryGameCanvas, name: str, score: int, autoSubmit: bool, isLast: bool) -> None:
-        from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
-        allBinaryGameCanvas.setHighScore2(abeClientInformation, name, score, autoSubmit, isLast)
-# from org.allbinary.business.advertisement.GameAdStateFactory import GameAdStateFactory
-# from org.allbinary.game.GameAdState import GameAdState
-# from org.allbinary.game.configuration.feature.Features import Features
-# from org.allbinary.graphics.opengles.CurrentDisplayableFactory import CurrentDisplayableFactory
-# from org.allbinary.graphics.opengles.OpenGLFeatureFactory import OpenGLFeatureFactory
-# from org.allbinary.logic.system.security.licensing.AbeClientInformationInterface import AbeClientInformationInterface
+function newBaseGameBehavior()
+    this = BaseGameBehavior()
+    initBaseGameBehavior(this)
+    this
+end
 
 
-def _BaseGameBehavior_instanceC() -> object:
-    return BaseGameBehavior()
+function getInstance(::Type{BaseGameBehavior})
+        return staticGet_instanceC(BaseGameBehavior)
+end
 
-lazy_static(BaseGameBehavior, "instanceC", _BaseGameBehavior_instanceC)
+
+function init(this::BaseGameBehavior)
+        local gameAdState = AllBinary.getCurrentInstance(AllBinary.getInstance(GameAdStateFactory))
+        AllBinary.playingAdState(gameAdState)
+        nothing
+end
+
+
+function pause(this::BaseGameBehavior, allBinaryGameCanvas)
+        local features = AllBinary.getInstance(Features)
+        if AllBinary.isDefault(features, AllBinary.getInstance(OpenGLFeatureFactory).OPENGL_AS_GAME_THREAD)
+            local currentDisplayableFactory = AllBinary.getInstance(CurrentDisplayableFactory)
+            AllBinary.setRunnable(currentDisplayableFactory, allBinaryGameCanvas.gamePauseRunnable)
+        end
+        nothing
+end
+
+
+function unPause(this::BaseGameBehavior, allBinaryGameCanvas)
+        if AllBinary.isDefault(AllBinary.getInstance(Features), AllBinary.getInstance(OpenGLFeatureFactory).OPENGL_AS_GAME_THREAD)
+            local currentDisplayableFactory = AllBinary.getInstance(CurrentDisplayableFactory)
+            AllBinary.setRunnable(currentDisplayableFactory, allBinaryGameCanvas.gameRunnable)
+            AllBinary.setDisplayable(currentDisplayableFactory, allBinaryGameCanvas)
+        end
+        nothing
+end
+
+
+function updateTouch(this::BaseGameBehavior, allBinaryGameCanvas)
+        AllBinary.updateTouch2(allBinaryGameCanvas)
+        nothing
+end
+
+
+function updateScreenButtonPaintable(this::BaseGameBehavior, allBinaryGameCanvas)
+        AllBinary.updateScreenButtonPaintable2(allBinaryGameCanvas)
+        nothing
+end
+
+
+function setGameState(this::BaseGameBehavior, allBinaryGameCanvas)
+        AllBinary.updateGameState(allBinaryGameCanvas)
+        nothing
+end
+
+
+function removeAllGameKeyInputListeners(this::BaseGameBehavior, allBinaryGameCanvas)
+        AllBinary.removeAllGameKeyInputListeners2(allBinaryGameCanvas)
+        nothing
+end
+
+
+function updateEndGameProcessor(this::BaseGameBehavior, allBinaryGameCanvas)
+        AllBinary.updateEndGameProcessor2(allBinaryGameCanvas)
+        nothing
+end
+
+
+function buildGame(this::BaseGameBehavior, allBinaryGameCanvas)
+        AllBinary.buildGame2(allBinaryGameCanvas)
+        nothing
+end
+
+
+function run(this::BaseGameBehavior, allBinaryGameCanvas)
+        AllBinary.run2(allBinaryGameCanvas)
+        nothing
+end
+
+
+function setHighScore(this::BaseGameBehavior, abeClientInformation, allBinaryGameCanvas, name, score, autoSubmit, isLast)
+        AllBinary.setHighScore2(allBinaryGameCanvas, abeClientInformation, name, score, autoSubmit, isLast)
+        nothing
+end
 

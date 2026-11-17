@@ -1,36 +1,46 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.paint
 
-from __future__ import annotations
+# extends ColorFillPaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct OverScanColorFillPaintable <: JObject
+    OverScanColorFillPaintable() = new()
+end
 
-from org.allbinary.game.paint.ColorFillPaintable import ColorFillPaintable
+
+function initFieldsOverScanColorFillPaintable(this::OverScanColorFillPaintable)
+    nothing
+end
 
 
-class OverScanColorFillPaintable(ColorFillPaintable):
-    
+function initOverScanColorFillPaintable(this::OverScanColorFillPaintable, basicColor)
+        initColorFillPaintable(this, basicColor)
+        nothing
+end
 
-    def __init__(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(basicColor)
-    
+function newOverScanColorFillPaintable(basicColor)
+    this = OverScanColorFillPaintable()
+    initOverScanColorFillPaintable(this, basicColor)
+    this
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        graphics.setColor(self.colorP)
-        graphics.fillRect(-graphics.getClipX(), -graphics.getClipY(), self.displayInfoSingleton.getLastWidth() + (graphics.getClipX() * 2), self.displayInfoSingleton.getLastHeight() + (graphics.getClipY() * 2))
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
 
+function paint(this::OverScanColorFillPaintable, graphics)
+        AllBinary.setColor(graphics, this.colorP)
+        AllBinary.fillRect(graphics, -AllBinary.getClipX(graphics), -AllBinary.getClipY(graphics), AllBinary.getLastWidth(this.displayInfoSingleton) + (AllBinary.getClipX(graphics) * Int32(2)), AllBinary.getLastHeight(this.displayInfoSingleton) + (AllBinary.getClipY(graphics) * Int32(2)))
+        nothing
+end
 

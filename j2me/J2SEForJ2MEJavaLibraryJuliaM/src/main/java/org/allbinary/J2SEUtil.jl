@@ -1,56 +1,73 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary
 
-from __future__ import annotations
-
-from java.lang.JavaRuntimeStatic import lazy_static
-
-
 #J2SEForJ2ME
-class J2SEUtil:
-    instance: J2SEUtil = None
-    
+mutable struct J2SEUtil <: JObject
+    J2SEUtil() = new()
+end
 
-    @staticmethod
-    def getInstance() -> J2SEUtil:
-        return J2SEUtil.instance
-    
+const J2SEUtil_instanceValue = Ref{Any}(nothing)
+const J2SEUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{J2SEUtil})
+    if !J2SEUtil_instanceSet[]
+        J2SEUtil_instanceSet[] = true
+        J2SEUtil_instanceValue[] = newJ2SEUtil()
+    end
+    J2SEUtil_instanceValue[]
+end
+function staticSet_instance(::Type{J2SEUtil}, value)
+    J2SEUtil_instanceSet[] = true
+    J2SEUtil_instanceValue[] = value
+end
 
-    def getHashMapAsArray(self, hashMap: HashMap[object, object]) -> list[object]:
-        from java.util.HashMap import HashMap
-        objectArray: list[object] = hashMap.keySet().toArray()
+function initFieldsJ2SEUtil(this::J2SEUtil)
+    nothing
+end
+
+function initJ2SEUtil(this::J2SEUtil)
+    initFieldsJ2SEUtil(this)
+end
+
+function newJ2SEUtil()
+    this = J2SEUtil()
+    initJ2SEUtil(this)
+    this
+end
+
+
+function getInstance(::Type{J2SEUtil})
+        return staticGet_instance(J2SEUtil)
+end
+
+
+function getHashMapAsArray(this::J2SEUtil, hashMap)
+        local objectArray = AllBinary.toArray(AllBinary.keySet(hashMap))
         return objectArray
-    
+end
 
-    def getMapAsArray(self, map: Map[object, object]) -> list[object]:
-        from java.util.Map import Map
-        objectArray: list[object] = map.keySet().toArray()
+
+function getMapAsArray(this::J2SEUtil, map)
+        local objectArray = AllBinary.toArray(AllBinary.keySet(map))
         return objectArray
-    
+end
 
-    def getSetAsArray(self, set: Set[str]) -> list[object]:
-        from java.util.Set import Set
-        objectArray: list[object] = set.toArray()
+
+function getSetAsArray(this::J2SEUtil, set)
+        local objectArray = AllBinary.toArray(set)
         return objectArray
-# from java.util.HashMap import HashMap
-# from java.util.Map import Map
-# from java.util.Set import Set
-
-
-def _J2SEUtil_instance() -> object:
-    return J2SEUtil()
-
-lazy_static(J2SEUtil, "instance", _J2SEUtil_instance)
+end
 

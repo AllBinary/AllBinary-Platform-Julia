@@ -1,33 +1,46 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item.validation
 
-from __future__ import annotations
+# extends Visitor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AllCommandsVisitor <: JObject
+    AllCommandsVisitor() = new()
+end
 
-from org.allbinary.logic.util.visitor.Visitor import Visitor
+
+function initFieldsAllCommandsVisitor(this::AllCommandsVisitor)
+    nothing
+end
 
 
-class AllCommandsVisitor(Visitor):
-    
+function initAllCommandsVisitor(this::AllCommandsVisitor)
+        initVisitor(this)
+        initFieldsAllCommandsVisitor(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
+function newAllCommandsVisitor()
+    this = AllCommandsVisitor()
+    initAllCommandsVisitor(this)
+    this
+end
 
-    def visit(self, anyType: object) -> object:
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        return BooleanFactory.getInstance().TRUE
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
 
+function visit(this::AllCommandsVisitor, anyType)
+        return AllBinary.getInstance(BooleanFactory).TRUE
+end
 

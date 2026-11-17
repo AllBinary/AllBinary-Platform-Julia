@@ -1,31 +1,41 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.pickup.health
 
-from __future__ import annotations
+mutable struct HealLayerFactory <: JObject
+    HealLayerFactory() = new()
+end
 
-from org.allbinary.layer.AllBinaryLayerFactoryInterface import AllBinaryLayerFactoryInterface
+
+function initFieldsHealLayerFactory(this::HealLayerFactory)
+    nothing
+end
+
+function initHealLayerFactory(this::HealLayerFactory)
+    initFieldsHealLayerFactory(this)
+end
+
+function newHealLayerFactory()
+    this = HealLayerFactory()
+    initHealLayerFactory(this)
+    this
+end
 
 
-class HealLayerFactory(AllBinaryLayerFactoryInterface):
-    
-
-    # throws Exception
-    def getInstance(self) -> AllBinaryLayer:
-        from org.allbinary.game.ag.layer.pickup.health.HealLayer import HealLayer
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        return HealLayer()
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-
+function getInstance(this::HealLayerFactory)
+        return newHealLayer()
+end
 

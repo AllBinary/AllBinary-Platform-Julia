@@ -1,56 +1,70 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.platform.graphics
 
-from __future__ import annotations
+mutable struct PlatformBitmapBase <: JObject
+    alpha::Int32
+    basicColor::Any
+    PlatformBitmapBase() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASEValue = Ref{Any}(nothing)
+const PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASESet = Ref(false)
+function staticGet_NULL_PLATFORM_BITMAP_BASE(::Type{PlatformBitmapBase})
+    if !PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASESet[]
+        PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASESet[] = true
+        PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASEValue[] = newPlatformBitmapBase()
+    end
+    PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASEValue[]
+end
+function staticSet_NULL_PLATFORM_BITMAP_BASE(::Type{PlatformBitmapBase}, value)
+    PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASESet[] = true
+    PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASEValue[] = value
+end
+
+function initFieldsPlatformBitmapBase(this::PlatformBitmapBase)
+    this.alpha = Int32(0)
+    this.basicColor = nothing
+    this.alpha = Int32(255)
+    this.basicColor = AllBinary.getInstance(BasicColorFactory).NULL_COLOR
+    nothing
+end
+
+function initPlatformBitmapBase(this::PlatformBitmapBase)
+    initFieldsPlatformBitmapBase(this)
+end
+
+function newPlatformBitmapBase()
+    this = PlatformBitmapBase()
+    initPlatformBitmapBase(this)
+    this
+end
 
 
-class PlatformBitmapBase:
-    NULL_PLATFORM_BITMAP_BASE: PlatformBitmapBase = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        self.alpha: int = 255
-        self.basicColor: BasicColor = BasicColorFactory.getInstance().NULL_COLOR
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def getWidth(self) -> int:
-        return 0
-    
-
-    def getHeight(self) -> int:
-        return 0
-    
-
-    def getImage(self) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        from javax.microedition.lcdui.NullImage import NullImage
-        return NullImage.NULL_IMAGE
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.NullImage import NullImage
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
+function getWidth(this::PlatformBitmapBase)
+        return Int32(0)
+end
 
 
-def _PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASE() -> object:
-    return PlatformBitmapBase()
+function getHeight(this::PlatformBitmapBase)
+        return Int32(0)
+end
 
-lazy_static(PlatformBitmapBase, "NULL_PLATFORM_BITMAP_BASE", _PlatformBitmapBase_NULL_PLATFORM_BITMAP_BASE)
+
+function getImage(this::PlatformBitmapBase)
+        return staticGet_NULL_IMAGE(NullImage)
+end
 

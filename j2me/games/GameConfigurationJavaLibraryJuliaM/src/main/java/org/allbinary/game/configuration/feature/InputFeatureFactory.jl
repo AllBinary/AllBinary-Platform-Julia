@@ -1,55 +1,82 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.configuration.feature
 
-from __future__ import annotations
+mutable struct InputFeatureFactory <: JObject
+    REMOVE_DUPLICATE_KEY_PRESSES::Any
+    INPUT_MAPPING::Any
+    MULTI_KEY_PRESS::Any
+    SINGLE_KEY_REPEAT_PRESS::Any
+    SINGLE_KEY_PRESS::Any
+    InputFeatureFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const InputFeatureFactory_instanceValue = Ref{Any}(nothing)
+const InputFeatureFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{InputFeatureFactory})
+    if !InputFeatureFactory_instanceSet[]
+        InputFeatureFactory_instanceSet[] = true
+        InputFeatureFactory_instanceValue[] = newInputFeatureFactory()
+    end
+    InputFeatureFactory_instanceValue[]
+end
+function staticSet_instance(::Type{InputFeatureFactory}, value)
+    InputFeatureFactory_instanceSet[] = true
+    InputFeatureFactory_instanceValue[] = value
+end
+
+function initFieldsInputFeatureFactory(this::InputFeatureFactory)
+    this.REMOVE_DUPLICATE_KEY_PRESSES = nothing
+    this.INPUT_MAPPING = nothing
+    this.MULTI_KEY_PRESS = nothing
+    this.SINGLE_KEY_REPEAT_PRESS = nothing
+    this.SINGLE_KEY_PRESS = nothing
+    this.REMOVE_DUPLICATE_KEY_PRESSES = newInputFeature("Remove Duplicate Key Presses")
+    this.INPUT_MAPPING = newInputFeature("Input Mapping")
+    this.MULTI_KEY_PRESS = newInputFeature("Multi Key Press")
+    this.SINGLE_KEY_REPEAT_PRESS = newInputFeature("Single Key Repeat Press")
+    this.SINGLE_KEY_PRESS = newInputFeature("Single Key Press")
+    nothing
+end
 
 
-class InputFeatureFactory:
-    instance: InputFeatureFactory = None
-
-    def _init_fields(self) -> None:
-        self.REMOVE_DUPLICATE_KEY_PRESSES: InputFeature = InputFeature("Remove Duplicate Key Presses")
-        self.INPUT_MAPPING: InputFeature = InputFeature("Input Mapping")
-        self.MULTI_KEY_PRESS: InputFeature = InputFeature("Multi Key Press")
-        self.SINGLE_KEY_REPEAT_PRESS: InputFeature = InputFeature("Single Key Repeat Press")
-        self.SINGLE_KEY_PRESS: InputFeature = InputFeature("Single Key Press")
-    
-
-    @staticmethod
-    def getInstance() -> InputFeatureFactory:
-        return InputFeatureFactory.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def isSingleKeyProcessing(self) -> bool:
-        from org.allbinary.game.configuration.feature.Features import Features
-        features: Features = Features.getInstance()
-        if features.isFeature(self.SINGLE_KEY_REPEAT_PRESS) or features.isFeature(self.SINGLE_KEY_PRESS):
-            return True
-        else:
-            return False
-from org.allbinary.game.configuration.feature.InputFeature import InputFeature
+function getInstance(::Type{InputFeatureFactory})
+        return staticGet_instance(InputFeatureFactory)
+end
 
 
-def _InputFeatureFactory_instance() -> object:
-    return InputFeatureFactory()
+function initInputFeatureFactory(this::InputFeatureFactory)
+        initFieldsInputFeatureFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(InputFeatureFactory, "instance", _InputFeatureFactory_instance)
+function newInputFeatureFactory()
+    this = InputFeatureFactory()
+    initInputFeatureFactory(this)
+    this
+end
+
+
+function isSingleKeyProcessing(this::InputFeatureFactory)
+        local features = AllBinary.getInstance(Features)
+        if AllBinary.isFeature(features, this.SINGLE_KEY_REPEAT_PRESS) || AllBinary.isFeature(features, this.SINGLE_KEY_PRESS)
+            return true
+        else
+            return false
+        end
+end
 

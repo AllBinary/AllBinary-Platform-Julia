@@ -1,61 +1,71 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends BaseTouchInput: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BasicTouchButtonsBuilder <: JObject
+    logUtil::Any
+    BasicTouchButtonsBuilder() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.input.motion.button.BaseTouchInput import BaseTouchInput
+const BasicTouchButtonsBuilder_SINGLETONValue = Ref{Any}(nothing)
+const BasicTouchButtonsBuilder_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{BasicTouchButtonsBuilder})
+    if !BasicTouchButtonsBuilder_SINGLETONSet[]
+        BasicTouchButtonsBuilder_SINGLETONSet[] = true
+        BasicTouchButtonsBuilder_SINGLETONValue[] = newBasicTouchButtonsBuilder()
+    end
+    BasicTouchButtonsBuilder_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{BasicTouchButtonsBuilder}, value)
+    BasicTouchButtonsBuilder_SINGLETONSet[] = true
+    BasicTouchButtonsBuilder_SINGLETONValue[] = value
+end
 
+function initFieldsBasicTouchButtonsBuilder(this::BasicTouchButtonsBuilder)
+    this.logUtil = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    nothing
+end
 
-class BasicTouchButtonsBuilder(BaseTouchInput):
-    SINGLETON: BasicTouchButtonsBuilder = None
+function initBasicTouchButtonsBuilder(this::BasicTouchButtonsBuilder)
+    initBaseTouchInput(this)
+    initFieldsBasicTouchButtonsBuilder(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> BaseTouchInput:
-        return BasicTouchButtonsBuilder.SINGLETON
-    
-
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
-        try:
-            self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.GET_LIST)
-            list_: BasicArrayList = BasicArrayListD()
-            return list_
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.GET_LIST, e)
-            return BasicArrayListUtil.getInstance().getImmutableInstance()
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.util.BasicArrayListUtil import BasicArrayListUtil
+function newBasicTouchButtonsBuilder()
+    this = BasicTouchButtonsBuilder()
+    initBasicTouchButtonsBuilder(this)
+    this
+end
 
 
-def _BasicTouchButtonsBuilder_SINGLETON() -> object:
-    return BasicTouchButtonsBuilder()
+function getInstance(::Type{BasicTouchButtonsBuilder})
+        return staticGet_SINGLETON(BasicTouchButtonsBuilder)
+end
 
-lazy_static(BasicTouchButtonsBuilder, "SINGLETON", _BasicTouchButtonsBuilder_SINGLETON)
+
+function getList(this::BasicTouchButtonsBuilder)
+        try
+            AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.GET_LIST)
+            local list = newBasicArrayListD()
+            return list
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.GET_LIST, e)
+            return AllBinary.getImmutableInstance(AllBinary.getInstance(BasicArrayListUtil))
+        end
+end
 

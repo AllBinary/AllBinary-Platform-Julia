@@ -1,87 +1,89 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.system.security.crypt.jcehelper
 
-from __future__ import annotations
+mutable struct AbCrypt <: JObject
+    tsUtil::Any
+    secretComposite::Any
+    algorithm::Any
+    AbCrypt() = new()
+end
 
-from org.allbinary.init.crypt.jcehelper.CryptInterface import CryptInterface
 
-
-class AbCrypt(CryptInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.TsUtil import TsUtil
-        self.tsUtil: TsUtil = TsUtil.getInstance()
-        self.secretComposite: BaseSecretComposite = BaseSecretComposite.NULL_SECRET_COMPOSITE
-        self.algorithm: str = None
+function initFieldsAbCrypt(this::AbCrypt)
+    this.tsUtil = nothing
+    this.secretComposite = nothing
+    this.algorithm = nothing
+    this.tsUtil = AllBinary.getInstance(TsUtil)
+    this.secretComposite = staticGet_NULL_SECRET_COMPOSITE(BaseSecretComposite)
     
+    nothing
+end
 
-    def __init__(self, algorithm: str) -> None:
-        self._init_fields()
-        self.algorithm = algorithm
-    
 
-    def init(self, keyAsString: str) -> None:
-        from org.allbinary.logic.system.security.crypt.jcehelper.KeySpecFactory import KeySpecFactory
-        from org.allbinary.logic.system.security.crypt.jcehelper.SecretComposite import SecretComposite
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.bouncycastle.jce.provider.BouncyCastleProvider import BouncyCastleProvider
-        commonStrings: CommonStrings = CommonStrings.getInstance()
-        try:
-            try:
-                Security.addProvider(BouncyCastleProvider())
-            except Exception as e:
-                PreLogUtil.putOE(commonStrings.EXCEPTION, self, commonStrings.INIT, e)
-            key: list[int] = self.tsUtil.getByteArray(keyAsString)
-            keySpec: KeySpec = KeySpecFactory.getInstance().getInstance(self.algorithm, key)
-            keyFactory: SecretKeyFactory = SecretKeyFactory.getInstance(self.algorithm)
-            secretKey: SecretKey = keyFactory.generateSecret(keySpec)
-            cipher: Cipher = Cipher.getInstance(self.algorithm)
-            self.secretComposite = SecretComposite(secretKey, cipher, key)
-        except Exception as e:
-            PreLogUtil.putOE("init Failed", self, commonStrings.INIT, e)
-    
+function initAbCrypt(this::AbCrypt, algorithm)
+        initFieldsAbCrypt(this)
+        this.algorithm = algorithm
+        nothing
+end
 
-    def encrypt(self, array: list[int]) -> list[int]:
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        try:
-            return self.secretComposite.encrypt(array)
-        except Exception as e:
-            PreLogUtil.putOE("Encrypt Failed", self, "encrypt", e)
-            return NullUtil.getInstance().NULL_BYTE_ARRAY
-    
+function newAbCrypt(algorithm)
+    this = AbCrypt()
+    initAbCrypt(this, algorithm)
+    this
+end
 
-    def decrypt(self, array: list[int]) -> list[int]:
-        from org.allbinary.logic.NullUtil import NullUtil
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        try:
-            return self.secretComposite.decrypt(array)
-        except Exception as e:
-            PreLogUtil.putOE("decrypt Failed", self, "decrypt", e)
-            return NullUtil.getInstance().NULL_BYTE_ARRAY
-# from java.security.Security import Security
-# from java.security.spec.KeySpec import KeySpec
-# from javax.crypto.Cipher import Cipher
-# from javax.crypto.SecretKey import SecretKey
-# from javax.crypto.SecretKeyFactory import SecretKeyFactory
-# from org.allbinary.TsUtil import TsUtil
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.bouncycastle.jce.provider.BouncyCastleProvider import BouncyCastleProvider
-from org.allbinary.logic.system.security.crypt.jcehelper.BaseSecretComposite import BaseSecretComposite
 
+function init(this::AbCrypt, keyAsString)
+        local commonStrings = AllBinary.getInstance(CommonStrings)
+        try
+            try
+                AllBinary.addProvider(Security, newBouncyCastleProvider())
+            catch e
+                AllBinary.putOE(PreLogUtil, commonStrings.EXCEPTION, this, commonStrings.INIT, e)
+            end
+            local key = AllBinary.getByteArray(this.tsUtil, keyAsString)
+            local keySpec = AllBinary.getInstance(AllBinary.getInstance(KeySpecFactory), this.algorithm, key)
+            local keyFactory = AllBinary.getInstance(SecretKeyFactory, this.algorithm)
+            local secretKey = AllBinary.generateSecret(keyFactory, keySpec)
+            local cipher = AllBinary.getInstance(Cipher, this.algorithm)
+            this.secretComposite = newSecretComposite(secretKey, cipher, key)
+        catch e
+            AllBinary.putOE(PreLogUtil, "init Failed", this, commonStrings.INIT, e)
+        end
+        nothing
+end
+
+
+function encrypt(this::AbCrypt, array)
+        try
+            return AllBinary.encrypt(this.secretComposite, array)
+        catch e
+            AllBinary.putOE(PreLogUtil, "Encrypt Failed", this, "encrypt", e)
+            return AllBinary.getInstance(NullUtil).NULL_BYTE_ARRAY
+        end
+end
+
+
+function decrypt(this::AbCrypt, array)
+        try
+            return AllBinary.decrypt(this.secretComposite, array)
+        catch e
+            AllBinary.putOE(PreLogUtil, "decrypt Failed", this, "decrypt", e)
+            return AllBinary.getInstance(NullUtil).NULL_BYTE_ARRAY
+        end
+end
 

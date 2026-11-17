@@ -1,74 +1,87 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.vector
 
-from __future__ import annotations
+# extends CircleAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AdjustedCircleAnimation <: JObject
+    xAdjustment::Int32
+    yAdjustment::Int32
+    AdjustedCircleAnimation() = new()
+end
 
-from org.allbinary.animation.vector.CircleAnimation import CircleAnimation
+
+function initFieldsAdjustedCircleAnimation(this::AdjustedCircleAnimation)
+    this.xAdjustment = Int32(0)
+    this.yAdjustment = Int32(0)
+    this.xAdjustment = Int32(0)
+    this.yAdjustment = Int32(0)
+    nothing
+end
 
 
-class AdjustedCircleAnimation(CircleAnimation):
-
-    def _init_fields(self) -> None:
-        self.xAdjustment: int = 0
-        self.yAdjustment: int = 0
-    
-
-    @staticmethod
-    def createAnimation(width: int, height: int, xAdjustment: int, yAdjustment: int, basicColor: BasicColor) -> AdjustedCircleAnimation:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        adjustedCircleAnimation: AdjustedCircleAnimation = AdjustedCircleAnimation(width, height, basicColor)
-        adjustedCircleAnimation.initXY(xAdjustment, yAdjustment)
+function createAnimation(::Type{AdjustedCircleAnimation}, width, height, xAdjustment, yAdjustment, basicColor)
+        local adjustedCircleAnimation = newAdjustedCircleAnimation(width, height, basicColor)
+        AllBinary.initXY(adjustedCircleAnimation, xAdjustment, yAdjustment)
         return adjustedCircleAnimation
-    
+end
 
-    @staticmethod
-    def createW(width: int, height: int, innerWidth: int, basicColor: BasicColor) -> AdjustedCircleAnimation:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        adjustedCircleAnimation: AdjustedCircleAnimation = AdjustedCircleAnimation(width, height, basicColor)
-        adjustedCircleAnimation.init(innerWidth)
+
+function createW(::Type{AdjustedCircleAnimation}, width, height, innerWidth, basicColor)
+        local adjustedCircleAnimation = newAdjustedCircleAnimation(width, height, basicColor)
+        AllBinary.init(adjustedCircleAnimation, innerWidth)
         return adjustedCircleAnimation
-    
+end
 
-    def __init__(self, width: int, height: int, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__(width, height, basicColor)
-        self._init_fields()
-    
 
-    def initXY(self, xAdjustment: int, yAdjustment: int) -> None:
-        self.xAdjustment = xAdjustment
-        self.yAdjustment = yAdjustment
-    
+function initAdjustedCircleAnimation(this::AdjustedCircleAnimation, width, height, basicColor)
+        initCircleAnimation(this, width, height, basicColor)
+        initFieldsAdjustedCircleAnimation(this)
+        nothing
+end
 
-    def init(self, innerWidth: int) -> None:
-        from org.allbinary.AndroidUtil import AndroidUtil
-        if AndroidUtil.isAndroid():
-            widthPortion: int = (int(((int(innerWidth / 3)) * 10) / 7))
-            self.xAdjustment = -((self.width >> 1) - widthPortion)
-            self.yAdjustment = self.xAdjustment
-        else:
-            self.xAdjustment = -((self.width >> 1) - innerWidth)
-            self.yAdjustment = self.xAdjustment
-    
+function newAdjustedCircleAnimation(width, height, basicColor)
+    this = AdjustedCircleAnimation()
+    initAdjustedCircleAnimation(this, width, height, basicColor)
+    this
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.basicSetColorUtil.setBasicColorP3(graphics, self.getBasicColorP(), self.getColor())
-        graphics.drawArc(x + self.xAdjustment, y + self.yAdjustment, self.width, self.height, 0, self.TOTAL_ANGLE)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.AndroidUtil import AndroidUtil
-# from org.allbinary.graphics.color.BasicColor import BasicColor
 
+function initXY(this::AdjustedCircleAnimation, xAdjustment, yAdjustment)
+        this.xAdjustment = xAdjustment
+        this.yAdjustment = yAdjustment
+        nothing
+end
+
+
+function init(this::AdjustedCircleAnimation, innerWidth)
+        if AllBinary.isAndroid(AndroidUtil)
+            local widthPortion::Int32 = (((innerWidth ÷ Int32(3)) * Int32(10)) ÷ Int32(7))
+            this.xAdjustment = -((this.width >> Int32(1)) - widthPortion)
+            this.yAdjustment = this.xAdjustment
+        else
+            this.xAdjustment = -((this.width >> Int32(1)) - innerWidth)
+            this.yAdjustment = this.xAdjustment
+        end
+        nothing
+end
+
+
+function paintXY(this::AdjustedCircleAnimation, graphics, x, y)
+        AllBinary.setBasicColorP3(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this), AllBinary.getColor(this))
+        AllBinary.drawArc(graphics, x + this.xAdjustment, y + this.yAdjustment, this.width, this.height, Int32(0), this.TOTAL_ANGLE)
+        nothing
+end
 

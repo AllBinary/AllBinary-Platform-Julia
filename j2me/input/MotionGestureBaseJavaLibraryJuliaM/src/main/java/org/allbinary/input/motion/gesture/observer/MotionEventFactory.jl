@@ -1,57 +1,71 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.gesture.observer
 
-from __future__ import annotations
+mutable struct MotionEventFactory <: JObject
+    source::Any
+    id::Int32
+    MotionEventFactory() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObjectFactoryInterface import AllBinaryEventObjectFactoryInterface
+const MotionEventFactory_indexValue = Ref{Any}(nothing)
+const MotionEventFactory_indexSet = Ref(false)
+function staticGet_index(::Type{MotionEventFactory})
+    if !MotionEventFactory_indexSet[]
+        MotionEventFactory_indexSet[] = true
+        MotionEventFactory_indexValue[] = Int32(0)
+    end
+    MotionEventFactory_indexValue[]
+end
+function staticSet_index(::Type{MotionEventFactory}, value)
+    MotionEventFactory_indexSet[] = true
+    MotionEventFactory_indexValue[] = value
+end
 
-
-class MotionEventFactory(AllBinaryEventObjectFactoryInterface):
-    index: int = 0
-
-    def _init_fields(self) -> None:
-        self.source: object = None
-        self.id: int = None
+function initFieldsMotionEventFactory(this::MotionEventFactory)
+    this.source = nothing
+    this.id = Int32(0)
     
-
-    def __init__(self, source: object, id: int) -> None:
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        self._init_fields()
-        self.source = source
-        self.id = id
-        MotionEventFactory.index = TouchMotionGestureFactory.getInstance().LAST_MOTION.getId()
     
+    nothing
+end
 
-    def getInstance(self) -> AllBinaryEventObject:
-        from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-        from org.allbinary.input.motion.gesture.observer.MotionGestureEvent import MotionGestureEvent
-        from org.allbinary.game.input.Input import Input
-        from org.allbinary.game.input.InputFactory import InputFactory
-        from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-        from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        inputFactory: InputFactory = InputFactory.getInstance()
-        input: Input = inputFactory.getInstanceById(((setattr(MotionEventFactory, "index", MotionEventFactory.index + 1) or MotionEventFactory.index) - 1))
-        if input == inputFactory.NO_INPUT:
-            return MotionGestureEvent(self.source, self.id, TouchMotionGestureFactory.getInstance().NO_MOTION)
-        else:
-            return MotionGestureEvent(self.source, self.id, input)
-# from org.allbinary.game.input.Input import Input
-# from org.allbinary.game.input.InputFactory import InputFactory
-# from org.allbinary.input.motion.gesture.MotionGestureInput import MotionGestureInput
-# from org.allbinary.input.motion.gesture.TouchMotionGestureFactory import TouchMotionGestureFactory
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
 
+function initMotionEventFactory(this::MotionEventFactory, source, id)
+        initFieldsMotionEventFactory(this)
+        this.source = source
+        this.id = id
+        staticSet_index(MotionEventFactory, AllBinary.getId(AllBinary.getInstance(TouchMotionGestureFactory).LAST_MOTION))
+        nothing
+end
+
+function newMotionEventFactory(source, id)
+    this = MotionEventFactory()
+    initMotionEventFactory(this, source, id)
+    this
+end
+
+
+function getInstance(this::MotionEventFactory)
+        local inputFactory = AllBinary.getInstance(InputFactory)
+        local input = AllBinary.getInstanceById(inputFactory, (let old = staticGet_index(MotionEventFactory); staticSet_index(MotionEventFactory, old + Int32(1)); old end))
+        if input === inputFactory.NO_INPUT
+            return newMotionGestureEvent(this.source, this.id, (AllBinary.getInstance(TouchMotionGestureFactory).NO_MOTION))
+        else
+            return newMotionGestureEvent(this.source, this.id, (input))
+        end
+end
 

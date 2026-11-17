@@ -1,52 +1,66 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.displayable.screen
 
-from __future__ import annotations
+mutable struct ScreenRepaintProcessorFactory <: JObject
+    ScreenRepaintProcessorFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ScreenRepaintProcessorFactory_instanceValue = Ref{Any}(nothing)
+const ScreenRepaintProcessorFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{ScreenRepaintProcessorFactory})
+    if !ScreenRepaintProcessorFactory_instanceSet[]
+        ScreenRepaintProcessorFactory_instanceSet[] = true
+        ScreenRepaintProcessorFactory_instanceValue[] = newScreenRepaintProcessorFactory()
+    end
+    ScreenRepaintProcessorFactory_instanceValue[]
+end
+function staticSet_instance(::Type{ScreenRepaintProcessorFactory}, value)
+    ScreenRepaintProcessorFactory_instanceSet[] = true
+    ScreenRepaintProcessorFactory_instanceValue[] = value
+end
 
-
-class ScreenRepaintProcessorFactory:
-    instance: ScreenRepaintProcessorFactory = None
-    
-
-    @staticmethod
-    def getInstance() -> ScreenRepaintProcessorFactory:
-        return ScreenRepaintProcessorFactory.instance
-    
-
-    def __init__(self) -> None:
-        pass
-    
-
-    def create(self, displayable: Displayable) -> Processor:
-        from org.allbinary.graphics.displayable.screen.ScreenRepaintProcessor import ScreenRepaintProcessor
-        from javax.microedition.lcdui.Displayable import Displayable
-        from org.allbinary.J2MEUtil import J2MEUtil
-        from org.allbinary.canvas.Processor import Processor
-        if not J2MEUtil.isJ2ME():
-            return ScreenRepaintProcessor(displayable)
-        else:
-            return Processor.getInstance()
-# from javax.microedition.lcdui.Displayable import Displayable
-# from org.allbinary.J2MEUtil import J2MEUtil
-# from org.allbinary.canvas.Processor import Processor
+function initFieldsScreenRepaintProcessorFactory(this::ScreenRepaintProcessorFactory)
+    nothing
+end
 
 
-def _ScreenRepaintProcessorFactory_instance() -> object:
-    return ScreenRepaintProcessorFactory()
+function getInstance(::Type{ScreenRepaintProcessorFactory})
+        return staticGet_instance(ScreenRepaintProcessorFactory)
+end
 
-lazy_static(ScreenRepaintProcessorFactory, "instance", _ScreenRepaintProcessorFactory_instance)
+
+function initScreenRepaintProcessorFactory(this::ScreenRepaintProcessorFactory)
+        initFieldsScreenRepaintProcessorFactory(this)
+        nothing
+        nothing
+end
+
+function newScreenRepaintProcessorFactory()
+    this = ScreenRepaintProcessorFactory()
+    initScreenRepaintProcessorFactory(this)
+    this
+end
+
+
+function create(this::ScreenRepaintProcessorFactory, displayable)
+        if !AllBinary.isJ2ME(J2MEUtil)
+            return newScreenRepaintProcessor(displayable)
+        else
+            return AllBinary.getInstance(Processor)
+        end
+end
 

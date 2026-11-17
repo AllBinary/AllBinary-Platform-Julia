@@ -1,52 +1,59 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai
 
-from __future__ import annotations
+# extends Visitor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ThrustAIVisitor <: JObject
+    logUtil::Any
+    TRUE::Any
+    ThrustAIVisitor() = new()
+end
 
-from org.allbinary.logic.util.visitor.Visitor import Visitor
+
+function initFieldsThrustAIVisitor(this::ThrustAIVisitor)
+    this.logUtil = nothing
+    this.TRUE = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.TRUE = AllBinary.getInstance(BooleanFactory).TRUE
+    nothing
+end
 
 
-class ThrustAIVisitor(Visitor):
+function initThrustAIVisitor(this::ThrustAIVisitor)
+        initVisitor(this)
+        initFieldsThrustAIVisitor(this)
+        nothing
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.TRUE: bool = BooleanFactory.getInstance().TRUE
-    
+function newThrustAIVisitor()
+    this = ThrustAIVisitor()
+    initThrustAIVisitor(this)
+    this
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
 
-    def visit(self, anyType: object) -> object:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.ai.BasicAI import BasicAI
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            basicAI: BasicAI = anyType
-            basicAI.processKeyAI(Canvas.UP)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.VISIT, e)
-        return self.TRUE
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.ai.BasicAI import BasicAI
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-# from org.allbinary.string.CommonStrings import CommonStrings
-
+function visit(this::ThrustAIVisitor, anyType)
+        try
+            local basicAI = (anyType)
+            AllBinary.processKeyAI(basicAI, staticGet_UP(Canvas))
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.VISIT, e)
+        end
+        return this.TRUE
+end
 

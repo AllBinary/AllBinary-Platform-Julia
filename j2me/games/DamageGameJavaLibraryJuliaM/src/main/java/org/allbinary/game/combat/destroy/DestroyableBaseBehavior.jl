@@ -1,50 +1,70 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.combat.destroy
 
-from __future__ import annotations
+mutable struct DestroyableBaseBehavior <: JObject
+    DestroyableBaseBehavior() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.combat.destroy.DestroyableInterface import DestroyableInterface
+const DestroyableBaseBehavior_instanceValue = Ref{Any}(nothing)
+const DestroyableBaseBehavior_instanceSet = Ref(false)
+function staticGet_instance(::Type{DestroyableBaseBehavior})
+    if !DestroyableBaseBehavior_instanceSet[]
+        DestroyableBaseBehavior_instanceSet[] = true
+        DestroyableBaseBehavior_instanceValue[] = newDestroyableBaseBehavior()
+    end
+    DestroyableBaseBehavior_instanceValue[]
+end
+function staticSet_instance(::Type{DestroyableBaseBehavior}, value)
+    DestroyableBaseBehavior_instanceSet[] = true
+    DestroyableBaseBehavior_instanceValue[] = value
+end
+
+function initFieldsDestroyableBaseBehavior(this::DestroyableBaseBehavior)
+    nothing
+end
+
+function initDestroyableBaseBehavior(this::DestroyableBaseBehavior)
+    initFieldsDestroyableBaseBehavior(this)
+end
+
+function newDestroyableBaseBehavior()
+    this = DestroyableBaseBehavior()
+    initDestroyableBaseBehavior(this)
+    this
+end
 
 
-class DestroyableBaseBehavior(DestroyableInterface):
-    instance: DestroyableBaseBehavior = None
-    
-
-    @staticmethod
-    def getInstance() -> DestroyableBaseBehavior:
-        return DestroyableBaseBehavior.instance
-    
-
-    def getName(self) -> str:
-        return type(self).__module__ + "." + type(self).__qualname__
-    
-
-    # throws Exception
-    def isDestroyed(self) -> bool:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        raise Exception(CommonStrings.getInstance().NOT_IMPLEMENTED)
-    
-
-    def setDestroyed(self, destroyed: bool) -> None:
-        pass
-# from org.allbinary.string.CommonStrings import CommonStrings
+function getInstance(::Type{DestroyableBaseBehavior})
+        return staticGet_instance(DestroyableBaseBehavior)
+end
 
 
-def _DestroyableBaseBehavior_instance() -> object:
-    return DestroyableBaseBehavior()
+function getName(this::DestroyableBaseBehavior)
+        return jClassName(this)
+end
 
-lazy_static(DestroyableBaseBehavior, "instance", _DestroyableBaseBehavior_instance)
+
+function isDestroyed(this::DestroyableBaseBehavior)
+        throw(jNewException("Exception", AllBinary.getInstance(CommonStrings).NOT_IMPLEMENTED))
+end
+
+
+function setDestroyed(this::DestroyableBaseBehavior, destroyed)
+        nothing
+        nothing
+end
 

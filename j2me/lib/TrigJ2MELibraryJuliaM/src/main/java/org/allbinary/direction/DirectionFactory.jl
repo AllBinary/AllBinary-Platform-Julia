@@ -1,74 +1,107 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.direction
 
-from __future__ import annotations
+mutable struct DirectionFactory <: JObject
+    NAME::Any
+    LEFT::Any
+    RIGHT::Any
+    DOWN::Any
+    UP::Any
+    UP_LEFT::Any
+    UP_RIGHT::Any
+    DOWN_LEFT::Any
+    DOWN_RIGHT::Any
+    NOT_BORDERED_WITH::Any
+    NO_DIRECTION::Any
+    TOP::Any
+    BOTTOM::Any
+    ALL_DIRECTION::Any
+    DirectionFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const DirectionFactory_instanceValue = Ref{Any}(nothing)
+const DirectionFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{DirectionFactory})
+    if !DirectionFactory_instanceSet[]
+        DirectionFactory_instanceSet[] = true
+        DirectionFactory_instanceValue[] = newDirectionFactory()
+    end
+    DirectionFactory_instanceValue[]
+end
+function staticSet_instance(::Type{DirectionFactory}, value)
+    DirectionFactory_instanceSet[] = true
+    DirectionFactory_instanceValue[] = value
+end
 
-
-class DirectionFactory:
-    instance: DirectionFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.string.CommonPhoneStrings import CommonPhoneStrings
-        self.NAME: str = "DIRECTION"
-        self.LEFT: Direction = Direction(CommonPhoneStrings.getInstance().LEFT, "WEST", 0, 1)
-        self.RIGHT: Direction = Direction(CommonPhoneStrings.getInstance().RIGHT, "EAST", 1, 0)
-        self.DOWN: Direction = Direction(CommonPhoneStrings.getInstance().DOWN, "SOUTH", 2, 0)
-        self.UP: Direction = Direction(CommonPhoneStrings.getInstance().UP, "NORTH", 3, 0)
-        self.UP_LEFT: Direction = None
-        self.UP_RIGHT: Direction = None
-        self.DOWN_LEFT: Direction = None
-        self.DOWN_RIGHT: Direction = None
-        self.NOT_BORDERED_WITH: Direction = Direction("NOT_BORDERED_WITH", "NOT_BORDERED_WITH", 8, 0)
-        self.NO_DIRECTION: Direction = Direction("NO_DIRECTION", "NO_DIRECTION", 9, 0)
-        self.TOP: Direction = Direction("TOP", "TOP", 10, 0)
-        self.BOTTOM: Direction = Direction("BOTTOM", "BOTTOM", 11, 0)
-        self.ALL_DIRECTION: Direction = Direction("ALL_DIRECTION", "ALL_DIRECTION", 12, 0)
+function initFieldsDirectionFactory(this::DirectionFactory)
+    this.NAME = nothing
+    this.LEFT = nothing
+    this.RIGHT = nothing
+    this.DOWN = nothing
+    this.UP = nothing
+    this.UP_LEFT = nothing
+    this.UP_RIGHT = nothing
+    this.DOWN_LEFT = nothing
+    this.DOWN_RIGHT = nothing
+    this.NOT_BORDERED_WITH = nothing
+    this.NO_DIRECTION = nothing
+    this.TOP = nothing
+    this.BOTTOM = nothing
+    this.ALL_DIRECTION = nothing
+    this.NAME = "DIRECTION"
+    this.LEFT = newDirection(AllBinary.getInstance(CommonPhoneStrings).LEFT, "WEST", Int32(0), Int32(1))
+    this.RIGHT = newDirection(AllBinary.getInstance(CommonPhoneStrings).RIGHT, "EAST", Int32(1), Int32(0))
+    this.DOWN = newDirection(AllBinary.getInstance(CommonPhoneStrings).DOWN, "SOUTH", Int32(2), Int32(0))
+    this.UP = newDirection(AllBinary.getInstance(CommonPhoneStrings).UP, "NORTH", Int32(3), Int32(0))
     
-
-    @staticmethod
-    def getInstance() -> DirectionFactory:
-        return DirectionFactory.instance
     
-
-    def __init__(self) -> None:
-        from org.allbinary.direction.Direction import Direction
-        from org.allbinary.direction.Direction import Direction
-        from org.allbinary.direction.Direction import Direction
-        from org.allbinary.direction.Direction import Direction
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        self._init_fields()
-        stringBuffer: StringMaker = StringMaker()
-        commonSeps: CommonSeps = CommonSeps.getInstance()
-        self.UP_LEFT = Direction("UP LEFT", str(stringBuffer.append(self.UP.getOtherName()).append(commonSeps.SPACE).append(self.LEFT.getOtherName())), 4, 0)
-        stringBuffer.delete(0, stringBuffer.length())
-        self.UP_RIGHT = Direction("UP RIGHT", str(stringBuffer.append(self.UP.getOtherName()).append(commonSeps.SPACE).append(self.RIGHT.getOtherName())), 5, 0)
-        stringBuffer.delete(0, stringBuffer.length())
-        self.DOWN_LEFT = Direction("DOWN LEFT", str(stringBuffer.append(self.DOWN.getOtherName()).append(commonSeps.SPACE).append(self.LEFT.getOtherName())), 6, 0)
-        stringBuffer.delete(0, stringBuffer.length())
-        self.DOWN_RIGHT = Direction("DOWN RIGHT", str(stringBuffer.append(self.DOWN.getOtherName()).append(commonSeps.SPACE).append(self.RIGHT.getOtherName())), 7, 0)
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonPhoneStrings import CommonPhoneStrings
-# from org.allbinary.string.CommonSeps import CommonSeps
-from org.allbinary.direction.Direction import Direction
+    
+    
+    this.NOT_BORDERED_WITH = newDirection("NOT_BORDERED_WITH", "NOT_BORDERED_WITH", Int32(8), Int32(0))
+    this.NO_DIRECTION = newDirection("NO_DIRECTION", "NO_DIRECTION", Int32(9), Int32(0))
+    this.TOP = newDirection("TOP", "TOP", Int32(10), Int32(0))
+    this.BOTTOM = newDirection("BOTTOM", "BOTTOM", Int32(11), Int32(0))
+    this.ALL_DIRECTION = newDirection("ALL_DIRECTION", "ALL_DIRECTION", Int32(12), Int32(0))
+    nothing
+end
 
 
-def _DirectionFactory_instance() -> object:
-    return DirectionFactory()
+function getInstance(::Type{DirectionFactory})
+        return staticGet_instance(DirectionFactory)
+end
 
-lazy_static(DirectionFactory, "instance", _DirectionFactory_instance)
+
+function initDirectionFactory(this::DirectionFactory)
+        initFieldsDirectionFactory(this)
+        local stringBuffer = newStringMaker()
+        local commonSeps = AllBinary.getInstance(CommonSeps)
+        this.UP_LEFT = newDirection("UP LEFT", AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(stringBuffer, AllBinary.getOtherName(this.UP)), commonSeps.SPACE), AllBinary.getOtherName(this.LEFT))), Int32(4), Int32(0))
+        AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+        this.UP_RIGHT = newDirection("UP RIGHT", AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(stringBuffer, AllBinary.getOtherName(this.UP)), commonSeps.SPACE), AllBinary.getOtherName(this.RIGHT))), Int32(5), Int32(0))
+        AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+        this.DOWN_LEFT = newDirection("DOWN LEFT", AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(stringBuffer, AllBinary.getOtherName(this.DOWN)), commonSeps.SPACE), AllBinary.getOtherName(this.LEFT))), Int32(6), Int32(0))
+        AllBinary.delete(stringBuffer, Int32(0), AllBinary.length(stringBuffer))
+        this.DOWN_RIGHT = newDirection("DOWN RIGHT", AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(stringBuffer, AllBinary.getOtherName(this.DOWN)), commonSeps.SPACE), AllBinary.getOtherName(this.RIGHT))), Int32(7), Int32(0))
+        nothing
+end
+
+function newDirectionFactory()
+    this = DirectionFactory()
+    initDirectionFactory(this)
+    this
+end
 

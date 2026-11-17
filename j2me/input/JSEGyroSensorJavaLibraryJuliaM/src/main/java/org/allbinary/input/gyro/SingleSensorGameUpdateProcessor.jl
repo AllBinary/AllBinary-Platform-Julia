@@ -1,45 +1,56 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.gyro
 
-from __future__ import annotations
+# extends SensorGameUpdateProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct SingleSensorGameUpdateProcessor <: JObject
+    accelerometerSensorUpdateProcessor::Any
+    gyroSensorUpdateProcessor::Any
+    SingleSensorGameUpdateProcessor() = new()
+end
 
-from org.allbinary.input.gyro.SensorGameUpdateProcessor import SensorGameUpdateProcessor
+
+function initFieldsSingleSensorGameUpdateProcessor(this::SingleSensorGameUpdateProcessor)
+    this.accelerometerSensorUpdateProcessor = nothing
+    this.gyroSensorUpdateProcessor = nothing
+    this.accelerometerSensorUpdateProcessor = newAccelerometerSensorUpdateProcessor()
+    this.gyroSensorUpdateProcessor = newGyroSensorUpdateProcessor()
+    nothing
+end
+
+function initSingleSensorGameUpdateProcessor(this::SingleSensorGameUpdateProcessor)
+    initSensorGameUpdateProcessor(this)
+    initFieldsSingleSensorGameUpdateProcessor(this)
+end
+
+function newSingleSensorGameUpdateProcessor()
+    this = SingleSensorGameUpdateProcessor()
+    initSingleSensorGameUpdateProcessor(this)
+    this
+end
 
 
-class SingleSensorGameUpdateProcessor(SensorGameUpdateProcessor):
+function process(this::SingleSensorGameUpdateProcessor, anyType)
+        AllBinary.setNoSensors(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.canvas.Processor import Processor
-        self.accelerometerSensorUpdateProcessor: Processor = AccelerometerSensorUpdateProcessor()
-        self.gyroSensorUpdateProcessor: Processor = GyroSensorUpdateProcessor()
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-    
-
-    # throws Exception
-    def process(self, anyType: object) -> None:
-        self.setNoSensors()
-    
-
-    # throws Exception
-    def sendNotifications(self, anyType: object) -> None:
-        pass
-# from org.allbinary.canvas.Processor import Processor
-from org.allbinary.input.gyro.AccelerometerSensorUpdateProcessor import AccelerometerSensorUpdateProcessor
-from org.allbinary.input.gyro.GyroSensorUpdateProcessor import GyroSensorUpdateProcessor
-
+function sendNotifications(this::SingleSensorGameUpdateProcessor, anyType)
+        nothing
+        nothing
+end
 

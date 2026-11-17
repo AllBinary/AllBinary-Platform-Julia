@@ -1,37 +1,53 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.paint
 
-from __future__ import annotations
+# extends Paintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct InitUpdatePaintable <: JObject
+    InitUpdatePaintable() = new()
+end
 
-from org.allbinary.graphics.paint.Paintable import Paintable
-from org.allbinary.graphics.paint.InitUpdatePaintableInterface import InitUpdatePaintableInterface
+
+function initFieldsInitUpdatePaintable(this::InitUpdatePaintable)
+    nothing
+end
 
 
-class InitUpdatePaintable(Paintable, InitUpdatePaintableInterface):
-    
+function initInitUpdatePaintable(this::InitUpdatePaintable)
+        initPaintable(this)
+        initFieldsInitUpdatePaintable(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
+function newInitUpdatePaintable()
+    this = InitUpdatePaintable()
+    initInitUpdatePaintable(this)
+    this
+end
 
-    # throws Exception
-    def init(self) -> None:
-        pass
-    
 
-    def update(self) -> None:
-        pass
+function init(this::InitUpdatePaintable)
+        nothing
+        nothing
+end
 
+
+function update(this::InitUpdatePaintable)
+        nothing
+        nothing
+end
 

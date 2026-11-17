@@ -1,116 +1,173 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2011 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2011 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.layer
 
-from __future__ import annotations
+# extends LayerManager: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AllBinaryLayerManager <: JObject
+    layerManagerEventHandler::Any
+    createLayerManagerEvent::Any
+    deleteLayerManagerEvent::Any
+    basicLayerProcessorArray::Any
+    AllBinaryLayerManager() = new()
+end
 
-import threading
-from org.allbinary.layer.LayerManager import LayerManager
+
+function initFieldsAllBinaryLayerManager(this::AllBinaryLayerManager)
+    this.layerManagerEventHandler = nothing
+    this.createLayerManagerEvent = nothing
+    this.deleteLayerManagerEvent = nothing
+    this.basicLayerProcessorArray = nothing
+    this.layerManagerEventHandler = AllBinary.getInstance(LayerManagerEventHandler)
+    this.createLayerManagerEvent = newLayerManagerEvent(this, this.layerManagerEventHandler.CREATE)
+    this.deleteLayerManagerEvent = newLayerManagerEvent(this, this.layerManagerEventHandler.DELETE)
+    this.basicLayerProcessorArray = jNewArray(Any, Int32(0), nothing)
+    nothing
+end
 
 
-class AllBinaryLayerManager(LayerManager):
-    _lock = threading.RLock()
+function initAllBinaryLayerManager(this::AllBinaryLayerManager)
+        initLayerManager(this, AllBinary.getInstance(LayerManagerNoDebug))
+        initFieldsAllBinaryLayerManager(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.layer.event.LayerManagerEvent import LayerManagerEvent
-        from org.allbinary.layer.event.LayerManagerEventHandler import LayerManagerEventHandler
-        self.layerManagerEventHandler: LayerManagerEventHandler = LayerManagerEventHandler.getInstance()
-        self.createLayerManagerEvent: LayerManagerEvent = LayerManagerEvent(self, self.layerManagerEventHandler.CREATE)
-        self.deleteLayerManagerEvent: LayerManagerEvent = LayerManagerEvent(self, self.layerManagerEventHandler.DELETE)
-        self.basicLayerProcessorArray: list[LayerProcessor] = [None] * (0)
-    
+function newAllBinaryLayerManager()
+    this = AllBinaryLayerManager()
+    initAllBinaryLayerManager(this)
+    this
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.layer.LayerManagerNoDebug import LayerManagerNoDebug
-        super().__init__(LayerManagerNoDebug.getInstance())
-        self._init_fields()
-    
 
-    def getLayerProcessorArray(self) -> list[LayerProcessor]:
-        return self.basicLayerProcessorArray
-    
+function getLayerProcessorArray(this::AllBinaryLayerManager)
+        return this.basicLayerProcessorArray
+end
 
-    def setLayerProcessorArray(self, layerProcessorArray: list[LayerProcessor]) -> None:
-        self.basicLayerProcessorArray = layerProcessorArray
-    
 
-    def log(self) -> None:
-        size: int = len(self.basicLayerProcessorArray)
-        for index in range(0, size):
-            layerProcessorInterface: LayerProcessor = self.basicLayerProcessorArray[index]
-    
+function setLayerProcessorArray(this::AllBinaryLayerManager, layerProcessorArray)
+        this.basicLayerProcessorArray = layerProcessorArray
+        nothing
+end
 
-    # throws Exception
-    def append(self, layerInterface: AllBinaryLayer) -> None:
-        if not self.contains(layerInterface):
-            self.appendProcessors(layerInterface)
-            super().append(layerInterface)
-    
 
-    # throws Exception
-    def appendAt(self, layerInterface: AllBinaryLayer, index: int) -> None:
-        if not self.contains(layerInterface):
-            self.appendProcessors(layerInterface)
-            super().appendAt(layerInterface, index)
-    
+function log(this::AllBinaryLayerManager)
+        local size::Int32 = Int32(Base.length(this.basicLayerProcessorArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            local layerProcessorInterface = this.basicLayerProcessorArray[index + 1]
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    # throws Exception
-    def appendProcessors(self, layerInterface: AllBinaryLayer) -> None:
-        self.createLayerManagerEvent.setLayerInterface(layerInterface)
-        self.layerManagerEventHandler.fireEvent(self.createLayerManagerEvent)
-        layerProcessorInterface: LayerProcessor = None
-        index = len(self.basicLayerProcessorArray)
-        while (index := index - 1) >= 0:
-            layerProcessorInterface = self.basicLayerProcessorArray[index]
-            if layerProcessorInterface.isProcessorLayer(layerInterface):
-                layerProcessorInterface.getLayerManager().append(layerInterface)
-    
 
-    # throws Exception
-    def remove(self, layerInterface: AllBinaryLayer) -> None:
-        with self._lock:
-            return self._remove_unlocked(layerInterface)
+function append(this::AllBinaryLayerManager, layerInterface)
+        if !AllBinary.contains(this, layerInterface)
+            AllBinary.appendProcessors(this, layerInterface)
+            AllBinary.append(this, layerInterface)
+        end
+        nothing
+end
 
-    def _remove_unlocked(self, layerInterface: AllBinaryLayer) -> None:
-        self.deleteLayerManagerEvent.setLayerInterface(layerInterface)
-        self.layerManagerEventHandler.fireDeleteEvent(self.deleteLayerManagerEvent)
-        layerProcessorInterface: LayerProcessor = None
-        index = len(self.basicLayerProcessorArray)
-        while (index := index - 1) >= 0:
-            layerProcessorInterface = self.basicLayerProcessorArray[index]
-            layerProcessorInterface.getLayerManager().remove(layerInterface)
-        super().remove(layerInterface)
-    
 
-    # throws Exception
-    def process(self) -> None:
-        layerProcessorInterface: LayerProcessor = None
-        size: int = len(self.basicLayerProcessorArray)
-        for index in range(0, size):
-            layerProcessorInterface = self.basicLayerProcessorArray[index]
-            layerProcessorInterface.process(self)
-    
+function appendAt(this::AllBinaryLayerManager, layerInterface, index)
+        if !AllBinary.contains(this, layerInterface)
+            AllBinary.appendProcessors(this, layerInterface)
+            AllBinary.appendAt(this, layerInterface, index)
+        end
+        nothing
+end
 
-    # throws Exception
-    def cleanup(self) -> None:
-        layerProcessorInterface: LayerProcessor = None
-        size: int = len(self.basicLayerProcessorArray)
-        for index in range(0, size):
-            layerProcessorInterface = self.basicLayerProcessorArray[index]
-            layerProcessorInterface.getLayerManager().cleanup()
-        super().cleanup()
-# from org.allbinary.layer.event.LayerManagerEvent import LayerManagerEvent
-# from org.allbinary.layer.event.LayerManagerEventHandler import LayerManagerEventHandler
 
+function appendProcessors(this::AllBinaryLayerManager, layerInterface)
+        AllBinary.setLayerInterface(this.createLayerManagerEvent, layerInterface)
+        AllBinary.fireEvent(this.layerManagerEventHandler, this.createLayerManagerEvent)
+        local layerProcessorInterface = nothing
+        let
+            local index::Int32 = Int32(Base.length(this.basicLayerProcessorArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            layerProcessorInterface = this.basicLayerProcessorArray[index + 1]
+            if AllBinary.isProcessorLayer(layerProcessorInterface, layerInterface)
+                AllBinary.append(AllBinary.getLayerManager(layerProcessorInterface), layerInterface)
+            end
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function remove(this::AllBinaryLayerManager, layerInterface)
+        AllBinary.setLayerInterface(this.deleteLayerManagerEvent, layerInterface)
+        AllBinary.fireDeleteEvent(this.layerManagerEventHandler, this.deleteLayerManagerEvent)
+        local layerProcessorInterface = nothing
+        let
+            local index::Int32 = Int32(Base.length(this.basicLayerProcessorArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            layerProcessorInterface = this.basicLayerProcessorArray[index + 1]
+            AllBinary.remove(AllBinary.getLayerManager(layerProcessorInterface), layerInterface)
+            finally
+            end
+            end
+        end
+        AllBinary.remove(this, layerInterface)
+        nothing
+end
+
+
+function process(this::AllBinaryLayerManager)
+        local layerProcessorInterface = nothing
+        local size::Int32 = Int32(Base.length(this.basicLayerProcessorArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            layerProcessorInterface = this.basicLayerProcessorArray[index + 1]
+            AllBinary.process(layerProcessorInterface, this)
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        nothing
+end
+
+
+function cleanup(this::AllBinaryLayerManager)
+        local layerProcessorInterface = nothing
+        local size::Int32 = Int32(Base.length(this.basicLayerProcessorArray))
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            layerProcessorInterface = this.basicLayerProcessorArray[index + 1]
+            AllBinary.cleanup(AllBinary.getLayerManager(layerProcessorInterface))
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        AllBinary.cleanup(this)
+        nothing
+end
 

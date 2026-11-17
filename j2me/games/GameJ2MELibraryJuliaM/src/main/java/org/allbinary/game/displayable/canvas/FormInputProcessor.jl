@@ -1,100 +1,96 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends InputProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct FormInputProcessor <: JObject
+    logUtil::Any
+    commonStrings::Any
+    gameKeyEventFactory::Any
+    downKeyEventHandler::Any
+    upGameKeyEventHandler::Any
+    inputFactory::Any
+    platformKeyFactory::Any
+    allBinaryGameCanvas::Any
+    FormInputProcessor() = new()
+end
 
-from org.allbinary.game.input.InputProcessor import InputProcessor
 
-
-class FormInputProcessor(InputProcessor):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        from org.allbinary.game.input.PlatformKeyFactory import PlatformKeyFactory
-        from org.allbinary.game.input.event.DownKeyEventHandler import DownKeyEventHandler
-        from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-        from org.allbinary.game.input.event.UpGameKeyEventHandler import UpGameKeyEventHandler
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.gameKeyEventFactory: GameKeyEventFactory = GameKeyEventFactory.getInstance()
-        self.downKeyEventHandler: DownKeyEventHandler = DownKeyEventHandler.getInstance()
-        self.upGameKeyEventHandler: UpGameKeyEventHandler = UpGameKeyEventHandler.getInstance()
-        self.inputFactory: InputFactory = InputFactory.getInstance()
-        self.platformKeyFactory: PlatformKeyFactory = PlatformKeyFactory.getInstance()
-        self.allBinaryGameCanvas: AllBinaryGameCanvas = None
+function initFieldsFormInputProcessor(this::FormInputProcessor)
+    this.logUtil = nothing
+    this.commonStrings = nothing
+    this.gameKeyEventFactory = nothing
+    this.downKeyEventHandler = nothing
+    this.upGameKeyEventHandler = nothing
+    this.inputFactory = nothing
+    this.platformKeyFactory = nothing
+    this.allBinaryGameCanvas = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.gameKeyEventFactory = AllBinary.getInstance(GameKeyEventFactory)
+    this.downKeyEventHandler = AllBinary.getInstance(DownKeyEventHandler)
+    this.upGameKeyEventHandler = AllBinary.getInstance(UpGameKeyEventHandler)
+    this.inputFactory = AllBinary.getInstance(InputFactory)
+    this.platformKeyFactory = AllBinary.getInstance(PlatformKeyFactory)
     
+    nothing
+end
 
-    def __init__(self, allBinaryGameCanvas: AllBinaryGameCanvas) -> None:
-        super().__init__()
-        self._init_fields()
-        self.allBinaryGameCanvas = allBinaryGameCanvas
-    
 
-    def keyPressedByDevice(self, keyCode: int, deviceId: int) -> None:
-        from org.allbinary.game.input.Input import Input
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        try:
-            PreLogUtil.put(str(StringMaker().append(self.inputFactory.KEY_CODE_LABEL).appendint(keyCode).append(CommonSeps.getInstance().SPACE).append(self.inputFactory.DEVICE_ID_LABEL).appendint(deviceId)), self, self.gameInputStrings.KEY_PRESSED)
-            input: Input = self.inputFactory.getInstanceById(keyCode)
-            gameKeyEvent: GameKeyEvent = self.gameKeyEventFactory.getInstanceForInput(self.allBinaryGameCanvas, input)
-            self.downKeyEventHandler.fireEventForGameKeyEvent(gameKeyEvent)
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ADD_KEY_EVENT, e)
-    
+function initFormInputProcessor(this::FormInputProcessor, allBinaryGameCanvas)
+        initInputProcessor(this)
+        initFieldsFormInputProcessor(this)
+        this.allBinaryGameCanvas = allBinaryGameCanvas
+        nothing
+end
 
-    def keyReleasedByDevice(self, canvas: Canvas, keyCode: int, deviceId: int) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.GameKeyEventSourceInterface import GameKeyEventSourceInterface
-        from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-        from org.allbinary.game.input.Input import Input
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        try:
-            input: Input = self.inputFactory.getInstanceById(keyCode)
-            if self.platformKeyFactory.isEnter(input):
-                PreLogUtil.put(str(StringMaker().append(self.inputFactory.KEY_CODE_LABEL).appendint(keyCode).append(CommonSeps.getInstance().SPACE).append(self.inputFactory.DEVICE_ID_LABEL).appendint(deviceId)), self, self.gameInputStrings.KEY_RELEASED)
-                gameKey: GameKey = GameKeyFactory.getInstance().KEY_NUM0
-                gameKeyEventSourceInterface: GameKeyEventSourceInterface = canvas
-                gameKeyEvent: GameKeyEvent = self.gameKeyEventFactory.getInstanceForInput(gameKeyEventSourceInterface, gameKey)
-                self.upGameKeyEventHandler.fireEvent(gameKeyEvent)
-                self.upGameKeyEventHandler.getInstanceForDevice(deviceId).fireEvent(gameKeyEvent)
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ADD_KEY_EVENT, e)
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.input.GameKey import GameKey
-# from org.allbinary.game.input.GameKeyEventSourceInterface import GameKeyEventSourceInterface
-# from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-# from org.allbinary.game.input.Input import Input
-# from org.allbinary.game.input.InputFactory import InputFactory
-# from org.allbinary.game.input.PlatformKeyFactory import PlatformKeyFactory
-# from org.allbinary.game.input.event.DownKeyEventHandler import DownKeyEventHandler
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-# from org.allbinary.game.input.event.UpGameKeyEventHandler import UpGameKeyEventHandler
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.string.CommonStrings import CommonStrings
+function newFormInputProcessor(allBinaryGameCanvas)
+    this = FormInputProcessor()
+    initFormInputProcessor(this, allBinaryGameCanvas)
+    this
+end
 
+
+function keyPressedByDevice(this::FormInputProcessor, keyCode, deviceId)
+        try
+            AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(AllBinary.append(AllBinary.appendint(AllBinary.append(newStringMaker(), this.inputFactory.KEY_CODE_LABEL), keyCode), AllBinary.getInstance(CommonSeps).SPACE), this.inputFactory.DEVICE_ID_LABEL), deviceId)), this, this.gameInputStrings.KEY_PRESSED)
+            local input = AllBinary.getInstanceById(this.inputFactory, keyCode)
+            local gameKeyEvent = AllBinary.getInstanceForInput(this.gameKeyEventFactory, this.allBinaryGameCanvas, input)
+            AllBinary.fireEventForGameKeyEvent(this.downKeyEventHandler, gameKeyEvent)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.gameInputStrings.ADD_KEY_EVENT, e)
+        end
+        nothing
+end
+
+
+function keyReleasedByDevice(this::FormInputProcessor, canvas, keyCode, deviceId)
+        try
+            local input = AllBinary.getInstanceById(this.inputFactory, keyCode)
+            if AllBinary.isEnter(this.platformKeyFactory, input)
+                AllBinary.put(PreLogUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(AllBinary.append(AllBinary.appendint(AllBinary.append(newStringMaker(), this.inputFactory.KEY_CODE_LABEL), keyCode), AllBinary.getInstance(CommonSeps).SPACE), this.inputFactory.DEVICE_ID_LABEL), deviceId)), this, this.gameInputStrings.KEY_RELEASED)
+                local gameKey = AllBinary.getInstance(GameKeyFactory).KEY_NUM0
+                local gameKeyEventSourceInterface = (canvas)
+                local gameKeyEvent = AllBinary.getInstanceForInput(this.gameKeyEventFactory, gameKeyEventSourceInterface, gameKey)
+                AllBinary.fireEvent(this.upGameKeyEventHandler, gameKeyEvent)
+                AllBinary.fireEvent(AllBinary.getInstanceForDevice(this.upGameKeyEventHandler, deviceId), gameKeyEvent)
+            end
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.gameInputStrings.ADD_KEY_EVENT, e)
+        end
+        nothing
+end
 

@@ -1,96 +1,143 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.business.advertisement
 
-from __future__ import annotations
+mutable struct Advertisements <: JObject
+    bannerList::Any
+    pageList::Any
+    myRandomFactory::Any
+    Advertisements() = new()
+end
 
 
+function initFieldsAdvertisements(this::Advertisements)
+    this.bannerList = nothing
+    this.pageList = nothing
+    this.myRandomFactory = nothing
+    this.bannerList = newBasicArrayListD()
+    this.pageList = newBasicArrayListD()
+    this.myRandomFactory = AllBinary.getInstance(MyRandomFactory)
+    nothing
+end
 
-class Advertisements:
+function initAdvertisements(this::Advertisements)
+    initFieldsAdvertisements(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.bannerList: BasicArrayList = BasicArrayListD()
-        self.pageList: BasicArrayList = BasicArrayListD()
-        self.myRandomFactory: MyRandomFactory = MyRandomFactory.getInstance()
+function newAdvertisements()
+    this = Advertisements()
+    initAdvertisements(this)
+    this
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
 
-    def addPage(self, advertisementProcessorInterface: AdvertisementProcessorInterface) -> None:
-        if not self.pageList.contains(advertisementProcessorInterface):
-            self.pageList.add(advertisementProcessorInterface)
-    
+function addPage(this::Advertisements, advertisementProcessorInterface)
+        if !AllBinary.contains(this.pageList, advertisementProcessorInterface)
+            AllBinary.add(this.pageList, advertisementProcessorInterface)
+        end
+        nothing
+end
 
-    def startRandomPage(self) -> None:
-        size: int = self.pageList.size()
-        if size > 0:
-            random: int = self.myRandomFactory.getAbsoluteNextInt(size)
-            advertisementProcessorInterface: AdvertisementProcessorInterface = self.pageList.objectArray[random]
-            advertisementProcessorInterface.start()
-    
 
-    def processRandomPage(self) -> None:
-        from org.allbinary.logic.system.security.licensing.LockedUtil import LockedUtil
-        if LockedUtil.getInstance().isLocked():
-            size: int = self.pageList.size()
-            if size > 0:
-                random: int = self.myRandomFactory.getAbsoluteNextInt(size)
-                advertisementProcessorInterface: AdvertisementProcessorInterface = self.pageList.objectArray[random]
-                advertisementProcessorInterface.process()
-    
+function startRandomPage(this::Advertisements)
+        local size::Int32 = AllBinary.size(this.pageList)
+        if size > Int32(0)
+            local random::Int32 = AllBinary.getAbsoluteNextInt(this.myRandomFactory, size)
+            local advertisementProcessorInterface = (this.pageList.objectArray[random + 1])
+            AllBinary.start(advertisementProcessorInterface)
+        end
+        nothing
+end
 
-    def stopAllPage(self) -> None:
-        index = self.pageList.size()
-        while (index := index - 1) >= 0:
-            advertisementProcessorInterface: AdvertisementProcessorInterface = self.pageList.objectArray[index]
-            advertisementProcessorInterface.stop()
-    
 
-    def addBanner(self, advertisementProcessorInterface: AdvertisementProcessorInterface) -> None:
-        if not self.bannerList.contains(advertisementProcessorInterface):
-            self.bannerList.add(advertisementProcessorInterface)
-    
+function processRandomPage(this::Advertisements)
+        if AllBinary.isLocked(AllBinary.getInstance(LockedUtil))
+            local size::Int32 = AllBinary.size(this.pageList)
+            if size > Int32(0)
+                local random::Int32 = AllBinary.getAbsoluteNextInt(this.myRandomFactory, size)
+                local advertisementProcessorInterface = (this.pageList.objectArray[random + 1])
+                AllBinary.process(advertisementProcessorInterface)
+            end
+        end
+        nothing
+end
 
-    def startAll(self) -> None:
-        index = self.bannerList.size()
-        while (index := index - 1) >= 0:
-            advertisementProcessorInterface: AdvertisementProcessorInterface = self.bannerList.objectArray[index]
-            advertisementProcessorInterface.start()
-    
 
-    def stopAllBanner(self) -> None:
-        index = self.bannerList.size()
-        while (index := index - 1) >= 0:
-            advertisementProcessorInterface: AdvertisementProcessorInterface = self.bannerList.objectArray[index]
-            advertisementProcessorInterface.stop()
-    
+function stopAllPage(this::Advertisements)
+        let
+            local index::Int32 = AllBinary.size(this.pageList)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            local advertisementProcessorInterface = (this.pageList.objectArray[index + 1])
+            AllBinary.stop(advertisementProcessorInterface)
+            finally
+            end
+            end
+        end
+        nothing
+end
 
-    def getBanner(self, index: int) -> AdvertisementProcessorInterface:
-        advertisementProcessorInterface: AdvertisementProcessorInterface = self.bannerList.objectArray[index]
+
+function addBanner(this::Advertisements, advertisementProcessorInterface)
+        if !AllBinary.contains(this.bannerList, advertisementProcessorInterface)
+            AllBinary.add(this.bannerList, advertisementProcessorInterface)
+        end
+        nothing
+end
+
+
+function startAll(this::Advertisements)
+        let
+            local index::Int32 = AllBinary.size(this.bannerList)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            local advertisementProcessorInterface = (this.bannerList.objectArray[index + 1])
+            AllBinary.start(advertisementProcessorInterface)
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function stopAllBanner(this::Advertisements)
+        let
+            local index::Int32 = AllBinary.size(this.bannerList)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            local advertisementProcessorInterface = (this.bannerList.objectArray[index + 1])
+            AllBinary.stop(advertisementProcessorInterface)
+            finally
+            end
+            end
+        end
+        nothing
+end
+
+
+function getBanner(this::Advertisements, index)
+        local advertisementProcessorInterface = (this.bannerList.objectArray[index + 1])
         return advertisementProcessorInterface
-    
+end
 
-    def stopAll(self) -> None:
-        self.stopAllBanner()
-        self.stopAllPage()
-# from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-# from org.allbinary.logic.system.security.licensing.LockedUtil import LockedUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
 
+function stopAll(this::Advertisements)
+        AllBinary.stopAllBanner(this)
+        AllBinary.stopAllPage(this)
+        nothing
+end
 

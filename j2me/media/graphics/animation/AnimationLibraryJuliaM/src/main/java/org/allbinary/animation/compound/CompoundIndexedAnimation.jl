@@ -1,130 +1,157 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.compound
 
-from __future__ import annotations
+# extends IndexedAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CompoundIndexedAnimation <: JObject
+    circularIndexUtil::Any
+    animationInterfaceArray::Any
+    CompoundIndexedAnimation() = new()
+end
 
-from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-from org.allbinary.animation.compound.CompoundAnimationInterface import CompoundAnimationInterface
 
-
-class CompoundIndexedAnimation(IndexedAnimation, CompoundAnimationInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.circularIndexUtil: CircularIndexUtil = None
-        self.animationInterfaceArray: list[Animation] = None
+function initFieldsCompoundIndexedAnimation(this::CompoundIndexedAnimation)
+    this.circularIndexUtil = nothing
+    this.animationInterfaceArray = nothing
     
-
-    def __init__(self, animationInterfaceArray: list[Animation], animationBehavior: AnimationBehavior) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        super().__init__(animationBehavior)
-        self._init_fields()
-        self.animationInterfaceArray = animationInterfaceArray
-        self.circularIndexUtil = CircularIndexUtil.createInstance(len(self.animationInterfaceArray))
     
+    nothing
+end
 
-    def setFrame(self, index: int) -> None:
-        indexedAnimation: IndexedAnimation = self.animationInterfaceArray[self.circularIndexUtil.getIndex()]
-        indexedAnimation.setFrame(index)
-    
 
-    def getFrame(self) -> int:
-        indexedAnimation: IndexedAnimation = self.animationInterfaceArray[self.circularIndexUtil.getIndex()]
-        return indexedAnimation.getFrame()
-    
+function initCompoundIndexedAnimation(this::CompoundIndexedAnimation, animationInterfaceArray, animationBehavior)
+        initIndexedAnimation(this, animationBehavior)
+        initFieldsCompoundIndexedAnimation(this)
+        this.animationInterfaceArray = animationInterfaceArray
+        this.circularIndexUtil = AllBinary.createInstance(CircularIndexUtil, Int32(Base.length(this.animationInterfaceArray)))
+        nothing
+end
 
-    def getSize(self) -> int:
-        indexedAnimation: IndexedAnimation = self.animationInterfaceArray[self.circularIndexUtil.getIndex()]
-        return indexedAnimation.getSize()
-    
+function newCompoundIndexedAnimation(animationInterfaceArray, animationBehavior)
+    this = CompoundIndexedAnimation()
+    initCompoundIndexedAnimation(this, animationInterfaceArray, animationBehavior)
+    this
+end
 
-    def previousFrame(self) -> None:
-        indexedAnimation: IndexedAnimation = self.animationInterfaceArray[self.circularIndexUtil.getIndex()]
-        indexedAnimation.previousFrame()
-    
 
-    def setSequence(self, sequence: list[int]) -> None:
-        pass
-    
+function setFrame(this::CompoundIndexedAnimation, index)
+        local indexedAnimation = (this.animationInterfaceArray[AllBinary.getIndex(this.circularIndexUtil) + 1])
+        AllBinary.setFrame(indexedAnimation, index)
+        nothing
+end
 
-    def getSequence(self) -> list[int]:
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        return PrimitiveIntUtil.getArrayInstance()
-    
 
-    # throws Exception
-    def nextFrame(self) -> None:
-        self.animationInterfaceArray[self.circularIndexUtil.getIndex()].nextFrame()
-    
+function getFrame(this::CompoundIndexedAnimation)
+        local indexedAnimation = (this.animationInterfaceArray[AllBinary.getIndex(this.circularIndexUtil) + 1])
+        return AllBinary.getFrame(indexedAnimation)
+end
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animationInterfaceArray[self.circularIndexUtil.getIndex()].paintXY(graphics, x, y)
-    
 
-    def paintThreedXYZ(self, graphics: Graphics, x: int, y: int, z: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animationInterfaceArray[self.circularIndexUtil.getIndex()].paintThreedXYZ(graphics, x, y, z)
-    
+function getSize(this::CompoundIndexedAnimation)
+        local indexedAnimation = (this.animationInterfaceArray[AllBinary.getIndex(this.circularIndexUtil) + 1])
+        return AllBinary.getSize(indexedAnimation)
+end
 
-    def getCurrentAnimation(self) -> IndexedAnimation:
-        return self.animationInterfaceArray[self.circularIndexUtil.getIndex()]
-    
 
-    def nextAnimation(self) -> None:
-        frame: int = self.getFrame()
-        self.circularIndexUtil.next()
-        self.setFrame(frame)
-    
+function previousFrame(this::CompoundIndexedAnimation)
+        local indexedAnimation = (this.animationInterfaceArray[AllBinary.getIndex(this.circularIndexUtil) + 1])
+        AllBinary.previousFrame(indexedAnimation)
+        nothing
+end
 
-    def previousAnimation(self) -> None:
-        frame: int = self.getFrame()
-        self.circularIndexUtil.previous()
-        self.setFrame(frame)
-    
 
-    def setAnimation(self, index: int) -> None:
-        frame: int = self.getFrame()
-        self.circularIndexUtil.setIndex(index)
-        self.setFrame(frame)
-    
+function setSequence(this::CompoundIndexedAnimation, sequence)
+        nothing
+        nothing
+end
 
-    def getAnimationInterfaceArray(self) -> list[Animation]:
-        from org.allbinary.animation.Animation import Animation
-        return self.animationInterfaceArray
-    
 
-    def setAnimationInterfaceArray(self, animationInterfaceArray: list[Animation]) -> None:
-        from org.allbinary.animation.Animation import Animation
-        self.animationInterfaceArray = animationInterfaceArray
-    
+function getSequence(this::CompoundIndexedAnimation)
+        return AllBinary.getArrayInstance(PrimitiveIntUtil)
+end
 
-    # throws Exception
-    def set(self, gl: GL) -> None:
-        from javax.microedition.khronos.opengles.GL import GL
-        index = len(self.animationInterfaceArray)
-        while (index := index - 1) >= 0:
-            self.animationInterfaceArray[index].set(gl)
-# from javax.microedition.khronos.opengles.GL import GL
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
 
+function nextFrame(this::CompoundIndexedAnimation)
+        AllBinary.nextFrame(this.animationInterfaceArray[AllBinary.getIndex(this.circularIndexUtil) + 1])
+        nothing
+end
+
+
+function paintXY(this::CompoundIndexedAnimation, graphics, x, y)
+        AllBinary.paintXY(this.animationInterfaceArray[AllBinary.getIndex(this.circularIndexUtil) + 1], graphics, x, y)
+        nothing
+end
+
+
+function paintThreedXYZ(this::CompoundIndexedAnimation, graphics, x, y, z)
+        AllBinary.paintThreedXYZ(this.animationInterfaceArray[AllBinary.getIndex(this.circularIndexUtil) + 1], graphics, x, y, z)
+        nothing
+end
+
+
+function getCurrentAnimation(this::CompoundIndexedAnimation)
+        return (this.animationInterfaceArray[AllBinary.getIndex(this.circularIndexUtil) + 1])
+end
+
+
+function nextAnimation(this::CompoundIndexedAnimation)
+        local frame::Int32 = AllBinary.getFrame(this)
+        AllBinary.next(this.circularIndexUtil)
+        AllBinary.setFrame(this, frame)
+        nothing
+end
+
+
+function previousAnimation(this::CompoundIndexedAnimation)
+        local frame::Int32 = AllBinary.getFrame(this)
+        AllBinary.previous(this.circularIndexUtil)
+        AllBinary.setFrame(this, frame)
+        nothing
+end
+
+
+function setAnimation(this::CompoundIndexedAnimation, index)
+        local frame::Int32 = AllBinary.getFrame(this)
+        AllBinary.setIndex(this.circularIndexUtil, index)
+        AllBinary.setFrame(this, frame)
+        nothing
+end
+
+
+function getAnimationInterfaceArray(this::CompoundIndexedAnimation)
+        return this.animationInterfaceArray
+end
+
+
+function setAnimationInterfaceArray(this::CompoundIndexedAnimation, animationInterfaceArray)
+        this.animationInterfaceArray = animationInterfaceArray
+        nothing
+end
+
+
+function set(this::CompoundIndexedAnimation, gl)
+        let
+            local index::Int32 = Int32(Base.length(this.animationInterfaceArray))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            AllBinary.set(this.animationInterfaceArray[index + 1], gl)
+            finally
+            end
+            end
+        end
+        nothing
+end
 

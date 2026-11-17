@@ -1,29 +1,41 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.midlet
 
-from __future__ import annotations
+mutable struct MidletFactoryInterface <: JObject
+    MidletFactoryInterface() = new()
+end
 
 
+function initFieldsMidletFactoryInterface(this::MidletFactoryInterface)
+    nothing
+end
 
-class MidletFactoryInterface:
-    
+function initMidletFactoryInterface(this::MidletFactoryInterface)
+    initFieldsMidletFactoryInterface(this)
+end
 
-    def getInstance(self) -> MIDlet:
-        from org.allbinary.midlet.AllBinaryMidlet import AllBinaryMidlet
-        from javax.microedition.midlet.MIDlet import MIDlet
-        return AllBinaryMidlet.getNullInstance()
-# from javax.microedition.midlet.MIDlet import MIDlet
+function newMidletFactoryInterface()
+    this = MidletFactoryInterface()
+    initMidletFactoryInterface(this)
+    this
+end
 
+
+function getInstance(this::MidletFactoryInterface)
+        return AllBinary.getNullInstance(AllBinaryMidlet)
+end
 

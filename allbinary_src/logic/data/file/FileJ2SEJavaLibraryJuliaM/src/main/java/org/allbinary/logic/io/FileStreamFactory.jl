@@ -1,77 +1,86 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+mutable struct FileStreamFactory <: JObject
+    FileStreamFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const FileStreamFactory_SINGLETONValue = Ref{Any}(nothing)
+const FileStreamFactory_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{FileStreamFactory})
+    if !FileStreamFactory_SINGLETONSet[]
+        FileStreamFactory_SINGLETONSet[] = true
+        FileStreamFactory_SINGLETONValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    FileStreamFactory_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{FileStreamFactory}, value)
+    FileStreamFactory_SINGLETONSet[] = true
+    FileStreamFactory_SINGLETONValue[] = value
+end
 
-
-class FileStreamFactory:
-    SINGLETON: object = None
-    
-
-    @staticmethod
-    def getInstance() -> FileStreamFactory:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if FileStreamFactory.SINGLETON == NullUtil.getInstance().NULL_OBJECT:
-            FileStreamFactory.SINGLETON = FileStreamFactory()
-        return FileStreamFactory.SINGLETON
-    
-
-    def __init__(self) -> None:
-        pass
-    
-
-    # throws Exception
-    def getFileInputStreamInstance(self, path: str, fileName: str) -> AbFileInputStream:
-        from org.allbinary.logic.io.AbFileInputStream import AbFileInputStream
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.io.path.AbPath import AbPath
-        FILEABPATH: AbPath = AbPath(path, fileName)
-        file: AbFile = AbFile.createAbFileFromAbPath(FILEABPATH)
-        return AbFileInputStream.createFromAbFile(file)
-    
-
-    # throws Exception
-    def getFileOutputStreamInstance(self, path: str, fileName: str) -> AbFileOutputStream:
-        from org.allbinary.logic.io.AbFileOutputStream import AbFileOutputStream
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.io.path.AbPath import AbPath
-        FILEABPATH: AbPath = AbPath(path, fileName)
-        file: AbFile = AbFile.createAbFileFromAbPath(FILEABPATH)
-        if file.exists():
-            file.delete()
-            file.createNewFile()
-        return AbFileOutputStream.createFromAbFile(file)
-    
-
-    # throws Exception
-    def delete(self, path: str, fileName: str) -> None:
-        from org.allbinary.logic.io.file.AbFile import AbFile
-        from org.allbinary.logic.io.path.AbPath import AbPath
-        FILEABPATH: AbPath = AbPath(path, fileName)
-        file: AbFile = AbFile.createAbFileFromAbPath(FILEABPATH)
-        file.delete()
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.io.file.AbFile import AbFile
-# from org.allbinary.logic.io.path.AbPath import AbPath
+function initFieldsFileStreamFactory(this::FileStreamFactory)
+    nothing
+end
 
 
-def _FileStreamFactory_SINGLETON() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function getInstance(::Type{FileStreamFactory})
+        if staticGet_SINGLETON(FileStreamFactory) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_SINGLETON(FileStreamFactory, newFileStreamFactory())
+        end
+        return (staticGet_SINGLETON(FileStreamFactory))
+end
 
-lazy_static(FileStreamFactory, "SINGLETON", _FileStreamFactory_SINGLETON)
+
+function initFileStreamFactory(this::FileStreamFactory)
+        initFieldsFileStreamFactory(this)
+        nothing
+        nothing
+end
+
+function newFileStreamFactory()
+    this = FileStreamFactory()
+    initFileStreamFactory(this)
+    this
+end
+
+
+function getFileInputStreamInstance(this::FileStreamFactory, path, fileName)
+        local FILEABPATH = newAbPath(path, fileName)
+        local file = AllBinary.createAbFileFromAbPath(AbFile, FILEABPATH)
+        return AllBinary.createFromAbFile(AbFileInputStream, file)
+end
+
+
+function getFileOutputStreamInstance(this::FileStreamFactory, path, fileName)
+        local FILEABPATH = newAbPath(path, fileName)
+        local file = AllBinary.createAbFileFromAbPath(AbFile, FILEABPATH)
+        if AllBinary.exists(file)
+            AllBinary.delete(file)
+            AllBinary.createNewFile(file)
+        end
+        return AllBinary.createFromAbFile(AbFileOutputStream, file)
+end
+
+
+function delete(this::FileStreamFactory, path, fileName)
+        local FILEABPATH = newAbPath(path, fileName)
+        local file = AllBinary.createAbFileFromAbPath(AbFile, FILEABPATH)
+        AllBinary.delete(file)
+        nothing
+end
 

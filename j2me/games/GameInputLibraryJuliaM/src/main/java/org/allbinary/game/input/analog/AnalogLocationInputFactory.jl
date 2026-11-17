@@ -1,54 +1,69 @@
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.analog
 
-from __future__ import annotations
+mutable struct AnalogLocationInputFactory <: JObject
+    list::Any
+    AnalogLocationInputFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const AnalogLocationInputFactory_instanceValue = Ref{Any}(nothing)
+const AnalogLocationInputFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{AnalogLocationInputFactory})
+    if !AnalogLocationInputFactory_instanceSet[]
+        AnalogLocationInputFactory_instanceSet[] = true
+        AnalogLocationInputFactory_instanceValue[] = newAnalogLocationInputFactory()
+    end
+    AnalogLocationInputFactory_instanceValue[]
+end
+function staticSet_instance(::Type{AnalogLocationInputFactory}, value)
+    AnalogLocationInputFactory_instanceSet[] = true
+    AnalogLocationInputFactory_instanceValue[] = value
+end
 
-
-class AnalogLocationInputFactory:
-    instance: AnalogLocationInputFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_: BasicArrayList = BasicArrayListD()
-    
-
-    @staticmethod
-    def getInstance() -> AnalogLocationInputFactory:
-        return AnalogLocationInputFactory.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def addPlayer(self, playerInputId: int) -> None:
-        from org.allbinary.game.input.analog.AnalogLocationInput import AnalogLocationInput
-        from org.allbinary.game.input.analog.AnalogLocationInput import AnalogLocationInput
-        from org.allbinary.game.input.analog.AnalogLocationInput import AnalogLocationInput
-        analogLocationInput: AnalogLocationInput = AnalogLocationInput.NULL_ANALOG_LOCATION_INPUT
-        if playerInputId < self.list_.size():
-            analogLocationInput = self.list_.get(playerInputId)
-        if analogLocationInput == AnalogLocationInput.NULL_ANALOG_LOCATION_INPUT:
-            analogLocationInput = AnalogLocationInput(playerInputId)
-            self.list_.add(analogLocationInput)
-    
-
-    def getInstanceForPlayer(self, playerInputId: int) -> AnalogLocationInput:
-        return self.list_.get(playerInputId)
-    
-
-    def getList(self) -> BasicArrayList:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        return self.list_
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function initFieldsAnalogLocationInputFactory(this::AnalogLocationInputFactory)
+    this.list = nothing
+    this.list = newBasicArrayListD()
+    nothing
+end
 
 
-def _AnalogLocationInputFactory_instance() -> object:
-    return AnalogLocationInputFactory()
+function getInstance(::Type{AnalogLocationInputFactory})
+        return staticGet_instance(AnalogLocationInputFactory)
+end
 
-lazy_static(AnalogLocationInputFactory, "instance", _AnalogLocationInputFactory_instance)
+
+function initAnalogLocationInputFactory(this::AnalogLocationInputFactory)
+        initFieldsAnalogLocationInputFactory(this)
+        nothing
+        nothing
+end
+
+function newAnalogLocationInputFactory()
+    this = AnalogLocationInputFactory()
+    initAnalogLocationInputFactory(this)
+    this
+end
+
+
+function addPlayer(this::AnalogLocationInputFactory, playerInputId)
+        local analogLocationInput = staticGet_NULL_ANALOG_LOCATION_INPUT(AnalogLocationInput)
+        if playerInputId < AllBinary.size(this.list)
+            analogLocationInput = (AllBinary.get(this.list, playerInputId))
+        end
+        if analogLocationInput === staticGet_NULL_ANALOG_LOCATION_INPUT(AnalogLocationInput)
+            analogLocationInput = newAnalogLocationInput(playerInputId)
+            AllBinary.add(this.list, analogLocationInput)
+        end
+        nothing
+end
+
+
+function getInstanceForPlayer(this::AnalogLocationInputFactory, playerInputId)
+        return (AllBinary.get(this.list, playerInputId))
+end
+
+
+function getList(this::AnalogLocationInputFactory)
+        return this.list
+end
 

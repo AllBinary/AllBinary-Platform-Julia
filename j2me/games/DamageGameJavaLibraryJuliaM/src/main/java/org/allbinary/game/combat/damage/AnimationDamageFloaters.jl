@@ -1,87 +1,110 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.combat.damage
 
-from __future__ import annotations
+# extends DamageFloaters: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct AnimationDamageFloaters <: JObject
+    logUtil::Any
+    layerInterface::Any
+    animationInterfaceArray::Any
+    circularIndexUtil::Any
+    dx::Int32
+    dy::Int32
+    AnimationDamageFloaters() = new()
+end
 
-from org.allbinary.game.combat.damage.DamageFloaters import DamageFloaters
 
-
-class AnimationDamageFloaters(DamageFloaters):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.layerInterface: AllBinaryLayer = None
-        self.animationInterfaceArray: list[IndexedAnimation] = None
-        self.circularIndexUtil: CircularIndexUtil = None
-        self.dx: int = None
-        self.dy: int = None
+function initFieldsAnimationDamageFloaters(this::AnimationDamageFloaters)
+    this.logUtil = nothing
+    this.layerInterface = nothing
+    this.animationInterfaceArray = nothing
+    this.circularIndexUtil = nothing
+    this.dx = Int32(0)
+    this.dy = Int32(0)
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
-
-    def __init__(self, layerInterface: AllBinaryLayer, animationInterfaceArray: list[IndexedAnimation], dx: int, dy: int) -> None:
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-        super().__init__()
-        self._init_fields()
-        self.animationInterfaceArray = animationInterfaceArray
-        for index in range(len(self.animationInterfaceArray) - 1, 0 - 1, -1):
-            self.animationInterfaceArray[index].setFrame(self.animationInterfaceArray[index].getSize() - 1)
-        self.layerInterface = layerInterface
-        self.circularIndexUtil = CircularIndexUtil.createInstance(len(self.animationInterfaceArray))
-        self.dx = dx
-        self.dy = dy
     
-
-    def add(self, damage: int) -> None:
-        i: int = self.circularIndexUtil.getIndex()
-        self.animationInterfaceArray[i].setFrame(0)
-        self.circularIndexUtil.next()
     
+    
+    
+    nothing
+end
 
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-        from org.allbinary.string.CommonStrings import CommonStrings
-        from org.allbinary.view.ViewPositionBase import ViewPositionBase
-        try:
-            viewPosition: ViewPositionBase = self.layerInterface.getViewPosition()
-            x: int = viewPosition.getX()
-            y: int = viewPosition.getY()
-            for index in range(0, len(self.animationInterfaceArray)):
-                animationInterface: IndexedAnimation = self.animationInterfaceArray[index]
-                if animationInterface.getFrame() < animationInterface.getAnimationSize() - 1:
-                    delta: int = animationInterface.getFrame() * 20
-                    animationInterface.paintXY(graphics, x + self.dx, y - delta + self.dy)
-                    animationInterface.nextFrame()
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            canvasStrings: CanvasStrings = CanvasStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, canvasStrings.PAINT, e)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-# from org.allbinary.graphics.displayable.CanvasStrings import CanvasStrings
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.util.CircularIndexUtil import CircularIndexUtil
-# from org.allbinary.view.ViewPosition import ViewPosition
-# from org.allbinary.view.ViewPositionBase import ViewPositionBase
 
+function initAnimationDamageFloaters(this::AnimationDamageFloaters, layerInterface, animationInterfaceArray, dx, dy)
+        initDamageFloaters(this)
+        initFieldsAnimationDamageFloaters(this)
+        this.animationInterfaceArray = animationInterfaceArray
+        let
+            local index::Int32 = Int32(Base.length(this.animationInterfaceArray)) - Int32(1)
+            while index >= Int32(0)
+            try
+            AllBinary.setFrame(this.animationInterfaceArray[index + 1], AllBinary.getSize(this.animationInterfaceArray[index + 1]) - Int32(1))
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        this.layerInterface = layerInterface
+        this.circularIndexUtil = AllBinary.createInstance(CircularIndexUtil, Int32(Base.length(this.animationInterfaceArray)))
+        this.dx = dx
+        this.dy = dy
+        nothing
+end
+
+function newAnimationDamageFloaters(layerInterface, animationInterfaceArray, dx, dy)
+    this = AnimationDamageFloaters()
+    initAnimationDamageFloaters(this, layerInterface, animationInterfaceArray, dx, dy)
+    this
+end
+
+
+function add(this::AnimationDamageFloaters, damage)
+        local i::Int32 = AllBinary.getIndex(this.circularIndexUtil)
+        AllBinary.setFrame(this.animationInterfaceArray[i + 1], Int32(0))
+        AllBinary.next(this.circularIndexUtil)
+        nothing
+end
+
+
+function paint(this::AnimationDamageFloaters, graphics)
+        try
+            local viewPosition = AllBinary.getViewPosition(this.layerInterface)
+            local x::Int32 = AllBinary.getX(viewPosition)
+            local y::Int32 = AllBinary.getY(viewPosition)
+            let
+                local index::Int32 = Int32(0)
+                while index < Int32(Base.length(this.animationInterfaceArray))
+                try
+                local animationInterface = this.animationInterfaceArray[index + 1]
+                if AllBinary.getFrame(animationInterface) < AllBinary.getAnimationSize(animationInterface) - Int32(1)
+                    local delta::Int32 = AllBinary.getFrame(animationInterface) * Int32(20)
+                    AllBinary.paintXY(animationInterface, graphics, x + this.dx, y - delta + this.dy)
+                    AllBinary.nextFrame(animationInterface)
+                end
+                finally
+                    index += Int32(1)
+                end
+                end
+            end
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            local canvasStrings = AllBinary.getInstance(CanvasStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, canvasStrings.PAINT, e)
+        end
+        nothing
+end
 

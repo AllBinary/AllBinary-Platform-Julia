@@ -1,49 +1,66 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.displayable.event
 
-from __future__ import annotations
+# extends BasicEventHandler: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LastDisplayChangeEventHandler <: JObject
+    LastDisplayChangeEventHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
+const LastDisplayChangeEventHandler_SINGLETONValue = Ref{Any}(nothing)
+const LastDisplayChangeEventHandler_SINGLETONSet = Ref(false)
+function staticGet_SINGLETON(::Type{LastDisplayChangeEventHandler})
+    if !LastDisplayChangeEventHandler_SINGLETONSet[]
+        LastDisplayChangeEventHandler_SINGLETONSet[] = true
+        LastDisplayChangeEventHandler_SINGLETONValue[] = newLastDisplayChangeEventHandler()
+    end
+    LastDisplayChangeEventHandler_SINGLETONValue[]
+end
+function staticSet_SINGLETON(::Type{LastDisplayChangeEventHandler}, value)
+    LastDisplayChangeEventHandler_SINGLETONSet[] = true
+    LastDisplayChangeEventHandler_SINGLETONValue[] = value
+end
 
-
-class LastDisplayChangeEventHandler(BasicEventHandler):
-    SINGLETON: LastDisplayChangeEventHandler = None
-    
-
-    @staticmethod
-    def getInstance() -> LastDisplayChangeEventHandler:
-        return LastDisplayChangeEventHandler.SINGLETON
-    
-
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    # throws Exception
-    def process(self, eventObject: AllBinaryEventObject, eventListenerInterface: EventListenerInterface) -> None:
-        from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-        from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
-        displayChangeEventListener: DisplayChangeEventListener = (eventListenerInterface)
-        displayChangeEventListener.onDisplayChangeEvent(eventObject)
-# from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
-# from org.allbinary.logic.util.event.EventListenerInterface import EventListenerInterface
+function initFieldsLastDisplayChangeEventHandler(this::LastDisplayChangeEventHandler)
+    nothing
+end
 
 
-def _LastDisplayChangeEventHandler_SINGLETON() -> object:
-    return LastDisplayChangeEventHandler()
+function getInstance(::Type{LastDisplayChangeEventHandler})
+        return staticGet_SINGLETON(LastDisplayChangeEventHandler)
+end
 
-lazy_static(LastDisplayChangeEventHandler, "SINGLETON", _LastDisplayChangeEventHandler_SINGLETON)
+
+function initLastDisplayChangeEventHandler(this::LastDisplayChangeEventHandler)
+        initBasicEventHandler(this)
+        initFieldsLastDisplayChangeEventHandler(this)
+        nothing
+        nothing
+end
+
+function newLastDisplayChangeEventHandler()
+    this = LastDisplayChangeEventHandler()
+    initLastDisplayChangeEventHandler(this)
+    this
+end
+
+
+function process(this::LastDisplayChangeEventHandler, eventObject, eventListenerInterface)
+        local displayChangeEventListener = ((eventListenerInterface))
+        AllBinary.onDisplayChangeEvent(displayChangeEventListener, (eventObject))
+        nothing
+end
 

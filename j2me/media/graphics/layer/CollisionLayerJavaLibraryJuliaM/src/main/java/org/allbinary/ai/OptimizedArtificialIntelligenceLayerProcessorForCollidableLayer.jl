@@ -1,49 +1,55 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.ai
 
-from __future__ import annotations
+# extends LayerProcessor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct OptimizedArtificialIntelligenceLayerProcessorForCollidableLayer <: JObject
+    OptimizedArtificialIntelligenceLayerProcessorForCollidableLayer() = new()
+end
 
-from org.allbinary.layer.LayerProcessor import LayerProcessor
+
+function initFieldsOptimizedArtificialIntelligenceLayerProcessorForCollidableLayer(this::OptimizedArtificialIntelligenceLayerProcessorForCollidableLayer)
+    nothing
+end
 
 
-class OptimizedArtificialIntelligenceLayerProcessorForCollidableLayer(LayerProcessor):
-    
+function initOptimizedArtificialIntelligenceLayerProcessorForCollidableLayer(this::OptimizedArtificialIntelligenceLayerProcessorForCollidableLayer)
+        initLayerProcessor(this, newOptimizedArtificialIntelligenceLayerManager())
+        nothing
+end
 
-    def __init__(self) -> None:
-        from org.allbinary.ai.OptimizedArtificialIntelligenceLayerManager import OptimizedArtificialIntelligenceLayerManager
-        super().__init__(OptimizedArtificialIntelligenceLayerManager())
-    
+function newOptimizedArtificialIntelligenceLayerProcessorForCollidableLayer()
+    this = OptimizedArtificialIntelligenceLayerProcessorForCollidableLayer()
+    initOptimizedArtificialIntelligenceLayerProcessorForCollidableLayer(this)
+    this
+end
 
-    # throws Exception
-    def processAt(self, allBinaryLayerManager: AllBinaryLayerManager, layerInterface: AllBinaryLayer, index: int) -> None:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        artificialIntelligenceCompositeInterface: CollidableCompositeLayer = layerInterface
-        artificialIntelligenceCompositeInterface.getArtificialIntelligenceInterface().processAI(allBinaryLayerManager)
-    
 
-    # throws Exception
-    def isProcessorLayer(self, layerInterface: AllBinaryLayer) -> bool:
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        if layerInterface.implmentsArtificialIntelligenceCompositeInterface():
-            return True
-        else:
-            return False
-# from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
+function processAt(this::OptimizedArtificialIntelligenceLayerProcessorForCollidableLayer, allBinaryLayerManager, layerInterface, index)
+        local artificialIntelligenceCompositeInterface = (layerInterface)
+        AllBinary.processAI(AllBinary.getArtificialIntelligenceInterface(artificialIntelligenceCompositeInterface), allBinaryLayerManager)
+        nothing
+end
 
+
+function isProcessorLayer(this::OptimizedArtificialIntelligenceLayerProcessorForCollidableLayer, layerInterface)
+        if AllBinary.implmentsArtificialIntelligenceCompositeInterface(layerInterface)
+            return true
+        else
+            return false
+        end
+end
 

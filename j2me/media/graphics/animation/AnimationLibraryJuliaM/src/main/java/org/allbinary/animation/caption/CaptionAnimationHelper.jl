@@ -1,79 +1,85 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.caption
 
-from __future__ import annotations
+# extends CaptionAnimationHelperBase: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CaptionAnimationHelper <: JObject
+    timeHelper::Any
+    textAnimation::Any
+    captionAnimation::Any
+    animation::Any
+    CaptionAnimationHelper() = new()
+end
 
-from org.allbinary.animation.caption.CaptionAnimationHelperBase import CaptionAnimationHelperBase
 
-
-class CaptionAnimationHelper(CaptionAnimationHelperBase):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.Animation import Animation
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        from org.allbinary.animation.text.TextAnimation import TextAnimation
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.timeHelper: TimeDelayHelper = TimeDelayHelper(620)
-        self.textAnimation: TextAnimation = TextAnimation(StringUtil.getInstance().EMPTY_STRING, AnimationBehavior.getInstance())
-        self.captionAnimation: Animation = None
-        self.animation: Animation = NullAnimationFactory.getFactoryInstance().getInstance(0)
+function initFieldsCaptionAnimationHelper(this::CaptionAnimationHelper)
+    this.timeHelper = nothing
+    this.textAnimation = nothing
+    this.captionAnimation = nothing
+    this.animation = nothing
+    this.timeHelper = newTimeDelayHelper(Int32(620))
+    this.textAnimation = newTextAnimation(AllBinary.getInstance(StringUtil).EMPTY_STRING, AllBinary.getInstance(AnimationBehavior))
     
+    this.animation = AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0))
+    nothing
+end
 
-    def __init__(self, captionAnimation: Animation, captionDx: int, captionDy: int, dx: int, dy: int) -> None:
-        from org.allbinary.animation.caption.CaptionAnimation import CaptionAnimation
-        from org.allbinary.animation.Animation import Animation
-        super().__init__()
-        self._init_fields()
-        self.captionAnimation = CaptionAnimation(captionAnimation, self.textAnimation, captionDx, captionDy, dx, dy)
-    
 
-    def isShowing(self) -> bool:
-        if self.animation == self.captionAnimation:
-            return True
-        else:
-            return False
-    
+function initCaptionAnimationHelper(this::CaptionAnimationHelper, captionAnimation, captionDx, captionDy, dx, dy)
+        initCaptionAnimationHelperBase(this)
+        initFieldsCaptionAnimationHelper(this)
+        this.captionAnimation = newCaptionAnimation(captionAnimation, this.textAnimation, captionDx, captionDy, dx, dy)
+        nothing
+end
 
-    def tick(self) -> None:
-        from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        if self.timeHelper.isTime(GameTickTimeDelayHelperFactory.getInstance().startTime):
-            self.animation = NullAnimationFactory.getFactoryInstance().getInstance(0)
-    
+function newCaptionAnimationHelper(captionAnimation, captionDx, captionDy, dx, dy)
+    this = CaptionAnimationHelper()
+    initCaptionAnimationHelper(this, captionAnimation, captionDx, captionDy, dx, dy)
+    this
+end
 
-    def update(self, message: str, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        self.textAnimation.setBasicColorP(basicColor)
-        self.textAnimation.setText(message)
-        self.animation = self.captionAnimation
-        self.timeHelper.setStartTimeTNT()
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.animation.paintXY(graphics, x, y)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.animation.Animation import Animation
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.animation.NullAnimationFactory import NullAnimationFactory
-# from org.allbinary.animation.text.TextAnimation import TextAnimation
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
+function isShowing(this::CaptionAnimationHelper)
+        if this.animation === this.captionAnimation
+            return true
+        else
+            return false
+        end
+end
 
+
+function tick(this::CaptionAnimationHelper)
+        if AllBinary.isTime(this.timeHelper, AllBinary.getInstance(GameTickTimeDelayHelperFactory).startTime)
+            this.animation = AllBinary.getInstance(AllBinary.getFactoryInstance(NullAnimationFactory), Int32(0))
+        end
+        nothing
+end
+
+
+function update(this::CaptionAnimationHelper, message, basicColor)
+        AllBinary.setBasicColorP(this.textAnimation, basicColor)
+        AllBinary.setText(this.textAnimation, message)
+        this.animation = this.captionAnimation
+        AllBinary.setStartTimeTNT(this.timeHelper)
+        nothing
+end
+
+
+function paintXY(this::CaptionAnimationHelper, graphics, x, y)
+        AllBinary.paintXY(this.animation, graphics, x, y)
+        nothing
+end
 

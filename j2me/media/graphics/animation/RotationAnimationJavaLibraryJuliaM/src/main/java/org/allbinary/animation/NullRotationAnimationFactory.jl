@@ -1,60 +1,79 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation
 
-from __future__ import annotations
+mutable struct NullRotationAnimationFactory <: JObject
+    NULL_ROTATION_ANIMATION_ARRAY::Any
+    NULL_ANIMATION::Any
+    NullRotationAnimationFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.animation.AnimationInterfaceFactoryInterface import AnimationInterfaceFactoryInterface
-from org.allbinary.animation.ProceduralAnimationInterfaceFactoryInterface import ProceduralAnimationInterfaceFactoryInterface
+const NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORYValue = Ref{Any}(nothing)
+const NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORYSet = Ref(false)
+function staticGet_NULL_ROTATION_ANIMATION_FACTORY(::Type{NullRotationAnimationFactory})
+    if !NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORYSet[]
+        NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORYSet[] = true
+        NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORYValue[] = newNullRotationAnimationFactory()
+    end
+    NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORYValue[]
+end
+function staticSet_NULL_ROTATION_ANIMATION_FACTORY(::Type{NullRotationAnimationFactory}, value)
+    NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORYSet[] = true
+    NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORYValue[] = value
+end
 
-
-class NullRotationAnimationFactory(AnimationInterfaceFactoryInterface, ProceduralAnimationInterfaceFactoryInterface):
-    NULL_ROTATION_ANIMATION_FACTORY: NullRotationAnimationFactory = None
-
-    def _init_fields(self) -> None:
-        self.NULL_ROTATION_ANIMATION_ARRAY: list[RotationAnimation] = [None] * (0)
-        self.NULL_ANIMATION: Animation = NullRotationAnimation2()
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getFactoryInstance() -> NullRotationAnimationFactory:
-        return NullRotationAnimationFactory.NULL_ROTATION_ANIMATION_FACTORY
-    
-
-    def getInstance(self, instanceId: int) -> Animation:
-        return self.NULL_ANIMATION
-    
-
-    # throws Exception
-    def getInstanceAnimation(self, animationInterface: Animation) -> Animation:
-        return self.NULL_ANIMATION
-    
-
-    def setInitialScale(self, scaleProperties: ScaleProperties) -> None:
-        from org.allbinary.media.ScaleProperties import ScaleProperties
-        pass
-# from org.allbinary.media.ScaleProperties import ScaleProperties
-from org.allbinary.animation.NullRotationAnimation2 import NullRotationAnimation2
+function initFieldsNullRotationAnimationFactory(this::NullRotationAnimationFactory)
+    this.NULL_ROTATION_ANIMATION_ARRAY = nothing
+    this.NULL_ANIMATION = nothing
+    this.NULL_ROTATION_ANIMATION_ARRAY = jNewArray(Any, Int32(0), nothing)
+    this.NULL_ANIMATION = newNullRotationAnimation2()
+    nothing
+end
 
 
-def _NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORY() -> object:
-    return NullRotationAnimationFactory()
+function initNullRotationAnimationFactory(this::NullRotationAnimationFactory)
+        initFieldsNullRotationAnimationFactory(this)
+        nothing
+        nothing
+end
 
-lazy_static(NullRotationAnimationFactory, "NULL_ROTATION_ANIMATION_FACTORY", _NullRotationAnimationFactory_NULL_ROTATION_ANIMATION_FACTORY)
+function newNullRotationAnimationFactory()
+    this = NullRotationAnimationFactory()
+    initNullRotationAnimationFactory(this)
+    this
+end
+
+
+function getFactoryInstance(::Type{NullRotationAnimationFactory})
+        return staticGet_NULL_ROTATION_ANIMATION_FACTORY(NullRotationAnimationFactory)
+end
+
+
+function getInstance(this::NullRotationAnimationFactory, instanceId)
+        return this.NULL_ANIMATION
+end
+
+
+function getInstanceAnimation(this::NullRotationAnimationFactory, animationInterface)
+        return this.NULL_ANIMATION
+end
+
+
+function setInitialScale(this::NullRotationAnimationFactory, scaleProperties)
+        nothing
+        nothing
+end
 

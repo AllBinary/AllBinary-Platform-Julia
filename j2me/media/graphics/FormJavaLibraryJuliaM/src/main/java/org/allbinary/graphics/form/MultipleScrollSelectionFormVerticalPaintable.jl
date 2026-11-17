@@ -1,41 +1,49 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends ItemIndexPaintable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct MultipleScrollSelectionFormVerticalPaintable <: JObject
+    multipleScrollSelectionForm::Any
+    MultipleScrollSelectionFormVerticalPaintable() = new()
+end
 
-from org.allbinary.graphics.form.ItemIndexPaintable import ItemIndexPaintable
 
-
-class MultipleScrollSelectionFormVerticalPaintable(ItemIndexPaintable):
-
-    def _init_fields(self) -> None:
-        self.multipleScrollSelectionForm: MultipleScrollSelectionHorizontalForm = None
+function initFieldsMultipleScrollSelectionFormVerticalPaintable(this::MultipleScrollSelectionFormVerticalPaintable)
+    this.multipleScrollSelectionForm = nothing
     
+    nothing
+end
 
-    def __init__(self, multipleScrollSelectionForm: MultipleScrollSelectionHorizontalForm) -> None:
-        super().__init__()
-        self._init_fields()
-        self.multipleScrollSelectionForm = multipleScrollSelectionForm
-    
 
-    # throws Exception
-    def paint(self, graphics: Graphics, index: int, item: ABCustomItem, dx: int, dy: int) -> int:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
-        return self.multipleScrollSelectionForm.paintVertical(graphics, index, item, dx, dy)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.form.item.ABCustomItem import ABCustomItem
+function initMultipleScrollSelectionFormVerticalPaintable(this::MultipleScrollSelectionFormVerticalPaintable, multipleScrollSelectionForm)
+        initItemIndexPaintable(this)
+        initFieldsMultipleScrollSelectionFormVerticalPaintable(this)
+        this.multipleScrollSelectionForm = multipleScrollSelectionForm
+        nothing
+end
 
+function newMultipleScrollSelectionFormVerticalPaintable(multipleScrollSelectionForm)
+    this = MultipleScrollSelectionFormVerticalPaintable()
+    initMultipleScrollSelectionFormVerticalPaintable(this, multipleScrollSelectionForm)
+    this
+end
+
+
+function paint(this::MultipleScrollSelectionFormVerticalPaintable, graphics, index, item, dx, dy)
+        return AllBinary.paintVertical(this.multipleScrollSelectionForm, graphics, index, item, dx, dy)
+end
 

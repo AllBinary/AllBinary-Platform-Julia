@@ -1,69 +1,76 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.input.motion.button
 
-from __future__ import annotations
+# extends Input: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TouchButtonInput <: JObject
+    logUtil::Any
+    gameKeyEventFactory::Any
+    TOUCH_BUTTON_SOURCE_ID::Int32
+    gameKeyEvent::Any
+    TouchButtonInput() = new()
+end
 
-from org.allbinary.game.input.GameKeyEventSourceInterface import GameKeyEventSourceInterface
-from org.allbinary.game.input.Input import Input
+
+function initFieldsTouchButtonInput(this::TouchButtonInput)
+    this.logUtil = nothing
+    this.gameKeyEventFactory = nothing
+    this.TOUCH_BUTTON_SOURCE_ID = Int32(0)
+    this.gameKeyEvent = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
+    this.gameKeyEventFactory = AllBinary.getInstance(GameKeyEventFactory)
+    this.TOUCH_BUTTON_SOURCE_ID = this.gameKeyEventFactory.TOUCH_BUTTON_SOURCE_ID
+    this.gameKeyEvent = staticGet_NONE(GameKeyEvent)
+    nothing
+end
 
 
-class TouchButtonInput(Input, GameKeyEventSourceInterface):
+function initTouchButtonInput(this::TouchButtonInput, id, name)
+        initInput(this, id, name)
+        initFieldsTouchButtonInput(this)
+        local inputFactory = AllBinary.getInstance(InputFactory)
+        AllBinary.add(inputFactory, AllBinary.getId(this), this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.gameKeyEventFactory: GameKeyEventFactory = GameKeyEventFactory.getInstance()
-        self.TOUCH_BUTTON_SOURCE_ID: int = self.gameKeyEventFactory.TOUCH_BUTTON_SOURCE_ID
-        self.gameKeyEvent: GameKeyEvent = GameKeyEvent.NONE
-    
+function newTouchButtonInput(id, name)
+    this = TouchButtonInput()
+    initTouchButtonInput(this, id, name)
+    this
+end
 
-    def __init__(self, id: int, name: str) -> None:
-        from org.allbinary.game.input.InputFactory import InputFactory
-        super().__init__(id, name)
-        self._init_fields()
-        inputFactory: InputFactory = InputFactory.getInstance()
-        inputFactory.add(self.getId(), self)
-    
 
-    def update(self, inputToGameKeyMapping: InputToGameKeyMapping) -> None:
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            gameKey: GameKey = inputToGameKeyMapping.getInstance(self.getId())
-            self.gameKeyEvent = self.gameKeyEventFactory.getInstanceForInput(self, gameKey)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.UPDATE, e)
-    
+function update(this::TouchButtonInput, inputToGameKeyMapping)
+        try
+            local gameKey = AllBinary.getInstance(inputToGameKeyMapping, AllBinary.getId(this))
+            this.gameKeyEvent = AllBinary.getInstanceForInput(this.gameKeyEventFactory, this, gameKey)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.UPDATE, e)
+        end
+        nothing
+end
 
-    def getSourceId(self) -> int:
-        return self.TOUCH_BUTTON_SOURCE_ID
-    
 
-    def getGameKeyEvent(self) -> GameKeyEvent:
-        from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-        return self.gameKeyEvent
-# from org.allbinary.game.input.GameKey import GameKey
-# from org.allbinary.game.input.InputFactory import InputFactory
-# from org.allbinary.game.input.event.GameKeyEvent import GameKeyEvent
-# from org.allbinary.game.input.event.GameKeyEventFactory import GameKeyEventFactory
-# from org.allbinary.game.input.mapping.InputToGameKeyMapping import InputToGameKeyMapping
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function getSourceId(this::TouchButtonInput)
+        return this.TOUCH_BUTTON_SOURCE_ID
+end
 
+
+function getGameKeyEvent(this::TouchButtonInput)
+        return this.gameKeyEvent
+end
 

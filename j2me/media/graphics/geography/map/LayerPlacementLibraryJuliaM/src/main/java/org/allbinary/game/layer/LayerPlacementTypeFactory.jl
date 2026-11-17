@@ -1,47 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer
 
-from __future__ import annotations
+mutable struct LayerPlacementTypeFactory <: JObject
+    MAP::Any
+    LEFT::Any
+    DOWN::Any
+    UP::Any
+    RIGHT::Any
+    LayerPlacementTypeFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const LayerPlacementTypeFactory_instanceValue = Ref{Any}(nothing)
+const LayerPlacementTypeFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{LayerPlacementTypeFactory})
+    if !LayerPlacementTypeFactory_instanceSet[]
+        LayerPlacementTypeFactory_instanceSet[] = true
+        LayerPlacementTypeFactory_instanceValue[] = newLayerPlacementTypeFactory()
+    end
+    LayerPlacementTypeFactory_instanceValue[]
+end
+function staticSet_instance(::Type{LayerPlacementTypeFactory}, value)
+    LayerPlacementTypeFactory_instanceSet[] = true
+    LayerPlacementTypeFactory_instanceValue[] = value
+end
+
+function initFieldsLayerPlacementTypeFactory(this::LayerPlacementTypeFactory)
+    this.MAP = nothing
+    this.LEFT = nothing
+    this.DOWN = nothing
+    this.UP = nothing
+    this.RIGHT = nothing
+    this.MAP = newLayerPlacementType(staticGet_MAX_VALUE(Integer))
+    this.LEFT = newLayerPlacementType(AllBinary.getValue(AllBinary.getInstance(DirectionFactory).LEFT))
+    this.DOWN = newLayerPlacementType(AllBinary.getValue(AllBinary.getInstance(DirectionFactory).DOWN))
+    this.UP = newLayerPlacementType(AllBinary.getValue(AllBinary.getInstance(DirectionFactory).UP))
+    this.RIGHT = newLayerPlacementType(AllBinary.getValue(AllBinary.getInstance(DirectionFactory).RIGHT))
+    nothing
+end
+
+function initLayerPlacementTypeFactory(this::LayerPlacementTypeFactory)
+    initFieldsLayerPlacementTypeFactory(this)
+end
+
+function newLayerPlacementTypeFactory()
+    this = LayerPlacementTypeFactory()
+    initLayerPlacementTypeFactory(this)
+    this
+end
 
 
-class LayerPlacementTypeFactory:
-    instance: LayerPlacementTypeFactory = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.direction.DirectionFactory import DirectionFactory
-        self.MAP: LayerPlacementType = LayerPlacementType(2147483647)
-        self.LEFT: LayerPlacementType = LayerPlacementType(DirectionFactory.getInstance().LEFT.getValue())
-        self.DOWN: LayerPlacementType = LayerPlacementType(DirectionFactory.getInstance().DOWN.getValue())
-        self.UP: LayerPlacementType = LayerPlacementType(DirectionFactory.getInstance().UP.getValue())
-        self.RIGHT: LayerPlacementType = LayerPlacementType(DirectionFactory.getInstance().RIGHT.getValue())
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> LayerPlacementTypeFactory:
-        return LayerPlacementTypeFactory.instance
-# from org.allbinary.direction.DirectionFactory import DirectionFactory
-from org.allbinary.game.layer.LayerPlacementType import LayerPlacementType
-
-
-def _LayerPlacementTypeFactory_instance() -> object:
-    return LayerPlacementTypeFactory()
-
-lazy_static(LayerPlacementTypeFactory, "instance", _LayerPlacementTypeFactory_instance)
+function getInstance(::Type{LayerPlacementTypeFactory})
+        return staticGet_instance(LayerPlacementTypeFactory)
+end
 

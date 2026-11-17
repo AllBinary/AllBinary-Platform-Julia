@@ -1,65 +1,69 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.ai
 
-from __future__ import annotations
+# extends LurchAI: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LurchRotationAI <: JObject
+    rotationAnimationInterface::Any
+    LurchRotationAI() = new()
+end
 
-from org.allbinary.game.ag.ai.tactical.LurchAI import LurchAI
 
-
-class LurchRotationAI(LurchAI):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-        self.rotationAnimationInterface: IndexedAnimation = None
+function initFieldsLurchRotationAI(this::LurchRotationAI)
+    this.rotationAnimationInterface = nothing
     
+    nothing
+end
 
-    def __init__(self, ownerLayerInterface: AllBinaryLayer, gameInput: GameInput) -> None:
-        from org.allbinary.animation.RotationAnimationInterfaceCompositeInterface import RotationAnimationInterfaceCompositeInterface
-        from org.allbinary.game.input.GameInput import GameInput
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__(ownerLayerInterface, gameInput)
-        self._init_fields()
-        rotationAnimationInterfaceCompositeInterface: RotationAnimationInterfaceCompositeInterface = self.getOwnerLayerInterface()
-        self.rotationAnimationInterface = rotationAnimationInterfaceCompositeInterface.getRotationAnimationInterface()
-        self.update()
-    
 
-    def reverse(self) -> None:
-        super().reverse()
-        self.update()
-    
+function initLurchRotationAI(this::LurchRotationAI, ownerLayerInterface, gameInput)
+        initLurchAI(this, ownerLayerInterface, gameInput)
+        initFieldsLurchRotationAI(this)
+        local rotationAnimationInterfaceCompositeInterface = (AllBinary.getOwnerLayerInterface(this))
+        this.rotationAnimationInterface = AllBinary.getRotationAnimationInterface(rotationAnimationInterfaceCompositeInterface)
+        AllBinary.update(this)
+        nothing
+end
 
-    def update(self) -> None:
-        from org.allbinary.animation.RotationAnimationInterface import RotationAnimationInterface
-        from org.allbinary.animation.RotationAnimationInterfaceCompositeInterface import RotationAnimationInterfaceCompositeInterface
-        from org.allbinary.math.AngleIncrementInfo import AngleIncrementInfo
-        if self.currentRelativeAngle == 0:
-            rotationAnimationInterface: RotationAnimationInterface = self.rotationAnimationInterface
-            angleIncrementInfo: AngleIncrementInfo = rotationAnimationInterface.getAngleInfoP().getAngleIncrementInfo()
-            rotationAnimationInterfaceCompositeInterface: RotationAnimationInterfaceCompositeInterface = self.getOwnerLayerInterface()
-            rotationAnimationInterfaceCompositeInterface.setFrame(int(angleIncrementInfo.RIGHT_FRAME))
-        elif self.currentRelativeAngle == 180:
-            rotationAnimationInterface: RotationAnimationInterface = self.rotationAnimationInterface
-            angleIncrementInfo: AngleIncrementInfo = rotationAnimationInterface.getAngleInfoP().getAngleIncrementInfo()
-            rotationAnimationInterfaceCompositeInterface: RotationAnimationInterfaceCompositeInterface = self.getOwnerLayerInterface()
-            rotationAnimationInterfaceCompositeInterface.setFrame(int(angleIncrementInfo.LEFT_FRAME))
-# from org.allbinary.animation.IndexedAnimation import IndexedAnimation
-# from org.allbinary.animation.RotationAnimationInterface import RotationAnimationInterface
-# from org.allbinary.animation.RotationAnimationInterfaceCompositeInterface import RotationAnimationInterfaceCompositeInterface
-# from org.allbinary.game.input.GameInput import GameInput
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.math.AngleIncrementInfo import AngleIncrementInfo
+function newLurchRotationAI(ownerLayerInterface, gameInput)
+    this = LurchRotationAI()
+    initLurchRotationAI(this, ownerLayerInterface, gameInput)
+    this
+end
 
+
+function reverse(this::LurchRotationAI)
+        AllBinary.reverse(this)
+        AllBinary.update(this)
+        nothing
+end
+
+
+function update(this::LurchRotationAI)
+        if this.currentRelativeAngle == Int32(0)
+            rotationAnimationInterface = (this.rotationAnimationInterface)
+            angleIncrementInfo = AllBinary.getAngleIncrementInfo(AllBinary.getAngleInfoP(rotationAnimationInterface))
+            rotationAnimationInterfaceCompositeInterface = (AllBinary.getOwnerLayerInterface(this))
+            AllBinary.setFrame(rotationAnimationInterfaceCompositeInterface, AllBinary.intValue(angleIncrementInfo.RIGHT_FRAME))
+        elseif this.currentRelativeAngle == Int32(180)
+            local rotationAnimationInterface = (this.rotationAnimationInterface)
+            local angleIncrementInfo = AllBinary.getAngleIncrementInfo(AllBinary.getAngleInfoP(rotationAnimationInterface))
+            local rotationAnimationInterfaceCompositeInterface = (AllBinary.getOwnerLayerInterface(this))
+            AllBinary.setFrame(rotationAnimationInterfaceCompositeInterface, AllBinary.intValue(angleIncrementInfo.LEFT_FRAME))
+        end
+        nothing
+end
 

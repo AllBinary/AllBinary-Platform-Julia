@@ -1,48 +1,53 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#   
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic.score
 
-from __future__ import annotations
+# extends NumberStringHud: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct ScoreHudWidget <: JObject
+    ScoreHudWidget() = new()
+end
 
-from org.allbinary.game.ag.layer.hud.basic.NumberStringHud import NumberStringHud
+
+function initFieldsScoreHudWidget(this::ScoreHudWidget)
+    nothing
+end
 
 
-class ScoreHudWidget(NumberStringHud):
-    
+function getInstance(::Type{ScoreHudWidget}, maxscore, location, direction)
+        return newScoreHudWidget(maxscore, location, direction, Int32(2), AllBinary.getInstance(BasicColorFactory).GREY)
+end
 
-    # throws Exception
-    @staticmethod
-    def getInstance(maxscore: int, location: int, direction: int) -> ScoreHudWidget:
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        return ScoreHudWidget(maxscore, location, direction, 2, BasicColorFactory.getInstance().GREY)
-    
 
-    def __init__(self, maxscore: int, location: int, direction: int, bufferZone: int, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__("Pts ", maxscore, location, direction, bufferZone, basicColor)
-        self.updateMaxHeight = 14
-    
+function initScoreHudWidget(this::ScoreHudWidget, maxscore, location, direction, bufferZone, basicColor)
+        initNumberStringHud(this, "Pts ", maxscore, location, direction, bufferZone, basicColor)
+        this.updateMaxHeight = Int32(14)
+        nothing
+end
 
-    def updateMeasurement(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Font import Font
-        from javax.microedition.lcdui.Graphics import Graphics
-        font: Font = graphics.getFont()
-        self.updateMaxWidth = font.getSize() * 5
-        super().updateMeasurement(graphics)
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
+function newScoreHudWidget(maxscore, location, direction, bufferZone, basicColor)
+    this = ScoreHudWidget()
+    initScoreHudWidget(this, maxscore, location, direction, bufferZone, basicColor)
+    this
+end
 
+
+function updateMeasurement(this::ScoreHudWidget, graphics)
+        local font = AllBinary.getFont(graphics)
+        this.updateMaxWidth = AllBinary.getSize(font) * Int32(5)
+        AllBinary.updateMeasurement(this, graphics)
+        nothing
+end
 

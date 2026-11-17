@@ -1,90 +1,96 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.score
 
-from __future__ import annotations
+mutable struct ScoreComparator <: JObject
+    logUtil::Any
+    isHighestBest::Bool
+    ScoreComparator() = new()
+end
 
-from javax.microedition.rms.RecordComparator import RecordComparator
 
-
-class ScoreComparator(RecordComparator):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.isHighestBest: bool = None
+function initFieldsScoreComparator(this::ScoreComparator)
+    this.logUtil = nothing
+    this.isHighestBest = false
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    nothing
+end
 
-    def __init__(self, isHighestBest: bool) -> None:
-        self._init_fields()
-        self.isHighestBest = isHighestBest
-    
 
-    def getBestScore(self) -> int:
-        return (9223372036854775807 if self.isHighestBest else 0)
-    
+function initScoreComparator(this::ScoreComparator, isHighestBest)
+        initFieldsScoreComparator(this)
+        this.isHighestBest = isHighestBest
+        nothing
+end
 
-    def compare(self, recordOne: list[int], recordTwo: list[int]) -> int:
-        from java.io.DataInputStream import DataInputStream
-        from org.allbinary.string.CommonStrings import CommonStrings
-        byteArrayInputStreamOne: ByteArrayInputStream = ByteArrayInputStream(recordOne)
-        inputStreamOne: DataInputStream = DataInputStream(byteArrayInputStreamOne)
-        byteArrayInputStreamTwo: ByteArrayInputStream = ByteArrayInputStream(recordTwo)
-        inputStreamTwo: DataInputStream = DataInputStream(byteArrayInputStreamTwo)
-        scoreOne: int = 0
-        scoreTwo: int = 0
-        try:
-            inputStreamOne.readUTF()
-            inputStreamTwo.readUTF()
-            scoreOne = inputStreamOne.readLong()
-            scoreTwo = inputStreamTwo.readLong()
-        except EOFException as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "compare", e)
-        except OSError as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "compare", e)
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, "compare", e)
-        if self.isHighestBest:
-            return self.getHighTooLow(scoreOne, scoreTwo)
-        else:
-            return self.getLowTooHigh(scoreOne, scoreTwo)
-    
+function newScoreComparator(isHighestBest)
+    this = ScoreComparator()
+    initScoreComparator(this, isHighestBest)
+    this
+end
 
-    def getHighTooLow(self, scoreOne: int, scoreTwo: int) -> int:
-        if scoreOne > scoreTwo:
-            return RecordComparator.PRECEDES
-        elif scoreOne < scoreTwo:
-            return RecordComparator.FOLLOWS
-        else:
-            return RecordComparator.EQUIVALENT
-    
 
-    def getLowTooHigh(self, scoreOne: int, scoreTwo: int) -> int:
-        if scoreOne < scoreTwo:
-            return RecordComparator.PRECEDES
-        elif scoreOne > scoreTwo:
-            return RecordComparator.FOLLOWS
-        else:
-            return RecordComparator.EQUIVALENT
-# from java.io.ByteArrayInputStream import ByteArrayInputStream
-# from java.io.DataInputStream import DataInputStream
-# from java.io.EOFException import EOFException
-# from java.io.IOException import IOException
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+function getBestScore(this::ScoreComparator)
+        return (this.isHighestBest ? staticGet_MAX_VALUE(Long) : Int32(0))
+end
 
+
+function compare(this::ScoreComparator, recordOne, recordTwo)
+        local byteArrayInputStreamOne = newByteArrayInputStream(recordOne)
+        local inputStreamOne = newDataInputStream(byteArrayInputStreamOne)
+        local byteArrayInputStreamTwo = newByteArrayInputStream(recordTwo)
+        local inputStreamTwo = newDataInputStream(byteArrayInputStreamTwo)
+        local scoreOne::Int64 = Int64(0)
+        local scoreTwo::Int64 = Int64(0)
+        try
+            AllBinary.readUTF(inputStreamOne)
+            AllBinary.readUTF(inputStreamTwo)
+            scoreOne = AllBinary.readLong(inputStreamOne)
+            scoreTwo = AllBinary.readLong(inputStreamTwo)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, "compare", e)
+        end
+        if this.isHighestBest
+            return AllBinary.getHighTooLow(this, scoreOne, scoreTwo)
+        else
+            return AllBinary.getLowTooHigh(this, scoreOne, scoreTwo)
+        end
+end
+
+
+function getHighTooLow(this::ScoreComparator, scoreOne, scoreTwo)
+        if scoreOne > scoreTwo
+            return staticGet_PRECEDES(RecordComparator)
+        elseif scoreOne < scoreTwo
+            return staticGet_FOLLOWS(RecordComparator)
+        else
+            return staticGet_EQUIVALENT(RecordComparator)
+        end
+end
+
+
+function getLowTooHigh(this::ScoreComparator, scoreOne, scoreTwo)
+        if scoreOne < scoreTwo
+            return staticGet_PRECEDES(RecordComparator)
+        elseif scoreOne > scoreTwo
+            return staticGet_FOLLOWS(RecordComparator)
+        else
+            return staticGet_EQUIVALENT(RecordComparator)
+        end
+end
 

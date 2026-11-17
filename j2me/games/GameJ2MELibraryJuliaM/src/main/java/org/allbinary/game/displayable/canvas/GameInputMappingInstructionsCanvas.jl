@@ -1,90 +1,117 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends GameCommandCanvas: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct GameInputMappingInstructionsCanvas <: JObject
+    drawStringUtil::Any
+    TITLE::Any
+    instructions::Any
+    colorFillPaintable::Any
+    anchor::Int32
+    GameInputMappingInstructionsCanvas() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.displayable.canvas.GameCommandCanvas import GameCommandCanvas
+const GameInputMappingInstructionsCanvas_DISPLAYValue = Ref{Any}(nothing)
+const GameInputMappingInstructionsCanvas_DISPLAYSet = Ref(false)
+function staticGet_DISPLAY(::Type{GameInputMappingInstructionsCanvas})
+    if !GameInputMappingInstructionsCanvas_DISPLAYSet[]
+        GameInputMappingInstructionsCanvas_DISPLAYSet[] = true
+        GameInputMappingInstructionsCanvas_DISPLAYValue[] = newCommand("Help", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SCREEN(Command), Int32(1))
+    end
+    GameInputMappingInstructionsCanvas_DISPLAYValue[]
+end
+function staticSet_DISPLAY(::Type{GameInputMappingInstructionsCanvas}, value)
+    GameInputMappingInstructionsCanvas_DISPLAYSet[] = true
+    GameInputMappingInstructionsCanvas_DISPLAYValue[] = value
+end
+const GameInputMappingInstructionsCanvas_CLOSEValue = Ref{Any}(nothing)
+const GameInputMappingInstructionsCanvas_CLOSESet = Ref(false)
+function staticGet_CLOSE(::Type{GameInputMappingInstructionsCanvas})
+    if !GameInputMappingInstructionsCanvas_CLOSESet[]
+        GameInputMappingInstructionsCanvas_CLOSESet[] = true
+        GameInputMappingInstructionsCanvas_CLOSEValue[] = newCommand("Close", AllBinary.getInstance(StringUtil).EMPTY_STRING, staticGet_SCREEN(Command), Int32(1))
+    end
+    GameInputMappingInstructionsCanvas_CLOSEValue[]
+end
+function staticSet_CLOSE(::Type{GameInputMappingInstructionsCanvas}, value)
+    GameInputMappingInstructionsCanvas_CLOSESet[] = true
+    GameInputMappingInstructionsCanvas_CLOSEValue[] = value
+end
+const GameInputMappingInstructionsCanvas_NAMEValue = Ref{Any}(nothing)
+const GameInputMappingInstructionsCanvas_NAMESet = Ref(false)
+function staticGet_NAME(::Type{GameInputMappingInstructionsCanvas})
+    if !GameInputMappingInstructionsCanvas_NAMESet[]
+        GameInputMappingInstructionsCanvas_NAMESet[] = true
+        GameInputMappingInstructionsCanvas_NAMEValue[] = "GameInputMappingInstructionsCanvas"
+    end
+    GameInputMappingInstructionsCanvas_NAMEValue[]
+end
+function staticSet_NAME(::Type{GameInputMappingInstructionsCanvas}, value)
+    GameInputMappingInstructionsCanvas_NAMESet[] = true
+    GameInputMappingInstructionsCanvas_NAMEValue[] = value
+end
 
-
-class GameInputMappingInstructionsCanvas(GameCommandCanvas):
-    DISPLAY: Command = None
-    CLOSE: Command = None
-    NAME: str = "GameInputMappingInstructionsCanvas"
-
-    def _init_fields(self) -> None:
-        from org.allbinary.game.paint.ColorFillBasePaintable import ColorFillBasePaintable
-        from org.allbinary.graphics.Anchor import Anchor
-        from org.allbinary.graphics.draw.DrawStringUtil import DrawStringUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        self.drawStringUtil: DrawStringUtil = DrawStringUtil.getInstance()
-        self.TITLE: str = "Input Instructions"
-        self.instructions: list[str] = ["Add Input Mapping:", "1. Select the desired action by generating a currently defined input for a given action.", "(Example: Press the '1' key to select the Fire action)", "2. Make the newly desired input for the selected action.", "(Example: Press 'f' to add it to the selected action)", "Note: If the input is already mapped to another action then it will not be added. You", "will need to deleted from the other action before adding it to another.", "Warning: Not all keys map for a given platform and show as Unknown.", StringUtil.getInstance().EMPTY_STRING, "Remove Input Mapping:", "1. Select the desired action by generating a currently defined input for a given action.", "(Example: Press the key '1' to select the Fire action)", "2. Select a mapped input for the selected action.", "(Example: Press the key '1' to select the '1' key input for the selected Fire action)", "3. Press the Delete Key."]
-        self.colorFillPaintable: ColorFillBasePaintable = None
-        self.anchor: int = Anchor.TOP_LEFT
+function initFieldsGameInputMappingInstructionsCanvas(this::GameInputMappingInstructionsCanvas)
+    this.drawStringUtil = nothing
+    this.TITLE = nothing
+    this.instructions = nothing
+    this.colorFillPaintable = nothing
+    this.anchor = Int32(0)
+    this.drawStringUtil = AllBinary.getInstance(DrawStringUtil)
+    this.TITLE = "Input Instructions"
+    this.instructions = Any["Add Input Mapping:", "1. Select the desired action by generating a currently defined input for a given action.", "(Example: Press the '1' key to select the Fire action)", "2. Make the newly desired input for the selected action.", "(Example: Press 'f' to add it to the selected action)", "Note: If the input is already mapped to another action then it will not be added. You", "will need to deleted from the other action before adding it to another.", "Warning: Not all keys map for a given platform and show as Unknown.", AllBinary.getInstance(StringUtil).EMPTY_STRING, "Remove Input Mapping:", "1. Select the desired action by generating a currently defined input for a given action.", "(Example: Press the key '1' to select the Fire action)", "2. Select a mapped input for the selected action.", "(Example: Press the key '1' to select the '1' key input for the selected Fire action)", "3. Press the Delete Key."]
     
-
-    def __init__(self, commandListener: CommandListener, allBinaryGameLayerManager: AllBinaryGameLayerManager) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-        from org.allbinary.game.paint.ColorFillPaintableFactory import ColorFillPaintableFactory
-        super().__init__(commandListener, GameInputMappingInstructionsCanvas.NAME, allBinaryGameLayerManager.getBackgroundBasicColor(), allBinaryGameLayerManager.getForegroundBasicColor())
-        self._init_fields()
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        self.colorFillPaintable = ColorFillPaintableFactory.getInstance().getInstance(allBinaryGameLayerManager.getBackgroundBasicColor(), False)
-    
-
-    def initCommands(self, cmdListener: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        self.removeAllCommands()
-        self.addCommand(GameInputMappingInstructionsCanvas.CLOSE)
-        self.setCommandListener(cmdListener)
-    
-
-    def paint(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.myFontProcessor.process(graphics)
-        self.colorFillPaintable.paint(graphics)
-        halfWidth: int = self.displayInfo.getLastHalfWidth()
-        beginWidth: int = (graphics.getFont().stringWidth(self.TITLE) >> 1)
-        graphics.setColor(self.foregroundColor)
-        graphics.drawString(self.TITLE, halfWidth - beginWidth, self.fontHeight, self.anchor)
-        self.drawStringUtil.drawCenterStrings(graphics, self.instructions, self.displayInfo.getLastWidth(), self.fontHeight, halfWidth, 3 * self.fontHeight)
-        super().paint(graphics)
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-# from org.allbinary.game.paint.ColorFillBasePaintable import ColorFillBasePaintable
-# from org.allbinary.game.paint.ColorFillPaintableFactory import ColorFillPaintableFactory
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.graphics.draw.DrawStringUtil import DrawStringUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    nothing
+end
 
 
-def _GameInputMappingInstructionsCanvas_DISPLAY() -> object:
-    from javax.microedition.lcdui.Command import Command
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return Command("Help", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
+function initGameInputMappingInstructionsCanvas(this::GameInputMappingInstructionsCanvas, commandListener, allBinaryGameLayerManager)
+        initGameCommandCanvas(this, commandListener, staticGet_NAME(GameInputMappingInstructionsCanvas), AllBinary.getBackgroundBasicColor(allBinaryGameLayerManager), AllBinary.getForegroundBasicColor(allBinaryGameLayerManager))
+        initFieldsGameInputMappingInstructionsCanvas(this)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        this.colorFillPaintable = AllBinary.getInstance(AllBinary.getInstance(ColorFillPaintableFactory), AllBinary.getBackgroundBasicColor(allBinaryGameLayerManager), false)
+        nothing
+end
 
-lazy_static(GameInputMappingInstructionsCanvas, "DISPLAY", _GameInputMappingInstructionsCanvas_DISPLAY)
+function newGameInputMappingInstructionsCanvas(commandListener, allBinaryGameLayerManager)
+    this = GameInputMappingInstructionsCanvas()
+    initGameInputMappingInstructionsCanvas(this, commandListener, allBinaryGameLayerManager)
+    this
+end
 
-def _GameInputMappingInstructionsCanvas_CLOSE() -> object:
-    from javax.microedition.lcdui.Command import Command
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return Command("Close", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
 
-lazy_static(GameInputMappingInstructionsCanvas, "CLOSE", _GameInputMappingInstructionsCanvas_CLOSE)
+function initCommands(this::GameInputMappingInstructionsCanvas, cmdListener)
+        AllBinary.removeAllCommands(this)
+        AllBinary.addCommand(this, staticGet_CLOSE(GameInputMappingInstructionsCanvas))
+        AllBinary.setCommandListener(this, cmdListener)
+        nothing
+end
+
+
+function paint(this::GameInputMappingInstructionsCanvas, graphics)
+        AllBinary.process(this.myFontProcessor, graphics)
+        AllBinary.paint(this.colorFillPaintable, graphics)
+        local halfWidth::Int32 = AllBinary.getLastHalfWidth(this.displayInfo)
+        local beginWidth::Int32 = (AllBinary.stringWidth(AllBinary.getFont(graphics), this.TITLE) >> Int32(1))
+        AllBinary.setColor(graphics, this.foregroundColor)
+        AllBinary.drawString(graphics, this.TITLE, halfWidth - beginWidth, this.fontHeight, this.anchor)
+        AllBinary.drawCenterStrings(this.drawStringUtil, graphics, this.instructions, AllBinary.getLastWidth(this.displayInfo), this.fontHeight, halfWidth, Int32(3) * this.fontHeight)
+        AllBinary.paint(this, graphics)
+        nothing
+end
 

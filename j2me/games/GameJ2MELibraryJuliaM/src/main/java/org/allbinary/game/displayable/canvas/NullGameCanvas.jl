@@ -1,151 +1,172 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends AllBinaryGameCanvas: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NullGameCanvas <: JObject
+    runningNull::Bool
+    NullGameCanvas() = new()
+end
 
-import threading
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.displayable.canvas.AllBinaryGameCanvas import AllBinaryGameCanvas
+const NullGameCanvas_instanceValue = Ref{Any}(nothing)
+const NullGameCanvas_instanceSet = Ref(false)
+function staticGet_instance(::Type{NullGameCanvas})
+    if !NullGameCanvas_instanceSet[]
+        NullGameCanvas_instanceSet[] = true
+        NullGameCanvas_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    NullGameCanvas_instanceValue[]
+end
+function staticSet_instance(::Type{NullGameCanvas}, value)
+    NullGameCanvas_instanceSet[] = true
+    NullGameCanvas_instanceValue[] = value
+end
+const NullGameCanvas_NO_GAMEValue = Ref{Any}(nothing)
+const NullGameCanvas_NO_GAMESet = Ref(false)
+function staticGet_NO_GAME(::Type{NullGameCanvas})
+    if !NullGameCanvas_NO_GAMESet[]
+        NullGameCanvas_NO_GAMESet[] = true
+        NullGameCanvas_NO_GAMEValue[] = "No Background Game"
+    end
+    NullGameCanvas_NO_GAMEValue[]
+end
+function staticSet_NO_GAME(::Type{NullGameCanvas}, value)
+    NullGameCanvas_NO_GAMESet[] = true
+    NullGameCanvas_NO_GAMEValue[] = value
+end
+const NullGameCanvas_TYPEValue = Ref{Any}(nothing)
+const NullGameCanvas_TYPESet = Ref(false)
+function staticGet_TYPE(::Type{NullGameCanvas})
+    if !NullGameCanvas_TYPESet[]
+        NullGameCanvas_TYPESet[] = true
+        NullGameCanvas_TYPEValue[] = Int32(1)
+    end
+    NullGameCanvas_TYPEValue[]
+end
+function staticSet_TYPE(::Type{NullGameCanvas}, value)
+    NullGameCanvas_TYPESet[] = true
+    NullGameCanvas_TYPEValue[] = value
+end
+
+function initFieldsNullGameCanvas(this::NullGameCanvas)
+    this.runningNull = false
+    this.runningNull = true
+    nothing
+end
 
 
-class NullGameCanvas(AllBinaryGameCanvas):
-    instance: object = None
-    NO_GAME: str = "No Background Game"
-    TYPE: int = 1
-    _lock = threading.RLock()
+function createNull(::Type{NullGameCanvas})
+        try
+            return newNullGameCanvas(AllBinary.getNullInstance(AllBinaryGameLayerManager))
+        catch e
+            AllBinary.put(AllBinary.getInstance(LogUtil), AllBinary.getInstance(CommonStrings).EXCEPTION, "NullGameCanvas", AllBinary.getInstance(CommonStrings).GET_INSTANCE, e)
+            throw(jNewException("RuntimeException", ""))
+        end
+end
 
-    def _init_fields(self) -> None:
-        self.runningNull: bool = True
-    
 
-    @staticmethod
-    def createNull() -> NullGameCanvas:
-        from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            return NullGameCanvas(AllBinaryGameLayerManager.getNullInstance())
-        except Exception as e:
-            LogUtil.getInstance().put(CommonStrings.getInstance().EXCEPTION, "NullGameCanvas", CommonStrings.getInstance().GET_INSTANCE, e)
-            raise RuntimeError()
-    
+function getInstance(::Type{NullGameCanvas})
+        if staticGet_instance(NullGameCanvas) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(NullGameCanvas, AllBinary.createNull(NullGameCanvas))
+        end
+        return (staticGet_instance(NullGameCanvas))
+end
 
-    @staticmethod
-    def getInstance() -> NullGameCanvas:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if NullGameCanvas.instance == NullUtil.getInstance().NULL_OBJECT:
-            NullGameCanvas.instance = NullGameCanvas.createNull()
-        return NullGameCanvas.instance
-    
 
-    # throws Exception
-    @staticmethod
-    def createCanvas(gameLayerManager: AllBinaryGameLayerManager) -> NullGameCanvas:
-        from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-        nullGameCanvas: NullGameCanvas = NullGameCanvas(gameLayerManager)
-        nullGameCanvas.setInitialized(True)
-        nullGameCanvas.setTitle(NullGameCanvas.NO_GAME)
+function createCanvas(::Type{NullGameCanvas}, gameLayerManager)
+        local nullGameCanvas = newNullGameCanvas(gameLayerManager)
+        AllBinary.setInitialized(nullGameCanvas, true)
+        AllBinary.setTitle(nullGameCanvas, staticGet_NO_GAME(NullGameCanvas))
         return nullGameCanvas
-    
-
-    def __init__(self, gameLayerManager: AllBinaryGameLayerManager) -> None:
-        from javax.microedition.lcdui.NullCommandListener import NullCommandListener
-        from org.allbinary.game.init.BasicBuildGameInitializerFactory import BasicBuildGameInitializerFactory
-        from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-        from org.allbinary.game.score.NoHighScoresFactory import NoHighScoresFactory
-        super().__init__(NullCommandListener.NULL_COMMAND_LISTENER, gameLayerManager, NoHighScoresFactory.getInstance(), BasicBuildGameInitializerFactory.NULL_BASE_BUILD_GMAE_INITIALIZER_FACTORY, False)
-        self._init_fields()
-        super().setWait(1200)
-    
-
-    def isGameOver(self) -> bool:
-        with self._lock:
-            return self._isGameOver_unlocked()
-
-    def _isGameOver_unlocked(self) -> bool:
-        return False
-    
-
-    def setRunning(self, running: bool) -> None:
-        self.runningNull = running
-    
-
-    def isRunning(self) -> bool:
-        with self._lock:
-            return self._isRunning_unlocked()
-
-    def _isRunning_unlocked(self) -> bool:
-        return self.runningNull
-    
-
-    def pause(self) -> None:
-        with self._lock:
-            return self._pause_unlocked()
-
-    def _pause_unlocked(self) -> None:
-        self.setPaused(True)
-    
-
-    def unPause(self) -> None:
-        with self._lock:
-            return self._unPause_unlocked()
-
-    def _unPause_unlocked(self) -> None:
-        self.setPaused(False)
-    
-
-    def initCommands(self, cmdListener: CommandListener) -> None:
-        from javax.microedition.lcdui.CommandListener import CommandListener
-        self.removeAllCommands()
-        self.setCommandListener(cmdListener)
-    
-
-    # throws Exception
-    def buildGameInit(self, isProgress: bool) -> None:
-        pass
-    
-
-    def draw(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-    
-
-    def run(self) -> None:
-        try:
-            self.logUtil.putF(self.commonStrings.START_RUNNABLE, self, self.commonStrings.RUN)
-            self.logUtil.putF(self.commonStrings.END_RUNNABLE, self, self.commonStrings.RUN)
-        except Exception as e:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.RUN, e)
-    
-
-    def getType(self) -> int:
-        return NullGameCanvas.TYPE
-# from javax.microedition.lcdui.CommandListener import CommandListener
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.NullCommandListener import NullCommandListener
-# from org.allbinary.game.init.BasicBuildGameInitializerFactory import BasicBuildGameInitializerFactory
-# from org.allbinary.game.layer.AllBinaryGameLayerManager import AllBinaryGameLayerManager
-# from org.allbinary.game.score.NoHighScoresFactory import NoHighScoresFactory
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
+end
 
 
-def _NullGameCanvas_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function initNullGameCanvas(this::NullGameCanvas, gameLayerManager)
+        initAllBinaryGameCanvas(this, staticGet_NULL_COMMAND_LISTENER(NullCommandListener), gameLayerManager, AllBinary.getInstance(NoHighScoresFactory), staticGet_NULL_BASE_BUILD_GMAE_INITIALIZER_FACTORY(BasicBuildGameInitializerFactory), false)
+        initFieldsNullGameCanvas(this)
+        AllBinary.setWait(this, Int32(1200))
+        nothing
+end
 
-lazy_static(NullGameCanvas, "instance", _NullGameCanvas_instance)
+function newNullGameCanvas(gameLayerManager)
+    this = NullGameCanvas()
+    initNullGameCanvas(this, gameLayerManager)
+    this
+end
+
+
+function isGameOver(this::NullGameCanvas)
+        return false
+end
+
+
+function setRunning(this::NullGameCanvas, running)
+        this.runningNull = running
+        nothing
+end
+
+
+function isRunning(this::NullGameCanvas)
+        return this.runningNull
+end
+
+
+function pause(this::NullGameCanvas)
+        AllBinary.setPaused(this, true)
+        nothing
+end
+
+
+function unPause(this::NullGameCanvas)
+        AllBinary.setPaused(this, false)
+        nothing
+end
+
+
+function initCommands(this::NullGameCanvas, cmdListener)
+        AllBinary.removeAllCommands(this)
+        AllBinary.setCommandListener(this, cmdListener)
+        nothing
+end
+
+
+function buildGameInit(this::NullGameCanvas, isProgress)
+        nothing
+        nothing
+end
+
+
+function draw(this::NullGameCanvas, graphics)
+        nothing
+        nothing
+end
+
+
+function run(this::NullGameCanvas)
+        try
+            AllBinary.putF(this.logUtil, this.commonStrings.START_RUNNABLE, this, this.commonStrings.RUN)
+            AllBinary.putF(this.logUtil, this.commonStrings.END_RUNNABLE, this, this.commonStrings.RUN)
+        catch e
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.RUN, e)
+        end
+        nothing
+end
+
+
+function getType(this::NullGameCanvas)
+        return staticGet_TYPE(NullGameCanvas)
+end
 

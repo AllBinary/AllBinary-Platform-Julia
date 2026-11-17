@@ -1,52 +1,57 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.physics.movement
 
-from __future__ import annotations
+# extends BasicConstantVelocityMovement: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct DelayedConstantVelocityMovement <: JObject
+    timeDelayHelper::Any
+    DelayedConstantVelocityMovement() = new()
+end
 
-from org.allbinary.physics.movement.BasicConstantVelocityMovement import BasicConstantVelocityMovement
+
+function initFieldsDelayedConstantVelocityMovement(this::DelayedConstantVelocityMovement)
+    this.timeDelayHelper = nothing
+    this.timeDelayHelper = newTimeDelayHelper(Int32(60))
+    nothing
+end
 
 
-class DelayedConstantVelocityMovement(BasicConstantVelocityMovement):
+function initDelayedConstantVelocityMovement(this::DelayedConstantVelocityMovement, basicDecimal, velocityProperties)
+        initBasicConstantVelocityMovement(this, basicDecimal, velocityProperties)
+        initFieldsDelayedConstantVelocityMovement(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
-        self.timeDelayHelper: TimeDelayHelper = TimeDelayHelper(60)
-    
+function newDelayedConstantVelocityMovement(basicDecimal, velocityProperties)
+    this = DelayedConstantVelocityMovement()
+    initDelayedConstantVelocityMovement(this, basicDecimal, velocityProperties)
+    this
+end
 
-    def __init__(self, basicDecimal: BasicDecimal, velocityProperties: BasicVelocityProperties) -> None:
-        from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        super().__init__(basicDecimal, velocityProperties)
-        self._init_fields()
-    
 
-    def init(self, speedBasicDecimal: BasicDecimal, angle: int, otherAngle: int) -> None:
-        from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-        pass
-    
+function init(this::DelayedConstantVelocityMovement, speedBasicDecimal, angle, otherAngle)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def process(self, layer: AllBinaryGameLayer) -> None:
-        from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        if self.timeDelayHelper.isTime(GameTickTimeDelayHelperFactory.getInstance().startTime):
-            super().process(layer)
-# from org.allbinary.game.layer.AllBinaryGameLayer import AllBinaryGameLayer
-# from org.allbinary.game.physics.velocity.BasicVelocityProperties import BasicVelocityProperties
-# from org.allbinary.logic.math.BasicDecimal import BasicDecimal
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-# from org.allbinary.time.TimeDelayHelper import TimeDelayHelper
 
+function process(this::DelayedConstantVelocityMovement, layer)
+        if AllBinary.isTime(this.timeDelayHelper, AllBinary.getInstance(GameTickTimeDelayHelperFactory).startTime)
+            AllBinary.process(this, layer)
+        end
+        nothing
+end
 

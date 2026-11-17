@@ -1,48 +1,62 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+mutable struct FormUtil <: JObject
+    FormUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const FormUtil_instanceValue = Ref{Any}(nothing)
+const FormUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{FormUtil})
+    if !FormUtil_instanceSet[]
+        FormUtil_instanceSet[] = true
+        FormUtil_instanceValue[] = newFormUtil()
+    end
+    FormUtil_instanceValue[]
+end
+function staticSet_instance(::Type{FormUtil}, value)
+    FormUtil_instanceSet[] = true
+    FormUtil_instanceValue[] = value
+end
+
+function initFieldsFormUtil(this::FormUtil)
+    nothing
+end
+
+function initFormUtil(this::FormUtil)
+    initFieldsFormUtil(this)
+end
+
+function newFormUtil()
+    this = FormUtil()
+    initFormUtil(this)
+    this
+end
 
 
-class FormUtil:
-    instance: FormUtil = None
-    
+function getInstance(::Type{FormUtil})
+        return staticGet_instance(FormUtil)
+end
 
-    @staticmethod
-    def getInstance() -> FormUtil:
-        return FormUtil.instance
-    
 
-    def createFormRectangle(self) -> Rectangle:
-        from org.allbinary.graphics.PointFactory import PointFactory
-        from org.allbinary.graphics.Rectangle import Rectangle
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        pointFactory: PointFactory = PointFactory.getInstance()
-        rectangle: Rectangle = Rectangle(pointFactory.createXY(30, 10), displayInfo.getLastWidth() - 30, displayInfo.getLastHeight() - 35)
+function createFormRectangle(this::FormUtil)
+        local displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+        local pointFactory = AllBinary.getInstance(PointFactory)
+        local rectangle = newRectangle(AllBinary.createXY(pointFactory, Int32(30), Int32(10)), AllBinary.getLastWidth(displayInfo) - Int32(30), AllBinary.getLastHeight(displayInfo) - Int32(35))
         return rectangle
-# from org.allbinary.graphics.PointFactory import PointFactory
-# from org.allbinary.graphics.Rectangle import Rectangle
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-
-
-def _FormUtil_instance() -> object:
-    return FormUtil()
-
-lazy_static(FormUtil, "instance", _FormUtil_instance)
+end
 

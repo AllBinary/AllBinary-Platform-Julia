@@ -1,67 +1,82 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable
 
-from __future__ import annotations
+mutable struct GameLevelDisplayChangeEventListenersFactory <: JObject
+    list::Any
+    GameLevelDisplayChangeEventListenersFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameLevelDisplayChangeEventListenersFactory_instanceValue = Ref{Any}(nothing)
+const GameLevelDisplayChangeEventListenersFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{GameLevelDisplayChangeEventListenersFactory})
+    if !GameLevelDisplayChangeEventListenersFactory_instanceSet[]
+        GameLevelDisplayChangeEventListenersFactory_instanceSet[] = true
+        GameLevelDisplayChangeEventListenersFactory_instanceValue[] = newGameLevelDisplayChangeEventListenersFactory()
+    end
+    GameLevelDisplayChangeEventListenersFactory_instanceValue[]
+end
+function staticSet_instance(::Type{GameLevelDisplayChangeEventListenersFactory}, value)
+    GameLevelDisplayChangeEventListenersFactory_instanceSet[] = true
+    GameLevelDisplayChangeEventListenersFactory_instanceValue[] = value
+end
 
+function initFieldsGameLevelDisplayChangeEventListenersFactory(this::GameLevelDisplayChangeEventListenersFactory)
+    this.list = nothing
+    this.list = newBasicArrayListD()
+    nothing
+end
 
-class GameLevelDisplayChangeEventListenersFactory:
-    instance: GameLevelDisplayChangeEventListenersFactory = None
+function initGameLevelDisplayChangeEventListenersFactory(this::GameLevelDisplayChangeEventListenersFactory)
+    initFieldsGameLevelDisplayChangeEventListenersFactory(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_: BasicArrayList = BasicArrayListD()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> GameLevelDisplayChangeEventListenersFactory:
-        return GameLevelDisplayChangeEventListenersFactory.instance
-    
-
-    def add(self, displayChangeEventListener: DisplayChangeEventListener) -> None:
-        from org.allbinary.graphics.displayable.event.DisplayChangeEventHandler import DisplayChangeEventHandler
-        from org.allbinary.graphics.displayable.event.DisplayChangeEventListener import DisplayChangeEventListener
-        self.list_.add(displayChangeEventListener)
-        DisplayChangeEventHandler.getInstance().addListenerInterface(displayChangeEventListener)
-    
-
-    def clear(self) -> None:
-        from org.allbinary.graphics.displayable.event.DisplayChangeEventHandler import DisplayChangeEventHandler
-        from org.allbinary.graphics.displayable.event.DisplayChangeEventListener import DisplayChangeEventListener
-        from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
-        displayChangeEventHandler: BasicEventHandler = DisplayChangeEventHandler.getInstance()
-        displayChangeEventListener: DisplayChangeEventListener = None
-        index = self.list_.size()
-        while (index := index - 1) >= 0:
-            displayChangeEventListener = self.list_.objectArray[index]
-            displayChangeEventHandler.removeListener(displayChangeEventListener)
-        self.list_.clear()
-# from org.allbinary.graphics.displayable.event.DisplayChangeEventHandler import DisplayChangeEventHandler
-# from org.allbinary.graphics.displayable.event.DisplayChangeEventListener import DisplayChangeEventListener
-# from org.allbinary.logic.util.event.handler.BasicEventHandler import BasicEventHandler
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function newGameLevelDisplayChangeEventListenersFactory()
+    this = GameLevelDisplayChangeEventListenersFactory()
+    initGameLevelDisplayChangeEventListenersFactory(this)
+    this
+end
 
 
-def _GameLevelDisplayChangeEventListenersFactory_instance() -> object:
-    return GameLevelDisplayChangeEventListenersFactory()
+function getInstance(::Type{GameLevelDisplayChangeEventListenersFactory})
+        return staticGet_instance(GameLevelDisplayChangeEventListenersFactory)
+end
 
-lazy_static(GameLevelDisplayChangeEventListenersFactory, "instance", _GameLevelDisplayChangeEventListenersFactory_instance)
+
+function add(this::GameLevelDisplayChangeEventListenersFactory, displayChangeEventListener)
+        AllBinary.add(this.list, displayChangeEventListener)
+        AllBinary.addListenerInterface(AllBinary.getInstance(DisplayChangeEventHandler), displayChangeEventListener)
+        nothing
+end
+
+
+function clear(this::GameLevelDisplayChangeEventListenersFactory)
+        local displayChangeEventHandler = AllBinary.getInstance(DisplayChangeEventHandler)
+        local displayChangeEventListener = nothing
+        let
+            local index::Int32 = AllBinary.size(this.list)
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            displayChangeEventListener = (this.list.objectArray[index + 1])
+            AllBinary.removeListener(displayChangeEventHandler, displayChangeEventListener)
+            finally
+            end
+            end
+        end
+        AllBinary.clear(this.list)
+        nothing
+end
 

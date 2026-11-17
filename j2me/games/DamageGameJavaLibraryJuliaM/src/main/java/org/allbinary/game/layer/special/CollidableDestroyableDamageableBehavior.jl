@@ -1,67 +1,71 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.layer.special
 
-from __future__ import annotations
+# extends CollidableBaseBehavior: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CollidableDestroyableDamageableBehavior <: JObject
+    damageUtil::Any
+    CollidableDestroyableDamageableBehavior() = new()
+end
 
-from org.allbinary.game.collision.CollidableBaseBehavior import CollidableBaseBehavior
+
+function initFieldsCollidableDestroyableDamageableBehavior(this::CollidableDestroyableDamageableBehavior)
+    this.damageUtil = nothing
+    this.damageUtil = AllBinary.getInstance(DamageUtil)
+    nothing
+end
 
 
-class CollidableDestroyableDamageableBehavior(CollidableBaseBehavior):
+function initCollidableDestroyableDamageableBehavior(this::CollidableDestroyableDamageableBehavior, collidable)
+        initCollidableBaseBehavior(this, collidable)
+        initFieldsCollidableDestroyableDamageableBehavior(this)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.combat.damage.DamageUtil import DamageUtil
-        self.damageUtil: DamageUtil = DamageUtil.getInstance()
-    
+function newCollidableDestroyableDamageableBehavior(collidable)
+    this = CollidableDestroyableDamageableBehavior()
+    initCollidableDestroyableDamageableBehavior(this, collidable)
+    this
+end
 
-    def __init__(self, collidable: bool) -> None:
-        super().__init__(collidable)
-        self._init_fields()
-    
 
-    def isCollision(self, ownerLayer: CollidableCompositeLayer, collisionLayer: CollidableCompositeLayer) -> bool:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        if ownerLayer.getGroupInterface()[0] != collisionLayer.getGroupInterface()[0]:
-            return super().isCollision(ownerLayer, collisionLayer)
-        return False
-    
+function isCollision(this::CollidableDestroyableDamageableBehavior, ownerLayer, collisionLayer)
+        if AllBinary.getGroupInterface(ownerLayer)[Int32(0) + 1] != AllBinary.getGroupInterface(collisionLayer)[Int32(0) + 1]
+            return AllBinary.isCollision(this, ownerLayer, collisionLayer)
+        end
+        return false
+end
 
-    # throws Exception
-    def collide(self, ownerLayer: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableCompositeLayer) -> None:
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        ownerCollidableDestroyableDamageableLayer: CollidableDestroyableDamageableLayer = ownerLayer
-        collidableDestroyableDamageableLayer: CollidableDestroyableDamageableLayer = collidableInterfaceCompositeInterface
-        ownerCollidableDestroyableDamageableLayer.damage(collidableDestroyableDamageableLayer.getDamage(0), 0)
-    
 
-    def isCollisionInterface(self, ownerLayer: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableInterfaceCompositeInterface) -> bool:
-        from org.allbinary.game.collision.CollidableInterfaceCompositeInterface import CollidableInterfaceCompositeInterface
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        ForcedLogUtil.log("No Longer Used", self)
-        return False
-    
+function collide(this::CollidableDestroyableDamageableBehavior, ownerLayer, collidableInterfaceCompositeInterface)
+        local ownerCollidableDestroyableDamageableLayer = (ownerLayer)
+        local collidableDestroyableDamageableLayer = (collidableInterfaceCompositeInterface)
+        AllBinary.damage(ownerCollidableDestroyableDamageableLayer, AllBinary.getDamage(collidableDestroyableDamageableLayer, Int32(0)), Int32(0))
+        nothing
+end
 
-    # throws Exception
-    def collideInterface(self, ownerLayer: CollidableCompositeLayer, collidableInterfaceCompositeInterface: CollidableInterfaceCompositeInterface) -> None:
-        from org.allbinary.game.collision.CollidableInterfaceCompositeInterface import CollidableInterfaceCompositeInterface
-        from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-        from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
-        ForcedLogUtil.log("No Longer Used", self)
-# from org.allbinary.game.collision.CollidableInterfaceCompositeInterface import CollidableInterfaceCompositeInterface
-# from org.allbinary.game.combat.damage.DamageUtil import DamageUtil
-# from org.allbinary.game.layer.CollidableCompositeLayer import CollidableCompositeLayer
-# from org.allbinary.logic.communication.log.ForcedLogUtil import ForcedLogUtil
 
+function isCollisionInterface(this::CollidableDestroyableDamageableBehavior, ownerLayer, collidableInterfaceCompositeInterface)
+        AllBinary.log(ForcedLogUtil, "No Longer Used", this)
+        return false
+end
+
+
+function collideInterface(this::CollidableDestroyableDamageableBehavior, ownerLayer, collidableInterfaceCompositeInterface)
+        AllBinary.log(ForcedLogUtil, "No Longer Used", this)
+        nothing
+end
 

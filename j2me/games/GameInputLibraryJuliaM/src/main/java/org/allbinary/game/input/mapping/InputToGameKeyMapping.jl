@@ -1,210 +1,275 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.input.mapping
 
-from __future__ import annotations
+# extends InputMapping: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct InputToGameKeyMapping <: JObject
+    gameKeyFactory::Any
+    mappedGameKeys::Any
+    platformToGameKeyMapping::Any
+    negativePlatformToGameKeyMapping::Any
+    InputToGameKeyMapping() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.allbinary.game.input.mapping.InputMapping import InputMapping
+const InputToGameKeyMapping_instanceValue = Ref{Any}(nothing)
+const InputToGameKeyMapping_instanceSet = Ref(false)
+function staticGet_instance(::Type{InputToGameKeyMapping})
+    if !InputToGameKeyMapping_instanceSet[]
+        InputToGameKeyMapping_instanceSet[] = true
+        InputToGameKeyMapping_instanceValue[] = AllBinary.getInstance(NullUtil).NULL_OBJECT
+    end
+    InputToGameKeyMapping_instanceValue[]
+end
+function staticSet_instance(::Type{InputToGameKeyMapping}, value)
+    InputToGameKeyMapping_instanceSet[] = true
+    InputToGameKeyMapping_instanceValue[] = value
+end
+
+function initFieldsInputToGameKeyMapping(this::InputToGameKeyMapping)
+    this.gameKeyFactory = nothing
+    this.mappedGameKeys = nothing
+    this.platformToGameKeyMapping = nothing
+    this.negativePlatformToGameKeyMapping = nothing
+    this.gameKeyFactory = AllBinary.getInstance(GameKeyFactory)
+    this.mappedGameKeys = Any[this.gameKeyFactory.UP, this.gameKeyFactory.DOWN, this.gameKeyFactory.LEFT, this.gameKeyFactory.RIGHT]
+    this.platformToGameKeyMapping = jNewArray(Any, AllBinary.getInstance(InputFactory).MAX, nothing)
+    this.negativePlatformToGameKeyMapping = jNewArray(Any, Int32(0), nothing)
+    nothing
+end
 
 
-class InputToGameKeyMapping(InputMapping):
-    instance: object = None
+function getNullInstance(::Type{InputToGameKeyMapping})
+        if staticGet_instance(InputToGameKeyMapping) === AllBinary.getInstance(NullUtil).NULL_OBJECT
+            staticSet_instance(InputToGameKeyMapping, newInputToGameKeyMapping())
+        end
+        return (staticGet_instance(InputToGameKeyMapping))
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-        from org.allbinary.game.input.InputFactory import InputFactory
-        self.gameKeyFactory: GameKeyFactory = GameKeyFactory.getInstance()
-        self.mappedGameKeys: list[GameKey] = [self.gameKeyFactory.UP, self.gameKeyFactory.DOWN, self.gameKeyFactory.LEFT, self.gameKeyFactory.RIGHT]
-        self.platformToGameKeyMapping: list[GameKey] = [None] * (InputFactory.getInstance().MAX)
-        self.negativePlatformToGameKeyMapping: list[GameKey] = [None] * (0)
-    
 
-    @staticmethod
-    def getNullInstance() -> InputToGameKeyMapping:
-        from org.allbinary.logic.NullUtil import NullUtil
-        if InputToGameKeyMapping.instance == NullUtil.getInstance().NULL_OBJECT:
-            InputToGameKeyMapping.instance = InputToGameKeyMapping()
-        return InputToGameKeyMapping.instance
-    
+function initInputToGameKeyMapping(this::InputToGameKeyMapping)
+        initInputMapping(this)
+        initFieldsInputToGameKeyMapping(this)
+        AllBinary.putF(this.logUtil, this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        AllBinary.clear(this)
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._init_fields()
-        self.logUtil.putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        self.clear()
-    
+function newInputToGameKeyMapping()
+    this = InputToGameKeyMapping()
+    initInputToGameKeyMapping(this)
+    this
+end
 
-    def clear(self) -> None:
-        for index in range(len(self.platformToGameKeyMapping) - 1, 0 - 1, -1):
-            self.platformToGameKeyMapping[index] = self.gameKeyFactory.NONE
-    
 
-    def removeAll(self) -> None:
-        super().removeAll()
-        self.clear()
-    
+function clear(this::InputToGameKeyMapping)
+        let
+            local index::Int32 = Int32(Base.length(this.platformToGameKeyMapping)) - Int32(1)
+            while index >= Int32(0)
+            try
+            this.platformToGameKeyMapping[index + 1] = this.gameKeyFactory.NONE
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    def addMapping(self, inputToGameKeyMapping: InputToGameKeyMapping) -> None:
-        from org.allbinary.game.input.Input import Input
-        for index in range(inputToGameKeyMapping.getMaxMappable() - 1, 0 - 1, -1):
-            input: Input = inputToGameKeyMapping.getInstance(index)
-            if input != self.gameKeyFactory.NONE:
-                self.addAll(input, inputToGameKeyMapping.getMappedInput(input))
-    
 
-    def addAll(self, input: Input, list_: BasicArrayList) -> None:
-        from org.allbinary.game.input.Input import Input
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        for index in range(list_.size() - 1, 0 - 1, -1):
-            mappedToInput: Input = list_.objectArray[index]
-            self.add(input, mappedToInput)
-    
+function removeAll(this::InputToGameKeyMapping)
+        AllBinary.removeAll(this)
+        AllBinary.clear(this)
+        nothing
+end
 
-    def add(self, input: Input, mappedToInput: Input) -> None:
-        from org.allbinary.game.input.Input import Input
-        super().add(input, mappedToInput)
-        self.set(input, mappedToInput)
-    
 
-    def remove(self, input: Input, mappedToInput: Input) -> None:
-        from org.allbinary.game.input.Input import Input
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        from org.allbinary.string.CommonLabels import CommonLabels
-        self.logUtil.putF(str(StringMaker().append(CommonLabels.getInstance().START_LABEL).append(StringUtil.getInstance().toString(input)).append(" == ").append(StringUtil.getInstance().toString(mappedToInput))), self, "InputToGameKeyMapping::remove")
-        super().remove(input, mappedToInput)
-        self.set(input, self.gameKeyFactory.NONE)
-    
+function addMapping(this::InputToGameKeyMapping, inputToGameKeyMapping)
+        let
+            local index::Int32 = AllBinary.getMaxMappable(inputToGameKeyMapping) - Int32(1)
+            while index >= Int32(0)
+            try
+            local input = AllBinary.getInstance(inputToGameKeyMapping, index)
+            if input !== this.gameKeyFactory.NONE
+                AllBinary.addAll(this, input, AllBinary.getMappedInput(inputToGameKeyMapping, input))
+            end
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    def set(self, input: Input, mappedToInput: Input) -> None:
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.game.input.Input import Input
-        id: int = mappedToInput.getId()
-        if id >= 0 and id < len(self.platformToGameKeyMapping):
-            self.platformToGameKeyMapping[id] = input
-    
 
-    def getMaxMappable(self) -> int:
-        return len(self.platformToGameKeyMapping)
-    
+function addAll(this::InputToGameKeyMapping, input, list)
+        let
+            local index::Int32 = AllBinary.size(list) - Int32(1)
+            while index >= Int32(0)
+            try
+            local mappedToInput = (list.objectArray[index + 1])
+            AllBinary.add(this, input, mappedToInput)
+            finally
+                index -= Int32(1)
+            end
+            end
+        end
+        nothing
+end
 
-    def getReverseInstance(self, id: int) -> BasicArrayList:
-        from org.allbinary.game.input.Input import Input
-        from org.allbinary.game.input.InputFactory import InputFactory
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        list_: BasicArrayList = BasicArrayListD()
-        inputFactory: InputFactory = InputFactory.getInstance()
-        for index in range(0, len(self.platformToGameKeyMapping)):
-            if self.platformToGameKeyMapping[index].getId() == id:
-                input: Input = inputFactory.getInstanceById(index)
-                if input is not None:
-                    list_.add(input)
-        return list_
-    
 
-    # throws Exception
-    def initGameKey(self, canvas: Canvas, gameKey: GameKey) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.input.GameKey import GameKey
-        from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        from org.allbinary.string.CommonSeps import CommonSeps
-        key: int = canvas.getKeyCode(gameKey.getId())
-        if key < 0 and -key < len(self.negativePlatformToGameKeyMapping):
-            self.negativePlatformToGameKeyMapping[-key] = gameKey
-        elif key > 0:
-            if self.platformToGameKeyMapping[key] == self.gameKeyFactory.NONE:
-                self.platformToGameKeyMapping[key] = gameKey
-        else:
-            PreLogUtil.putOE(str(StringMaker().append(str(gameKey)).append(CommonSeps.getInstance().COLON_SEP).appendint(key)), self, self.commonStrings.INIT, Exception())
-    
+function add(this::InputToGameKeyMapping, input, mappedToInput)
+        AllBinary.add(this, input, mappedToInput)
+        AllBinary.set(this, input, mappedToInput)
+        nothing
+end
 
-    # throws Exception
-    def getSmallestCanvasGameKeyCode(self, canvas: Canvas) -> int:
-        from javax.microedition.lcdui.Canvas import Canvas
-        nextKey: int = 0
-        smallestKey: int = 0
-        index = len(self.mappedGameKeys)
-        while (index := index - 1) >= 0:
-            nextKey = canvas.getKeyCode(self.mappedGameKeys[index].getId())
-            if nextKey < smallestKey:
+
+function remove(this::InputToGameKeyMapping, input, mappedToInput)
+        AllBinary.putF(this.logUtil, AllBinary.toString(AllBinary.append(AllBinary.append(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.getInstance(CommonLabels).START_LABEL), AllBinary.toString(AllBinary.getInstance(StringUtil), input)), " == "), AllBinary.toString(AllBinary.getInstance(StringUtil), mappedToInput))), this, "InputToGameKeyMapping::remove")
+        AllBinary.remove(this, input, mappedToInput)
+        AllBinary.set(this, input, this.gameKeyFactory.NONE)
+        nothing
+end
+
+
+function set(this::InputToGameKeyMapping, input, mappedToInput)
+        local id::Int32 = AllBinary.getId(mappedToInput)
+        if id >= Int32(0) && id < Int32(Base.length(this.platformToGameKeyMapping))
+            this.platformToGameKeyMapping[id + 1] = (input)
+        end
+        nothing
+end
+
+
+function getMaxMappable(this::InputToGameKeyMapping)
+        return Int32(Base.length(this.platformToGameKeyMapping))
+end
+
+
+function getReverseInstance(this::InputToGameKeyMapping, id)
+        local list = newBasicArrayListD()
+        local inputFactory = AllBinary.getInstance(InputFactory)
+        let
+            local index::Int32 = Int32(0)
+            while index < Int32(Base.length(this.platformToGameKeyMapping))
+            try
+            if AllBinary.getId(this.platformToGameKeyMapping[index + 1]) == id
+                local input = AllBinary.getInstanceById(inputFactory, index)
+                if input !== nothing
+                    AllBinary.add(list, input)
+                end
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        return list
+end
+
+
+function initGameKey(this::InputToGameKeyMapping, canvas, gameKey)
+        local key::Int32 = AllBinary.getKeyCode(canvas, AllBinary.getId(gameKey))
+        if key < Int32(0) && -key < Int32(Base.length(this.negativePlatformToGameKeyMapping))
+            this.negativePlatformToGameKeyMapping[-key + 1] = gameKey
+        elseif key > Int32(0)
+            if this.platformToGameKeyMapping[key + 1] === this.gameKeyFactory.NONE
+                this.platformToGameKeyMapping[key + 1] = gameKey
+            end
+        else
+            AllBinary.putOE(PreLogUtil, AllBinary.toString(AllBinary.appendint(AllBinary.append(AllBinary.append(newStringMaker(), AllBinary.toString(gameKey)), AllBinary.getInstance(CommonSeps).COLON_SEP), key)), this, this.commonStrings.INIT, jNewException("Exception", ""))
+        end
+        nothing
+end
+
+
+function getSmallestCanvasGameKeyCode(this::InputToGameKeyMapping, canvas)
+        local nextKey::Int32 = Int32(0)
+        local smallestKey::Int32 = Int32(0)
+        let
+            local index::Int32 = Int32(Base.length(this.mappedGameKeys))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            nextKey = AllBinary.getKeyCode(canvas, AllBinary.getId(this.mappedGameKeys[index + 1]))
+            if nextKey < smallestKey
                 smallestKey = nextKey
+            end
+            finally
+            end
+            end
+        end
         return smallestKey
-    
-
-    def init(self, canvas: Canvas) -> None:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.input.GameKey import GameKey
-        try:
-            negativePlatformToGameKeyMapping: list[GameKey] = [None] * (0)
-            smallestKey: int = self.getSmallestCanvasGameKeyCode(canvas)
-            if smallestKey < 0:
-                smallestKey -= 1
-                if smallestKey < -256:
-                    smallestKey = -256
-                negativePlatformToGameKeyMapping = [None] * (-smallestKey)
-                index = len(negativePlatformToGameKeyMapping)
-                while (index := index - 1) >= 0:
-                    negativePlatformToGameKeyMapping[index] = self.gameKeyFactory.NONE
-                self.negativePlatformToGameKeyMapping = negativePlatformToGameKeyMapping
-            index = len(self.mappedGameKeys)
-            while (index := index - 1) >= 0:
-                self.initGameKey(canvas, self.mappedGameKeys[index])
-        except BaseException as t:
-            self.logUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.INIT, t)
-    
-
-    def getInstanceForCanvas(self, canvas: Canvas, id: int) -> GameKey:
-        from javax.microedition.lcdui.Canvas import Canvas
-        from org.allbinary.game.input.GameKey import GameKey
-        if id >= 0 and id < len(self.platformToGameKeyMapping):
-            return self.platformToGameKeyMapping[id]
-        elif id < 0 and -id < len(self.negativePlatformToGameKeyMapping):
-            return self.negativePlatformToGameKeyMapping[-id]
-        else:
-            return self.gameKeyFactory.NONE
-    
-
-    def getInstance(self, id: int) -> GameKey:
-        from org.allbinary.game.input.GameKey import GameKey
-        if id >= 0 and id < len(self.platformToGameKeyMapping):
-            return self.platformToGameKeyMapping[id]
-        elif id < 0 and -id < len(self.negativePlatformToGameKeyMapping):
-            return self.negativePlatformToGameKeyMapping[-id]
-        else:
-            return self.gameKeyFactory.NONE
-# from javax.microedition.lcdui.Canvas import Canvas
-# from org.allbinary.game.input.GameKey import GameKey
-# from org.allbinary.game.input.GameKeyFactory import GameKeyFactory
-# from org.allbinary.game.input.Input import Input
-# from org.allbinary.game.input.InputFactory import InputFactory
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.communication.log.PreLogUtil import PreLogUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.string.CommonLabels import CommonLabels
-# from org.allbinary.string.CommonSeps import CommonSeps
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+end
 
 
-def _InputToGameKeyMapping_instance() -> object:
-    from org.allbinary.logic.NullUtil import NullUtil
-    return NullUtil.getInstance().NULL_OBJECT
+function init(this::InputToGameKeyMapping, canvas)
+        try
+            local negativePlatformToGameKeyMapping = jNewArray(Any, Int32(0), nothing)
+            local smallestKey::Int32 = AllBinary.getSmallestCanvasGameKeyCode(this, canvas)
+            if smallestKey < Int32(0)
+                smallestKey -= Int32(1)
+                if smallestKey < -Int32(256)
+                    smallestKey = -Int32(256)
+                end
+                negativePlatformToGameKeyMapping = jNewArray(Any, -smallestKey, nothing)
+                let
+                    local index::Int32 = Int32(Base.length(negativePlatformToGameKeyMapping))
+                    while (index -= Int32(1)) >= Int32(0)
+                    try
+                    negativePlatformToGameKeyMapping[index + 1] = this.gameKeyFactory.NONE
+                    finally
+                    end
+                    end
+                end
+                this.negativePlatformToGameKeyMapping = negativePlatformToGameKeyMapping
+            end
+            let
+                index = Int32(Base.length(this.mappedGameKeys))
+                while (index -= Int32(1)) >= Int32(0)
+                try
+                AllBinary.initGameKey(this, canvas, this.mappedGameKeys[index + 1])
+                finally
+                end
+                end
+            end
+        catch t
+            AllBinary.put(this.logUtil, this.commonStrings.EXCEPTION, this, this.commonStrings.INIT, t)
+        end
+        nothing
+end
 
-lazy_static(InputToGameKeyMapping, "instance", _InputToGameKeyMapping_instance)
+
+function getInstanceForCanvas(this::InputToGameKeyMapping, canvas, id)
+        if id >= Int32(0) && id < Int32(Base.length(this.platformToGameKeyMapping))
+            return this.platformToGameKeyMapping[id + 1]
+        elseif id < Int32(0) && -id < Int32(Base.length(this.negativePlatformToGameKeyMapping))
+            return this.negativePlatformToGameKeyMapping[-id + 1]
+        else
+            return this.gameKeyFactory.NONE
+        end
+end
+
+
+function getInstance(this::InputToGameKeyMapping, id)
+        if id >= Int32(0) && id < Int32(Base.length(this.platformToGameKeyMapping))
+            return this.platformToGameKeyMapping[id + 1]
+        elseif id < Int32(0) && -id < Int32(Base.length(this.negativePlatformToGameKeyMapping))
+            return this.negativePlatformToGameKeyMapping[-id + 1]
+        else
+            return this.gameKeyFactory.NONE
+        end
+end
 

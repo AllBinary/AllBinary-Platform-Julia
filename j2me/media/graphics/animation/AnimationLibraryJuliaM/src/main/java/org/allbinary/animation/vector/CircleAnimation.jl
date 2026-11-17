@@ -1,62 +1,76 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.vector
 
-from __future__ import annotations
+# extends Animation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct CircleAnimation <: JObject
+    TOTAL_ANGLE::Int32
+    width::Int32
+    height::Int32
+    CircleAnimation() = new()
+end
 
-from org.allbinary.animation.Animation import Animation
-from org.allbinary.graphics.color.ColorCompositeInterface import ColorCompositeInterface
 
-
-class CircleAnimation(Animation, ColorCompositeInterface):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.math.AngleFactory import AngleFactory
-        self.TOTAL_ANGLE: int = int(AngleFactory.getInstance().TOTAL_ANGLE)
-        self.width: int = None
-        self.height: int = None
+function initFieldsCircleAnimation(this::CircleAnimation)
+    this.TOTAL_ANGLE = Int32(0)
+    this.width = Int32(0)
+    this.height = Int32(0)
+    this.TOTAL_ANGLE = ((AllBinary.getInstance(AngleFactory).TOTAL_ANGLE) % Int32)
     
-
-    def __init__(self, width: int, height: int, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.width = width
-        self.height = height
-        self.setBasicColorP(basicColor)
     
+    nothing
+end
 
-    def nextFrame(self) -> None:
-        pass
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        self.basicSetColorUtil.setBasicColorP3(graphics, self.getBasicColorP(), self.getColor())
-        graphics.drawArc(x, y, self.width, self.height, 0, self.TOTAL_ANGLE)
-    
+function initCircleAnimation(this::CircleAnimation, width, height, basicColor)
+        initAnimation(this)
+        initFieldsCircleAnimation(this)
+        this.width = width
+        this.height = height
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return super().getBasicColorP()
-    
+function newCircleAnimation(width, height, basicColor)
+    this = CircleAnimation()
+    initCircleAnimation(this, width, height, basicColor)
+    this
+end
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().setBasicColorP(basicColor)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.math.AngleFactory import AngleFactory
 
+function nextFrame(this::CircleAnimation)
+        nothing
+        nothing
+end
+
+
+function paintXY(this::CircleAnimation, graphics, x, y)
+        AllBinary.setBasicColorP3(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this), AllBinary.getColor(this))
+        AllBinary.drawArc(graphics, x, y, this.width, this.height, Int32(0), this.TOTAL_ANGLE)
+        nothing
+end
+
+
+function getBasicColorP(this::CircleAnimation)
+        return AllBinary.getBasicColorP(this)
+end
+
+
+function setBasicColorP(this::CircleAnimation, basicColor)
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 

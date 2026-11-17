@@ -1,82 +1,99 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.vector
 
-from __future__ import annotations
+# extends Animation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LineAnimation <: JObject
+    newLine::Any
+    tempLine::Any
+    line::Any
+    LineAnimation() = new()
+end
 
-from org.allbinary.animation.Animation import Animation
-from org.allbinary.graphics.color.ColorCompositeInterface import ColorCompositeInterface
-from org.allbinary.layer.PositionInterface import PositionInterface
+
+function initFieldsLineAnimation(this::LineAnimation)
+    this.newLine = nothing
+    this.tempLine = nothing
+    this.line = nothing
+    this.newLine = jNewArrayOf(Vector{Int32}, Int32(2), () -> jNewArray(Int32, Int32(2), Int32(0)))
+    this.tempLine = AllBinary.getInstance(NullUtil).NULL_INT_ARRAY_ARRAY
+    this.line = jNewArrayOf(Vector{Int32}, Int32(2), () -> jNewArray(Int32, Int32(2), Int32(0)))
+    nothing
+end
 
 
-class LineAnimation(Animation, ColorCompositeInterface, PositionInterface):
+function initLineAnimation(this::LineAnimation, basicColor)
+        initAnimation(this)
+        initFieldsLineAnimation(this)
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.NullUtil import NullUtil
-        self.newLine: list[list[int]] = [[0] * (2) for _ in range(2)]
-        self.tempLine: list[list[int]] = NullUtil.getInstance().NULL_INT_ARRAY_ARRAY
-        self.line: list[list[int]] = [[0] * (2) for _ in range(2)]
-    
+function newLineAnimation(basicColor)
+    this = LineAnimation()
+    initLineAnimation(this, basicColor)
+    this
+end
 
-    def __init__(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().__init__()
-        self._init_fields()
-        self.setBasicColorP(basicColor)
-    
 
-    def init(self, x: int, y: int) -> None:
-        self.newLine[0][0] = x
-        self.newLine[0][1] = y
-        self.newLine[1][0] = x
-        self.newLine[1][1] = y
-        self.tempLine = self.line
-        self.line = self.newLine
-        self.newLine = self.tempLine
-    
+function init(this::LineAnimation, x, y)
+        this.newLine[Int32(0) + 1][Int32(0) + 1] = x
+        this.newLine[Int32(0) + 1][Int32(1) + 1] = y
+        this.newLine[Int32(1) + 1][Int32(0) + 1] = x
+        this.newLine[Int32(1) + 1][Int32(1) + 1] = y
+        this.tempLine = this.line
+        this.line = this.newLine
+        this.newLine = this.tempLine
+        nothing
+end
 
-    def setPosition(self, x: int, y: int, z: int) -> None:
-        self.newLine[0][0] = self.line[1][0]
-        self.newLine[0][1] = self.line[1][1]
-        self.newLine[1][0] = x
-        self.newLine[1][1] = y
-        self.tempLine = self.line
-        self.line = self.newLine
-        self.newLine = self.tempLine
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        currentLine: list[list[int]] = self.line
-        self.basicSetColorUtil.setBasicColorP3(graphics, self.getBasicColorP(), self.getColor())
-        graphics.drawLine(currentLine[0][0], currentLine[0][1], currentLine[1][0], currentLine[1][1])
-    
+function setPosition(this::LineAnimation, x, y, z)
+        this.newLine[Int32(0) + 1][Int32(0) + 1] = this.line[Int32(1) + 1][Int32(0) + 1]
+        this.newLine[Int32(0) + 1][Int32(1) + 1] = this.line[Int32(1) + 1][Int32(1) + 1]
+        this.newLine[Int32(1) + 1][Int32(0) + 1] = x
+        this.newLine[Int32(1) + 1][Int32(1) + 1] = y
+        this.tempLine = this.line
+        this.line = this.newLine
+        this.newLine = this.tempLine
+        nothing
+end
 
-    def nextFrame(self) -> None:
-        pass
-    
 
-    def getBasicColorP(self) -> BasicColor:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        return super().getBasicColorP()
-    
+function paintXY(this::LineAnimation, graphics, x, y)
+        local currentLine = this.line
+        AllBinary.setBasicColorP3(this.basicSetColorUtil, graphics, AllBinary.getBasicColorP(this), AllBinary.getColor(this))
+        AllBinary.drawLine(graphics, currentLine[Int32(0) + 1][Int32(0) + 1], currentLine[Int32(0) + 1][Int32(1) + 1], currentLine[Int32(1) + 1][Int32(0) + 1], currentLine[Int32(1) + 1][Int32(1) + 1])
+        nothing
+end
 
-    def setBasicColorP(self, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        super().setBasicColorP(basicColor)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.logic.NullUtil import NullUtil
 
+function nextFrame(this::LineAnimation)
+        nothing
+        nothing
+end
+
+
+function getBasicColorP(this::LineAnimation)
+        return AllBinary.getBasicColorP(this)
+end
+
+
+function setBasicColorP(this::LineAnimation, basicColor)
+        AllBinary.setBasicColorP(this, basicColor)
+        nothing
+end
 

@@ -1,73 +1,107 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2023 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2023 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.media.image
 
-from __future__ import annotations
+mutable struct ImageJ2MEScaleUtil <: JObject
+    ImageJ2MEScaleUtil() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ImageJ2MEScaleUtil_instanceValue = Ref{Any}(nothing)
+const ImageJ2MEScaleUtil_instanceSet = Ref(false)
+function staticGet_instance(::Type{ImageJ2MEScaleUtil})
+    if !ImageJ2MEScaleUtil_instanceSet[]
+        ImageJ2MEScaleUtil_instanceSet[] = true
+        ImageJ2MEScaleUtil_instanceValue[] = newImageJ2MEScaleUtil()
+    end
+    ImageJ2MEScaleUtil_instanceValue[]
+end
+function staticSet_instance(::Type{ImageJ2MEScaleUtil}, value)
+    ImageJ2MEScaleUtil_instanceSet[] = true
+    ImageJ2MEScaleUtil_instanceValue[] = value
+end
+
+function initFieldsImageJ2MEScaleUtil(this::ImageJ2MEScaleUtil)
+    nothing
+end
 
 
-class ImageJ2MEScaleUtil:
-    instance: ImageJ2MEScaleUtil = None
-    
+function getInstance(::Type{ImageJ2MEScaleUtil})
+        return staticGet_instance(ImageJ2MEScaleUtil)
+end
 
-    @staticmethod
-    def getInstance() -> ImageJ2MEScaleUtil:
-        return ImageJ2MEScaleUtil.instance
-    
 
-    def __init__(self) -> None:
-        pass
-    
+function initImageJ2MEScaleUtil(this::ImageJ2MEScaleUtil)
+        initFieldsImageJ2MEScaleUtil(this)
+        nothing
+        nothing
+end
 
-    # throws Exception
-    def scaleArray(self, images: list[Image], width: int, height: int) -> list[Image]:
-        from javax.microedition.lcdui.Image import Image
-        scaledImages: list[Image] = [None] * (len(images))
-        index = len(images)
-        while (index := index - 1) >= 0:
-            scaledImages[index] = self.scale(images[index], width, height)
+function newImageJ2MEScaleUtil()
+    this = ImageJ2MEScaleUtil()
+    initImageJ2MEScaleUtil(this)
+    this
+end
+
+
+function scaleArray(this::ImageJ2MEScaleUtil, images, width, height)
+        local scaledImages = jNewArray(Any, Int32(Base.length(images)), nothing)
+        let
+            local index::Int32 = Int32(Base.length(images))
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            scaledImages[index + 1] = AllBinary.scale(this, images[index + 1], width, height)
+            finally
+            end
+            end
+        end
         return scaledImages
-    
+end
 
-    # throws Exception
-    def scale(self, image: Image, width: int, height: int) -> Image:
-        from javax.microedition.lcdui.Image import Image
-        sourceWidth: int = image.getWidth()
-        sourceHeight: int = image.getHeight()
-        originalData: list[int] = [0] * (image.getWidth() * image.getHeight())
-        image.getRGB(originalData, 0, image.getWidth(), 0, 0, image.getWidth(), image.getHeight())
-        scaledData: list[int] = [0] * (width * height)
-        heightRatioFactor: int = int((8 * sourceHeight) / height)
-        widthRatioFactor: int = int((8 * sourceWidth) / width)
-        scaledIndex: int = len(scaledData) - 1
-        dx: int = 0
-        dy: int = 0
-        index = height
-        while (index := index - 1) >= 0:
-            dy = (index * heightRatioFactor) >> 3
-            index2 = width
-            while (index2 := index2 - 1) >= 0:
-                dx = (index2 * widthRatioFactor) >> 3
-                scaledData[((scaledIndex := scaledIndex - 1) + 1)] = originalData[(sourceWidth * dy) + dx]
-        scaledImage: Image = Image.createRGBImage(scaledData, width, height, True)
+
+function scale(this::ImageJ2MEScaleUtil, image, width, height)
+        local sourceWidth::Int32 = AllBinary.getWidth(image)
+        local sourceHeight::Int32 = AllBinary.getHeight(image)
+        local originalData = jNewArray(Int32, AllBinary.getWidth(image) * AllBinary.getHeight(image), Int32(0))
+        AllBinary.getRGB(image, originalData, Int32(0), AllBinary.getWidth(image), Int32(0), Int32(0), AllBinary.getWidth(image), AllBinary.getHeight(image))
+        local scaledData = jNewArray(Int32, width * height, Int32(0))
+        local heightRatioFactor::Int32 = (Int32(8) * sourceHeight) ÷ height
+        local widthRatioFactor::Int32 = (Int32(8) * sourceWidth) ÷ width
+        local scaledIndex::Int32 = Int32(Base.length(scaledData)) - Int32(1)
+        local dx::Int32 = Int32(0)
+        local dy::Int32 = Int32(0)
+        let
+            local index::Int32 = height
+            while (index -= Int32(1)) >= Int32(0)
+            try
+            dy = (index * heightRatioFactor) >> Int32(3)
+            let
+                local index2::Int32 = width
+                while (index2 -= Int32(1)) >= Int32(0)
+                try
+                dx = (index2 * widthRatioFactor) >> Int32(3)
+                scaledData[(let old = scaledIndex; scaledIndex -= Int32(1); old end) + 1] = originalData[(sourceWidth * dy) + dx + 1]
+                finally
+                end
+                end
+            end
+            finally
+            end
+            end
+        end
+        local scaledImage = AllBinary.createRGBImage(Image, scaledData, width, height, true)
         return scaledImage
-# from javax.microedition.lcdui.Image import Image
-
-
-def _ImageJ2MEScaleUtil_instance() -> object:
-    return ImageJ2MEScaleUtil()
-
-lazy_static(ImageJ2MEScaleUtil, "instance", _ImageJ2MEScaleUtil_instance)
+end
 

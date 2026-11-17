@@ -1,67 +1,87 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-# 
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-# 
-# Created By: Travis Berthelot 
-#  
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+  
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+  
+  Created By: Travis Berthelot 
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.io
 
-from __future__ import annotations
+# extends Writer: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct NullWriter <: JObject
+    NullWriter() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from java.io.Writer import Writer
+const NullWriter_NULL_WRITERValue = Ref{Any}(nothing)
+const NullWriter_NULL_WRITERSet = Ref(false)
+function staticGet_NULL_WRITER(::Type{NullWriter})
+    if !NullWriter_NULL_WRITERSet[]
+        NullWriter_NULL_WRITERSet[] = true
+        NullWriter_NULL_WRITERValue[] = newNullWriter()
+    end
+    NullWriter_NULL_WRITERValue[]
+end
+function staticSet_NULL_WRITER(::Type{NullWriter}, value)
+    NullWriter_NULL_WRITERSet[] = true
+    NullWriter_NULL_WRITERValue[] = value
+end
 
+function initFieldsNullWriter(this::NullWriter)
+    nothing
+end
 
-class NullWriter(Writer):
-    NULL_WRITER: NullWriter = None
+function initNullWriter(this::NullWriter)
+    initWriter(this)
+    initFieldsNullWriter(this)
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
-
-    # throws IOException
-    def write(self, c: int) -> None:
-        pass
-    
-
-    # throws IOException
-    # Java overloaded method: Python keeps the last definition
-    def write(self, cbuf: list[str], off: int, len_: int) -> None:
-        pass
-    
-
-    # throws IOException
-    # Java overloaded method: Python keeps the last definition
-    def write(self, str_: str) -> None:
-        pass
-    
-
-    # throws IOException
-    # Java overloaded method: Python keeps the last definition
-    def write(self, str_: str, off: int, len_: int) -> None:
-        pass
-    
-
-    # throws IOException
-    def flush(self) -> None:
-        pass
-    
-
-    # throws IOException
-    def close(self) -> None:
-        pass
-# from java.io.IOException import IOException
+function newNullWriter()
+    this = NullWriter()
+    initNullWriter(this)
+    this
+end
 
 
-def _NullWriter_NULL_WRITER() -> object:
-    return NullWriter()
+function write(this::NullWriter, c)
+        nothing
+        nothing
+end
 
-lazy_static(NullWriter, "NULL_WRITER", _NullWriter_NULL_WRITER)
+
+function write(this::NullWriter, cbuf, off, len)
+        nothing
+        nothing
+end
+
+
+function write(this::NullWriter, str)
+        nothing
+        nothing
+end
+
+
+function write(this::NullWriter, str, off, len)
+        nothing
+        nothing
+end
+
+
+function flush(this::NullWriter)
+        nothing
+        nothing
+end
+
+
+function close(this::NullWriter)
+        nothing
+        nothing
+end
 

@@ -1,78 +1,90 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item
 
-from __future__ import annotations
+mutable struct CommandTextItemArrayFactory <: JObject
+    list::Any
+    visitorInterface::Any
+    CommandTextItemArrayFactory() = new()
+end
 
 
-
-class CommandTextItemArrayFactory:
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.util.visitor.Visitor import Visitor
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.list_: BasicArrayList = BasicArrayListD()
-        self.visitorInterface: Visitor = None
+function initFieldsCommandTextItemArrayFactory(this::CommandTextItemArrayFactory)
+    this.list = nothing
+    this.visitorInterface = nothing
+    this.list = newBasicArrayListD()
     
+    nothing
+end
 
-    def __init__(self, visitorInterface: Visitor) -> None:
-        from org.allbinary.logic.util.visitor.Visitor import Visitor
-        self._init_fields()
-        self.visitorInterface = visitorInterface
-    
 
-    def getInstance(self, vector: object, backgroundBasicColor: BasicColor, foregroundBasicColor: BasicColor) -> list[ABCustomItem]:
-        from org.allbinary.graphics.form.item.CommandTextItem import CommandTextItem
-        from javax.microedition.lcdui.Command import Command
-        from javax.microedition.lcdui.ImageItem import ImageItem
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-        from org.allbinary.graphics.form.ScreenInfo import ScreenInfo
-        from org.allbinary.logic.VectorUtil import VectorUtil
-        from org.allbinary.logic.string.StringUtil import StringUtil
-        vectorUtil: VectorUtil = VectorUtil.getInstance()
-        size: int = vectorUtil.getSize(vector)
-        self.list_.clear()
-        textItem: CommandTextItem = None
-        priorityLimit: int = 7
-        displayInfo: DisplayInfoSingleton = DisplayInfoSingleton.getInstance()
-        isLargeEnoughDisplayForBigMenu: bool = (displayInfo.isPortrait() and displayInfo.getLastHeight() >= ScreenInfo.getInstance().MEDIUM_WIDTH) or (not displayInfo.isPortrait() and displayInfo.getLastWidth() >= ScreenInfo.getInstance().MEDIUM_WIDTH)
-        if not isLargeEnoughDisplayForBigMenu and size > 3:
-            priorityLimit = 3
-        command: Command = None
-        for index in range(0, size):
-            command = vectorUtil.elementAt(vector, index)
-            if command.getPriority() < priorityLimit:
-                aBoolean: bool = self.visitorInterface.visit(command)
-                if aBoolean:
-                    textItem = CommandTextItem(command, ImageItem.LAYOUT_DEFAULT, StringUtil.getInstance().EMPTY_STRING, backgroundBasicColor, foregroundBasicColor)
-                    self.list_.add(textItem)
-        textItemArray: list[ABCustomItem] = [None] * (self.list_.size())
-        size2: int = len(textItemArray)
-        for index in range(0, size2):
-            textItemArray[index] = self.list_.objectArray[index]
+function initCommandTextItemArrayFactory(this::CommandTextItemArrayFactory, visitorInterface)
+        initFieldsCommandTextItemArrayFactory(this)
+        this.visitorInterface = visitorInterface
+        nothing
+end
+
+function newCommandTextItemArrayFactory(visitorInterface)
+    this = CommandTextItemArrayFactory()
+    initCommandTextItemArrayFactory(this, visitorInterface)
+    this
+end
+
+
+function getInstance(this::CommandTextItemArrayFactory, vector, backgroundBasicColor, foregroundBasicColor)
+        local vectorUtil = AllBinary.getInstance(VectorUtil)
+        local size::Int32 = AllBinary.getSize(vectorUtil, vector)
+        AllBinary.clear(this.list)
+        local textItem = nothing
+        local priorityLimit::Int32 = Int32(7)
+        local displayInfo = AllBinary.getInstance(DisplayInfoSingleton)
+        local isLargeEnoughDisplayForBigMenu::Bool = (AllBinary.isPortrait(displayInfo) && AllBinary.getLastHeight(displayInfo) >= AllBinary.getInstance(ScreenInfo).MEDIUM_WIDTH) || (!AllBinary.isPortrait(displayInfo) && AllBinary.getLastWidth(displayInfo) >= AllBinary.getInstance(ScreenInfo).MEDIUM_WIDTH)
+        if !isLargeEnoughDisplayForBigMenu && size > Int32(3)
+            priorityLimit = Int32(3)
+        end
+        local command = nothing
+        let
+            local index::Int32 = Int32(0)
+            while index < size
+            try
+            command = (AllBinary.elementAt(vectorUtil, vector, index))
+            if AllBinary.getPriority(command) < priorityLimit
+                local aBoolean = (AllBinary.visit(this.visitorInterface, command))
+                if AllBinary.booleanValue(aBoolean)
+                    textItem = newCommandTextItem(command, staticGet_LAYOUT_DEFAULT(ImageItem), AllBinary.getInstance(StringUtil).EMPTY_STRING, backgroundBasicColor, foregroundBasicColor)
+                    AllBinary.add(this.list, textItem)
+                end
+            end
+            finally
+                index += Int32(1)
+            end
+            end
+        end
+        local textItemArray = jNewArray(Any, AllBinary.size(this.list), nothing)
+        local size2::Int32 = Int32(Base.length(textItemArray))
+        let
+            index = Int32(0)
+            while index < size2
+            try
+            textItemArray[index + 1] = (this.list.objectArray[index + 1])
+            finally
+                index += Int32(1)
+            end
+            end
+        end
         return textItemArray
-# from javax.microedition.lcdui.Command import Command
-# from javax.microedition.lcdui.ImageItem import ImageItem
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.displayable.DisplayInfoSingleton import DisplayInfoSingleton
-# from org.allbinary.graphics.form.ScreenInfo import ScreenInfo
-# from org.allbinary.logic.VectorUtil import VectorUtil
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.logic.util.visitor.Visitor import Visitor
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-
+end
 

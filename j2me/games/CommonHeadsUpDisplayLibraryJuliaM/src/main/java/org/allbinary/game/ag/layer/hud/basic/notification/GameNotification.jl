@@ -1,70 +1,81 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.hud.basic.notification
 
-from __future__ import annotations
+mutable struct GameNotification <: JObject
+    stringList::Any
+    timeList::Any
+    colorList::Any
+    GameNotification() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const GameNotification_NULL_GAME_NOTIFICATION_EVENTValue = Ref{Any}(nothing)
+const GameNotification_NULL_GAME_NOTIFICATION_EVENTSet = Ref(false)
+function staticGet_NULL_GAME_NOTIFICATION_EVENT(::Type{GameNotification})
+    if !GameNotification_NULL_GAME_NOTIFICATION_EVENTSet[]
+        GameNotification_NULL_GAME_NOTIFICATION_EVENTSet[] = true
+        GameNotification_NULL_GAME_NOTIFICATION_EVENTValue[] = newGameNotificationEvent(AllBinary.getInstance(NullUtil).NULL_OBJECT, AllBinary.getInstance(StringUtil).EMPTY_STRING, Int32(0), AllBinary.getInstance(BasicColorFactory).RED, AllBinary.getInstance(BooleanFactory).FALSE)
+    end
+    GameNotification_NULL_GAME_NOTIFICATION_EVENTValue[]
+end
+function staticSet_NULL_GAME_NOTIFICATION_EVENT(::Type{GameNotification}, value)
+    GameNotification_NULL_GAME_NOTIFICATION_EVENTSet[] = true
+    GameNotification_NULL_GAME_NOTIFICATION_EVENTValue[] = value
+end
 
+function initFieldsGameNotification(this::GameNotification)
+    this.stringList = nothing
+    this.timeList = nothing
+    this.colorList = nothing
+    this.stringList = newBasicArrayListD()
+    this.timeList = newBasicArrayListD()
+    this.colorList = newBasicArrayListD()
+    nothing
+end
 
-class GameNotification:
-    NULL_GAME_NOTIFICATION_EVENT: GameNotificationEvent = None
+function initGameNotification(this::GameNotification)
+    initFieldsGameNotification(this)
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.util.BasicArrayListD import BasicArrayListD
-        self.stringList: BasicArrayList = BasicArrayListD()
-        self.timeList: BasicArrayList = BasicArrayListD()
-        self.colorList: BasicArrayList = BasicArrayListD()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    def add(self, string: str, seconds: int, basicColor: BasicColor) -> None:
-        from org.allbinary.graphics.color.BasicColor import BasicColor
-        if not self.stringList.contains(string):
-            self.stringList.add(string)
-            self.timeList.add(seconds)
-            self.colorList.add(basicColor)
-    
-
-    def clear(self) -> None:
-        self.stringList.clear()
-        self.timeList.clear()
-        self.colorList.clear()
-    
-
-    def getSize(self) -> int:
-        return self.stringList.size()
-# from org.allbinary.game.layer.hud.event.GameNotificationEvent import GameNotificationEvent
-# from org.allbinary.graphics.color.BasicColor import BasicColor
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-# from org.allbinary.logic.string.StringUtil import StringUtil
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
+function newGameNotification()
+    this = GameNotification()
+    initGameNotification(this)
+    this
+end
 
 
-def _GameNotification_NULL_GAME_NOTIFICATION_EVENT() -> object:
-    from org.allbinary.game.layer.hud.event.GameNotificationEvent import GameNotificationEvent
-    from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-    from org.allbinary.logic.NullUtil import NullUtil
-    from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-    from org.allbinary.logic.string.StringUtil import StringUtil
-    return GameNotificationEvent(NullUtil.getInstance().NULL_OBJECT, StringUtil.getInstance().EMPTY_STRING, int(0), BasicColorFactory.getInstance().RED, BooleanFactory.getInstance().FALSE)
+function add(this::GameNotification, string, seconds, basicColor)
+        if !AllBinary.contains(this.stringList, string)
+            AllBinary.add(this.stringList, string)
+            AllBinary.add(this.timeList, seconds)
+            AllBinary.add(this.colorList, basicColor)
+        end
+        nothing
+end
 
-lazy_static(GameNotification, "NULL_GAME_NOTIFICATION_EVENT", _GameNotification_NULL_GAME_NOTIFICATION_EVENT)
+
+function clear(this::GameNotification)
+        AllBinary.clear(this.stringList)
+        AllBinary.clear(this.timeList)
+        AllBinary.clear(this.colorList)
+        nothing
+end
+
+
+function getSize(this::GameNotification)
+        return AllBinary.size(this.stringList)
+end
 

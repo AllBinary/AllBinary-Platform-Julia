@@ -1,44 +1,50 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.pickup.life
 
-from __future__ import annotations
+# extends AllBinaryLayerCircularPool: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct LifeLayerCircularStaticPool <: JObject
+    LifeLayerCircularStaticPool() = new()
+end
 
-from org.allbinary.layer.AllBinaryLayerCircularPool import AllBinaryLayerCircularPool
+
+function initFieldsLifeLayerCircularStaticPool(this::LifeLayerCircularStaticPool)
+    nothing
+end
 
 
-class LifeLayerCircularStaticPool(AllBinaryLayerCircularPool):
-    
+function initLifeLayerCircularStaticPool(this::LifeLayerCircularStaticPool, allbinaryLayerFactoryInterface, total)
+        initAllBinaryLayerCircularPool(this)
+        initFieldsLifeLayerCircularStaticPool(this)
+        AllBinary.initAllBinaryLayerCircularPool(this, allbinaryLayerFactoryInterface, total)
+        nothing
+end
 
-    def __init__(self, allbinaryLayerFactoryInterface: AllBinaryLayerFactoryInterface, total: int) -> None:
-        from org.allbinary.layer.AllBinaryLayerFactoryInterface import AllBinaryLayerFactoryInterface
-        super().__init__()
-        super().initAllBinaryLayerCircularPool(allbinaryLayerFactoryInterface, total)
-    
+function newLifeLayerCircularStaticPool(allbinaryLayerFactoryInterface, total)
+    this = LifeLayerCircularStaticPool()
+    initLifeLayerCircularStaticPool(this, allbinaryLayerFactoryInterface, total)
+    this
+end
 
-    # throws Exception
-    def visit(self, sourceLayerInterface: AllBinaryLayer) -> None:
-        from org.allbinary.game.ag.life.Life import Life
-        from org.allbinary.game.ag.life.LifeInterfaceCompositeInterface import LifeInterfaceCompositeInterface
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        lifeLayer: LifeLayer = self.getNextInstance()
-        lifeInterfaceCompositeInterface: LifeInterfaceCompositeInterface = sourceLayerInterface
-        lifeInterface: Life = lifeInterfaceCompositeInterface.getLifeInterface()
-        lifeLayer.visit(lifeInterface)
-# from org.allbinary.game.ag.life.Life import Life
-# from org.allbinary.game.ag.life.LifeInterfaceCompositeInterface import LifeInterfaceCompositeInterface
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-# from org.allbinary.layer.AllBinaryLayerFactoryInterface import AllBinaryLayerFactoryInterface
 
+function visit(this::LifeLayerCircularStaticPool, sourceLayerInterface)
+        local lifeLayer = (AllBinary.getNextInstance(this))
+        local lifeInterfaceCompositeInterface = (sourceLayerInterface)
+        local lifeInterface = AllBinary.getLifeInterface(lifeInterfaceCompositeInterface)
+        AllBinary.visit(lifeLayer, lifeInterface)
+        nothing
+end
 

@@ -1,38 +1,51 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form
 
-from __future__ import annotations
+# extends Processor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TempHorizontalFormProcessor <: JObject
+    scrollCurrentSelectionForm::Any
+    TempHorizontalFormProcessor() = new()
+end
 
-from org.allbinary.canvas.Processor import Processor
 
-
-class TempHorizontalFormProcessor(Processor):
-
-    def _init_fields(self) -> None:
-        self.scrollCurrentSelectionForm: ScrollCurrentSelectionForm = None
+function initFieldsTempHorizontalFormProcessor(this::TempHorizontalFormProcessor)
+    this.scrollCurrentSelectionForm = nothing
     
+    nothing
+end
 
-    def __init__(self, scrollCurrentSelectionForm: ScrollCurrentSelectionForm) -> None:
-        super().__init__()
-        self._init_fields()
-        self.scrollCurrentSelectionForm = scrollCurrentSelectionForm
-    
 
-    # throws Exception
-    def process(self) -> None:
-        self.scrollCurrentSelectionForm.processTempHorizontalForm()
-        self.scrollCurrentSelectionForm.processor = Processor.getInstance()
+function initTempHorizontalFormProcessor(this::TempHorizontalFormProcessor, scrollCurrentSelectionForm)
+        initProcessor(this)
+        initFieldsTempHorizontalFormProcessor(this)
+        this.scrollCurrentSelectionForm = scrollCurrentSelectionForm
+        nothing
+end
 
+function newTempHorizontalFormProcessor(scrollCurrentSelectionForm)
+    this = TempHorizontalFormProcessor()
+    initTempHorizontalFormProcessor(this, scrollCurrentSelectionForm)
+    this
+end
+
+
+function process(this::TempHorizontalFormProcessor)
+        AllBinary.processTempHorizontalForm(this.scrollCurrentSelectionForm)
+        this.scrollCurrentSelectionForm.processor = AllBinary.getInstance(Processor)
+        nothing
+end
 

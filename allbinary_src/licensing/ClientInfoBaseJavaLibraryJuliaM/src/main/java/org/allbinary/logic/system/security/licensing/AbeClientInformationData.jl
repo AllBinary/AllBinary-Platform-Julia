@@ -1,56 +1,105 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2011 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2011 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.system.security.licensing
 
-from __future__ import annotations
+mutable struct AbeClientInformationData <: JObject
+    KEY::Any
+    NAME::Any
+    VERSION::Any
+    SPECIALNAME::Any
+    LICENSEID::Any
+    LICENSE_TYPE::Any
+    PREVIOUSLICENSEID::Any
+    OSNAME::Any
+    OSARCH::Any
+    OSVERSION::Any
+    OS::Any
+    HARDWARE::Any
+    LICENSESERVERS::Any
+    NEWLICENSE::Any
+    ISNEW::Any
+    SPECIAL::Any
+    AbeClientInformationData() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const AbeClientInformationData_instanceValue = Ref{Any}(nothing)
+const AbeClientInformationData_instanceSet = Ref(false)
+function staticGet_instance(::Type{AbeClientInformationData})
+    if !AbeClientInformationData_instanceSet[]
+        AbeClientInformationData_instanceSet[] = true
+        AbeClientInformationData_instanceValue[] = newAbeClientInformationData()
+    end
+    AbeClientInformationData_instanceValue[]
+end
+function staticSet_instance(::Type{AbeClientInformationData}, value)
+    AbeClientInformationData_instanceSet[] = true
+    AbeClientInformationData_instanceValue[] = value
+end
+
+function initFieldsAbeClientInformationData(this::AbeClientInformationData)
+    this.KEY = nothing
+    this.NAME = nothing
+    this.VERSION = nothing
+    this.SPECIALNAME = nothing
+    this.LICENSEID = nothing
+    this.LICENSE_TYPE = nothing
+    this.PREVIOUSLICENSEID = nothing
+    this.OSNAME = nothing
+    this.OSARCH = nothing
+    this.OSVERSION = nothing
+    this.OS = nothing
+    this.HARDWARE = nothing
+    this.LICENSESERVERS = nothing
+    this.NEWLICENSE = nothing
+    this.ISNEW = nothing
+    this.SPECIAL = nothing
+    this.KEY = "KEY"
+    this.NAME = "NAME"
+    this.VERSION = "VERSION"
+    this.SPECIALNAME = "SPECIALNAME"
+    this.LICENSEID = "LICENSEID"
+    this.LICENSE_TYPE = "LICENSETYPE"
+    this.PREVIOUSLICENSEID = "PREVIOUSLICENSEID"
+    this.OSNAME = "OSNAME"
+    this.OSARCH = "OSARCH"
+    this.OSVERSION = "OSVERSION"
+    this.OS = "OS"
+    this.HARDWARE = "HARDWARE"
+    this.LICENSESERVERS = "LICENSESERVERS"
+    this.NEWLICENSE = "NEWLICENSE"
+    this.ISNEW = "ISNEW"
+    this.SPECIAL = "SPECIAL"
+    nothing
+end
 
 
-class AbeClientInformationData:
-    instance: AbeClientInformationData = None
-
-    def _init_fields(self) -> None:
-        self.KEY: str = "KEY"
-        self.NAME: str = "NAME"
-        self.VERSION: str = "VERSION"
-        self.SPECIALNAME: str = "SPECIALNAME"
-        self.LICENSEID: str = "LICENSEID"
-        self.LICENSE_TYPE: str = "LICENSETYPE"
-        self.PREVIOUSLICENSEID: str = "PREVIOUSLICENSEID"
-        self.OSNAME: str = "OSNAME"
-        self.OSARCH: str = "OSARCH"
-        self.OSVERSION: str = "OSVERSION"
-        self.OS: str = "OS"
-        self.HARDWARE: str = "HARDWARE"
-        self.LICENSESERVERS: str = "LICENSESERVERS"
-        self.NEWLICENSE: str = "NEWLICENSE"
-        self.ISNEW: str = "ISNEW"
-        self.SPECIAL: str = "SPECIAL"
-    
-
-    @staticmethod
-    def getInstance() -> AbeClientInformationData:
-        return AbeClientInformationData.instance
-    
-
-    def __init__(self) -> None:
-        self._init_fields()
+function getInstance(::Type{AbeClientInformationData})
+        return staticGet_instance(AbeClientInformationData)
+end
 
 
-def _AbeClientInformationData_instance() -> object:
-    return AbeClientInformationData()
+function initAbeClientInformationData(this::AbeClientInformationData)
+        initFieldsAbeClientInformationData(this)
+        nothing
+        nothing
+end
 
-lazy_static(AbeClientInformationData, "instance", _AbeClientInformationData_instance)
+function newAbeClientInformationData()
+    this = AbeClientInformationData()
+    initAbeClientInformationData(this)
+    this
+end
 

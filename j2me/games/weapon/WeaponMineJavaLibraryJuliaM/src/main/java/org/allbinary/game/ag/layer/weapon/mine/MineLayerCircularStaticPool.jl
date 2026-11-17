@@ -1,48 +1,61 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.ag.layer.weapon.mine
 
-from __future__ import annotations
+mutable struct MineLayerCircularStaticPool <: JObject
+    MineLayerCircularStaticPool() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOLValue = Ref{Any}(nothing)
+const MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOLSet = Ref(false)
+function staticGet_WEAPON_LAYER_CIRCULAR_STATIC_POOL(::Type{MineLayerCircularStaticPool})
+    if !MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOLSet[]
+        MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOLSet[] = true
+        MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOLValue[] = newWeaponLayerCircularPool()
+    end
+    MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOLValue[]
+end
+function staticSet_WEAPON_LAYER_CIRCULAR_STATIC_POOL(::Type{MineLayerCircularStaticPool}, value)
+    MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOLSet[] = true
+    MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOLValue[] = value
+end
+
+function initFieldsMineLayerCircularStaticPool(this::MineLayerCircularStaticPool)
+    nothing
+end
+
+function initMineLayerCircularStaticPool(this::MineLayerCircularStaticPool)
+    initFieldsMineLayerCircularStaticPool(this)
+end
+
+function newMineLayerCircularStaticPool()
+    this = MineLayerCircularStaticPool()
+    initMineLayerCircularStaticPool(this)
+    this
+end
 
 
-class MineLayerCircularStaticPool:
-    WEAPON_LAYER_CIRCULAR_STATIC_POOL: WeaponLayerCircularPool = None
-    
-
-    # throws Exception
-    @staticmethod
-    def init(viewPositionFactoryInterface: ViewPositionFactoryInterface) -> None:
-        from org.allbinary.game.ag.layer.weapon.mine.MineCountedPickedUpLayerInterfaceFactory import MineCountedPickedUpLayerInterfaceFactory
-        from org.allbinary.game.ag.layer.weapon.mine.MineLayerFactory import MineLayerFactory
-        from org.allbinary.view.ViewPositionFactoryInterface import ViewPositionFactoryInterface
-        MineCountedPickedUpLayerInterfaceFactory.init()
-        MineLayerCircularStaticPool.WEAPON_LAYER_CIRCULAR_STATIC_POOL.initAllBinaryLayerCircularPool(MineLayerFactory(viewPositionFactoryInterface), 20)
-    
-
-    @staticmethod
-    def getInstance() -> WeaponLayerCircularPool:
-        from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-        return MineLayerCircularStaticPool.WEAPON_LAYER_CIRCULAR_STATIC_POOL
-# from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-# from org.allbinary.view.ViewPositionFactoryInterface import ViewPositionFactoryInterface
+function init(::Type{MineLayerCircularStaticPool}, viewPositionFactoryInterface)
+        AllBinary.init(MineCountedPickedUpLayerInterfaceFactory)
+        AllBinary.initAllBinaryLayerCircularPool(staticGet_WEAPON_LAYER_CIRCULAR_STATIC_POOL(MineLayerCircularStaticPool), newMineLayerFactory(viewPositionFactoryInterface), Int32(20))
+        nothing
+end
 
 
-def _MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOL() -> object:
-    from org.allbinary.game.layer.weapon.WeaponLayerCircularPool import WeaponLayerCircularPool
-    return WeaponLayerCircularPool()
-
-lazy_static(MineLayerCircularStaticPool, "WEAPON_LAYER_CIRCULAR_STATIC_POOL", _MineLayerCircularStaticPool_WEAPON_LAYER_CIRCULAR_STATIC_POOL)
+function getInstance(::Type{MineLayerCircularStaticPool})
+        return staticGet_WEAPON_LAYER_CIRCULAR_STATIC_POOL(MineLayerCircularStaticPool)
+end
 

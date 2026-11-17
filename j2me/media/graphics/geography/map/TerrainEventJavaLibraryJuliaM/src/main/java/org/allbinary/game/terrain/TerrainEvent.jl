@@ -1,59 +1,70 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2011 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2011 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.terrain
 
-from __future__ import annotations
+# extends AllBinaryEventObject: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TerrainEvent <: JObject
+    basicTerrainInfo::Any
+    TerrainEvent() = new()
+end
 
-from org.allbinary.logic.util.event.AllBinaryEventObject import AllBinaryEventObject
+
+function initFieldsTerrainEvent(this::TerrainEvent)
+    this.basicTerrainInfo = nothing
+    this.basicTerrainInfo = staticGet_NULL_BASIC_TERRAIN_INFO(BasicTerrainInfo)
+    nothing
+end
 
 
-class TerrainEvent(AllBinaryEventObject):
+function initTerrainEvent(this::TerrainEvent, basicTerrainInfo)
+        initAllBinaryEventObject(this, basicTerrainInfo)
+        initFieldsTerrainEvent(this)
+        AllBinary.setBasicTerrainInfo(this, this.basicTerrainInfo)
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        self.basicTerrainInfo: BasicTerrainInfo = BasicTerrainInfo.NULL_BASIC_TERRAIN_INFO
-    
+function newTerrainEvent(basicTerrainInfo)
+    this = TerrainEvent()
+    initTerrainEvent(this, basicTerrainInfo)
+    this
+end
 
-    def __init__(self, basicTerrainInfo: object) -> None:
-        super().__init__(basicTerrainInfo)
-        self._init_fields()
-        self.setBasicTerrainInfo(self.basicTerrainInfo)
-    
 
-    def toString(self) -> str:
-        from org.allbinary.logic.string.StringMaker import StringMaker
-        stringBuffer: StringMaker = StringMaker()
-        stringBuffer.append("TerrainEvent: \n")
-        stringBuffer.append("LayerInterface: ")
-        stringBuffer.append(str(self.basicTerrainInfo))
-        return str(stringBuffer)
+function toString(this::TerrainEvent)
+        local stringBuffer = newStringMaker()
+        AllBinary.append(stringBuffer, "TerrainEvent: \n")
+        AllBinary.append(stringBuffer, "LayerInterface: ")
+        AllBinary.append(stringBuffer, AllBinary.toString(this.basicTerrainInfo))
+        return AllBinary.toString(stringBuffer)
+end
 
-    def __str__(self) -> str:
-        return self.toString()
-    
 
-    def getBasicTerrainInfo(self) -> BasicTerrainInfo:
-        return self.basicTerrainInfo
-    
+function getBasicTerrainInfo(this::TerrainEvent)
+        return this.basicTerrainInfo
+end
 
-    def setBasicTerrainInfo(self, basicTerrainInfo: BasicTerrainInfo) -> None:
-        self.basicTerrainInfo = basicTerrainInfo
-    
 
-    def setBasicTerrainInfoForCircularStaticPool(self, basicTerrainInfo: BasicTerrainInfo) -> None:
-        self.basicTerrainInfo = basicTerrainInfo
-# from org.allbinary.logic.NullUtil import NullUtil
-# from org.allbinary.logic.string.StringMaker import StringMaker
-from org.allbinary.game.terrain.BasicTerrainInfo import BasicTerrainInfo
+function setBasicTerrainInfo(this::TerrainEvent, basicTerrainInfo)
+        this.basicTerrainInfo = basicTerrainInfo
+        nothing
+end
 
+
+function setBasicTerrainInfoForCircularStaticPool(this::TerrainEvent, basicTerrainInfo)
+        this.basicTerrainInfo = basicTerrainInfo
+        nothing
+end
 

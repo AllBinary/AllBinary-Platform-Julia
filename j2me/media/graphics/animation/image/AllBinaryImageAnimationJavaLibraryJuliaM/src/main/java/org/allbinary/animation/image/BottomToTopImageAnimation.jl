@@ -1,70 +1,84 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.animation.image
 
-from __future__ import annotations
+# extends ImageSegmentAnimation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct BottomToTopImageAnimation <: JObject
+    startHeight::Int32
+    currentHeight::Int32
+    anchor::Int32
+    BottomToTopImageAnimation() = new()
+end
 
-from org.allbinary.animation.image.ImageSegmentAnimation import ImageSegmentAnimation
+
+function initFieldsBottomToTopImageAnimation(this::BottomToTopImageAnimation)
+    this.startHeight = Int32(0)
+    this.currentHeight = Int32(0)
+    this.anchor = Int32(0)
+    this.startHeight = Int32(0)
+    this.currentHeight = Int32(0)
+    this.anchor = staticGet_TOP_LEFT(Anchor)
+    nothing
+end
 
 
-class BottomToTopImageAnimation(ImageSegmentAnimation):
+function initBottomToTopImageAnimation(this::BottomToTopImageAnimation, image, animationBehavior)
+        initImageSegmentAnimation(this, image, AllBinary.getArrayInstance(PrimitiveIntUtil), animationBehavior)
+        initFieldsBottomToTopImageAnimation(this)
+        AllBinary.setFrame(this, AllBinary.getSize(this) - Int32(1))
+        nothing
+end
 
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.Anchor import Anchor
-        self.startHeight: int = 0
-        self.currentHeight: int = 0
-        self.anchor: int = Anchor.TOP_LEFT
-    
+function newBottomToTopImageAnimation(image, animationBehavior)
+    this = BottomToTopImageAnimation()
+    initBottomToTopImageAnimation(this, image, animationBehavior)
+    this
+end
 
-    def __init__(self, image: Image, animationBehavior: AnimationBehavior) -> None:
-        from javax.microedition.lcdui.Image import Image
-        from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-        from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
-        super().__init__(image, PrimitiveIntUtil.getArrayInstance(), animationBehavior)
-        self._init_fields()
-        self.setFrame(self.getSize() - 1)
-    
 
-    def nextFrame(self) -> None:
-        super().previousFrame()
-        self.update()
-    
+function nextFrame(this::BottomToTopImageAnimation)
+        AllBinary.previousFrame(this)
+        AllBinary.update(this)
+        nothing
+end
 
-    def previousFrame(self) -> None:
-        super().nextFrame()
-        self.update()
-    
 
-    def setFrame(self, index: int) -> None:
-        super().setFrame(index)
-        self.update()
-    
+function previousFrame(this::BottomToTopImageAnimation)
+        AllBinary.nextFrame(this)
+        AllBinary.update(this)
+        nothing
+end
 
-    def update(self) -> None:
-        self.startHeight = self.getDrawHeight() * self.getFrame() / self.getSize()
-        self.currentHeight = self.getDrawHeight() - self.startHeight
-    
 
-    def paintXY(self, graphics: Graphics, x: int, y: int) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        from javax.microedition.lcdui.game.Sprite import Sprite
-        graphics.drawRegion(self.getImage(), self.getStartX(), self.startHeight, self.getDrawWidth(), self.currentHeight, Sprite.TRANS_NONE, x, y + self.startHeight, self.anchor)
-# from javax.microedition.lcdui.Graphics import Graphics
-# from javax.microedition.lcdui.Image import Image
-# from javax.microedition.lcdui.game.Sprite import Sprite
-# from org.allbinary.animation.AnimationBehavior import AnimationBehavior
-# from org.allbinary.graphics.Anchor import Anchor
-# from org.allbinary.logic.math.PrimitiveIntUtil import PrimitiveIntUtil
+function setFrame(this::BottomToTopImageAnimation, index)
+        AllBinary.setFrame(this, index)
+        AllBinary.update(this)
+        nothing
+end
 
+
+function update(this::BottomToTopImageAnimation)
+        this.startHeight = AllBinary.getDrawHeight(this) * AllBinary.getFrame(this) / AllBinary.getSize(this)
+        this.currentHeight = AllBinary.getDrawHeight(this) - this.startHeight
+        nothing
+end
+
+
+function paintXY(this::BottomToTopImageAnimation, graphics, x, y)
+        AllBinary.drawRegion(graphics, AllBinary.getImage(this), AllBinary.getStartX(this), this.startHeight, AllBinary.getDrawWidth(this), this.currentHeight, staticGet_TRANS_NONE(Sprite), x, y + this.startHeight, this.anchor)
+        nothing
+end
 

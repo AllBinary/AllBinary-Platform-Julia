@@ -1,41 +1,60 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.threed
 
-from __future__ import annotations
+mutable struct GLHolder <: JObject
+    isCreated::Bool
+    GLHolder() = new()
+end
 
 
+function initFieldsGLHolder(this::GLHolder)
+    this.isCreated = false
+    this.isCreated = true
+    nothing
+end
 
-class GLHolder:
 
-    def _init_fields(self) -> None:
-        self.isCreated: bool = True
-    
+function initGLHolder(this::GLHolder)
+        initFieldsGLHolder(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        self._init_fields()
-    
+function newGLHolder()
+    this = GLHolder()
+    initGLHolder(this)
+    this
+end
 
-    def runOnSurfaceCreated(self, renderer: object) -> None:
-        pass
-    
 
-    def runOnSurfaceChanged(self, renderer: object, width: int, height: int) -> None:
-        pass
-    
+function runOnSurfaceCreated(this::GLHolder, renderer)
+        nothing
+        nothing
+end
 
-    def run(self, renderer: object) -> None:
-        pass
 
+function runOnSurfaceChanged(this::GLHolder, renderer, width, height)
+        nothing
+        nothing
+end
+
+
+function run(this::GLHolder, renderer)
+        nothing
+        nothing
+end
 

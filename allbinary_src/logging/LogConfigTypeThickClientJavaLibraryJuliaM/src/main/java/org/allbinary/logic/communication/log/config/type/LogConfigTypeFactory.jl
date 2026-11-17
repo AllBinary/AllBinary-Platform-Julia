@@ -1,54 +1,85 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2022 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2022 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.logic.communication.log.config.type
 
-from __future__ import annotations
+mutable struct LogConfigTypeFactory <: JObject
+    NO_DESCRIPTION::Any
+    OS::Any
+    FACTORYERROR::Any
+    FILE::Any
+    FILEERROR::Any
+    IDLOGGING::Any
+    REPLACE::Any
+    REPLACE_INFO::Any
+    REPLACEERROR::Any
+    LogConfigTypeFactory() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const LogConfigTypeFactory_instanceValue = Ref{Any}(nothing)
+const LogConfigTypeFactory_instanceSet = Ref(false)
+function staticGet_instance(::Type{LogConfigTypeFactory})
+    if !LogConfigTypeFactory_instanceSet[]
+        LogConfigTypeFactory_instanceSet[] = true
+        LogConfigTypeFactory_instanceValue[] = newLogConfigTypeFactory()
+    end
+    LogConfigTypeFactory_instanceValue[]
+end
+function staticSet_instance(::Type{LogConfigTypeFactory}, value)
+    LogConfigTypeFactory_instanceSet[] = true
+    LogConfigTypeFactory_instanceValue[] = value
+end
+
+function initFieldsLogConfigTypeFactory(this::LogConfigTypeFactory)
+    this.NO_DESCRIPTION = nothing
+    this.OS = nothing
+    this.FACTORYERROR = nothing
+    this.FILE = nothing
+    this.FILEERROR = nothing
+    this.IDLOGGING = nothing
+    this.REPLACE = nothing
+    this.REPLACE_INFO = nothing
+    this.REPLACEERROR = nothing
+    this.NO_DESCRIPTION = "No Description"
+    this.OS = newLogConfigType("Operating System", this.NO_DESCRIPTION)
+    this.FACTORYERROR = newLogConfigType("Factory Error", this.NO_DESCRIPTION)
+    this.FILE = newLogConfigType("File", this.NO_DESCRIPTION)
+    this.FILEERROR = newLogConfigType("File Error", this.NO_DESCRIPTION)
+    this.IDLOGGING = newLogConfigType("ID Logging", this.NO_DESCRIPTION)
+    this.REPLACE = newLogConfigType("Replace", this.NO_DESCRIPTION)
+    this.REPLACE_INFO = newLogConfigType("Replace Info", this.NO_DESCRIPTION)
+    this.REPLACEERROR = newLogConfigType("Replace Error", this.NO_DESCRIPTION)
+    nothing
+end
 
 
-class LogConfigTypeFactory:
-    instance: LogConfigTypeFactory = None
-
-    def _init_fields(self) -> None:
-        self.NO_DESCRIPTION: str = "No Description"
-        self.OS: LogConfigType = LogConfigType("Operating System", self.NO_DESCRIPTION)
-        self.FACTORYERROR: LogConfigType = LogConfigType("Factory Error", self.NO_DESCRIPTION)
-        self.FILE: LogConfigType = LogConfigType("File", self.NO_DESCRIPTION)
-        self.FILEERROR: LogConfigType = LogConfigType("File Error", self.NO_DESCRIPTION)
-        self.IDLOGGING: LogConfigType = LogConfigType("ID Logging", self.NO_DESCRIPTION)
-        self.REPLACE: LogConfigType = LogConfigType("Replace", self.NO_DESCRIPTION)
-        self.REPLACE_INFO: LogConfigType = LogConfigType("Replace Info", self.NO_DESCRIPTION)
-        self.REPLACEERROR: LogConfigType = LogConfigType("Replace Error", self.NO_DESCRIPTION)
-    
-
-    @staticmethod
-    def getInstance() -> LogConfigTypeFactory:
-        return LogConfigTypeFactory.instance
-    
-
-    def __init__(self) -> None:
-        from org.allbinary.logic.communication.log.config.type.LogConfigTypes import LogConfigTypes
-        from org.allbinary.logic.communication.log.config.type.LogConfigTypes import LogConfigTypes
-        self._init_fields()
-        LogConfigTypes.LOGGING.add(self.OS)
-        LogConfigTypes.LOGGING.add(self.FACTORYERROR)
-from org.allbinary.logic.communication.log.config.type.LogConfigType import LogConfigType
+function getInstance(::Type{LogConfigTypeFactory})
+        return staticGet_instance(LogConfigTypeFactory)
+end
 
 
-def _LogConfigTypeFactory_instance() -> object:
-    return LogConfigTypeFactory()
+function initLogConfigTypeFactory(this::LogConfigTypeFactory)
+        initFieldsLogConfigTypeFactory(this)
+        AllBinary.add(staticGet_LOGGING(LogConfigTypes), this.OS)
+        AllBinary.add(staticGet_LOGGING(LogConfigTypes), this.FACTORYERROR)
+        nothing
+end
 
-lazy_static(LogConfigTypeFactory, "instance", _LogConfigTypeFactory_instance)
+function newLogConfigTypeFactory()
+    this = LogConfigTypeFactory()
+    initLogConfigTypeFactory(this)
+    this
+end
 

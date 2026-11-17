@@ -1,28 +1,42 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.android.input.motion
 
-from __future__ import annotations
+mutable struct AnalogControllerVisitor <: JObject
+    AnalogControllerVisitor() = new()
+end
 
 
+function initFieldsAnalogControllerVisitor(this::AnalogControllerVisitor)
+    nothing
+end
 
-class AnalogControllerVisitor:
-    
+function initAnalogControllerVisitor(this::AnalogControllerVisitor)
+    initFieldsAnalogControllerVisitor(this)
+end
 
-    def process(self, allbinaryLayerManager: AllBinaryLayerManager, analogLocationInputProcessor: AnalogLocationInputProcessor) -> None:
-        from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
-        pass
-# from org.allbinary.layer.AllBinaryLayerManager import AllBinaryLayerManager
+function newAnalogControllerVisitor()
+    this = AnalogControllerVisitor()
+    initAnalogControllerVisitor(this)
+    this
+end
 
+
+function process(this::AnalogControllerVisitor, allbinaryLayerManager, analogLocationInputProcessor)
+        nothing
+        nothing
+end
 

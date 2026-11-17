@@ -1,56 +1,68 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.displayable.canvas
 
-from __future__ import annotations
+# extends GameRunnable: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct DemoGameRunnable <: JObject
+    logUtil::Any
+    demoCanvas::Any
+    gameTickTimeDelayHelper::Any
+    DemoGameRunnable() = new()
+end
 
-from org.allbinary.game.displayable.canvas.GameRunnable import GameRunnable
 
-
-class DemoGameRunnable(GameRunnable):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.logic.communication.log.LogUtil import LogUtil
-        from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-        from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
-        self.logUtil: LogUtil = LogUtil.getInstance()
-        self.demoCanvas: DemoCanvas = None
-        self.gameTickTimeDelayHelper: GameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
+function initFieldsDemoGameRunnable(this::DemoGameRunnable)
+    this.logUtil = nothing
+    this.demoCanvas = nothing
+    this.gameTickTimeDelayHelper = nothing
+    this.logUtil = AllBinary.getInstance(LogUtil)
     
+    this.gameTickTimeDelayHelper = AllBinary.getInstance(GameTickTimeDelayHelperFactory)
+    nothing
+end
 
-    def __init__(self, demoCanvas: DemoCanvas) -> None:
-        super().__init__()
-        self._init_fields()
-        self.demoCanvas = demoCanvas
-    
 
-    def run(self) -> None:
-        from org.allbinary.string.CommonStrings import CommonStrings
-        try:
-            self.demoCanvas.getLoopTimeHelperP().setStartTime(self.gameTickTimeDelayHelper.setStartTime())
-            self.demoCanvas.processGame()
-        except Exception as e:
-            commonStrings: CommonStrings = CommonStrings.getInstance()
-            self.logUtil.put(commonStrings.EXCEPTION, self, commonStrings.RUN, e)
-    
+function initDemoGameRunnable(this::DemoGameRunnable, demoCanvas)
+        initGameRunnable(this)
+        initFieldsDemoGameRunnable(this)
+        this.demoCanvas = demoCanvas
+        nothing
+end
 
-    # throws Exception
-    def processLoopSleep(self) -> None:
-        self.demoCanvas.processLoopSleep()
-# from org.allbinary.logic.communication.log.LogUtil import LogUtil
-# from org.allbinary.string.CommonStrings import CommonStrings
-# from org.allbinary.time.GameTickTimeDelayHelper import GameTickTimeDelayHelper
-# from org.allbinary.time.GameTickTimeDelayHelperFactory import GameTickTimeDelayHelperFactory
+function newDemoGameRunnable(demoCanvas)
+    this = DemoGameRunnable()
+    initDemoGameRunnable(this, demoCanvas)
+    this
+end
 
+
+function run(this::DemoGameRunnable)
+        try
+            AllBinary.setStartTime(AllBinary.getLoopTimeHelperP(this.demoCanvas), AllBinary.setStartTime(this.gameTickTimeDelayHelper))
+            AllBinary.processGame(this.demoCanvas)
+        catch e
+            local commonStrings = AllBinary.getInstance(CommonStrings)
+            AllBinary.put(this.logUtil, commonStrings.EXCEPTION, this, commonStrings.RUN, e)
+        end
+        nothing
+end
+
+
+function processLoopSleep(this::DemoGameRunnable)
+        AllBinary.processLoopSleep(this.demoCanvas)
+        nothing
+end
 

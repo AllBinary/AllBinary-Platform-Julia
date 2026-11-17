@@ -1,37 +1,51 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.form.item.validation
 
-from __future__ import annotations
+# extends Visitor: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct TextItemVisitor <: JObject
+    TextItemVisitor() = new()
+end
 
-from org.allbinary.logic.util.visitor.Visitor import Visitor
+
+function initFieldsTextItemVisitor(this::TextItemVisitor)
+    nothing
+end
 
 
-class TextItemVisitor(Visitor):
-    
+function initTextItemVisitor(this::TextItemVisitor)
+        initVisitor(this)
+        initFieldsTextItemVisitor(this)
+        nothing
+        nothing
+end
 
-    def __init__(self) -> None:
-        super().__init__()
-    
+function newTextItemVisitor()
+    this = TextItemVisitor()
+    initTextItemVisitor(this)
+    this
+end
 
-    def visit(self, anyType: object) -> object:
-        from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
-        value: str = anyType
-        if len(value) < 2:
-            return BooleanFactory.getInstance().TRUE
-        else:
-            return BooleanFactory.getInstance().FALSE
-# from org.allbinary.logic.java.bool.BooleanFactory import BooleanFactory
 
+function visit(this::TextItemVisitor, anyType)
+        local value = (anyType)
+        if jLength(value) < Int32(2)
+            return AllBinary.getInstance(BooleanFactory).TRUE
+        else
+            return AllBinary.getInstance(BooleanFactory).FALSE
+        end
+end
 

@@ -1,53 +1,66 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.opengles.shader
 
-from __future__ import annotations
+mutable struct ShaderUpdater <: JObject
+    commonStrings::Any
+    rendererStrings::Any
+    ShaderUpdater() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const ShaderUpdater_instanceValue = Ref{Any}(nothing)
+const ShaderUpdater_instanceSet = Ref(false)
+function staticGet_instance(::Type{ShaderUpdater})
+    if !ShaderUpdater_instanceSet[]
+        ShaderUpdater_instanceSet[] = true
+        ShaderUpdater_instanceValue[] = newShaderUpdater()
+    end
+    ShaderUpdater_instanceValue[]
+end
+function staticSet_instance(::Type{ShaderUpdater}, value)
+    ShaderUpdater_instanceSet[] = true
+    ShaderUpdater_instanceValue[] = value
+end
+
+function initFieldsShaderUpdater(this::ShaderUpdater)
+    this.commonStrings = nothing
+    this.rendererStrings = nothing
+    this.commonStrings = AllBinary.getInstance(CommonStrings)
+    this.rendererStrings = AllBinary.getInstance(RendererStrings)
+    nothing
+end
+
+function initShaderUpdater(this::ShaderUpdater)
+    initFieldsShaderUpdater(this)
+end
+
+function newShaderUpdater()
+    this = ShaderUpdater()
+    initShaderUpdater(this)
+    this
+end
 
 
-class ShaderUpdater:
-    instance: ShaderUpdater = None
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.opengles.renderer.RendererStrings import RendererStrings
-        from org.allbinary.string.CommonStrings import CommonStrings
-        self.commonStrings: CommonStrings = CommonStrings.getInstance()
-        self.rendererStrings: RendererStrings = RendererStrings.getInstance()
-
-    def __init__(self) -> None:
-        self._init_fields()
-    
-
-    @staticmethod
-    def getInstance() -> ShaderUpdater:
-        return ShaderUpdater.instance
-    
-
-    def onSurfaceCreated(self, gl: GL10, eglConfig: EGLConfig) -> None:
-        from javax.microedition.khronos.egl.EGLConfig import EGLConfig
-        from javax.microedition.khronos.opengles.GL10 import GL10
-        pass
-# from javax.microedition.khronos.egl.EGLConfig import EGLConfig
-# from javax.microedition.khronos.opengles.GL10 import GL10
-# from org.allbinary.graphics.opengles.renderer.RendererStrings import RendererStrings
-# from org.allbinary.string.CommonStrings import CommonStrings
+function getInstance(::Type{ShaderUpdater})
+        return staticGet_instance(ShaderUpdater)
+end
 
 
-def _ShaderUpdater_instance() -> object:
-    return ShaderUpdater()
-
-lazy_static(ShaderUpdater, "instance", _ShaderUpdater_instance)
+function onSurfaceCreated(this::ShaderUpdater, gl, eglConfig)
+        nothing
+        nothing
+end
 

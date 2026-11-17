@@ -1,39 +1,47 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.pipeline
 
-from __future__ import annotations
+mutable struct RandomTranslation <: JObject
+    RandomTranslation() = new()
+end
 
 
+function initFieldsRandomTranslation(this::RandomTranslation)
+    nothing
+end
 
-class RandomTranslation:
-    
+function initRandomTranslation(this::RandomTranslation)
+    initFieldsRandomTranslation(this)
+end
 
-    # throws Exception
-    @staticmethod
-    def getInstance(vector: BasicArrayList, howMuch: int) -> BasicArrayList:
-        from org.allbinary.graphics.pipeline.BasicGraphicsPipeline import BasicGraphicsPipeline
-        from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        myRandomFactory: MyRandomFactory = MyRandomFactory.getInstance()
-        x: int = -myRandomFactory.getNextInt(howMuch)
-        y: int = myRandomFactory.getNextInt(howMuch)
-        graphicsPipe: BasicGraphicsPipeline = BasicGraphicsPipeline(vector)
-        graphicsPipe.createMatrix()
-        graphicsPipe.translate(x, y)
-        return graphicsPipe.getMatrix()
-# from org.allbinary.game.rand.MyRandomFactory import MyRandomFactory
-# from org.allbinary.util.BasicArrayList import BasicArrayList
+function newRandomTranslation()
+    this = RandomTranslation()
+    initRandomTranslation(this)
+    this
+end
 
+
+function getInstance(::Type{RandomTranslation}, vector, howMuch)
+        local myRandomFactory = AllBinary.getInstance(MyRandomFactory)
+        local x::Int32 = -AllBinary.getNextInt(myRandomFactory, howMuch)
+        local y::Int32 = AllBinary.getNextInt(myRandomFactory, howMuch)
+        local graphicsPipe = newBasicGraphicsPipeline(vector)
+        AllBinary.createMatrix(graphicsPipe)
+        AllBinary.translate(graphicsPipe, x, y)
+        return AllBinary.getMatrix(graphicsPipe)
+end
 

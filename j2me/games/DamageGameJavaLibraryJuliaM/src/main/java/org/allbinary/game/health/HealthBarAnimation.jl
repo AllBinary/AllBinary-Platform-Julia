@@ -1,80 +1,99 @@
-#
-# AllBinary Open License Version 1
-# Copyright (c) 2011 AllBinary
-# 
-# By agreeing to this license you and any business entity you represent are
-# legally bound to the AllBinary Open License Version 1 legal agreement.
-# 
-# You may obtain the AllBinary Open License Version 1 legal agreement from
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository.
-# 
-# Created By: Travis Berthelot
-#  
+#=
+ 
+  AllBinary Open License Version 1
+  Copyright (c) 2011 AllBinary
+  
+  By agreeing to this license you and any business entity you represent are
+  legally bound to the AllBinary Open License Version 1 legal agreement.
+  
+  You may obtain the AllBinary Open License Version 1 legal agreement from
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+  
+  Created By: Travis Berthelot
+   
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.game.health
 
-from __future__ import annotations
+# extends Animation: Julia concrete types cannot be subclassed so the fields of the base class are repeated
+mutable struct HealthBarAnimation <: JObject
+    basicColorFactory::Any
+    x2::Int32
+    thickness::Int32
+    location::Int32
+    allbinaryLayer::Any
+    HealthBarAnimation() = new()
+end
 
-from org.allbinary.animation.Animation import Animation
 
-
-class HealthBarAnimation(Animation):
-
-    def _init_fields(self) -> None:
-        from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        self.basicColorFactory: BasicColorFactory = BasicColorFactory.getInstance()
-        self.x2: int = 0
-        self.thickness: int = 0
-        self.location: int = None
-        self.allbinaryLayer: AllBinaryLayer = None
+function initFieldsHealthBarAnimation(this::HealthBarAnimation)
+    this.basicColorFactory = nothing
+    this.x2 = Int32(0)
+    this.thickness = Int32(0)
+    this.location = Int32(0)
+    this.allbinaryLayer = nothing
+    this.basicColorFactory = AllBinary.getInstance(BasicColorFactory)
+    this.x2 = Int32(0)
+    this.thickness = Int32(0)
     
-
-    def __init__(self, layerInterface: AllBinaryLayer, location: int) -> None:
-        from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-        from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
-        super().__init__()
-        self._init_fields()
-        self.allbinaryLayer = layerInterface
-        self.location = location
-        basicHudFactory: BasicHudFactory = BasicHudFactory.getInstance()
-        if self.location != basicHudFactory.TOPLEFT and self.location != basicHudFactory.BOTTOMLEFT:
-            raise Exception("Location Not Valid")
-        if layerInterface.getWidth() > 40:
-            self.thickness = 3
-        elif layerInterface.getWidth() > 20:
-            self.thickness = 2
-        else:
-            self.thickness = 1
     
+    nothing
+end
 
-    def onHealthChange(self, newX2: int) -> None:
-        self.x2 = newX2
-        quarter: int = (self.allbinaryLayer.getWidth() >> 2)
-        if self.x2 > quarter * 3:
-            self.basicColor = self.basicColorFactory.GREEN
-            self.colorP = int(self.basicColor)
-        elif self.x2 > quarter * 2:
-            self.basicColor = self.basicColorFactory.YELLOW
-            self.colorP = int(self.basicColor)
-        elif self.x2 > quarter:
-            self.basicColor = self.basicColorFactory.ORANGE
-            self.colorP = int(self.basicColor)
-        else:
-            self.basicColor = self.basicColorFactory.RED
-            self.colorP = int(self.basicColor)
-    
 
-    def getY(self) -> int:
-        from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-        basicHudFactory: BasicHudFactory = BasicHudFactory.getInstance()
-        if self.location == basicHudFactory.TOPLEFT:
-            return self.allbinaryLayer.getViewPosition().getY() - 4
-        elif self.location == basicHudFactory.BOTTOMLEFT:
-            return self.allbinaryLayer.getViewPosition().getY2() + 4
-        return -1
-# from org.allbinary.game.graphics.hud.BasicHudFactory import BasicHudFactory
-# from org.allbinary.graphics.color.BasicColorFactory import BasicColorFactory
-# from org.allbinary.layer.AllBinaryLayer import AllBinaryLayer
+function initHealthBarAnimation(this::HealthBarAnimation, layerInterface, location)
+        initAnimation(this)
+        initFieldsHealthBarAnimation(this)
+        this.allbinaryLayer = layerInterface
+        this.location = location
+        local basicHudFactory = AllBinary.getInstance(BasicHudFactory)
+        if this.location != basicHudFactory.TOPLEFT && this.location != basicHudFactory.BOTTOMLEFT
+            throw(jNewException("Exception", "Location Not Valid"))
+        end
+        if AllBinary.getWidth(layerInterface) > Int32(40)
+            this.thickness = Int32(3)
+        elseif AllBinary.getWidth(layerInterface) > Int32(20)
+            this.thickness = Int32(2)
+        else
+            this.thickness = Int32(1)
+        end
+        nothing
+end
 
+function newHealthBarAnimation(layerInterface, location)
+    this = HealthBarAnimation()
+    initHealthBarAnimation(this, layerInterface, location)
+    this
+end
+
+
+function onHealthChange(this::HealthBarAnimation, newX2)
+        this.x2 = newX2
+        local quarter::Int32 = (AllBinary.getWidth(this.allbinaryLayer) >> Int32(2))
+        if this.x2 > quarter * Int32(3)
+            this.basicColor = this.basicColorFactory.GREEN
+            this.colorP = AllBinary.intValue(this.basicColor)
+        elseif this.x2 > quarter * Int32(2)
+            this.basicColor = this.basicColorFactory.YELLOW
+            this.colorP = AllBinary.intValue(this.basicColor)
+        elseif this.x2 > quarter
+            this.basicColor = this.basicColorFactory.ORANGE
+            this.colorP = AllBinary.intValue(this.basicColor)
+        else
+            this.basicColor = this.basicColorFactory.RED
+            this.colorP = AllBinary.intValue(this.basicColor)
+        end
+        nothing
+end
+
+
+function getY(this::HealthBarAnimation)
+        local basicHudFactory = AllBinary.getInstance(BasicHudFactory)
+        if this.location == basicHudFactory.TOPLEFT
+            return AllBinary.getY(AllBinary.getViewPosition(this.allbinaryLayer)) - Int32(4)
+        elseif this.location == basicHudFactory.BOTTOMLEFT
+            return AllBinary.getY2(AllBinary.getViewPosition(this.allbinaryLayer)) + Int32(4)
+        end
+        return -Int32(1)
+end
 

@@ -1,40 +1,54 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.apache.xmlrpc
 
-from __future__ import annotations
+mutable struct NullXmlRpcHandler <: JObject
+    NullXmlRpcHandler() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
-from org.apache.xmlrpc.XmlRpcHandler import XmlRpcHandler
+const NullXmlRpcHandler_NULL_XML_RPC_HANDLERValue = Ref{Any}(nothing)
+const NullXmlRpcHandler_NULL_XML_RPC_HANDLERSet = Ref(false)
+function staticGet_NULL_XML_RPC_HANDLER(::Type{NullXmlRpcHandler})
+    if !NullXmlRpcHandler_NULL_XML_RPC_HANDLERSet[]
+        NullXmlRpcHandler_NULL_XML_RPC_HANDLERSet[] = true
+        NullXmlRpcHandler_NULL_XML_RPC_HANDLERValue[] = newNullXmlRpcHandler()
+    end
+    NullXmlRpcHandler_NULL_XML_RPC_HANDLERValue[]
+end
+function staticSet_NULL_XML_RPC_HANDLER(::Type{NullXmlRpcHandler}, value)
+    NullXmlRpcHandler_NULL_XML_RPC_HANDLERSet[] = true
+    NullXmlRpcHandler_NULL_XML_RPC_HANDLERValue[] = value
+end
+
+function initFieldsNullXmlRpcHandler(this::NullXmlRpcHandler)
+    nothing
+end
+
+function initNullXmlRpcHandler(this::NullXmlRpcHandler)
+    initFieldsNullXmlRpcHandler(this)
+end
+
+function newNullXmlRpcHandler()
+    this = NullXmlRpcHandler()
+    initNullXmlRpcHandler(this)
+    this
+end
 
 
-class NullXmlRpcHandler(XmlRpcHandler):
-    NULL_XML_RPC_HANDLER: NullXmlRpcHandler = None
-    
-
-    # throws Exception
-    def execute(self, method: str, params: BasicArrayList) -> object:
-        from org.allbinary.util.BasicArrayList import BasicArrayList
-        from org.allbinary.logic.NullUtil import NullUtil
-        return NullUtil.getInstance().NULL_OBJECT
-# from org.allbinary.util.BasicArrayList import BasicArrayList
-# from org.allbinary.util.BasicArrayListD import BasicArrayListD
-# from org.allbinary.logic.NullUtil import NullUtil
-
-
-def _NullXmlRpcHandler_NULL_XML_RPC_HANDLER() -> object:
-    return NullXmlRpcHandler()
-
-lazy_static(NullXmlRpcHandler, "NULL_XML_RPC_HANDLER", _NullXmlRpcHandler_NULL_XML_RPC_HANDLER)
+function execute(this::NullXmlRpcHandler, method, params)
+        return AllBinary.getInstance(NullUtil).NULL_OBJECT
+end
 

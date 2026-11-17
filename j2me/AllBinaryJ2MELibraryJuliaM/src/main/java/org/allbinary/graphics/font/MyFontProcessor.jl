@@ -1,53 +1,70 @@
-# 
-# AllBinary Open License Version 1 
-# Copyright (c) 2025 AllBinary 
-#  
-# By agreeing to this license you and any business entity you represent are 
-# legally bound to the AllBinary Open License Version 1 legal agreement. 
-#  
-# You may obtain the AllBinary Open License Version 1 legal agreement from 
-# AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
-#  
-# Created By: Travis Berthelot 
-#   
+#=
+  
+  AllBinary Open License Version 1 
+  Copyright (c) 2025 AllBinary 
+   
+  By agreeing to this license you and any business entity you represent are 
+  legally bound to the AllBinary Open License Version 1 legal agreement. 
+   
+  You may obtain the AllBinary Open License Version 1 legal agreement from 
+  AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+   
+  Created By: Travis Berthelot 
+    
+=#
 # Generated Code Do Not Modify
 # package org.allbinary.graphics.font
 
-from __future__ import annotations
+mutable struct MyFontProcessor <: JObject
+    MyFontProcessor() = new()
+end
 
-from java.lang.JavaRuntimeStatic import lazy_static
+const MyFontProcessor_instanceValue = Ref{Any}(nothing)
+const MyFontProcessor_instanceSet = Ref(false)
+function staticGet_instance(::Type{MyFontProcessor})
+    if !MyFontProcessor_instanceSet[]
+        MyFontProcessor_instanceSet[] = true
+        MyFontProcessor_instanceValue[] = newMyFontProcessor()
+    end
+    MyFontProcessor_instanceValue[]
+end
+function staticSet_instance(::Type{MyFontProcessor}, value)
+    MyFontProcessor_instanceSet[] = true
+    MyFontProcessor_instanceValue[] = value
+end
+
+function initFieldsMyFontProcessor(this::MyFontProcessor)
+    nothing
+end
+
+function initMyFontProcessor(this::MyFontProcessor)
+    initFieldsMyFontProcessor(this)
+end
+
+function newMyFontProcessor()
+    this = MyFontProcessor()
+    initMyFontProcessor(this)
+    this
+end
 
 
-class MyFontProcessor:
-    instance: MyFontProcessor = None
-    
-
-    @staticmethod
-    def defaultCharWidth(font: Font) -> int:
-        from javax.microedition.lcdui.Font import Font
-        return font.charWidth('C')
-    
-
-    @staticmethod
-    def defaultStringWidth(font: Font, size: int) -> int:
-        from javax.microedition.lcdui.Font import Font
-        return MyFontProcessor.defaultCharWidth(font) * size
-    
-
-    @staticmethod
-    def getInstance() -> MyFontProcessor:
-        return MyFontProcessor.instance
-    
-
-    def process(self, graphics: Graphics) -> None:
-        from javax.microedition.lcdui.Graphics import Graphics
-        pass
-# from javax.microedition.lcdui.Font import Font
-# from javax.microedition.lcdui.Graphics import Graphics
+function defaultCharWidth(::Type{MyFontProcessor}, font)
+        return AllBinary.charWidth(font, UInt16('C'))
+end
 
 
-def _MyFontProcessor_instance() -> object:
-    return MyFontProcessor()
+function defaultStringWidth(::Type{MyFontProcessor}, font, size)
+        return AllBinary.defaultCharWidth(MyFontProcessor, font) * size
+end
 
-lazy_static(MyFontProcessor, "instance", _MyFontProcessor_instance)
+
+function getInstance(::Type{MyFontProcessor})
+        return staticGet_instance(MyFontProcessor)
+end
+
+
+function process(this::MyFontProcessor, graphics)
+        nothing
+        nothing
+end
 
